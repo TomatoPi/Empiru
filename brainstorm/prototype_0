@@ -1,12 +1,15 @@
 Premier prototype
-  L’idée de se prototype est de pouvoir jouer des « mi-nomades » chasseur cueilleur.
-  → Vue isométrique
+  L’idée de se prototype est de pouvoir jouer des minomades chasseur cueilleur.
   → Terrain libre
-  → Terrain en 3D, sprite en 2D ou sprite des non bâtiments en 2D et bâtiment en 3D (optionnel ?)
 
 Création de la carte
-  → Générer une carte de taille finis
-  → Génération d’un unique super-biome composé des ressources principales.
+  → Générer une carte de taille finis (0)
+  → Génération d’un unique super-biome composé des ressources principales. (1)
+
+Implementation :
+  0 : Représenter le terrain et les objets dessus
+  1 : Générer les gisements de ressouses
+  2 : Réfléchir aux biomes et à la génération de la map dans son ensemble
 
 Gestion de la récolte et des ressources
   → Liste des ressources :
@@ -14,29 +17,40 @@ Gestion de la récolte et des ressources
     - Bois : arbres situés dans des « forêts »
     - Gibier : bestiaux avec déplacement aléatoire
     - Cueillette : buisson de baie situé un peu partout
-  → Clic droit sur la ressource pour la récolter.
-  → Les villageois peuvent passer en mode automatique en cas de besoin.
-  → Le villageois doit amener les ressources au stock désigné par le joueur, ou au 	stock le plus proche. Si il n’y a pas de stock, il fait un tas.
-  → Le villageois fait des aller-retour entre le stock et la ressource.
-  → Il récolte tout les x temps.
-  → Si il n’y a plus de ressource, il se dirige vers la ressource la plus proche.
-  → Le villageois et les bâtiments ont un inventaire de ressource présenté sous forme 	de liste « ressource : nombre »
-  → Une fois que l’inventaire est remplis, le villageois retourne au stock le plus 	proche ou désigné.
-  → L’inventaire se remplis progressivement.
+  → Clic droit sur la ressource pour la récolter. (0)
+  → Les villageois peuvent passer en mode automatique en cas de besoin. (2)
+  → Le villageois doit amener les ressources au stock désigné par le joueur (1)
+  → ou au stock le plus proche. Si il n’y a pas de stock, il fait un tas. (2)
+  → Le villageois fait des aller-retour entre le stock et la ressource. (2)
+  → Il récolte tout les x temps. (1)
+  → Si il n’y a plus de ressource, il se dirige vers la ressource la plus proche. (2)
+  → Une fois que l’inventaire est remplis, le villageois retourne au stock le plus proche ou désigné. (2)
+  → L’inventaire se remplis progressivement. (1)
 
-Contrôle des villageois
+Implementation :
+  0 : Un péon, lui implementer les controles de base, déplacement, collisions
+  1 : Inventaire + récolte
+  2 : Plusieurs péons
+  2 : Comportement auto
+
+Contrôle des villageois (0)
   → Clic gauche pour sélectionner le villageois.
-  → Clic gauche pressé pour faire un carré de sélection (optionnel ?).
-  → Clic droit sur une ressource pour la récolter.
+  → Clic gauche pressé pour faire un carré de sélection (2).
+  → Clic droit sur une ressource pour la récolter. (0 : il s'y déplace, 1 : on affine)
   → Clic droit sur le reste pour le déplacement.
   → Gestion des collisions avec les entités.
 
-Construction du territoire
-  → Possibilité de poser un patron de construction, il aura un coût en ressource.
-  → Le patron de construction se présente sous forme de demande de ressource.
-  → Les villageois rassemblent les ressources nécessaire en faisant des aller-retour 	entre stock et chantier, si nécessaire.
-  → Une fois les ressources rassemblées, la construction peut commencer et aura 	une durée de x temps.
+Construction du territoire (à priori après que les péons aient un minimum d'automatismes dans leur comportement)
+  → On pose un fantôme de batiment
+  → Contre coût le fantôme est transformé par un villageois en chantier
+  → Le chantier à une demande de ressource.
+  → Les villageois rassemblent les ressources nécessaire en faisant des aller-retour entre stock et chantier, si nécessaire.
+  → Une fois les ressources rassemblées, la construction peut commencer.
   → La vitesse de construction dépend de la main-d'œuvre.
+  → Mécanique des chantiers :
+    - Le chantier a X tâches unitaires à faire
+    - Chaque Péon effectue Y tâches par unités de temps
+    - Il y a un nombre maximal de péon qui peuvent travailler en meme temps sur un chantier
   → Liste des premiers bâtiments :
     - Maison : faible capacité de stockage.
     - Monolithe : pour faire jolie, ou convertit les villageois en soldats 				(optionnel ?)
@@ -44,11 +58,22 @@ Construction du territoire
     - Camp de bûcheron : forte capacité spécifique de stockage (optionnel ?)		
   → Si les villageois ne trouvent pas de ressources, les villageois préviennent qu’ils 	n’ont rien.
 
-Militaire
-  → Les villageois peuvent attaquer les bestiaux.
+Implementation :
+  Grosso merdo tout d'un coup X)
+
+Militaire (Après)
+  → Les villageois peuvent attaquer les bestiaux. (pour l'instant ils récoltent les bestiaux X) )
   → Les villageois peuvent devenir des soldats. (probablement optionnelle)
 
 Interface
   → Affichage du total des ressources disponible selon la capacité total de stockage.
   → Choix des bâtiments à construire.
   → Voir l’inventaire des villageois et bâtiments.
+  → Le villageois et les bâtiments ont un inventaire de ressource présenté sous forme de liste « ressource : nombre »
+  → Terrain en 3D, sprite en 2D ou sprite des non bâtiments en 2D et bâtiment en 3D (optionnel ?)
+  → Vue isométrique
+
+Implementation :
+  0 : Rendu du terrain
+  1 : Rendu des objets sur le terrain
+  2 : Ajouter l'interface
