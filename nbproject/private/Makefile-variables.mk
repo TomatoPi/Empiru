@@ -3,6 +3,5 @@
 #
 # NOCDDL
 #
-# Debug configuration
+# Debug_Linux configuration
 # Release configuration
-# Copy_of_Debug configuration

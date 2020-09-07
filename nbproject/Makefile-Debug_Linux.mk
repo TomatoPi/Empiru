@@ -21,9 +21,9 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW-Windows
-CND_DLIB_EXT=dll
-CND_CONF=Debug
+CND_PLATFORM=GNU-Linux
+CND_DLIB_EXT=so
+CND_CONF=Debug_Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -56,9 +56,9 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru ${OBJECTFILES} ${LDLIBSOPTIONS}
 
