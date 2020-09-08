@@ -143,6 +143,42 @@ Implémentation :
     Les péons et les objets sont positionnés avec des coordonnées Axis
     cf : https://www.redblobgames.com/grids/hexagons/
 
+Implémentation Réelle :
+
+  Besoins :
+    Utilitaires de gestion des coordonnées dans une carte Héxagonale :
+      - Disposition en "Odd-q"
+      - Gestion des changements de systèmes de coordonnées :
+        Pixel <-> Offset <-> Cube <-> Axial
+
+  Objectif :
+
+    -> Afficher la grille de tuiles et convertir les coordonnées écran <-> tuile
+      - Gérer les changements de coordonnée entre grille et affichage
+      - Gérer le chargement des ressources graphiques
+      - Gérer la fenêtre et le positionnement des sprites
+
+    -> Ajouter les mouvements de la caméra
+      - Modifier l'ancrage du rendu du monde :
+          (Plus simple en choisissant la position du bas de l'écran ??)
+          -> Ancrage par le centre de la vue (qui doit toujours être dans la grille)
+
+    -> Afficher les gros objets dans la grille centrés dans la tuile
+      - Normalement aussi simple que d'afficher les tuiles
+      - Première version avec position des objets hardcodée
+
+    -> Ajouter les petits objets, libres dans la grille
+      - Changement de coordonées plus complexes
+          On pourra en meme temps gérer les entrée du joueur 
+          pour tester les coordonées floatantes
+
+    -> Intégrer le changement d'angle de vue
+      - Ajout de rotation de la grille et des coordonées avant rendu
+      - Revoir le système d'ancrage de la caméra
+        -> Ancrer un coin de la caméra n'est pas idéal,
+           pour rendre la vue à peu près invariante par rotation, il faut
+           ancrer la caméra par le centre
+
 Remarques générales :
   Penser de façon évolutive les mécaniques par lesquelles ont teste si une action est faisable
     → Technologies
