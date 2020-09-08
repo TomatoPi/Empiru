@@ -1,15 +1,26 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   main.cpp
- * Author: tomato
- *
- * Created on 6 septembre 2020, 17:18
- */
+/// 
+/// \file   main.cpp
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 6 septembre 2020, 17:18
+///
 
 #include <cstdlib>
 #include <SDL2/SDL.h>
@@ -40,21 +51,34 @@ int main(int argc, char** argv) {
   SDL_Rect rect;
   rect.w = sprite->width();
   rect.h = sprite->height();
+  rect.x = 0;
+  rect.y = 0;
   
-  for (int x = 0 ; x < window->width ; x += sprite->width()) {
-    for (int y = 0 ; y < window->height ; y += camera.tileHeight()) {
-      rect.x = x;
-      rect.y = y;
+  OQOffsetPosition off;
+  GridPosition pos;
+  
+  while(rect.x < window->width) {
+    off._lig = 0;
+    rect.y = 0;
+    while(rect.y < window->height) {
+      convertPosition(off, &pos);
+      camera.toPixel(pos, &(rect.x), &(rect.y));
+      LOG_DEBUG("OFF : (%d,%d)\nPOS : (%f,%f)\nPIX : (%d,%d)\n",
+          off._col, off._lig, pos._w, pos._h, rect.x, rect.y);
       if (sprite->renderFrame(window->renderer, &rect)) {
         LOG_WRN("%s\n", SDL_GetError());
         OUPS();
       }
+      off._lig++;
     }
+    off._col++;
+    convertPosition(off, &pos);
+    camera.toPixel(pos, &(rect.x), &(rect.y));
   }
   
   window->update();
   
-  SDL_Delay(3000);
+  SDL_Delay(10000);
   
   return 0;
 }

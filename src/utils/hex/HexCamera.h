@@ -31,6 +31,12 @@
 /// \brief Utility object containing position, orientation and zoom of the camera
 class HexCamera {
 public:
+
+/// \TODO Le calcul de la hauteur d'affichage d'un tuile est superflu
+///   et pas très malin, il suffit de décider manuellement du nombre
+///   de pixels de haut et d'ensuite calculer (si besoin ??) l'angle
+///   de la caméra, de sorte à avoir des valeurs rondes pour les
+///   alignements
   
   static constexpr float whfactor = 0.866025404;  ///< height / width
   static constexpr float vfactor = 0.387124249;   ///< Magic

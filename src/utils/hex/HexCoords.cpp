@@ -26,11 +26,19 @@
 
 #include <cassert>
 
+OQOffsetPosition::OQOffsetPosition() : _lig(0), _col(0) {
+  
+}
+
+GridPosition::GridPosition() : _w(0), _h(0) {
+  
+}
+
 void convertPosition(
   const OQOffsetPosition & src, 
   GridPosition * dest)
 {
   assert(dest);
-  dest->_h = src._lig + (src._col & 1);
+  dest->_h = 2 * src._lig + (src._col & 1);
   dest->_w = 3 * src._col;
 }

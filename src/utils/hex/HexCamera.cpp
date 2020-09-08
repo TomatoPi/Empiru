@@ -38,8 +38,10 @@ HexCamera::HexCamera(int tileWidth, float heightFactor) :
 void HexCamera::toPixel(const GridPosition & pos, int *x, int *y) const {
   assert(x);
   assert(y);
-  *x = 4 * (pos._w + 2) * tileWidth();
-  *y = 2 * (pos._h + 1) * tileHeight();
+  // GridPosition (0,0) take place at the center of tile (0,0)
+  // An offset is added to put this point at screen's top left corner
+  *x = (pos._w - 2) * tileWidth() * 0.25;
+  *y = (pos._h - 1) * tileHeight() * 0.5 - (tileWidth() - tileHeight());
 }
 
 float HexCamera::tileHeight() const {

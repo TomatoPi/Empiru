@@ -30,6 +30,10 @@
 
 /// \brief Position in Odd-q Offset System
 struct OQOffsetPosition {
+  
+  /// \brief Constructor
+  OQOffsetPosition();
+  
   int _lig; ///< Tile's line
   int _col; ///< Tile's column
 };
@@ -38,6 +42,10 @@ struct OQOffsetPosition {
 ///   with origin on Tile's (0,0) center
 /// Coordinates are relatives to tile's dimension, width flat disposition
 struct GridPosition {
+  
+  /// \brief Constructor
+  GridPosition();
+  
   float _w; ///< Horizontal position in quarter of tile's width
   float _h; ///< Vertical position in half of tile's height
 };
