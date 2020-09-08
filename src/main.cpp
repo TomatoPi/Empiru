@@ -23,7 +23,6 @@
 ///
 
 #include <cstdlib>
-#include <SDL2/SDL.h>
 
 #include "gui/utils/Sprite.h"
 #include "utils/hex/HexCamera.h"
@@ -37,7 +36,7 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-  
+
   Window *window = Window::createWindow(1920/2, 1080/2);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
   HexCamera camera(sprite->width(), HexCamera::vfactor);
@@ -78,7 +77,7 @@ int main(int argc, char** argv) {
   
   window->update();
   
-  SDL_Delay(10000);
+  while(1);
   
   return 0;
 }

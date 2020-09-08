@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux
-CND_DLIB_EXT=so
+CND_PLATFORM=Cygwin-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -46,8 +46,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-Wall
+CXXFLAGS=-Wall
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -56,40 +56,40 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-Llib -lSDL2 -lSDL2_image -lSDL2main
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/src/gui/utils/Sprite.o: src/gui/utils/Sprite.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite.o src/gui/utils/Sprite.cpp
+	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite.o src/gui/utils/Sprite.cpp
 
 ${OBJECTDIR}/src/gui/utils/Window.o: src/gui/utils/Window.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window.o src/gui/utils/Window.cpp
+	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window.o src/gui/utils/Window.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 ${OBJECTDIR}/src/utils/hex/HexCamera.o: src/utils/hex/HexCamera.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera.o src/utils/hex/HexCamera.cpp
+	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera.o src/utils/hex/HexCamera.cpp
 
 ${OBJECTDIR}/src/utils/hex/HexCoords.o: src/utils/hex/HexCoords.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords.o src/utils/hex/HexCoords.cpp
+	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords.o src/utils/hex/HexCoords.cpp
 
 # Subprojects
 .build-subprojects:

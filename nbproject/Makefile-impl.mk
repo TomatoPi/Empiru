@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=Empiru
 
 # Active Configuration
-DEFAULTCONF=Debug_Linux
+DEFAULTCONF=Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug_Linux Release Debug_Windows 
+ALLCONFS=Debug Release 
 
 
 # build

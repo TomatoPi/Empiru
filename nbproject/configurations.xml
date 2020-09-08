@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="gui" displayName="gui" projectFiles="true">
+      <logicalFolder name="utils" displayName="utils" projectFiles="true">
+        <itemPath>src/gui/utils/Sprite.cpp</itemPath>
+        <itemPath>src/gui/utils/Sprite.h</itemPath>
+        <itemPath>src/gui/utils/Window.cpp</itemPath>
+        <itemPath>src/gui/utils/Window.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/utils/hex/HexCamera.h</itemPath>
-      <itemPath>src/utils/hex/HexCoords.h</itemPath>
-      <itemPath>src/gui/utils/Sprite.h</itemPath>
-      <itemPath>src/gui/utils/Window.h</itemPath>
-      <itemPath>src/utils/log.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -17,11 +20,16 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/utils/hex/HexCamera.cpp</itemPath>
-      <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
-      <itemPath>src/gui/utils/Sprite.cpp</itemPath>
-      <itemPath>src/gui/utils/Window.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="utils" displayName="utils" projectFiles="true">
+      <logicalFolder name="hex" displayName="hex" projectFiles="true">
+        <itemPath>src/utils/hex/HexCamera.cpp</itemPath>
+        <itemPath>src/utils/hex/HexCamera.h</itemPath>
+        <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
+        <itemPath>src/utils/hex/HexCoords.h</itemPath>
+      </logicalFolder>
+      <itemPath>src/utils/log.h</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -34,28 +42,36 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>brainstorm/prototype_0</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug_Linux" type="1" platformSpecific="true">
+    <conf name="Debug" type="1" platformSpecific="true">
       <toolsSet>
-        <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <platform>3</platform>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
           <standard>11</standard>
           <incDir>
             <pElem>src</pElem>
+            <pElem>include</pElem>
           </incDir>
-          <commandLine>-lSDL2 -lSDL2_image</commandLine>
+          <commandLine>-Wall</commandLine>
         </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>SDL2</linkerLibLibItem>
+            <linkerLibLibItem>SDL2_image</linkerLibLibItem>
+            <linkerLibLibItem>SDL2main</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
-      <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
@@ -77,9 +93,10 @@
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Release" type="1" platformSpecific="true">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <platform>3</platform>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -90,6 +107,11 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>11</standard>
+          <incDir>
+            <pElem>src</pElem>
+            <pElem>include</pElem>
+          </incDir>
+          <commandLine>-Wall</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -97,9 +119,17 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>SDL2</linkerLibLibItem>
+            <linkerLibLibItem>SDL2_image</linkerLibLibItem>
+            <linkerLibLibItem>SDL2main</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
-      <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
@@ -109,44 +139,6 @@
       <item path="src/gui/utils/Window.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/hex/HexCamera.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/hex/HexCamera.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Debug_Windows" type="1" platformSpecific="true">
-      <toolsSet>
-        <compilerSet>MinGW|MinGW</compilerSet>
-        <platform>3</platform>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <standard>11</standard>
-          <incDir>
-            <pElem>src</pElem>
-          </incDir>
-        </ccTool>
-      </compileType>
-      <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/utils/Window.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/utils/Window.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/utils/hex/HexCamera.cpp" ex="false" tool="1" flavor2="0">
       </item>
