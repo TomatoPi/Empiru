@@ -173,7 +173,7 @@ Implémentation Réelle :
           pour tester les coordonées floatantes
 
     -> Intégrer le changement d'angle de vue
-      - Ajout de rotation de la grille et des coordonées avant rendu
+      - Ajout de rotation de la grille aux utilitaires de changement de coordonées
       - Revoir le système d'ancrage de la caméra
         -> Ancrer un coin de la caméra n'est pas idéal,
            pour rendre la vue à peu près invariante par rotation, il faut

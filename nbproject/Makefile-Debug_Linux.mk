@@ -35,15 +35,19 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/main.o
+	${OBJECTDIR}/src/gui/utils/Sprite.o \
+	${OBJECTDIR}/src/gui/utils/Window.o \
+	${OBJECTDIR}/src/main.o \
+	${OBJECTDIR}/src/utils/hex/HexCamera.o \
+	${OBJECTDIR}/src/utils/hex/HexCoords.o
 
 
 # C Compiler Flags
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-lSDL2 -lSDL2_image
+CXXFLAGS=-lSDL2 -lSDL2_image
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -62,10 +66,30 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/src/gui/utils/Sprite.o: src/gui/utils/Sprite.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite.o src/gui/utils/Sprite.cpp
+
+${OBJECTDIR}/src/gui/utils/Window.o: src/gui/utils/Window.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window.o src/gui/utils/Window.cpp
+
 ${OBJECTDIR}/src/main.o: src/main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+
+${OBJECTDIR}/src/utils/hex/HexCamera.o: src/utils/hex/HexCamera.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera.o src/utils/hex/HexCamera.cpp
+
+${OBJECTDIR}/src/utils/hex/HexCoords.o: src/utils/hex/HexCoords.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords.o src/utils/hex/HexCoords.cpp
 
 # Subprojects
 .build-subprojects:

@@ -4,6 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/utils/hex/HexCamera.h</itemPath>
+      <itemPath>src/utils/hex/HexCoords.h</itemPath>
+      <itemPath>src/gui/utils/Sprite.h</itemPath>
+      <itemPath>src/gui/utils/Window.h</itemPath>
+      <itemPath>src/utils/log.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,6 +17,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/utils/hex/HexCamera.cpp</itemPath>
+      <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
+      <itemPath>src/gui/utils/Sprite.cpp</itemPath>
+      <itemPath>src/gui/utils/Window.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -42,11 +51,30 @@
           <incDir>
             <pElem>src</pElem>
           </incDir>
+          <commandLine>-lSDL2 -lSDL2_image</commandLine>
         </ccTool>
       </compileType>
       <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCamera.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCamera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -72,7 +100,25 @@
       </compileType>
       <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCamera.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCamera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Debug_Windows" type="1" platformSpecific="true">
@@ -92,7 +138,25 @@
       </compileType>
       <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/hex/HexCamera.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCamera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -35,7 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/main.o
+	${OBJECTDIR}/src/gui/utils/Sprite.o \
+	${OBJECTDIR}/src/gui/utils/Window.o \
+	${OBJECTDIR}/src/main.o \
+	${OBJECTDIR}/src/utils/hex/HexCamera.o \
+	${OBJECTDIR}/src/utils/hex/HexCoords.o
 
 
 # C Compiler Flags
@@ -62,10 +66,30 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/src/gui/utils/Sprite.o: src/gui/utils/Sprite.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite.o src/gui/utils/Sprite.cpp
+
+${OBJECTDIR}/src/gui/utils/Window.o: src/gui/utils/Window.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window.o src/gui/utils/Window.cpp
+
 ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+
+${OBJECTDIR}/src/utils/hex/HexCamera.o: src/utils/hex/HexCamera.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera.o src/utils/hex/HexCamera.cpp
+
+${OBJECTDIR}/src/utils/hex/HexCoords.o: src/utils/hex/HexCoords.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords.o src/utils/hex/HexCoords.cpp
 
 # Subprojects
 .build-subprojects:
