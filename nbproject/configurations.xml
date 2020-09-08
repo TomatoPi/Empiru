@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="gui" displayName="gui" projectFiles="true">
-      <logicalFolder name="utils" displayName="utils" projectFiles="true">
-        <itemPath>src/gui/utils/Sprite.cpp</itemPath>
-        <itemPath>src/gui/utils/Sprite.h</itemPath>
-        <itemPath>src/gui/utils/Window.cpp</itemPath>
-        <itemPath>src/gui/utils/Window.h</itemPath>
-      </logicalFolder>
-    </logicalFolder>
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
-    </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
@@ -20,16 +8,24 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/main.cpp</itemPath>
-    </logicalFolder>
-    <logicalFolder name="utils" displayName="utils" projectFiles="true">
-      <logicalFolder name="hex" displayName="hex" projectFiles="true">
-        <itemPath>src/utils/hex/HexCamera.cpp</itemPath>
-        <itemPath>src/utils/hex/HexCamera.h</itemPath>
-        <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
-        <itemPath>src/utils/hex/HexCoords.h</itemPath>
+      <logicalFolder name="gui" displayName="gui" projectFiles="true">
+        <logicalFolder name="utils" displayName="utils" projectFiles="true">
+          <itemPath>src/gui/utils/Sprite.cpp</itemPath>
+          <itemPath>src/gui/utils/Sprite.h</itemPath>
+          <itemPath>src/gui/utils/Window.cpp</itemPath>
+          <itemPath>src/gui/utils/Window.h</itemPath>
+        </logicalFolder>
       </logicalFolder>
-      <itemPath>src/utils/log.h</itemPath>
+      <logicalFolder name="utils" displayName="utils" projectFiles="true">
+        <logicalFolder name="hex" displayName="hex" projectFiles="true">
+          <itemPath>src/utils/hex/HexCamera.cpp</itemPath>
+          <itemPath>src/utils/hex/HexCamera.h</itemPath>
+          <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
+          <itemPath>src/utils/hex/HexCoords.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/utils/log.h</itemPath>
+      </logicalFolder>
+      <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -128,6 +124,46 @@
             <linkerLibLibItem>SDL2_image</linkerLibLibItem>
             <linkerLibLibItem>SDL2main</linkerLibLibItem>
           </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCamera.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCamera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Linux" type="1" platformSpecific="true">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <platform>2</platform>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+            <pElem>include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lSDL2 -lSDL2_image</commandLine>
         </linkerTool>
       </compileType>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
