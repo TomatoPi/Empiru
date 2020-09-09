@@ -59,7 +59,7 @@ FlatHexPosition::FlatHexPosition(float x, float y, float z) :
 }
 /// \brief Construct a position from Pixel Coordinate
 FlatHexPosition::FlatHexPosition(float x, float y, float w, float h, System type) :
-  _x(3*x/w),
+  _x(4*x/w),
   _y(2*y/h),
   _z(0),
   _type(Grid)
@@ -93,7 +93,7 @@ FlatHexPosition FlatHexPosition::operator+(const FlatHexPosition & v) const {
 }
 /// \brief substract two vector
 /// return this - v as Axial Vector
-FlatHexPosition operator-(const FlatHexPosition & v) const {
+FlatHexPosition FlatHexPosition::operator-(const FlatHexPosition & v) const {
   FlatHexPosition a(*this, Axial), b(v, Axial), res(Axial);
   res._x = a._x - b._x;
   res._y = a._y - b._y;
@@ -119,9 +119,10 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
     pos->_x = _x;
     pos->_y = _y;
     pos->_z = _z;
+    return;
   }
   /// Convert this position to Axial
-  int x, y;
+  float x, y;
   switch (_type) {
   case OddQOffset :
     LOG_TODO("TODO : Convert Offset to Axial\n");
@@ -133,8 +134,8 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
     y = _y;
     break;
   case Grid :
-    x = 3 * _x + _y;
-    y = 2 * _y;
+    x = _x / 3.;
+    y = _y / 2. - _x / 6.;
     break;
   default:
     assert(0);
@@ -157,8 +158,8 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
     pos->_z = x - y;
     break;
   case Grid :
-    pos->_x = x/3. - y;
-    pos->_y = y/2.;
+    pos->_x = 3 * x;
+    pos->_y = 2 * y + x;
     pos->_z = 0;
     break;
   default :
@@ -166,4 +167,26 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
   }
   /// This is the end
   pos->_type = target;
+}
+
+std::string FlatHexPosition::toString() const {
+  return "HexPos[" + systemString(_type) + ":(" 
+      + std::to_string(_x) + "," 
+      + std::to_string(_y) + ","
+      + std::to_string(_z) + ")]";
+}
+std::string FlatHexPosition::systemString(System s) {
+  switch(s) {
+  case OddQOffset:
+    return "OddQOffset";
+  case Axial:
+    return "Axial";
+  case Cubic:
+    return "Cubic";
+  case Grid:
+    return "Grid";
+  default:
+    assert(0);
+    return "";
+  }
 }

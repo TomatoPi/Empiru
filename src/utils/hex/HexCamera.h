@@ -58,6 +58,11 @@ public:
   /// \parma x : pixel column
   /// \param y : pixel row
   void toPixel(const FlatHexPosition & pos, int *x, int *y) const;
+  /// \brief Convert a position on grid to position of it center on the screen
+  /// \param pos : position to convert
+  /// \parma x : pixel column
+  /// \param y : pixel row
+  void tileCenter(const FlatHexPosition & pos, int *x, int *y) const;
   
   /// \brief return tile's width on viewport
   int tileHeight() const;
@@ -72,6 +77,12 @@ public:
   /// \brief Compute the position of viewport's upLeftCorner
   /// \param res : result in Axial coordinate system
   void upLeftCorner(FlatHexPosition *res);
+  /// \brief Return Viewport's x and y vectors in Axis cs
+  /// Theses vectors can be used to move by one tile on viewport
+  /// For every tile :
+  ///   tile + x is the next tile by moving right on screen
+  ///   tile + y is the next tile by moving down on screen
+  void viewPortAxis(FlatHexPosition *x, FlatHexPosition *y);
 };
 
 #endif /* HEXCAMERA_H */

@@ -79,10 +79,10 @@ void Window::update() {
 bool Window::quitRequest() {
   SDL_Event event;
   if (SDL_PollEvent(&event)) {
-      switch(event.type) {
-          case SDL_QUIT:
-              return true;
-      }
+    switch(event.type) {
+    case SDL_QUIT:
+      return true;
+    }
   }
   return false;
 }

@@ -28,6 +28,8 @@
 #ifndef HEXCOORDS_H
 #define HEXCOORDS_H
 
+#include <string>
+
 /// \brief Represent a position on an Hexagonal Grid with flat disposition
 struct FlatHexPosition {
 
@@ -75,6 +77,10 @@ struct FlatHexPosition {
   void convert(System target);
   /// \brief Convert this position to 'target' System and store result in 'pos'
   void convert(System target, FlatHexPosition * pos) const;
+  
+  /// \brief toString
+  std::string toString() const;
+  static std::string systemString(System s);
 };
 
 #endif /* HEXCOORDS_H */
