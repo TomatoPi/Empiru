@@ -125,8 +125,8 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
   float x, y;
   switch (_type) {
   case OddQOffset :
-    LOG_TODO("TODO : Convert Offset to Axial\n");
-    assert(0);
+    x = _x;
+    y = _y - (_x - ((int)_x & 1)) / 2.;
     break;
   case Axial :
   case Cubic :

@@ -33,13 +33,29 @@
 /// \param tileHeight : Tile's height in pixel on viewport 
 /// \param viewWidth  : View's width in pixel
 /// \param viewHeight : View's height in pixel 
+/// \param worldWidth : World's width in tile count
+/// \param worldHeight: World height in tile count
 HexCamera::HexCamera(
     int tileWidth, int tileHeight, 
-    int viewWidth, int viewHeight) :
+    int viewWidth, int viewHeight,
+    int worldWidth, int worldHeight) :
+
   _tileWidth(tileWidth),
   _tileHeight(tileHeight),
+  _worldWidth(worldWidth),
+  _worldHeight(worldHeight),
+    
+  _hScrollSpeed(0.5),
+  _vScrollSpeed(0.1),
+    
+  _scrollH(0),
+  _scrollV(0),
+    
   _viewport(viewWidth, viewHeight, tileWidth, tileHeight, FlatHexPosition::Axial),
-  _pos(FlatHexPosition::Axial)
+  _pos(FlatHexPosition::Axial),
+    
+  _vx(1, -0.5, FlatHexPosition::Axial),
+  _vy(0, 1, FlatHexPosition::Axial)
 {
   assert(0 < tileWidth);
   assert(0 < tileHeight);
@@ -87,6 +103,18 @@ int HexCamera::tileWidth() const {
   return _tileWidth;
 }
 
+/// \brief Compute the position of viewport's upLeftCorner
+/// \param res : result in Axial coordinate system
+void HexCamera::upLeftCorner(FlatHexPosition *p) {
+  assert(p);
+  *p = _pos - _viewport * 0.5;
+}
+/// \brief Return Viewport's x and y vectors in Axis cs
+void HexCamera::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) {
+  *x = _vx;
+  *y = _vy;
+}
+
 /// \brief return camera's targeted position
 const FlatHexPosition & HexCamera::target() const {
   return _pos;
@@ -96,14 +124,45 @@ void HexCamera::target(const FlatHexPosition & pos) {
   _pos = pos;
 }
 
-/// \brief Compute the position of viewport's upLeftCorner
-/// \param res : result in Axial coordinate system
-void HexCamera::upLeftCorner(FlatHexPosition *p) {
-  assert(p);
-  *p = _pos - _viewport * 0.5;
+void HexCamera::scrollLeft() {
+  _scrollH = -_hScrollSpeed;
 }
-/// \brief Return Viewport's x and y vectors in Axis cs
-void HexCamera::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) {
-  *x = FlatHexPosition(1, -0.5, FlatHexPosition::Axial);
-  *y = FlatHexPosition(0, 1, FlatHexPosition::Axial);
+void HexCamera::scrollRight() {
+  _scrollH = _hScrollSpeed;
+}
+void HexCamera::stopLRScroll() {
+  _scrollH = 0;
+}
+
+void HexCamera::scrollUp() {
+  _scrollV = -_vScrollSpeed;
+}
+void HexCamera::scrollDown() {
+  _scrollV = _vScrollSpeed;
+}
+void HexCamera::stopUDScroll() {
+  _scrollV = 0;
+}
+
+void HexCamera::update() {
+  if (_scrollH) {
+    FlatHexPosition pos = _pos + _vx * _scrollH;
+    pos.convert(FlatHexPosition::OddQOffset);
+    if (pos._x < 0) {
+      pos._x = 0;
+    } else if (_worldWidth < (pos._x - 1)) {
+      pos._x = _worldWidth -1;
+    }
+    _pos = pos.convert(FlatHexPosition::Axial);
+  }
+  if (_scollV) {
+    FlatHexPosition pos = _pos + _vy * _scrollV;
+    pos.convert(FlatHexPosition::OddQOffset);
+    if (pos._y < 0) {
+      pos._y = 0;
+    } else if (_worldHeight < (pos._y - 1)) {
+      pos._y = _worldHeight -1;
+    }
+    _pos = pos.convert(FlatHexPosition::Axial);
+  }
 }
