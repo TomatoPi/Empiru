@@ -33,9 +33,12 @@ struct OQOffsetPosition {
   
   /// \brief Constructor
   OQOffsetPosition();
+  OQOffsetPosition(float r, float c);
   
-  int _lig; ///< Tile's line
-  int _col; ///< Tile's column
+  bool operator==(const OQOffsetPosition & a) const;
+  
+  float _row; ///< Tile's row
+  float _col; ///< Tile's column
 };
 
 /// \brief Position in Cartesian Coordinate System 
@@ -50,9 +53,36 @@ struct GridPosition {
   float _h; ///< Vertical position in half of tile's height
 };
 
+/// \brief Position in Axial Coordinate System
+struct AxialPosition {
+  
+  /// \brief Constructor
+  AxialPosition();
+  AxialPosition(float r, float c);
+  
+  float _row; ///< Tile's row
+  float _col; ///< Tile's column
+};
+
+/// \brief Position in Cubic Coordinate System
+struct CubePosition {
+  
+  /// \brief Constructor
+  CubePosition();
+  
+  float _x; ///< Right down
+  float _y; ///< Vertical
+  float _z; ///< Right up
+};
+
 /// \brief Convert an Odd-q OffsetPosition to a GridPosition
 void convertPosition(
   const OQOffsetPosition & src, 
   GridPosition * dest);
+
+/// \brief Convert an AxialPosition to an Odd-q OffsetPosition
+void convertPosition(
+  const AxialPosition & src, 
+  OQOffsetPosition *dest);
 
 #endif /* HEXCOORDS_H */

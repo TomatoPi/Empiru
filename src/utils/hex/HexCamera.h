@@ -31,38 +31,55 @@
 /// \brief Utility object containing position, orientation and zoom of the camera
 class HexCamera {
 public:
-
-/// \TODO Le calcul de la hauteur d'affichage d'un tuile est superflu
-///   et pas très malin, il suffit de décider manuellement du nombre
-///   de pixels de haut et d'ensuite calculer (si besoin ??) l'angle
-///   de la caméra, de sorte à avoir des valeurs rondes pour les
-///   alignements
   
-  static constexpr float whfactor = 0.866025404;  ///< height / width
-  static constexpr float vfactor = 0.387124249;   ///< Magic
+  static constexpr int HEXAGON_HEIGHT = 87;
   
 private:
   
-  float _tw; ///< Tile's width in pixel
-  float _hf; ///< Vertical size ratio
+  int _tileWidth; ///< Tile's width on viewport
+  int _tileHeight;///< Tile's height on viewport
+  AxialPosition _pos; ///< Camera's target (position at center of viewport)
   
 public:
   
   /// \brief Constructor
-  /// \param tileWidth : Tile's width in pixels on the viewport
-  /// \param heightFactor : ratio between object's height on map and on viewport 
-  HexCamera(int tileWidth, float heightFactor);
+  /// \param tileWidth : Tile's width in pixels on viewport
+  /// \param tileHeight : Tile's height in pixels on viewport 
+  HexCamera(int tileWidth, int tileHeight);
   
   /// \brief Convert a position on grid to a position on the screen
   /// \param pos : position to convert
-  /// \parma x : position's abscissa
-  /// \param y : position's ordinate
+  /// \parma x : pixel column
+  /// \param y : pixel row
   void toPixel(const GridPosition & pos, int *x, int *y) const;
   
   /// \brief return tile's width on viewport
-  float tileHeight() const;
+  int tileHeight() const;
   /// \brief return tile's height on viewport
-  float tileWidth() const;
+  int tileWidth() const;
+  
+  /// \brief return camera's targeted position
+  const AxialPosition & target() const;
+  /// \brief set camera's targeted position
+  void target(const AxialPosition & pos);
+  
+  /// \brief Compute the position of viewport's upLeftCorner
+  /// \param vWidth : viewport's width in pixels
+  /// \param vHeight : viewpor's height in pixels
+  void upLeftCorner(
+    int vWidth, int vHeight, 
+    OQOffsetPosition *p);
+  
+private:
+  
+  /// \see void toPixel(const GridPosition & pos, int *x, int *y) const
+  void axialToPixel(const AxialPosition & pos, int *x, int *y) const;
+  
+  /// \brief Convert position on the screen to position on grid
+  /// \parma x : pixel column
+  /// \param y : pixel row
+  /// \param pos : computed position
+  void axialFromPixel(int x, int y, AxialPosition *pos) const;
 };
 
 #endif /* HEXCAMERA_H */

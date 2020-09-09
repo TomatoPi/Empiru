@@ -41,6 +41,17 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/utils/hex/HexCamera.o \
 	${OBJECTDIR}/src/utils/hex/HexCoords.o
 
+# Test Directory
+TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
+
+# Test Files
+TESTFILES= \
+	${TESTDIR}/TestFiles/f1
+
+# Test Object Files
+TESTOBJECTFILES= \
+	${TESTDIR}/src/utils/hex/tests/HexTestClass.o \
+	${TESTDIR}/src/utils/hex/tests/HexTestRunner.o
 
 # C Compiler Flags
 CFLAGS=
@@ -93,6 +104,101 @@ ${OBJECTDIR}/src/utils/hex/HexCoords.o: src/utils/hex/HexCoords.cpp nbproject/Ma
 
 # Subprojects
 .build-subprojects:
+
+# Build Test Targets
+.build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
+.build-tests-subprojects:
+
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/src/utils/hex/tests/HexTestClass.o ${TESTDIR}/src/utils/hex/tests/HexTestRunner.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lSDL2 -lSDL2_image -lcppunit  `cppunit-config --libs`   
+
+
+${TESTDIR}/src/utils/hex/tests/HexTestClass.o: src/utils/hex/tests/HexTestClass.cpp 
+	${MKDIR} -p ${TESTDIR}/src/utils/hex/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -Isrc -Iinclude -Isrc -Iinclude `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/src/utils/hex/tests/HexTestClass.o src/utils/hex/tests/HexTestClass.cpp
+
+
+${TESTDIR}/src/utils/hex/tests/HexTestRunner.o: src/utils/hex/tests/HexTestRunner.cpp 
+	${MKDIR} -p ${TESTDIR}/src/utils/hex/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -Isrc -Iinclude -Isrc -Iinclude `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/src/utils/hex/tests/HexTestRunner.o src/utils/hex/tests/HexTestRunner.cpp
+
+
+${OBJECTDIR}/src/gui/utils/Sprite_nomain.o: ${OBJECTDIR}/src/gui/utils/Sprite.o src/gui/utils/Sprite.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/gui/utils/Sprite.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Isrc -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite_nomain.o src/gui/utils/Sprite.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/gui/utils/Sprite.o ${OBJECTDIR}/src/gui/utils/Sprite_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/gui/utils/Window_nomain.o: ${OBJECTDIR}/src/gui/utils/Window.o src/gui/utils/Window.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/gui/utils/Window.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Isrc -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window_nomain.o src/gui/utils/Window.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/gui/utils/Window.o ${OBJECTDIR}/src/gui/utils/Window_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/main_nomain.o: ${OBJECTDIR}/src/main.o src/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/main.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Isrc -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main_nomain.o src/main.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/main.o ${OBJECTDIR}/src/main_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/utils/hex/HexCamera_nomain.o: ${OBJECTDIR}/src/utils/hex/HexCamera.o src/utils/hex/HexCamera.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/utils/hex/HexCamera.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Isrc -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera_nomain.o src/utils/hex/HexCamera.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/utils/hex/HexCamera.o ${OBJECTDIR}/src/utils/hex/HexCamera_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/utils/hex/HexCoords_nomain.o: ${OBJECTDIR}/src/utils/hex/HexCoords.o src/utils/hex/HexCoords.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/utils/hex/HexCoords.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Isrc -Iinclude -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords_nomain.o src/utils/hex/HexCoords.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/utils/hex/HexCoords.o ${OBJECTDIR}/src/utils/hex/HexCoords_nomain.o;\
+	fi
+
+# Run Test Targets
+.test-conf:
+	@if [ "${TEST}" = "" ]; \
+	then  \
+	    ${TESTDIR}/TestFiles/f1 || true; \
+	else  \
+	    ./${TEST} || true; \
+	fi
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}

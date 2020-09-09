@@ -32,19 +32,18 @@
 
 using namespace std;
 
-/*
- * 
- */
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/2, 1080/2);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
-  HexCamera camera(sprite->width(), HexCamera::vfactor);
+  HexCamera camera(sprite->width(), HexCamera::HEXAGON_HEIGHT);
   
-  LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %f,%f\n", 
+  LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
       window->width, window->height,
       sprite->width(), sprite->height(),
       camera.tileWidth(), camera.tileHeight());
+  
+  camera.target(AxialPosition(0,0));
 
   window->clear();
   SDL_Rect rect;
@@ -53,25 +52,32 @@ int main(int argc, char** argv) {
   rect.x = 0;
   rect.y = 0;
   
-  OQOffsetPosition off;
+  OQOffsetPosition tmp, anchor;
   GridPosition pos;
   
+  camera.upLeftCorner(window->width, window->height, &anchor);
+  LOG_DEBUG("Anchor : %f,%f\n", anchor._row, anchor._col);
+  
+  tmp._col = anchor._col;
   while(rect.x < window->width) {
-    off._lig = 0;
+    tmp._row = anchor._row;
     rect.y = 0;
     while(rect.y < window->height) {
-      convertPosition(off, &pos);
+      convertPosition(tmp, &pos);
       camera.toPixel(pos, &(rect.x), &(rect.y));
-      LOG_DEBUG("OFF : (%d,%d)\nPOS : (%f,%f)\nPIX : (%d,%d)\n",
-          off._col, off._lig, pos._w, pos._h, rect.x, rect.y);
-      if (sprite->renderFrame(window->renderer, &rect)) {
-        LOG_WRN("%s\n", SDL_GetError());
-        OUPS();
-      }
-      off._lig++;
+      //LOG_DEBUG("OFF : (%f,%f)\nPOS : (%f,%f)\nPIX : (%d,%d)\n",
+      //    tmp._col, tmp._row, pos._w, pos._h, rect.x, rect.y);
+      rect.x += window->width/2;
+      rect.y += camera.tileHeight() - rect.h + window->height/2;
+      if (0 <= tmp._col && 0 <= tmp._row)
+        if (sprite->renderFrame(window->renderer, &rect)) {
+          LOG_WRN("%s\n", SDL_GetError());
+          OUPS();
+        }
+      tmp._row++;
     }
-    off._col++;
-    convertPosition(off, &pos);
+    tmp._col++;
+    convertPosition(tmp, &pos);
     camera.toPixel(pos, &(rect.x), &(rect.y));
   }
   

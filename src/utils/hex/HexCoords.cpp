@@ -26,11 +26,28 @@
 
 #include <cassert>
 
-OQOffsetPosition::OQOffsetPosition() : _lig(0), _col(0) {
+OQOffsetPosition::OQOffsetPosition() : _row(0), _col(0) {
   
+}
+OQOffsetPosition::OQOffsetPosition(float r, float c) : _row(r), _col(c) {
+  
+}
+bool OQOffsetPosition::operator==(const OQOffsetPosition & a) const {
+  return a._row == _row && a._col == _col;
 }
 
 GridPosition::GridPosition() : _w(0), _h(0) {
+  
+}
+
+AxialPosition::AxialPosition() : _row(0), _col(0) {
+  
+}
+AxialPosition::AxialPosition(float r, float c) : _row(r), _col(c) {
+  
+}
+
+CubePosition::CubePosition() : _x(0), _y(0), _z(0) {
   
 }
 
@@ -39,6 +56,15 @@ void convertPosition(
   GridPosition * dest)
 {
   assert(dest);
-  dest->_h = 2 * src._lig + (src._col & 1);
+  dest->_h = 2 * src._row + ((int)(src._col) & 1);
   dest->_w = 3 * src._col;
+}
+
+void convertPosition(
+  const AxialPosition & src, 
+  OQOffsetPosition *dest)
+{
+  assert(dest);
+  dest->_col = src._col;
+  dest->_row = src._row + (src._col - ((int)(src._col)&1)) / 2;
 }

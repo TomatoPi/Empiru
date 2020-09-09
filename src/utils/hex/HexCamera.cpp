@@ -23,30 +23,80 @@
 ///
 
 #include <cassert>
+#include <cmath>
 
 #include "HexCamera.h"
 #include "utils/log.h"
 
-HexCamera::HexCamera(int tileWidth, float heightFactor) :
-  _tw(tileWidth),
-  _hf(heightFactor)
+HexCamera::HexCamera(int tileWidth, int tileHeight) :
+  _tileWidth(tileWidth),
+  _tileHeight(tileHeight)
 {
   assert(0 < tileWidth);
-  assert(0 < heightFactor);
+  assert(0 < tileHeight);
 }
 
 void HexCamera::toPixel(const GridPosition & pos, int *x, int *y) const {
   assert(x);
   assert(y);
-  // GridPosition (0,0) take place at the center of tile (0,0)
+  
+  GridPosition g;
+  OQOffsetPosition oqo;
+  
+  convertPosition(_pos, &oqo);
+  convertPosition(oqo, &g);
+  
+  g._h += pos._h;
+  g._w += pos._w;
+  
+  // GridPosition(0,0) take place at the center of tile (0,0)
   // An offset is added to put this point at screen's top left corner
-  *x = (pos._w - 2) * tileWidth() * 0.25;
-  *y = (pos._h - 1) * tileHeight() * 0.5 - (tileWidth() - tileHeight());
+  *x = (g._w - 2) * _tileWidth * 0.25;
+  *y = (g._h - 1) * _tileHeight * 0.5;
 }
 
-float HexCamera::tileHeight() const {
-  return _tw * whfactor * _hf;
+int HexCamera::tileHeight() const {
+  return _tileHeight;
 }
-float HexCamera::tileWidth() const {
-  return _tw;
+int HexCamera::tileWidth() const {
+  return _tileWidth;
+}
+
+const AxialPosition & HexCamera::target() const {
+  return _pos;
+}
+void HexCamera::target(const AxialPosition & pos) {
+  _pos = pos;
+}
+
+void HexCamera::upLeftCorner(
+  int vWidth, int vHeight, 
+  OQOffsetPosition *p) 
+{
+  assert(p);
+  // Screen diagonal vector is converted to Axial vector
+  // Then standard vector addition is used to translate the camera
+  AxialPosition tmp;
+  axialFromPixel(vWidth, vHeight, &tmp);
+  LOG_DEBUG("Screen : %f,%f\n", tmp._row, tmp._col);
+  tmp._col = _pos._col - tmp._col / 2;
+  tmp._row = _pos._row - tmp._row / 2;
+  LOG_DEBUG("Camera : %f,%f\n", tmp._row, tmp._col);
+  convertPosition(tmp, p);
+}
+
+void HexCamera::axialToPixel(const AxialPosition & pos, int *x, int *y) const {
+  assert(x);
+  assert(y);
+  *x = _tileWidth * 1.5 * pos._col;
+  *y = _tileHeight * sqrt(3) * (pos._col/2. + pos._row);
+}
+
+void HexCamera::axialFromPixel(int x, int y, AxialPosition *pos) const {
+  assert(pos);
+  // y is scaled according to tile's geometry
+  float z = y * sqrt(3) * 0.5 * _tileWidth / _tileHeight;
+  LOG_DEBUG("%d, %f\n", y, z);
+  pos->_col = 4 * x / (3. * _tileWidth);
+  pos->_row = 2 * (sqrt(3) * z - x) / (3. * _tileWidth);
 }
