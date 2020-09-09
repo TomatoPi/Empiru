@@ -34,7 +34,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-  Window *window = Window::createWindow(1920/2, 1080/2);
+  Window *window = Window::createWindow(1920, 1080);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
       sprite->width(), sprite->height(),
       camera.tileWidth(), camera.tileHeight());
   
-  camera.target(FlatHexPosition(0,0,FlatHexPosition::Axial));
+  camera.target(FlatHexPosition(100,10,FlatHexPosition::Axial));
 
   window->clear();
   SDL_Rect rect;
@@ -75,12 +75,15 @@ int main(int argc, char** argv) {
           off.toString().c_str(),
           rect.x, rect.y);
       if (0 <= off._x && 0 <= off._y) {
+        LOG_DEBUG("DRAW\n");
         rect.y += 0.5 * camera.tileHeight() - rect.h;
         rect.x -= camera.tileWidth() * 0.5;
         if (sprite->renderFrame(window->renderer, &rect)) {
           LOG_WRN("%s\n", SDL_GetError());
           OUPS();
         }
+      } else {
+        LOG_WRN("NO\n");
       }
       pos = pos + vx;
     }

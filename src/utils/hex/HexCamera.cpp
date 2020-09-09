@@ -64,13 +64,15 @@ void HexCamera::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
 /// \param pos : position to convert
 /// \parma x : pixel column
 /// \param y : pixel row
+/// \warning this function could cause error accumulation if result is stored and reused
 void HexCamera::tileCenter(const FlatHexPosition & pos, int *x, int *y) const {
   assert(x);
   assert(y);
   FlatHexPosition res(pos, FlatHexPosition::Axial);
   res = res + (_viewport * 0.5) - _pos;
-  res._x = (int)res._x;
-  res._y = (int)res._y;
+  // Prevent rounding error
+  res._x = (int)(res._x + 0.00001);
+  res._y = (int)(res._y + 0.00001);
   res.convert(FlatHexPosition::Grid);
   *x = 0.25 * (res._x - 2) * _tileWidth;
   *y = 0.5 * (res._y - 1) * _tileHeight;
