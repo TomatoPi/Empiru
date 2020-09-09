@@ -34,13 +34,13 @@
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
 
-#define SIZE 1
+#define SIZE 16
 
 using namespace std;
 
 int main(int argc, char** argv) {
 
-  Window *window = Window::createWindow(1920/2, 1080/2);
+  Window *window = Window::createWindow(1920, 1080);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,

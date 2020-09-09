@@ -41,6 +41,7 @@ private:
   
   bool handleKeyDown(const SDL_KeyboardEvent & event);
   bool handleKeyUp(const SDL_KeyboardEvent & event);
+  bool handleMouseMovement(const SDL_MouseMotionEvent & event);
   
   HexCamera *_camera;
 };
