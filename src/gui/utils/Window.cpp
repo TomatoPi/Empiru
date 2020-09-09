@@ -76,6 +76,3 @@ void Window::clear() {
 void Window::update() {
   SDL_RenderPresent(renderer);
 }
-void Window::quitRequest() {
-  Window delete();
-}

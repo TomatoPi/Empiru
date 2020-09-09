@@ -34,41 +34,16 @@
 
 class Handler {
 public:
-  Handler();
-  Handler(const Handler& orig);
-  virtual ~Handler();
-private:
-
-};
-
-void Handler::EventListenner() {
-  SDL_Event event;
-  while (SDL_PollEvent(&event)) {
-    switch(event.type) {
-    case SDL_QUIT:
-      window->quitRequest();
-    }
-    case SDL_KEYDOWN:
-      if (event.key.state == SDL_PRESSED) {
-        switch(event.key.keysym.sym) {
-          case SDLK_ESCAPE:
-            window->quitRequest();
-          case SDLK_UP:
-            camera->scrollUp();
-          case SDLK_DOWN:
-            camera->scrollDown();
-          case SDLK_RIGHT:
-            camera->scrollRight();
-          case SDLK_LEFT:
-            camera->scrollLeft();
-        }
-      }
-  }
-}
-
-void quitRequest() {
+  Handler(HexCamera *c);
+  bool handleSDLEvents();
   
-}
+private:
+  
+  bool handleKeyDown(const SDL_KeyboardEvent & event);
+  bool handleKeyUp(const SDL_KeyboardEvent & event);
+  
+  HexCamera *_camera;
+};
 
 #endif /* HANDLER_H */
 

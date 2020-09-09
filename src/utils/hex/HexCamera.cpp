@@ -45,8 +45,8 @@ HexCamera::HexCamera(
   _worldWidth(worldWidth),
   _worldHeight(worldHeight),
     
-  _hScrollSpeed(0.5),
-  _vScrollSpeed(0.1),
+  _hScrollSpeed(0.1),
+  _vScrollSpeed(0.05),
     
   _scrollH(0),
   _scrollV(0),
@@ -76,6 +76,13 @@ void HexCamera::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
   *x = 0.25 * res._x * _tileWidth;
   *y = 0.5 * res._y * _tileHeight;
 }
+/// \brief Convert a position on the screen to position in grid
+void HexCamera::fromPixel(int x, int y, FlatHexPosition *pos) const {
+  assert(pos);
+  x = x * 4. / _tileWidth;
+  y = y * 2. / _tileHeight;
+  *pos = FlatHexPosition(x, y, FlatHexPosition::Grid);
+}
 /// \brief Convert a position on grid to position of it center on the screen
 /// \param pos : position to convert
 /// \parma x : pixel column
@@ -84,14 +91,13 @@ void HexCamera::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
 void HexCamera::tileCenter(const FlatHexPosition & pos, int *x, int *y) const {
   assert(x);
   assert(y);
-  FlatHexPosition res(pos, FlatHexPosition::Axial);
+  FlatHexPosition res(pos, FlatHexPosition::OddQOffset);
+  res._x = (int)res._x;
+  res._y = (int)res._y;
   res = res + (_viewport * 0.5) - _pos;
-  // Prevent rounding error
-  res._x = (int)(res._x + 0.00001);
-  res._y = (int)(res._y + 0.00001);
   res.convert(FlatHexPosition::Grid);
-  *x = 0.25 * (res._x - 2) * _tileWidth;
-  *y = 0.5 * (res._y - 1) * _tileHeight;
+  *x = 0.25 * res._x * _tileWidth;
+  *y = 0.5 * res._y * _tileHeight;
 }
 
 /// \brief return tile's width on viewport  
@@ -105,12 +111,12 @@ int HexCamera::tileWidth() const {
 
 /// \brief Compute the position of viewport's upLeftCorner
 /// \param res : result in Axial coordinate system
-void HexCamera::upLeftCorner(FlatHexPosition *p) {
+void HexCamera::upLeftCorner(FlatHexPosition *p) const {
   assert(p);
   *p = _pos - _viewport * 0.5;
 }
 /// \brief Return Viewport's x and y vectors in Axis cs
-void HexCamera::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) {
+void HexCamera::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) const {
   *x = _vx;
   *y = _vy;
 }
@@ -153,9 +159,10 @@ void HexCamera::update() {
     } else if (_worldWidth < (pos._x - 1)) {
       pos._x = _worldWidth -1;
     }
-    _pos = pos.convert(FlatHexPosition::Axial);
+    pos.convert(FlatHexPosition::Axial);
+    _pos = pos;
   }
-  if (_scollV) {
+  if (_scrollV) {
     FlatHexPosition pos = _pos + _vy * _scrollV;
     pos.convert(FlatHexPosition::OddQOffset);
     if (pos._y < 0) {
@@ -163,6 +170,7 @@ void HexCamera::update() {
     } else if (_worldHeight < (pos._y - 1)) {
       pos._y = _worldHeight -1;
     }
-    _pos = pos.convert(FlatHexPosition::Axial);
+    pos.convert(FlatHexPosition::Axial);
+    _pos = pos;
   }
 }

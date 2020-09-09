@@ -45,8 +45,8 @@ private:
   float _hScrollSpeed; ///< Horizontal scroll speed
   float _vScrollSpeed; ///< Vertical scroll speed
   
-  int _scrollH; ///< {<0,0<,0} Scroll Left, Right, None
-  int _scrollV; ///< {<0,0<,0} scroll Up, Down, None
+  float _scrollH; ///< {<0,0<,0} Scroll Left, Right, None
+  float _scrollV; ///< {<0,0<,0} scroll Up, Down, None
   
   FlatHexPosition _viewport; /// Viewport's diagonal vector
   FlatHexPosition _pos;      ///< Camera's target (position at center of viewport)
@@ -69,13 +69,12 @@ public:
     int worldWidth, int worldHeight);
   
   /// \brief Convert a position on grid to a position on the screen
-  /// \param pos : position to convert
-  /// \parma x : pixel column
-  /// \param y : pixel row
   void toPixel(const FlatHexPosition & pos, int *x, int *y) const;
+  /// \brief Convert a position on the screen to position in grid
+  void fromPixel(int x, int y, FlatHexPosition *pos) const;
   /// \brief Convert a position on grid to position of it center on the screen
   /// \param pos : position to convert
-  /// \parma x : pixel column
+  /// \param x : pixel column
   /// \param y : pixel row
   void tileCenter(const FlatHexPosition & pos, int *x, int *y) const;
   
@@ -86,13 +85,13 @@ public:
   
   /// \brief Compute the position of viewport's upLeftCorner
   /// \param res : result in Axial coordinate system
-  void upLeftCorner(FlatHexPosition *res);
+  void upLeftCorner(FlatHexPosition *res) const;
   /// \brief Return Viewport's x and y vectors in Axis cs
   /// Theses vectors can be used to move by one tile on viewport
   /// For every tile :
   ///   tile + x is the next tile by moving right on screen
   ///   tile + y is the next tile by moving down on screen
-  void viewPortAxis(FlatHexPosition *x, FlatHexPosition *y);
+  void viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) const;
   
   /// \brief return camera's targeted position
   const FlatHexPosition & target() const;
