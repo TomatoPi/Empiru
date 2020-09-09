@@ -74,9 +74,12 @@ struct FlatHexPosition {
   FlatHexPosition operator-() const;
   
   /// \brief Convert this position to 'target' System
-  void convert(System target);
+  FlatHexPosition & convert(System target);
   /// \brief Convert this position to 'target' System and store result in 'pos'
   void convert(System target, FlatHexPosition * pos) const;
+  
+  /// \brief Round position to it tile's center
+  FlatHexPosition & tile();
   
   /// \brief toString
   std::string toString() const;

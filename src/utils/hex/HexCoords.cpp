@@ -26,6 +26,7 @@
 #include "utils/log.h"
 
 #include <cassert>
+#include <cmath>
 
 
 /// \brief Axial (0,0)
@@ -109,8 +110,9 @@ FlatHexPosition FlatHexPosition::operator-() const {
 }
 
 /// \brief Convert this position to 'target' System
-void FlatHexPosition::convert(System target) {
+FlatHexPosition & FlatHexPosition::convert(System target) {
   convert(target, this);
+  return *this;
 }
 /// \brief Convert this position to 'target' System and store result in 'pos'
 void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
@@ -167,6 +169,20 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
   }
   /// This is the end
   pos->_type = target;
+}
+FlatHexPosition & FlatHexPosition::tile() {
+  this->convert(Cubic);
+  int x(round(_x + 0.0001)), y(round(_y + 0.0001)), z(round(_z + 0.0001));
+  int xx(abs(x-_x)), yy(abs(y-_y)), zz(abs(z-_z));
+  if (xx > yy && xx > zz) {
+    x = -y-z;
+  } else if (yy > zz) {
+    y = -x-z;
+  } else {
+    z = -x-y;
+  }
+  _x = x, _y = y, _z = z;
+  return *this;
 }
 
 std::string FlatHexPosition::toString() const {

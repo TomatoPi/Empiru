@@ -10,6 +10,8 @@
                    projectFiles="true">
       <logicalFolder name="gui" displayName="gui" projectFiles="true">
         <logicalFolder name="utils" displayName="utils" projectFiles="true">
+          <itemPath>src/gui/utils/Handler.cpp</itemPath>
+          <itemPath>src/gui/utils/Handler.h</itemPath>
           <itemPath>src/gui/utils/Sprite.cpp</itemPath>
           <itemPath>src/gui/utils/Sprite.h</itemPath>
           <itemPath>src/gui/utils/Window.cpp</itemPath>
@@ -87,6 +89,10 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
@@ -171,6 +177,10 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">
@@ -248,6 +258,10 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.h" ex="false" tool="3" flavor2="0">

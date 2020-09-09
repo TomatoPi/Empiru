@@ -34,7 +34,7 @@
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
 
-#define SIZE 1
+#define SIZE 16
 
 using namespace std;
 
@@ -79,20 +79,22 @@ int main(int argc, char** argv) {
 //        vx.toString().c_str(),
 //        vy.toString().c_str());
 
-    while((rect.y - rect.h) < window->height) {
+    while((rect.y-rect.h) < window->height) {
       pos = anchor;
       rect.x = 0;
       while(rect.x < window->width) {
         camera.tileCenter(pos, &(rect.x), &(rect.y));
         pos.convert(FlatHexPosition::OddQOffset, &off);
+        off.tile().convert(FlatHexPosition::OddQOffset);
 //        LOG_DEBUG("Anchor : %s\nPOS : %s\nOFF : %s\nRECT : %d,%d\n",
 //            anchor.toString().c_str(),
 //            pos.toString().c_str(),
 //            off.toString().c_str(),
 //            rect.x, rect.y);
         if (0 <= off._x && 0 <= off._y && off._x < SIZE && off._y < SIZE) {
+//          LOG_WRN("DRAW\n");
           rect.y += 0.5 * camera.tileHeight() - rect.h;
-          rect.x -= camera.tileWidth() * 0.5;
+          rect.x -= sprite->width() / 2;
           if (sprite->renderFrame(window->renderer, &rect)) {
             LOG_WRN("%s\n", SDL_GetError());
             OUPS();

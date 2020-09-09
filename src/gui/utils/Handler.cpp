@@ -23,6 +23,7 @@
 ///
 
 #include "Handler.h"
+#include "utils/log.h"
 
 Handler::Handler(HexCamera *c) :
   _camera(c)
@@ -40,6 +41,8 @@ bool Handler::handleSDLEvents() {
       return handleKeyDown(event.key);
     case SDL_KEYUP:
       return handleKeyUp(event.key);
+    case SDL_MOUSEBUTTONDOWN:
+      return handleMouseButtonDown(event.button);
     }
   }
   return true;
@@ -76,5 +79,17 @@ bool Handler::handleKeyUp(const SDL_KeyboardEvent & key) {
       _camera->stopLRScroll();
       break;
   }
+  return true;
+}
+
+bool Handler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
+  LOG_TODO("Fonction temporaire pouet\n");
+  FlatHexPosition pos;
+  _camera->fromPixel(event.x, event.y, &pos);
+  LOG_DEBUG("Pouet : %s\n", pos.toString().c_str());
+  pos.convert(FlatHexPosition::OddQOffset);
+  LOG_DEBUG("Pouat : %s\n", pos.toString().c_str());
+  pos.tile();
+  LOG_DEBUG("Tile : %s\n", pos.toString().c_str());
   return true;
 }
