@@ -28,61 +28,53 @@
 #ifndef HEXCOORDS_H
 #define HEXCOORDS_H
 
-/// \brief Position in Odd-q Offset System
-struct OQOffsetPosition {
+/// \brief Represent a position on an Hexagonal Grid with flat disposition
+struct FlatHexPosition {
+
+  float _x; ///< Horizontal or RightDown position
+  float _y; ///< Vertical Position
+  float _z; ///< RightUp position in Cubic System
   
-  /// \brief Constructor
-  OQOffsetPosition();
-  OQOffsetPosition(float r, float c);
+  enum System {
+    OddQOffset, ///< Odd-q Offset System
+    Axial,      ///< Axial System
+    Cubic,      ///< Cubic System
+    Grid,       ///< Grid System in (0.75w, 0.5h) basis
+  } _type;  ///< Position's Coordinate System
   
-  bool operator==(const OQOffsetPosition & a) const;
+  /// \brief Axial (0,0)
+  FlatHexPosition();
+  /// \brief System's (0,0)
+  FlatHexPosition(System type);
+  /// \brief System's (x,y)
+  FlatHexPosition(float x, float y, System type);
+  /// \brief Build a position from another
+  FlatHexPosition(const FlatHexPosition & pos, System type);
+  /// \brief Cubic (x,y,z)
+  FlatHexPosition(float x, float y, float z);
+  /// \brief Construct a position from Grid Coordinate
+  FlatHexPosition(float x, float y, float w, float h, System type);
   
-  float _row; ///< Tile's row
-  float _col; ///< Tile's column
+  /// \brief return true if a is at the same position than this
+  bool operator==(const FlatHexPosition & a) const;
+  
+  /// \brief scale vector by 'f' factor
+  /// \return Axial vector
+  FlatHexPosition operator*(const float & f) const;
+  /// \brief add up two vectors
+  /// \return Axial vector
+  FlatHexPosition operator+(const FlatHexPosition & v) const;
+  /// \brief substract two vectors
+  /// return this - v as Axial Vector
+  FlatHexPosition operator-(const FlatHexPosition & v) const;
+  /// \brief get oposite vectors
+  /// \return Axial vector
+  FlatHexPosition operator-() const;
+  
+  /// \brief Convert this position to 'target' System
+  void convert(System target);
+  /// \brief Convert this position to 'target' System and store result in 'pos'
+  void convert(System target, FlatHexPosition * pos) const;
 };
-
-/// \brief Position in Cartesian Coordinate System 
-///   with origin on Tile's (0,0) center
-/// Coordinates are relatives to tile's dimension, width flat disposition
-struct GridPosition {
-  
-  /// \brief Constructor
-  GridPosition();
-  
-  float _w; ///< Horizontal position in quarter of tile's width
-  float _h; ///< Vertical position in half of tile's height
-};
-
-/// \brief Position in Axial Coordinate System
-struct AxialPosition {
-  
-  /// \brief Constructor
-  AxialPosition();
-  AxialPosition(float r, float c);
-  
-  float _row; ///< Tile's row
-  float _col; ///< Tile's column
-};
-
-/// \brief Position in Cubic Coordinate System
-struct CubePosition {
-  
-  /// \brief Constructor
-  CubePosition();
-  
-  float _x; ///< Right down
-  float _y; ///< Vertical
-  float _z; ///< Right up
-};
-
-/// \brief Convert an Odd-q OffsetPosition to a GridPosition
-void convertPosition(
-  const OQOffsetPosition & src, 
-  GridPosition * dest);
-
-/// \brief Convert an AxialPosition to an Odd-q OffsetPosition
-void convertPosition(
-  const AxialPosition & src, 
-  OQOffsetPosition *dest);
 
 #endif /* HEXCOORDS_H */

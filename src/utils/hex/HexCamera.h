@@ -32,26 +32,32 @@
 class HexCamera {
 public:
   
+  static constexpr int HEXAGON_WIDTH  = 256;
   static constexpr int HEXAGON_HEIGHT = 87;
   
 private:
   
-  int _tileWidth; ///< Tile's width on viewport
-  int _tileHeight;///< Tile's height on viewport
-  AxialPosition _pos; ///< Camera's target (position at center of viewport)
+  int _tileWidth;   ///< Tile's width on viewport
+  int _tileHeight;  ///< Tile's height on viewport
+  FlatHexPosition _viewport; /// Viewport's diagonal vector
+  FlatHexPosition _pos;      ///< Camera's target (position at center of viewport)
   
 public:
   
   /// \brief Constructor
-  /// \param tileWidth : Tile's width in pixels on viewport
-  /// \param tileHeight : Tile's height in pixels on viewport 
-  HexCamera(int tileWidth, int tileHeight);
+  /// \param tileWidth  : Tile's width in pixel on viewport
+  /// \param tileHeight : Tile's height in pixel on viewport 
+  /// \param viewWidth  : View's width in pixel
+  /// \param viewHeight : View's height in pixel 
+  HexCamera(
+    int tileWidth, int tileHeight, 
+    int viewWidth, int viewHeight);
   
   /// \brief Convert a position on grid to a position on the screen
   /// \param pos : position to convert
   /// \parma x : pixel column
   /// \param y : pixel row
-  void toPixel(const GridPosition & pos, int *x, int *y) const;
+  void toPixel(const FlatHexPosition & pos, int *x, int *y) const;
   
   /// \brief return tile's width on viewport
   int tileHeight() const;
@@ -59,27 +65,13 @@ public:
   int tileWidth() const;
   
   /// \brief return camera's targeted position
-  const AxialPosition & target() const;
+  const FlatHexPosition & target() const;
   /// \brief set camera's targeted position
-  void target(const AxialPosition & pos);
+  void target(const FlatHexPosition & pos);
   
   /// \brief Compute the position of viewport's upLeftCorner
-  /// \param vWidth : viewport's width in pixels
-  /// \param vHeight : viewpor's height in pixels
-  void upLeftCorner(
-    int vWidth, int vHeight, 
-    OQOffsetPosition *p);
-  
-private:
-  
-  /// \see void toPixel(const GridPosition & pos, int *x, int *y) const
-  void axialToPixel(const AxialPosition & pos, int *x, int *y) const;
-  
-  /// \brief Convert position on the screen to position on grid
-  /// \parma x : pixel column
-  /// \param y : pixel row
-  /// \param pos : computed position
-  void axialFromPixel(int x, int y, AxialPosition *pos) const;
+  /// \param res : result in Axial coordinate system
+  void upLeftCorner(FlatHexPosition *res);
 };
 
 #endif /* HEXCAMERA_H */

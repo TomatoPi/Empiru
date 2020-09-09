@@ -23,48 +23,147 @@
 ///
 
 #include "HexCoords.h"
+#include "utils/log.h"
 
 #include <cassert>
 
-OQOffsetPosition::OQOffsetPosition() : _row(0), _col(0) {
-  
-}
-OQOffsetPosition::OQOffsetPosition(float r, float c) : _row(r), _col(c) {
-  
-}
-bool OQOffsetPosition::operator==(const OQOffsetPosition & a) const {
-  return a._row == _row && a._col == _col;
-}
 
-GridPosition::GridPosition() : _w(0), _h(0) {
-  
-}
-
-AxialPosition::AxialPosition() : _row(0), _col(0) {
-  
-}
-AxialPosition::AxialPosition(float r, float c) : _row(r), _col(c) {
-  
-}
-
-CubePosition::CubePosition() : _x(0), _y(0), _z(0) {
-  
-}
-
-void convertPosition(
-  const OQOffsetPosition & src, 
-  GridPosition * dest)
+/// \brief Axial (0,0)
+FlatHexPosition::FlatHexPosition() : 
+  FlatHexPosition(0,0,Axial) 
 {
-  assert(dest);
-  dest->_h = 2 * src._row + ((int)(src._col) & 1);
-  dest->_w = 3 * src._col;
+  
+}
+/// \brief System's (0,0)
+FlatHexPosition::FlatHexPosition(System type) : 
+  FlatHexPosition(0,0,type) 
+{
+  
+}
+/// \brief System's (x,y)
+FlatHexPosition::FlatHexPosition(float x, float y, System type) : 
+  _x(x), _y(y), _z(0), _type(type)
+{
+  
+}
+/// \brief Build a position from another
+FlatHexPosition::FlatHexPosition(const FlatHexPosition & pos, System type) : FlatHexPosition(pos)
+{
+  convert(type);
+}
+/// \brief Cubic (x,y,z)
+FlatHexPosition::FlatHexPosition(float x, float y, float z) : 
+  _x(x), _y(y), _z(z), _type(Cubic)
+{
+  
+}
+/// \brief Construct a position from Pixel Coordinate
+FlatHexPosition::FlatHexPosition(float x, float y, float w, float h, System type) :
+  _x(3*x/w),
+  _y(2*y/h),
+  _z(0),
+  _type(Grid)
+{
+  this->convert(type);
 }
 
-void convertPosition(
-  const AxialPosition & src, 
-  OQOffsetPosition *dest)
-{
-  assert(dest);
-  dest->_col = src._col;
-  dest->_row = src._row + (src._col - ((int)(src._col)&1)) / 2;
+/// \brief return true if a is at the same position than this
+bool FlatHexPosition::operator==(const FlatHexPosition & a) const {
+  FlatHexPosition u, v;
+  convert(Axial, &u);
+  convert(Axial, &v);
+  return u._x == v._x && u._y == v._y;
+}
+
+/// \brief scale vector by 'f' factor
+/// \return Axial vector
+FlatHexPosition FlatHexPosition::operator*(const float & f) const {
+  FlatHexPosition res(*this, Axial);
+  res._x *= f;
+  res._y *= f;
+  return res;
+}
+/// \brief add up two vector
+/// \return Axial vector
+FlatHexPosition FlatHexPosition::operator+(const FlatHexPosition & v) const {
+  FlatHexPosition a(*this, Axial), b(v, Axial), res(Axial);
+  res._x = a._x + b._x;
+  res._y = a._y + b._y;
+  return res;
+}
+/// \brief substract two vector
+/// return this - v as Axial Vector
+FlatHexPosition operator-(const FlatHexPosition & v) const {
+  FlatHexPosition a(*this, Axial), b(v, Axial), res(Axial);
+  res._x = a._x - b._x;
+  res._y = a._y - b._y;
+  return res;
+}
+/// \brief get oposite vector
+/// \return Axial vector
+FlatHexPosition FlatHexPosition::operator-() const {
+  FlatHexPosition res(*this, Axial);
+  res._x = -res._x;
+  res._y = -res._y;
+  return res;
+}
+
+/// \brief Convert this position to 'target' System
+void FlatHexPosition::convert(System target) {
+  convert(target, this);
+}
+/// \brief Convert this position to 'target' System and store result in 'pos'
+void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
+  if (target == _type) {
+    pos->_type = target;
+    pos->_x = _x;
+    pos->_y = _y;
+    pos->_z = _z;
+  }
+  /// Convert this position to Axial
+  int x, y;
+  switch (_type) {
+  case OddQOffset :
+    LOG_TODO("TODO : Convert Offset to Axial\n");
+    assert(0);
+    break;
+  case Axial :
+  case Cubic :
+    x = _x;
+    y = _y;
+    break;
+  case Grid :
+    x = 3 * _x + _y;
+    y = 2 * _y;
+    break;
+  default:
+    assert(0);
+  }
+  /// Convert from Axial to Target
+  switch (target) {
+  case OddQOffset :
+    pos->_x = x;
+    pos->_y = y + (x - ((int)(x) & 1)) / 2.;
+    pos->_z = 0;
+    break;
+  case Axial :
+    pos->_x = x;
+    pos->_y = y;
+    pos->_z = 0;
+    break;
+  case Cubic :
+    pos->_x = x;
+    pos->_y = y;
+    pos->_z = x - y;
+    break;
+  case Grid :
+    pos->_x = x/3. - y;
+    pos->_y = y/2.;
+    pos->_z = 0;
+    break;
+  default :
+    assert(0);
+  }
+  /// This is the end
+  pos->_type = target;
 }
