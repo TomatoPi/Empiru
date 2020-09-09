@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=Cygwin-Windows
 CND_DLIB_EXT=dll
-CND_CONF=Release
+CND_CONF=Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -81,32 +81,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/empiru.exe: ${OBJECTFILES}
 ${OBJECTDIR}/src/gui/utils/Handler.o: src/gui/utils/Handler.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Handler.o src/gui/utils/Handler.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Handler.o src/gui/utils/Handler.cpp
 
 ${OBJECTDIR}/src/gui/utils/Sprite.o: src/gui/utils/Sprite.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite.o src/gui/utils/Sprite.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite.o src/gui/utils/Sprite.cpp
 
 ${OBJECTDIR}/src/gui/utils/Window.o: src/gui/utils/Window.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/gui/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window.o src/gui/utils/Window.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window.o src/gui/utils/Window.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 ${OBJECTDIR}/src/utils/hex/HexCamera.o: src/utils/hex/HexCamera.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera.o src/utils/hex/HexCamera.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera.o src/utils/hex/HexCamera.cpp
 
 ${OBJECTDIR}/src/utils/hex/HexCoords.o: src/utils/hex/HexCoords.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/utils/hex
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords.o src/utils/hex/HexCoords.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords.o src/utils/hex/HexCoords.cpp
 
 # Subprojects
 .build-subprojects:
@@ -123,13 +123,13 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/src/utils/hex/tests/HexTestClass.o ${TESTDIR
 ${TESTDIR}/src/utils/hex/tests/HexTestClass.o: src/utils/hex/tests/HexTestClass.cpp 
 	${MKDIR} -p ${TESTDIR}/src/utils/hex/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/src/utils/hex/tests/HexTestClass.o src/utils/hex/tests/HexTestClass.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/src/utils/hex/tests/HexTestClass.o src/utils/hex/tests/HexTestClass.cpp
 
 
 ${TESTDIR}/src/utils/hex/tests/HexTestRunner.o: src/utils/hex/tests/HexTestRunner.cpp 
 	${MKDIR} -p ${TESTDIR}/src/utils/hex/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/src/utils/hex/tests/HexTestRunner.o src/utils/hex/tests/HexTestRunner.cpp
+	$(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/src/utils/hex/tests/HexTestRunner.o src/utils/hex/tests/HexTestRunner.cpp
 
 
 ${OBJECTDIR}/src/gui/utils/Handler_nomain.o: ${OBJECTDIR}/src/gui/utils/Handler.o src/gui/utils/Handler.cpp 
@@ -140,7 +140,7 @@ ${OBJECTDIR}/src/gui/utils/Handler_nomain.o: ${OBJECTDIR}/src/gui/utils/Handler.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Handler_nomain.o src/gui/utils/Handler.cpp;\
+	    $(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Handler_nomain.o src/gui/utils/Handler.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/gui/utils/Handler.o ${OBJECTDIR}/src/gui/utils/Handler_nomain.o;\
 	fi
@@ -153,7 +153,7 @@ ${OBJECTDIR}/src/gui/utils/Sprite_nomain.o: ${OBJECTDIR}/src/gui/utils/Sprite.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite_nomain.o src/gui/utils/Sprite.cpp;\
+	    $(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Sprite_nomain.o src/gui/utils/Sprite.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/gui/utils/Sprite.o ${OBJECTDIR}/src/gui/utils/Sprite_nomain.o;\
 	fi
@@ -166,7 +166,7 @@ ${OBJECTDIR}/src/gui/utils/Window_nomain.o: ${OBJECTDIR}/src/gui/utils/Window.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window_nomain.o src/gui/utils/Window.cpp;\
+	    $(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/gui/utils/Window_nomain.o src/gui/utils/Window.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/gui/utils/Window.o ${OBJECTDIR}/src/gui/utils/Window_nomain.o;\
 	fi
@@ -179,7 +179,7 @@ ${OBJECTDIR}/src/main_nomain.o: ${OBJECTDIR}/src/main.o src/main.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main_nomain.o src/main.cpp;\
+	    $(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main_nomain.o src/main.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/main.o ${OBJECTDIR}/src/main_nomain.o;\
 	fi
@@ -192,7 +192,7 @@ ${OBJECTDIR}/src/utils/hex/HexCamera_nomain.o: ${OBJECTDIR}/src/utils/hex/HexCam
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera_nomain.o src/utils/hex/HexCamera.cpp;\
+	    $(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCamera_nomain.o src/utils/hex/HexCamera.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/utils/hex/HexCamera.o ${OBJECTDIR}/src/utils/hex/HexCamera_nomain.o;\
 	fi
@@ -205,7 +205,7 @@ ${OBJECTDIR}/src/utils/hex/HexCoords_nomain.o: ${OBJECTDIR}/src/utils/hex/HexCoo
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords_nomain.o src/utils/hex/HexCoords.cpp;\
+	    $(COMPILE.cc) -g -Isrc -Iinclude -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/hex/HexCoords_nomain.o src/utils/hex/HexCoords.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/utils/hex/HexCoords.o ${OBJECTDIR}/src/utils/hex/HexCoords_nomain.o;\
 	fi

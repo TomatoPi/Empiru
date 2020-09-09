@@ -26,7 +26,7 @@
 #define HANDLER_H
 
 
-#include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include "Window.h"
 
 #include "utils/hex/HexCamera.h"

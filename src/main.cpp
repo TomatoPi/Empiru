@@ -27,6 +27,7 @@
 #include "gui/utils/Sprite.h"
 #include "utils/hex/HexCamera.h"
 #include "gui/utils/Window.h"
+#include <SDL2/SDL_timer.h>
 
 #include "utils/log.h"
 #include "gui/utils/Handler.h"

@@ -6,6 +6,14 @@
 CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
+# Windows configuration
+CND_PLATFORM_Windows=Cygwin-Windows
+CND_ARTIFACT_DIR_Windows=dist/Windows/Cygwin-Windows
+CND_ARTIFACT_NAME_Windows=empiru
+CND_ARTIFACT_PATH_Windows=dist/Windows/Cygwin-Windows/empiru
+CND_PACKAGE_DIR_Windows=dist/Windows/Cygwin-Windows/package
+CND_PACKAGE_NAME_Windows=empiru.tar
+CND_PACKAGE_PATH_Windows=dist/Windows/Cygwin-Windows/package/empiru.tar
 # Release configuration
 CND_PLATFORM_Release=Cygwin-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/Cygwin-Windows

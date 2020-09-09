@@ -33,7 +33,7 @@ class HexCamera {
 public:
   
   static constexpr int HEXAGON_WIDTH  = 256;
-  static constexpr int HEXAGON_HEIGHT = 87;
+  static constexpr int HEXAGON_HEIGHT = 88;
   
 private:
   
