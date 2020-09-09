@@ -32,19 +32,20 @@
 
 using namespace std;
 
-/*
- * 
- */
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/2, 1080/2);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
-  HexCamera camera(sprite->width(), HexCamera::vfactor);
+  HexCamera camera(
+    HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
+    window->width, window->height);
   
-  LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %f,%f\n", 
+  LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
       window->width, window->height,
       sprite->width(), sprite->height(),
       camera.tileWidth(), camera.tileHeight());
+  
+  camera.target(FlatHexPosition(0,0,FlatHexPosition::Axial));
 
   window->clear();
   SDL_Rect rect;
@@ -53,31 +54,44 @@ int main(int argc, char** argv) {
   rect.x = 0;
   rect.y = 0;
   
-  OQOffsetPosition off;
-  GridPosition pos;
+  FlatHexPosition anchor, pos, off, vx, vy;
   
-  while(rect.x < window->width) {
-    off._lig = 0;
-    rect.y = 0;
-    while(rect.y < window->height) {
-      convertPosition(off, &pos);
-      camera.toPixel(pos, &(rect.x), &(rect.y));
-      LOG_DEBUG("OFF : (%d,%d)\nPOS : (%f,%f)\nPIX : (%d,%d)\n",
-          off._col, off._lig, pos._w, pos._h, rect.x, rect.y);
-      if (sprite->renderFrame(window->renderer, &rect)) {
-        LOG_WRN("%s\n", SDL_GetError());
-        OUPS();
+  camera.upLeftCorner(&anchor);
+  camera.viewPortAxis(&vx, &vy);
+  LOG_DEBUG("Anchor : %s\nVx : %s\n Vy : %s\n", 
+      anchor.toString().c_str(),
+      vx.toString().c_str(),
+      vy.toString().c_str());
+  
+  while((rect.y - rect.h) < window->height) {
+    pos = anchor;
+    rect.x = 0;
+    while(rect.x < window->width) {
+      camera.tileCenter(pos, &(rect.x), &(rect.y));
+      pos.convert(FlatHexPosition::OddQOffset, &off);
+      LOG_DEBUG("Anchor : %s\nPOS : %s\nOFF : %s\nRECT : %d,%d\n",
+          anchor.toString().c_str(),
+          pos.toString().c_str(),
+          off.toString().c_str(),
+          rect.x, rect.y);
+      if (0 <= off._x && 0 <= off._y) {
+        rect.y += 0.5 * camera.tileHeight() - rect.h;
+        rect.x -= camera.tileWidth() * 0.5;
+        if (sprite->renderFrame(window->renderer, &rect)) {
+          LOG_WRN("%s\n", SDL_GetError());
+          OUPS();
+        }
       }
-      off._lig++;
+      pos = pos + vx;
     }
-    off._col++;
-    convertPosition(off, &pos);
-    camera.toPixel(pos, &(rect.x), &(rect.y));
+    LOG_DEBUG("=========================\n");
+    anchor = anchor + vy;
+    camera.tileCenter(anchor, &(rect.x), &(rect.y));
   }
   
   window->update();
   
-  while(1);
+  while(!window->quitRequest());
   
   return 0;
 }

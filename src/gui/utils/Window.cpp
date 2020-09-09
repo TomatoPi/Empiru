@@ -76,3 +76,13 @@ void Window::clear() {
 void Window::update() {
   SDL_RenderPresent(renderer);
 }
+bool Window::quitRequest() {
+  SDL_Event event;
+  if (SDL_PollEvent(&event)) {
+    switch(event.type) {
+    case SDL_QUIT:
+      return true;
+    }
+  }
+  return false;
+}
