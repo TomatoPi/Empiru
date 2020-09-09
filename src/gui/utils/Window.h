@@ -52,6 +52,9 @@ public:
   /// \brief Update the screen
   void update();
   
+  /// \brief Request to quit the window
+  bool quitRequest();
+  
 private:
   /// \brief Constructor
   Window(SDL_Window *window, SDL_Renderer *renderer, int w, int h);

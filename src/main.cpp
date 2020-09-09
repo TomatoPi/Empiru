@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
   
   window->update();
   
-  while(1);
+  while(!window->quitRequest());
   
   return 0;
 }
