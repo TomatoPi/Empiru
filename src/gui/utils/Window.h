@@ -53,7 +53,7 @@ public:
   void update();
   
   /// \brief Request to quit the window
-  bool quitRequest();
+  void quitRequest();
   
 private:
   /// \brief Constructor
