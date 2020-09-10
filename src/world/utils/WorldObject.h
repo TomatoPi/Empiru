@@ -28,7 +28,7 @@
 #include "utils/hex/HexCoords.h"
 
 class WorldObject {
-private :
+private:
   // Des trucs mais probablement :
   FlatHexPosition _pos;
   
