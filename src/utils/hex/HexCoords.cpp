@@ -206,3 +206,11 @@ std::string FlatHexPosition::systemString(System s) {
     return "";
   }
 }
+
+void FlatHexPosition::multiply(float a, float b, float c, float d) {
+  float x, y;
+  x = a * _x + b * _y;
+  y = c * _x + d * _y;
+  _x = x;
+  _y = y;
+}

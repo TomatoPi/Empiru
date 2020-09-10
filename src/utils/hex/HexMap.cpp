@@ -32,8 +32,8 @@ HexMap::HexMap(
   _worldHeight(worldHeight)
     
 {
-  // assert(0 < worldWidth);
-  // assert(0 < worldHeight);
+  assert(0 < worldWidth);
+  assert(0 < worldHeight);
 }
 
 

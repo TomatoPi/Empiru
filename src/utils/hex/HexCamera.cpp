@@ -38,7 +38,8 @@
 HexCamera::HexCamera(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,
-    int worldWidth, int worldHeight) :
+    int worldWidth, int worldHeight,
+    int orientation) :
 
   _tileWidth(tileWidth),
   _tileHeight(tileHeight),
@@ -55,7 +56,9 @@ HexCamera::HexCamera(
   _pos(FlatHexPosition::Axial),
     
   _vx(1, -0.5, FlatHexPosition::Axial),
-  _vy(0, 1, FlatHexPosition::Axial)
+  _vy(0, 1, FlatHexPosition::Axial),
+    
+  _orientation(0)
 {
   assert(0 < tileWidth);
   assert(0 < tileHeight);
@@ -172,4 +175,35 @@ void HexCamera::update() {
     pos.convert(FlatHexPosition::Axial);
     _pos = pos;
   }
+}
+
+int HexCamera::getOrientation() {
+  return _orientation;
+}
+
+void HexCamera::setOrientation(int incrementation) {
+  /// vecteur rotation gauche : x : 1->1 / y : -1->0
+  ///vecteur rotation droite : x :  ->  / y :  ->  
+  _orientation += incrementation;
+  if (_orientation == -1) {
+    _orientation = 5;
+  }
+  if (_orientation == 6) {
+    _orientation = 0;
+  }
+  LOG_DEBUG("caméra in setOri : %d \n", _orientation);
+}
+
+void HexCamera::rotateRight() {
+  setOrientation(1);
+  _vx.multiply(1, 1, -1, 0);
+  _vy.multiply(1, 1, -1, 0);
+  _viewport.multiply(1, 1, -1, 0);
+}
+
+void HexCamera::rotateLeft() {
+  setOrientation(-1);
+  _vx.multiply(0, -1, 1, 1);
+  _vy.multiply(0, -1, 1, 1);
+  _viewport.multiply(0, -1, 1, 1);
 }
