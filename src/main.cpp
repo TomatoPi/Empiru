@@ -53,9 +53,10 @@ int main(int argc, char** argv) {
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
     window->width, window->height,
-    SIZE, SIZE);
+    SIZE, SIZE, 0);
   
   Handler handler(&camera, window);
+  
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
       window->width, window->height,

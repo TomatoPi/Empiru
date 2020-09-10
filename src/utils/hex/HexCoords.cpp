@@ -233,3 +233,11 @@ bool HCEquals::operator() (const FlatHexPosition &a, const FlatHexPosition &b) c
   FlatHexPosition pos2 = b.tile();
   return pos==pos2;
 }
+
+void FlatHexPosition::multiply(float a, float b, float c, float d) {
+  float x, y;
+  x = a * _x + b * _y;
+  y = c * _x + d * _y;
+  _x = x;
+  _y = y;
+}
