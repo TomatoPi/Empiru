@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// 
-/// \file   main.cpp
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
-///
-/// \date 6 septembre 2020, 17:18
-///
+/* 
+ * File:   rdr.cpp
+ * Author: DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ *
+ * Created on 10 septembre 2020, 15:08
+ */
 
-#include <cstdlib>
+#include <stdlib.h>
+#include <iostream>
 
 #include "gui/utils/Sprite.h"
 #include "utils/hex/HexCamera.h"
 #include "gui/utils/Window.h"
-#include "gui/renderer/WorldRenderer.h"
 #include <SDL2/SDL_timer.h>
 
 #include "utils/log.h"
@@ -36,10 +36,8 @@
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
 
-#define SIZE 8
+#define SIZE 3
 #define FACTOR 2
-
-using namespace std;
 
 int main(int argc, char** argv) {
 
@@ -57,9 +55,7 @@ int main(int argc, char** argv) {
       sprite->width(), sprite->height(),
       camera.tileWidth(), camera.tileHeight());
   
-  camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
-  
-  WorldRenderer rdr(window, &camera, sprite);
+  camera.target(FlatHexPosition(0,0,FlatHexPosition::Axial));
   
   
   /// \bug Bug d'affichage, les cases sur les bords gauche et haut ne s'affichent pas toujours
@@ -74,8 +70,48 @@ int main(int argc, char** argv) {
     camera.update();
 
     window->clear();
-    
-    rdr.render();
+    SDL_Rect rect;
+    rect.w = sprite->width();
+    rect.h = sprite->height();
+    rect.x = 0;
+    rect.y = 0;
+
+    FlatHexPosition anchor, pos, off, vx, vy;
+
+    camera.upLeftCorner(&anchor);
+    camera.viewPortAxis(&vx, &vy);
+//    LOG_DEBUG("Anchor : %s\nVx : %s\n Vy : %s\n", 
+//        anchor.toString().c_str(),
+//        vx.toString().c_str(),
+//        vy.toString().c_str());
+
+    while((rect.y-rect.h) < window->height) {
+      pos = anchor;
+      rect.x = 0;
+      while(rect.x < window->width) {
+        camera.tileCenter(pos, &(rect.x), &(rect.y));
+        pos.convert(FlatHexPosition::OddQOffset, &off);
+        off.tile().convert(FlatHexPosition::OddQOffset);
+//        LOG_DEBUG("Anchor : %s\nPOS : %s\nOFF : %s\nRECT : %d,%d\n",
+//            anchor.toString().c_str(),
+//            pos.toString().c_str(),
+//            off.toString().c_str(),
+//            rect.x, rect.y);
+        if (0 <= off._x && 0 <= off._y && off._x < SIZE && off._y < SIZE) {
+//          LOG_WRN("DRAW\n");
+          rect.y += 0.5 * camera.tileHeight() - rect.h;
+          rect.x -= sprite->width() / 2;
+          if (sprite->renderFrame(window->renderer, &rect)) {
+            LOG_WRN("%s\n", SDL_GetError());
+            OUPS();
+          }
+        }
+        pos = pos + vx;
+      }
+//      LOG_DEBUG("=========================\n");
+      anchor = anchor + vy;
+      camera.tileCenter(anchor, &(rect.x), &(rect.y));
+    }
 
     window->update();
     
@@ -91,6 +127,6 @@ int main(int argc, char** argv) {
   delete sprite;
   delete window;
   
-  return 0;
+  return EXIT_SUCCESS;
 }
 
