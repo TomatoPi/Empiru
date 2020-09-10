@@ -25,15 +25,18 @@
 #ifndef HEXMAP_H
 #define HEXMAP_H
 
+#include "world/utils/WorldObject.h"
 #include "gui/utils/Window.h"
 #include <unordered_set>
 
 class HexMap {
 private:
-    int _worldWidth;  ///< World's width in tile count
-    int _worldHeight; ///< World height in tile count
-    
-    
+  int _worldWidth;  ///< World's width in tile count
+  int _worldHeight; ///< World height in tile count
+
+  typedef std::unordered_set<WorldObject, WOTileHasher, WOTileEquals> WorldObjectSet;
+
+  WorldObjectSet _map;
   
 public:
   
