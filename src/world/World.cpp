@@ -56,6 +56,16 @@ std::string World::toString() const{
     .append(", Map Width : ")
     .append(std::to_string(_mapWidth))
     .append("]\n");
+  
+  for (auto & itr : _objects){
+    ts.append(std::to_string(itr.second.pos()._x))
+      .append("/")
+      .append(std::to_string(itr.second.pos()._y))
+      .append("/")
+      .append(std::to_string(itr.second.pos()._y))
+      .append("\n");
+  }
+  /*
   for(int i = 0; i <_mapHeight*_mapWidth;i++){
     if (i%_mapWidth == 0){
       ts = ts.append("\n");
@@ -63,6 +73,7 @@ std::string World::toString() const{
     ts.append(std::to_string(_map[i]))
       .append(" ");
   }
+  */
   ts.append("\n");
   /*for(Tile wo : _objects){
     ts.append(wo.toString()).append("\n");

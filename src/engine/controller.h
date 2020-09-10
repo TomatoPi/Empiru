@@ -17,7 +17,7 @@
 
 /* 
  * File:   controller.h
- * Author: Alexis
+ * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
  *
  * Created on 10 septembre 2020, 17:18
  */

@@ -26,6 +26,7 @@
 #define WORLD_H
 #include <unordered_map>
 #include "Tile.h"
+#include "utils/log.h"
 
 class World {
 private :

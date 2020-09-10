@@ -33,6 +33,7 @@
 #include "utils/log.h"
 #include "gui/utils/Handler.h"
 #include "entity/peon.h"
+#include "world/utils/World.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -49,6 +50,11 @@ int main(int argc, char** argv) {
   //Modif péon <--------------------------------------------------
   Sprite *s_peon = Sprite::loadFromFile("medias/peon.png",window->renderer);
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
+  Peon peon2(FlatHexPosition(1,1,FlatHexPosition::Axial));
+  World map_test(SIZE,SIZE);
+  map_test.addObject(&peon);
+  map_test.addObject(&peon2);
+  LOG_DEBUG("TEST MAP : %s \n",map_test.toString().c_str());
   //--------------------------------------------------------------
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,

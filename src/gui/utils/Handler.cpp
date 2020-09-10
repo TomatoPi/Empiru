@@ -24,6 +24,8 @@
 
 #include "Handler.h"
 #include "utils/log.h"
+#include "../../world/utils/World.h"
+#include "../../engine/controller.h"
 
 #define MERGE 50
 
@@ -121,6 +123,11 @@ bool Handler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   LOG_TODO("Fonction temporaire pouet\n");
   FlatHexPosition pos;
   _camera->fromPixel(event.x, event.y, &pos);
+  for (auto & itr : _objects){
+    if (pos._x ){
+    
+    }
+  }
   LOG_DEBUG("Pouet : %s\n", pos.toString().c_str());
   pos.convert(FlatHexPosition::OddQOffset);
   LOG_DEBUG("Pouat : %s\n", pos.toString().c_str());
