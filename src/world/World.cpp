@@ -25,6 +25,7 @@
 #include <cassert>
 
 #include "utils/World.h"
+#include "engine/controller.h"
 
 World::World(int mapWidth, int mapHeight) : 
     _objects(),
@@ -38,8 +39,14 @@ World::World(int mapWidth, int mapHeight) :
   }
 }
 
-void World::addObject(Tile obj){
-  _objects.insert(obj);
+void World::addObject(Peon pitou){
+  FlatHexPosition pitou_pos = pitou.pos();
+  if (_objects.find(pitou_pos) != _objects.end()){
+    _objects.find(pitou_pos).insert();
+  }else{
+    _objects.insert(std::make_pair(pitou_pos,pitou));
+    _objects.find(pitou_pos).insert(std::make_pair(pitou_pos,pitou));
+  }
 }
 
 std::string World::toString() const{
@@ -56,8 +63,8 @@ std::string World::toString() const{
       .append(" ");
   }
   ts.append("\n");
-  for(Tile wo : _objects){
+  /*for(Tile wo : _objects){
     ts.append(wo.toString()).append("\n");
-  }
+  }*/
   return ts.append("\n");
 }

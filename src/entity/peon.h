@@ -37,6 +37,8 @@ class Peon {
     
     Peon(const FlatHexPosition & pos);
     
+    std::string toString() const;
+    
     const FlatHexPosition & pos() const;
 };
 

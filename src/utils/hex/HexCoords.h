@@ -88,4 +88,14 @@ struct FlatHexPosition {
   static std::string systemString(System s);
 };
 
+class HCHasher {
+public :
+  std::size_t operator() (const FlatHexPosition &obj) const;
+};
+
+class HCEquals {
+public :
+  bool operator() (const FlatHexPosition &a, const FlatHexPosition &b) const;
+};
+
 #endif /* HEXCOORDS_H */

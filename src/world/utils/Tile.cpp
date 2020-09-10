@@ -16,42 +16,34 @@
  */
 
 /// 
-/// \file   WorldObject.h
+/// \file   WorldObject.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 10 septembre 2020, 13:49
 ///
+#include <cassert>
+#include "Tile.h"
 
-#ifndef WORLDOBJECT_H
-#define WORLDOBJECT_H
+Tile::Tile(FlatHexPosition pos) : 
+  _pos(pos),
+  _entity_vector(){}
 
-#include "utils/hex/HexCoords.h"
+Tile::Tile(FlatHexPosition pos, Peon pitou) : 
+  _pos(pos),_entity_vector(){
+  _entity_vector.insert(&pitou);
+}
 
-class Tile {
-private :
-  // Des trucs mais probablement :
-  FlatHexPosition _pos;
-  std::vector _entity_vector;
-  
-public:
-  
-  Tile(FlatHexPosition pos);
-  
-  const FlatHexPosition & pos() const;
-  
-  std::string toString() const;
-};
-  
+const FlatHexPosition & Tile::pos() const {
+  return _pos;
+}
 
+ void Tile::insert(Peon pitou){
+    _entity_vector.insert(&pitou);
+  }
 
-class WOTileHasher {
-public :
-  std::size_t operator() (const Tile &obj) const;
-};
+std::string Tile::toString() const{
+  std::string ts = "{";
+  return ts.append(_pos.toString())
+      .append("}");
+}
 
-class WOTileEquals {
-public :
-  bool operator() (const Tile &a, const Tile &b) const;
-};
-
-#endif /* WORLDOBJECT_H */

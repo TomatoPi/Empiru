@@ -24,7 +24,7 @@
 
 #include "controller.h"
 
-Controller::Controller(Peon * peon) : _peon(nullptr)
+Controller::Controller() : _peon(nullptr)
 {
   
 }
@@ -34,5 +34,5 @@ void Controller::selectPeon(Peon * peon) {
 }
 
 Peon * Controller::selectedPeon(){
-  
+  return nullptr;
 }
