@@ -28,9 +28,9 @@
 #include "engine/controller.h"
 
 World::World(int mapWidth, int mapHeight) : 
-    _objects(),
     _mapWidth(mapWidth),
-    _mapHeight(mapHeight){
+    _mapHeight(mapHeight),
+    _objects(){
   assert(0 < mapWidth);
   assert(0 < mapHeight);
   _map = new int[mapWidth*mapHeight];
@@ -39,13 +39,12 @@ World::World(int mapWidth, int mapHeight) :
   }
 }
 
-void World::addObject(Peon pitou){
-  FlatHexPosition pitou_pos = pitou.pos();
+void World::addObject(Peon* pitou){
+  FlatHexPosition pitou_pos = pitou->pos();
   if (_objects.find(pitou_pos) != _objects.end()){
-    _objects.find(pitou_pos).insert();
+    _objects.find(pitou_pos)->second.insert(pitou);
   }else{
-    _objects.insert(std::make_pair(pitou_pos,pitou));
-    _objects.find(pitou_pos).insert(std::make_pair(pitou_pos,pitou));
+    _objects.insert(std::make_pair(pitou_pos,Tile(pitou_pos,pitou)));
   }
 }
 

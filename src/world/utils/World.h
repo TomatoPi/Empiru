@@ -43,7 +43,7 @@ public :
   
   ///\brief Add an object to the world set
   ///\param obj :  object to add
-  void addObject(Peon pitou);
+  void addObject(Peon* pitou);
 
   
   ///\brief toString

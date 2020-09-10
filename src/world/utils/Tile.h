@@ -40,11 +40,11 @@ private :
 public:
   
   Tile(FlatHexPosition pos);
-  Tile(FlatHexPosition pos,Peon pitou);
+  Tile(FlatHexPosition pos,Peon* pitou);
   
   const FlatHexPosition & pos() const;
   
- void insert(Peon pitou);
+ void insert(Peon* pitou);
   
   std::string toString() const;
 };
