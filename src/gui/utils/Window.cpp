@@ -64,15 +64,18 @@ Window * Window::createWindow(int width, int height) {
   }
   return new Window(window, renderer, width, height);
 }
+
 Window::~Window() {
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();
 }
+
 void Window::clear() {
   SDL_SetRenderDrawColor(renderer, 128, 128, 128, SDL_ALPHA_OPAQUE);
   SDL_RenderClear(renderer);
 }
+
 void Window::update() {
   SDL_RenderPresent(renderer);
 }
