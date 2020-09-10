@@ -155,8 +155,8 @@ void HexCamera::update() {
     pos.convert(FlatHexPosition::Grid);
     if (pos._x < 0) {
       pos._x = 0;
-    } else if (_worldWidth*4 < ceil(pos._x+6)) {
-      pos._x = _worldWidth*4 -6;
+    } else if (_worldWidth*3 < (pos._x+3)) {
+      pos._x = _worldWidth*3 -3;
     }
     pos.convert(FlatHexPosition::Axial);
     _pos = pos;

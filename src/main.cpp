@@ -35,7 +35,7 @@
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
 
-#define SIZE 16
+#define SIZE 3
 #define FACTOR 2
 
 using namespace std;
@@ -119,8 +119,10 @@ int main(int argc, char** argv) {
       SDL_Delay(FRAMETIME - tickEllapsedTime);
     }
   }
+  
   delete sprite;
   delete window;
+  
   return 0;
 }
 
