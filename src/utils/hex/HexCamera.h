@@ -29,6 +29,7 @@
 #include "utils/hex/HexCoords.h"
 
 /// \brief Utility object containing position, orientation and zoom of the camera
+/// \todo Create one or two interface / abstract classes to make external code independant of final implementation
 class HexCamera {
 public:
   

@@ -57,6 +57,11 @@ int main(int argc, char** argv) {
       camera.tileWidth(), camera.tileHeight());
   
   camera.target(FlatHexPosition(0,0,FlatHexPosition::Axial));
+  
+  
+  /// \bug Bug d'affichage, les cases sur les bords gauche et haut ne s'affichent pas toujours
+  /// Car si la case HautGauche est trop hors de l'ecran
+  /// ces cases ne sont pas parcourues lors du rendu
 
   long tickStartTime, tickEllapsedTime;
   while(handler.handleSDLEvents()) {

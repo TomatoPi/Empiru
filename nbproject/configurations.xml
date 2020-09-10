@@ -4,6 +4,13 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <logicalFolder name="brainstorm" displayName="brainstorm" projectFiles="true">
+        <itemPath>implementation_0</itemPath>
+        <itemPath>brainstorm/prototype_0</itemPath>
+      </logicalFolder>
+      <logicalFolder name="medias" displayName="medias" projectFiles="true">
+        <itemPath>medias/sol.png</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -43,9 +50,15 @@
                    displayName="Important Files"
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>.gitignore</itemPath>
       <itemPath>Makefile</itemPath>
+      <itemPath>doxyconfig</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>medias</Elem>
+    <Elem>brainstorm</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Windows" type="1" platformSpecific="true">
@@ -75,6 +88,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
@@ -89,6 +104,10 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="implementation_0" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
@@ -163,6 +182,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
@@ -177,6 +198,10 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="implementation_0" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
@@ -233,6 +258,8 @@
           <commandLine>-lSDL2 -lSDL2_image</commandLine>
         </linkerTool>
       </compileType>
+      <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles">
         <ccTool>
           <incDir>
@@ -258,6 +285,10 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="implementation_0" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
