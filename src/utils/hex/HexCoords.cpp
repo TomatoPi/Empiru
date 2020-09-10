@@ -221,3 +221,15 @@ std::string FlatHexPosition::systemString(System s) {
     return "";
   }
 }
+
+std::size_t HCHasher::operator() (const FlatHexPosition &obj) const {
+  FlatHexPosition pos = obj.tile();
+  pos.convert(FlatHexPosition::Axial);
+  return (size_t)pos._x^((size_t)pos._y<<1);
+}
+
+bool HCEquals::operator() (const FlatHexPosition &a, const FlatHexPosition &b) const {
+  FlatHexPosition pos = a.tile();
+  FlatHexPosition pos2 = b.tile();
+  return pos==pos2;
+}

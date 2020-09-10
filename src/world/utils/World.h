@@ -24,15 +24,15 @@
 
 #ifndef  WORLD_H
 #define WORLD_H
-#include <unordered_set>
-#include "WorldObject.h"
+#include <unordered_map>
+#include "Tile.h"
 
 class World {
 private :
   int _mapWidth;
   int _mapHeight;
   int* _map; /* Use for path finding and printing */
-  typedef std::unordered_set<Tile,WOTileHasher,WOTileEquals> objList;
+  typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> objList;
   objList _objects; /*  */
  
 public :
@@ -43,7 +43,8 @@ public :
   
   ///\brief Add an object to the world set
   ///\param obj :  object to add
-  void addObject(Tile obj);
+  void addObject(Peon pitou);
+
   
   ///\brief toString
   std::string toString() const;

@@ -22,15 +22,24 @@
 /// \date 10 septembre 2020, 13:49
 ///
 #include <cassert>
-#include "WorldObject.h"
+#include "Tile.h"
 
 Tile::Tile(FlatHexPosition pos) : 
-  _pos(pos){}
+  _pos(pos),
+  _entity_vector(){}
+
+Tile::Tile(FlatHexPosition pos, Peon pitou) : 
+  _pos(pos),_entity_vector(){
+  _entity_vector.insert(&pitou);
+}
 
 const FlatHexPosition & Tile::pos() const {
   return _pos;
 }
 
+ void Tile::insert(Peon pitou){
+    _entity_vector.insert(&pitou);
+  }
 
 std::string Tile::toString() const{
   std::string ts = "{";
@@ -38,12 +47,3 @@ std::string Tile::toString() const{
       .append("}");
 }
 
-std::size_t WOTileHasher::operator() (const Tile &obj) const {
-  FlatHexPosition pos = obj.pos().tile();
-  pos.convert(FlatHexPosition::Axial);
-  return (size_t)pos._x^((size_t)pos._y<<1);
-}
-
-bool WOTileEquals::operator() (const Tile &a, const Tile &b) const {
-  return a.pos().tile() == b.pos().tile();
-}

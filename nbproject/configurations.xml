@@ -31,17 +31,14 @@
           <itemPath>src/utils/hex/HexCamera.h</itemPath>
           <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
           <itemPath>src/utils/hex/HexCoords.h</itemPath>
-          <itemPath>src/utils/hex/HexMap.cpp</itemPath>
-          <itemPath>src/utils/hex/HexMap.h</itemPath>
         </logicalFolder>
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
+        <itemPath>src/world/utils/Tile.cpp</itemPath>
+        <itemPath>src/world/utils/Tile.h</itemPath>
         <itemPath>src/world/World.cpp</itemPath>
         <itemPath>src/world/utils/World.h</itemPath>
-
-        <itemPath>src/world/utils/WorldObject.cpp</itemPath>
-        <itemPath>src/world/utils/WorldObject.h</itemPath>
       </logicalFolder>
       <itemPath>src/engine/controller.cpp</itemPath>
       <itemPath>src/engine/controller.h</itemPath>
@@ -57,7 +54,6 @@
         <itemPath>tests/newsimpletest.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="PeonTest" projectFiles="true" kind="TEST">
-        <itemPath>tests/newsimpletest.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -112,25 +108,12 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f2</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f2">
-        <cTool>
-          <incDir>
             <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -170,19 +153,15 @@
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexMap.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/hex/HexMap.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/world/utils/Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/utils/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/world/utils/World.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -232,25 +211,12 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f2</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f2">
-        <cTool>
-          <incDir>
             <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -290,19 +256,15 @@
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexMap.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/hex/HexMap.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/world/utils/Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/utils/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/world/utils/World.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -346,25 +308,12 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f2</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f2">
-        <cTool>
-          <incDir>
             <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -404,19 +353,15 @@
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexMap.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/hex/HexMap.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/world/utils/Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/utils/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/world/utils/World.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>

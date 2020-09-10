@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 PORTEFAIX Maxime <portefaix.maxime@gmail.com>
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,29 +16,38 @@
  */
 
 /// 
-/// \file   HexMap.cpp
-/// \author PORTEFAIX Maxime <portefaix.maxime@gmail.com>
+/// \file   WorldObject.h
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 10:38
+/// \date 10 septembre 2020, 13:49
 ///
 
-#include "HexMap.h"
-#include <cassert>
+#ifndef WORLDOBJECT_H
+#define WORLDOBJECT_H
 
-/// \brief Constructor
-HexMap::HexMap(
-    int worldWidth, int worldHeight) :
-  _worldWidth(worldWidth),
-  _worldHeight(worldHeight)
-    
-{
-  // assert(0 < worldWidth);
-  // assert(0 < worldHeight);
-}
+#include <vector>
+
+#include "utils/hex/HexCoords.h"
+#include "entity/peon.h"
 
 
+class Tile {
+private :
+  // Des trucs mais probablement :
+  FlatHexPosition _pos;
+  std::vector<Peon*> _entity_vector;
+  
+public:
+  
+  Tile(FlatHexPosition pos);
+  Tile(FlatHexPosition pos,Peon pitou);
+  
+  const FlatHexPosition & pos() const;
+  
+ void insert(Peon pitou);
+  
+  std::string toString() const;
+};
+  
 
-
-HexMap * HexMap::generateFlatMap(int worldWidth, int worldHeight) {
-    return new HexMap(worldWidth, worldHeight);
-}
+#endif /* WORLDOBJECT_H */
