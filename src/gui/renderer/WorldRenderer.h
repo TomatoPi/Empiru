@@ -16,39 +16,35 @@
  */
 
 /// 
-/// \file   WorldObject.cpp
+/// \file   WorldRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 13:49
+/// \date 10 septembre 2020, 14:56
+/// \brief Core object of rendering engine
 ///
-#include <cassert>
-#include "Tile.h"
 
-Tile::Tile(FlatHexPosition pos) : 
-  _pos(pos),
-  _entity_vector(){}
+#ifndef WORLDRENDERER_H
+#define WORLDRENDERER_H
 
-Tile::Tile(FlatHexPosition pos, Peon *pitou) : 
-  _pos(pos),_entity_vector(){
-  _entity_vector.push_back(pitou);
-}
+#include "gui/utils/Window.h"
+#include "utils/hex/HexCamera.h"
+#include "gui/utils/Sprite.h"
 
-const FlatHexPosition & Tile::pos() const {
-  return _pos;
-}
+class WorldRenderer {
+private:
+  
+  Window *_window;
+  HexCamera *_camera;
+  Sprite *_tileSprite;
+  /// \todo WorldMap *_map;
+  
+public:
+  
+  /// \brief Constructor
+  WorldRenderer(Window *w, HexCamera *c, Sprite *t);
+  
+  /// \brief Draw EVERYTHINGS (in the world)
+  void render();
+};
 
-
- void Tile::insert(Peon *pitou){
-    _entity_vector.push_back(pitou);
-  }
-
- const std::vector<Peon*> Tile::getVector(){
-   return _entity_vector;
- }
- 
-std::string Tile::toString() const{
-  std::string ts = "{";
-  return ts.append(_pos.toString())
-      .append("}");
-}
-
+#endif /* WORLDRENDERER_H */

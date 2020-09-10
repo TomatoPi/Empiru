@@ -26,7 +26,6 @@
 
 Controller::Controller() : _peon(nullptr)
 {
-  
 }
 
 void Controller::selectPeon(Peon * peon) {

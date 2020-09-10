@@ -32,8 +32,8 @@ private :
   int _mapWidth;
   int _mapHeight;
   int* _map; /* Use for path finding and printing */
-  typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> objList;
-  objList _objects; /*  */
+  typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
+  ObjList _objects; /*  */
  
 public :
   ///\brief Constructor
@@ -44,6 +44,7 @@ public :
   ///\brief Add an object to the world set
   ///\param obj :  object to add
   void addObject(Peon* pitou);
+
 
   const std::vector<Peon*> getVectorFromPos(FlatHexPosition pos);
   

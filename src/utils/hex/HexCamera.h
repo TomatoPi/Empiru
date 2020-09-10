@@ -33,8 +33,8 @@
 class HexCamera {
 public:
   
-  static constexpr int HEXAGON_WIDTH  = 256;
-  static constexpr int HEXAGON_HEIGHT = 88;
+  static constexpr int HEXAGON_WIDTH  = 254;
+  static constexpr int HEXAGON_HEIGHT = 87;
   
 private:
   
@@ -55,6 +55,8 @@ private:
   FlatHexPosition _vx;  ///< Viewport's Horizontal vector
   FlatHexPosition _vy;  ///< Viewport's Vertical vector
   
+  int _orientation; ///< Camera's orientation : [0; 5]
+  
 public:
   
   /// \brief Constructor
@@ -67,7 +69,8 @@ public:
   HexCamera(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,
-    int worldWidth, int worldHeight);
+    int worldWidth, int worldHeight,
+    int orientation);
   
   /// \brief Convert a position on grid to a position on the screen
   void toPixel(const FlatHexPosition & pos, int *x, int *y) const;
@@ -108,6 +111,14 @@ public:
   void stopUDScroll();///< Stop Up or Down scrolling
   
   void update(); ///< Update camera position according to scroll
+  
+  int getOrientation(); ///< Get the camera orientation between 0 and 5 (include)
+  
+  void rotateRight(); ///< Rotation of 60° to the right
+  
+  void rotateLeft(); ///< Rotation of 60° to the left
+  
+  void setOrientation(int incrementation); ///< Incr/Decr the orientation between 0 and 5 (include)
 };
 
 #endif /* HEXCAMERA_H */

@@ -30,7 +30,6 @@
 #include "utils/hex/HexCoords.h"
 #include "entity/peon.h"
 
-
 class Tile {
 private :
   // Des trucs mais probablement :
@@ -45,6 +44,7 @@ public:
   const FlatHexPosition & pos() const;
   
  void insert(Peon* pitou);
+
   
  const std::vector<Peon*> getVector();
  

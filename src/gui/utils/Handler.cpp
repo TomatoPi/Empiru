@@ -92,6 +92,13 @@ bool Handler::handleKeyDown(const SDL_KeyboardEvent & key) {
     case SDLK_LEFT:
       _camera->scrollLeft();
       break;
+    case SDLK_a:
+      _camera->rotateLeft();
+      LOG_DEBUG("camera n° : %d \n", _camera->getOrientation());
+      break;
+    case SDLK_e:
+      _camera->rotateRight();
+      break;
   }
   return true;
 }
