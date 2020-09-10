@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 PORTEFAIX Maxime <portefaix.maxime@gmail.com>
+ * Copyright (C) 2020 Alexis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,30 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// 
-/// \file   HexMap.cpp
-/// \author PORTEFAIX Maxime <portefaix.maxime@gmail.com>
-///
-/// \date 10 septembre 2020, 10:38
-///
+/* 
+ * File:   peon.cpp
+ * Author: Alexis
+ * 
+ * Created on 10 septembre 2020, 16:08
+ */
 
-#include "HexMap.h"
-#include <cassert>
+#include "peon.h"
 
-/// \brief Constructor
-HexMap::HexMap(
-    int worldWidth, int worldHeight) :
-  _worldWidth(worldWidth),
-  _worldHeight(worldHeight)
-    
+Peon::Peon(const FlatHexPosition & pos) : _pos(pos)
 {
-  // assert(0 < worldWidth);
-  // assert(0 < worldHeight);
+  
 }
 
-
-
-
-HexMap * HexMap::generateFlatMap(int worldWidth, int worldHeight) {
-    return new HexMap(worldWidth, worldHeight);
+const FlatHexPosition & Peon::pos() const {
+  return _pos;
 }

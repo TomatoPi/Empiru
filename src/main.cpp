@@ -32,6 +32,7 @@
 
 #include "utils/log.h"
 #include "gui/utils/Handler.h"
+#include "entity/peon.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -45,6 +46,11 @@ int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
+  //Modif péon <--------------------------------------------------
+  Sprite *s_peon = Sprite::loadFromFile("medias/peon.png",window->renderer);
+  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
+  SDL_MouseButtonEvent test_event;
+  //--------------------------------------------------------------
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
     window->width, window->height,
@@ -74,7 +80,7 @@ int main(int argc, char** argv) {
     camera.update();
 
     window->clear();
-    
+
     rdr.render();
 
     window->update();
@@ -89,6 +95,9 @@ int main(int argc, char** argv) {
   }
   
   delete sprite;
+  //Modif péon <--------------------------------------------------
+  delete s_peon;
+  //--------------------------------------------------------------
   delete window;
   
   return 0;

@@ -21,19 +21,29 @@
 ///
 /// \date 10 septembre 2020, 13:49
 ///
-
+#include <cassert>
 #include "WorldObject.h"
 
-const FlatHexPosition & WorldObject::pos() const {
+Tile::Tile(FlatHexPosition pos) : 
+  _pos(pos){}
+
+const FlatHexPosition & Tile::pos() const {
   return _pos;
 }
 
-std::size_t WOTileHasher::operator() (const WorldObject & obj) const {
-  // renvoyer un hash des coordonées
-  return 0;
+
+std::string Tile::toString() const{
+  std::string ts = "{";
+  return ts.append(_pos.toString())
+      .append("}");
 }
 
-bool WOTileEquals::operator() (const WorldObject & a, const WorldObject & b) const {
-  // return true si sur la meme tuile
-  return false;
+std::size_t WOTileHasher::operator() (const Tile &obj) const {
+  FlatHexPosition pos = obj.pos().tile();
+  pos.convert(FlatHexPosition::Axial);
+  return (size_t)pos._x^((size_t)pos._y<<1);
+}
+
+bool WOTileEquals::operator() (const Tile &a, const Tile &b) const {
+  return a.pos().tile() == b.pos().tile();
 }

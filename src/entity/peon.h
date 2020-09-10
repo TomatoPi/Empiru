@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ * Copyright (C) 2020 Alexis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,43 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// 
-/// \file   WorldObject.h
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
-///
-/// \date 10 septembre 2020, 13:49
-///
+/* 
+ * File:   peon.h
+ * Author: Alexis
+ *
+ * Created on 10 septembre 2020, 16:08
+ */
 
-#ifndef WORLDOBJECT_H
-#define WORLDOBJECT_H
+
+#ifndef PEON_H
+#define PEON_H
 
 #include "utils/hex/HexCoords.h"
 
-class Tile {
-private :
-  // Des trucs mais probablement :
-  FlatHexPosition _pos;
-  std::vector _entity_vector;
+class Peon {
+  private:
   
-public:
-  
-  Tile(FlatHexPosition pos);
-  
-  const FlatHexPosition & pos() const;
-  
-  std::string toString() const;
-};
-  
-
-
-class WOTileHasher {
-public :
-  std::size_t operator() (const Tile &obj) const;
+    FlatHexPosition _pos;
+    
+  public:
+    
+    Peon(const FlatHexPosition & pos);
+    
+    const FlatHexPosition & pos() const;
 };
 
-class WOTileEquals {
-public :
-  bool operator() (const Tile &a, const Tile &b) const;
-};
-
-#endif /* WORLDOBJECT_H */
+#endif /* PEON_H */
