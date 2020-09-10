@@ -27,10 +27,12 @@
 #include "utils/World.h"
 #include "engine/controller.h"
 
-World::World(int mapWidth, int mapHeight) : 
-    _objects(),
-    _mapWidth(mapWidth),
-    _mapHeight(mapHeight){
+World::World(int mapWidth, int mapHeight) :
+  _mapWidth(mapWidth),
+  _mapHeight(mapHeight),
+  _map(nullptr),
+  _objects()
+{
   assert(0 < mapWidth);
   assert(0 < mapHeight);
   _map = new int[mapWidth*mapHeight];
@@ -39,14 +41,13 @@ World::World(int mapWidth, int mapHeight) :
   }
 }
 
-void World::addObject(Peon pitou){
-  FlatHexPosition pitou_pos = pitou.pos();
-  if (_objects.find(pitou_pos) != _objects.end()){
-    _objects.find(pitou_pos).insert();
-  }else{
-    _objects.insert(std::make_pair(pitou_pos,pitou));
-    _objects.find(pitou_pos).insert(std::make_pair(pitou_pos,pitou));
+void World::addObject(Peon *pitou){
+  const FlatHexPosition & pitou_pos = pitou->pos();
+  auto itr = _objects.find(pitou_pos);
+  if (itr == _objects.end()) {
+    itr = _objects.emplace(pitou_pos,Tile(pitou_pos, pitou)).first;
   }
+  itr->second.insert(pitou);
 }
 
 std::string World::toString() const{

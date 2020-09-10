@@ -43,8 +43,6 @@
         <itemPath>src/world/utils/Tile.h</itemPath>
         <itemPath>src/world/World.cpp</itemPath>
         <itemPath>src/world/utils/World.h</itemPath>
-        <itemPath>src/world/utils/WorldObject.cpp</itemPath>
-        <itemPath>src/world/utils/WorldObject.h</itemPath>
       </logicalFolder>
       <itemPath>src/engine/controller.cpp</itemPath>
       <itemPath>src/engine/controller.h</itemPath>
@@ -151,10 +149,6 @@
       </item>
       <item path="src/world/utils/World.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/rdr.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1" platformSpecific="true">
       <toolsSet>
@@ -243,10 +237,6 @@
       </item>
       <item path="src/world/utils/World.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/rdr.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Linux" type="1" platformSpecific="true">
       <toolsSet>
@@ -328,10 +318,6 @@
       <item path="src/world/utils/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/utils/World.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/rdr.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

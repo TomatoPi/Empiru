@@ -49,7 +49,6 @@ int main(int argc, char** argv) {
   //Modif péon <--------------------------------------------------
   Sprite *s_peon = Sprite::loadFromFile("medias/peon.png",window->renderer);
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
-  SDL_MouseButtonEvent test_event;
   //--------------------------------------------------------------
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,

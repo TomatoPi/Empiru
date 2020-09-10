@@ -28,17 +28,17 @@ Tile::Tile(FlatHexPosition pos) :
   _pos(pos),
   _entity_vector(){}
 
-Tile::Tile(FlatHexPosition pos, Peon pitou) : 
+Tile::Tile(FlatHexPosition pos, Peon *pitou) : 
   _pos(pos),_entity_vector(){
-  _entity_vector.insert(&pitou);
+  _entity_vector.push_back(pitou);
 }
 
 const FlatHexPosition & Tile::pos() const {
   return _pos;
 }
 
- void Tile::insert(Peon pitou){
-    _entity_vector.insert(&pitou);
+ void Tile::insert(Peon *pitou){
+    _entity_vector.push_back(pitou);
   }
 
 std::string Tile::toString() const{
