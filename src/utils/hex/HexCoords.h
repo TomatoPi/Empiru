@@ -81,6 +81,8 @@ struct FlatHexPosition {
   /// \brief Round position to it tile's center
   FlatHexPosition & tile();
   
+  FlatHexPosition tile() const;
+  
   /// \brief toString
   std::string toString() const;
   static std::string systemString(System s);

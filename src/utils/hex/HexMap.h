@@ -34,7 +34,7 @@ private:
   int _worldWidth;  ///< World's width in tile count
   int _worldHeight; ///< World height in tile count
 
-  typedef std::unordered_set<WorldObject, WOTileHasher, WOTileEquals> WorldObjectSet;
+  typedef std::unordered_set<Tile, WOTileHasher, WOTileEquals> WorldObjectSet;
 
   WorldObjectSet _map;
   
