@@ -31,6 +31,7 @@
 
 #include "utils/log.h"
 #include "gui/utils/Handler.h"
+#include "entity/peon.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -44,6 +45,11 @@ int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
+  //Modif péon <--------------------------------------------------
+  Sprite *s_peon = Sprite::loadFromFile("medias/peon.png",window->renderer);
+  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
+  SDL_MouseButtonEvent test_event;
+  //--------------------------------------------------------------
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
     window->width, window->height,
@@ -71,6 +77,13 @@ int main(int argc, char** argv) {
     camera.update();
 
     window->clear();
+    //Modif péon <--------------------------------------------------
+    SDL_Rect peon_rect;
+    peon_rect.w = s_peon->width();
+    peon_rect.h = s_peon->height();
+    peon_rect.x = 0;
+    peon_rect.y = 0;
+    //--------------------------------------------------------------
     SDL_Rect rect;
     rect.w = sprite->width();
     rect.h = sprite->height();
@@ -113,7 +126,18 @@ int main(int argc, char** argv) {
       anchor = anchor + vy;
       camera.tileCenter(anchor, &(rect.x), &(rect.y));
     }
-
+    
+    //Modif péon <--------------------------------------------------
+      camera.toPixel(peon.pos(),&(peon_rect.x),&(peon_rect.y));
+      //LOG_DEBUG("%s\n",pos.toString().c_str());
+      if (s_peon->renderFrame(window->renderer,&peon_rect)){
+        LOG_WRN("%s\n", SDL_GetError());
+      }
+      /*if (test_event.type == SDL_MOUSEBUTTONDOWN && test_event.button == SDL_BUTTON_LEFT){
+        LOG_DEBUG("mouse coo : %d %d\n",test_event.x,test_event.y);
+      }*/
+    //<-------------------------------------------------------------
+    
     window->update();
     
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;
@@ -126,6 +150,9 @@ int main(int argc, char** argv) {
   }
   
   delete sprite;
+  //Modif péon <--------------------------------------------------
+  delete s_peon;
+  //--------------------------------------------------------------
   delete window;
   
   return 0;
