@@ -37,10 +37,14 @@
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
-        <itemPath>src/world/utils/WorldObject.h</itemPath>
         <itemPath>src/world/utils/WorldObject.cpp</itemPath>
+        <itemPath>src/world/utils/WorldObject.h</itemPath>
       </logicalFolder>
+      <itemPath>src/engine/controller.cpp</itemPath>
+      <itemPath>src/engine/controller.h</itemPath>
       <itemPath>src/main.cpp</itemPath>
+      <itemPath>src/entity/peon.cpp</itemPath>
+      <itemPath>src/entity/peon.h</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -50,6 +54,9 @@
         <itemPath>src/utils/hex/tests/HexTestClass.cpp</itemPath>
         <itemPath>src/utils/hex/tests/HexTestClass.h</itemPath>
         <itemPath>src/utils/hex/tests/HexTestRunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="PeonTest" projectFiles="true" kind="TEST">
+        <itemPath>tests/newsimpletest.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -114,7 +121,30 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/controller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/controller.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -159,6 +189,8 @@
       <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1" platformSpecific="true">
@@ -216,7 +248,30 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/controller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/controller.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -261,6 +316,8 @@
       <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Linux" type="1" platformSpecific="true">
@@ -312,7 +369,30 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/controller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/controller.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -357,6 +437,8 @@
       <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
