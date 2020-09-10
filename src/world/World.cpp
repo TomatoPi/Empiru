@@ -48,6 +48,13 @@ void World::addObject(Peon* pitou){
   }
 }
 
+  const std::vector<Peon*> World::getVectorFromPos(FlatHexPosition pos){
+    if (_objects.find(pos) != _objects.end()){
+      return _objects.find(pos)->second.getVector();
+    }
+    return std::vector<Peon*>();
+  }
+
 std::string World::toString() const{
   std::string ts = "[Map Height : ";
   ts.append(std::to_string(_mapHeight))

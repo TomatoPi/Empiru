@@ -29,13 +29,6 @@
 
 
 int main(int argc, char** argv) {
-  World  world = World(10,10);
-  Tile wo1 = Tile(FlatHexPosition());
-  Tile wo3 = Tile(FlatHexPosition(12,45,FlatHexPosition::Axial));
-  Tile wo4 = Tile(FlatHexPosition(1,1,FlatHexPosition::Axial));
-  Tile wo5 =  Tile(FlatHexPosition(32,1.4,FlatHexPosition::Axial));
-  world.addObject(wo1);
-  printf(world.toString().c_str());
   return (EXIT_SUCCESS);
 }
 
