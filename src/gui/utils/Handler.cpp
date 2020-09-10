@@ -25,10 +25,11 @@
 #include "Handler.h"
 #include "utils/log.h"
 
-#define merge 50
+#define MERGE 50
 
-Handler::Handler(HexCamera *c) :
-  _camera(c)
+Handler::Handler(HexCamera *c, Window *w) :
+  _camera(c),
+  _window(w)
 {
   
 }
@@ -53,24 +54,25 @@ bool Handler::handleSDLEvents() {
 }
 
 bool Handler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
-  if (mouse.y <= merge) {
+  if (mouse.y <= MERGE) {
     _camera->scrollUp();
   }
-  else if (mouse.y >=1080 - merge) {
+  else if (mouse.y >= _window->height - MERGE) {
     _camera->scrollDown();
   }
   else {
     _camera->stopUDScroll();
   }
-   if (mouse.x >= 1920 - merge) {
+  
+  if (mouse.x >= _window->width - MERGE) {
     _camera->scrollRight();
   }
-   else if (mouse.x <= merge) {
+   else if (mouse.x <= MERGE) {
     _camera->scrollLeft();
   } 
-   else {
-     _camera->stopLRScroll();
-   }
+  else {
+    _camera->stopLRScroll();
+  }
   return true;
 }
 

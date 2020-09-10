@@ -36,19 +36,20 @@
 #define FRAMETIME (1000/FRAMERATE)
 
 #define SIZE 16
+#define FACTOR 2
 
 using namespace std;
 
 int main(int argc, char** argv) {
 
-  Window *window = Window::createWindow(1920, 1080);
+  Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
   HexCamera camera(
     HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
     window->width, window->height,
     SIZE, SIZE);
   
-  Handler handler(&camera);
+  Handler handler(&camera, window);
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
       window->width, window->height,

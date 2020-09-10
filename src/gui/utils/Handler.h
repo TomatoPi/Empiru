@@ -34,7 +34,7 @@
 
 class Handler {
 public:
-  Handler(HexCamera *c);
+  Handler(HexCamera *c, Window *w);
   bool handleSDLEvents();
   
 private:
@@ -45,6 +45,7 @@ private:
   bool handleMouseMovement(const SDL_MouseMotionEvent & event);
   
   HexCamera *_camera;
+  Window *_window;
 };
 
 #endif /* HANDLER_H */
