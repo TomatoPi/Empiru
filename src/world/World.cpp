@@ -27,6 +27,7 @@
 #include "utils/World.h"
 #include "engine/controller.h"
 
+
 World::World(int mapWidth, int mapHeight) :
   _mapWidth(mapWidth),
   _mapHeight(mapHeight),
@@ -41,6 +42,7 @@ World::World(int mapWidth, int mapHeight) :
   }
 }
 
+
 void World::addObject(Peon *pitou){
   const FlatHexPosition & pitou_pos = pitou->pos();
   auto itr = _objects.find(pitou_pos);
@@ -49,6 +51,13 @@ void World::addObject(Peon *pitou){
   }
   itr->second.insert(pitou);
 }
+
+  const std::vector<Peon*> World::getVectorFromPos(FlatHexPosition pos){
+    if (_objects.find(pos) != _objects.end()){
+      return _objects.find(pos)->second.getVector();
+    }
+    return std::vector<Peon*>();
+  }
 
 std::string World::toString() const{
   std::string ts = "[Map Height : ";

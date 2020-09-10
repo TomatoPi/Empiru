@@ -37,10 +37,15 @@ const FlatHexPosition & Tile::pos() const {
   return _pos;
 }
 
+
  void Tile::insert(Peon *pitou){
     _entity_vector.push_back(pitou);
   }
 
+ const std::vector<Peon*> Tile::getVector(){
+   return _entity_vector;
+ }
+ 
 std::string Tile::toString() const{
   std::string ts = "{";
   return ts.append(_pos.toString())
