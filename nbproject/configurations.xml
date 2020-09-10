@@ -31,12 +31,15 @@
           <itemPath>src/utils/hex/HexCamera.h</itemPath>
           <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
           <itemPath>src/utils/hex/HexCoords.h</itemPath>
+          <itemPath>src/utils/hex/HexMap.cpp</itemPath>
+          <itemPath>src/utils/hex/HexMap.h</itemPath>
         </logicalFolder>
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
+        <itemPath>src/world/utils/WorldObject.h</itemPath>
+        <itemPath>src/world/utils/WorldObject.cpp</itemPath>
       </logicalFolder>
-      <itemPath>src/world/utils/WorldObject.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -57,9 +60,10 @@
       <itemPath>Makefile</itemPath>
       <itemPath>doxyconfig</itemPath>
     </logicalFolder>
-    <itemPath>src/world/utils/WorldObject.h</itemPath>
   </logicalFolder>
   <sourceRootList>
+    <Elem>medias</Elem>
+    <Elem>brainstorm</Elem>
     <Elem>medias</Elem>
     <Elem>brainstorm</Elem>
   </sourceRootList>
@@ -133,6 +137,10 @@
       <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/tests/HexTestClass.cpp"
             ex="false"
@@ -232,6 +240,10 @@
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/hex/HexMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexMap.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/hex/tests/HexTestClass.cpp"
             ex="false"
             tool="1"
@@ -260,6 +272,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>11</standard>
           <incDir>
             <pElem>src</pElem>
             <pElem>include</pElem>
@@ -322,6 +335,10 @@
       <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/tests/HexTestClass.cpp"
             ex="false"
