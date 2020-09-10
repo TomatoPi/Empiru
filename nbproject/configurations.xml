@@ -34,6 +34,9 @@
         </logicalFolder>
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f1" displayName="world" projectFiles="true">
+      </logicalFolder>
+      <itemPath>src/world/utils/WorldObject.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -54,6 +57,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>doxyconfig</itemPath>
     </logicalFolder>
+    <itemPath>src/world/utils/WorldObject.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>medias</Elem>
@@ -143,6 +147,10 @@
             flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1" platformSpecific="true">
@@ -238,6 +246,10 @@
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Linux" type="1" platformSpecific="true">
       <toolsSet>
@@ -324,6 +336,10 @@
             flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/utils/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/utils/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
