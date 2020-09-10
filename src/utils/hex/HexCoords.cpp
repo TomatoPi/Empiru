@@ -185,6 +185,21 @@ FlatHexPosition & FlatHexPosition::tile() {
   return *this;
 }
 
+FlatHexPosition FlatHexPosition::tile() const{
+  FlatHexPosition pos(*this,Cubic);
+  int x(round(_x + 0.0001)), y(round(_y + 0.0001)), z(round(_z + 0.0001));
+  int xx(abs(x-_x)), yy(abs(y-_y)), zz(abs(z-_z));
+  if (xx > yy && xx > zz) {
+    x = -y-z;
+  } else if (yy > zz) {
+    y = -x-z;
+  } else {
+    z = -x-y;
+  }
+  pos._x = x,pos. _y = y,pos. _z = z;
+  return pos;
+}
+
 std::string FlatHexPosition::toString() const {
   return "HexPos[" + systemString(_type) + ":(" 
       + std::to_string(_x) + "," 

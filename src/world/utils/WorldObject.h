@@ -27,24 +27,32 @@
 
 #include "utils/hex/HexCoords.h"
 
-class WorldObject {
+
+class Tile {
 private :
   // Des trucs mais probablement :
   FlatHexPosition _pos;
+  std::vector _entity_vector;
   
 public:
   
-  // Des méthodes
+  Tile(FlatHexPosition pos);
   
   const FlatHexPosition & pos() const;
+  
+  std::string toString() const;
 };
+  
+
 
 class WOTileHasher {
-  std::size_t operator() (const WorldObject & obj) const;
+public :
+  std::size_t operator() (const Tile &obj) const;
 };
 
 class WOTileEquals {
-  bool operator() (const WorldObject & a, const WorldObject & b) const;
+public :
+  bool operator() (const Tile &a, const Tile &b) const;
 };
 
 #endif /* WORLDOBJECT_H */
