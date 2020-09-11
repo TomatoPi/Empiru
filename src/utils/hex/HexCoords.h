@@ -89,8 +89,10 @@ struct FlatHexPosition {
   /// \brief Return position rounded to tile's center
   FlatHexPosition tile() const;
   
-  /// \brief Return tile's neightbour in direction of v
-  FlatHexPosition neightbour(const FlatHexPosition & v) const;
+  /// \brief Effective implementation of tile function
+  static void tile(FlatHexPosition *pos);
+//  static void tile2(FlatHexPosition *pos);
+//  static void tile3(FlatHexPosition *pos);
   
   /// \brief toString
   std::string toString() const;

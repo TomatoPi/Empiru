@@ -46,7 +46,7 @@ private:
   bool handleMouseButtonLeftDown(const FlatHexPosition & pos);
   bool handleMouseMovement(const SDL_MouseMotionEvent & event);
   bool handleMouseButtonDown(const SDL_MouseButtonEvent & event);
-  bool Handler::handleMouseButtonRightDown(const FlatHexPosition & pos);
+  bool handleMouseButtonRightDown(const FlatHexPosition & pos);
   
   HexCamera *_camera;
   Window *_window;

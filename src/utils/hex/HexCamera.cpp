@@ -89,8 +89,11 @@ void HexCamera::fromPixel(int x, int y, FlatHexPosition *pos) const {
   assert(pos);
   float xx = x * 4. / _tileWidth;
   float yy = y * 2. / _tileHeight;
+  //LOG_WRN("%d,%d -> %f,%f\n", x, y, xx, yy);
   *pos = FlatHexPosition(xx, yy, FlatHexPosition::Grid);
+  //LOG_WRN("%s\n", pos->toString().c_str());
   *pos = *pos + _pos - (_viewport * 0.5);
+  //LOG_WRN("%s\n", pos->toString().c_str());
 }
 
 /// \brief return tile's width on viewport  

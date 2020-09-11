@@ -52,6 +52,9 @@ public :
   ///\brief toString
   std::string toString() const;
   
+  int width() const;  ///< World's width
+  int height() const; ///< World's height
+  
 };
 
 #endif /* WORLD_H*/

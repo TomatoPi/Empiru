@@ -16,28 +16,39 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   PeonRenderer.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 11 septembre 2020, 02:27
 ///
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#include "PeonRenderer.h"
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
-  
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
-  
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
-  
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
-};
 
-#endif /* MATRIX_H */
+/// \brief Load assets and create a renderer for Peons
+/// \return nullptr on failure
+PeonRenderer * PeonRenderer::create(const char *path, SDL_Renderer *rdr) {
+  Sprite *s(Sprite::loadFromFile(path, rdr));
+  if (!s) {
+    return nullptr;
+  }
+  return new PeonRenderer(s);
+}
+
+/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+int PeonRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
+  SDL_Rect r;
+  r.w = _sheet->width();
+  r.h = _sheet->height();
+  r.x = x - r.w / 2;
+  r.y = y - r.h;
+  return _sheet->renderFrame(rdr, &r);
+}
+
+/// Constructor
+PeonRenderer::PeonRenderer(Sprite *s) : _sheet(s) {
+  
+}
+PeonRenderer::~PeonRenderer() {
+  delete _sheet;
+}

@@ -85,9 +85,15 @@ std::string World::toString() const{
       .append(" ");
   }
   */
-  ts.append("\n");
+  //ts.append("\n");
   /*for(Tile wo : _objects){
     ts.append(wo.toString()).append("\n");
   }*/
-  return ts.append("\n");
+  return ts;//.append("\n");
+}
+int World::width() const {
+  return _mapWidth;
+}
+int World::height() const {
+  return _mapHeight;
 }

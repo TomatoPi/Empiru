@@ -16,28 +16,37 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   PeonRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 11 septembre 2020, 02:27
 ///
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef PEONRENDERER_H
+#define PEONRENDERER_H
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
+#include "gui/utils/Sprite.h"
+
+class PeonRenderer {
+private:
   
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
+  Sprite *_sheet;
   
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
+public:
   
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
+  /// \brief Load assets and create a renderer for Peons
+  /// \return nullptr on failure
+  static PeonRenderer * create(const char *path, SDL_Renderer *rdr);
+  
+  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+  int renderAt(int x, int y, SDL_Renderer *rdr);
+  
+  ~PeonRenderer();
+  
+private:
+  
+  /// Constructor
+  PeonRenderer(Sprite *s);
 };
 
-#endif /* MATRIX_H */
+#endif /* PEONRENDERER_H */

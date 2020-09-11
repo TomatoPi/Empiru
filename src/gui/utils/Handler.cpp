@@ -24,6 +24,8 @@
 
 #include "Handler.h"
 
+#include <cmath>
+
 #define MERGE 50
 
 Handler::Handler(HexCamera *c, Window *w, World *world, Controller *controller) :
@@ -55,6 +57,7 @@ bool Handler::handleSDLEvents() {
 }
 
 bool Handler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
+  return true;
   if (mouse.y <= MERGE) {
     _camera->scrollUp();
   }
@@ -122,7 +125,6 @@ bool Handler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
   FlatHexPosition pos;
   
   _camera->fromPixel(event.x, event.y, &pos);
-  pos.convert(FlatHexPosition::Grid);
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
@@ -137,16 +139,18 @@ bool Handler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
 }
 
 bool Handler::handleMouseButtonLeftDown(const FlatHexPosition & pos) {
+
+  LOG_DEBUG("Search at : %s\n%s\n", pos.toString().c_str(), _world->toString().c_str());
   auto tmp_world = _world->getVectorFromPos(pos);
+  
+  //LOG_DEBUG("%s\n", _world->toString().c_str());
   
   if (tmp_world != nullptr){
     for (auto peon : *tmp_world){
-      LOG_DEBUG("PEON : %f %f %f\n",peon->pos()._x,
-            peon->pos()._y,
-            peon->pos()._z);
+      LOG_DEBUG("PEON : %s\n",peon->pos().toString().c_str());
       FlatHexPosition tmp_pos(peon->pos(),FlatHexPosition::Grid);
-      if (((pos._x >= tmp_pos._x) && (pos._y >= tmp_pos._y)) 
-          && ((pos._x < tmp_pos._x + 1) && (pos._y < tmp_pos._y + 0.5))){
+      LOG_DEBUG("CLIC : %s\n", pos.toString().c_str());
+      if ((fabs(pos._x - tmp_pos._x) < 0.25) && (fabs(pos._y + 0.25 - tmp_pos._y) < 0.25)) {
         
         LOG_DEBUG("IF -----> ET MA HACHE : %f %f %f\n",peon->pos()._x,
             peon->pos()._y,
@@ -162,7 +166,7 @@ bool Handler::handleMouseButtonLeftDown(const FlatHexPosition & pos) {
   }
   
   else {
-    LOG_DEBUG("Peon has been deselected\n");
+    LOG_DEBUG("Péonhouète\n");
     _controller->selectPeon(nullptr);
   }
   

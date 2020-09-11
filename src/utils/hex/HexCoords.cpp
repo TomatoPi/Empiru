@@ -187,35 +187,65 @@ int mrnd(float a) {
 
 /// \brief Round position to it tile's center
 FlatHexPosition & FlatHexPosition::tile() {
-  this->convert(Axial);
-  int x(mrnd(_x)), y(mrnd(_y));
-  float xx = _x - x, yy = _y - y;
-  if (xx - yy > 0.5) {
-    x++, y--;
-  } else if (yy - xx > 0.5) {
-    x--, y++;
-  }
-  _x = x, _y = y;
+  FlatHexPosition::tile(this);
   return *this;
 }
 /// \brief Return position rounded to tile's center
 FlatHexPosition FlatHexPosition::tile() const {
-  FlatHexPosition pos(*this,Axial);
-  int x(mrnd(_x)), y(mrnd(_y));
-  float xx = _x - x, yy = _y - y;
+  FlatHexPosition res(*this,Axial);
+  FlatHexPosition::tile(&res);
+  return res;
+}
+/*
+void FlatHexPosition::tile(FlatHexPosition *pos) {
+  pos->convert(Axial);
+  int x(mrnd(pos->_x)), y(mrnd(pos->_y));
+  float xx = pos->_x - x, yy = pos->_y - y;
   if (xx - yy > 0.5) {
     x++, y--;
   } else if (yy - xx > 0.5) {
     x--, y++;
   }
-  pos._x = x,pos. _y = y;
-  return pos;
+  pos->_x = x, pos->_y = y;
 }
-
-/// \brief Return tile's neightbour in direction of v
-FlatHexPosition FlatHexPosition::neightbour(const FlatHexPosition & v) const {
-  
+//*/
+/*
+void FlatHexPosition::tile2(FlatHexPosition *pos) {
+  pos->convert(Cubic);
+  int x(mrnd(pos->_x)), y(mrnd(pos->_y)), z(mrnd(pos->_z));
+  float xx(fabs(x-pos->_x)), yy(fabs(y-pos->_y)), zz(fabs(z-pos->_z));
+  if (zz > yy && xx > xx) {
+    z = -y-x;
+  } else if (yy > xx) {
+    y = -z-x;
+  } else {
+    x = -z-y;
+  }
+  pos->_x = x, pos->_y = y, pos->_z = z;
 }
+//*/
+//*
+void FlatHexPosition::tile(FlatHexPosition *pos) {
+  pos->convert(Axial);
+  int x(mrnd(pos->_x)), y(mrnd(pos->_y));
+  float xx = pos->_x - x, yy = pos->_y - y;
+  float u = xx + 2*yy, v = 2*xx + yy, w = yy - xx;
+  if (w < 0) {
+    if (u < -1) {
+      y--;
+    } else if (v > 1) {
+      x++;
+    }
+  } else {
+    if (v < -1) {
+      x--;
+    } else if (u > 1) {
+      y++;
+    }
+  }
+  pos->_x = x, pos->_y = y;
+}
+//*/
 
 std::string FlatHexPosition::toString() const {
   return "HexPos[" + systemString(_type) + ":(" 

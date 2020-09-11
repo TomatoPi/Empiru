@@ -27,13 +27,23 @@
 #include "WorldRenderer.h"
 #include "utils/log.h"
 
-WorldRenderer::WorldRenderer(Window *w, HexCamera *c, Sprite *t) : 
+WorldRenderer::WorldRenderer(
+    Window *w, 
+    HexCamera *c, 
+    Sprite *t, 
+    World *wo, 
+    PeonRenderer *p) : 
   _window(w),
   _camera(c),
-  _tileSprite(t)
+  _tileSprite(t),
+  _world(wo),
+  _peonrdr(p)
 {
   assert(w);
   assert(c);
+  assert(t);
+  assert(wo);
+  assert(p);
 }
 
 void WorldRenderer::render() {
@@ -77,7 +87,11 @@ void WorldRenderer::render() {
       //LOG_DEBUG("%s\n", pos.toString().c_str());
       off.tile().convert(FlatHexPosition::OddQOffset);
       //LOG_DEBUG("%s\n", off.toString().c_str());
-      if (0 <= off._x && 0 <= off._y && off._x < 3 && off._y < 3) {
+      if (
+          0 <= off._x && 0 <= off._y 
+          && off._x < _world->width() 
+          && off._y < _world->height()) 
+      {
         _camera->toPixel(off, &x, &y);
         rect.x = x - rect.w/2;
         rect.y = y + _camera->tileHeight()/2 - rect.h;
@@ -85,6 +99,14 @@ void WorldRenderer::render() {
         if (_tileSprite->renderFrame(_window->renderer, &rect)) {
           LOG_WRN("%s\n", SDL_GetError());
           OUPS();
+        }
+        
+        auto vec(_world->getVectorFromPos(off));
+        if (vec) {
+          for (auto peon : *vec) {
+            _camera->toPixel(peon->pos(), &x, &y);
+            _peonrdr->renderAt(x, y, _window->renderer);
+          }
         }
       }
       //LOG_DEBUG("\n")

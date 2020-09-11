@@ -46,21 +46,17 @@ int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
-  //Modif péon <--------------------------------------------------
-  Sprite *s_peon = Sprite::loadFromFile("medias/peon.png",window->renderer);
-  SDL_Rect rect_peon;
+  PeonRenderer *prdr = PeonRenderer::create("medias/peon.png",window->renderer);
+  
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial));
-  Peon peon3(FlatHexPosition(20,20,FlatHexPosition::Axial));
+  Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial));
   Controller controller;
   World map_test(SIZE,SIZE);
+  
   map_test.addObject(&peon);
   map_test.addObject(&peon2);
   map_test.addObject(&peon3);
-  rect_peon.w = s_peon->width();
-  rect_peon.h = s_peon->height();
-  rect_peon.x = 0;
-  rect_peon.y = 0;
   LOG_DEBUG("TEST MAP : %s \n",map_test.toString().c_str());
   //--------------------------------------------------------------
   HexCamera camera(
@@ -78,7 +74,7 @@ int main(int argc, char** argv) {
   
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  WorldRenderer rdr(window, &camera, sprite);
+  WorldRenderer rdr(window, &camera, sprite, &map_test, prdr);
   
   
   
@@ -96,14 +92,7 @@ int main(int argc, char** argv) {
     window->clear();
 
     rdr.render();
-    // Péon modif <--------------------------------------------
-    camera.toPixel(peon.pos(),&(rect_peon.x),&(rect_peon.y));
     
-    if (s_peon->renderFrame(window->renderer, &rect_peon)) {
-          LOG_WRN("%s\n", SDL_GetError());
-          OUPS();
-    }
-    // --------------------------------------------------------
     window->update();
 /*
     camera.rotateRight();
@@ -123,7 +112,7 @@ int main(int argc, char** argv) {
   
   delete sprite;
   //Modif péon <--------------------------------------------------
-  delete s_peon;
+  delete prdr;
   //--------------------------------------------------------------
   delete window;
   

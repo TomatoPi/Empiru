@@ -29,6 +29,8 @@
 #include "gui/utils/Window.h"
 #include "utils/hex/HexCamera.h"
 #include "gui/utils/Sprite.h"
+#include "world/utils/World.h"
+#include "gui/renderer/PeonRenderer.h"
 
 class WorldRenderer {
 private:
@@ -36,12 +38,18 @@ private:
   Window *_window;
   HexCamera *_camera;
   Sprite *_tileSprite;
-  /// \todo WorldMap *_map;
+  World *_world;
+  PeonRenderer *_peonrdr;
   
 public:
   
   /// \brief Constructor
-  WorldRenderer(Window *w, HexCamera *c, Sprite *t);
+  WorldRenderer(
+          Window *w, 
+          HexCamera *c, 
+          Sprite *t, 
+          World *wo, 
+          PeonRenderer *p);
   
   /// \brief Draw EVERYTHINGS (in the world)
   void render();
