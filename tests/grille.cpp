@@ -90,15 +90,19 @@ int main(int argc, char** argv) {
     if (e.type == SDL_QUIT) {
       break;
     } else if (e.type == SDL_MOUSEBUTTONDOWN) {
-      FlatHexPosition pos;
+      FlatHexPosition pos, tile;
+      HCHasher hash;
       camera.fromPixel(e.button.x, e.button.y, &pos);
       pos.convert(FlatHexPosition::Axial);
+      tile = pos;
+      tile.tile();
       int x(rr(pos._x)), y(rr(pos._y));
       float xx = pos._x - x, yy = pos._y - y;
       float u = xx + 2*yy, v = 2*xx + yy, w = yy - xx;
       LOG_INFO("Clic : (%d,%d) -> %s\n", e.button.x, e.button.y, pos.toString().c_str());
       LOG_INFO("%d,%f  %d,%f  %f %f %f\n", x, xx, y, yy, u, v, w);
-      LOG_INFO("Round : %s\n", pos.tile().toString().c_str());
+      LOG_INFO("Round : %s\n", tile.toString().c_str());
+      LOG_INFO("Hash  : %lu\n", hash(pos));
       LOG_INFO("\n");
     }
   }

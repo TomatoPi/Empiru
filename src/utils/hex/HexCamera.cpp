@@ -177,8 +177,8 @@ int HexCamera::getOrientation() {
 
 void HexCamera::rotateRight() {
   _orientation = (_orientation+1) %6;
-  _vx.multiply(1, 1, -1, 0);
-  _vy.multiply(1, 1, -1, 0);
+  _vx = _vx * ROTATE_RIGHT;
+  _vy = _vy * ROTATE_RIGHT;
   _rotation = _rotation * ROTATE_RIGHT;
   LOG_DEBUG("Orientation : %d\n POS : %s\n VX : %s\n VY : %s\n VP : %s\n",
       _orientation,
@@ -190,8 +190,8 @@ void HexCamera::rotateRight() {
 
 void HexCamera::rotateLeft() {
   _orientation = _orientation <= 0 ? 6 : _orientation-1;
-  _vx.multiply(0, -1, 1, 1);
-  _vy.multiply(0, -1, 1, 1);
+  _vx = _vx * ROTATE_LEFT;
+  _vy = _vy * ROTATE_LEFT;
   _rotation = _rotation * ROTATE_LEFT;
   LOG_DEBUG("Orientation : %d\n POS : %s\n VX : %s\n VY : %s\n VP : %s\n",
       _orientation,

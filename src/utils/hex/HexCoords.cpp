@@ -272,19 +272,10 @@ std::string FlatHexPosition::systemString(System s) {
 std::size_t HCHasher::operator() (const FlatHexPosition &obj) const {
   FlatHexPosition pos = obj.tile();
   pos.convert(FlatHexPosition::Axial);
-  return (size_t)pos._x^((size_t)pos._y<<1);
+  size_t x(pos._x), y(pos._y);
+  return x ^ ((y << 16) | (y >> (sizeof(size_t) * 8 - 16)));
 }
 
 bool HCEquals::operator() (const FlatHexPosition &a, const FlatHexPosition &b) const {
-  FlatHexPosition pos = a.tile();
-  FlatHexPosition pos2 = b.tile();
-  return pos==pos2;
-}
-
-void FlatHexPosition::multiply(float a, float b, float c, float d) {
-  float x, y;
-  x = a * _x + b * _y;
-  y = c * _x + d * _y;
-  _x = x;
-  _y = y;
+  return a.tile() == b.tile();
 }
