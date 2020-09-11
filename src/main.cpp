@@ -42,8 +42,6 @@
 #define SIZE 8
 #define FACTOR 2
 
-using namespace std;
-
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
@@ -107,7 +105,13 @@ int main(int argc, char** argv) {
     }
     // --------------------------------------------------------
     window->update();
+/*
+    camera.rotateRight();
     
+    rdr.render();
+    
+    return 0;
+//*/
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;
     if (tickEllapsedTime > FRAMETIME) {
       LOG_WRN("System Overload !! %ld ms late\n", tickEllapsedTime - FRAMETIME);

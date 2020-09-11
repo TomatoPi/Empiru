@@ -28,6 +28,9 @@
 #include "HexCamera.h"
 #include "utils/log.h"
 
+const Matrix22 HexCamera::ROTATE_LEFT = Matrix22(0, -1, 1, 1);
+const Matrix22 HexCamera::ROTATE_RIGHT = Matrix22(1, 1, -1, 0);
+
 /// \brief Constructor
 /// \param tileWidth  : Tile's width in pixel on viewport
 /// \param tileHeight : Tile's height in pixel on viewport 
@@ -52,13 +55,15 @@ HexCamera::HexCamera(
   _scrollH(0),
   _scrollV(0),
     
+  _orientation(0),
+    
   _viewport(viewWidth, viewHeight, tileWidth, tileHeight, FlatHexPosition::Axial),
   _pos(FlatHexPosition::Axial),
     
   _vx(1, -0.5, FlatHexPosition::Axial),
   _vy(0, 1, FlatHexPosition::Axial),
     
-  _orientation(0)
+  _rotation(1, 0, 0, 1)
 {
   assert(0 < tileWidth);
   assert(0 < tileHeight);
@@ -74,7 +79,7 @@ void HexCamera::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
   assert(x);
   assert(y);
   FlatHexPosition res(pos, FlatHexPosition::Axial);
-  res = res + (_viewport * 0.5) - _pos;
+  res = (res - _pos) * _rotation + (_viewport * 0.5);
   res.convert(FlatHexPosition::Grid);
   *x = 0.25 * res._x * _tileWidth;
   *y = 0.5 * res._y * _tileHeight;
@@ -86,20 +91,6 @@ void HexCamera::fromPixel(int x, int y, FlatHexPosition *pos) const {
   float yy = y * 2. / _tileHeight;
   *pos = FlatHexPosition(xx, yy, FlatHexPosition::Grid);
   *pos = *pos + _pos - (_viewport * 0.5);
-}
-/// \brief Convert a position on grid to position of it center on the screen
-/// \param pos : position to convert
-/// \parma x : pixel column
-/// \param y : pixel row
-/// \warning this function could cause error accumulation if result is stored and reused
-void HexCamera::tileCenter(const FlatHexPosition & pos, int *x, int *y) const {
-  assert(x);
-  assert(y);
-  FlatHexPosition res = pos;
-  res = res.tile() + (_viewport * 0.5) - _pos;
-  res.convert(FlatHexPosition::Grid);
-  *x = 0.25 * res._x * _tileWidth;
-  *y = 0.5 * res._y * _tileHeight;
 }
 
 /// \brief return tile's width on viewport  
@@ -115,7 +106,7 @@ int HexCamera::tileWidth() const {
 /// \param res : result in Axial coordinate system
 void HexCamera::upLeftCorner(FlatHexPosition *p) const {
   assert(p);
-  *p = _pos - _viewport * 0.5;
+  *p = _pos - (_viewport * 0.5) * _rotation;
 }
 /// \brief Return Viewport's x and y vectors in Axis cs
 void HexCamera::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) const {
@@ -181,29 +172,35 @@ int HexCamera::getOrientation() {
   return _orientation;
 }
 
-void HexCamera::setOrientation(int incrementation) {
-  /// vecteur rotation gauche : x : 1->1 / y : -1->0
-  ///vecteur rotation droite : x :  ->  / y :  ->  
-  _orientation += incrementation;
-  if (_orientation == -1) {
-    _orientation = 5;
-  }
-  if (_orientation == 6) {
-    _orientation = 0;
-  }
-  LOG_DEBUG("caméra in setOri : %d \n", _orientation);
-}
-
 void HexCamera::rotateRight() {
-  setOrientation(1);
+  _orientation = (_orientation+1) %6;
   _vx.multiply(1, 1, -1, 0);
   _vy.multiply(1, 1, -1, 0);
-  _viewport.multiply(1, 1, -1, 0);
+  _rotation = _rotation * ROTATE_RIGHT;
+  LOG_DEBUG("Orientation : %d\n POS : %s\n VX : %s\n VY : %s\n VP : %s\n",
+      _orientation,
+      _pos.toString().c_str(),
+      _vx.toString().c_str(),
+      _vy.toString().c_str(),
+      _viewport.toString().c_str());
 }
 
 void HexCamera::rotateLeft() {
-  setOrientation(-1);
+  _orientation = _orientation <= 0 ? 6 : _orientation-1;
   _vx.multiply(0, -1, 1, 1);
   _vy.multiply(0, -1, 1, 1);
-  _viewport.multiply(0, -1, 1, 1);
+  _rotation = _rotation * ROTATE_LEFT;
+  LOG_DEBUG("Orientation : %d\n POS : %s\n VX : %s\n VY : %s\n VP : %s\n",
+      _orientation,
+      _pos.toString().c_str(),
+      _vx.toString().c_str(),
+      _vy.toString().c_str(),
+      _viewport.toString().c_str());
+}
+
+void HexCamera::rotatedAxialVectors(FlatHexPosition *ax, FlatHexPosition *ay) const {
+  assert(ax);
+  assert(ay);
+  *ay = _vy;
+  *ax = _vx + _vy * 0.5;
 }

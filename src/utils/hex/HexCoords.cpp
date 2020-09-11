@@ -108,6 +108,16 @@ FlatHexPosition FlatHexPosition::operator-() const {
   res._y = -res._y;
   return res;
 }
+/// \brief Multiply this by matrix M
+/// \return this as Axial Vector
+FlatHexPosition FlatHexPosition::operator*(const Matrix22 & M) const {
+  FlatHexPosition res(*this, Axial);
+  float x = res._x * M._a + res._y * M._b;
+  float y = res._x * M._c + res._y * M._d;
+  res._x = x;
+  res._y = y;
+  return res;
+}
 
 /// \brief Convert this position to 'target' System
 FlatHexPosition & FlatHexPosition::convert(System target) {
@@ -170,34 +180,41 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
   /// This is the end
   pos->_type = target;
 }
-FlatHexPosition & FlatHexPosition::tile() {
-  this->convert(Cubic);
-  int x(round(_x + 0.0001)), y(round(_y + 0.0001)), z(round(_z + 0.0001));
-  int xx(abs(x-_x)), yy(abs(y-_y)), zz(abs(z-_z));
-  if (xx > yy && xx > zz) {
-    x = -y-z;
-  } else if (yy > zz) {
-    y = -x-z;
-  } else {
-    z = -x-y;
-  }
-  _x = x, _y = y, _z = z;
-  return *this;
+
+int mrnd(float a) {
+  return round(a) + ((a < 0) && (fabs(a - round(a)) >= 0.5));
 }
 
-FlatHexPosition FlatHexPosition::tile() const{
-  FlatHexPosition pos(*this,Cubic);
-  int x(round(_x + 0.0001)), y(round(_y + 0.0001)), z(round(_z + 0.0001));
-  int xx(abs(x-_x)), yy(abs(y-_y)), zz(abs(z-_z));
-  if (xx > yy && xx > zz) {
-    x = -y-z;
-  } else if (yy > zz) {
-    y = -x-z;
-  } else {
-    z = -x-y;
+/// \brief Round position to it tile's center
+FlatHexPosition & FlatHexPosition::tile() {
+  this->convert(Axial);
+  int x(mrnd(_x)), y(mrnd(_y));
+  float xx = _x - x, yy = _y - y;
+  if (xx - yy > 0.5) {
+    x++, y--;
+  } else if (yy - xx > 0.5) {
+    x--, y++;
   }
-  pos._x = x,pos. _y = y,pos. _z = z;
+  _x = x, _y = y;
+  return *this;
+}
+/// \brief Return position rounded to tile's center
+FlatHexPosition FlatHexPosition::tile() const {
+  FlatHexPosition pos(*this,Axial);
+  int x(mrnd(_x)), y(mrnd(_y));
+  float xx = _x - x, yy = _y - y;
+  if (xx - yy > 0.5) {
+    x++, y--;
+  } else if (yy - xx > 0.5) {
+    x--, y++;
+  }
+  pos._x = x,pos. _y = y;
   return pos;
+}
+
+/// \brief Return tile's neightbour in direction of v
+FlatHexPosition FlatHexPosition::neightbour(const FlatHexPosition & v) const {
+  
 }
 
 std::string FlatHexPosition::toString() const {
@@ -211,11 +228,11 @@ std::string FlatHexPosition::systemString(System s) {
   case OddQOffset:
     return "OddQOffset";
   case Axial:
-    return "Axial";
+    return "Axial     ";
   case Cubic:
-    return "Cubic";
+    return "Cubic     ";
   case Grid:
-    return "Grid";
+    return "Grid      ";
   default:
     assert(0);
     return "";

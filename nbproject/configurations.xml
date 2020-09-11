@@ -36,6 +36,8 @@
           <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
           <itemPath>src/utils/hex/HexCoords.h</itemPath>
         </logicalFolder>
+        <itemPath>src/utils/math/Matrix.cpp</itemPath>
+        <itemPath>src/utils/math/Matrix.h</itemPath>
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
@@ -141,6 +143,10 @@
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/utils/Tile.cpp" ex="false" tool="1" flavor2="0">
@@ -229,6 +235,10 @@
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/utils/Tile.cpp" ex="false" tool="1" flavor2="0">
@@ -310,6 +320,10 @@
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
