@@ -97,9 +97,6 @@ struct FlatHexPosition {
   /// \brief toString
   std::string toString() const;
   static std::string systemString(System s);
-  
-  ///\brief Matrice factor
-  void multiply(float a, float b, float c, float d);
 };
 
 class HCHasher {
