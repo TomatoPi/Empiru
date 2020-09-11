@@ -27,6 +27,7 @@
 #define HEXCAMERA_H
 
 #include "utils/hex/HexCoords.h"
+#include "utils/math/Matrix.h"
 
 /// \brief Utility object containing position, orientation and zoom of the camera
 /// \todo Create one or two interface / abstract classes to make external code independant of final implementation
@@ -35,6 +36,8 @@ public:
   
   static constexpr int HEXAGON_WIDTH  = 254;
   static constexpr int HEXAGON_HEIGHT = 87;
+  static const Matrix22 ROTATE_LEFT;
+  static const Matrix22 ROTATE_RIGHT;
   
 private:
   
@@ -49,13 +52,15 @@ private:
   float _scrollH; ///< {<0,0<,0} Scroll Left, Right, None
   float _scrollV; ///< {<0,0<,0} scroll Up, Down, None
   
+  int _orientation; ///< Camera's orientation : [0; 5]
+  
   FlatHexPosition _viewport; /// Viewport's diagonal vector
   FlatHexPosition _pos;      ///< Camera's target (position at center of viewport)
   
   FlatHexPosition _vx;  ///< Viewport's Horizontal vector
   FlatHexPosition _vy;  ///< Viewport's Vertical vector
   
-  int _orientation; ///< Camera's orientation : [0; 5]
+  Matrix22 _rotation; ///< Camera's rotation matrix
   
 public:
   
@@ -76,11 +81,6 @@ public:
   void toPixel(const FlatHexPosition & pos, int *x, int *y) const;
   /// \brief Convert a position on the screen to position in grid
   void fromPixel(int x, int y, FlatHexPosition *pos) const;
-  /// \brief Convert a position on grid to position of it center on the screen
-  /// \param pos : position to convert
-  /// \param x : pixel column
-  /// \param y : pixel row
-  void tileCenter(const FlatHexPosition & pos, int *x, int *y) const;
   
   /// \brief return tile's width on viewport
   int tileHeight() const;
@@ -112,13 +112,13 @@ public:
   
   void update(); ///< Update camera position according to scroll
   
-  int getOrientation(); ///< Get the camera orientation between 0 and 5 (include)
+  int getOrientation(); ///< Get the camera orientation between 0 and 5 (included)
   
   void rotateRight(); ///< Rotation of 60° to the right
-  
   void rotateLeft(); ///< Rotation of 60° to the left
   
-  void setOrientation(int incrementation); ///< Incr/Decr the orientation between 0 and 5 (include)
+  /// \brief Return the x and y vectors, rotated by curent camera according to camera
+  void rotatedAxialVectors(FlatHexPosition *ax, FlatHexPosition *ay) const;
 };
 
 #endif /* HEXCAMERA_H */

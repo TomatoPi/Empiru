@@ -42,9 +42,14 @@ void WorldRenderer::render() {
   _camera->upLeftCorner(&anchor);
   _camera->viewPortAxis(&vx, &vy);
   // Move one tile away to always draw left and up tiles
-  anchor = anchor - vx -vy;
+  //LOG_DEBUG("=============================\n");
+  //LOG_DEBUG("%s\n", anchor.toString().c_str());
+  anchor = anchor - vx - vy;
+  //LOG_DEBUG("%s\n", anchor.toString().c_str());
+  anchor.tile();
+  //LOG_DEBUG("%s\n", anchor.toString().c_str());
   // Compute render situation
-  int x, y, xx,
+  int x, y, xx, yy,
       dx(_camera->tileWidth() * 0.75), 
       dy(_camera->tileHeight());
   // -----------------------------------------
@@ -54,25 +59,26 @@ void WorldRenderer::render() {
   rect.h = _tileSprite->height();
   // -----------------------------------------
   // Get initial position and start
-  _camera->tileCenter(anchor, &xx, &y);
   for (
-      ; 
-      y - _camera->tileHeight() < _window->height ;
-      y += dy, anchor = anchor +vy
+      xx = -_camera->tileWidth() *2;
+      xx - _camera->tileWidth() < _window->width;
+      xx += dx, anchor = anchor +vx
       ) 
   {
+    //LOG_DEBUG("\n\n")
     for (
-        pos = anchor, x = xx;
-        x - _camera->tileWidth()*2.5 < _window->height;
-        x += dx, pos = pos +vx
+        pos = anchor, yy = -_camera->tileHeight() *2; 
+        yy - _camera->tileHeight() < _window->height ;
+        yy += dy, pos = pos +vy
         )
     {
       // Render tile pos at (x, y+offx[!!flip])
       FlatHexPosition off(pos);
+      //LOG_DEBUG("%s\n", pos.toString().c_str());
       off.tile().convert(FlatHexPosition::OddQOffset);
       //LOG_DEBUG("%s\n", off.toString().c_str());
-      if (0 <= off._x && 0 <= off._y && off._x < 8 && off._y < 8) {
-        _camera->tileCenter(off, &x, &y);
+      if (0 <= off._x && 0 <= off._y && off._x < 3 && off._y < 3) {
+        _camera->toPixel(off, &x, &y);
         rect.x = x - rect.w/2;
         rect.y = y + _camera->tileHeight()/2 - rect.h;
         //LOG_DEBUG("%d,%d -> %d,%d\n", x, y, rect.x, rect.y);
@@ -81,6 +87,7 @@ void WorldRenderer::render() {
           OUPS();
         }
       }
+      //LOG_DEBUG("\n")
     }
   }
 }

@@ -40,8 +40,6 @@
 #define SIZE 8
 #define FACTOR 2
 
-using namespace std;
-
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
@@ -63,7 +61,7 @@ int main(int argc, char** argv) {
       sprite->width(), sprite->height(),
       camera.tileWidth(), camera.tileHeight());
   
-  camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
+  camera.target(FlatHexPosition(0,0,FlatHexPosition::OddQOffset));
   
   WorldRenderer rdr(window, &camera, sprite);
   
@@ -82,9 +80,15 @@ int main(int argc, char** argv) {
     window->clear();
 
     rdr.render();
-
-    window->update();
     
+    window->update();
+/*
+    camera.rotateRight();
+    
+    rdr.render();
+    
+    return 0;
+//*/
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;
     if (tickEllapsedTime > FRAMETIME) {
       LOG_WRN("System Overload !! %ld ms late\n", tickEllapsedTime - FRAMETIME);

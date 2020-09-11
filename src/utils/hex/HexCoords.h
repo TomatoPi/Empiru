@@ -29,6 +29,7 @@
 #define HEXCOORDS_H
 
 #include <string>
+#include "utils/math/Matrix.h"
 
 /// \brief Represent a position on an Hexagonal Grid with flat disposition
 struct FlatHexPosition {
@@ -67,11 +68,14 @@ struct FlatHexPosition {
   /// \return Axial vector
   FlatHexPosition operator+(const FlatHexPosition & v) const;
   /// \brief substract two vectors
-  /// return this - v as Axial Vector
+  /// \return this - v as Axial Vector
   FlatHexPosition operator-(const FlatHexPosition & v) const;
   /// \brief get oposite vectors
   /// \return Axial vector
   FlatHexPosition operator-() const;
+  /// \brief Multiply this by matrix M
+  /// \return this as Axial Vector
+  FlatHexPosition operator*(const Matrix22 & M) const;
   
   /// \brief Convert this position to 'target' System
   FlatHexPosition & convert(System target);
@@ -79,9 +83,14 @@ struct FlatHexPosition {
   void convert(System target, FlatHexPosition * pos) const;
   
   /// \brief Round position to it tile's center
+  /// \bug Rounding error : tile (-4, -1) became (-3, -1) after rounding
+  ///       from axial
   FlatHexPosition & tile();
-  
+  /// \brief Return position rounded to tile's center
   FlatHexPosition tile() const;
+  
+  /// \brief Return tile's neightbour in direction of v
+  FlatHexPosition neightbour(const FlatHexPosition & v) const;
   
   /// \brief toString
   std::string toString() const;
