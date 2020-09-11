@@ -26,6 +26,7 @@
 #define WORLD_H
 #include <unordered_map>
 #include "Tile.h"
+#include "utils/log.h"
 
 class World {
 private :
@@ -43,8 +44,10 @@ public :
   
   ///\brief Add an object to the world set
   ///\param obj :  object to add
-  void addObject(Peon *pitou);
+  void addObject(Peon* pitou);
 
+
+  const std::vector<Peon*> getVectorFromPos(FlatHexPosition pos);
   
   ///\brief toString
   std::string toString() const;

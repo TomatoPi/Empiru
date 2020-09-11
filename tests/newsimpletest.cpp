@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alexis
+ * Copyright (C) 2020 CHARAMOND Lucien <lucien.charamond@outlook.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,30 +16,19 @@
  */
 
 /* 
- * File:   controller.h
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+ * File:   newsimpletest.cpp
+ * Author: CHARAMOND Lucien <lucien.charamond@outlook.fr>
  *
- * Created on 10 septembre 2020, 17:18
+ * Created on 10 septembre 2020, 15:03
  */
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#include <stdlib.h>
+#include <iostream>
 
-#include <SDL2/SDL_events.h>
-#include "../entity/peon.h"
+#include "world/utils/World.h"
 
-class Controller {
-  private:
-    
-    Peon * _peon;
-  
-  public:
-      
-    Controller();
-    
-    void selectPeon(Peon * peon);
-    
-    Peon * selectedPeon();
-};
 
-#endif /* CONTROLLER_H */
+int main(int argc, char** argv) {
+  return (EXIT_SUCCESS);
+}
+

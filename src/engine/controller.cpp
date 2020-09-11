@@ -17,7 +17,7 @@
 
 /* 
  * File:   controller.cpp
- * Author: Alexis
+ * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
  * 
  * Created on 10 septembre 2020, 17:18
  */
@@ -33,5 +33,5 @@ void Controller::selectPeon(Peon * peon) {
 }
 
 Peon * Controller::selectedPeon(){
-  return nullptr;
+  return _peon;
 }

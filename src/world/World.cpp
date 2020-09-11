@@ -27,6 +27,7 @@
 #include "utils/World.h"
 #include "engine/controller.h"
 
+
 World::World(int mapWidth, int mapHeight) :
   _mapWidth(mapWidth),
   _mapHeight(mapHeight),
@@ -41,6 +42,7 @@ World::World(int mapWidth, int mapHeight) :
   }
 }
 
+
 void World::addObject(Peon *pitou){
   const FlatHexPosition & pitou_pos = pitou->pos();
   auto itr = _objects.find(pitou_pos);
@@ -50,12 +52,29 @@ void World::addObject(Peon *pitou){
   itr->second.insert(pitou);
 }
 
+  const std::vector<Peon*> World::getVectorFromPos(FlatHexPosition pos){
+    if (_objects.find(pos) != _objects.end()){
+      return _objects.find(pos)->second.getVector();
+    }
+    return std::vector<Peon*>();
+  }
+
 std::string World::toString() const{
   std::string ts = "[Map Height : ";
   ts.append(std::to_string(_mapHeight))
     .append(", Map Width : ")
     .append(std::to_string(_mapWidth))
     .append("]\n");
+  
+  for (auto & itr : _objects){
+    ts.append(std::to_string(itr.second.pos()._x))
+      .append("/")
+      .append(std::to_string(itr.second.pos()._y))
+      .append("/")
+      .append(std::to_string(itr.second.pos()._y))
+      .append("\n");
+  }
+  /*
   for(int i = 0; i <_mapHeight*_mapWidth;i++){
     if (i%_mapWidth == 0){
       ts = ts.append("\n");
@@ -63,6 +82,7 @@ std::string World::toString() const{
     ts.append(std::to_string(_map[i]))
       .append(" ");
   }
+  */
   ts.append("\n");
   /*for(Tile wo : _objects){
     ts.append(wo.toString()).append("\n");
