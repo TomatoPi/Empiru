@@ -23,15 +23,14 @@
 ///
 
 #include "Handler.h"
-#include "utils/log.h"
-#include "../../world/utils/World.h"
-#include "../../engine/controller.h"
 
 #define MERGE 50
 
-Handler::Handler(HexCamera *c, Window *w) :
+Handler::Handler(HexCamera *c, Window *w, World *world, Controller *controller) :
   _camera(c),
-  _window(w)
+  _window(w),
+  _world(world),
+  _controller(controller)
 {
   
 }
@@ -119,19 +118,59 @@ bool Handler::handleKeyUp(const SDL_KeyboardEvent & key) {
   return true;
 }
 
-bool Handler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
-  LOG_TODO("Fonction temporaire pouet\n");
+bool Handler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
   FlatHexPosition pos;
+  
   _camera->fromPixel(event.x, event.y, &pos);
-  for (auto & itr : _objects){
-    if (pos._x ){
-    
-    }
+  pos.convert(FlatHexPosition::Grid);
+  
+  switch(event.button){
+    case SDL_BUTTON_LEFT:
+      handleMouseButtonLeftDown(pos);
+      break;
+    case SDL_BUTTON_RIGHT:
+      handleMouseButtonRightDown(pos);
+      break;
   }
-  LOG_DEBUG("Pouet : %s\n", pos.toString().c_str());
-  pos.convert(FlatHexPosition::OddQOffset);
-  LOG_DEBUG("Pouat : %s\n", pos.toString().c_str());
-  pos.tile();
-  LOG_DEBUG("Tile : %s\n", pos.toString().c_str());
+  
+  return true;
+}
+
+bool Handler::handleMouseButtonLeftDown(const FlatHexPosition & pos) {
+  auto tmp_world = _world->getVectorFromPos(pos);
+  
+  if (tmp_world != nullptr){
+    for (auto peon : *tmp_world){
+      LOG_DEBUG("PEON : %f %f %f\n",peon->pos()._x,
+            peon->pos()._y,
+            peon->pos()._z);
+      FlatHexPosition tmp_pos(peon->pos(),FlatHexPosition::Grid);
+      if (((pos._x >= tmp_pos._x) && (pos._y >= tmp_pos._y)) 
+          && ((pos._x < tmp_pos._x + 1) && (pos._y < tmp_pos._y + 0.5))){
+        
+        LOG_DEBUG("IF -----> ET MA HACHE : %f %f %f\n",peon->pos()._x,
+            peon->pos()._y,
+            peon->pos()._z);
+        _controller->selectPeon(peon);
+        LOG_DEBUG("Peon has been selected ! \n");
+      }
+      else {
+        LOG_DEBUG("Peon has been deselected\n");
+        _controller->selectPeon(nullptr);
+      }
+     }
+  }
+  
+  else {
+    LOG_DEBUG("Peon has been deselected\n");
+    _controller->selectPeon(nullptr);
+  }
+  
+  return true;
+}
+
+
+bool Handler::handleMouseButtonRightDown(const FlatHexPosition & pos){
+  LOG_DEBUG("MDR CA MARCHEEEEEEEEEEEEEEE\n");
   return true;
 }

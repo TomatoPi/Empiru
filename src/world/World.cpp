@@ -49,15 +49,17 @@ void World::addObject(Peon *pitou){
   if (itr == _objects.end()) {
     itr = _objects.emplace(pitou_pos,Tile(pitou_pos, pitou)).first;
   }
-  itr->second.insert(pitou);
+  else {
+    itr->second.insert(pitou);
+  }
 }
 
-  const std::vector<Peon*> World::getVectorFromPos(FlatHexPosition pos){
-    if (_objects.find(pos) != _objects.end()){
-      return _objects.find(pos)->second.getVector();
-    }
-    return std::vector<Peon*>();
+const std::vector<Peon*> * World::getVectorFromPos(FlatHexPosition pos){
+  if (_objects.find(pos) != _objects.end()){
+    return _objects.find(pos)->second.getVector();
   }
+  return nullptr;
+}
 
 std::string World::toString() const{
   std::string ts = "[Map Height : ";

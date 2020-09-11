@@ -34,6 +34,7 @@
 #include "gui/utils/Handler.h"
 #include "entity/peon.h"
 #include "world/utils/World.h"
+#include "engine/controller.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -49,11 +50,19 @@ int main(int argc, char** argv) {
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
   //Modif péon <--------------------------------------------------
   Sprite *s_peon = Sprite::loadFromFile("medias/peon.png",window->renderer);
+  SDL_Rect rect_peon;
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Peon peon2(FlatHexPosition(1,1,FlatHexPosition::Axial));
+  Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial));
+  Peon peon3(FlatHexPosition(20,20,FlatHexPosition::Axial));
+  Controller controller;
   World map_test(SIZE,SIZE);
   map_test.addObject(&peon);
   map_test.addObject(&peon2);
+  map_test.addObject(&peon3);
+  rect_peon.w = s_peon->width();
+  rect_peon.h = s_peon->height();
+  rect_peon.x = 0;
+  rect_peon.y = 0;
   LOG_DEBUG("TEST MAP : %s \n",map_test.toString().c_str());
   //--------------------------------------------------------------
   HexCamera camera(
@@ -61,7 +70,7 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE, 0);
   
-  Handler handler(&camera, window);
+  Handler handler(&camera, window, &map_test, &controller);
   
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
@@ -72,6 +81,7 @@ int main(int argc, char** argv) {
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
   WorldRenderer rdr(window, &camera, sprite);
+  
   
   
   /// \bug Bug d'affichage, les cases sur les bords gauche et haut ne s'affichent pas toujours
@@ -88,7 +98,14 @@ int main(int argc, char** argv) {
     window->clear();
 
     rdr.render();
-
+    // Péon modif <--------------------------------------------
+    camera.toPixel(peon.pos(),&(rect_peon.x),&(rect_peon.y));
+    
+    if (s_peon->renderFrame(window->renderer, &rect_peon)) {
+          LOG_WRN("%s\n", SDL_GetError());
+          OUPS();
+    }
+    // --------------------------------------------------------
     window->update();
     
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;

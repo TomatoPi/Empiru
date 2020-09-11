@@ -46,7 +46,7 @@ public:
  void insert(Peon* pitou);
 
   
- const std::vector<Peon*> getVector();
+ const std::vector<Peon*> * getVector() const;
  
   std::string toString() const;
 };

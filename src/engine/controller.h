@@ -27,6 +27,7 @@
 
 #include <SDL2/SDL_events.h>
 #include "../entity/peon.h"
+#include "utils/log.h"
 
 class Controller {
   private:

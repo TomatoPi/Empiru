@@ -47,7 +47,7 @@ public :
   void addObject(Peon* pitou);
 
 
-  const std::vector<Peon*> getVectorFromPos(FlatHexPosition pos);
+  const std::vector<Peon*> * getVectorFromPos(FlatHexPosition pos);
   
   ///\brief toString
   std::string toString() const;

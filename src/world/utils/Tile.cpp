@@ -42,8 +42,8 @@ const FlatHexPosition & Tile::pos() const {
     _entity_vector.push_back(pitou);
   }
 
- const std::vector<Peon*> Tile::getVector(){
-   return _entity_vector;
+ const std::vector<Peon*> * Tile::getVector() const{
+   return &_entity_vector;
  }
  
 std::string Tile::toString() const{

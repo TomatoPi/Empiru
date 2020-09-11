@@ -30,22 +30,28 @@
 #include "Window.h"
 
 #include "utils/hex/HexCamera.h"
-
+#include "world/utils/World.h"
+#include "../../engine/controller.h"
+#include "utils/log.h"
 
 class Handler {
 public:
-  Handler(HexCamera *c, Window *w);
+  Handler(HexCamera *c, Window *w, World *world, Controller *controller);
   bool handleSDLEvents();
   
 private:
   
   bool handleKeyDown(const SDL_KeyboardEvent & event);
   bool handleKeyUp(const SDL_KeyboardEvent & event);
-  bool handleMouseButtonDown(const SDL_MouseButtonEvent & event);
+  bool handleMouseButtonLeftDown(const FlatHexPosition & pos);
   bool handleMouseMovement(const SDL_MouseMotionEvent & event);
+  bool handleMouseButtonDown(const SDL_MouseButtonEvent & event);
+  bool Handler::handleMouseButtonRightDown(const FlatHexPosition & pos);
   
   HexCamera *_camera;
   Window *_window;
+  World *_world;
+  Controller *_controller;
 };
 
 #endif /* HANDLER_H */
