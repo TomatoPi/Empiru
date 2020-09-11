@@ -48,9 +48,9 @@ int main(int argc, char** argv) {
   Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
   PeonRenderer *prdr = PeonRenderer::create("medias/peon.png",window->renderer);
   
-  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial));
-  Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial));
+  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
+  Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
+  Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Controller controller;
   World map_test(SIZE,SIZE);
   
