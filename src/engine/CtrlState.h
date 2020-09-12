@@ -15,31 +15,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   controller.h
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- *
- * Created on 10 septembre 2020, 17:18
- */
+/// 
+/// \file   CtrlState.h
+/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+///
+/// \date 10 septembre 2020, 17:18
+///
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
 #include <SDL2/SDL_events.h>
-#include "../entity/peon.h"
-#include "utils/log.h"
+#include "entity/peon.h"
 
-class Controller {
+/// \brief Object used to keep state of game controller
+class ControllerState {
   private:
     
-    Peon * _peon;
+    Peon * _selectedPeon; ///< Obvious
   
   public:
-      
-    Controller();
+     
+    /// \brief Constructor
+    ControllerState();
     
+    /// \brief Select given peon
     void selectPeon(Peon * peon);
+    /// \brief Clear selection
+    void deselectPeon();
     
+    /// \brief Return selected peon or nullptr if no selection
     Peon * selectedPeon();
 };
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ * Copyright (C) 2020 Alexis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,36 +15,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * File:   HexTestClass.h
- * Author: DAGO Kokri Esaïe <dago.esaie@protonmail.com>
- *
- * Created on 9 sept. 2020, 01:28:18
- */
+/// 
+/// \file   CtrlState.cpp
+/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+///
+/// \date 10 septembre 2020, 17:18
+///
 
-#ifndef HEXTESTCLASS_H
-#define HEXTESTCLASS_H
+#include <cassert>
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "CtrlState.h"
 
-class HexTestClass : public CPPUNIT_NS::TestFixture {
-  CPPUNIT_TEST_SUITE(HexTestClass);
+/// \brief Constructor
+ControllerState::ControllerState() : _selectedPeon(nullptr)
+{
+  
+}
 
-  CPPUNIT_TEST(testOQOtoGrid);
-  CPPUNIT_TEST(testAxialtoOQO);
+/// \brief Select given peon
+void ControllerState::selectPeon(Peon * peon) {
+  assert(peon);
+  _selectedPeon = peon;
+}
+/// \brief Clear selection
+void ControllerState::deselectPeon() {
+  _selectedPeon = nullptr;
+}
 
-  CPPUNIT_TEST_SUITE_END();
-
-public:
-  HexTestClass();
-  virtual ~HexTestClass();
-  void setUp();
-  void tearDown();
-
-private:
-  void testOQOtoGrid();
-  void testAxialtoOQO();
-};
-
-#endif /* HEXTESTCLASS_H */
-
+/// \brief Return selected peon or nullptr if no selection
+Peon * ControllerState::selectedPeon(){
+  return _selectedPeon;
+}

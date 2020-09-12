@@ -25,6 +25,6 @@
 #include "Mover.h"
 #include "world/utils/World.h"
 
-void Mover::crashAndTurn(World & world){
+void Mover::crashAndTurn(World & world) {
   LOG_DEBUG("POUET <3\n");
 }

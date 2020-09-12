@@ -97,6 +97,6 @@ int World::height() const {
   return _mapHeight;
 }
 
-ObjList World::objects() const {
+World::ObjList World::objects() const {
   return _objects;
 }

@@ -31,10 +31,10 @@
 #include <SDL2/SDL_timer.h>
 
 #include "utils/log.h"
-#include "gui/utils/Handler.h"
+#include "gui/utils/SDLHandler.h"
 #include "entity/peon.h"
 #include "world/utils/World.h"
-#include "engine/controller.h"
+#include "engine/CtrlState.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -51,8 +51,11 @@ int main(int argc, char** argv) {
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Controller controller;
+  
+  ControllerState controller;
   World map_test(SIZE,SIZE);
+  
+  GameEngine engine(&map_test, &controller);
   
   map_test.addObject(&peon);
   map_test.addObject(&peon2);
@@ -64,7 +67,7 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE);
   
-  Handler handler(&camera, window, &map_test, &controller);
+  SDLHandler handler(&camera, window, &engine);
   
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 

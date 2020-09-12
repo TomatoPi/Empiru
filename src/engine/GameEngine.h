@@ -16,39 +16,35 @@
  */
 
 /// 
-/// \file   Tile.h
+/// \file   Engine.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 13:49
+/// \date 12 septembre 2020, 08:51
+/// \brief Core object for in-game mechanics
 ///
 
-#ifndef WORLDOBJECT_H
-#define WORLDOBJECT_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
-#include <vector>
+#include "world/utils/World.h"
+#include "engine/CtrlState.h"
 
-#include "utils/hex/HexCoords.h"
-#include "entity/peon.h"
-
-class Tile {
-private :
-  // Des trucs mais probablement :
-  FlatHexPosition _pos;
-  std::vector<Peon*> _entity_vector;
+/// \brief Main handler for game logic
+class GameEngine {
+private:
+  
+  World           *_world;      ///< THA WORLDOOOOO
+  ControllerState *_controller; ///< The game controller
   
 public:
   
-  Tile(FlatHexPosition pos);
-  Tile(FlatHexPosition pos,Peon* pitou);
+  /// \brief Constructor
+  GameEngine(World *w, ControllerState *c);
   
-  const FlatHexPosition & pos() const;
-  
-  void insert(Peon* pitou);
-
-  const std::vector<Peon*> * getVector() const;
- 
-  std::string toString() const;
+  /// \brief Called when a left click is performed at given position
+  void leftClickAt(const FlatHexPosition & click);
+  /// \brief Called when a right click is performed at given position
+  void rightClickAt(const FlatHexPosition & click);
 };
-  
 
-#endif /* WORLDOBJECT_H */
+#endif /* ENGINE_H */

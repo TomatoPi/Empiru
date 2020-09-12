@@ -17,10 +17,12 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="engine" projectFiles="true">
-        <itemPath>src/gui/utils/Handler.cpp</itemPath>
-        <itemPath>src/gui/utils/Handler.h</itemPath>
-        <itemPath>src/engine/controller.cpp</itemPath>
-        <itemPath>src/engine/controller.h</itemPath>
+        <itemPath>src/engine/CtrlState.cpp</itemPath>
+        <itemPath>src/engine/CtrlState.h</itemPath>
+        <itemPath>src/engine/GameEngine.cpp</itemPath>
+        <itemPath>src/engine/GameEngine.h</itemPath>
+        <itemPath>src/gui/utils/SDLHandler.cpp</itemPath>
+        <itemPath>src/gui/utils/SDLHandler.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
         <itemPath>src/entity/peon.cpp</itemPath>
@@ -143,13 +145,17 @@
       </item>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/engine/CtrlState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/CtrlState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/Mover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/Mover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/controller.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/engine/controller.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -171,9 +177,9 @@
       </item>
       <item path="src/gui/utils/CameraInterface.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/gui/utils/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
+      <item path="src/gui/utils/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -274,13 +280,17 @@
       </item>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/engine/CtrlState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/CtrlState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/Mover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/Mover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/controller.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/engine/controller.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -302,9 +312,9 @@
       </item>
       <item path="src/gui/utils/CameraInterface.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/gui/utils/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
+      <item path="src/gui/utils/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -399,13 +409,17 @@
       </item>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/engine/CtrlState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/CtrlState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/Mover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/Mover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/controller.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/engine/controller.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -427,9 +441,9 @@
       </item>
       <item path="src/gui/utils/CameraInterface.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/utils/Handler.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/gui/utils/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/gui/utils/Handler.h" ex="false" tool="3" flavor2="0">
+      <item path="src/gui/utils/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/utils/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>

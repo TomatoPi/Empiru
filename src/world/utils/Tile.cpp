@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   WorldObject.cpp
+/// \file   Tile.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 10 septembre 2020, 13:49

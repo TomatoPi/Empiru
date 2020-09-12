@@ -32,6 +32,7 @@
 #include "world/utils/World.h"
 #include "gui/renderer/PeonRenderer.h"
 
+/// \brief Object responsible of World rendering
 class WorldRenderer {
 private:
   

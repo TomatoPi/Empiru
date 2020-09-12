@@ -15,25 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   Mover.h
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- *
- * Created on 11 septembre 2020, 16:32
- */
+/// 
+/// \file   Mover.h
+/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+///
+/// \date 11 septembre 2020, 16:32
+/// \brief Handler of mouvments mechanics
+///
 
 #ifndef MOVER_H
 #define MOVER_H
 
+#include "world/utils/World.h"
+
 class Mover {
-  private:
-  
-    
-  
-  public:
-  
-    void crashAndTurn(World & world);
-  
+private:
+
+public:
+
+  void crashAndTurn(World & world);
+
 };
 
 #endif /* MOVER_H */
