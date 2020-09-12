@@ -26,7 +26,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "utils/hex/HexCamera.h"
+#include "utils/hex/HexViewport.h"
 #include "SDL2/SDL.h"
 
 #include "utils/log.h"
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
     return 0;
   }
   
-  HexCamera camera(HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
+  HexViewport camera(HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
     WIDTH, HEIGHT, 0, 0, 0);
   
   SDL_Rect rect;

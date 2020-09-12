@@ -28,7 +28,7 @@
 
 #define MERGE 50
 
-Handler::Handler(HexCamera *c, Window *w, World *world, Controller *controller) :
+Handler::Handler(Camera *c, Window *w, World *world, Controller *controller) :
   _camera(c),
   _window(w),
   _world(world),
@@ -98,7 +98,6 @@ bool Handler::handleKeyDown(const SDL_KeyboardEvent & key) {
       break;
     case SDLK_a:
       _camera->rotateLeft();
-      LOG_DEBUG("camera n° : %d \n", _camera->getOrientation());
       break;
     case SDLK_e:
       _camera->rotateRight();

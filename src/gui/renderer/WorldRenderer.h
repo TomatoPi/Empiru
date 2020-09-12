@@ -27,7 +27,7 @@
 #define WORLDRENDERER_H
 
 #include "gui/utils/Window.h"
-#include "utils/hex/HexCamera.h"
+#include "utils/hex/HexViewport.h"
 #include "gui/utils/Sprite.h"
 #include "world/utils/World.h"
 #include "gui/renderer/PeonRenderer.h"
@@ -36,7 +36,7 @@ class WorldRenderer {
 private:
   
   Window *_window;
-  HexCamera *_camera;
+  HexViewport *_worldView;
   Sprite *_tileSprite;
   World *_world;
   PeonRenderer *_peonrdr;
@@ -46,7 +46,7 @@ public:
   /// \brief Constructor
   WorldRenderer(
           Window *w, 
-          HexCamera *c, 
+          HexViewport *c, 
           Sprite *t, 
           World *wo, 
           PeonRenderer *p);

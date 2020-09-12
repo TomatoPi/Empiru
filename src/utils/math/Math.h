@@ -16,32 +16,27 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   Math.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 12 septembre 2020, 06:41
 ///
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef MATH_H
+#define MATH_H
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
+namespace math {
   
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
-  
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
-  
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
-  
-  /// \brief Inverse Matrix
-  /// \pre Matrix must be inversible
-  Matrix22 inverse() const;
-};
+  /// \brief Uniform rounding function that push halfvalues toward +inf
+  ///
+  ///   Default 'round' function in std push half values away from 0
+  ///   but this behaviour leads to difference on negatives or positives
+  ///   -0.5 and 0.5 will be rounded to -1 and 1 (resp) witch may cause
+  ///   problems
+  ///
+  ///   This function will round -0.5 and 0.5 to 0 and 1 (resp)
+  ///   which may be more stable for several operations
+  int mrnd(float a);
+}
 
-#endif /* MATRIX_H */
+#endif /* MATH_H */

@@ -24,9 +24,9 @@
 
 #include "HexCoords.h"
 #include "utils/log.h"
+#include "utils/math/Math.h"
 
 #include <cassert>
-#include <cmath>
 
 
 /// \brief Axial (0,0)
@@ -43,29 +43,33 @@ FlatHexPosition::FlatHexPosition(System type) :
 }
 /// \brief System's (x,y)
 FlatHexPosition::FlatHexPosition(float x, float y, System type) : 
-  _x(x), _y(y), _z(0), _type(type)
+  FlatHexPosition(x, y, 0, type)
 {
   
 }
 /// \brief Build a position from another
-FlatHexPosition::FlatHexPosition(const FlatHexPosition & pos, System type) : FlatHexPosition(pos)
+FlatHexPosition::FlatHexPosition(const FlatHexPosition & pos, System type) :
+  FlatHexPosition(pos)
 {
   convert(type);
 }
 /// \brief Cubic (x,y,z)
 FlatHexPosition::FlatHexPosition(float x, float y, float z) : 
-  _x(x), _y(y), _z(z), _type(Cubic)
+  FlatHexPosition(x, y, z, Cubic)
 {
   
 }
 /// \brief Construct a position from Pixel Coordinate
 FlatHexPosition::FlatHexPosition(float x, float y, float w, float h, System type) :
-  _x(4*x/w),
-  _y(2*y/h),
-  _z(0),
-  _type(Grid)
+  FlatHexPosition(4*x/w, 2*y/h, 0, Grid)
 {
   this->convert(type);
+}
+/// \brief Effective constructor
+FlatHexPosition::FlatHexPosition(float x, float y, float z, System s) : 
+  _x(x), _y(y), _z(z), _type(s)
+{
+  
 }
 
 /// \brief return true if a is at the same position than this
@@ -133,7 +137,7 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
     pos->_z = _z;
     return;
   }
-  /// Convert this position to Axial
+  // Convert this position to Axial
   float x, y;
   switch (_type) {
   case OddQOffset :
@@ -152,7 +156,7 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
   default:
     assert(0);
   }
-  /// Convert from Axial to Target
+  // Convert from Axial to Target
   switch (target) {
   case OddQOffset :
     pos->_x = x;
@@ -177,12 +181,8 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
   default :
     assert(0);
   }
-  /// This is the end
+  // This is the end
   pos->_type = target;
-}
-
-int mrnd(float a) {
-  return round(a) + ((a < 0) && (fabs(a - round(a)) >= 0.5));
 }
 
 /// \brief Round position to it tile's center
@@ -196,38 +196,11 @@ FlatHexPosition FlatHexPosition::tile() const {
   FlatHexPosition::tile(&res);
   return res;
 }
-/*
+
+/// \brief Effective implementation of tile function
 void FlatHexPosition::tile(FlatHexPosition *pos) {
   pos->convert(Axial);
-  int x(mrnd(pos->_x)), y(mrnd(pos->_y));
-  float xx = pos->_x - x, yy = pos->_y - y;
-  if (xx - yy > 0.5) {
-    x++, y--;
-  } else if (yy - xx > 0.5) {
-    x--, y++;
-  }
-  pos->_x = x, pos->_y = y;
-}
-//*/
-/*
-void FlatHexPosition::tile2(FlatHexPosition *pos) {
-  pos->convert(Cubic);
-  int x(mrnd(pos->_x)), y(mrnd(pos->_y)), z(mrnd(pos->_z));
-  float xx(fabs(x-pos->_x)), yy(fabs(y-pos->_y)), zz(fabs(z-pos->_z));
-  if (zz > yy && xx > xx) {
-    z = -y-x;
-  } else if (yy > xx) {
-    y = -z-x;
-  } else {
-    x = -z-y;
-  }
-  pos->_x = x, pos->_y = y, pos->_z = z;
-}
-//*/
-//*
-void FlatHexPosition::tile(FlatHexPosition *pos) {
-  pos->convert(Axial);
-  int x(mrnd(pos->_x)), y(mrnd(pos->_y));
+  int x(math::mrnd(pos->_x)), y(math::mrnd(pos->_y));
   float xx = pos->_x - x, yy = pos->_y - y;
   float u = xx + 2*yy, v = 2*xx + yy, w = yy - xx;
   if (w < 0) {
@@ -245,14 +218,15 @@ void FlatHexPosition::tile(FlatHexPosition *pos) {
   }
   pos->_x = x, pos->_y = y;
 }
-//*/
 
+/// \brief toString
 std::string FlatHexPosition::toString() const {
   return "HexPos[" + systemString(_type) + ":(" 
       + std::to_string(_x) + "," 
       + std::to_string(_y) + ","
       + std::to_string(_z) + ")]";
 }
+/// \brief Return s as a string
 std::string FlatHexPosition::systemString(System s) {
   switch(s) {
   case OddQOffset:
@@ -269,13 +243,18 @@ std::string FlatHexPosition::systemString(System s) {
   }
 }
 
+/// \brief Hashing functor on FlatHexPositions objects
+///   Hashing is performed on position rounded to it's tile
+///   So two positions on the same tile will have the same hash
 std::size_t HCHasher::operator() (const FlatHexPosition &obj) const {
-  FlatHexPosition pos = obj.tile();
-  pos.convert(FlatHexPosition::Axial);
+  FlatHexPosition pos = obj.tile().convert(FlatHexPosition::Axial);
   size_t x(pos._x), y(pos._y);
   return x ^ ((y << 16) | (y >> (sizeof(size_t) * 8 - 16)));
 }
 
+/// \brief Equality functor on FlatHexPosition objects
+///   Equality is tested on position rounded to it's tile
+///   So if 'a' and 'b' are on the same tile, return will be true
 bool HCEquals::operator() (const FlatHexPosition &a, const FlatHexPosition &b) const {
   return a.tile() == b.tile();
 }

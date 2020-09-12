@@ -29,14 +29,14 @@
 #include <SDL2/SDL_events.h>
 #include "Window.h"
 
-#include "utils/hex/HexCamera.h"
+#include "gui/impl/Camera.h"
 #include "world/utils/World.h"
 #include "../../engine/controller.h"
 #include "utils/log.h"
 
 class Handler {
 public:
-  Handler(HexCamera *c, Window *w, World *world, Controller *controller);
+  Handler(Camera *c, Window *w, World *world, Controller *controller);
   bool handleSDLEvents();
   
 private:
@@ -48,7 +48,7 @@ private:
   bool handleMouseButtonDown(const SDL_MouseButtonEvent & event);
   bool handleMouseButtonRightDown(const FlatHexPosition & pos);
   
-  HexCamera *_camera;
+  Camera *_camera;
   Window *_window;
   World *_world;
   Controller *_controller;

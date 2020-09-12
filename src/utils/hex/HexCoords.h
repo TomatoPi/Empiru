@@ -83,27 +83,35 @@ struct FlatHexPosition {
   void convert(System target, FlatHexPosition * pos) const;
   
   /// \brief Round position to it tile's center
-  /// \bug Rounding error : tile (-4, -1) became (-3, -1) after rounding
-  ///       from axial
   FlatHexPosition & tile();
   /// \brief Return position rounded to tile's center
   FlatHexPosition tile() const;
   
-  /// \brief Effective implementation of tile function
-  static void tile(FlatHexPosition *pos);
-//  static void tile2(FlatHexPosition *pos);
-//  static void tile3(FlatHexPosition *pos);
-  
   /// \brief toString
   std::string toString() const;
+  /// \brief Return s as a string
   static std::string systemString(System s);
+  
+private:
+  
+  /// \brief Effective constructor
+  FlatHexPosition(float x, float y, float z, System s);
+  
+  /// \brief Effective implementation of tile function
+  static void tile(FlatHexPosition *pos);
 };
 
+/// \brief Hashing functor on FlatHexPosition objects
+///   Hashing is performed on position rounded to it's tile
+///   So two positions on the same tile will have the same hash
 class HCHasher {
 public :
   std::size_t operator() (const FlatHexPosition &obj) const;
 };
 
+/// \brief Equality functor on FlatHexPosition objects
+///   Equality is tested on position rounded to it's tile
+///   So if 'a' and 'b' are on the same tile, return will be true
 class HCEquals {
 public :
   bool operator() (const FlatHexPosition &a, const FlatHexPosition &b) const;

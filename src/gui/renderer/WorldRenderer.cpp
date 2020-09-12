@@ -29,12 +29,12 @@
 
 WorldRenderer::WorldRenderer(
     Window *w, 
-    HexCamera *c, 
+    HexViewport *c, 
     Sprite *t, 
     World *wo, 
     PeonRenderer *p) : 
   _window(w),
-  _camera(c),
+  _worldView(c),
   _tileSprite(t),
   _world(wo),
   _peonrdr(p)
@@ -49,8 +49,8 @@ WorldRenderer::WorldRenderer(
 void WorldRenderer::render() {
   FlatHexPosition anchor, pos, vx, vy;
   // Compute anchor position and drawsteps
-  _camera->upLeftCorner(&anchor);
-  _camera->viewPortAxis(&vx, &vy);
+  _worldView->upLeftCorner(&anchor);
+  _worldView->viewPortAxis(&vx, &vy);
   // Move one tile away to always draw left and up tiles
   //LOG_DEBUG("=============================\n");
   //LOG_DEBUG("%s\n", anchor.toString().c_str());
@@ -60,8 +60,8 @@ void WorldRenderer::render() {
   //LOG_DEBUG("%s\n", anchor.toString().c_str());
   // Compute render situation
   int x, y, xx, yy,
-      dx(_camera->tileWidth() * 0.75), 
-      dy(_camera->tileHeight());
+      dx(_worldView->tileWidth() * 0.75), 
+      dy(_worldView->tileHeight());
   // -----------------------------------------
   /// \todo remove this
   SDL_Rect rect;
@@ -70,15 +70,15 @@ void WorldRenderer::render() {
   // -----------------------------------------
   // Get initial position and start
   for (
-      xx = -_camera->tileWidth() *2;
-      xx - _camera->tileWidth() < _window->width;
+      xx = -_worldView->tileWidth() *2;
+      xx - _worldView->tileWidth() < _window->width;
       xx += dx, anchor = anchor +vx
       ) 
   {
     //LOG_DEBUG("\n\n")
     for (
-        pos = anchor, yy = -_camera->tileHeight() *2; 
-        yy - _camera->tileHeight() < _window->height ;
+        pos = anchor, yy = -_worldView->tileHeight() *2; 
+        yy - _worldView->tileHeight() < _window->height ;
         yy += dy, pos = pos +vy
         )
     {
@@ -92,9 +92,9 @@ void WorldRenderer::render() {
           && off._x < _world->width() 
           && off._y < _world->height()) 
       {
-        _camera->toPixel(off, &x, &y);
+        _worldView->toPixel(off, &x, &y);
         rect.x = x - rect.w/2;
-        rect.y = y + _camera->tileHeight()/2 - rect.h;
+        rect.y = y + _worldView->tileHeight()/2 - rect.h;
         //LOG_DEBUG("%d,%d -> %d,%d\n", x, y, rect.x, rect.y);
         if (_tileSprite->renderFrame(_window->renderer, &rect)) {
           LOG_WRN("%s\n", SDL_GetError());
@@ -104,7 +104,7 @@ void WorldRenderer::render() {
         auto vec(_world->getVectorFromPos(off));
         if (vec) {
           for (auto peon : *vec) {
-            _camera->toPixel(peon->pos(), &x, &y);
+            _worldView->toPixel(peon->pos(), &x, &y);
             _peonrdr->renderAt(x, y, _window->renderer);
           }
         }

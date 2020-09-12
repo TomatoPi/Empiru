@@ -25,7 +25,7 @@
 #include <cstdlib>
 
 #include "gui/utils/Sprite.h"
-#include "utils/hex/HexCamera.h"
+#include "gui/impl/Camera.h"
 #include "gui/utils/Window.h"
 #include "gui/renderer/WorldRenderer.h"
 #include <SDL2/SDL_timer.h>
@@ -58,11 +58,11 @@ int main(int argc, char** argv) {
   map_test.addObject(&peon2);
   map_test.addObject(&peon3);
   LOG_DEBUG("TEST MAP : %s \n",map_test.toString().c_str());
-  //--------------------------------------------------------------
-  HexCamera camera(
-    HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
+  
+  Camera camera(
+    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
     window->width, window->height,
-    SIZE, SIZE, 0);
+    SIZE, SIZE);
   
   Handler handler(&camera, window, &map_test, &controller);
   
@@ -75,12 +75,6 @@ int main(int argc, char** argv) {
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
   WorldRenderer rdr(window, &camera, sprite, &map_test, prdr);
-  
-  
-  
-  /// \bug Bug d'affichage, les cases sur les bords gauche et haut ne s'affichent pas toujours
-  /// Car si la case HautGauche est trop hors de l'ecran
-  /// ces cases ne sont pas parcourues lors du rendu
 
   long tickStartTime, tickEllapsedTime;
   while(handler.handleSDLEvents()) {
@@ -94,13 +88,7 @@ int main(int argc, char** argv) {
     rdr.render();
     
     window->update();
-/*
-    camera.rotateRight();
-    
-    rdr.render();
-    
-    return 0;
-//*/
+
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;
     if (tickEllapsedTime > FRAMETIME) {
       LOG_WRN("System Overload !! %ld ms late\n", tickEllapsedTime - FRAMETIME);
@@ -111,9 +99,7 @@ int main(int argc, char** argv) {
   }
   
   delete sprite;
-  //Modif péon <--------------------------------------------------
   delete prdr;
-  //--------------------------------------------------------------
   delete window;
   
   return 0;
