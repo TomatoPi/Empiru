@@ -16,29 +16,24 @@
  */
 
 /* 
- * File:   peon.cpp
+ * File:   Mover.h
  * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- * 
- * Created on 10 septembre 2020, 16:08
+ *
+ * Created on 11 septembre 2020, 16:32
  */
 
-#include "peon.h"
+#ifndef MOVER_H
+#define MOVER_H
 
-Peon::Peon(const FlatHexPosition & pos, const FlatHexPosition & target_pos) : 
-  _pos(pos), 
-  _target_pos(target_pos)
-{
+class Mover {
+  private:
   
-}
+    
+  
+  public:
+  
+    void crashAndTurn(World & world);
+  
+};
 
-const FlatHexPosition & Peon::pos() const {
-  return _pos;
-}
-
-const FlatHexPosition & Peon::targetPos() const {
-  return _target_pos;
-}
-
-void Peon::setTargetPos(const FlatHexPosition & pos){
-  _target_pos = pos;
-}
+#endif /* MOVER_H */

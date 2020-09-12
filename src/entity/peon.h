@@ -32,14 +32,19 @@ class Peon {
   private:
   
     FlatHexPosition _pos;
+    FlatHexPosition _target_pos;
     
   public:
     
-    Peon(const FlatHexPosition & pos);
+    Peon(const FlatHexPosition & pos, const FlatHexPosition & target_pos);
     
     std::string toString() const;
     
     const FlatHexPosition & pos() const;
+    
+    const FlatHexPosition & targetPos() const;
+    
+    void setTargetPos(const FlatHexPosition & pos);
 };
 
 #endif /* PEON_H */

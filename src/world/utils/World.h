@@ -26,6 +26,7 @@
 #define WORLD_H
 #include <unordered_map>
 #include "Tile.h"
+#include "engine/controller.h"
 #include "utils/log.h"
 
 class World {
@@ -54,7 +55,7 @@ public :
   
   int width() const;  ///< World's width
   int height() const; ///< World's height
-  
+  ObjList objects() const; ///< List objects
 };
 
 #endif /* WORLD_H*/

@@ -25,7 +25,6 @@
 #include <cassert>
 
 #include "utils/World.h"
-#include "engine/controller.h"
 
 
 World::World(int mapWidth, int mapHeight) :
@@ -96,4 +95,8 @@ int World::width() const {
 }
 int World::height() const {
   return _mapHeight;
+}
+
+ObjList World::objects() const {
+  return _objects;
 }

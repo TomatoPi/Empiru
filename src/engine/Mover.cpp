@@ -16,29 +16,15 @@
  */
 
 /* 
- * File:   peon.cpp
+ * File:   Mover.cpp
  * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
  * 
- * Created on 10 septembre 2020, 16:08
+ * Created on 11 septembre 2020, 16:32
  */
 
-#include "peon.h"
+#include "Mover.h"
+#include "world/utils/World.h"
 
-Peon::Peon(const FlatHexPosition & pos, const FlatHexPosition & target_pos) : 
-  _pos(pos), 
-  _target_pos(target_pos)
-{
-  
-}
-
-const FlatHexPosition & Peon::pos() const {
-  return _pos;
-}
-
-const FlatHexPosition & Peon::targetPos() const {
-  return _target_pos;
-}
-
-void Peon::setTargetPos(const FlatHexPosition & pos){
-  _target_pos = pos;
+void Mover::crashAndTurn(World & world){
+  LOG_DEBUG("POUET <3\n");
 }

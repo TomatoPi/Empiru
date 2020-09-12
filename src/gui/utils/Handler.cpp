@@ -124,6 +124,7 @@ bool Handler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
   FlatHexPosition pos;
   
   _camera->fromPixel(event.x, event.y, &pos);
+  pos.convert(FlatHexPosition::Grid);
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
@@ -146,9 +147,10 @@ bool Handler::handleMouseButtonLeftDown(const FlatHexPosition & pos) {
   
   if (tmp_world != nullptr){
     for (auto peon : *tmp_world){
-      LOG_DEBUG("PEON : %s\n",peon->pos().toString().c_str());
+      LOG_DEBUG("PEON pos : %s target : %s\n",peon->pos().toString().c_str(),peon->targetPos().toString().c_str());
       FlatHexPosition tmp_pos(peon->pos(),FlatHexPosition::Grid);
       LOG_DEBUG("CLIC : %s\n", pos.toString().c_str());
+      LOG_DEBUG("pos : %s tmp_pos : %s \n",pos.toString().c_str(),tmp_pos.toString().c_str());
       if ((fabs(pos._x - tmp_pos._x) < 0.25) && (fabs(pos._y + 0.25 - tmp_pos._y) < 0.25)) {
         
         LOG_DEBUG("IF -----> ET MA HACHE : %f %f %f\n",peon->pos()._x,
@@ -174,6 +176,15 @@ bool Handler::handleMouseButtonLeftDown(const FlatHexPosition & pos) {
 
 
 bool Handler::handleMouseButtonRightDown(const FlatHexPosition & pos){
-  LOG_DEBUG("MDR CA MARCHEEEEEEEEEEEEEEE\n");
+  //Attention, il faudra vérifier si la position est clickable
+  if (_controller->selectedPeon() != nullptr){
+    _controller->selectedPeon()->setTargetPos(pos);
+    auto tmp_world = _world->getVectorFromPos(pos);
+    if (tmp_world != nullptr){
+      for (auto peon : *tmp_world){
+        LOG_DEBUG("pos : %s target : %s\n",peon->pos().toString().c_str(),peon->targetPos().toString().c_str());
+      }
+    }
+  }
   return true;
 }
