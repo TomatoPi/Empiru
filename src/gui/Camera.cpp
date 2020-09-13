@@ -29,7 +29,7 @@ Camera::Camera(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,
     int worldWidth, int worldHeight) : 
-  CameraInterface(0.1, 0.05, 6),
+  AbstractCamera(0.1, 0.05, 6),
   HexViewport(tileWidth, tileHeight, viewWidth, viewHeight),
   _worldWidth(worldWidth),
   _worldHeight(worldHeight),

@@ -16,44 +16,37 @@
  */
 
 /// 
-/// \file   WorldRenderer.h
+/// \file   PeonRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 14:56
-/// \brief Core object of rendering engine
+/// \date 11 septembre 2020, 02:27
 ///
 
-#ifndef WORLDRENDERER_H
-#define WORLDRENDERER_H
+#ifndef PEONRENDERER_H
+#define PEONRENDERER_H
 
-#include "gui/utils/Window.h"
-#include "utils/hex/HexViewport.h"
-#include "gui/utils/Sprite.h"
-#include "world/utils/World.h"
-#include "gui/renderer/PeonRenderer.h"
+#include "utils/gui/Sprite.h"
 
-/// \brief Object responsible of World rendering
-class WorldRenderer {
+class PeonRenderer {
 private:
   
-  Window *_window;
-  HexViewport *_worldView;
-  Sprite *_tileSprite;
-  World *_world;
-  PeonRenderer *_peonrdr;
+  Sprite *_sheet;
   
 public:
   
-  /// \brief Constructor
-  WorldRenderer(
-          Window *w, 
-          HexViewport *c, 
-          Sprite *t, 
-          World *wo, 
-          PeonRenderer *p);
+  /// \brief Load assets and create a renderer for Peons
+  /// \return nullptr on failure
+  static PeonRenderer * create(const char *path, SDL_Renderer *rdr);
   
-  /// \brief Draw EVERYTHINGS (in the world)
-  void render();
+  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+  int renderAt(int x, int y, SDL_Renderer *rdr);
+  
+  ~PeonRenderer();
+  
+private:
+  
+  /// Constructor
+  PeonRenderer(Sprite *s);
 };
 
-#endif /* WORLDRENDERER_H */
+#endif /* PEONRENDERER_H */

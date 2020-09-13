@@ -28,10 +28,10 @@
 
 #define MERGE 50
 
-SDLHandler::SDLHandler(Camera *c, Window *w, GameEngine *e) :
+SDLHandler::SDLHandler(AbstractCamera *c, HexViewport *w, Controller *e) :
   _camera(c),
-  _window(w),
-  _engine(e)
+  _worldview(w),
+  _controller(e)
 {
   
 }
@@ -129,15 +129,15 @@ bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
 bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
   
   FlatHexPosition pos;
-  _camera->fromPixel(event.x, event.y, &pos);
+  _worldview->fromPixel(event.x, event.y, &pos);
   pos.convert(FlatHexPosition::Grid);
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
-      _engine->leftClickAt(pos);
+      _controller->leftClickAt(pos);
       break;
     case SDL_BUTTON_RIGHT:
-      _engine->rightClickAt(pos);
+      _controller->rightClickAt(pos);
       break;
   }
   

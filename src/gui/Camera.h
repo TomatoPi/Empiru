@@ -26,9 +26,9 @@
 #define CAMERA_H
 
 #include "utils/hex/HexViewport.h"
-#include "gui/utils/CameraInterface.h"
+#include "utils/gui/AbstractCamera.h"
 
-class Camera : public CameraInterface, public HexViewport {
+class Camera : public AbstractCamera, public HexViewport {
 private:
   
   int _worldWidth;  ///< World's width in tile count

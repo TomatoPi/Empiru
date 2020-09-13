@@ -25,7 +25,7 @@
 #ifndef CAMERAINTERFACE_H
 #define CAMERAINTERFACE_H
 
-class CameraInterface {
+class AbstractCamera {
 private:
   
   float _hScrollSpeed; ///< Horizontal scroll speed
@@ -60,7 +60,7 @@ protected:
   /// \param hs : Horizontal scroll speed
   /// \param vs : Vertical scroll speed
   /// \param nors : Count of available orientations
-  CameraInterface(float hs, float vs, int nors);
+  AbstractCamera(float hs, float vs, int nors);
   
   /// \brief Must scroll the camera Horizontaly at given speed
   virtual void doUpdateLRScroll(float v) = 0;

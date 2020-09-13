@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ * Copyright (C) 2020 Alexis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,35 +16,25 @@
  */
 
 /// 
-/// \file   Engine.h
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+/// \file   Mover.h
+/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for in-game mechanics
+/// \date 11 septembre 2020, 16:32
+/// \brief Handler of in-game mechanics
 ///
 
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef GAMEENGINE_H
+#define GAMEENGINE_H
 
-#include "world/utils/World.h"
-#include "engine/CtrlState.h"
+#include "world/World.h"
 
-/// \brief Main handler for game logic
 class GameEngine {
 private:
-  
-  World           *_world;      ///< THA WORLDOOOOO
-  ControllerState *_controller; ///< The game controller
-  
+
 public:
-  
-  /// \brief Constructor
-  GameEngine(World *w, ControllerState *c);
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
-  /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
+
+  void crashAndTurn(World & world);
+
 };
 
-#endif /* ENGINE_H */
+#endif /* GAMEENGINE_H */

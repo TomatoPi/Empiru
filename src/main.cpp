@@ -24,17 +24,18 @@
 
 #include <cstdlib>
 
-#include "gui/utils/Sprite.h"
-#include "gui/impl/Camera.h"
-#include "gui/utils/Window.h"
-#include "gui/renderer/WorldRenderer.h"
+#include "gui/Camera.h"
+#include "utils/gui/Sprite.h"
+#include "utils/gui/Window.h"
+#include "gui/WorldRenderer.h"
 #include <SDL2/SDL_timer.h>
 
 #include "utils/log.h"
-#include "gui/utils/SDLHandler.h"
 #include "entity/peon.h"
-#include "world/utils/World.h"
-#include "engine/CtrlState.h"
+#include "world/World.h"
+
+#include "controller/SDLHandler.h"
+#include "controller/Controller.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -52,10 +53,9 @@ int main(int argc, char** argv) {
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   
-  ControllerState controller;
   World map_test(SIZE,SIZE);
   
-  GameEngine engine(&map_test, &controller);
+  Controller controller(&map_test);
   
   map_test.addObject(&peon);
   map_test.addObject(&peon2);
@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE);
   
-  SDLHandler handler(&camera, window, &engine);
+  SDLHandler handler(&camera, &camera, &controller);
   
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 

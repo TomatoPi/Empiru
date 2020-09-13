@@ -57,8 +57,9 @@ int main(int argc, char** argv) {
     return 0;
   }
   
-  HexViewport camera(HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
-    WIDTH, HEIGHT, 0, 0, 0);
+  HexViewport camera(
+    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
+    WIDTH, HEIGHT);
   
   SDL_Rect rect;
   rect.w = rect.h = 1;

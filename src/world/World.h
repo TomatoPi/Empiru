@@ -24,9 +24,10 @@
 
 #ifndef  WORLD_H
 #define WORLD_H
+
 #include <unordered_map>
+
 #include "Tile.h"
-#include "engine/CtrlState.h"
 #include "utils/log.h"
 
 /// \brief Object that handle Map and Objects

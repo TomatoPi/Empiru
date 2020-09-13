@@ -22,10 +22,10 @@
 /// \date 11 septembre 2020, 17:15
 ///
 
-#include "CameraInterface.h"
+#include "AbstractCamera.h"
 
 
-CameraInterface::CameraInterface(float hs, float vs, int nors) :
+AbstractCamera::AbstractCamera(float hs, float vs, int nors) :
   _hScrollSpeed(hs),
   _vScrollSpeed(vs),
     
@@ -38,27 +38,27 @@ CameraInterface::CameraInterface(float hs, float vs, int nors) :
   
 }
 
-void CameraInterface::scrollLeft() {
+void AbstractCamera::scrollLeft() {
   _scrollH = -_hScrollSpeed;
 }
-void CameraInterface::scrollRight() {
+void AbstractCamera::scrollRight() {
   _scrollH = _hScrollSpeed;
 }
-void CameraInterface::stopLRScroll() {
+void AbstractCamera::stopLRScroll() {
   _scrollH = 0;
 }
 
-void CameraInterface::scrollUp() {
+void AbstractCamera::scrollUp() {
   _scrollV = -_vScrollSpeed;
 }
-void CameraInterface::scrollDown() {
+void AbstractCamera::scrollDown() {
   _scrollV = _vScrollSpeed;
 }
-void CameraInterface::stopUDScroll() {
+void AbstractCamera::stopUDScroll() {
   _scrollV = 0;
 }
 
-void CameraInterface::update() {
+void AbstractCamera::update() {
   if (_scrollH) {
     this->doUpdateLRScroll(_scrollH);
   }
@@ -67,16 +67,16 @@ void CameraInterface::update() {
   }
 }
 
-int CameraInterface::getOrientation() {
+int AbstractCamera::getOrientation() {
   return _orientation;
 }
 
-void CameraInterface::rotateRight() {
+void AbstractCamera::rotateRight() {
   _orientation = (_orientation+1) %_nors;
   this->doRotateRight();
 }
 
-void CameraInterface::rotateLeft() {
+void AbstractCamera::rotateLeft() {
   _orientation = (_orientation <= 0 ? _nors : _orientation) -1;
   this->doRotateLeft();
 }

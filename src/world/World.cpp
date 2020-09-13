@@ -24,7 +24,7 @@
 
 #include <cassert>
 
-#include "utils/World.h"
+#include "world/World.h"
 
 
 World::World(int mapWidth, int mapHeight) :

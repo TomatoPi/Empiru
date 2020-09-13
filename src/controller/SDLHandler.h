@@ -29,22 +29,22 @@
 
 #include <SDL2/SDL_events.h>
 
-#include "gui/impl/Camera.h"
-#include "gui/utils/Window.h"
-#include "engine/GameEngine.h"
+#include "utils/gui/AbstractCamera.h"
+#include "utils/hex/HexViewport.h"
+#include "controller/Controller.h"
 
 /// \brief Wrapping object for SDL_Events handling
 class SDLHandler {
 private:
   
-  Camera *_camera;
-  Window *_window;
-  GameEngine *_engine;
+  AbstractCamera *_camera;
+  HexViewport     *_worldview;
+  Controller      *_controller;
   
 public:
   
   /// \brief Constructor
-  SDLHandler(Camera *c, Window *w, GameEngine *e);
+  SDLHandler(AbstractCamera *c, HexViewport *w, Controller *e);
   
   /// \brief Core SDLHandler's function, process all events availables
   bool handleSDLEvents();
@@ -59,7 +59,6 @@ private:
   // ---- Mouse ---- //
   
   bool handleMouseMovement(const SDL_MouseMotionEvent & event);
-  
   bool handleMouseButtonDown(const SDL_MouseButtonEvent & event);
   
 };
