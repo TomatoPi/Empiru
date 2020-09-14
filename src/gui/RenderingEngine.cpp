@@ -30,13 +30,13 @@
 RenderingEngine::RenderingEngine(
     Window *w, 
     HexViewport *c, 
-    SpriteSheet *t, 
     World *wo, 
-    PeonRenderer *p) : 
+    AbstractRenderer *t,
+    AbstractRenderer *p) : 
   _window(w),
   _worldView(c),
-  _tileSprite(t),
   _world(wo),
+  _tilerdr(t),
   _peonrdr(p)
 {
   assert(w);
@@ -62,12 +62,6 @@ void RenderingEngine::render() {
   int x, y, xx, yy,
       dx(_worldView->tileWidth() * 0.75), 
       dy(_worldView->tileHeight());
-  // -----------------------------------------
-  /// \todo remove this
-  SDL_Rect rect;
-  rect.w = _tileSprite->width();
-  rect.h = _tileSprite->height();
-  // -----------------------------------------
   // Get initial position and start
   for (
       xx = -_worldView->tileWidth() *2;
@@ -93,10 +87,8 @@ void RenderingEngine::render() {
           && off._y < _world->height()) 
       {
         _worldView->toPixel(off, &x, &y);
-        rect.x = x - rect.w/2;
-        rect.y = y + _worldView->tileHeight()/2 - rect.h;
         //LOG_DEBUG("%d,%d -> %d,%d\n", x, y, rect.x, rect.y);
-        if (_tileSprite->renderFrame(0, _window->renderer, &rect)) {
+        if (_tilerdr->renderAt(x, y, _window->renderer)) {
           LOG_WRN("%s\n", SDL_GetError());
           OUPS();
         }

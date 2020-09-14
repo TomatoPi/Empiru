@@ -16,43 +16,30 @@
  */
 
 /// 
-/// \file   WorldRenderer.h
+/// \file   AbstractRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 14:56
-/// \brief Core object of rendering engine
+/// \date 14 septembre 2020, 12:49
 ///
 
-#ifndef WORLDRENDERER_H
-#define WORLDRENDERER_H
+#ifndef ABSTRACTRENDERER_H
+#define ABSTRACTRENDERER_H
 
-#include "utils/gui/Window.h"
-#include "utils/hex/HexViewport.h"
-#include "utils/gui/AbstractRenderer.h"
-#include "world/World.h"
+#include "utils/gui/SpriteSheet.h"
+#include <SDL2/SDL_render.h>
 
-/// \brief Object responsible of Game rendering
-class RenderingEngine {
-private:
+class AbstractRenderer {
+protected:
   
-  Window *_window;
-  HexViewport *_worldView;
-  World *_world;
-  AbstractRenderer *_tilerdr;
-  AbstractRenderer *_peonrdr;
+  SpriteSheet *_sheet;
   
 public:
   
-  /// \brief Constructor
-  RenderingEngine(
-          Window *w, 
-          HexViewport *c, 
-          World *wo, 
-          AbstractRenderer *t,
-          AbstractRenderer *p);
+  virtual int renderAt(int x, int y, SDL_Renderer *rdr) = 0;
   
-  /// \brief Draw EVERYTHINGS (in the world)
-  void render();
+protected:
+  
+  AbstractRenderer(SpriteSheet *sheet);
 };
 
-#endif /* WORLDRENDERER_H */
+#endif /* ABSTRACTRENDERER_H */

@@ -16,10 +16,28 @@
  */
 
 /// 
-/// \file   AbstractRenderer.cpp
+/// \file   TiledObjectRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 14 septembre 2020, 13:33
 ///
 
-#include "AbstractRenderer.h"
+#ifndef TILEDOBJECTRENDERER_H
+#define TILEDOBJECTRENDERER_H
+
+#include "utils/hex/HexViewport.h"
+#include "utils/gui/AbstractRenderer.h"
+
+class TiledObjectRenderer : public AbstractRenderer {
+private:
+
+  HexViewport *_worldview;
+  
+public:
+  
+  TiledObjectRenderer(HexViewport *wv, SpriteSheet *sheet);
+  
+  virtual int renderAt(int x, int y, SDL_Renderer *rdr);
+};
+
+#endif /* TILEDOBJECTRENDERER_H */

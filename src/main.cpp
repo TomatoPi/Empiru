@@ -28,6 +28,8 @@
 #include "utils/gui/SpriteSheet.h"
 #include "utils/gui/Window.h"
 #include "gui/RenderingEngine.h"
+#include "gui/SmallObjectRenderer.h"
+#include "gui/TiledObjectRenderer.h"
 #include <SDL2/SDL_timer.h>
 
 #include "utils/log.h"
@@ -46,8 +48,8 @@
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  SpriteSheet *sprite = SpriteSheet::loadFromFile("medias/sol.png", 1, window->renderer);
-  PeonRenderer *prdr = PeonRenderer::create("medias/peon.png",window->renderer);
+  SpriteSheet *groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, window->renderer);
+  SpriteSheet *peonSprite = SpriteSheet::loadFromFile("medias/peon.png", 1, window->renderer);
   
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
@@ -67,17 +69,21 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE);
   
+  
+  TiledObjectRenderer tilerdr(&camera, groundSprite);
+  SmallObjectRenderer prdr(peonSprite);
+  
   SDLHandler handler(&camera, &camera, &controller);
   
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
       window->width, window->height,
-      sprite->width(), sprite->height(),
+      groundSprite->width(), groundSprite->height(),
       camera.tileWidth(), camera.tileHeight());
   
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  RenderingEngine rdr(window, &camera, sprite, &map_test, prdr);
+  RenderingEngine rdr(window, &camera, &map_test, &tilerdr, &prdr);
 
   long tickStartTime, tickEllapsedTime;
   while(handler.handleSDLEvents()) {
@@ -101,8 +107,8 @@ int main(int argc, char** argv) {
     }
   }
   
-  delete sprite;
-  delete prdr;
+  delete groundSprite;
+  delete peonSprite;
   delete window;
   
   return 0;

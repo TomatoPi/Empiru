@@ -25,28 +25,17 @@
 #ifndef PEONRENDERER_H
 #define PEONRENDERER_H
 
-#include "utils/gui/SpriteSheet.h"
+#include "utils/gui/AbstractRenderer.h"
 
-class PeonRenderer {
-private:
-  
-  SpriteSheet *_sheet;
-  
+class SmallObjectRenderer : public AbstractRenderer {  
 public:
-  
-  /// \brief Load assets and create a renderer for Peons
-  /// \return nullptr on failure
-  static PeonRenderer * create(const char *path, SDL_Renderer *rdr);
+
+  /// Constructor
+  SmallObjectRenderer(SpriteSheet *s);
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-  int renderAt(int x, int y, SDL_Renderer *rdr);
+  virtual int renderAt(int x, int y, SDL_Renderer *rdr);
   
-  ~PeonRenderer();
-  
-private:
-  
-  /// Constructor
-  PeonRenderer(SpriteSheet *s);
 };
 
 #endif /* PEONRENDERER_H */

@@ -16,18 +16,25 @@
  */
 
 /// 
-/// \file   AbstractRenderer.h
+/// \file   PeonRenderer.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 11 septembre 2020, 02:27
 ///
 
-#ifndef ABSTRACTRENDERER_H
-#define ABSTRACTRENDERER_H
+#include "SmallObjectRenderer.h"
 
-class Renderer {
-private:
+/// Constructor
+SmallObjectRenderer::SmallObjectRenderer(SpriteSheet *s) : AbstractRenderer(s) {
   
-};
+}
 
-#endif /* ABSTRACTRENDERER_H */
+/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+int SmallObjectRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
+  SDL_Rect r;
+  r.w = _sheet->width();
+  r.h = _sheet->height();
+  r.x = x - r.w / 2;
+  r.y = y - r.h;
+  return _sheet->renderFrame(0, rdr, &r);
+}
