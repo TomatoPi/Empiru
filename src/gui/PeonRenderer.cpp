@@ -28,7 +28,7 @@
 /// \brief Load assets and create a renderer for Peons
 /// \return nullptr on failure
 PeonRenderer * PeonRenderer::create(const char *path, SDL_Renderer *rdr) {
-  Sprite *s(Sprite::loadFromFile(path, rdr));
+  SpriteSheet *s(SpriteSheet::loadFromFile(path, 1, rdr));
   if (!s) {
     return nullptr;
   }
@@ -42,11 +42,11 @@ int PeonRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
   r.h = _sheet->height();
   r.x = x - r.w / 2;
   r.y = y - r.h;
-  return _sheet->renderFrame(rdr, &r);
+  return _sheet->renderFrame(0, rdr, &r);
 }
 
 /// Constructor
-PeonRenderer::PeonRenderer(Sprite *s) : _sheet(s) {
+PeonRenderer::PeonRenderer(SpriteSheet *s) : _sheet(s) {
   
 }
 PeonRenderer::~PeonRenderer() {

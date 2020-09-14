@@ -25,9 +25,9 @@
 #include <cstdlib>
 
 #include "gui/Camera.h"
-#include "utils/gui/Sprite.h"
+#include "utils/gui/SpriteSheet.h"
 #include "utils/gui/Window.h"
-#include "gui/WorldRenderer.h"
+#include "gui/RenderingEngine.h"
 #include <SDL2/SDL_timer.h>
 
 #include "utils/log.h"
@@ -46,7 +46,7 @@
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
+  SpriteSheet *sprite = SpriteSheet::loadFromFile("medias/sol.png", 1, window->renderer);
   PeonRenderer *prdr = PeonRenderer::create("medias/peon.png",window->renderer);
   
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
   
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  WorldRenderer rdr(window, &camera, sprite, &map_test, prdr);
+  RenderingEngine rdr(window, &camera, sprite, &map_test, prdr);
 
   long tickStartTime, tickEllapsedTime;
   while(handler.handleSDLEvents()) {

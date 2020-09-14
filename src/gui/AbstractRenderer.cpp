@@ -16,37 +16,10 @@
  */
 
 /// 
-/// \file   PeonRenderer.h
+/// \file   AbstractRenderer.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 11 septembre 2020, 02:27
+/// \date 14 septembre 2020, 12:49
 ///
 
-#ifndef PEONRENDERER_H
-#define PEONRENDERER_H
-
-#include "utils/gui/SpriteSheet.h"
-
-class PeonRenderer {
-private:
-  
-  SpriteSheet *_sheet;
-  
-public:
-  
-  /// \brief Load assets and create a renderer for Peons
-  /// \return nullptr on failure
-  static PeonRenderer * create(const char *path, SDL_Renderer *rdr);
-  
-  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-  int renderAt(int x, int y, SDL_Renderer *rdr);
-  
-  ~PeonRenderer();
-  
-private:
-  
-  /// Constructor
-  PeonRenderer(SpriteSheet *s);
-};
-
-#endif /* PEONRENDERER_H */
+#include "AbstractRenderer.h"

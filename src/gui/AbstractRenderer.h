@@ -16,44 +16,18 @@
  */
 
 /// 
-/// \file   WorldRenderer.h
+/// \file   AbstractRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 14:56
-/// \brief Core object of rendering engine
+/// \date 14 septembre 2020, 12:49
 ///
 
-#ifndef WORLDRENDERER_H
-#define WORLDRENDERER_H
+#ifndef ABSTRACTRENDERER_H
+#define ABSTRACTRENDERER_H
 
-#include "utils/gui/Window.h"
-#include "utils/hex/HexViewport.h"
-#include "utils/gui/Sprite.h"
-#include "world/World.h"
-#include "gui/PeonRenderer.h"
-
-/// \brief Object responsible of World rendering
-class WorldRenderer {
+class Renderer {
 private:
   
-  Window *_window;
-  HexViewport *_worldView;
-  Sprite *_tileSprite;
-  World *_world;
-  PeonRenderer *_peonrdr;
-  
-public:
-  
-  /// \brief Constructor
-  WorldRenderer(
-          Window *w, 
-          HexViewport *c, 
-          Sprite *t, 
-          World *wo, 
-          PeonRenderer *p);
-  
-  /// \brief Draw EVERYTHINGS (in the world)
-  void render();
 };
 
-#endif /* WORLDRENDERER_H */
+#endif /* ABSTRACTRENDERER_H */

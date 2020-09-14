@@ -24,13 +24,13 @@
 
 #include <cassert>
 
-#include "WorldRenderer.h"
+#include "RenderingEngine.h"
 #include "utils/log.h"
 
-WorldRenderer::WorldRenderer(
+RenderingEngine::RenderingEngine(
     Window *w, 
     HexViewport *c, 
-    Sprite *t, 
+    SpriteSheet *t, 
     World *wo, 
     PeonRenderer *p) : 
   _window(w),
@@ -46,7 +46,7 @@ WorldRenderer::WorldRenderer(
   assert(p);
 }
 
-void WorldRenderer::render() {
+void RenderingEngine::render() {
   FlatHexPosition anchor, pos, vx, vy;
   // Compute anchor position and drawsteps
   _worldView->upLeftCorner(&anchor);
@@ -96,7 +96,7 @@ void WorldRenderer::render() {
         rect.x = x - rect.w/2;
         rect.y = y + _worldView->tileHeight()/2 - rect.h;
         //LOG_DEBUG("%d,%d -> %d,%d\n", x, y, rect.x, rect.y);
-        if (_tileSprite->renderFrame(_window->renderer, &rect)) {
+        if (_tileSprite->renderFrame(0, _window->renderer, &rect)) {
           LOG_WRN("%s\n", SDL_GetError());
           OUPS();
         }

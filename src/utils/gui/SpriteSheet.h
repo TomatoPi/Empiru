@@ -23,33 +23,39 @@
 /// \brief Provide basic object to load and draw sprites
 ///
 
-#ifndef SPRITE_H
-#define SPRITE_H
+#ifndef SPRITESHEET_H
+#define SPRITESHEET_H
 
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
 
 /// \brief Provide basic object to load and draw sprites
-class Sprite {
+class SpriteSheet {
 private:
   
-  SDL_Texture *_sprite; ///< The sprite
+  SDL_Texture *_sheet; ///< The sheet
   int _w; ///< Sprite's width
   int _h; ///< Sprite's height
+  unsigned int _framesCount; ///< Number of frames
   
 public:
   
   /// \brief Destructor
-  ~Sprite();
+  ~SpriteSheet();
   
   /// \brief Loads a sprite from an image file
   /// \param path : file's path
+  /// \param framesCount : number of frames on the sheet
   /// \param rdr : SDL_Renderer associated with targeted viewport
   /// \return NULL on failure
-  static Sprite * loadFromFile(const char *path, SDL_Renderer *rdr);
+  static SpriteSheet * loadFromFile(
+    const char *path, 
+    unsigned int framesCount, 
+    SDL_Renderer *rdr);
   
   /// \brief Render the sprite in given SDL_Rect
   int renderFrame(
+    unsigned int frame,
     SDL_Renderer *renderer,
     const SDL_Rect *dest);
   
@@ -58,10 +64,13 @@ public:
   /// \brief return sprite's height
   int height() const;
   
+  /// \brief return number of frames on the sheet
+  unsigned int framesCount() const;
+  
 private:
   
   /// \brief Constructor
-  Sprite(SDL_Texture *t, int w, int h);
+  SpriteSheet(SDL_Texture *t, int w, int h, unsigned int count);
 };
 
 #endif /* SPRITE_H */
