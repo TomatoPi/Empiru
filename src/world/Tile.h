@@ -30,6 +30,8 @@
 #include "utils/hex/HexCoords.h"
 #include "entity/peon.h"
 
+/// \todo Abstraire les objets sur la map pour la rendre générique
+///   et la découpler de son contenu
 class Tile {
 private :
   // Des trucs mais probablement :

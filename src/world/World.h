@@ -30,6 +30,9 @@
 #include "Tile.h"
 #include "utils/log.h"
 
+/// \todo Découpler l'implementation de la map de son utilisation 
+///   via une interface
+/// \todo Ajouter le retrait d'objets
 /// \brief Object that handle Map and Objects
 class World {
 private :

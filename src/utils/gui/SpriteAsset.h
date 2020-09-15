@@ -16,36 +16,15 @@
  */
 
 /// 
-/// \file   Engine.h
+/// \file   SpriteAsset.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 15 septembre 2020, 13:41
 ///
 
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef SPRITEASSET_H
+#define SPRITEASSET_H
 
-#include "world/World.h"
-#include "controller/CtrlState.h"
 
-/// \brief Main handler for user control
-/// \todo Nettoyer le code
-class Controller {
-private:
-  
-  World           *_world; ///< THA WORLDOOOOO
-  ControllerState _state;  ///< The game controller
-  
-public:
-  
-  /// \brief Constructor
-  Controller(World *w);
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
-  /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
-};
 
-#endif /* ENGINE_H */
+#endif /* SPRITEASSET_H */
