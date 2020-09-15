@@ -96,7 +96,7 @@ int World::width() const {
 int World::height() const {
   return _mapHeight;
 }
-
+/*
 ObjList World::objects() const {
   return _objects;
-}
+}*/

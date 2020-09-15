@@ -25,6 +25,8 @@
 #ifndef MOVER_H
 #define MOVER_H
 
+#include "../world/utils/World.h"
+
 class Mover {
   private:
   

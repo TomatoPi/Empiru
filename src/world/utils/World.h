@@ -55,7 +55,7 @@ public :
   
   int width() const;  ///< World's width
   int height() const; ///< World's height
-  ObjList objects() const; ///< List objects
+  /*ObjList objects() const;*/ ///< List objects
 };
 
 #endif /* WORLD_H*/

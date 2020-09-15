@@ -45,7 +45,7 @@
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
+  Sprite *sprite = Sprite::loadFromFile("medias/sol_rocheux.png", window->renderer);
   PeonRenderer *prdr = PeonRenderer::create("medias/peon.png",window->renderer);
   
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
