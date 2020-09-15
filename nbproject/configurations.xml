@@ -65,6 +65,10 @@
           <itemPath>src/utils/math/Matrix.cpp</itemPath>
           <itemPath>src/utils/math/Matrix.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f5" displayName="sound" projectFiles="true">
+          <itemPath>src/utils/sound/SoundAsset.cpp</itemPath>
+          <itemPath>src/utils/sound/SoundAsset.h</itemPath>
+        </logicalFolder>
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
@@ -219,6 +223,10 @@
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
@@ -362,6 +370,10 @@
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
@@ -390,7 +402,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <commandLine>-lSDL2 -lSDL2_image</commandLine>
+          <commandLine>-lSDL2 -lSDL2_image -lSDL2_mixer</commandLine>
         </linkerTool>
       </compileType>
       <item path="brainstorm/implementation_0" ex="false" tool="3" flavor2="0">
@@ -498,6 +510,10 @@
       <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>

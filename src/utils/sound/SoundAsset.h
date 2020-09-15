@@ -16,39 +16,17 @@
  */
 
 /// 
-/// \file   Tile.h
-/// \author CHARAMOND Lucien <lucien.charamond@outlook.fr>
+/// \file   SoundAsset.h
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 13:49
+/// \date 15 septembre 2020, 13:12
 ///
 
-#ifndef WORLDOBJECT_H
-#define WORLDOBJECT_H
+#ifndef SOUNDASSET_H
+#define SOUNDASSET_H
 
-#include <vector>
+#include <SDL2/SDL_mixer.h>
 
-#include "utils/hex/HexCoords.h"
-#include "entity/peon.h"
 
-class Tile {
-private :
-  // Des trucs mais probablement :
-  FlatHexPosition _pos;
-  std::vector<Peon*> _entity_vector;
-  
-public:
-  
-  Tile(FlatHexPosition pos);
-  Tile(FlatHexPosition pos,Peon* pitou);
-  
-  const FlatHexPosition & pos() const;
-  
-  void insert(Peon* pitou);
 
-  const std::vector<Peon*> * getVector() const;
- 
-  std::string toString() const;
-};
-  
-
-#endif /* WORLDOBJECT_H */
+#endif /* SOUNDASSET_H */

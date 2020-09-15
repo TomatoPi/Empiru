@@ -35,9 +35,9 @@ class World {
 private :
   int _mapWidth;
   int _mapHeight;
-  int* _map; /* Use for path finding and printing */
+  int* _map; ///< Use for path finding and printing
   typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
-  ObjList _objects; /*  */
+  ObjList _objects;
  
 public :
   ///\brief Constructor

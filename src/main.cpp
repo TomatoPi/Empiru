@@ -31,6 +31,7 @@
 #include "gui/SmallObjectRenderer.h"
 #include "gui/TiledObjectRenderer.h"
 #include <SDL2/SDL_timer.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "utils/log.h"
 #include "entity/peon.h"
@@ -75,6 +76,15 @@ int main(int argc, char** argv) {
   
   SDLHandler handler(&camera, &camera, &controller);
   
+  if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
+    LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
+    OUPS();
+  }
+  if (0 != Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024)) {
+    LOG_ERROR("Failed open audio : %s\n", Mix_GetError());
+    OUPS();
+  }
+  
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
       window->width, window->height,
@@ -110,6 +120,9 @@ int main(int argc, char** argv) {
   delete groundSprite;
   delete peonSprite;
   delete window;
+  
+  Mix_CloseAudio();
+  Mix_Quit();
   
   return 0;
 }

@@ -17,7 +17,7 @@
 
 /// 
 /// \file   Tile.cpp
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+/// \author CHARAMOND Lucien <lucien.charamond@outlook.fr>
 ///
 /// \date 10 septembre 2020, 13:49
 ///
