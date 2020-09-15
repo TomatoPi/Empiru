@@ -16,32 +16,26 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   TiledObjectRenderer.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 14 septembre 2020, 13:33
 ///
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#include "TiledObjectRenderer.h"
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
+TiledObjectRenderer::TiledObjectRenderer(
+  HexViewport *wv, SpriteSheet *sheet) :
+  AbstractRenderer(sheet),
+  _worldview(wv)
+{
   
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
-  
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
-  
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
-  
-  /// \brief Inverse Matrix
-  /// \pre Matrix must be inversible
-  Matrix22 inverse() const;
-};
+}
 
-#endif /* MATRIX_H */
+int TiledObjectRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
+  SDL_Rect rect;
+  rect.w = _sheet->width(), rect.h = _sheet->height();
+  rect.x = x - rect.w/2;
+  rect.y = y + _worldview->tileHeight()/2 - rect.h;
+  return _sheet->renderFrame(0, 0, rdr, &rect);
+}

@@ -16,39 +16,39 @@
  */
 
 /// 
-/// \file   PeonRenderer.cpp
+/// \file   Tile.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 11 septembre 2020, 02:27
+/// \date 10 septembre 2020, 13:49
 ///
 
-#include "PeonRenderer.h"
+#ifndef WORLDOBJECT_H
+#define WORLDOBJECT_H
 
+#include <vector>
 
-/// \brief Load assets and create a renderer for Peons
-/// \return nullptr on failure
-PeonRenderer * PeonRenderer::create(const char *path, SDL_Renderer *rdr) {
-  Sprite *s(Sprite::loadFromFile(path, rdr));
-  if (!s) {
-    return nullptr;
-  }
-  return new PeonRenderer(s);
-}
+#include "utils/hex/HexCoords.h"
+#include "entity/peon.h"
 
-/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int PeonRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
-  SDL_Rect r;
-  r.w = _sheet->width();
-  r.h = _sheet->height();
-  r.x = x - r.w / 2;
-  r.y = y - r.h;
-  return _sheet->renderFrame(rdr, &r);
-}
-
-/// Constructor
-PeonRenderer::PeonRenderer(Sprite *s) : _sheet(s) {
+class Tile {
+private :
+  // Des trucs mais probablement :
+  FlatHexPosition _pos;
+  std::vector<Peon*> _entity_vector;
   
-}
-PeonRenderer::~PeonRenderer() {
-  delete _sheet;
-}
+public:
+  
+  Tile(FlatHexPosition pos);
+  Tile(FlatHexPosition pos,Peon* pitou);
+  
+  const FlatHexPosition & pos() const;
+  
+  void insert(Peon* pitou);
+
+  const std::vector<Peon*> * getVector() const;
+ 
+  std::string toString() const;
+};
+  
+
+#endif /* WORLDOBJECT_H */

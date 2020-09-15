@@ -1,0 +1,145 @@
+/*
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/// 
+/// \file   Handler.cpp
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 9 septembre 2020, 21:55
+///
+
+#include "SDLHandler.h"
+
+#include <cmath>
+
+#define MERGE 50
+
+SDLHandler::SDLHandler(AbstractCamera *c, HexViewport *w, Controller *e) :
+  _camera(c),
+  _worldview(w),
+  _controller(e)
+{
+  
+}
+
+/// \brief Core SDLHandler's function, process all events availables
+bool SDLHandler::handleSDLEvents() {
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    switch(event.type) {
+    case SDL_QUIT:
+      return false;
+    case SDL_KEYDOWN:
+      return handleKeyDown(event.key);
+    case SDL_KEYUP:
+      return handleKeyUp(event.key);
+    case SDL_MOUSEBUTTONDOWN:
+      return handleMouseButtonDown(event.button);
+    case SDL_MOUSEMOTION:
+      return handleMouseMovement(event.motion);
+    }
+  }
+  return true;
+}
+
+// ---- Keyboard ---- //
+
+bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
+  switch(key.keysym.sym) {
+    case SDLK_ESCAPE:
+      return false;
+    case SDLK_UP:
+      _camera->scrollUp();
+      break;
+    case SDLK_DOWN:
+      _camera->scrollDown();
+      break;
+    case SDLK_RIGHT:
+      _camera->scrollRight();
+      break;
+    case SDLK_LEFT:
+      _camera->scrollLeft();
+      break;
+    case SDLK_a:
+      _camera->rotateLeft();
+      break;
+    case SDLK_e:
+      _camera->rotateRight();
+      break;
+  }
+  return true;
+}
+
+bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
+  switch(key.keysym.sym) {
+    case SDLK_UP:
+    case SDLK_DOWN:
+      _camera->stopUDScroll();
+      break;
+    case SDLK_RIGHT:
+    case SDLK_LEFT:
+      _camera->stopLRScroll();
+      break;
+  }
+  return true;
+}
+
+// ---- Mouse ---- //
+
+bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
+  return true;
+/*
+  if (mouse.y <= MERGE) {
+    _camera->scrollUp();
+  }
+  else if (mouse.y >= _window->height - MERGE) {
+    _camera->scrollDown();
+  }
+  else {
+    _camera->stopUDScroll();
+  }
+  
+  if (mouse.x >= _window->width - MERGE) {
+    _camera->scrollRight();
+  }
+   else if (mouse.x <= MERGE) {
+    _camera->scrollLeft();
+  } 
+  else {
+    _camera->stopLRScroll();
+  }
+  return true;
+*/
+}
+
+bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
+  
+  FlatHexPosition pos;
+  _worldview->fromPixel(event.x, event.y, &pos);
+  pos.convert(FlatHexPosition::Grid);
+  
+  switch(event.button){
+    case SDL_BUTTON_LEFT:
+      _controller->leftClickAt(pos);
+      break;
+    case SDL_BUTTON_RIGHT:
+      _controller->rightClickAt(pos);
+      break;
+  }
+  
+  return true;
+}

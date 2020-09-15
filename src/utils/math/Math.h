@@ -16,39 +16,27 @@
  */
 
 /// 
-/// \file   WorldObject.cpp
+/// \file   Math.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 13:49
+/// \date 12 septembre 2020, 06:41
 ///
-#include <cassert>
-#include "Tile.h"
 
-Tile::Tile(FlatHexPosition pos) : 
-  _pos(pos),
-  _entity_vector(){}
+#ifndef MATH_H
+#define MATH_H
 
-Tile::Tile(FlatHexPosition pos, Peon *pitou) : 
-  _pos(pos),_entity_vector(){
-  _entity_vector.push_back(pitou);
+namespace math {
+  
+  /// \brief Uniform rounding function that push halfvalues toward +inf
+  ///
+  ///   Default 'round' function in std push half values away from 0
+  ///   but this behaviour leads to difference on negatives or positives
+  ///   -0.5 and 0.5 will be rounded to -1 and 1 (resp) witch may cause
+  ///   problems
+  ///
+  ///   This function will round -0.5 and 0.5 to 0 and 1 (resp)
+  ///   which may be more stable for several operations
+  int mrnd(float a);
 }
 
-const FlatHexPosition & Tile::pos() const {
-  return _pos;
-}
-
-
- void Tile::insert(Peon *pitou){
-    _entity_vector.push_back(pitou);
-  }
-
- const std::vector<Peon*> * Tile::getVector() const{
-   return &_entity_vector;
- }
- 
-std::string Tile::toString() const{
-  std::string ts = "{";
-  return ts.append(_pos.toString())
-      .append("}");
-}
-
+#endif /* MATH_H */

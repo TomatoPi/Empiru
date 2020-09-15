@@ -16,32 +16,43 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   WorldRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 10 septembre 2020, 14:56
+/// \brief Core object of rendering engine
 ///
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef WORLDRENDERER_H
+#define WORLDRENDERER_H
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
+#include "utils/gui/Window.h"
+#include "utils/hex/HexViewport.h"
+#include "utils/gui/AbstractRenderer.h"
+#include "world/World.h"
+
+/// \brief Object responsible of Game rendering
+class RenderingEngine {
+private:
   
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
+  Window *_window;
+  HexViewport *_worldView;
+  World *_world;
+  AbstractRenderer *_tilerdr;
+  AbstractRenderer *_peonrdr;
   
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
+public:
   
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
+  /// \brief Constructor
+  RenderingEngine(
+          Window *w, 
+          HexViewport *c, 
+          World *wo, 
+          AbstractRenderer *t,
+          AbstractRenderer *p);
   
-  /// \brief Inverse Matrix
-  /// \pre Matrix must be inversible
-  Matrix22 inverse() const;
+  /// \brief Draw EVERYTHINGS (in the world)
+  void render();
 };
 
-#endif /* MATRIX_H */
+#endif /* WORLDRENDERER_H */

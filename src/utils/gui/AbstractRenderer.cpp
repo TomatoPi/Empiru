@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alexis
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   Mover.cpp
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- * 
- * Created on 11 septembre 2020, 16:32
- */
+/// 
+/// \file   AbstractRenderer.cpp
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 14 septembre 2020, 12:49
+///
 
-#include "Mover.h"
-#include "world/utils/World.h"
+#include "AbstractRenderer.h"
 
-void Mover::crashAndTurn(World & world){
-  LOG_DEBUG("POUET <3\n");
+
+AbstractRenderer::AbstractRenderer(SpriteSheet *sheet) : 
+  _sheet(sheet)
+{
+  
 }

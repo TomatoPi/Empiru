@@ -16,32 +16,25 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   PeonRenderer.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 11 septembre 2020, 02:27
 ///
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#include "SmallObjectRenderer.h"
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
+/// Constructor
+SmallObjectRenderer::SmallObjectRenderer(SpriteSheet *s) : AbstractRenderer(s) {
   
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
-  
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
-  
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
-  
-  /// \brief Inverse Matrix
-  /// \pre Matrix must be inversible
-  Matrix22 inverse() const;
-};
+}
 
-#endif /* MATRIX_H */
+/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+int SmallObjectRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
+  SDL_Rect r;
+  r.w = _sheet->width();
+  r.h = _sheet->height();
+  r.x = x - r.w / 2;
+  r.y = y - r.h;
+  return _sheet->renderFrame(0, 0, rdr, &r);
+}

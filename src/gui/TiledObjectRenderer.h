@@ -16,43 +16,28 @@
  */
 
 /// 
-/// \file   WorldRenderer.h
+/// \file   TiledObjectRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 14:56
-/// \brief Core object of rendering engine
+/// \date 14 septembre 2020, 13:33
 ///
 
-#ifndef WORLDRENDERER_H
-#define WORLDRENDERER_H
+#ifndef TILEDOBJECTRENDERER_H
+#define TILEDOBJECTRENDERER_H
 
-#include "gui/utils/Window.h"
-#include "utils/hex/HexCamera.h"
-#include "gui/utils/Sprite.h"
-#include "world/utils/World.h"
-#include "gui/renderer/PeonRenderer.h"
+#include "utils/hex/HexViewport.h"
+#include "utils/gui/AbstractRenderer.h"
 
-class WorldRenderer {
+class TiledObjectRenderer : public AbstractRenderer {
 private:
-  
-  Window *_window;
-  HexCamera *_camera;
-  Sprite *_tileSprite;
-  World *_world;
-  PeonRenderer *_peonrdr;
+
+  HexViewport *_worldview;
   
 public:
   
-  /// \brief Constructor
-  WorldRenderer(
-          Window *w, 
-          HexCamera *c, 
-          Sprite *t, 
-          World *wo, 
-          PeonRenderer *p);
+  TiledObjectRenderer(HexViewport *wv, SpriteSheet *sheet);
   
-  /// \brief Draw EVERYTHINGS (in the world)
-  void render();
+  virtual int renderAt(int x, int y, SDL_Renderer *rdr);
 };
 
-#endif /* WORLDRENDERER_H */
+#endif /* TILEDOBJECTRENDERER_H */

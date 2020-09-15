@@ -16,37 +16,35 @@
  */
 
 /// 
-/// \file   PeonRenderer.h
+/// \file   Engine.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 11 septembre 2020, 02:27
+/// \date 12 septembre 2020, 08:51
+/// \brief Core object for user control
 ///
 
-#ifndef PEONRENDERER_H
-#define PEONRENDERER_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
-#include "gui/utils/Sprite.h"
+#include "world/World.h"
+#include "controller/CtrlState.h"
 
-class PeonRenderer {
+/// \brief Main handler for user control
+class Controller {
 private:
   
-  Sprite *_sheet;
+  World           *_world; ///< THA WORLDOOOOO
+  ControllerState _state;  ///< The game controller
   
 public:
   
-  /// \brief Load assets and create a renderer for Peons
-  /// \return nullptr on failure
-  static PeonRenderer * create(const char *path, SDL_Renderer *rdr);
+  /// \brief Constructor
+  Controller(World *w);
   
-  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-  int renderAt(int x, int y, SDL_Renderer *rdr);
-  
-  ~PeonRenderer();
-  
-private:
-  
-  /// Constructor
-  PeonRenderer(Sprite *s);
+  /// \brief Called when a left click is performed at given position
+  void leftClickAt(const FlatHexPosition & click);
+  /// \brief Called when a right click is performed at given position
+  void rightClickAt(const FlatHexPosition & click);
 };
 
-#endif /* PEONRENDERER_H */
+#endif /* ENGINE_H */

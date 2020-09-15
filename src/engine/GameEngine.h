@@ -15,32 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   controller.h
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- *
- * Created on 10 septembre 2020, 17:18
- */
+/// 
+/// \file   Mover.h
+/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+///
+/// \date 11 septembre 2020, 16:32
+/// \brief Handler of in-game mechanics
+///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef GAMEENGINE_H
+#define GAMEENGINE_H
 
-#include <SDL2/SDL_events.h>
-#include "../entity/peon.h"
-#include "utils/log.h"
+#include "world/World.h"
 
-class Controller {
-  private:
-    
-    Peon * _peon;
-  
-  public:
-      
-    Controller();
-    
-    void selectPeon(Peon * peon);
-    
-    Peon * selectedPeon();
+class GameEngine {
+private:
+
+public:
+
+  void crashAndTurn(World & world);
+
 };
 
-#endif /* CONTROLLER_H */
+#endif /* GAMEENGINE_H */

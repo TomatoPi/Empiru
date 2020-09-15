@@ -16,32 +16,30 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   AbstractRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 14 septembre 2020, 12:49
 ///
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef ABSTRACTRENDERER_H
+#define ABSTRACTRENDERER_H
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
+#include "utils/gui/SpriteSheet.h"
+#include <SDL2/SDL_render.h>
+
+class AbstractRenderer {
+protected:
   
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
+  SpriteSheet *_sheet;
   
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
+public:
   
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
+  virtual int renderAt(int x, int y, SDL_Renderer *rdr) = 0;
   
-  /// \brief Inverse Matrix
-  /// \pre Matrix must be inversible
-  Matrix22 inverse() const;
+protected:
+  
+  AbstractRenderer(SpriteSheet *sheet);
 };
 
-#endif /* MATRIX_H */
+#endif /* ABSTRACTRENDERER_H */

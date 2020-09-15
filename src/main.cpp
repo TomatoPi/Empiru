@@ -24,17 +24,20 @@
 
 #include <cstdlib>
 
-#include "gui/utils/Sprite.h"
-#include "utils/hex/HexCamera.h"
-#include "gui/utils/Window.h"
-#include "gui/renderer/WorldRenderer.h"
+#include "gui/Camera.h"
+#include "utils/gui/SpriteSheet.h"
+#include "utils/gui/Window.h"
+#include "gui/RenderingEngine.h"
+#include "gui/SmallObjectRenderer.h"
+#include "gui/TiledObjectRenderer.h"
 #include <SDL2/SDL_timer.h>
 
 #include "utils/log.h"
-#include "gui/utils/Handler.h"
 #include "entity/peon.h"
-#include "world/utils/World.h"
-#include "engine/controller.h"
+#include "world/World.h"
+
+#include "controller/SDLHandler.h"
+#include "controller/Controller.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -45,42 +48,42 @@
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  Sprite *sprite = Sprite::loadFromFile("medias/sol_rocheux.png", window->renderer);
-  PeonRenderer *prdr = PeonRenderer::create("medias/peon.png",window->renderer);
+  SpriteSheet *groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
+  SpriteSheet *peonSprite = SpriteSheet::loadFromFile("medias/peon.png", 1, 1, window->renderer);
   
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Controller controller;
+  
   World map_test(SIZE,SIZE);
+  
+  Controller controller(&map_test);
   
   map_test.addObject(&peon);
   map_test.addObject(&peon2);
   map_test.addObject(&peon3);
   LOG_DEBUG("TEST MAP : %s \n",map_test.toString().c_str());
-  //--------------------------------------------------------------
-  HexCamera camera(
-    HexCamera::HEXAGON_WIDTH, HexCamera::HEXAGON_HEIGHT,
-    window->width, window->height,
-    SIZE, SIZE, 0);
   
-  Handler handler(&camera, window, &map_test, &controller);
+  Camera camera(
+    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
+    window->width, window->height,
+    SIZE, SIZE);
+  
+  
+  TiledObjectRenderer tilerdr(&camera, groundSprite);
+  SmallObjectRenderer prdr(peonSprite);
+  
+  SDLHandler handler(&camera, &camera, &controller);
   
   
   LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
       window->width, window->height,
-      sprite->width(), sprite->height(),
+      groundSprite->width(), groundSprite->height(),
       camera.tileWidth(), camera.tileHeight());
   
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  WorldRenderer rdr(window, &camera, sprite, &map_test, prdr);
-  
-  
-  
-  /// \bug Bug d'affichage, les cases sur les bords gauche et haut ne s'affichent pas toujours
-  /// Car si la case HautGauche est trop hors de l'ecran
-  /// ces cases ne sont pas parcourues lors du rendu
+  RenderingEngine rdr(window, &camera, &map_test, &tilerdr, &prdr);
 
   long tickStartTime, tickEllapsedTime;
   while(handler.handleSDLEvents()) {
@@ -94,13 +97,7 @@ int main(int argc, char** argv) {
     rdr.render();
     
     window->update();
-/*
-    camera.rotateRight();
-    
-    rdr.render();
-    
-    return 0;
-//*/
+
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;
     if (tickEllapsedTime > FRAMETIME) {
       LOG_WRN("System Overload !! %ld ms late\n", tickEllapsedTime - FRAMETIME);
@@ -110,10 +107,8 @@ int main(int argc, char** argv) {
     }
   }
   
-  delete sprite;
-  //Modif péon <--------------------------------------------------
-  delete prdr;
-  //--------------------------------------------------------------
+  delete groundSprite;
+  delete peonSprite;
   delete window;
   
   return 0;

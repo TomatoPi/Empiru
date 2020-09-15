@@ -15,23 +15,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   controller.cpp
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- * 
- * Created on 10 septembre 2020, 17:18
- */
+/// 
+/// \file   CtrlState.cpp
+/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+///
+/// \date 10 septembre 2020, 17:18
+///
 
-#include "controller.h"
+#include <cassert>
 
-Controller::Controller() : _peon(nullptr)
+#include "CtrlState.h"
+
+/// \brief Constructor
+ControllerState::ControllerState() : _selectedPeon(nullptr)
 {
+  
 }
 
-void Controller::selectPeon(Peon * peon) {
-  _peon = peon;
+/// \brief Select given peon
+void ControllerState::selectPeon(Peon * peon) {
+  assert(peon);
+  _selectedPeon = peon;
+}
+/// \brief Clear selection
+void ControllerState::deselectPeon() {
+  _selectedPeon = nullptr;
 }
 
-Peon * Controller::selectedPeon(){
-  return _peon;
+/// \brief Return selected peon or nullptr if no selection
+Peon * ControllerState::selectedPeon(){
+  return _selectedPeon;
 }

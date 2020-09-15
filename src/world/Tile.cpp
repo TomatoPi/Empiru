@@ -16,32 +16,39 @@
  */
 
 /// 
-/// \file   Matrix.h
+/// \file   Tile.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 10 septembre 2020, 13:49
 ///
+#include <cassert>
+#include "Tile.h"
 
-#ifndef MATRIX_H
-#define MATRIX_H
+Tile::Tile(FlatHexPosition pos) : 
+  _pos(pos),
+  _entity_vector(){}
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
-  
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
-  
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
-  
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
-  
-  /// \brief Inverse Matrix
-  /// \pre Matrix must be inversible
-  Matrix22 inverse() const;
-};
+Tile::Tile(FlatHexPosition pos, Peon *pitou) : 
+  _pos(pos),_entity_vector(){
+  _entity_vector.push_back(pitou);
+}
 
-#endif /* MATRIX_H */
+const FlatHexPosition & Tile::pos() const {
+  return _pos;
+}
+
+
+ void Tile::insert(Peon *pitou){
+    _entity_vector.push_back(pitou);
+  }
+
+ const std::vector<Peon*> * Tile::getVector() const{
+   return &_entity_vector;
+ }
+ 
+std::string Tile::toString() const{
+  std::string ts = "{";
+  return ts.append(_pos.toString())
+      .append("}");
+}
+

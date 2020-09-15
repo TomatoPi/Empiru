@@ -16,10 +16,11 @@
  */
 
 /// 
-/// \file   Handler.h
+/// \file   SDLHandler.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 9 septembre 2020, 21:55
+/// \brief Wrapper for SDL_Events handling
 ///
 
 #ifndef HANDLER_H
@@ -27,31 +28,39 @@
 
 
 #include <SDL2/SDL_events.h>
-#include "Window.h"
 
-#include "utils/hex/HexCamera.h"
-#include "world/utils/World.h"
-#include "../../engine/controller.h"
-#include "utils/log.h"
+#include "utils/gui/AbstractCamera.h"
+#include "utils/hex/HexViewport.h"
+#include "controller/Controller.h"
 
-class Handler {
+/// \brief Wrapping object for SDL_Events handling
+class SDLHandler {
+private:
+  
+  AbstractCamera *_camera;
+  HexViewport     *_worldview;
+  Controller      *_controller;
+  
 public:
-  Handler(HexCamera *c, Window *w, World *world, Controller *controller);
+  
+  /// \brief Constructor
+  SDLHandler(AbstractCamera *c, HexViewport *w, Controller *e);
+  
+  /// \brief Core SDLHandler's function, process all events availables
   bool handleSDLEvents();
   
 private:
   
+  // ---- Keyboard ---- //
+  
   bool handleKeyDown(const SDL_KeyboardEvent & event);
   bool handleKeyUp(const SDL_KeyboardEvent & event);
-  bool handleMouseButtonLeftDown(const FlatHexPosition & pos);
+  
+  // ---- Mouse ---- //
+  
   bool handleMouseMovement(const SDL_MouseMotionEvent & event);
   bool handleMouseButtonDown(const SDL_MouseButtonEvent & event);
-  bool handleMouseButtonRightDown(const FlatHexPosition & pos);
   
-  HexCamera *_camera;
-  Window *_window;
-  World *_world;
-  Controller *_controller;
 };
 
 #endif /* HANDLER_H */

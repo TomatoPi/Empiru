@@ -15,36 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * File:   HexTestClass.h
- * Author: DAGO Kokri Esaïe <dago.esaie@protonmail.com>
- *
- * Created on 9 sept. 2020, 01:28:18
- */
+/// 
+/// \file   PeonRenderer.h
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 11 septembre 2020, 02:27
+///
 
-#ifndef HEXTESTCLASS_H
-#define HEXTESTCLASS_H
+#ifndef PEONRENDERER_H
+#define PEONRENDERER_H
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "utils/gui/AbstractRenderer.h"
 
-class HexTestClass : public CPPUNIT_NS::TestFixture {
-  CPPUNIT_TEST_SUITE(HexTestClass);
-
-  CPPUNIT_TEST(testOQOtoGrid);
-  CPPUNIT_TEST(testAxialtoOQO);
-
-  CPPUNIT_TEST_SUITE_END();
-
+class SmallObjectRenderer : public AbstractRenderer {  
 public:
-  HexTestClass();
-  virtual ~HexTestClass();
-  void setUp();
-  void tearDown();
 
-private:
-  void testOQOtoGrid();
-  void testAxialtoOQO();
+  /// Constructor
+  SmallObjectRenderer(SpriteSheet *s);
+  
+  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+  virtual int renderAt(int x, int y, SDL_Renderer *rdr);
+  
 };
 
-#endif /* HEXTESTCLASS_H */
-
+#endif /* PEONRENDERER_H */

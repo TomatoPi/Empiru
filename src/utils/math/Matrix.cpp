@@ -22,6 +22,8 @@
 /// \date 10 septembre 2020, 23:48
 ///
 
+#include <cassert>
+
 #include "Matrix.h"
 
 Matrix22::Matrix22(float a, float b, float c, float d) :
@@ -36,4 +38,11 @@ Matrix22 Matrix22::operator* (const Matrix22 & A) const {
   return Matrix22(
       _a * A._a + _b * A._c, _a * A._b + _b * A._d,
       _c * A._a + _d * A._c, _c * A._b + _d * A._d);
+}
+
+Matrix22 Matrix22::inverse() const {
+  float det = _a * _d - _b * _c;
+  assert(det != 0);
+  det = 1. / det;
+  return Matrix22(_d*det, -_b*det, -_c*det, _a*det);
 }

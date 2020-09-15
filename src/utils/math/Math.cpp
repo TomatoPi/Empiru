@@ -16,40 +16,23 @@
  */
 
 /// 
-/// \file   WorldObject.h
+/// \file   Math.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 13:49
+/// \date 12 septembre 2020, 06:41
 ///
 
-#ifndef WORLDOBJECT_H
-#define WORLDOBJECT_H
+#include "Math.h"
 
-#include <vector>
+#include <cmath>
 
-#include "utils/hex/HexCoords.h"
-#include "entity/peon.h"
-
-class Tile {
-private :
-  // Des trucs mais probablement :
-  FlatHexPosition _pos;
-  std::vector<Peon*> _entity_vector;
-  
-public:
-  
-  Tile(FlatHexPosition pos);
-  Tile(FlatHexPosition pos,Peon* pitou);
-  
-  const FlatHexPosition & pos() const;
-  
- void insert(Peon* pitou);
-
-  
- const std::vector<Peon*> * getVector() const;
- 
-  std::string toString() const;
-};
-  
-
-#endif /* WORLDOBJECT_H */
+/// \brief Uniform rounding function that push halfvalues toward +inf
+///   Default 'round' function in std push half values away from 0
+///   but this behaviour leads to difference on negatives or positives
+///   -0.5 and 0.5 will be rounded to -1 and 1 (resp) witch may cause
+///   problems
+///   This function will round -0.5 and 0.5 to 0 and 1 (resp)
+///   which may be more stable for several operations
+int math::mrnd(float a) {
+  return round(a) + ((a < 0) && (fabs(a - round(a)) >= 0.5));
+}

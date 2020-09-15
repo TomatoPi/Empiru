@@ -24,11 +24,13 @@
 
 #ifndef  WORLD_H
 #define WORLD_H
+
 #include <unordered_map>
+
 #include "Tile.h"
-#include "engine/controller.h"
 #include "utils/log.h"
 
+/// \brief Object that handle Map and Objects
 class World {
 private :
   int _mapWidth;
@@ -47,7 +49,8 @@ public :
   ///\param obj :  object to add
   void addObject(Peon* pitou);
 
-
+  /// \brief Get list of Peons at given pos
+  /// \return nullptr if none
   const std::vector<Peon*> * getVectorFromPos(FlatHexPosition pos);
   
   ///\brief toString
