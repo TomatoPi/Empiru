@@ -25,6 +25,36 @@
 #ifndef SPRITEASSET_H
 #define SPRITEASSET_H
 
+#include <memory>
+#include "utils/gui/SpriteSheet.h"
 
+class SpriteAsset {
+private:
+  std::unique_ptr<SpriteSheet> _sheet;
+  
+public:
+  
+  /// \brief Create an asset from a loaded SpriteSheet
+  SpriteAsset(std::unique_ptr<SpriteSheet> sheet);
+  
+  /// \brief Load an asset from given file
+  std::unique_ptr<SpriteAsset> loadFromFile(
+    const char *path, 
+    SDL_Renderer *rdr);
+  
+  /// \brief return number of frames in the animation
+  int animationFrames() const;
+  
+  /// \brief render the sprite at given dest
+  /// \param dir   : Sprite orientation
+  /// \param frame : Animation's frame
+  /// \param rdr   : Targeted renderer
+  /// \param dest  : drawing target
+  int render(
+    unsigned int dir, 
+    unsigned int frame, 
+    SDL_Renderer *rdr, 
+    const SDL_Rect *dest);
+};
 
 #endif /* SPRITEASSET_H */

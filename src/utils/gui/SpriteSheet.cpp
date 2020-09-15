@@ -51,7 +51,7 @@ SpriteSheet::~SpriteSheet() {
   SDL_DestroyTexture(_sheet);
 }
 
-SpriteSheet * SpriteSheet::loadFromFile(
+std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
     const char *path, 
     unsigned int rows,
     unsigned int cols,
@@ -65,36 +65,28 @@ SpriteSheet * SpriteSheet::loadFromFile(
   assert(path);
   assert(rdr);
   /* Chargement du fichier */
-  if (NULL == (rwop = SDL_RWFromFile(path, "rb"))) {
+  if (nullptr == (rwop = SDL_RWFromFile(path, "rb"))) {
     LOG_WRN("%s : %s\n", path, SDL_GetError());
-    return NULL;
+    return nullptr;
   }
-  if (NULL == (surface = IMG_Load_RW(rwop, 1))) {
+  if (nullptr == (surface = IMG_Load_RW(rwop, 1))) {
     LOG_WRN("%s : %s\n", path, IMG_GetError());
-    return NULL;
+    return nullptr;
   }
   /* Conversion Récupération des infos */
-  if (NULL == (texture = SDL_CreateTextureFromSurface(rdr, surface))) {
+  if (nullptr == (texture = SDL_CreateTextureFromSurface(rdr, surface))) {
     LOG_WRN("%s : %s\n", path, SDL_GetError());
     SDL_FreeSurface(surface);
-    return NULL;
+    return nullptr;
   }
   SDL_FreeSurface(surface);
-  if (0 != SDL_QueryTexture(texture, NULL, NULL, &width, &height)) {
-    LOG_WRN("%s : %s\n", path, SDL_GetError());
-    SDL_DestroyTexture(texture);
-    return NULL;
-  }
-  if ((width % cols) != 0 || (height % rows) != 0) {
-    LOG_WRN("%s, Ill formed Sprite Sheet ... inequals sprites\n", path);
-  }
-  width /= rows, height /= cols;
-  if (width != height) {
-    LOG_WRN("%s : Non square sprites are not recomended (%dx%d)\n", 
-        path, width, height);
+  auto sprite(std::make_unique<SpriteSheet>(texture, 1, 1, rows, cols));
+  if (sprite->recut(rows, cols)) {
+    sprite.reset();
+    return nullptr;
   }
   /* finitions */
-  return new SpriteSheet(texture, width, height, rows, cols);
+  return sprite;
 }
 
 int SpriteSheet::renderFrame(
@@ -123,4 +115,22 @@ unsigned int SpriteSheet::colCount() const {
 }
 unsigned int SpriteSheet::rowCount() const {
   return _rows;
+}
+
+int SpriteSheet::recut(unsigned int rows, unsigned int cols) {
+  int width, height;
+  if (0 != SDL_QueryTexture(_sheet, nullptr, nullptr, &width, &height)) {
+    LOG_WRN("%s\n", SDL_GetError());
+    return -1;
+  }
+  if ((width % cols) != 0 || (height % rows) != 0) {
+    LOG_WRN("Ill formed Sprite Sheet ... inequals sprites\n");
+  }
+  width /= rows, height /= cols;
+  if (width != height) {
+    LOG_WRN("Non square sprites are not recomended (%dx%d)\n", 
+        width, height);
+  }
+  _w = width, _h = height, _rows = rows, _cols = cols;
+  return 0;
 }
