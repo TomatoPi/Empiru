@@ -60,7 +60,6 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
   SDL_Surface *surface;
   SDL_Texture *texture;
   SDL_RWops   *rwop;
-  int width, height;
   /* assertions */
   assert(path);
   assert(rdr);
@@ -126,11 +125,7 @@ int SpriteSheet::recut(unsigned int rows, unsigned int cols) {
   if ((width % cols) != 0 || (height % rows) != 0) {
     LOG_WRN("Ill formed Sprite Sheet ... inequals sprites\n");
   }
-  width /= rows, height /= cols;
-  if (width != height) {
-    LOG_WRN("Non square sprites are not recomended (%dx%d)\n", 
-        width, height);
-  }
+  width /= cols, height /= rows;
   _w = width, _h = height, _rows = rows, _cols = cols;
   return 0;
 }

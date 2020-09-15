@@ -31,13 +31,13 @@
 
 /// \brief Axial (0,0)
 FlatHexPosition::FlatHexPosition() : 
-  FlatHexPosition(0,0,Axial) 
+  FlatHexPosition(0,0,0,Axial) 
 {
   
 }
 /// \brief System's (0,0)
 FlatHexPosition::FlatHexPosition(System type) : 
-  FlatHexPosition(0,0,type) 
+  FlatHexPosition(0,0,0,type) 
 {
   
 }

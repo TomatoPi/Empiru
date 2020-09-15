@@ -32,7 +32,7 @@
 
 /// \brief Provide basic object to load and draw sprites
 class SpriteSheet {
-private:
+protected:
   
   SDL_Texture *_sheet; ///< The sheet
   int _w; ///< Sprite's width

@@ -72,11 +72,11 @@ int AbstractCamera::getOrientation() {
 }
 
 void AbstractCamera::rotateRight() {
-  _orientation = (_orientation+1) %_nors;
+  _orientation = (_orientation <= 0 ? _nors : _orientation) -1;
   this->doRotateRight();
 }
 
 void AbstractCamera::rotateLeft() {
-  _orientation = (_orientation <= 0 ? _nors : _orientation) -1;
+  _orientation = (_orientation+1) %_nors;
   this->doRotateLeft();
 }

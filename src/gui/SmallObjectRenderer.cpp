@@ -25,16 +25,16 @@
 #include "SmallObjectRenderer.h"
 
 /// Constructor
-SmallObjectRenderer::SmallObjectRenderer(SpriteSheet *s) : AbstractRenderer(s) {
+SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet> s) : AbstractRenderer(std::move(s)) {
   
 }
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int SmallObjectRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
+int SmallObjectRenderer::renderAt(int ori, int x, int y, SDL_Renderer *rdr) {
   SDL_Rect r;
   r.w = _sheet->width();
   r.h = _sheet->height();
   r.x = x - r.w / 2;
   r.y = y - r.h;
-  return _sheet->renderFrame(0, 0, rdr, &r);
+  return _sheet->renderFrame(0, ori, rdr, &r);
 }

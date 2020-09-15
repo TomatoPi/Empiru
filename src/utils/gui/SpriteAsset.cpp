@@ -23,17 +23,9 @@
 ///
 
 #include "SpriteAsset.h"
-#include "SpriteSheet.h"
-
-/// \brief Create an asset from a loaded SpriteSheet
-SpriteAsset::SpriteAsset(std::unique_ptr<SpriteSheet> sheet) : 
-  _sheet(std::move(sheet))
-{
-  
-}
 
 /// \brief Load an asset from given file
-std::unique_ptr<SpriteAsset> SpriteAsset::loadFromFile(
+std::unique_ptr<SpriteSheet> SpriteAsset::loadFromFile(
   const char *path, 
   SDL_Renderer *rdr)
 {
@@ -45,24 +37,5 @@ std::unique_ptr<SpriteAsset> SpriteAsset::loadFromFile(
   rows = sheet->height() / width;
   if (sheet->recut(rows, 6)) return nullptr;
   // done
-  return std::make_unique<SpriteAsset>(std::move(sheet));
-}
-
-/// \brief return number of frames in the animation
-int SpriteAsset::animationFrames() const {
-  return _sheet->rowCount();
-}
-
-/// \brief render the sprite at given dest
-/// \param dir   : Sprite orientation
-/// \param frame : Animation's frame
-/// \param rdr   : Targeted renderer
-/// \param dest  : drawing target
-int SpriteAsset::render(
-  unsigned int dir, 
-  unsigned int frame, 
-  SDL_Renderer *rdr, 
-  const SDL_Rect *dest)
-{
-  return _sheet->renderFrame(frame, dir, rdr, dest);
+  return sheet;
 }

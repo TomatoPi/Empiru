@@ -31,10 +31,10 @@ class SmallObjectRenderer : public AbstractRenderer {
 public:
 
   /// Constructor
-  SmallObjectRenderer(SpriteSheet *s);
+  SmallObjectRenderer(std::unique_ptr<SpriteSheet> s);
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-  virtual int renderAt(int x, int y, SDL_Renderer *rdr);
+  virtual int renderAt(int ori, int x, int y, SDL_Renderer *rdr);
   
 };
 

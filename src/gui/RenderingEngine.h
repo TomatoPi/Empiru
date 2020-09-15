@@ -29,6 +29,7 @@
 #include "utils/gui/Window.h"
 #include "utils/hex/HexViewport.h"
 #include "utils/gui/AbstractRenderer.h"
+#include "utils/gui/AbstractCamera.h"
 #include "world/World.h"
 
 /// \brief Object responsible of Game rendering
@@ -37,6 +38,7 @@ private:
   
   Window *_window;
   HexViewport *_worldView;
+  AbstractCamera *_camera;
   World *_world;
   AbstractRenderer *_tilerdr;
   AbstractRenderer *_peonrdr;
@@ -47,6 +49,7 @@ public:
   RenderingEngine(
           Window *w, 
           HexViewport *c, 
+          AbstractCamera *ac,
           World *wo, 
           AbstractRenderer *t,
           AbstractRenderer *p);

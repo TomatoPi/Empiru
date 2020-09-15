@@ -26,6 +26,7 @@
 
 #include "gui/Camera.h"
 #include "utils/gui/SpriteSheet.h"
+#include "utils/gui/SpriteAsset.h"
 #include "utils/gui/Window.h"
 #include "gui/RenderingEngine.h"
 #include "gui/SmallObjectRenderer.h"
@@ -49,8 +50,8 @@
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  SpriteSheet *groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer).release();
-  SpriteSheet *peonSprite = SpriteSheet::loadFromFile("medias/peon.png", 1, 1, window->renderer).release();
+  auto groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
+  auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
   
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
@@ -71,8 +72,8 @@ int main(int argc, char** argv) {
     SIZE, SIZE);
   
   
-  TiledObjectRenderer tilerdr(&camera, groundSprite);
-  SmallObjectRenderer prdr(peonSprite);
+  TiledObjectRenderer tilerdr(&camera, std::move(groundSprite));
+  SmallObjectRenderer prdr(std::move(peonSprite));
   
   SDLHandler handler(&camera, &camera, &controller);
   
@@ -85,15 +86,9 @@ int main(int argc, char** argv) {
     OUPS();
   }
   
-  
-  LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
-      window->width, window->height,
-      groundSprite->width(), groundSprite->height(),
-      camera.tileWidth(), camera.tileHeight());
-  
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  RenderingEngine rdr(window, &camera, &map_test, &tilerdr, &prdr);
+  RenderingEngine rdr(window, &camera, &camera, &map_test, &tilerdr, &prdr);
 
   long tickStartTime, tickEllapsedTime;
   while(handler.handleSDLEvents()) {
@@ -117,8 +112,6 @@ int main(int argc, char** argv) {
     }
   }
   
-  delete groundSprite;
-  delete peonSprite;
   delete window;
   
   Mix_CloseAudio();

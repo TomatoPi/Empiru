@@ -25,14 +25,14 @@
 #include "TiledObjectRenderer.h"
 
 TiledObjectRenderer::TiledObjectRenderer(
-  HexViewport *wv, SpriteSheet *sheet) :
-  AbstractRenderer(sheet),
+  HexViewport *wv, std::unique_ptr<SpriteSheet> sheet) :
+  AbstractRenderer(std::move(sheet)),
   _worldview(wv)
 {
   
 }
 
-int TiledObjectRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
+int TiledObjectRenderer::renderAt(int ori, int x, int y, SDL_Renderer *rdr) {
   SDL_Rect rect;
   rect.w = _sheet->width(), rect.h = _sheet->height();
   rect.x = x - rect.w/2;
