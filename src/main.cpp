@@ -48,8 +48,8 @@
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  SpriteSheet *groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, window->renderer);
-  SpriteSheet *peonSprite = SpriteSheet::loadFromFile("medias/peon.png", 1, window->renderer);
+  SpriteSheet *groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
+  SpriteSheet *peonSprite = SpriteSheet::loadFromFile("medias/peon.png", 1, 1, window->renderer);
   
   Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));

@@ -37,5 +37,5 @@ int TiledObjectRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
   rect.w = _sheet->width(), rect.h = _sheet->height();
   rect.x = x - rect.w/2;
   rect.y = y + _worldview->tileHeight()/2 - rect.h;
-  return _sheet->renderFrame(0, rdr, &rect);
+  return _sheet->renderFrame(0, 0, rdr, &rect);
 }

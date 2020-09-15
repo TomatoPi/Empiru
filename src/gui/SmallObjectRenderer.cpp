@@ -36,5 +36,5 @@ int SmallObjectRenderer::renderAt(int x, int y, SDL_Renderer *rdr) {
   r.h = _sheet->height();
   r.x = x - r.w / 2;
   r.y = y - r.h;
-  return _sheet->renderFrame(0, rdr, &r);
+  return _sheet->renderFrame(0, 0, rdr, &r);
 }

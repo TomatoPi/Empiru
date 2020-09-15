@@ -36,7 +36,8 @@ private:
   SDL_Texture *_sheet; ///< The sheet
   int _w; ///< Sprite's width
   int _h; ///< Sprite's height
-  unsigned int _framesCount; ///< Number of frames
+  unsigned int _rows; ///< Number of frames by column
+  unsigned int _cols; ///< Number of frames by row
   
 public:
   
@@ -45,17 +46,20 @@ public:
   
   /// \brief Loads a sprite from an image file
   /// \param path : file's path
-  /// \param framesCount : number of frames on the sheet
-  /// \param rdr : SDL_Renderer associated with targeted viewport
+  /// \param rows : number of frames by row
+  /// \param cols : number of frames by column
+  /// \param rdr  : SDL_Renderer associated with targeted viewport
   /// \return NULL on failure
   static SpriteSheet * loadFromFile(
     const char *path, 
-    unsigned int framesCount, 
+    unsigned int rows, 
+    unsigned int cols, 
     SDL_Renderer *rdr);
   
   /// \brief Render the sprite in given SDL_Rect
   int renderFrame(
-    unsigned int frame,
+    unsigned int row,
+    unsigned int col,
     SDL_Renderer *renderer,
     const SDL_Rect *dest);
   
@@ -64,13 +68,18 @@ public:
   /// \brief return sprite's height
   int height() const;
   
-  /// \brief return number of frames on the sheet
-  unsigned int framesCount() const;
+  /// \brief return number of frames by row on the sheet
+  unsigned int colCount() const;
+  /// \brief return number of frames by column on the sheet
+  unsigned int rowCount() const;
   
 private:
   
   /// \brief Constructor
-  SpriteSheet(SDL_Texture *t, int w, int h, unsigned int count);
+  SpriteSheet(SDL_Texture *t, 
+          int w, int h,
+          unsigned int rows, 
+          unsigned int cols);
 };
 
 #endif /* SPRITE_H */

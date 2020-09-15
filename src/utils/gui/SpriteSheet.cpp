@@ -30,16 +30,21 @@
 
 #include "utils/log.h"
 
-SpriteSheet::SpriteSheet(SDL_Texture *t, int w, int h, unsigned int count) :
+SpriteSheet::SpriteSheet(SDL_Texture *t, 
+          int w, int h,
+          unsigned int rows, 
+          unsigned int cols) :
   _sheet(t),
   _w(w),
   _h(h),
-  _framesCount(count)
+  _rows(rows),
+  _cols(cols)
 {
   assert(t);
   assert(0 < w);
   assert(0 < h);
-  assert(0 < count);
+  assert(0 < rows);
+  assert(0 < cols);
 }
 
 SpriteSheet::~SpriteSheet() {
@@ -48,7 +53,8 @@ SpriteSheet::~SpriteSheet() {
 
 SpriteSheet * SpriteSheet::loadFromFile(
     const char *path, 
-    unsigned int framesCount,
+    unsigned int rows,
+    unsigned int cols,
     SDL_Renderer *rdr) 
 {
   SDL_Surface *surface;
@@ -79,23 +85,29 @@ SpriteSheet * SpriteSheet::loadFromFile(
     SDL_DestroyTexture(texture);
     return NULL;
   }
-  if ((width % framesCount) != 0) {
-    LOG_WRN("%s, Ill formed Sprite Sheet ... %d %% %d not zero\n", 
-        path, width, framesCount);
+  if ((width % cols) != 0 || (height % rows) != 0) {
+    LOG_WRN("%s, Ill formed Sprite Sheet ... inequals sprites\n", path);
+  }
+  width /= rows, height /= cols;
+  if (width != height) {
+    LOG_WRN("%s : Non square sprites are not recomended (%dx%d)\n", 
+        path, width, height);
   }
   /* finitions */
-  return new SpriteSheet(texture, width, height, framesCount);
+  return new SpriteSheet(texture, width, height, rows, cols);
 }
 
 int SpriteSheet::renderFrame(
-  unsigned int frame,
+  unsigned int row,
+  unsigned int col,
   SDL_Renderer *rdr,
   const SDL_Rect *dest)
 {
   assert(rdr);
-  assert(frame < _framesCount);
+  assert(row < _rows);
+  assert(col < _cols);
   SDL_Rect rect;
-  rect.w = _w, rect.h = _h, rect.x = frame * _w, rect.y = 0;
+  rect.w = _w, rect.h = _h, rect.x = col * _w, rect.y = row * _h;
   return SDL_RenderCopy(rdr, _sheet, &rect, dest);
 }
 
@@ -106,6 +118,9 @@ int SpriteSheet::height() const {
   return _h;
 }
 
-unsigned int SpriteSheet::framesCount() const {
-  return _framesCount;
+unsigned int SpriteSheet::colCount() const {
+  return _cols;
+}
+unsigned int SpriteSheet::rowCount() const {
+  return _rows;
 }
