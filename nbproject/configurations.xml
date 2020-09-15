@@ -47,7 +47,7 @@
           <itemPath>src/utils/gui/AbstractCamera.cpp</itemPath>
           <itemPath>src/utils/gui/AbstractCamera.h</itemPath>
           <itemPath>src/utils/gui/AbstractRenderer.cpp</itemPath>
-          <itemPath>src/gui/AbstractRenderer.h</itemPath>
+          <itemPath>src/utils/gui/AbstractRenderer.h</itemPath>
           <itemPath>src/utils/gui/SpriteSheet.cpp</itemPath>
           <itemPath>src/utils/gui/SpriteSheet.h</itemPath>
           <itemPath>src/utils/gui/Window.cpp</itemPath>
@@ -167,8 +167,6 @@
       </item>
       <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
@@ -192,6 +190,8 @@
       <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/AbstractRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/SpriteSheet.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -310,8 +310,6 @@
       </item>
       <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
@@ -335,6 +333,8 @@
       <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/AbstractRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/SpriteSheet.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -447,8 +447,6 @@
       </item>
       <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
@@ -472,6 +470,8 @@
       <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/AbstractRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/SpriteSheet.cpp" ex="false" tool="1" flavor2="0">
       </item>
