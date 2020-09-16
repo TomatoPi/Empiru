@@ -26,7 +26,7 @@
 #define CONTROLLER_H
 
 #include <SDL2/SDL_events.h>
-#include "entity/peon.h"
+#include "entity/Peon.h"
 
 /// \brief Object used to keep state of game controller
 class ControllerState {

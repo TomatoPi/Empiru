@@ -35,11 +35,12 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "utils/log.h"
-#include "entity/peon.h"
+#include "entity/Peon.h"
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
+#include "engine/GameEngine.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -53,18 +54,16 @@ int main(int argc, char** argv) {
   auto groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
   auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
   
-  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
+  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
+  Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial));
   
   World map_test(SIZE,SIZE);
+  GameEngine gameEngine(&map_test);
   
   Controller controller(&map_test);
   
-  map_test.addObject(&peon);
-  map_test.addObject(&peon2);
-  map_test.addObject(&peon3);
-  LOG_DEBUG("TEST MAP : %s \n",map_test.toString().c_str());
+  gameEngine.addPeon(&peon);
+  gameEngine.addPeon(&peon2);
   
   Camera camera(
     HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
@@ -91,16 +90,17 @@ int main(int argc, char** argv) {
   RenderingEngine rdr(window, &camera, &camera, &map_test, &tilerdr, &prdr);
 
   long tickStartTime, tickEllapsedTime;
-  while(handler.handleSDLEvents()) {
+  while(true) {
     
     tickStartTime = SDL_GetTicks();
     
+    if (!handler.handleSDLEvents()) break;
+    
     camera.update();
+    gameEngine.update();
 
     window->clear();
-
     rdr.render();
-    
     window->update();
 
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;

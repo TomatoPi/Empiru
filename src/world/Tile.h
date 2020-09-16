@@ -25,18 +25,21 @@
 #ifndef WORLDOBJECT_H
 #define WORLDOBJECT_H
 
-#include <vector>
+#include <unordered_set>
 
 #include "utils/hex/HexCoords.h"
-#include "entity/peon.h"
+#include "entity/Peon.h"
 
 /// \todo Abstraire les objets sur la map pour la rendre générique
 ///   et la découpler de son contenu
 class Tile {
+public:
+  
+  typedef std::unordered_set<Peon*> Content;
 private :
   // Des trucs mais probablement :
   FlatHexPosition _pos;
-  std::vector<Peon*> _entity_vector;
+  Content _content;
   
 public:
   
@@ -46,8 +49,11 @@ public:
   const FlatHexPosition & pos() const;
   
   void insert(Peon* pitou);
+  void erase(Peon *p);
+  
+  bool isEmpty() const;
 
-  const std::vector<Peon*> * getVector() const;
+  const Content & getContent() const;
  
   std::string toString() const;
 };

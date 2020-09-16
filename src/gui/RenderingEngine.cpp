@@ -97,7 +97,7 @@ void RenderingEngine::render() {
           OUPS();
         }
         
-        auto vec(_world->getVectorFromPos(off));
+        auto vec(_world->getContentAt(off));
         if (vec) {
           for (auto peon : *vec) {
             _worldView->toPixel(peon->pos(), &x, &y);

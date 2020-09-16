@@ -75,10 +75,10 @@ bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
       _camera->scrollLeft();
       break;
     case SDLK_a:
-      _camera->rotateLeft();
+      _camera->rotateRight();
       break;
     case SDLK_e:
-      _camera->rotateRight();
+      _camera->rotateLeft();
       break;
   }
   return true;

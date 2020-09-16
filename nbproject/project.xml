@@ -6,10 +6,12 @@
             <name>Empiru</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions>h</header-extensions>
+            <header-extensions>h,hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>perf</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>Windows</name>
@@ -21,6 +23,10 @@
                 </confElem>
                 <confElem>
                     <name>Linux</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Linux_O2</name>
                     <type>1</type>
                 </confElem>
             </confList>

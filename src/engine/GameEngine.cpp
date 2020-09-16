@@ -23,8 +23,37 @@
 /// \brief Handler of in-game mechanics
 ///
 
+#include <cassert>
+
 #include "GameEngine.h"
 
-void GameEngine::crashAndTurn(World & world) {
-  LOG_DEBUG("POUET <3\n");
+GameEngine::GameEngine(World *w) : 
+  _peons(),
+  _world(w)
+{
+  
+}
+
+void GameEngine::addPeon(Peon *p) {
+  assert(_peons.insert(p).second);
+  _world->addObject(p);
+}
+
+void GameEngine::update() {
+  for (auto peon : _peons) {
+    peonTick(peon);
+  }
+}
+
+void GameEngine::peonTick(Peon *peon) {
+  FlatHexPosition pos(peon->pos());
+  if (FlatHexPosition::distance(pos, peon->targetPos()) < 0.02) {
+    peon->pos(peon->targetPos());
+  } else {
+    peon->pos(pos + peon->direction() * 0.01);
+    if (pos.tile() != peon->pos().tile()) {
+      _world->removeObject(pos, peon);
+      _world->addObject(peon);
+    }
+  }
 }

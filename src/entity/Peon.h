@@ -16,29 +16,38 @@
  */
 
 /* 
- * File:   peon.cpp
+ * File:   peon.h
  * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- * 
+ *
  * Created on 10 septembre 2020, 16:08
  */
 
-#include "peon.h"
 
-Peon::Peon(const FlatHexPosition & pos, const FlatHexPosition & target_pos) : 
-  _pos(pos), 
-  _target_pos(target_pos)
-{
+#ifndef PEON_H
+#define PEON_H
+
+#include "utils/hex/HexCoords.h"
+
+class Peon {
+  private:
   
-}
+    FlatHexPosition _pos;
+    FlatHexPosition _target;
+    FlatHexPosition _dir;
+    
+  public:
+    
+    Peon(const FlatHexPosition & pos);
+    
+    std::string toString() const;
+    
+    const FlatHexPosition & pos() const;
+    void pos(const FlatHexPosition & pos);
+    
+    const FlatHexPosition & targetPos() const;
+    const FlatHexPosition & direction() const;
+    
+    void setTargetPos(const FlatHexPosition & pos);
+};
 
-const FlatHexPosition & Peon::pos() const {
-  return _pos;
-}
-
-const FlatHexPosition & Peon::targetPos() const {
-  return _target_pos;
-}
-
-void Peon::setTargetPos(const FlatHexPosition & pos){
-  _target_pos = pos;
-}
+#endif /* PEON_H */

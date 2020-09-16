@@ -27,7 +27,7 @@
 #include "utils/math/Math.h"
 
 #include <cassert>
-
+#include <cmath>
 
 /// \brief Axial (0,0)
 FlatHexPosition::FlatHexPosition() : 
@@ -65,6 +65,13 @@ FlatHexPosition::FlatHexPosition(float x, float y, float w, float h, System type
 {
   this->convert(type);
 }
+/// \brief Build vector AB
+FlatHexPosition::FlatHexPosition(
+    const FlatHexPosition & A, 
+    const FlatHexPosition & B) :
+  FlatHexPosition(B - A)
+{
+}
 /// \brief Effective constructor
 FlatHexPosition::FlatHexPosition(float x, float y, float z, System s) : 
   _x(x), _y(y), _z(z), _type(s)
@@ -74,10 +81,12 @@ FlatHexPosition::FlatHexPosition(float x, float y, float z, System s) :
 
 /// \brief return true if a is at the same position than this
 bool FlatHexPosition::operator==(const FlatHexPosition & a) const {
-  FlatHexPosition u, v;
-  convert(Axial, &u);
-  convert(Axial, &v);
+  FlatHexPosition u(*this, Axial), v(a, Axial);
   return u._x == v._x && u._y == v._y;
+}
+/// \brief return !(a==b)
+bool FlatHexPosition::operator!=(const FlatHexPosition & a) const {
+  return ! (*this == a);
 }
 
 /// \brief scale vector by 'f' factor
@@ -121,6 +130,16 @@ FlatHexPosition FlatHexPosition::operator*(const Matrix22 & M) const {
   res._x = x;
   res._y = y;
   return res;
+}
+
+/// \brief return distance between this and b
+float FlatHexPosition::distance(
+    const FlatHexPosition & a, 
+    const FlatHexPosition & b) 
+{
+  FlatHexPosition v(a, b);
+  v.convert(Axial);
+  return std::hypotf(v._x, v._y);
 }
 
 /// \brief Convert this position to 'target' System
@@ -192,7 +211,7 @@ FlatHexPosition & FlatHexPosition::tile() {
 }
 /// \brief Return position rounded to tile's center
 FlatHexPosition FlatHexPosition::tile() const {
-  FlatHexPosition res(*this,Axial);
+  FlatHexPosition res(*this);
   FlatHexPosition::tile(&res);
   return res;
 }
@@ -200,7 +219,7 @@ FlatHexPosition FlatHexPosition::tile() const {
 /// \brief Effective implementation of tile function
 void FlatHexPosition::tile(FlatHexPosition *pos) {
   pos->convert(Axial);
-  int x(math::mrnd(pos->_x)), y(math::mrnd(pos->_y));
+  int x(math::fastmrnd(pos->_x)), y(math::fastmrnd(pos->_y));
   float xx = pos->_x - x, yy = pos->_y - y;
   float u = xx + 2*yy, v = 2*xx + yy, w = yy - xx;
   if (w < 0) {
@@ -217,6 +236,24 @@ void FlatHexPosition::tile(FlatHexPosition *pos) {
     }
   }
   pos->_x = x, pos->_y = y;
+}
+  
+/// \brief Normalize to unitatry vector
+FlatHexPosition & FlatHexPosition::unit() {
+  unit(this);
+  return *this;
+}
+/// \brief Return as unitary vector
+FlatHexPosition FlatHexPosition::unit() const {
+  FlatHexPosition res(*this);
+  unit(&res);
+  return res;
+}
+/// \brief Effective implementation of unit function
+void FlatHexPosition::unit(FlatHexPosition *pos) {
+  pos->convert(Axial);
+  float norm(1.0f / std::hypotf(pos->_x, pos->_y));
+  pos->_x *= norm, pos->_y *= norm;
 }
 
 /// \brief toString

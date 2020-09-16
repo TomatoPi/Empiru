@@ -51,10 +51,12 @@ public :
   ///\brief Add an object to the world set
   ///\param obj :  object to add
   void addObject(Peon* pitou);
+  
+  void removeObject(const FlatHexPosition & pos, Peon *p);
 
   /// \brief Get list of Peons at given pos
   /// \return nullptr if none
-  const std::vector<Peon*> * getVectorFromPos(FlatHexPosition pos);
+  const Tile::Content * getContentAt(FlatHexPosition pos);
   
   ///\brief toString
   std::string toString() const;

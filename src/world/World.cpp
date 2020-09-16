@@ -36,7 +36,7 @@ World::World(int mapWidth, int mapHeight) :
   assert(0 < mapWidth);
   assert(0 < mapHeight);
   _map = new int[mapWidth*mapHeight];
-  for (int i; i<mapWidth*mapHeight;i++){
+  for (int i=0; i<mapWidth*mapHeight;i++){
     _map[i] = 0;
   }
 }
@@ -52,10 +52,18 @@ void World::addObject(Peon *pitou){
     itr->second.insert(pitou);
   }
 }
+void World::removeObject(const FlatHexPosition & pos, Peon *p) {
+  auto itr = _objects.find(pos);
+  assert(itr != _objects.end());
+  itr->second.erase(p);
+  if (itr->second.isEmpty()) {
+    _objects.erase(itr);
+  }
+}
 
-const std::vector<Peon*> * World::getVectorFromPos(FlatHexPosition pos){
+const Tile::Content * World::getContentAt(FlatHexPosition pos){
   if (_objects.find(pos) != _objects.end()){
-    return _objects.find(pos)->second.getVector();
+    return &_objects.find(pos)->second.getContent();
   }
   return nullptr;
 }

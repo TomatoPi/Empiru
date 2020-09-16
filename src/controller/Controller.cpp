@@ -38,31 +38,21 @@ Controller::Controller(World *w) :
 /// \brief Called when a left click is performed at given position
 void Controller::leftClickAt(const FlatHexPosition & click) {
   
-  LOG_DEBUG("Search at : %s\n%s\n", click.toString().c_str(), _world->toString().c_str());
-  auto tmp_world = _world->getVectorFromPos(click);
+  auto content = _world->getContentAt(click);
   
-  //LOG_DEBUG("%s\n", _world->toString().c_str());
-  
-  if (tmp_world != nullptr){
-    for (auto peon : *tmp_world){
-      LOG_DEBUG("PEON pos : %s target : %s\n",peon->pos().toString().c_str(),peon->targetPos().toString().c_str());
+  if (content != nullptr){
+    for (auto peon : *content){
       FlatHexPosition tmp_pos(peon->pos(),FlatHexPosition::Grid);
-      LOG_DEBUG("CLIC : %s\n", click.toString().c_str());
-      LOG_DEBUG("pos : %s tmp_pos : %s \n",click.toString().c_str(),tmp_pos.toString().c_str());
-      if ((fabs(click._x - tmp_pos._x) < 0.25) && (fabs(click._y + 0.25 - tmp_pos._y) < 0.25)) {
-        
-        LOG_DEBUG("IF -----> ET MA HACHE : %f %f %f\n",peon->pos()._x,
-            peon->pos()._y,
-            peon->pos()._z);
+      if (
+          (fabs(click._x - tmp_pos._x) < 0.25) 
+          && (fabs(click._y + 0.25 - tmp_pos._y) < 0.25)) 
+      {
         _state.selectPeon(peon);
-        LOG_DEBUG("Peon has been selected ! \n");
       } else {
-        LOG_DEBUG("Peon has been deselected\n");
         _state.deselectPeon();
       }
      }
   } else {
-    LOG_DEBUG("Péonhouète\n");
     _state.deselectPeon();
   }
 }
@@ -71,11 +61,5 @@ void Controller::rightClickAt(const FlatHexPosition & click) {
   //Attention, il faudra vérifier si la position est clickable
   if (_state.selectedPeon() != nullptr){
     _state.selectedPeon()->setTargetPos(click);
-    auto tmp_world = _world->getVectorFromPos(click);
-    if (tmp_world != nullptr){
-      for (auto peon : *tmp_world){
-        LOG_DEBUG("pos : %s target : %s\n",peon->pos().toString().c_str(),peon->targetPos().toString().c_str());
-      }
-    }
   }
 }
