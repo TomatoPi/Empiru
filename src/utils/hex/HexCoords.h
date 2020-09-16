@@ -57,9 +57,13 @@ struct FlatHexPosition {
   FlatHexPosition(float x, float y, float z);
   /// \brief Construct a position from Grid Coordinate
   FlatHexPosition(float x, float y, float w, float h, System type);
+  /// \brief Build vector AB
+  FlatHexPosition(const FlatHexPosition & A, const FlatHexPosition & B);
   
   /// \brief return true if a is at the same position than this
   bool operator==(const FlatHexPosition & a) const;
+  /// \brief return !(a==b)
+  bool operator!=(const FlatHexPosition & a) const;
   
   /// \brief scale vector by 'f' factor
   /// \return Axial vector
@@ -77,6 +81,11 @@ struct FlatHexPosition {
   /// \return this as Axial Vector
   FlatHexPosition operator*(const Matrix22 & M) const;
   
+  /// \brief return distance between a and b
+  static float distance(
+    const FlatHexPosition & a, 
+    const FlatHexPosition & b);
+  
   /// \brief Convert this position to 'target' System
   FlatHexPosition & convert(System target);
   /// \brief Convert this position to 'target' System and store result in 'pos'
@@ -86,6 +95,11 @@ struct FlatHexPosition {
   FlatHexPosition & tile();
   /// \brief Return position rounded to tile's center
   FlatHexPosition tile() const;
+  
+  /// \brief Normalize to unitatry vector
+  FlatHexPosition & unit();
+  /// \brief Return as unitary vector
+  FlatHexPosition unit() const;
   
   /// \brief toString
   std::string toString() const;
@@ -99,6 +113,8 @@ private:
   
   /// \brief Effective implementation of tile function
   static void tile(FlatHexPosition *pos);
+  /// \brief Effective implementation of unit function
+  static void unit(FlatHexPosition *pos);
 };
 
 /// \brief Hashing functor on FlatHexPosition objects

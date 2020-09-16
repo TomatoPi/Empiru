@@ -27,13 +27,27 @@
 #define GAMEENGINE_H
 
 #include "world/World.h"
+#include <unordered_set>
 
 class GameEngine {
 private:
 
+  typedef std::unordered_set<Peon*> PeonList;
+  PeonList _peons;
+  
+  World *_world;
+  
 public:
-
-  void crashAndTurn(World & world);
+  
+  GameEngine(World *w);
+  
+  void addPeon(Peon *p);
+  
+  void update();
+  
+private:
+  
+  void peonTick(Peon *peon);
 
 };
 

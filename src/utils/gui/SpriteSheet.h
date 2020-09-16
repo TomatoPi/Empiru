@@ -26,12 +26,13 @@
 #ifndef SPRITESHEET_H
 #define SPRITESHEET_H
 
+#include <memory>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
 
 /// \brief Provide basic object to load and draw sprites
 class SpriteSheet {
-private:
+protected:
   
   SDL_Texture *_sheet; ///< The sheet
   int _w; ///< Sprite's width
@@ -40,6 +41,12 @@ private:
   unsigned int _cols; ///< Number of frames by row
   
 public:
+  
+  /// \brief Constructor
+  SpriteSheet(SDL_Texture *t, 
+          int w, int h,
+          unsigned int rows, 
+          unsigned int cols);
   
   /// \brief Destructor
   ~SpriteSheet();
@@ -50,7 +57,7 @@ public:
   /// \param cols : number of frames by column
   /// \param rdr  : SDL_Renderer associated with targeted viewport
   /// \return NULL on failure
-  static SpriteSheet * loadFromFile(
+  static std::unique_ptr<SpriteSheet> loadFromFile(
     const char *path, 
     unsigned int rows, 
     unsigned int cols, 
@@ -73,13 +80,8 @@ public:
   /// \brief return number of frames by column on the sheet
   unsigned int rowCount() const;
   
-private:
-  
-  /// \brief Constructor
-  SpriteSheet(SDL_Texture *t, 
-          int w, int h,
-          unsigned int rows, 
-          unsigned int cols);
+  /// \brief change number of frames by rows and columns on the sheet
+  int recut(unsigned int rows, unsigned int cols);
 };
 
 #endif /* SPRITE_H */

@@ -30,6 +30,7 @@
 #include "controller/CtrlState.h"
 
 /// \brief Main handler for user control
+/// \todo Nettoyer le code
 class Controller {
 private:
   

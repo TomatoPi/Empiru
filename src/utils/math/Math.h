@@ -25,6 +25,8 @@
 #ifndef MATH_H
 #define MATH_H
 
+#include <cmath>
+
 namespace math {
   
   /// \brief Uniform rounding function that push halfvalues toward +inf
@@ -36,7 +38,20 @@ namespace math {
   ///
   ///   This function will round -0.5 and 0.5 to 0 and 1 (resp)
   ///   which may be more stable for several operations
-  int mrnd(float a);
+  inline int mrnd(float a) {
+    return roundf(a) + ((a < 0) && (fabsf(a - roundf(a)) >= 0.5f));
+  }
+  /// \brief Fastest mrnd function, by ~20%
+  /// \see int math::mrnd(float a)
+  inline int fastmrnd(float a) {
+    return (int)(a + (a < -0.5f ? -0.5f : 0.5f)) 
+         + (a < -0.5f && ((int)a - a) == 0.5f);
+  }
+  /// \brief Same as mrnd but faster
+  /// \see int math::mrnd(float a)
+  inline int fastmrnd2(float a) {
+    return (int)(a + (a < -0.5f ? -0.5f + (((int)a - a) == 0.5f) : 0.5f));
+  }
 }
 
 #endif /* MATH_H */

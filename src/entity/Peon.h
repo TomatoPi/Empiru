@@ -15,37 +15,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// 
-/// \file   CtrlState.h
-/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
-///
-/// \date 10 septembre 2020, 17:18
-///
+/* 
+ * File:   peon.h
+ * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+ *
+ * Created on 10 septembre 2020, 16:08
+ */
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
 
-#include <SDL2/SDL_events.h>
-#include "entity/Peon.h"
+#ifndef PEON_H
+#define PEON_H
 
-/// \brief Object used to keep state of game controller
-class ControllerState {
+#include "utils/hex/HexCoords.h"
+
+class Peon {
   private:
-    
-    Peon * _selectedPeon; ///< Obvious
   
+    FlatHexPosition _pos;
+    FlatHexPosition _target;
+    FlatHexPosition _dir;
+    
   public:
-     
-    /// \brief Constructor
-    ControllerState();
     
-    /// \brief Select given peon
-    void selectPeon(Peon * peon);
-    /// \brief Clear selection
-    void deselectPeon();
+    Peon(const FlatHexPosition & pos);
     
-    /// \brief Return selected peon or nullptr if no selection
-    Peon * selectedPeon();
+    std::string toString() const;
+    
+    const FlatHexPosition & pos() const;
+    void pos(const FlatHexPosition & pos);
+    
+    const FlatHexPosition & targetPos() const;
+    const FlatHexPosition & direction() const;
+    
+    void setTargetPos(const FlatHexPosition & pos);
 };
 
-#endif /* CONTROLLER_H */
+#endif /* PEON_H */

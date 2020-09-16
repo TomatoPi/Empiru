@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alexis
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,36 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   peon.h
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- *
- * Created on 10 septembre 2020, 16:08
- */
+/// 
+/// \file   SpriteAsset.h
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 15 septembre 2020, 13:41
+///
 
+#ifndef SPRITEASSET_H
+#define SPRITEASSET_H
 
-#ifndef PEON_H
-#define PEON_H
+#include <memory>
+#include "utils/gui/SpriteSheet.h"
 
-#include "utils/hex/HexCoords.h"
-
-class Peon {
-  private:
-  
-    FlatHexPosition _pos;
-    FlatHexPosition _target_pos;
-    
-  public:
-    
-    Peon(const FlatHexPosition & pos, const FlatHexPosition & target_pos);
-    
-    std::string toString() const;
-    
-    const FlatHexPosition & pos() const;
-    
-    const FlatHexPosition & targetPos() const;
-    
-    void setTargetPos(const FlatHexPosition & pos);
+class SpriteAsset {
+public:
+  /// \brief Load an asset from given file
+  static std::unique_ptr<SpriteSheet> loadFromFile(
+    const char *path, 
+    SDL_Renderer *rdr);
 };
 
-#endif /* PEON_H */
+#endif /* SPRITEASSET_H */

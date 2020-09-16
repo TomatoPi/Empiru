@@ -30,14 +30,17 @@
 #include "Tile.h"
 #include "utils/log.h"
 
+/// \todo Découpler l'implementation de la map de son utilisation 
+///   via une interface
+/// \todo Ajouter le retrait d'objets
 /// \brief Object that handle Map and Objects
 class World {
 private :
   int _mapWidth;
   int _mapHeight;
-  int* _map; /* Use for path finding and printing */
+  int* _map; ///< Use for path finding and printing
   typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
-  ObjList _objects; /*  */
+  ObjList _objects;
  
 public :
   ///\brief Constructor
@@ -48,10 +51,12 @@ public :
   ///\brief Add an object to the world set
   ///\param obj :  object to add
   void addObject(Peon* pitou);
+  
+  void removeObject(const FlatHexPosition & pos, Peon *p);
 
   /// \brief Get list of Peons at given pos
   /// \return nullptr if none
-  const std::vector<Peon*> * getVectorFromPos(FlatHexPosition pos);
+  const Tile::Content * getContentAt(FlatHexPosition pos);
   
   ///\brief toString
   std::string toString() const;

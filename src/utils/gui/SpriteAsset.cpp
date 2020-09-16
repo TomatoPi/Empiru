@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alexis
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,30 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   peon.cpp
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- * 
- * Created on 10 septembre 2020, 16:08
- */
+/// 
+/// \file   SpriteAsset.cpp
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 15 septembre 2020, 13:41
+///
 
-#include "peon.h"
+#include "SpriteAsset.h"
 
-Peon::Peon(const FlatHexPosition & pos, const FlatHexPosition & target_pos) : 
-  _pos(pos), 
-  _target_pos(target_pos)
+/// \brief Load an asset from given file
+std::unique_ptr<SpriteSheet> SpriteAsset::loadFromFile(
+  const char *path, 
+  SDL_Renderer *rdr)
 {
-  
-}
-
-const FlatHexPosition & Peon::pos() const {
-  return _pos;
-}
-
-const FlatHexPosition & Peon::targetPos() const {
-  return _target_pos;
-}
-
-void Peon::setTargetPos(const FlatHexPosition & pos){
-  _target_pos = pos;
+  // Load the sprite
+  auto sheet(SpriteSheet::loadFromFile(path, 1, 1, rdr));
+  if (!sheet) return nullptr;
+  // Recut the sheet
+  int width(sheet->width() / 6), rows;
+  rows = sheet->height() / width;
+  if (sheet->recut(rows, 6)) return nullptr;
+  // done
+  return sheet;
 }

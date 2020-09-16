@@ -17,7 +17,7 @@
 
 /// 
 /// \file   Tile.cpp
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+/// \author CHARAMOND Lucien <lucien.charamond@outlook.fr>
 ///
 /// \date 10 septembre 2020, 13:49
 ///
@@ -26,11 +26,15 @@
 
 Tile::Tile(FlatHexPosition pos) : 
   _pos(pos),
-  _entity_vector(){}
+  _content()
+{
+}
 
 Tile::Tile(FlatHexPosition pos, Peon *pitou) : 
-  _pos(pos),_entity_vector(){
-  _entity_vector.push_back(pitou);
+  _pos(pos),
+  _content()
+{
+  _content.insert(pitou);
 }
 
 const FlatHexPosition & Tile::pos() const {
@@ -38,13 +42,20 @@ const FlatHexPosition & Tile::pos() const {
 }
 
 
- void Tile::insert(Peon *pitou){
-    _entity_vector.push_back(pitou);
-  }
+void Tile::insert(Peon *pitou){
+  assert(_content.insert(pitou).second);
+}
+void Tile::erase(Peon *p) {
+  assert(_content.erase(p));
+}
+  
+bool Tile::isEmpty() const {
+  return 0 == _content.size();
+}
 
- const std::vector<Peon*> * Tile::getVector() const{
-   return &_entity_vector;
- }
+const Tile::Content & Tile::getContent() const{
+  return _content;
+}
  
 std::string Tile::toString() const{
   std::string ts = "{";

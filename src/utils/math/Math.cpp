@@ -24,15 +24,3 @@
 
 #include "Math.h"
 
-#include <cmath>
-
-/// \brief Uniform rounding function that push halfvalues toward +inf
-///   Default 'round' function in std push half values away from 0
-///   but this behaviour leads to difference on negatives or positives
-///   -0.5 and 0.5 will be rounded to -1 and 1 (resp) witch may cause
-///   problems
-///   This function will round -0.5 and 0.5 to 0 and 1 (resp)
-///   which may be more stable for several operations
-int math::mrnd(float a) {
-  return round(a) + ((a < 0) && (fabs(a - round(a)) >= 0.5));
-}

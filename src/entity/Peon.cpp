@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ * Copyright (C) 2020 Alexis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,26 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// 
-/// \file   PeonRenderer.cpp
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
-///
-/// \date 11 septembre 2020, 02:27
-///
+/* 
+ * File:   peon.cpp
+ * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+ * 
+ * Created on 10 septembre 2020, 16:08
+ */
 
-#include "SmallObjectRenderer.h"
+#include "Peon.h"
 
-/// Constructor
-SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet> s) : AbstractRenderer(std::move(s)) {
+Peon::Peon(const FlatHexPosition & pos) : 
+  _pos(pos), 
+  _target(pos),
+  _dir()
+{
   
 }
 
-/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int SmallObjectRenderer::renderAt(int ori, int x, int y, SDL_Renderer *rdr) {
-  SDL_Rect r;
-  r.w = _sheet->width();
-  r.h = _sheet->height();
-  r.x = x - r.w / 2;
-  r.y = y - r.h;
-  return _sheet->renderFrame(0, ori, rdr, &r);
+const FlatHexPosition & Peon::pos() const {
+  return _pos;
+}
+void Peon::pos(const FlatHexPosition & pos) {
+  _pos = pos;
+}
+
+const FlatHexPosition & Peon::targetPos() const {
+  return _target;
+}
+const FlatHexPosition & Peon::direction() const {
+  return _dir;
+}
+
+void Peon::setTargetPos(const FlatHexPosition & pos){
+  _target = pos;
+  _dir = FlatHexPosition(_pos, _target).unit();
 }

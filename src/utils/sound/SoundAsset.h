@@ -16,25 +16,17 @@
  */
 
 /// 
-/// \file   PeonRenderer.cpp
+/// \file   SoundAsset.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 11 septembre 2020, 02:27
+/// \date 15 septembre 2020, 13:12
 ///
 
-#include "SmallObjectRenderer.h"
+#ifndef SOUNDASSET_H
+#define SOUNDASSET_H
 
-/// Constructor
-SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet> s) : AbstractRenderer(std::move(s)) {
-  
-}
+#include <SDL2/SDL_mixer.h>
 
-/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int SmallObjectRenderer::renderAt(int ori, int x, int y, SDL_Renderer *rdr) {
-  SDL_Rect r;
-  r.w = _sheet->width();
-  r.h = _sheet->height();
-  r.x = x - r.w / 2;
-  r.y = y - r.h;
-  return _sheet->renderFrame(0, ori, rdr, &r);
-}
+
+
+#endif /* SOUNDASSET_H */

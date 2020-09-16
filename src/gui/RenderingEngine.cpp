@@ -30,11 +30,13 @@
 RenderingEngine::RenderingEngine(
     Window *w, 
     HexViewport *c, 
+    AbstractCamera *ac,
     World *wo, 
     AbstractRenderer *t,
     AbstractRenderer *p) : 
   _window(w),
   _worldView(c),
+  _camera(ac),
   _world(wo),
   _tilerdr(t),
   _peonrdr(p)
@@ -88,16 +90,19 @@ void RenderingEngine::render() {
       {
         _worldView->toPixel(off, &x, &y);
         //LOG_DEBUG("%d,%d -> %d,%d\n", x, y, rect.x, rect.y);
-        if (_tilerdr->renderAt(x, y, _window->renderer)) {
+        if (_tilerdr->renderAt(_camera->getOrientation(), 
+            x, y, _window->renderer)) 
+        {
           LOG_WRN("%s\n", SDL_GetError());
           OUPS();
         }
         
-        auto vec(_world->getVectorFromPos(off));
+        auto vec(_world->getContentAt(off));
         if (vec) {
           for (auto peon : *vec) {
             _worldView->toPixel(peon->pos(), &x, &y);
-            _peonrdr->renderAt(x, y, _window->renderer);
+            _peonrdr->renderAt(_camera->getOrientation(), 
+                x, y, _window->renderer);
           }
         }
       }

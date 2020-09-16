@@ -35,9 +35,9 @@ private:
   
 public:
   
-  TiledObjectRenderer(HexViewport *wv, SpriteSheet *sheet);
+  TiledObjectRenderer(HexViewport *wv, std::unique_ptr<SpriteSheet> sheet);
   
-  virtual int renderAt(int x, int y, SDL_Renderer *rdr);
+  virtual int renderAt(int ori, int x, int y, SDL_Renderer *rdr);
 };
 
 #endif /* TILEDOBJECTRENDERER_H */

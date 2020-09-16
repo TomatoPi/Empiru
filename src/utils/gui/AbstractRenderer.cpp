@@ -25,8 +25,8 @@
 #include "AbstractRenderer.h"
 
 
-AbstractRenderer::AbstractRenderer(SpriteSheet *sheet) : 
-  _sheet(sheet)
+AbstractRenderer::AbstractRenderer(std::unique_ptr<SpriteSheet> sheet) : 
+  _sheet(std::move(sheet))
 {
   
 }

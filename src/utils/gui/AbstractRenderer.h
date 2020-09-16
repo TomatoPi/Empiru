@@ -31,15 +31,20 @@
 class AbstractRenderer {
 protected:
   
-  SpriteSheet *_sheet;
+  std::unique_ptr<SpriteSheet> _sheet;
   
 public:
   
-  virtual int renderAt(int x, int y, SDL_Renderer *rdr) = 0;
+  /// \brief Render the object at given position
+  /// \param ori : curent camera's orientation
+  /// \param x   : object's x position on screen
+  /// \param y   : object's y position on screen
+  /// \param rdr : renderer
+  virtual int renderAt(int ori, int x, int y, SDL_Renderer *rdr) = 0;
   
 protected:
   
-  AbstractRenderer(SpriteSheet *sheet);
+  AbstractRenderer(std::unique_ptr<SpriteSheet> sheet);
 };
 
 #endif /* ABSTRACTRENDERER_H */
