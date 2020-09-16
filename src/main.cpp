@@ -29,8 +29,8 @@
 #include "utils/gui/SpriteAsset.h"
 #include "utils/gui/Window.h"
 #include "gui/RenderingEngine.h"
-#include "gui/SmallObjectRenderer.h"
 #include "gui/TiledObjectRenderer.h"
+#include "entity/peon/PeonRenderer.h"
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_mixer.h>
 
@@ -49,6 +49,14 @@
 #define FACTOR 2
 
 int main(int argc, char** argv) {
+  
+  LOG_DEBUG("%d, %d, %d, %d, %d, %d\n", 
+      FlatHexPosition(0, 1, FlatHexPosition::Axial).orientation(),
+      FlatHexPosition(1, 0, FlatHexPosition::Axial).orientation(),
+      FlatHexPosition(1, -1, FlatHexPosition::Axial).orientation(),
+      FlatHexPosition(0, -1, FlatHexPosition::Axial).orientation(),
+      FlatHexPosition(-1, 0, FlatHexPosition::Axial).orientation(),
+      FlatHexPosition(-1, 1, FlatHexPosition::Axial).orientation())
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
@@ -72,7 +80,7 @@ int main(int argc, char** argv) {
   
   
   TiledObjectRenderer tilerdr(&camera, std::move(groundSprite));
-  SmallObjectRenderer prdr(std::move(peonSprite));
+  PeonRenderer prdr(std::move(peonSprite));
   
   SDLHandler handler(&camera, &camera, &controller);
   
@@ -87,7 +95,9 @@ int main(int argc, char** argv) {
   
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  RenderingEngine rdr(window, &camera, &camera, &map_test, &tilerdr, &prdr);
+  RenderingEngine rdr(window, &camera, &camera, &map_test);
+  rdr.attachRenderer(typeid(Tile), &tilerdr);
+  rdr.attachRenderer(typeid(Peon), &prdr);
 
   long tickStartTime, tickEllapsedTime;
   while(true) {

@@ -24,29 +24,15 @@
 #include <cassert>
 #include "Tile.h"
 
-Tile::Tile(FlatHexPosition pos) : 
-  _pos(pos),
-  _content()
-{
+Tile::Tile() : _content() {
+  
 }
 
-Tile::Tile(FlatHexPosition pos, Peon *pitou) : 
-  _pos(pos),
-  _content()
-{
-  _content.insert(pitou);
+void Tile::insert(WorldObject * obj){
+  assert(_content.insert(obj).second);
 }
-
-const FlatHexPosition & Tile::pos() const {
-  return _pos;
-}
-
-
-void Tile::insert(Peon *pitou){
-  assert(_content.insert(pitou).second);
-}
-void Tile::erase(Peon *p) {
-  assert(_content.erase(p));
+void Tile::erase(WorldObject * obj) {
+  assert(_content.erase(obj));
 }
   
 bool Tile::isEmpty() const {
@@ -56,10 +42,6 @@ bool Tile::isEmpty() const {
 const Tile::Content & Tile::getContent() const{
   return _content;
 }
- 
-std::string Tile::toString() const{
-  std::string ts = "{";
-  return ts.append(_pos.toString())
-      .append("}");
+Tile::Content & Tile::getContent() {
+  return _content;
 }
-

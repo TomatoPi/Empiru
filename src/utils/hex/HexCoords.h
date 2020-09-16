@@ -88,8 +88,8 @@ struct FlatHexPosition {
   
   /// \brief Convert this position to 'target' System
   FlatHexPosition & convert(System target);
-  /// \brief Convert this position to 'target' System and store result in 'pos'
-  void convert(System target, FlatHexPosition * pos) const;
+  /// \brief Return this position converted to 'target' system
+  FlatHexPosition convert(System target) const;
   
   /// \brief Round position to it tile's center
   FlatHexPosition & tile();
@@ -106,15 +106,23 @@ struct FlatHexPosition {
   /// \brief Return s as a string
   static std::string systemString(System s);
   
+  /// \brief Return vector major orientation between 0 and 5 (incl)
+  ///   with 0 on bottom's verticle and turning counter-clockwise
+  int orientation() const;
+  
 private:
   
   /// \brief Effective constructor
   FlatHexPosition(float x, float y, float z, System s);
   
   /// \brief Effective implementation of tile function
-  static void tile(FlatHexPosition *pos);
+  static FlatHexPosition & tile(FlatHexPosition *pos);
   /// \brief Effective implementation of unit function
-  static void unit(FlatHexPosition *pos);
+  static FlatHexPosition & unit(FlatHexPosition *pos);
+  /// \brief Effective implementation of convert function
+  static FlatHexPosition & convert(FlatHexPosition * pos, System target);
+  /// \brief Effective implementation of convert function
+  static FlatHexPosition & convert2(FlatHexPosition * pos, System target);
 };
 
 /// \brief Hashing functor on FlatHexPosition objects

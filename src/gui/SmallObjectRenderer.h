@@ -22,8 +22,8 @@
 /// \date 11 septembre 2020, 02:27
 ///
 
-#ifndef PEONRENDERER_H
-#define PEONRENDERER_H
+#ifndef SMALLOBJECTRENDERER_H
+#define SMALLOBJECTRENDERER_H
 
 #include "utils/gui/AbstractRenderer.h"
 
@@ -34,8 +34,8 @@ public:
   SmallObjectRenderer(std::unique_ptr<SpriteSheet> s);
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-  virtual int renderAt(int ori, int x, int y, SDL_Renderer *rdr);
+  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr);
   
 };
 
-#endif /* PEONRENDERER_H */
+#endif /* SMALLOBJECTRENDERER_H */

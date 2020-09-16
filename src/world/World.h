@@ -27,43 +27,35 @@
 
 #include <unordered_map>
 
-#include "Tile.h"
+#include "utils/world/WorldInterface.h"
+#include "utils/world/Tile.h"
 #include "utils/log.h"
 
 /// \todo Découpler l'implementation de la map de son utilisation 
 ///   via une interface
 /// \todo Ajouter le retrait d'objets
 /// \brief Object that handle Map and Objects
-class World {
+class World : public WorldInterface {
 private :
+  
+  typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
+  
   int _mapWidth;
   int _mapHeight;
-  int* _map; ///< Use for path finding and printing
-  typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
-  ObjList _objects;
+  ObjList _map;
  
 public :
-  ///\brief Constructor
-  ///\param mapHeight : Height of the map (number of hexs)
-  ///\param mapWidth : Width of the map (number of hexs)
+  /// \brief Constructor
+  /// \param mapHeight : Height of the map (number of hexs)
+  /// \param mapWidth : Width of the map (number of hexs)
   World(int mapWidth, int mapHeight);
   
-  ///\brief Add an object to the world set
-  ///\param obj :  object to add
-  void addObject(Peon* pitou);
+  virtual void addObject(WorldObject * obj);
+  virtual void removeObject(const FlatHexPosition & pos, WorldObject * obj);
   
-  void removeObject(const FlatHexPosition & pos, Peon *p);
-
-  /// \brief Get list of Peons at given pos
-  /// \return nullptr if none
-  const Tile::Content * getContentAt(FlatHexPosition pos);
+  virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const;
   
-  ///\brief toString
-  std::string toString() const;
-  
-  int width() const;  ///< World's width
-  int height() const; ///< World's height
-  /*ObjList objects() const;*/ ///< List objects
+  virtual bool isOnMap(const FlatHexPosition & pos) const;
 };
 
 #endif /* WORLD_H*/

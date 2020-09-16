@@ -30,7 +30,7 @@ SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet> s) : Abstr
 }
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int SmallObjectRenderer::renderAt(int ori, int x, int y, SDL_Renderer *rdr) {
+int SmallObjectRenderer::renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) {
   SDL_Rect r;
   r.w = _sheet->width();
   r.h = _sheet->height();

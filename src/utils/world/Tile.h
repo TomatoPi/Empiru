@@ -22,41 +22,38 @@
 /// \date 10 septembre 2020, 13:49
 ///
 
-#ifndef WORLDOBJECT_H
-#define WORLDOBJECT_H
+#ifndef TILE_H
+#define TILE_H
 
 #include <unordered_set>
 
 #include "utils/hex/HexCoords.h"
-#include "entity/Peon.h"
+#include "utils/world/WorldObject.h"
 
 /// \todo Abstraire les objets sur la map pour la rendre générique
 ///   et la découpler de son contenu
 class Tile {
 public:
   
-  typedef std::unordered_set<Peon*> Content;
+  /// \brief Tile's sub container
+  typedef std::unordered_set<WorldObject*> Content;
+  
 private :
-  // Des trucs mais probablement :
-  FlatHexPosition _pos;
+  
   Content _content;
   
 public:
   
-  Tile(FlatHexPosition pos);
-  Tile(FlatHexPosition pos,Peon* pitou);
+  Tile();
   
-  const FlatHexPosition & pos() const;
-  
-  void insert(Peon* pitou);
-  void erase(Peon *p);
+  void insert(WorldObject * obj);
+  void erase(WorldObject * obj);
   
   bool isEmpty() const;
 
   const Content & getContent() const;
- 
-  std::string toString() const;
+  Content & getContent();
 };
   
 
-#endif /* WORLDOBJECT_H */
+#endif /* TILE_H */

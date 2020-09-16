@@ -47,7 +47,7 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
           (fabs(click._x - tmp_pos._x) < 0.25) 
           && (fabs(click._y + 0.25 - tmp_pos._y) < 0.25)) 
       {
-        _state.selectPeon(peon);
+        _state.selectPeon(dynamic_cast<Peon*>(peon));
       } else {
         _state.deselectPeon();
       }

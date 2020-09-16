@@ -5,6 +5,7 @@
       <itemPath>perf/perf-2020-09-16</itemPath>
       <itemPath>perf/perf-2020-09-16-O2</itemPath>
       <itemPath>perf/perf-2020-09-16-fastmrnd</itemPath>
+      <itemPath>perf/perf-2020-09-17</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -35,18 +36,24 @@
         <itemPath>src/engine/GameEngine.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
-        <itemPath>src/entity/Peon.cpp</itemPath>
-        <itemPath>src/entity/Peon.h</itemPath>
+        <logicalFolder name="f1" displayName="peon" projectFiles="true">
+          <itemPath>src/entity/Peon.cpp</itemPath>
+          <itemPath>src/entity/Peon.h</itemPath>
+          <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
+          <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="gui" displayName="gui" projectFiles="true">
+        <logicalFolder name="f1" displayName="Renderer" projectFiles="true">
+          <itemPath>src/gui/SmallObjectRenderer.cpp</itemPath>
+          <itemPath>src/gui/SmallObjectRenderer.h</itemPath>
+          <itemPath>src/gui/TiledObjectRenderer.cpp</itemPath>
+          <itemPath>src/gui/TiledObjectRenderer.h</itemPath>
+        </logicalFolder>
         <itemPath>src/gui/Camera.cpp</itemPath>
         <itemPath>src/gui/Camera.h</itemPath>
         <itemPath>src/gui/RenderingEngine.cpp</itemPath>
         <itemPath>src/gui/RenderingEngine.h</itemPath>
-        <itemPath>src/gui/SmallObjectRenderer.cpp</itemPath>
-        <itemPath>src/gui/SmallObjectRenderer.h</itemPath>
-        <itemPath>src/gui/TiledObjectRenderer.cpp</itemPath>
-        <itemPath>src/gui/TiledObjectRenderer.h</itemPath>
       </logicalFolder>
       <logicalFolder name="utils" displayName="utils" projectFiles="true">
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
@@ -77,12 +84,17 @@
           <itemPath>src/utils/sound/SoundAsset.cpp</itemPath>
           <itemPath>src/utils/sound/SoundAsset.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f2" displayName="world" projectFiles="true">
+          <itemPath>src/utils/world/Tile.cpp</itemPath>
+          <itemPath>src/utils/world/Tile.h</itemPath>
+          <itemPath>src/utils/world/WorldInterface.h</itemPath>
+          <itemPath>src/utils/world/WorldObject.cpp</itemPath>
+          <itemPath>src/utils/world/WorldObject.h</itemPath>
+        </logicalFolder>
         <itemPath>src/utils/chrono.hpp</itemPath>
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
-        <itemPath>src/world/Tile.cpp</itemPath>
-        <itemPath>src/world/Tile.h</itemPath>
         <itemPath>src/world/World.cpp</itemPath>
         <itemPath>src/world/World.h</itemPath>
       </logicalFolder>
@@ -97,6 +109,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/grille.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="OptiHexCoord"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/hexcoord.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="RoundOpti"
@@ -180,6 +198,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -191,6 +224,8 @@
       <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -211,6 +246,10 @@
       <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -274,15 +313,23 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -358,6 +405,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -369,6 +431,8 @@
       <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -389,6 +453,10 @@
       <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -452,15 +520,23 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -498,7 +574,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <commandLine>-lSDL2 -lSDL2_image -lcppunit</commandLine>
+          <commandLine>-lSDL2 -lSDL2_image -lSDL2_mixer -lcppunit</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
@@ -531,6 +607,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -542,6 +633,8 @@
       <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -562,6 +655,10 @@
       <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -625,15 +722,23 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -705,6 +810,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -716,6 +836,8 @@
       <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="11">
       </item>
@@ -736,6 +858,10 @@
       <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="11">
       </item>
@@ -802,15 +928,23 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="11">
       </item>
-      <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>

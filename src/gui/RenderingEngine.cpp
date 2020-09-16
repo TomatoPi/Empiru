@@ -31,21 +31,26 @@ RenderingEngine::RenderingEngine(
     Window *w, 
     HexViewport *c, 
     AbstractCamera *ac,
-    World *wo, 
-    AbstractRenderer *t,
-    AbstractRenderer *p) : 
+    WorldInterface *wo) : 
   _window(w),
   _worldView(c),
   _camera(ac),
   _world(wo),
-  _tilerdr(t),
-  _peonrdr(p)
+  _renderers(),
+  _todraw()
 {
   assert(w);
   assert(c);
-  assert(t);
+  assert(ac);
   assert(wo);
-  assert(p);
+}
+
+/// \brief Add a new renderer associated with given WorldObject type
+void RenderingEngine::attachRenderer(
+  const std::type_info & info, 
+  AbstractRenderer * rdr) 
+{
+  assert(_renderers.emplace(std::type_index(info), rdr).second);
 }
 
 void RenderingEngine::render() {
@@ -54,16 +59,16 @@ void RenderingEngine::render() {
   _worldView->upLeftCorner(&anchor);
   _worldView->viewPortAxis(&vx, &vy);
   // Move one tile away to always draw left and up tiles
-  //LOG_DEBUG("=============================\n");
-  //LOG_DEBUG("%s\n", anchor.toString().c_str());
   anchor = anchor - vx - vy;
-  //LOG_DEBUG("%s\n", anchor.toString().c_str());
   anchor.tile();
-  //LOG_DEBUG("%s\n", anchor.toString().c_str());
   // Compute render situation
   int x, y, xx, yy,
       dx(_worldView->tileWidth() * 0.75), 
       dy(_worldView->tileHeight());
+  // Get tile renderer
+  AbstractRenderer * tilerdr(
+        _renderers.find(std::type_index(typeid(Tile)))->second);
+  _todraw.clear();
   // Get initial position and start
   for (
       xx = -_worldView->tileWidth() *2;
@@ -71,7 +76,6 @@ void RenderingEngine::render() {
       xx += dx, anchor = anchor +vx
       ) 
   {
-    //LOG_DEBUG("\n\n")
     for (
         pos = anchor, yy = -_worldView->tileHeight() *2; 
         yy - _worldView->tileHeight() < _window->height ;
@@ -79,34 +83,29 @@ void RenderingEngine::render() {
         )
     {
       // Render tile pos at (x, y+offx[!!flip])
-      FlatHexPosition off(pos);
-      //LOG_DEBUG("%s\n", pos.toString().c_str());
-      off.tile().convert(FlatHexPosition::OddQOffset);
-      //LOG_DEBUG("%s\n", off.toString().c_str());
-      if (
-          0 <= off._x && 0 <= off._y 
-          && off._x < _world->width() 
-          && off._y < _world->height()) 
-      {
-        _worldView->toPixel(off, &x, &y);
-        //LOG_DEBUG("%d,%d -> %d,%d\n", x, y, rect.x, rect.y);
-        if (_tilerdr->renderAt(_camera->getOrientation(), 
+      if (_world->isOnMap(pos)) {
+        _worldView->toPixel(pos.tile(), &x, &y);
+        if (tilerdr->renderAt(nullptr, _camera->getOrientation(), 
             x, y, _window->renderer)) 
         {
           LOG_WRN("%s\n", SDL_GetError());
           OUPS();
         }
         
-        auto vec(_world->getContentAt(off));
+        auto vec(_world->getContentAt(pos));
         if (vec) {
-          for (auto peon : *vec) {
-            _worldView->toPixel(peon->pos(), &x, &y);
-            _peonrdr->renderAt(_camera->getOrientation(), 
-                x, y, _window->renderer);
+          for (auto & obj : *vec) {
+            _todraw.push_back(obj);
           }
         }
       }
-      //LOG_DEBUG("\n")
     }
+  } // for each tile
+  for (auto & obj : _todraw) {
+    _worldView->toPixel(obj->pos(), &x, &y);
+    _renderers.find(std::type_index(typeid(*obj)))->second->renderAt(
+        obj,
+        _camera->getOrientation(), 
+        x, y, _window->renderer);
   }
 }

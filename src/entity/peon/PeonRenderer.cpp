@@ -16,36 +16,28 @@
  */
 
 /// 
-/// \file   AbstractRenderer.h
+/// \file   PeonRenderer.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 16 septembre 2020, 12:48
 ///
 
-#ifndef ABSTRACTRENDERER_H
-#define ABSTRACTRENDERER_H
+#include "PeonRenderer.h"
+#include "entity/Peon.h"
 
-#include "utils/world/WorldObject.h"
-#include "utils/gui/SpriteSheet.h"
-#include <SDL2/SDL_render.h>
+/// Constructor
+PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) : 
+  SmallObjectRenderer(std::move(s)) 
+{
+  
+}
 
-class AbstractRenderer {
-protected:
-  
-  std::unique_ptr<SpriteSheet> _sheet;
-  
-public:
-  
-  /// \brief Render the object at given position
-  /// \param ori : curent camera's orientation
-  /// \param x   : object's x position on screen
-  /// \param y   : object's y position on screen
-  /// \param rdr : renderer
-  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) = 0;
-  
-protected:
-  
-  AbstractRenderer(std::unique_ptr<SpriteSheet> sheet);
-};
-
-#endif /* ABSTRACTRENDERER_H */
+/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+int PeonRenderer::renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) 
+{
+  const Peon *peon(static_cast<const Peon*>(obj));
+  return SmallObjectRenderer::renderAt(
+      nullptr, 
+      (ori + 6 - peon->direction().orientation()) % 6,
+      x, y, rdr);
+}

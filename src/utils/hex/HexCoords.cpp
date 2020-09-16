@@ -51,7 +51,7 @@ FlatHexPosition::FlatHexPosition(float x, float y, System type) :
 FlatHexPosition::FlatHexPosition(const FlatHexPosition & pos, System type) :
   FlatHexPosition(pos)
 {
-  convert(type);
+  convert(this, type);
 }
 /// \brief Cubic (x,y,z)
 FlatHexPosition::FlatHexPosition(float x, float y, float z) : 
@@ -63,7 +63,7 @@ FlatHexPosition::FlatHexPosition(float x, float y, float z) :
 FlatHexPosition::FlatHexPosition(float x, float y, float w, float h, System type) :
   FlatHexPosition(4*x/w, 2*y/h, 0, Grid)
 {
-  this->convert(type);
+  convert(this, type);
 }
 /// \brief Build vector AB
 FlatHexPosition::FlatHexPosition(
@@ -144,33 +144,34 @@ float FlatHexPosition::distance(
 
 /// \brief Convert this position to 'target' System
 FlatHexPosition & FlatHexPosition::convert(System target) {
-  convert(target, this);
-  return *this;
+  return convert(this, target);
 }
-/// \brief Convert this position to 'target' System and store result in 'pos'
-void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
-  if (target == _type) {
-    pos->_type = target;
-    pos->_x = _x;
-    pos->_y = _y;
-    pos->_z = _z;
-    return;
+/// \brief Return this position converted to 'target' system
+FlatHexPosition FlatHexPosition::convert(System target) const {
+  return FlatHexPosition(*this, target);
+}
+/// \brief Effective implementation of convert function
+FlatHexPosition & FlatHexPosition::convert2(
+  FlatHexPosition * pos, System target) 
+{
+  if (target == pos->_type) {
+    return *pos;
   }
   // Convert this position to Axial
   float x, y;
-  switch (_type) {
+  switch (pos->_type) {
   case OddQOffset :
-    x = _x;
-    y = _y - (_x - ((int)_x & 1)) / 2.;
+    x = pos->_x;
+    y = pos->_y - (pos->_x - ((int)pos->_x & 1)) / 2.;
     break;
   case Axial :
   case Cubic :
-    x = _x;
-    y = _y;
+    x = pos->_x;
+    y = pos->_y;
     break;
   case Grid :
-    x = _x / 3.;
-    y = _y / 2. - _x / 6.;
+    x = pos->_x / 3.;
+    y = pos->_y / 2. - pos->_x / 6.;
     break;
   default:
     assert(0);
@@ -202,22 +203,64 @@ void FlatHexPosition::convert(System target, FlatHexPosition * pos) const {
   }
   // This is the end
   pos->_type = target;
+  return *pos;
+}
+
+FlatHexPosition & FlatHexPosition::convert(
+  FlatHexPosition* pos, System target) 
+{
+  if (target == pos->_type) {
+    return *pos;
+  }
+  // Convert this position to Axial
+  switch (pos->_type) {
+  case FlatHexPosition::OddQOffset :
+    pos->_y = pos->_y - (pos->_x - ((int)pos->_x & 1)) / 2.;
+    break;
+  case FlatHexPosition::Axial :
+  case FlatHexPosition::Cubic :
+    break;
+  case FlatHexPosition::Grid :
+    pos->_y = pos->_y / 2. - pos->_x / 6.;
+    pos->_x /= 3.;
+    break;
+  default:
+    assert(0);
+  }
+  // Convert from Axial to Target
+  switch (target) {
+  case FlatHexPosition::OddQOffset :
+    pos->_y = pos->_y + (pos->_x - ((int)(pos->_x) & 1)) / 2.;
+    break;
+  case FlatHexPosition::Axial :
+    break;
+  case FlatHexPosition::Cubic :
+    pos->_z = pos->_x - pos->_y;
+    break;
+  case FlatHexPosition::Grid :
+    pos->_y = 2 * pos->_y + pos->_x;
+    pos->_x = 3 * pos->_x;
+    break;
+  default :
+    assert(0);
+  }
+  // This is the end
+  pos->_type = target;
+  return *pos;
 }
 
 /// \brief Round position to it tile's center
 FlatHexPosition & FlatHexPosition::tile() {
-  FlatHexPosition::tile(this);
-  return *this;
+  return FlatHexPosition::tile(this);
 }
 /// \brief Return position rounded to tile's center
 FlatHexPosition FlatHexPosition::tile() const {
   FlatHexPosition res(*this);
-  FlatHexPosition::tile(&res);
-  return res;
+  return FlatHexPosition::tile(&res);
 }
 
 /// \brief Effective implementation of tile function
-void FlatHexPosition::tile(FlatHexPosition *pos) {
+FlatHexPosition & FlatHexPosition::tile(FlatHexPosition *pos) {
   pos->convert(Axial);
   int x(math::fastmrnd(pos->_x)), y(math::fastmrnd(pos->_y));
   float xx = pos->_x - x, yy = pos->_y - y;
@@ -236,24 +279,24 @@ void FlatHexPosition::tile(FlatHexPosition *pos) {
     }
   }
   pos->_x = x, pos->_y = y;
+  return *pos;
 }
   
 /// \brief Normalize to unitatry vector
 FlatHexPosition & FlatHexPosition::unit() {
-  unit(this);
-  return *this;
+  return unit(this);
 }
 /// \brief Return as unitary vector
 FlatHexPosition FlatHexPosition::unit() const {
   FlatHexPosition res(*this);
-  unit(&res);
-  return res;
+  return unit(&res);
 }
 /// \brief Effective implementation of unit function
-void FlatHexPosition::unit(FlatHexPosition *pos) {
+FlatHexPosition & FlatHexPosition::unit(FlatHexPosition *pos) {
   pos->convert(Axial);
   float norm(1.0f / std::hypotf(pos->_x, pos->_y));
   pos->_x *= norm, pos->_y *= norm;
+  return *pos;
 }
 
 /// \brief toString
@@ -278,6 +321,15 @@ std::string FlatHexPosition::systemString(System s) {
     assert(0);
     return "";
   }
+}
+
+/// \brief Return vector major orientation between 0 and 5 (incl)
+///   with 0 on bottom's verticle and turning counter-clockwise
+int FlatHexPosition::orientation() const {
+  float u = _x + 2*_y, v = 2*_x + _y, w = _y - _x;
+  static int hexans[2][2][2] = {{{0, 11}, {5, 4}}, {{1, 2}, {16, 3}}};
+  assert(hexans[w<0][v<0][u<0] < 6);
+  return hexans[w<0][v<0][u<0];
 }
 
 /// \brief Hashing functor on FlatHexPositions objects

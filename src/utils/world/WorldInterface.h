@@ -16,36 +16,27 @@
  */
 
 /// 
-/// \file   AbstractRenderer.h
+/// \file   WorldInterface.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 16 septembre 2020, 10:47
 ///
 
-#ifndef ABSTRACTRENDERER_H
-#define ABSTRACTRENDERER_H
+#ifndef WORLDINTERFACE_H
+#define WORLDINTERFACE_H
 
-#include "utils/world/WorldObject.h"
-#include "utils/gui/SpriteSheet.h"
-#include <SDL2/SDL_render.h>
+#include "utils/world/Tile.h"
 
-class AbstractRenderer {
-protected:
-  
-  std::unique_ptr<SpriteSheet> _sheet;
-  
+class WorldInterface {
 public:
   
-  /// \brief Render the object at given position
-  /// \param ori : curent camera's orientation
-  /// \param x   : object's x position on screen
-  /// \param y   : object's y position on screen
-  /// \param rdr : renderer
-  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) = 0;
+  virtual void addObject(WorldObject * obj) = 0;
+  virtual void removeObject(const FlatHexPosition & pos, WorldObject * obj) = 0;
   
-protected:
+  virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const = 0;
   
-  AbstractRenderer(std::unique_ptr<SpriteSheet> sheet);
+  virtual bool isOnMap(const FlatHexPosition & pos) const = 0;
 };
 
-#endif /* ABSTRACTRENDERER_H */
+#endif /* WORLDINTERFACE_H */
+

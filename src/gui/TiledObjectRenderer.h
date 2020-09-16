@@ -37,7 +37,7 @@ public:
   
   TiledObjectRenderer(HexViewport *wv, std::unique_ptr<SpriteSheet> sheet);
   
-  virtual int renderAt(int ori, int x, int y, SDL_Renderer *rdr);
+  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr);
 };
 
 #endif /* TILEDOBJECTRENDERER_H */

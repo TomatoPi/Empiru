@@ -16,36 +16,26 @@
  */
 
 /// 
-/// \file   AbstractRenderer.h
+/// \file   PeonRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 16 septembre 2020, 12:48
 ///
 
-#ifndef ABSTRACTRENDERER_H
-#define ABSTRACTRENDERER_H
+#ifndef PEONRENDERER_H
+#define PEONRENDERER_H
 
-#include "utils/world/WorldObject.h"
-#include "utils/gui/SpriteSheet.h"
-#include <SDL2/SDL_render.h>
+#include "gui/SmallObjectRenderer.h"
 
-class AbstractRenderer {
-protected:
-  
-  std::unique_ptr<SpriteSheet> _sheet;
-  
+class PeonRenderer : public SmallObjectRenderer {
 public:
   
-  /// \brief Render the object at given position
-  /// \param ori : curent camera's orientation
-  /// \param x   : object's x position on screen
-  /// \param y   : object's y position on screen
-  /// \param rdr : renderer
-  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) = 0;
+  /// Constructor
+  PeonRenderer(std::unique_ptr<SpriteSheet> s);
   
-protected:
+  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr);
   
-  AbstractRenderer(std::unique_ptr<SpriteSheet> sheet);
 };
 
-#endif /* ABSTRACTRENDERER_H */
+#endif /* PEONRENDERER_H */
