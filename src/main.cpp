@@ -31,8 +31,9 @@
 #include "gui/RenderingEngine.h"
 #include "gui/TiledObjectRenderer.h"
 #include "entity/peon/PeonRenderer.h"
+
 #include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_mixer.h>
+//#include <SDL2/SDL_mixer.h>
 
 #include "utils/log.h"
 #include "entity/Peon.h"
@@ -83,7 +84,7 @@ int main(int argc, char** argv) {
   PeonRenderer prdr(std::move(peonSprite));
   
   SDLHandler handler(&camera, &camera, &controller);
-  
+  /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
     LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
     OUPS();
@@ -92,7 +93,7 @@ int main(int argc, char** argv) {
     LOG_ERROR("Failed open audio : %s\n", Mix_GetError());
     OUPS();
   }
-  
+  */
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
   RenderingEngine rdr(window, &camera, &camera, &map_test);
@@ -123,10 +124,10 @@ int main(int argc, char** argv) {
   }
   
   delete window;
-  
+  /*
   Mix_CloseAudio();
   Mix_Quit();
-  
+  */
   return 0;
 }
 
