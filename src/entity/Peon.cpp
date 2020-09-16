@@ -25,18 +25,11 @@
 #include "Peon.h"
 
 Peon::Peon(const FlatHexPosition & pos) : 
-  _pos(pos), 
+  WorldObject(pos), 
   _target(pos),
   _dir()
 {
   
-}
-
-const FlatHexPosition & Peon::pos() const {
-  return _pos;
-}
-void Peon::pos(const FlatHexPosition & pos) {
-  _pos = pos;
 }
 
 const FlatHexPosition & Peon::targetPos() const {
@@ -48,5 +41,5 @@ const FlatHexPosition & Peon::direction() const {
 
 void Peon::setTargetPos(const FlatHexPosition & pos){
   _target = pos;
-  _dir = FlatHexPosition(_pos, _target).unit();
+  _dir = FlatHexPosition(this->pos(), _target).unit();
 }

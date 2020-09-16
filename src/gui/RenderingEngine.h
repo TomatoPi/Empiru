@@ -26,22 +26,32 @@
 #ifndef WORLDRENDERER_H
 #define WORLDRENDERER_H
 
+#include <typeindex>
+#include <unordered_map>
+#include <memory>
+#include <vector>
+
 #include "utils/gui/Window.h"
 #include "utils/hex/HexViewport.h"
 #include "utils/gui/AbstractRenderer.h"
 #include "utils/gui/AbstractCamera.h"
-#include "world/World.h"
+#include "utils/world/WorldInterface.h"
 
 /// \brief Object responsible of Game rendering
 class RenderingEngine {
 private:
   
+  typedef std::unordered_map<std::type_index, AbstractRenderer*>
+    RendererTable;
+  typedef std::vector<WorldObject*> DrawList;
+  
   Window *_window;
   HexViewport *_worldView;
   AbstractCamera *_camera;
-  World *_world;
-  AbstractRenderer *_tilerdr;
-  AbstractRenderer *_peonrdr;
+  WorldInterface *_world;
+  
+  RendererTable _renderers;
+  DrawList _todraw;
   
 public:
   
@@ -50,9 +60,10 @@ public:
           Window *w, 
           HexViewport *c, 
           AbstractCamera *ac,
-          World *wo, 
-          AbstractRenderer *t,
-          AbstractRenderer *p);
+          WorldInterface *wo);
+  
+  /// \brief Add a new renderer associated with given WorldObject type
+  void attachRenderer(const std::type_info & info, AbstractRenderer* rdr);
   
   /// \brief Draw EVERYTHINGS (in the world)
   void render();

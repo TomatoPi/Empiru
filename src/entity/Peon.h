@@ -27,11 +27,11 @@
 #define PEON_H
 
 #include "utils/hex/HexCoords.h"
+#include "utils/world/WorldObject.h"
 
-class Peon {
+class Peon : public WorldObject {
   private:
-  
-    FlatHexPosition _pos;
+    
     FlatHexPosition _target;
     FlatHexPosition _dir;
     
@@ -40,10 +40,7 @@ class Peon {
     Peon(const FlatHexPosition & pos);
     
     std::string toString() const;
-    
-    const FlatHexPosition & pos() const;
-    void pos(const FlatHexPosition & pos);
-    
+
     const FlatHexPosition & targetPos() const;
     const FlatHexPosition & direction() const;
     

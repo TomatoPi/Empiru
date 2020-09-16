@@ -1,0 +1,999 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 40.30      1.10     1.10                             etext
+  3.30      1.19     0.09                             HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const
+  1.47      1.23     0.04   130268     0.31     0.31  FlatHexPosition::toString[abi:cxx11]() const
+  1.10      1.26     0.03   130261     0.23     0.23  RenderingEngine::render()
+  1.10      1.29     0.03                             HCHasher::operator()(FlatHexPosition const&) const
+  0.73      1.31     0.02    83728     0.24     0.37  World::removeObject(FlatHexPosition const&, WorldObject*)
+  0.73      1.33     0.02    27926     0.72     0.72  FlatHexPosition::operator+(FlatHexPosition const&) const
+  0.73      1.35     0.02     9526     2.10     5.43  RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*)
+  0.37      1.36     0.01   167457     0.06     0.12  std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&)
+  0.37      1.37     0.01    93042     0.11     0.11  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...)
+  0.37      1.38     0.01    83725     0.12     0.12  HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const
+  0.37      1.39     0.01    74420     0.13     0.13  Camera::doUpdateUDScroll(float)
+  0.37      1.40     0.01    55827     0.18     0.18  HexViewport::upLeftCorner(FlatHexPosition*) const
+  0.37      1.41     0.01    37228     0.27     0.27  SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*)
+  0.37      1.42     0.01     9308     1.07     1.07  Camera::Camera(int, int, int, int, int, int)
+  0.37      1.43     0.01                             FlatHexPosition::systemString[abi:cxx11](FlatHexPosition::System)
+  0.00      1.43     0.00 19501974     0.00     0.00  _fini
+  0.00      1.43     0.00    83730     0.00     0.00  World::getContentAt(FlatHexPosition const&) const
+  0.00      1.43     0.00    83726     0.00     0.00  Matrix22::operator*(Matrix22 const&) const
+  0.00      1.43     0.00    74440     0.00     0.00  Camera::doRotateLeft()
+  0.00      1.43     0.00    74422     0.00     0.07  Camera::doUpdateLRScroll(float)
+  0.00      1.43     0.00    46514     0.00     0.00  TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*)
+  0.00      1.43     0.00    37215     0.00     0.00  std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear()
+  0.00      1.43     0.00    37212     0.00     0.00  Camera::doRotateRight()
+  0.00      1.43     0.00    37212     0.00     0.19  Matrix22::inverse() const
+  0.00      1.43     0.00    37210     0.00     0.00  FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&)
+  0.00      1.43     0.00    27909     0.00     0.00  Tile::getContent()
+  0.00      1.43     0.00    27908     0.00     0.00  WorldObject::pos(FlatHexPosition const&)
+  0.00      1.43     0.00    27908     0.00     0.00  WorldObject::WorldObject(FlatHexPosition const&)
+  0.00      1.43     0.00    18618     0.00     0.00  FlatHexPosition::FlatHexPosition()
+  0.00      1.43     0.00    18610     0.00     0.38  HexViewport::HexViewport(int, int, int, int)
+  0.00      1.43     0.00    18608     0.00     0.00  HexViewport::tileHeight() const
+  0.00      1.43     0.00    18606     0.00     0.00  std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets()
+  0.00      1.43     0.00    18604     0.00     0.00  SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >)
+  0.00      1.43     0.00     9306     0.00     0.00  Tile::erase(WorldObject*)
+  0.00      1.43     0.00     9302     0.00     0.00  FlatHexPosition::unit(FlatHexPosition*)
+  0.00      1.43     0.00     9302     0.00     0.00  HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const
+  0.00      1.43     0.00       53     0.00     0.00  FlatHexPosition::operator==(FlatHexPosition const&) const
+  0.00      1.43     0.00       40     0.00     0.00  SpriteSheet::recut(unsigned int, unsigned int)
+  0.00      1.43     0.00       19     0.00     0.00  SpriteAsset::loadFromFile(char const*, SDL_Renderer*)
+  0.00      1.43     0.00       16     0.00     0.06  Tile::insert(WorldObject*)
+  0.00      1.43     0.00       14     0.00     0.00  World::addObject(WorldObject*)
+  0.00      1.43     0.00       12     0.00     0.00  FlatHexPosition::operator*(Matrix22 const&) const
+  0.00      1.43     0.00       12     0.00     0.00  std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear()
+  0.00      1.43     0.00        9     0.00     0.00  FlatHexPosition::FlatHexPosition(float, float, float, FlatHexPosition::System)
+  0.00      1.43     0.00        7     0.00     0.00  SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*)
+  0.00      1.43     0.00        7     0.00     0.00  FlatHexPosition::operator!=(FlatHexPosition const&) const
+  0.00      1.43     0.00        6     0.00     0.00  TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >)
+  0.00      1.43     0.00        6     0.00     0.00  FlatHexPosition::operator-(FlatHexPosition const&) const
+  0.00      1.43     0.00        6     0.00     0.25  std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const
+  0.00      1.43     0.00        5     0.00     0.53  AbstractCamera::update()
+  0.00      1.43     0.00        5     0.00     0.00  RenderingEngine::RenderingEngine(Window*, HexViewport*, AbstractCamera*, WorldInterface*)
+  0.00      1.43     0.00        5     0.00     0.00  SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*)
+  0.00      1.43     0.00        5     0.00     0.38  Window::createWindow(int, int)
+  0.00      1.43     0.00        5     0.00     0.00  __libc_csu_init
+  0.00      1.43     0.00        4     0.00     0.00  FlatHexPosition::FlatHexPosition(FlatHexPosition::System)
+  0.00      1.43     0.00        4     0.00     0.00  FlatHexPosition::operator*(float const&) const
+  0.00      1.43     0.00        3     0.00     0.00  AbstractCamera::scrollDown()
+  0.00      1.43     0.00        3     0.00     0.00  AbstractCamera::stopUDScroll()
+  0.00      1.43     0.00        3     0.00     0.00  FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System)
+  0.00      1.43     0.00        3     0.00     0.00  FlatHexPosition::convert2(FlatHexPosition*, FlatHexPosition::System)
+  0.00      1.43     0.00        3     0.00     0.00  FlatHexPosition::operator-() const
+  0.00      1.43     0.00        2     0.00     0.00  GameEngine::peonTick(Peon*)
+  0.00      1.43     0.00        2     0.00     0.38  AbstractCamera::rotateRight()
+  0.00      1.43     0.00        2     0.00     0.00  FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System)
+  0.00      1.43     0.00        2     0.00     0.00  Window::update()
+  0.00      1.43     0.00        2     0.00     0.00  HexViewport::target() const
+  0.00      1.43     0.00        2     0.00     0.00  SpriteSheet::height() const
+  0.00      1.43     0.00        2     0.00     1.57  FlatHexPosition::unit() const
+  0.00      1.43     0.00        2     0.00     0.00  Tile::isEmpty() const
+  0.00      1.43     0.00        2     0.00     0.38  World::isOnMap(FlatHexPosition const&) const
+  0.00      1.43     0.00        2     0.00     0.00  std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&)
+  0.00      1.43     0.00        2     0.00     0.00  std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_deallocate_buckets()
+  0.00      1.43     0.00        1     0.00     0.00  AbstractCamera::AbstractCamera(float, float, int)
+  0.00      1.43     0.00        1     0.00     0.00  FlatHexPosition::tile() const
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.70% of 1.43 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     79.1    1.10    0.03                 etext [1]
+                0.01    0.00   27918/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00    9305/93029       RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+                0.00    0.00    9304/93029       Camera::Camera(int, int, int, int, int, int) <cycle 1> [22]
+                0.00    0.00      22/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                0.00    0.00      14/158256      FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                0.00    0.00       6/204736      std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                0.00    0.00       2/2           FlatHexPosition::unit() const [32]
+                0.00    0.00       4/204736      Tile::insert(WorldObject*) <cycle 3> [46]
+                0.00    0.00       4/158256      std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+                0.00    0.00       2/204736      HexViewport::upLeftCorner(FlatHexPosition*) const <cycle 3> [20]
+                0.00    0.00       3/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       2/158256      FlatHexPosition::operator-() const <cycle 2> [101]
+                0.00    0.00       1/204736      std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.00    0.00       1/204736      World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                0.00    0.00       1/158256      SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [93]
+                0.00    0.00       1/158256      TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+                0.00    0.00       1/6           std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00 17528822/19501974     _fini [64]
+                0.00    0.00    9302/9302        FlatHexPosition::unit(FlatHexPosition*) [79]
+                0.00    0.00      20/74440       Camera::doRotateLeft() [67]
+                0.00    0.00       3/3           FlatHexPosition::convert2(FlatHexPosition*, FlatHexPosition::System) [100]
+                0.00    0.00       3/3           FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [99]
+                0.00    0.00       2/12          FlatHexPosition::operator*(Matrix22 const&) const [85]
+                0.00    0.00       1/27909       Tile::getContent() [72]
+                0.00    0.00       1/12          std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [86]
+                0.00    0.00       1/2           GameEngine::peonTick(Peon*) [102]
+                0.00    0.00       1/1           FlatHexPosition::tile() const [111]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]     11.2    0.09    0.07                 HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [2]
+                0.02    0.03   74416/93029       Camera::doUpdateLRScroll(float) <cycle 1> [26]
+                0.01    0.00   18604/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.01    0.00   37208/74420       Camera::doUpdateUDScroll(float) [21]
+                0.00    0.00 1655756/19501974     _fini [64]
+-----------------------------------------------
+[3]      9.0    0.10    0.03  204736+474453  <cycle 3 as a whole> [3]
+                0.04    0.00  130268+279085      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.02    0.01   83728             World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                0.01    0.01  167457             std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.01    0.00   93042+2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                0.01    0.00   83725             HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [19]
+                0.01    0.00   55827             HexViewport::upLeftCorner(FlatHexPosition*) const <cycle 3> [20]
+                0.00    0.01   18610+4           HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+                0.00    0.00    9306             Tile::erase(WorldObject*) <cycle 3> [45]
+                0.00    0.00      16             Tile::insert(WorldObject*) <cycle 3> [46]
+                0.00    0.00   27908             WorldObject::WorldObject(FlatHexPosition const&) <cycle 3> [74]
+                0.00    0.00    9302             HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [80]
+-----------------------------------------------
+[4]      4.7    0.03    0.04   93029+227     <cycle 1 as a whole> [4]
+                0.02    0.03    9526+18604       RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+                0.01    0.00    9308             Camera::Camera(int, int, int, int, int, int) <cycle 1> [22]
+                0.00    0.01   74422             Camera::doUpdateLRScroll(float) <cycle 1> [26]
+-----------------------------------------------
+[5]      4.2    0.06    0.00  158256+158264  <cycle 2 as a whole> [5]
+                0.03    0.00  130261+6           RenderingEngine::render() <cycle 2> [11]
+                0.02    0.00   27926             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                0.01    0.00   37228             SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+                0.00    0.00   46514             TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+                0.00    0.00   37215+2           std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+                0.00    0.00   18606             std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets() <cycle 2> [77]
+                0.00    0.00   18604             SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [78]
+                0.00    0.00      53             FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                0.00    0.00      40             SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                0.00    0.00      19+2           SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                0.00    0.00       7+4           SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                0.00    0.00       6+3           FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                0.00    0.00       9             FlatHexPosition::FlatHexPosition(float, float, float, FlatHexPosition::System) <cycle 2> [87]
+                0.00    0.00       7             FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+                0.00    0.00       6             TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [90]
+                0.00    0.00       5             SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [93]
+                0.00    0.00       3+2           FlatHexPosition::operator-() const <cycle 2> [101]
+                0.00    0.00       4             FlatHexPosition::operator*(float const&) const <cycle 2> [96]
+                0.00    0.00       3             AbstractCamera::scrollDown() <cycle 2> [97]
+                0.00    0.00       2             FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) <cycle 2> [103]
+                0.00    0.00       2             std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_deallocate_buckets() <cycle 2> [109]
+-----------------------------------------------
+                               18604             RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+                                 221             Camera::Camera(int, int, int, int, int, int) <cycle 1> [22]
+                0.00    0.00    9305/93029       etext [1]
+[6]      3.6    0.02    0.03    9526+18604   RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+                0.03    0.00   83721/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       7/19501974     _fini [64]
+                0.00    0.00       1/2           GameEngine::peonTick(Peon*) [102]
+                                   2             Camera::doUpdateLRScroll(float) <cycle 1> [26]
+                               18604             RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+-----------------------------------------------
+                                                 <spontaneous>
+[7]      3.3    0.03    0.02                 HCHasher::operator()(FlatHexPosition const&) const [7]
+                0.01    0.00   27906/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                              279085             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                                   2             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                                   2             Tile::erase(WorldObject*) <cycle 3> [45]
+                                   2             std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                               18604             HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+                               27908             HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [19]
+                0.00    0.00       1/204736      FlatHexPosition::unit() [55]
+                0.00    0.00       2/204736      HexViewport::fromPixel(int, int, FlatHexPosition*) const [43]
+                0.00    0.00       2/204736      HexViewport::rotation() const [42]
+                0.00    0.00       2/204736      Tile::Tile() [41]
+                0.00    0.00       4/204736      HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [27]
+                0.00    0.00       4/204736      atexit [34]
+                0.00    0.00       5/204736      FlatHexPosition::unit() const [32]
+                0.00    0.00    9302/204736      FlatHexPosition::systemString[abi:cxx11](FlatHexPosition::System) [16]
+                0.01    0.00   18604/204736      HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [2]
+                0.01    0.00   27906/204736      HCHasher::operator()(FlatHexPosition const&) const [7]
+                0.01    0.00   27918/204736      etext [1]
+[8]      2.8    0.04    0.00  130268+279085  FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00       2/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00  130228/19501974     _fini [64]
+                0.00    0.00   18608/18608       HexViewport::tileHeight() const [76]
+                               65118             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                               55817             HexViewport::upLeftCorner(FlatHexPosition*) const <cycle 3> [20]
+                               18604             HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+                                9302             HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [80]
+                              279085             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      2.4    0.00    0.03                 WorldObject::~WorldObject() [9]
+                0.03    0.01   55816/204736      std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+-----------------------------------------------
+                               55817             HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [19]
+                0.00    0.00       1/204736      etext [1]
+                0.00    0.00       2/204736      HexViewport::rotation(Matrix22 const&) [28]
+                0.01    0.00   27908/204736      Matrix22::Matrix22(float, float, float, float) [14]
+[10]     2.1    0.02    0.01   83728         World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                0.01    0.00   27911/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       2/83726       Matrix22::operator*(Matrix22 const&) const [66]
+                               83726             std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+-----------------------------------------------
+                                   6             RenderingEngine::render() <cycle 2> [11]
+                                   1             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                                   2             SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+                                   2             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                                   7             SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                0.00    0.00       2/158256      SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int) [31]
+                0.00    0.00       2/158256      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00       2/158256      World::isOnMap(FlatHexPosition const&) const [48]
+                0.00    0.00       2/158256      std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00       2/158256      std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.00    0.00       3/158256      etext [1]
+                0.01    0.00   18604/158256      Matrix22::inverse() const [23]
+                0.01    0.00   27911/158256      World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                0.03    0.00   83721/158256      RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+[11]     2.1    0.03    0.00  130261+6       RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00   37208/37210       FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [71]
+                0.00    0.00   19666/19501974     _fini [64]
+                               37208             TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+                               18604             SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [78]
+                                   3             SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [93]
+                                   6             RenderingEngine::render() <cycle 2> [11]
+-----------------------------------------------
+                               27909             WorldObject::WorldObject(FlatHexPosition const&) <cycle 3> [74]
+                               83726             World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                0.00    0.00       1/204736      etext [1]
+                0.00    0.00       5/204736      World::World(int, int) [30]
+                0.03    0.01   55816/204736      WorldObject::~WorldObject() [9]
+[12]     1.4    0.01    0.01  167457         std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.01    0.00   27910/158256      FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                0.00    0.00       2/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       2/6           std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00  111629/19501974     _fini [64]
+                0.00    0.00   27906/27909       Tile::getContent() [72]
+                0.00    0.00   27906/27908       WorldObject::pos(FlatHexPosition const&) [73]
+                0.00    0.00       2/12          std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [86]
+                0.00    0.00       1/5           __libc_csu_init [94]
+                               27906             WorldObject::WorldObject(FlatHexPosition const&) <cycle 3> [74]
+                                   4             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                                   2             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                                   1             Tile::insert(WorldObject*) <cycle 3> [46]
+-----------------------------------------------
+                                   2             FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+                                   5             FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                                   9             FlatHexPosition::FlatHexPosition(float, float, float, FlatHexPosition::System) <cycle 2> [87]
+                0.01    0.00   27910/158256      std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+[13]     1.4    0.02    0.00   27926         FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                0.00    0.00       1/3           AbstractCamera::stopUDScroll() [98]
+                                   2             SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                                   1             FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                                   1             AbstractCamera::scrollDown() <cycle 2> [97]
+                                   1             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                                   1             RenderingEngine::render() <cycle 2> [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[14]     1.2    0.00    0.02                 Matrix22::Matrix22(float, float, float, float) [14]
+                0.01    0.00   27908/204736      World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     1.2    0.00    0.02                 WorldObject::pos() const [15]
+                0.01    0.00   27908/204736      std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+-----------------------------------------------
+                                                 <spontaneous>
+[16]     1.1    0.01    0.01                 FlatHexPosition::systemString[abi:cxx11](FlatHexPosition::System) [16]
+                0.00    0.00    9302/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00   27906/19501974     _fini [64]
+-----------------------------------------------
+                                   2             std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_deallocate_buckets() <cycle 2> [109]
+                                   2             SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                               18606             std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets() <cycle 2> [77]
+                               18610             std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+                0.00    0.00       1/158256      AbstractCamera::scrollLeft() [50]
+                0.00    0.00       1/158256      FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [53]
+                0.00    0.00       2/158256      std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [39]
+                0.00    0.00       2/158256      SpriteSheet::rowCount() const [54]
+                0.00    0.00       2/158256      Window::createWindow(int, int) [35]
+[17]     0.7    0.01    0.00   37228         SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+                0.00    0.00   18618/18618       FlatHexPosition::FlatHexPosition() [75]
+                0.00    0.00       2/2           Window::update() [104]
+                                   2             RenderingEngine::render() <cycle 2> [11]
+-----------------------------------------------
+                                   2             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                                   2             Tile::insert(WorldObject*) <cycle 3> [46]
+                                   2             Tile::erase(WorldObject*) <cycle 3> [45]
+                                   4             std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                               65118             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00       2/204736      HexViewport::rotation(Matrix22 const&) [28]
+                0.00    0.00       6/204736      etext [1]
+                0.01    0.00   27908/204736      WorldObject::pos() const [15]
+[18]     0.7    0.01    0.00   93042+2       std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                0.00    0.00   83724/83726       Matrix22::operator*(Matrix22 const&) const [66]
+                0.00    0.00       2/2           HexViewport::target() const [105]
+                               83718             HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [19]
+                                   2             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                                   2             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+-----------------------------------------------
+                               83718             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                0.00    0.00       1/204736      World::World(int, int) [30]
+                0.00    0.00       6/204736      HexViewport::rotation(Matrix22 const&) [28]
+[19]     0.7    0.01    0.00   83725         HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [19]
+                               55817             World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                               27908             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                                   4             Tile::insert(WorldObject*) <cycle 3> [46]
+                               55817             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00       2/204736      etext [1]
+                0.00    0.00       4/204736      HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [27]
+[20]     0.7    0.01    0.00   55827         HexViewport::upLeftCorner(FlatHexPosition*) const <cycle 3> [20]
+                                   3             Tile::insert(WorldObject*) <cycle 3> [46]
+-----------------------------------------------
+                               18605             Camera::doUpdateUDScroll(float) [21]
+                0.00    0.00       1/74420       Peon::Peon(FlatHexPosition const&) [36]
+                0.01    0.00   37208/74420       HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [2]
+                0.01    0.00   37211/74420       Camera::doUpdateLRScroll(float) <cycle 1> [26]
+[21]     0.7    0.01    0.00   74420+18605   Camera::doUpdateUDScroll(float) [21]
+                0.00    0.00   74420/74440       Camera::doRotateLeft() [67]
+                               18605             Camera::doUpdateUDScroll(float) [21]
+-----------------------------------------------
+                                   4             Camera::doUpdateLRScroll(float) <cycle 1> [26]
+                0.00    0.00    9304/93029       etext [1]
+[22]     0.7    0.01    0.00    9308         Camera::Camera(int, int, int, int, int, int) <cycle 1> [22]
+                0.00    0.00       5/5           RenderingEngine::RenderingEngine(Window*, HexViewport*, AbstractCamera*, WorldInterface*) [92]
+                                 221             RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+-----------------------------------------------
+                               18604             Matrix22::inverse() const [23]
+                0.00    0.00       2/37212       HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [27]
+                0.00    0.01   37210/37212       HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+[23]     0.5    0.00    0.01   37212+18604   Matrix22::inverse() const [23]
+                0.01    0.00   18604/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       2/83730       World::getContentAt(FlatHexPosition const&) const [65]
+                0.00    0.00       2/14          World::addObject(WorldObject*) [84]
+                               18604             Matrix22::inverse() const [23]
+-----------------------------------------------
+                                   4             HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+                               18604             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00       6/204736      HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [27]
+[24]     0.5    0.00    0.01   18610+4       HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+                0.00    0.01   37210/37212       Matrix22::inverse() const [23]
+                               18604             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                                   4             HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+-----------------------------------------------
+                                                 <spontaneous>
+[25]     0.4    0.00    0.01                 HexViewport::viewportVX() const [25]
+                0.00    0.00    9302/204736      Tile::erase(WorldObject*) <cycle 3> [45]
+-----------------------------------------------
+                                   2             RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+                0.00    0.00       2/93029       GameEngine::update() [40]
+                0.00    0.00       2/93029       Peon::Peon(FlatHexPosition const&) [36]
+                0.02    0.03   74416/93029       HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [2]
+[26]     0.3    0.00    0.01   74422         Camera::doUpdateLRScroll(float) <cycle 1> [26]
+                0.01    0.00   37211/74420       Camera::doUpdateUDScroll(float) [21]
+                0.00    0.00       2/37210       FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [71]
+                                   4             Camera::Camera(int, int, int, int, int, int) <cycle 1> [22]
+-----------------------------------------------
+                                                 <spontaneous>
+[27]     0.0    0.00    0.00                 HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [27]
+                0.00    0.00       8/204736      Tile::insert(WorldObject*) <cycle 3> [46]
+                0.00    0.00       6/204736      HexViewport::HexViewport(int, int, int, int) <cycle 3> [24]
+                0.00    0.00       4/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00       4/204736      HexViewport::upLeftCorner(FlatHexPosition*) const <cycle 3> [20]
+                0.00    0.00       2/37212       Matrix22::inverse() const [23]
+-----------------------------------------------
+                                                 <spontaneous>
+[28]     0.0    0.00    0.00                 HexViewport::rotation(Matrix22 const&) [28]
+                0.00    0.00       6/204736      HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [19]
+                0.00    0.00       2/204736      std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                0.00    0.00       2/204736      Tile::erase(WorldObject*) <cycle 3> [45]
+                0.00    0.00       2/204736      WorldObject::WorldObject(FlatHexPosition const&) <cycle 3> [74]
+                0.00    0.00       2/204736      World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                0.00    0.00       2/2           World::isOnMap(FlatHexPosition const&) const [48]
+                0.00    0.00       2/27909       Tile::getContent() [72]
+                0.00    0.00       2/27908       WorldObject::pos(FlatHexPosition const&) [73]
+                0.00    0.00       2/2           Tile::isEmpty() const [107]
+-----------------------------------------------
+                                                 <spontaneous>
+[29]     0.0    0.00    0.00                 World::~World() [29]
+                0.00    0.00       8/158256      SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                0.00    0.00       4/5           AbstractCamera::update() [33]
+                0.00    0.00       2/2           AbstractCamera::rotateRight() [47]
+                0.00    0.00       2/3           AbstractCamera::stopUDScroll() [98]
+-----------------------------------------------
+                                                 <spontaneous>
+[30]     0.0    0.00    0.00                 World::World(int, int) [30]
+                0.00    0.00       5/204736      std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.00    0.00       1/204736      HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [19]
+-----------------------------------------------
+                                                 <spontaneous>
+[31]     0.0    0.00    0.00                 SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int) [31]
+                0.00    0.00       5/5           Window::createWindow(int, int) [35]
+                0.00    0.00       2/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       1/5           AbstractCamera::update() [33]
+-----------------------------------------------
+                0.00    0.00       2/2           etext [1]
+[32]     0.0    0.00    0.00       2         FlatHexPosition::unit() const [32]
+                0.00    0.00       5/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                0.00    0.00       1/5           SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int) [31]
+                0.00    0.00       4/5           World::~World() [29]
+[33]     0.0    0.00    0.00       5         AbstractCamera::update() [33]
+                0.00    0.00       4/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                0.00    0.00       3/158256      SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+-----------------------------------------------
+                                                 <spontaneous>
+[34]     0.0    0.00    0.00                 atexit [34]
+                0.00    0.00       4/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                0.00    0.00       5/5           SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int) [31]
+[35]     0.0    0.00    0.00       5         Window::createWindow(int, int) [35]
+                0.00    0.00       3/158256      FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+                0.00    0.00       2/158256      SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[36]     0.0    0.00    0.00                 Peon::Peon(FlatHexPosition const&) [36]
+                0.00    0.00       2/93029       Camera::doUpdateLRScroll(float) <cycle 1> [26]
+                0.00    0.00       1/74420       Camera::doUpdateUDScroll(float) [21]
+-----------------------------------------------
+                                   2             std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00       1/6           Tile::erase(WorldObject*) <cycle 3> [45]
+                0.00    0.00       1/6           etext [1]
+                0.00    0.00       2/6           Tile::insert(WorldObject*) <cycle 3> [46]
+                0.00    0.00       2/6           std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+[37]     0.0    0.00    0.00       6+2       std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00       2/158256      FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                0.00    0.00       2/158256      RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       4/19501974     _fini [64]
+                0.00    0.00       2/12          std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [86]
+                                   2             std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+-----------------------------------------------
+                                                 <spontaneous>
+[38]     0.0    0.00    0.00                 Window::Window(SDL_Window*, SDL_Renderer*, int, int) [38]
+                0.00    0.00       2/158256      SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                0.00    0.00       2/158256      std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+-----------------------------------------------
+                                                 <spontaneous>
+[39]     0.0    0.00    0.00                 std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [39]
+                0.00    0.00       2/158256      SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+                0.00    0.00       2/158256      SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+-----------------------------------------------
+                                                 <spontaneous>
+[40]     0.0    0.00    0.00                 GameEngine::update() [40]
+                0.00    0.00       2/93029       Camera::doUpdateLRScroll(float) <cycle 1> [26]
+-----------------------------------------------
+                                                 <spontaneous>
+[41]     0.0    0.00    0.00                 Tile::Tile() [41]
+                0.00    0.00       2/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00       4/14          World::addObject(WorldObject*) [84]
+-----------------------------------------------
+                                                 <spontaneous>
+[42]     0.0    0.00    0.00                 HexViewport::rotation() const [42]
+                0.00    0.00       2/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[43]     0.0    0.00    0.00                 HexViewport::fromPixel(int, int, FlatHexPosition*) const [43]
+                0.00    0.00       2/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[44]     0.0    0.00    0.00                 AbstractCamera::getOrientation() [44]
+                0.00    0.00       3/158256      SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+-----------------------------------------------
+                                   2             HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [80]
+                0.00    0.00       2/204736      HexViewport::rotation(Matrix22 const&) [28]
+                0.00    0.00    9302/204736      HexViewport::viewportVX() const [25]
+[45]     0.0    0.00    0.00    9306         Tile::erase(WorldObject*) <cycle 3> [45]
+                0.00    0.00       2/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                0.00    0.00       1/6           std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00       2/2           std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [108]
+                                   2             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+                                   2             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                                   1             std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                                   3             HexViewport::upLeftCorner(FlatHexPosition*) const <cycle 3> [20]
+                0.00    0.00       4/204736      etext [1]
+                0.00    0.00       8/204736      HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [27]
+[46]     0.0    0.00    0.00      16         Tile::insert(WorldObject*) <cycle 3> [46]
+                0.00    0.00       2/6           std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00       1/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                0.00    0.00       8/14          World::addObject(WorldObject*) [84]
+                0.00    0.00       5/12          std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [86]
+                0.00    0.00       2/83730       World::getContentAt(FlatHexPosition const&) const [65]
+                                   4             HexViewport::upLeftCorner(FlatHexPosition*) const <cycle 3> [20]
+                                   2             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+-----------------------------------------------
+                0.00    0.00       2/2           World::~World() [29]
+[47]     0.0    0.00    0.00       2         AbstractCamera::rotateRight() [47]
+                0.00    0.00       2/158256      SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+-----------------------------------------------
+                0.00    0.00       2/2           HexViewport::rotation(Matrix22 const&) [28]
+[48]     0.0    0.00    0.00       2         World::isOnMap(FlatHexPosition const&) const [48]
+                0.00    0.00       2/158256      RenderingEngine::render() <cycle 2> [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[49]     0.0    0.00    0.00                 SpriteSheet::~SpriteSheet() [49]
+                0.00    0.00       2/158256      std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets() <cycle 2> [77]
+-----------------------------------------------
+                                                 <spontaneous>
+[50]     0.0    0.00    0.00                 AbstractCamera::scrollLeft() [50]
+                0.00    0.00       1/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                0.00    0.00       1/158256      SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[51]     0.0    0.00    0.00                 AbstractCamera::scrollRight() [51]
+                0.00    0.00       2/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[52]     0.0    0.00    0.00                 FlatHexPosition::FlatHexPosition(float, float, float) [52]
+                0.00    0.00       2/158256      FlatHexPosition::operator*(float const&) const <cycle 2> [96]
+-----------------------------------------------
+                                                 <spontaneous>
+[53]     0.0    0.00    0.00                 FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [53]
+                0.00    0.00       1/158256      SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+                0.00    0.00       1/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[54]     0.0    0.00    0.00                 SpriteSheet::rowCount() const [54]
+                0.00    0.00       2/158256      SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[55]     0.0    0.00    0.00                 FlatHexPosition::unit() [55]
+                0.00    0.00       1/204736      FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[56]     0.0    0.00    0.00                 AbstractCamera::stopLRScroll() [56]
+                0.00    0.00       1/158256      SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[57]     0.0    0.00    0.00                 Window::clear() [57]
+                0.00    0.00       1/158256      FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+-----------------------------------------------
+                                                 <spontaneous>
+[58]     0.0    0.00    0.00                 Window::~Window() [58]
+                0.00    0.00       1/158256      std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+-----------------------------------------------
+                0.00    0.00       1/19501974     Peon::targetPos() const [147]
+                0.00    0.00       1/19501974     RenderingEngine::RenderingEngine(Window*, HexViewport*, AbstractCamera*, WorldInterface*) [92]
+                0.00    0.00       1/19501974     FlatHexPosition::convert2(FlatHexPosition*, FlatHexPosition::System) [100]
+                0.00    0.00       1/19501974     __libc_csu_init [94]
+                0.00    0.00       2/19501974     FlatHexPosition::operator*(Matrix22 const&) const [85]
+                0.00    0.00       2/19501974     FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [71]
+                0.00    0.00       3/19501974     FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition::System) [136]
+                0.00    0.00       3/19501974     FlatHexPosition::FlatHexPosition(float, float, float, float, FlatHexPosition::System) [135]
+                0.00    0.00       4/19501974     World::getContentAt(FlatHexPosition const&) const [65]
+                0.00    0.00       4/19501974     std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00       4/19501974     std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [108]
+                0.00    0.00       4/19501974     __libc_csu_fini [151]
+                0.00    0.00       6/19501974     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [99]
+                0.00    0.00       6/19501974     World::addObject(WorldObject*) [84]
+                0.00    0.00       7/19501974     RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+                0.00    0.00      12/19501974     std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [86]
+                0.00    0.00   19666/19501974     RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00   27906/19501974     FlatHexPosition::unit(FlatHexPosition*) [79]
+                0.00    0.00   27906/19501974     FlatHexPosition::systemString[abi:cxx11](FlatHexPosition::System) [16]
+                0.00    0.00  111629/19501974     std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.00    0.00  130228/19501974     FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+                0.00    0.00 1655756/19501974     HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [2]
+                0.00    0.00 17528822/19501974     etext [1]
+[64]     0.0    0.00    0.00 19501974         _fini [64]
+-----------------------------------------------
+                0.00    0.00       2/83730       Matrix22::inverse() const [23]
+                0.00    0.00       2/83730       Tile::insert(WorldObject*) <cycle 3> [46]
+                0.00    0.00   83726/83730       Matrix22::operator*(Matrix22 const&) const [66]
+[65]     0.0    0.00    0.00   83730         World::getContentAt(FlatHexPosition const&) const [65]
+                0.00    0.00       4/19501974     _fini [64]
+-----------------------------------------------
+                0.00    0.00       2/83726       World::removeObject(FlatHexPosition const&, WorldObject*) <cycle 3> [10]
+                0.00    0.00   83724/83726       std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+[66]     0.0    0.00    0.00   83726         Matrix22::operator*(Matrix22 const&) const [66]
+                0.00    0.00   83726/83730       World::getContentAt(FlatHexPosition const&) const [65]
+-----------------------------------------------
+                               37214             Camera::doRotateLeft() [67]
+                0.00    0.00      20/74440       etext [1]
+                0.00    0.00   74420/74440       Camera::doUpdateUDScroll(float) [21]
+[67]     0.0    0.00    0.00   74440+37214   Camera::doRotateLeft() [67]
+                0.00    0.00   37210/37212       Camera::doRotateRight() [70]
+                               37214             Camera::doRotateLeft() [67]
+-----------------------------------------------
+                                   1             FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+                                   2             SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [93]
+                                9302             SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [78]
+                               37208             RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       1/158256      etext [1]
+[68]     0.0    0.00    0.00   46514         TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+                               37208             std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+                                9302             std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets() <cycle 2> [77]
+-----------------------------------------------
+                                   2             std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+                               37208             TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+                0.00    0.00       1/158256      Window::~Window() [58]
+                0.00    0.00       2/158256      Window::Window(SDL_Window*, SDL_Renderer*, int, int) [38]
+                0.00    0.00       4/158256      etext [1]
+[69]     0.0    0.00    0.00   37215+2       std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+                               18610             SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+                                   2             std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear() <cycle 2> [69]
+-----------------------------------------------
+                               37242             Camera::doRotateRight() [70]
+                0.00    0.00       1/37212       GameEngine::peonTick(Peon*) [102]
+                0.00    0.00       1/37212       Peon::~Peon() [139]
+                0.00    0.00   37210/37212       Camera::doRotateLeft() [67]
+[70]     0.0    0.00    0.00   37212+37242   Camera::doRotateRight() [70]
+                               37242             Camera::doRotateRight() [70]
+-----------------------------------------------
+                0.00    0.00       2/37210       Camera::doUpdateLRScroll(float) <cycle 1> [26]
+                0.00    0.00   37208/37210       RenderingEngine::render() <cycle 2> [11]
+[71]     0.0    0.00    0.00   37210         FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [71]
+                0.00    0.00       2/19501974     _fini [64]
+-----------------------------------------------
+                0.00    0.00       1/27909       etext [1]
+                0.00    0.00       2/27909       HexViewport::rotation(Matrix22 const&) [28]
+                0.00    0.00   27906/27909       std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+[72]     0.0    0.00    0.00   27909         Tile::getContent() [72]
+-----------------------------------------------
+                0.00    0.00       2/27908       HexViewport::rotation(Matrix22 const&) [28]
+                0.00    0.00   27906/27908       std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+[73]     0.0    0.00    0.00   27908         WorldObject::pos(FlatHexPosition const&) [73]
+-----------------------------------------------
+                               27906             std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.00    0.00       2/204736      HexViewport::rotation(Matrix22 const&) [28]
+[74]     0.0    0.00    0.00   27908         WorldObject::WorldObject(FlatHexPosition const&) <cycle 3> [74]
+                               27909             std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+-----------------------------------------------
+                0.00    0.00   18618/18618       SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+[75]     0.0    0.00    0.00   18618         FlatHexPosition::FlatHexPosition() [75]
+-----------------------------------------------
+                0.00    0.00   18608/18608       FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+[76]     0.0    0.00    0.00   18608         HexViewport::tileHeight() const [76]
+-----------------------------------------------
+                                9302             SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [78]
+                                9302             TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+                0.00    0.00       2/158256      SpriteSheet::~SpriteSheet() [49]
+[77]     0.0    0.00    0.00   18606         std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets() <cycle 2> [77]
+                               18606             SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+-----------------------------------------------
+                               18604             RenderingEngine::render() <cycle 2> [11]
+[78]     0.0    0.00    0.00   18604         SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [78]
+                                9302             TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+                                9302             std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets() <cycle 2> [77]
+-----------------------------------------------
+                0.00    0.00    9302/9302        etext [1]
+[79]     0.0    0.00    0.00    9302         FlatHexPosition::unit(FlatHexPosition*) [79]
+                0.00    0.00   27906/19501974     _fini [64]
+-----------------------------------------------
+                                9302             FlatHexPosition::toString[abi:cxx11]() const <cycle 3> [8]
+[80]     0.0    0.00    0.00    9302         HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const <cycle 3> [80]
+                                   2             Tile::erase(WorldObject*) <cycle 3> [45]
+-----------------------------------------------
+                                   1             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                                   3             SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                                  32             SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                0.00    0.00       1/158256      Window::clear() [57]
+                0.00    0.00       2/158256      std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00      14/158256      etext [1]
+[81]     0.0    0.00    0.00      53         FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                                   5             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+-----------------------------------------------
+                                   1             FlatHexPosition::operator-() const <cycle 2> [101]
+                                   2             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                                   3             AbstractCamera::scrollDown() <cycle 2> [97]
+                0.00    0.00       1/158256      AbstractCamera::scrollLeft() [50]
+                0.00    0.00       1/158256      AbstractCamera::stopLRScroll() [56]
+                0.00    0.00       1/158256      FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [53]
+                0.00    0.00       1/158256      Tile::insert(WorldObject*) <cycle 3> [46]
+                0.00    0.00       2/158256      AbstractCamera::scrollRight() [51]
+                0.00    0.00       2/158256      Tile::erase(WorldObject*) <cycle 3> [45]
+                0.00    0.00       4/158256      AbstractCamera::update() [33]
+                0.00    0.00      22/158256      etext [1]
+[82]     0.0    0.00    0.00      40         SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                                  32             FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                                   9             FlatHexPosition::FlatHexPosition(float, float, float, FlatHexPosition::System) <cycle 2> [87]
+                                   2             FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) <cycle 2> [103]
+-----------------------------------------------
+                                   2             SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                                   2             FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+                                   2             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                0.00    0.00       2/158256      std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [39]
+                0.00    0.00       2/158256      Window::Window(SDL_Window*, SDL_Renderer*, int, int) [38]
+                0.00    0.00       3/158256      AbstractCamera::update() [33]
+                0.00    0.00       8/158256      World::~World() [29]
+[83]     0.0    0.00    0.00      19+2       SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                                   2             SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                                   2             SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+-----------------------------------------------
+                0.00    0.00       2/14          Matrix22::inverse() const [23]
+                0.00    0.00       4/14          Tile::Tile() [41]
+                0.00    0.00       8/14          Tile::insert(WorldObject*) <cycle 3> [46]
+[84]     0.0    0.00    0.00      14         World::addObject(WorldObject*) [84]
+                0.00    0.00       6/19501974     _fini [64]
+                0.00    0.00       4/5           __libc_csu_init [94]
+-----------------------------------------------
+                                  10             FlatHexPosition::operator*(Matrix22 const&) const [85]
+                0.00    0.00       2/12          etext [1]
+                0.00    0.00      10/12          FlatHexPosition::operator-() const <cycle 2> [101]
+[85]     0.0    0.00    0.00      12+10      FlatHexPosition::operator*(Matrix22 const&) const [85]
+                0.00    0.00       2/19501974     _fini [64]
+                                  10             FlatHexPosition::operator*(Matrix22 const&) const [85]
+-----------------------------------------------
+                0.00    0.00       1/12          etext [1]
+                0.00    0.00       2/12          std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [37]
+                0.00    0.00       2/12          std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [108]
+                0.00    0.00       2/12          std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.00    0.00       5/12          Tile::insert(WorldObject*) <cycle 3> [46]
+[86]     0.0    0.00    0.00      12         std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [86]
+                0.00    0.00      12/19501974     _fini [64]
+-----------------------------------------------
+                                   9             SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+[87]     0.0    0.00    0.00       9         FlatHexPosition::FlatHexPosition(float, float, float, FlatHexPosition::System) <cycle 2> [87]
+                                   9             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+-----------------------------------------------
+                                   4             SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                                   2             SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                0.00    0.00       2/158256      AbstractCamera::rotateRight() [47]
+                0.00    0.00       3/158256      AbstractCamera::getOrientation() [44]
+[88]     0.0    0.00    0.00       7+4       SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                                   7             RenderingEngine::render() <cycle 2> [11]
+                                   4             FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+                                   3             FlatHexPosition::operator==(FlatHexPosition const&) const <cycle 2> [81]
+                                   2             SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+                                   4             SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+-----------------------------------------------
+                                   4             SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) <cycle 2> [88]
+                0.00    0.00       3/158256      Window::createWindow(int, int) [35]
+[89]     0.0    0.00    0.00       7         FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+                                   3             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                                   2             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                                   2             SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                                   1             TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+-----------------------------------------------
+                                   6             SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [93]
+[90]     0.0    0.00    0.00       6         TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [90]
+                0.00    0.00       1/1           AbstractCamera::AbstractCamera(float, float, int) [110]
+                                   2             std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_deallocate_buckets() <cycle 2> [109]
+                                   2             AbstractCamera::scrollDown() <cycle 2> [97]
+-----------------------------------------------
+                                   3             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                                   1             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                                   2             FlatHexPosition::operator*(float const&) const <cycle 2> [96]
+                                   3             FlatHexPosition::operator!=(FlatHexPosition const&) const <cycle 2> [89]
+[91]     0.0    0.00    0.00       6+3       FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                                   2             SpriteAsset::loadFromFile(char const*, SDL_Renderer*) <cycle 2> [83]
+                                   2             RenderingEngine::render() <cycle 2> [11]
+                                   1             FlatHexPosition::operator-() const <cycle 2> [101]
+                                   3             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+-----------------------------------------------
+                0.00    0.00       5/5           Camera::Camera(int, int, int, int, int, int) <cycle 1> [22]
+[92]     0.0    0.00    0.00       5         RenderingEngine::RenderingEngine(Window*, HexViewport*, AbstractCamera*, WorldInterface*) [92]
+                0.00    0.00       1/19501974     _fini [64]
+-----------------------------------------------
+                                   1             FlatHexPosition::operator*(float const&) const <cycle 2> [96]
+                                   3             RenderingEngine::render() <cycle 2> [11]
+                0.00    0.00       1/158256      etext [1]
+[93]     0.0    0.00    0.00       5         SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [93]
+                                   6             TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [90]
+                                   2             TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [68]
+-----------------------------------------------
+                0.00    0.00       1/5           std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) <cycle 3> [12]
+                0.00    0.00       4/5           World::addObject(WorldObject*) [84]
+[94]     0.0    0.00    0.00       5         __libc_csu_init [94]
+                0.00    0.00       1/19501974     _fini [64]
+-----------------------------------------------
+                0.00    0.00       2/4           SpriteSheet::width() const [143]
+                0.00    0.00       2/4           SpriteSheet::colCount() const [144]
+[95]     0.0    0.00    0.00       4         FlatHexPosition::FlatHexPosition(FlatHexPosition::System) [95]
+-----------------------------------------------
+                                   2             FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) <cycle 2> [103]
+                0.00    0.00       2/158256      FlatHexPosition::FlatHexPosition(float, float, float) [52]
+[96]     0.0    0.00    0.00       4         FlatHexPosition::operator*(float const&) const <cycle 2> [96]
+                                   2             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                                   1             SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) <cycle 2> [93]
+-----------------------------------------------
+                                   1             FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                                   2             TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [90]
+[97]     0.0    0.00    0.00       3         AbstractCamera::scrollDown() <cycle 2> [97]
+                                   3             SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+-----------------------------------------------
+                0.00    0.00       1/3           FlatHexPosition::operator+(FlatHexPosition const&) const <cycle 2> [13]
+                0.00    0.00       2/3           World::~World() [29]
+[98]     0.0    0.00    0.00       3         AbstractCamera::stopUDScroll() [98]
+-----------------------------------------------
+                0.00    0.00       3/3           etext [1]
+[99]     0.0    0.00    0.00       3         FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [99]
+                0.00    0.00       6/19501974     _fini [64]
+-----------------------------------------------
+                                   2             FlatHexPosition::convert2(FlatHexPosition*, FlatHexPosition::System) [100]
+                0.00    0.00       3/3           etext [1]
+[100]    0.0    0.00    0.00       3+2       FlatHexPosition::convert2(FlatHexPosition*, FlatHexPosition::System) [100]
+                0.00    0.00       1/19501974     _fini [64]
+                                   2             FlatHexPosition::convert2(FlatHexPosition*, FlatHexPosition::System) [100]
+-----------------------------------------------
+                                   2             FlatHexPosition::operator-() const <cycle 2> [101]
+                                   1             FlatHexPosition::operator-(FlatHexPosition const&) const <cycle 2> [91]
+                0.00    0.00       2/158256      etext [1]
+[101]    0.0    0.00    0.00       3+2       FlatHexPosition::operator-() const <cycle 2> [101]
+                0.00    0.00      10/12          FlatHexPosition::operator*(Matrix22 const&) const [85]
+                                   1             SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+                                   2             FlatHexPosition::operator-() const <cycle 2> [101]
+-----------------------------------------------
+                0.00    0.00       1/2           RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) <cycle 1> [6]
+                0.00    0.00       1/2           etext [1]
+[102]    0.0    0.00    0.00       2         GameEngine::peonTick(Peon*) [102]
+                0.00    0.00       1/37212       Camera::doRotateRight() [70]
+-----------------------------------------------
+                                   2             SpriteSheet::recut(unsigned int, unsigned int) <cycle 2> [82]
+[103]    0.0    0.00    0.00       2         FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) <cycle 2> [103]
+                                   2             FlatHexPosition::operator*(float const&) const <cycle 2> [96]
+-----------------------------------------------
+                0.00    0.00       2/2           SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+[104]    0.0    0.00    0.00       2         Window::update() [104]
+-----------------------------------------------
+                0.00    0.00       2/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) <cycle 3> [18]
+[105]    0.0    0.00    0.00       2         HexViewport::target() const [105]
+-----------------------------------------------
+                0.00    0.00       2/2           std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_deallocate_buckets() <cycle 2> [109]
+[106]    0.0    0.00    0.00       2         SpriteSheet::height() const [106]
+-----------------------------------------------
+                0.00    0.00       2/2           HexViewport::rotation(Matrix22 const&) [28]
+[107]    0.0    0.00    0.00       2         Tile::isEmpty() const [107]
+-----------------------------------------------
+                0.00    0.00       2/2           Tile::erase(WorldObject*) <cycle 3> [45]
+[108]    0.0    0.00    0.00       2         std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [108]
+                0.00    0.00       4/19501974     _fini [64]
+                0.00    0.00       2/12          std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear() [86]
+-----------------------------------------------
+                                   2             TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [90]
+[109]    0.0    0.00    0.00       2         std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_deallocate_buckets() <cycle 2> [109]
+                0.00    0.00       2/2           SpriteSheet::height() const [106]
+                                   2             SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) <cycle 2> [17]
+-----------------------------------------------
+                0.00    0.00       1/1           TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) <cycle 2> [90]
+[110]    0.0    0.00    0.00       1         AbstractCamera::AbstractCamera(float, float, int) [110]
+-----------------------------------------------
+                0.00    0.00       1/1           etext [1]
+[111]    0.0    0.00    0.00       1         FlatHexPosition::tile() const [111]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+ [102] GameEngine::peonTick(Peon*) [78] SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [91] FlatHexPosition::operator-(FlatHexPosition const&) const
+  [24] HexViewport::HexViewport(int, int, int, int) [68] TiledObjectRenderer::renderAt(int, int, int, SDL_Renderer*) [85] FlatHexPosition::operator*(Matrix22 const&) const
+  [83] SpriteAsset::loadFromFile(char const*, SDL_Renderer*) [90] TiledObjectRenderer::TiledObjectRenderer(HexViewport*, std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [96] FlatHexPosition::operator*(float const&) const
+  [17] SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) [72] Tile::getContent() [89] FlatHexPosition::operator!=(FlatHexPosition const&) const
+  [88] SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) [45] Tile::erase(WorldObject*) [101] FlatHexPosition::operator-() const
+  [82] SpriteSheet::recut(unsigned int, unsigned int) [46] Tile::insert(WorldObject*) [13] FlatHexPosition::operator+(FlatHexPosition const&) const
+  [73] WorldObject::pos(FlatHexPosition const&) [10] World::removeObject(FlatHexPosition const&, WorldObject*) [107] Tile::isEmpty() const
+  [74] WorldObject::WorldObject(FlatHexPosition const&) [84] World::addObject(WorldObject*) [65] World::getContentAt(FlatHexPosition const&) const
+  [97] AbstractCamera::scrollDown() [67] Camera::doRotateLeft() [48] World::isOnMap(FlatHexPosition const&) const
+  [47] AbstractCamera::rotateRight() [70] Camera::doRotateRight() [2] HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const
+  [98] AbstractCamera::stopUDScroll() [26] Camera::doUpdateLRScroll(float) [7] HCHasher::operator()(FlatHexPosition const&) const
+  [33] AbstractCamera::update() [21] Camera::doUpdateUDScroll(float) [23] Matrix22::inverse() const
+ [110] AbstractCamera::AbstractCamera(float, float, int) [22] Camera::Camera(int, int, int, int, int, int) [66] Matrix22::operator*(Matrix22 const&) const
+  [16] FlatHexPosition::systemString[abi:cxx11](FlatHexPosition::System) [35] Window::createWindow(int, int) [37] std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const
+  [79] FlatHexPosition::unit(FlatHexPosition*) [104] Window::update() [12] std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&)
+  [99] FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [18] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) [108] std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&)
+ [100] FlatHexPosition::convert2(FlatHexPosition*, FlatHexPosition::System) [76] HexViewport::tileHeight() const [86] std::_Hashtable<WorldObject*, WorldObject*, std::allocator<WorldObject*>, std::__detail::_Identity, std::equal_to<WorldObject*>, std::hash<WorldObject*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::clear()
+  [71] FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [20] HexViewport::upLeftCorner(FlatHexPosition*) const [77] std::_Hashtable<Peon*, Peon*, std::allocator<Peon*>, std::__detail::_Identity, std::equal_to<Peon*>, std::hash<Peon*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_deallocate_buckets()
+  [87] FlatHexPosition::FlatHexPosition(float, float, float, FlatHexPosition::System) [80] HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const [109] std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_deallocate_buckets()
+  [95] FlatHexPosition::FlatHexPosition(FlatHexPosition::System) [19] HexViewport::rotatedAxialVectors(FlatHexPosition*, FlatHexPosition*) const [69] std::_Hashtable<std::type_index, std::pair<std::type_index const, AbstractRenderer*>, std::allocator<std::pair<std::type_index const, AbstractRenderer*> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::clear()
+ [103] FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) [105] HexViewport::target() const [94] __libc_csu_init
+  [75] FlatHexPosition::FlatHexPosition() [106] SpriteSheet::height() const [64] _fini
+   [6] RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer*) [111] FlatHexPosition::tile() const [1] etext
+  [11] RenderingEngine::render() [32] FlatHexPosition::unit() const [4] <cycle 1>
+  [92] RenderingEngine::RenderingEngine(Window*, HexViewport*, AbstractCamera*, WorldInterface*) [8] FlatHexPosition::toString[abi:cxx11]() const [5] <cycle 2>
+  [93] SmallObjectRenderer::renderAt(int, int, int, SDL_Renderer*) [81] FlatHexPosition::operator==(FlatHexPosition const&) const [3] <cycle 3>

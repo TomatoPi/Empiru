@@ -32,7 +32,7 @@ TiledObjectRenderer::TiledObjectRenderer(
   
 }
 
-int TiledObjectRenderer::renderAt(int ori, int x, int y, SDL_Renderer *rdr) {
+int TiledObjectRenderer::renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) {
   SDL_Rect rect;
   rect.w = _sheet->width(), rect.h = _sheet->height();
   rect.x = x - rect.w/2;

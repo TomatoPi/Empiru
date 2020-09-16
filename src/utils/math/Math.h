@@ -41,7 +41,7 @@ namespace math {
   inline int mrnd(float a) {
     return roundf(a) + ((a < 0) && (fabsf(a - roundf(a)) >= 0.5f));
   }
-  /// \brief Fastest mrnd function, by ~20%
+  /// \brief Fastest mrnd function, faster than mrnd by ~20%
   /// \see int math::mrnd(float a)
   inline int fastmrnd(float a) {
     return (int)(a + (a < -0.5f ? -0.5f : 0.5f)) 

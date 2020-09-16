@@ -30,77 +30,41 @@
 World::World(int mapWidth, int mapHeight) :
   _mapWidth(mapWidth),
   _mapHeight(mapHeight),
-  _map(nullptr),
-  _objects()
+  _map()
 {
   assert(0 < mapWidth);
   assert(0 < mapHeight);
-  _map = new int[mapWidth*mapHeight];
-  for (int i=0; i<mapWidth*mapHeight;i++){
-    _map[i] = 0;
-  }
 }
 
 
-void World::addObject(Peon *pitou){
-  const FlatHexPosition & pitou_pos = pitou->pos();
-  auto itr = _objects.find(pitou_pos);
-  if (itr == _objects.end()) {
-    itr = _objects.emplace(pitou_pos,Tile(pitou_pos, pitou)).first;
+void World::addObject(WorldObject * obj){
+  const FlatHexPosition & pos(obj->pos());
+  auto itr(_map.find(pos));
+  if (itr == _map.end()) {
+    itr = _map.emplace(pos,Tile()).first;
   }
-  else {
-    itr->second.insert(pitou);
-  }
+  itr->second.insert(obj);
 }
-void World::removeObject(const FlatHexPosition & pos, Peon *p) {
-  auto itr = _objects.find(pos);
-  assert(itr != _objects.end());
-  itr->second.erase(p);
+void World::removeObject(const FlatHexPosition & pos, WorldObject * obj) {
+  auto itr(_map.find(pos));
+  assert(itr != _map.end());
+  itr->second.erase(obj);
   if (itr->second.isEmpty()) {
-    _objects.erase(itr);
+    _map.erase(itr);
   }
 }
 
-const Tile::Content * World::getContentAt(FlatHexPosition pos){
-  if (_objects.find(pos) != _objects.end()){
-    return &_objects.find(pos)->second.getContent();
+const Tile::Content * World::getContentAt(const FlatHexPosition & pos) const {
+  auto itr(_map.find(pos));
+  if (itr != _map.end()){
+    return &itr->second.getContent();
   }
   return nullptr;
 }
 
-std::string World::toString() const{
-  std::string ts = "[Map Height : ";
-  ts.append(std::to_string(_mapHeight))
-    .append(", Map Width : ")
-    .append(std::to_string(_mapWidth))
-    .append("]\n");
-  
-  for (auto & itr : _objects){
-    ts.append(std::to_string(itr.second.pos()._x))
-      .append("/")
-      .append(std::to_string(itr.second.pos()._y))
-      .append("/")
-      .append(std::to_string(itr.second.pos()._y))
-      .append("\n");
-  }
-  /*
-  for(int i = 0; i <_mapHeight*_mapWidth;i++){
-    if (i%_mapWidth == 0){
-      ts = ts.append("\n");
-    }
-    ts.append(std::to_string(_map[i]))
-      .append(" ");
-  }
-  */
-  //ts.append("\n");
-  /*for(Tile wo : _objects){
-    ts.append(wo.toString()).append("\n");
-  }*/
-  return ts;//.append("\n");
-}
-int World::width() const {
-  return _mapWidth;
-}
-int World::height() const {
-  return _mapHeight;
+bool World::isOnMap(const FlatHexPosition & pos) const {
+  FlatHexPosition off(pos.tile().convert(FlatHexPosition::OddQOffset));
+  return 0 <= off._x && 0 <= off._y 
+      && off._x < _mapWidth
+      && off._y < _mapHeight;
 }
