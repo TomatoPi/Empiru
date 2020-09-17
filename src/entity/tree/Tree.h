@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alexis
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,32 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   peon.cpp
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- * 
- * Created on 10 septembre 2020, 16:08
- */
+/// 
+/// \file   Tree.h
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 17 septembre 2020, 08:45
+///
 
-#include "Peon.h"
+#ifndef TREE_H
+#define TREE_H
 
-Peon::Peon(const FlatHexPosition & pos) : 
-  WorldObject(pos, 0.05), 
-  _target(pos),
-  _dir()
-{
+#include "utils/world/WorldObject.h"
+
+class Tree : public WorldObject {
+public:
   
-}
+  Tree(const FlatHexPosition & pos);
+};
 
-const FlatHexPosition & Peon::targetPos() const {
-  return _target;
-}
-const FlatHexPosition & Peon::direction() const {
-  return _dir;
-}
-
-void Peon::setTargetPos(const FlatHexPosition & pos, bool updateDir){
-  _target = pos;
-  if (updateDir)
-    _dir = FlatHexPosition(this->pos(), _target).toUnit();
-}
+#endif /* TREE_H */

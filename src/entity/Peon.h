@@ -44,7 +44,7 @@ class Peon : public WorldObject {
     const FlatHexPosition & targetPos() const;
     const FlatHexPosition & direction() const;
     
-    void setTargetPos(const FlatHexPosition & pos);
+    void setTargetPos(const FlatHexPosition & pos, bool updateDir=true);
 };
 
 #endif /* PEON_H */

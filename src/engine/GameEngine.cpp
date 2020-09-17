@@ -46,33 +46,50 @@ void GameEngine::update() {
 }
 
 void GameEngine::peonTick(Peon *peon) {
-  FlatHexPosition pos(peon->pos());
+  FlatHexPosition oldpos(peon->pos());
   // If target is reached we're done
-  if (FlatHexPosition::distance(pos, peon->targetPos()) < 0.02) {
+  if (FlatHexPosition::distance(oldpos, peon->targetPos()) < 0.02) {
     peon->pos(peon->targetPos());
   } 
   // Else compute one step
   else {
     // Compute default new position
-    pos = pos + peon->direction() * 0.01;
+    peon->pos(oldpos + peon->direction() * 0.01);
     // Check validity
-    bool validMove = _world->isOnMap(pos);
+    bool validMove = _world->isOnMap(peon->pos());
+    // Check collisions
+    peon->pos().mapNeightbours(
+        [&]
+        (const FlatHexPosition & pos) -> bool {
+          auto content = _world->getContentAt(pos);
+          if (content != nullptr){
+            for (auto obj : *content){
+              if (obj == peon) 
+                continue;
+              if (obj->collide(peon)) {
+                validMove = false;
+                return true;
+              }
+            }
+          }
+          return false;
+        });
     if (!validMove) {
       /// \todo Add pathfinding mechanics
     }
     if (validMove) {
       // If tile has changed move peon
-      if (pos.tile() != peon->pos().tile()) {
+      if (oldpos.tile() != peon->pos().tile()) {
+        FlatHexPosition tmp(peon->pos());
+        peon->pos(oldpos);
         _world->removeObject(peon);
-        peon->pos(pos);
+        peon->pos(tmp);
         _world->addObject(peon);
-      } 
-      // Else simply update
-      else {
-        peon->pos(pos);
       }
     } else {
       /// \todo Add notification if impossible path
+      peon->pos(oldpos);
+      peon->setTargetPos(peon->pos(), false);
     }
   }
 }

@@ -27,17 +27,49 @@
 
 #include "utils/hex/HexCoords.h"
 
+/// \brief Base polymorphic object for things on the map
+/// Each object is caracterized by a position and a pseudo hitbox
+/// Hitbox is the space on floor occupied by the object
 class WorldObject {
-private:
-  
-  FlatHexPosition _pos;
 public:
   
+  /// \brief Specify object's size on the map
+  enum Size {
+    Small,///< Objects that can coexist on the same tile with circular hitbox
+    Tile  ///< Objects that occupy the whole tile
+  };
+  
+private:
+  
+  FlatHexPosition _pos;     ///< Object's position
+  Size            _size;    ///< Object's size
+  float           _radius;  ///< Hitbox radius for small objects
+  
+public:
+  
+  /// \brief Construct a Tile Sized Object
   WorldObject(const FlatHexPosition & pos);
+  /// \brief Construct a Small Sized Object with given radius
+  WorldObject(const FlatHexPosition & pos, float radius);
+  /// \brief Destructor
   virtual ~WorldObject() = default;
   
+  /// \brief return object's position
   const FlatHexPosition & pos() const;
+  /// \brief set object's position
   void pos(const FlatHexPosition & pos);
+  
+  /// \brief Method that must return true is 'pos' is in object's hitbox
+  bool collide(const WorldObject * obj) const;
+  
+public:
+  
+  /// \brief Collision between two small objects
+  static bool smallCollide(const WorldObject *a, const WorldObject *b);
+  /// \brief Collision between two tile objects
+  static bool tileCollide(const WorldObject *a, const WorldObject *b);
+  /// \brief Collision between a small object and a tile object
+  static bool stCollide(const WorldObject *small, const WorldObject *tile);
 };
 
 #endif /* WORLDOBJECT_H */
