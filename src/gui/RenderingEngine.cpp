@@ -27,6 +27,15 @@
 #include "RenderingEngine.h"
 #include "utils/log.h"
 
+RenderingEngine::ViewPos::ViewPos(int x, int y) : _x(x), _y(y) {
+  
+}
+bool RenderingEngine::ViewPosCompare::operator() (
+  const ViewPos & a, const ViewPos & b) const 
+{
+  return a._y < b._y || (a._y == b._y && a._x < b._x);
+}
+
 RenderingEngine::RenderingEngine(
     Window *w, 
     HexViewport *c, 
@@ -95,17 +104,18 @@ void RenderingEngine::render() {
         auto vec(_world->getContentAt(pos));
         if (vec) {
           for (auto & obj : *vec) {
-            _todraw.push_back(obj);
+            _worldView->toPixel(obj->pos(), &x, &y);
+            _todraw.emplace(ViewPos(x, y), obj);
           }
         }
       }
     }
   } // for each tile
-  for (auto & obj : _todraw) {
-    _worldView->toPixel(obj->pos(), &x, &y);
+  for (auto & itr : _todraw) {
+    WorldObject *obj(itr.second);
     _renderers.find(std::type_index(typeid(*obj)))->second->renderAt(
         obj,
         _camera->getOrientation(), 
-        x, y, _window->renderer);
+        itr.first._x, itr.first._y, _window->renderer);
   }
 }
