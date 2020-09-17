@@ -24,13 +24,60 @@
 
 #include "WorldObject.h"
 
-WorldObject::WorldObject(const FlatHexPosition & pos) : _pos(pos) {
+/// \brief Construct a Tile Sized Object
+WorldObject::WorldObject(const FlatHexPosition & pos) : 
+  _pos(pos), _size(Tile), _radius(1) 
+{
+  
+}
+/// \brief Construct a Small Sized Object with given radius
+WorldObject::WorldObject(const FlatHexPosition & pos, float radius) : 
+  _pos(pos), _size(Small), _radius(radius) 
+{
   
 }
 
+/// \brief return object's position
 const FlatHexPosition & WorldObject::pos() const {
   return _pos;
 }
+/// \brief set object's position
 void WorldObject::pos(const FlatHexPosition & pos) {
   _pos = pos;
+}
+
+/// \brief return object's size class
+WorldObject::Size WorldObject::size() const {
+  return _size;
+}
+/// \brief return object's radius or 1 if tile sized
+float WorldObject::radius() const {
+  return _radius;
+}
+
+/// \brief Method that must return true is 'pos' is in object's hitbox
+bool WorldObject::collide(const WorldObject * obj) const {
+  if (_size == Small) {
+    if (obj->_size == Small)
+      return smallCollide(this, obj);
+    return stCollide(this, obj);
+  } else {
+    if (obj->_size == Small)
+      return stCollide(obj, this);
+    return tileCollide(this, obj);
+  }
+}
+
+/// \brief Collision between two small objects
+bool WorldObject::smallCollide(const WorldObject *a, const WorldObject *b) {
+  return FlatHexPosition::distance(a->_pos, b->_pos) < (a->_radius + b->_radius);
+}
+/// \brief Collision between two tile objects
+bool WorldObject::tileCollide(const WorldObject *a, const WorldObject *b) {
+  return a->_pos.tile() == b->_pos.tile();
+}
+/// \brief Collision between a small object and a tile object
+bool WorldObject::stCollide(const WorldObject *small, const WorldObject *tile) {
+  // Easier to understand with a drawing
+  return (small->_pos + FlatHexPosition(small->_pos, tile->_pos).toUnit() * small->_radius).toTile() == tile->_pos.tile();
 }

@@ -16,28 +16,32 @@
  */
 
 /// 
-/// \file   AbstractRenderer.cpp
+/// \file   HexConsts.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 17 septembre 2020, 14:07
 ///
 
-#include "AbstractRenderer.h"
+#ifndef HEXCONSTS_H
+#define HEXCONSTS_H
 
+#include "utils/math/Matrix.h"
+#include "utils/hex/HexCoords.h"
 
-AbstractRenderer::AbstractRenderer(std::unique_ptr<SpriteSheet> sheet) : 
-  _sheet(std::move(sheet))
-{
+namespace hex {
+  
+  /// \brief Clockwise 90° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_C90A = Matrix22(-0.5, -1, 1.25, 0.5).unit();
+  /// \brief CounterClockwise 90° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_CC90A = Matrix22(0.5, 1, -1.25, -0.5).unit();
+  
+  /// \brief Clockwise 60° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_C60A(0, -1, 1, 1);
+  /// \brief CounterClockwise 60° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_CC60A(1, 1, -1, 0);
+  
   
 }
 
-/// \brief Called when a new object associated with this renderer is created
-///  may instanciate fine scope datas, like animation state
-void AbstractRenderer::addTarget(const WorldObject *obj) {
-  
-}
-/// \brief Called when an object associated with this renderer is destroyed
-///  may dealocate corresponding datas
-void AbstractRenderer::removeTarget(const WorldObject *obj) {
-  
-}
+#endif /* HEXCONSTS_H */
+

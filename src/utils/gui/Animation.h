@@ -16,28 +16,33 @@
  */
 
 /// 
-/// \file   AbstractRenderer.cpp
+/// \file   Animation.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 17 septembre 2020, 17:52
 ///
 
-#include "AbstractRenderer.h"
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
+/// \brief Base Object used to store rendering information at WorldObject's level
+class Animation {
+private:
+  int _frame;   ///< Current frame
+  int _length;  ///< Total frames count
+  int _delay;   ///< Duration of a frame in ticks
+  int _cptr;    ///< Current frame counter
+public:
+  
+  /// \brief Create an animation
+  /// \param length : frames count
+  /// \param delay  : frame duration
+  Animation(int length, int delay);
+  
+  /// \brief Update animation's counter and return current frame index
+  int update();
+  /// \brief Reset animation to initial frame and return 0
+  int restart();
+};
 
-AbstractRenderer::AbstractRenderer(std::unique_ptr<SpriteSheet> sheet) : 
-  _sheet(std::move(sheet))
-{
-  
-}
-
-/// \brief Called when a new object associated with this renderer is created
-///  may instanciate fine scope datas, like animation state
-void AbstractRenderer::addTarget(const WorldObject *obj) {
-  
-}
-/// \brief Called when an object associated with this renderer is destroyed
-///  may dealocate corresponding datas
-void AbstractRenderer::removeTarget(const WorldObject *obj) {
-  
-}
+#endif /* ANIMATION_H */

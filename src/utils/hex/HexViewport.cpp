@@ -47,13 +47,14 @@ HexViewport::HexViewport(
   _tileWidth(tileWidth),
   _tileHeight(tileHeight),
     
-  _viewport(viewWidth, viewHeight, tileWidth, tileHeight, FlatHexPosition::Axial),
+  _viewport(viewWidth/2, viewHeight/2, tileWidth, tileHeight, FlatHexPosition::Axial),
   _pos(FlatHexPosition::Axial),
     
   _vx(VIEW_VX),
   _vy(VIEW_VY),
     
-  _rotation(1, 0, 0, 1)
+  _rotation(1, 0, 0, 1),
+  _antirotation(1, 0, 0, 1)
 {
   assert(0 < tileWidth);
   assert(0 < tileHeight);
@@ -69,8 +70,8 @@ void HexViewport::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
   assert(x);
   assert(y);
   FlatHexPosition res(pos, FlatHexPosition::Axial);
-  res = (res - _pos) * _rotation + (_viewport * 0.5);
-  res.convert(FlatHexPosition::Grid);
+  res = (res - _pos) * _rotation + _viewport;
+  res.convertTo(FlatHexPosition::Grid);
   *x = 0.25 * res._x * _tileWidth;
   *y = 0.5 * res._y * _tileHeight;
 }
@@ -82,7 +83,7 @@ void HexViewport::fromPixel(int x, int y, FlatHexPosition *pos) const {
   //LOG_WRN("%d,%d -> %f,%f\n", x, y, xx, yy);
   *pos = FlatHexPosition(xx, yy, FlatHexPosition::Grid);
   //LOG_WRN("%s\n", pos->toString().c_str());
-  *pos = *pos + _pos - (_viewport * 0.5);
+  *pos = _pos + (*pos - _viewport) * _antirotation;
   //LOG_WRN("%s\n", pos->toString().c_str());
 }
 
@@ -99,7 +100,7 @@ int HexViewport::tileWidth() const {
 /// \param res : result in Axial coordinate system
 void HexViewport::upLeftCorner(FlatHexPosition *p) const {
   assert(p);
-  *p = _pos - (_viewport * 0.5) * _rotation;
+  *p = _pos - _viewport * _rotation;
 }
 /// \brief Return Viewport's x and y vectors in Axis cs
 void HexViewport::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) const {
@@ -129,6 +130,7 @@ const Matrix22 & HexViewport::rotation() const {
 /// \brief set camera's rotation matrix
 void HexViewport::rotation(const Matrix22 & m) {
   _rotation = m;
+  _antirotation = m.inverse();
   _vx = VIEW_VX * m;
   _vy = VIEW_VY * m;
   LOG_DEBUG("VX  : %s\n", _vx.toString().c_str());

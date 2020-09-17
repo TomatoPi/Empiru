@@ -38,20 +38,32 @@ Controller::Controller(World *w) :
 /// \brief Called when a left click is performed at given position
 void Controller::leftClickAt(const FlatHexPosition & click) {
   
-  auto content = _world->getContentAt(click);
-  
-  if (content != nullptr){
-    for (auto peon : *content){
-      FlatHexPosition tmp_pos(peon->pos(),FlatHexPosition::Grid);
-      if (
-          (fabs(click._x - tmp_pos._x) < 0.25) 
-          && (fabs(click._y + 0.25 - tmp_pos._y) < 0.25)) 
-      {
-        _state.selectPeon(dynamic_cast<Peon*>(peon));
-      } else {
-        _state.deselectPeon();
+  Peon *selection(nullptr);
+  // Search for a peon near click
+  /// \todo might be slow if there is a great amount of objects near click
+  click.convert(FlatHexPosition::Grid).mapNeightbours(
+    [&]
+    (const FlatHexPosition & pos) -> bool 
+    {
+      auto content = _world->getContentAt(pos);
+      if (content != nullptr){
+        for (auto obj : *content){
+          Peon * peon(dynamic_cast<Peon*>(obj));
+          if (!peon) continue;
+          FlatHexPosition tmp(peon->pos(), FlatHexPosition::Grid);
+          if (
+              (fabs(click._x - tmp._x) < 0.25) 
+              && (fabs(click._y + 0.25 - tmp._y) < 0.25)) 
+          {
+            selection = peon;
+            return true;
+          }
+        }
       }
-     }
+      return false;
+    });
+  if (selection) {
+    _state.selectPeon(selection);
   } else {
     _state.deselectPeon();
   }
@@ -60,6 +72,9 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
 void Controller::rightClickAt(const FlatHexPosition & click) {
   //Attention, il faudra vérifier si la position est clickable
   if (_state.selectedPeon() != nullptr){
-    _state.selectedPeon()->setTargetPos(click);
+    Peon *peon(_state.selectedPeon());
+    peon->clearPath();
+    peon->addStep(click);
+    peon->beginStep();
   }
 }

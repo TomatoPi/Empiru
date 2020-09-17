@@ -22,24 +22,43 @@
  * Created on 10 septembre 2020, 16:08
  */
 
+#include <cassert>
+
 #include "Peon.h"
 
 Peon::Peon(const FlatHexPosition & pos) : 
-  WorldObject(pos), 
-  _target(pos),
+  WorldObject(pos, 0.05), 
+  _path(),
   _dir()
 {
   
 }
 
-const FlatHexPosition & Peon::targetPos() const {
-  return _target;
+const FlatHexPosition & Peon::target() const {
+  assert(hasPath());
+  return _path.front();
 }
 const FlatHexPosition & Peon::direction() const {
   return _dir;
 }
 
-void Peon::setTargetPos(const FlatHexPosition & pos){
-  _target = pos;
-  _dir = FlatHexPosition(this->pos(), _target).unit();
+bool Peon::hasPath() const {
+  return !_path.empty();
+}
+void Peon::clearPath() {
+  _dir._x = _dir._y = _dir._z = 0;
+  _path.clear();
+}
+void Peon::addStep(const FlatHexPosition & pos) {
+  _path.emplace_front(pos);
+}
+void Peon::beginStep() {
+  assert(hasPath());
+  _dir = FlatHexPosition(this->pos(), _path.front()).toUnit();
+}
+void Peon::endstep() {
+  assert(hasPath());
+  this->pos(_path.front());
+  _path.pop_front();
+  _dir._x = _dir._y = _dir._z = 0;
 }

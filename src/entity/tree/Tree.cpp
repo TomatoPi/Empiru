@@ -16,28 +16,14 @@
  */
 
 /// 
-/// \file   AbstractRenderer.cpp
+/// \file   Tree.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 17 septembre 2020, 08:45
 ///
 
-#include "AbstractRenderer.h"
+#include "Tree.h"
 
-
-AbstractRenderer::AbstractRenderer(std::unique_ptr<SpriteSheet> sheet) : 
-  _sheet(std::move(sheet))
-{
-  
-}
-
-/// \brief Called when a new object associated with this renderer is created
-///  may instanciate fine scope datas, like animation state
-void AbstractRenderer::addTarget(const WorldObject *obj) {
-  
-}
-/// \brief Called when an object associated with this renderer is destroyed
-///  may dealocate corresponding datas
-void AbstractRenderer::removeTarget(const WorldObject *obj) {
+Tree::Tree(const FlatHexPosition & pos) : WorldObject(pos, 0.1) {
   
 }

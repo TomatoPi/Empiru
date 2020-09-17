@@ -53,7 +53,8 @@ private:
   FlatHexPosition _vx;  ///< Viewport's Horizontal vector
   FlatHexPosition _vy;  ///< Viewport's Vertical vector
   
-  Matrix22 _rotation; ///< Camera's rotation matrix
+  Matrix22 _rotation;     ///< Camera's rotation matrix
+  Matrix22 _antirotation; ///< Camera's rotation matrix's inverse
   
 public:
   

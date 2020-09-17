@@ -25,9 +25,17 @@
 #ifndef PEONRENDERER_H
 #define PEONRENDERER_H
 
+#include <unordered_map>
+#include "utils/gui/Animation.h"
 #include "gui/SmallObjectRenderer.h"
 
 class PeonRenderer : public SmallObjectRenderer {
+private:
+    
+  typedef std::unordered_map<const WorldObject *, Animation> Targets;
+  
+  Targets _targets;
+  
 public:
   
   /// Constructor
@@ -36,6 +44,12 @@ public:
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr);
   
+  /// \brief Called when a new object associated with this renderer is created
+  ///  may instanciate fine scope datas, like animation state
+  virtual void addTarget(const WorldObject *obj);
+  /// \brief Called when an object associated with this renderer is destroyed
+  ///  may dealocate corresponding datas
+  virtual void removeTarget(const WorldObject *obj);
 };
 
 #endif /* PEONRENDERER_H */

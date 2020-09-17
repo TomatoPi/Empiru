@@ -49,6 +49,8 @@ public:
 private:
   
   void peonTick(Peon *peon);
+  bool tryPosition(Peon *peon, WorldObject **obstacle) const;
+  static FlatHexPosition escapeVector(WorldObject *mover, WorldObject *obstacle);
 
 };
 

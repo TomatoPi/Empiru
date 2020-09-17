@@ -23,6 +23,7 @@
 ///
 
 #include <cassert>
+#include <cmath>
 
 #include "Matrix.h"
 
@@ -41,8 +42,19 @@ Matrix22 Matrix22::operator* (const Matrix22 & A) const {
 }
 
 Matrix22 Matrix22::inverse() const {
-  float det = _a * _d - _b * _c;
+  float det(this->det());
   assert(det != 0);
   det = 1. / det;
   return Matrix22(_d*det, -_b*det, -_c*det, _a*det);
+}
+
+Matrix22 Matrix22::unit() const {
+  float det(this->det());
+  assert(det != 0);
+  det = 1. / sqrt(det);
+  return Matrix22(_a*det, _b*det, _c*det, _d*det);
+}
+
+float Matrix22::det() const {
+  return _a * _d - _b * _c;
 }

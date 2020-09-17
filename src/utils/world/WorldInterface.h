@@ -31,7 +31,7 @@ class WorldInterface {
 public:
   
   virtual void addObject(WorldObject * obj) = 0;
-  virtual void removeObject(const FlatHexPosition & pos, WorldObject * obj) = 0;
+  virtual void removeObject(WorldObject * obj) = 0;
   
   virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const = 0;
   

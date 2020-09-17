@@ -27,6 +27,15 @@
 #include "RenderingEngine.h"
 #include "utils/log.h"
 
+RenderingEngine::ViewPos::ViewPos(int x, int y) : _x(x), _y(y) {
+  
+}
+bool RenderingEngine::ViewPosCompare::operator() (
+  const ViewPos & a, const ViewPos & b) const 
+{
+  return a._y < b._y || (a._y == b._y && a._x < b._x);
+}
+
 RenderingEngine::RenderingEngine(
     Window *w, 
     HexViewport *c, 
@@ -37,7 +46,7 @@ RenderingEngine::RenderingEngine(
   _camera(ac),
   _world(wo),
   _renderers(),
-  _todraw()
+  _drawstack()
 {
   assert(w);
   assert(c);
@@ -59,8 +68,8 @@ void RenderingEngine::render() {
   _worldView->upLeftCorner(&anchor);
   _worldView->viewPortAxis(&vx, &vy);
   // Move one tile away to always draw left and up tiles
-  anchor = anchor - vx - vy;
-  anchor.tile();
+  anchor = anchor - vx*2 - vy*2;
+  anchor.toTile();
   // Compute render situation
   int x, y, xx, yy,
       dx(_worldView->tileWidth() * 0.75), 
@@ -68,23 +77,23 @@ void RenderingEngine::render() {
   // Get tile renderer
   AbstractRenderer * tilerdr(
         _renderers.find(std::type_index(typeid(Tile)))->second);
-  _todraw.clear();
+  _drawstack.clear();
   // Get initial position and start
   for (
       xx = -_worldView->tileWidth() *2;
-      xx - _worldView->tileWidth() < _window->width;
+      (xx-dx) - _worldView->tileWidth() < _window->width;
       xx += dx, anchor = anchor +vx
-      ) 
+      )
   {
     for (
         pos = anchor, yy = -_worldView->tileHeight() *2; 
-        yy - _worldView->tileHeight() < _window->height ;
+        (yy-dy) - _worldView->tileHeight() < _window->height ;
         yy += dy, pos = pos +vy
         )
     {
       // Render tile pos at (x, y+offx[!!flip])
       if (_world->isOnMap(pos)) {
-        _worldView->toPixel(pos.tile(), &x, &y);
+        _worldView->toPixel(pos.toTile(), &x, &y);
         if (tilerdr->renderAt(nullptr, _camera->getOrientation(), 
             x, y, _window->renderer)) 
         {
@@ -95,17 +104,20 @@ void RenderingEngine::render() {
         auto vec(_world->getContentAt(pos));
         if (vec) {
           for (auto & obj : *vec) {
-            _todraw.push_back(obj);
+            _worldView->toPixel(obj->pos(), &x, &y);
+            _drawstack.emplace(ViewPos(x, y), obj);
           }
         }
       }
     }
-  } // for each tile
-  for (auto & obj : _todraw) {
-    _worldView->toPixel(obj->pos(), &x, &y);
+  } //< for each tile
+  
+  // Draw all entities
+  for (auto & itr : _drawstack) {
+    WorldObject *obj(itr.second);
     _renderers.find(std::type_index(typeid(*obj)))->second->renderAt(
         obj,
         _camera->getOrientation(), 
-        x, y, _window->renderer);
+        itr.first._x, itr.first._y, _window->renderer);
   }
 }

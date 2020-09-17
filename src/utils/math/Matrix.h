@@ -42,6 +42,13 @@ struct Matrix22 {
   /// \brief Inverse Matrix
   /// \pre Matrix must be inversible
   Matrix22 inverse() const;
+
+  /// \brief Turn in unitary Matrix (with det = 1)
+  /// \pre Matrix must be inversible
+  Matrix22 unit() const;
+  
+  /// \brief Return matrix's determinant
+  float det() const;
 };
 
 #endif /* MATRIX_H */

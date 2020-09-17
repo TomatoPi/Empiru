@@ -37,6 +37,7 @@
 
 #include "utils/log.h"
 #include "entity/Peon.h"
+#include "entity/tree/Tree.h"
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
@@ -45,34 +46,32 @@
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
+#define AVGFRAME  (2000)
 
 #define SIZE 8
 #define FACTOR 2
 
 int main(int argc, char** argv) {
-  
-  LOG_DEBUG("%d, %d, %d, %d, %d, %d\n", 
-      FlatHexPosition(0, 1, FlatHexPosition::Axial).orientation(),
-      FlatHexPosition(1, 0, FlatHexPosition::Axial).orientation(),
-      FlatHexPosition(1, -1, FlatHexPosition::Axial).orientation(),
-      FlatHexPosition(0, -1, FlatHexPosition::Axial).orientation(),
-      FlatHexPosition(-1, 0, FlatHexPosition::Axial).orientation(),
-      FlatHexPosition(-1, 1, FlatHexPosition::Axial).orientation())
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
   auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto treeSprite = SpriteAsset::loadFromFile("medias/blue_berry_tree.png", window->renderer);
   
-  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial));
+  Peon peon1(FlatHexPosition(0,0,FlatHexPosition::Axial));
   Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial));
   
-  World map_test(SIZE,SIZE);
-  GameEngine gameEngine(&map_test);
+  Tree tree(FlatHexPosition(1, 1, FlatHexPosition::OddQOffset));
   
-  Controller controller(&map_test);
+  World map(SIZE,SIZE);
+  GameEngine gameEngine(&map);
   
-  gameEngine.addPeon(&peon);
+  Controller controller(&map);
+  
+  gameEngine.addPeon(&peon1);
   gameEngine.addPeon(&peon2);
+  
+  map.addObject(&tree);
   
   Camera camera(
     HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
@@ -81,7 +80,11 @@ int main(int argc, char** argv) {
   
   
   TiledObjectRenderer tilerdr(&camera, std::move(groundSprite));
+  SmallObjectRenderer treerdr(std::move(treeSprite));
   PeonRenderer prdr(std::move(peonSprite));
+  
+  prdr.addTarget(&peon1);
+  prdr.addTarget(&peon2);
   
   SDLHandler handler(&camera, &camera, &controller);
   /*
@@ -96,11 +99,13 @@ int main(int argc, char** argv) {
   */
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  RenderingEngine rdr(window, &camera, &camera, &map_test);
+  RenderingEngine rdr(window, &camera, &camera, &map);
   rdr.attachRenderer(typeid(Tile), &tilerdr);
   rdr.attachRenderer(typeid(Peon), &prdr);
+  rdr.attachRenderer(typeid(Tree), &treerdr);
 
-  long tickStartTime, tickEllapsedTime;
+  long tickStartTime(0), tickEllapsedTime(0);
+  double fpsStart(0), avgload(0), avgcount(0), avgfps(0);
   while(true) {
     
     tickStartTime = SDL_GetTicks();
@@ -113,8 +118,20 @@ int main(int argc, char** argv) {
     window->clear();
     rdr.render();
     window->update();
+    
+    ++avgcount;
+    avgfps = SDL_GetTicks() - fpsStart;
+    if (avgfps >= AVGFRAME) {
+      LOG_INFO("AVG FPS  : %3.0f : LOAD : %3.1f%%\n", 
+          avgcount * 1000 / avgfps,
+          avgload / avgcount);
+      fpsStart = SDL_GetTicks();
+      avgcount = 0;
+      avgload = 0;
+    }
 
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;
+    avgload += tickEllapsedTime * 100. / FRAMETIME;
     if (tickEllapsedTime > FRAMETIME) {
       LOG_WRN("System Overload !! %ld ms late\n", tickEllapsedTime - FRAMETIME);
     }

@@ -28,8 +28,8 @@
 
 #include <typeindex>
 #include <unordered_map>
+#include <map>
 #include <memory>
-#include <vector>
 
 #include "utils/gui/Window.h"
 #include "utils/hex/HexViewport.h"
@@ -41,9 +41,18 @@
 class RenderingEngine {
 private:
   
+  struct ViewPos {
+    int _x, _y;
+    ViewPos(int x, int y);
+  };
+  
+  struct ViewPosCompare {
+    bool operator() (const ViewPos & a, const ViewPos & b) const;
+  };
+  
   typedef std::unordered_map<std::type_index, AbstractRenderer*>
     RendererTable;
-  typedef std::vector<WorldObject*> DrawList;
+  typedef std::map<ViewPos, WorldObject*, ViewPosCompare> DrawStack;
   
   Window *_window;
   HexViewport *_worldView;
@@ -51,7 +60,7 @@ private:
   WorldInterface *_world;
   
   RendererTable _renderers;
-  DrawList _todraw;
+  DrawStack     _drawstack;
   
 public:
   

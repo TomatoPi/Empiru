@@ -26,13 +26,16 @@
 #ifndef PEON_H
 #define PEON_H
 
+#include <deque>
 #include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
 
 class Peon : public WorldObject {
   private:
     
-    FlatHexPosition _target;
+    typedef std::deque<FlatHexPosition> Path;
+    
+    Path            _path;
     FlatHexPosition _dir;
     
   public:
@@ -41,10 +44,14 @@ class Peon : public WorldObject {
     
     std::string toString() const;
 
-    const FlatHexPosition & targetPos() const;
+    const FlatHexPosition & target() const;
     const FlatHexPosition & direction() const;
     
-    void setTargetPos(const FlatHexPosition & pos);
+    bool hasPath() const;
+    void clearPath();
+    void addStep(const FlatHexPosition & pos);
+    void beginStep();
+    void endstep();
 };
 
 #endif /* PEON_H */

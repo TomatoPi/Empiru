@@ -30,8 +30,6 @@
 #include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
 
-/// \todo Abstraire les objets sur la map pour la rendre générique
-///   et la découpler de son contenu
 class Tile {
 public:
   

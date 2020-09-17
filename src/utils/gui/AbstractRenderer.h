@@ -43,6 +43,13 @@ public:
   /// \param rdr : renderer
   virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) = 0;
   
+  /// \brief Called when a new object associated with this renderer is created
+  ///  may instanciate fine scope datas, like animation state
+  virtual void addTarget(const WorldObject *obj);
+  /// \brief Called when an object associated with this renderer is destroyed
+  ///  may dealocate corresponding datas
+  virtual void removeTarget(const WorldObject *obj);
+  
 protected:
   
   AbstractRenderer(std::unique_ptr<SpriteSheet> sheet);
