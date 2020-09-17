@@ -73,6 +73,7 @@
           <itemPath>src/utils/gui/Window.h</itemPath>
         </logicalFolder>
         <logicalFolder name="hex" displayName="hex" projectFiles="true">
+          <itemPath>src/utils/hex/HexConsts.h</itemPath>
           <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
           <itemPath>src/utils/hex/HexCoords.h</itemPath>
           <itemPath>src/utils/hex/HexViewport.cpp</itemPath>
@@ -296,6 +297,8 @@
       </item>
       <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
@@ -507,6 +510,8 @@
       </item>
       <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
@@ -712,6 +717,8 @@
       <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -922,6 +929,8 @@
       <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="11">
       </item>

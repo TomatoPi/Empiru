@@ -72,6 +72,9 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
 void Controller::rightClickAt(const FlatHexPosition & click) {
   //Attention, il faudra vérifier si la position est clickable
   if (_state.selectedPeon() != nullptr){
-    _state.selectedPeon()->setTargetPos(click);
+    Peon *peon(_state.selectedPeon());
+    peon->clearPath();
+    peon->addStep(click);
+    peon->beginStep();
   }
 }

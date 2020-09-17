@@ -26,7 +26,7 @@
 
 /// \brief Construct a Tile Sized Object
 WorldObject::WorldObject(const FlatHexPosition & pos) : 
-  _pos(pos), _size(Tile), _radius(0) 
+  _pos(pos), _size(Tile), _radius(1) 
 {
   
 }
@@ -44,6 +44,15 @@ const FlatHexPosition & WorldObject::pos() const {
 /// \brief set object's position
 void WorldObject::pos(const FlatHexPosition & pos) {
   _pos = pos;
+}
+
+/// \brief return object's size class
+WorldObject::Size WorldObject::size() const {
+  return _size;
+}
+/// \brief return object's radius or 1 if tile sized
+float WorldObject::radius() const {
+  return _radius;
 }
 
 /// \brief Method that must return true is 'pos' is in object's hitbox

@@ -362,7 +362,7 @@ int FlatHexPosition::orientation() const {
 ///   Hashing is performed on position rounded to it's tile
 ///   So two positions on the same tile will have the same hash
 std::size_t HCHasher::operator() (const FlatHexPosition &obj) const {
-  FlatHexPosition pos = obj.tile().convertTo(FlatHexPosition::Axial);
+  FlatHexPosition pos(obj.tile().convertTo(FlatHexPosition::Axial));
   size_t x(pos._x), y(pos._y);
   return x ^ ((y << 16) | (y >> (sizeof(size_t) * 8 - 16)));
 }

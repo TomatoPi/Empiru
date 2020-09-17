@@ -26,6 +26,7 @@
 #include <cassert>
 
 #include "GameEngine.h"
+#include "utils/hex/HexConsts.h"
 
 GameEngine::GameEngine(World *w) : 
   _peons(),
@@ -46,36 +47,47 @@ void GameEngine::update() {
 }
 
 void GameEngine::peonTick(Peon *peon) {
+  // Pass if nothing to do
+  if (!peon->hasPath()) return;
+  // Let's get it started
   FlatHexPosition oldpos(peon->pos());
   // If target is reached we're done
-  if (FlatHexPosition::distance(oldpos, peon->targetPos()) < 0.02) {
-    peon->pos(peon->targetPos());
+  if (FlatHexPosition::distance(oldpos, peon->target()) < 0.02) {
+    peon->endstep();
+    if (!peon->hasPath()) 
+       return;
+    peon->beginStep();
   } 
   // Else compute one step
   else {
     // Compute default new position
     peon->pos(oldpos + peon->direction() * 0.01);
     // Check validity
-    bool validMove = _world->isOnMap(peon->pos());
-    // Check collisions
-    peon->pos().mapNeightbours(
-        [&]
-        (const FlatHexPosition & pos) -> bool {
-          auto content = _world->getContentAt(pos);
-          if (content != nullptr){
-            for (auto obj : *content){
-              if (obj == peon) 
-                continue;
-              if (obj->collide(peon)) {
-                validMove = false;
-                return true;
-              }
-            }
-          }
-          return false;
-        });
+    WorldObject *obstacle(nullptr);
+    bool validMove(tryPosition(peon, &obstacle));
+    // Try to find alternative path
     if (!validMove) {
-      /// \todo Add pathfinding mechanics
+      // World limit
+      if (!obstacle) {
+        LOG_TODO("Escape World Borders\n");
+      } 
+      // Round obstacle
+      else {
+        FlatHexPosition collide(obstacle->pos(), peon->pos());
+        FlatHexPosition esc1(collide * hex::RMatrix_C60A);
+        FlatHexPosition esc2(collide * hex::RMatrix_CC60A);
+        FlatHexPosition & esc = esc1;
+        if (
+            FlatHexPosition::distance(oldpos + esc2 * 0.01, peon->target()) 
+          < FlatHexPosition::distance(oldpos + esc1 * 0.01, peon->target())) 
+        {
+          esc = esc2;
+        }
+        peon->pos(oldpos);
+        peon->addStep(oldpos + esc * 1);
+        peon->beginStep();
+        validMove = true;
+      }
     }
     if (validMove) {
       // If tile has changed move peon
@@ -89,7 +101,61 @@ void GameEngine::peonTick(Peon *peon) {
     } else {
       /// \todo Add notification if impossible path
       peon->pos(oldpos);
-      peon->setTargetPos(peon->pos(), false);
+      peon->clearPath();
     }
+  }
+}
+
+bool GameEngine::tryPosition(Peon *peon, WorldObject **obstacle) const {
+  // Check validity
+  if (!_world->isOnMap(peon->pos())) {
+    return false;
+  }
+  // Check collisions
+  bool valid(true);
+  peon->pos().mapNeightbours(
+    [&]
+    (const FlatHexPosition & pos) -> bool {
+      auto content = _world->getContentAt(pos);
+      if (content != nullptr){
+        for (auto obj : *content){
+          if (obj == peon) 
+            continue;
+          if (obj->collide(peon)) {
+            *obstacle = obj;
+            valid = false;
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+  return valid;
+}
+
+FlatHexPosition GameEngine::escapeVector(
+  WorldObject *mover, WorldObject *obstacle) 
+{
+  assert(mover);
+  assert(obstacle);
+  assert(mover->size() == WorldObject::Small);
+  FlatHexPosition normal(obstacle->pos(), mover->pos());
+  if (obstacle->size() == WorldObject::Small) {
+    return (normal * hex::RMatrix_CC60A).toUnit();
+  } else {
+    static FlatHexPosition vects[] = {
+      FlatHexPosition(-1, 1/2, FlatHexPosition::Axial).unit(),
+      (FlatHexPosition(-1, 1/2, FlatHexPosition::Axial) 
+          * hex::RMatrix_CC60A).unit(),
+      (FlatHexPosition(-1, 1/2, FlatHexPosition::Axial) 
+          * hex::RMatrix_CC60A * hex::RMatrix_CC60A).unit(),
+      
+      FlatHexPosition(1, -1/2, FlatHexPosition::Axial).unit(),
+      (FlatHexPosition(1, -1/2, FlatHexPosition::Axial)
+          * hex::RMatrix_CC60A).unit(),
+      (FlatHexPosition(1, -1/2, FlatHexPosition::Axial)
+          * hex::RMatrix_CC60A * hex::RMatrix_CC60A).unit()
+    };
+    return vects[normal.orientation()];
   }
 }

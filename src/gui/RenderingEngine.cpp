@@ -46,7 +46,7 @@ RenderingEngine::RenderingEngine(
   _camera(ac),
   _world(wo),
   _renderers(),
-  _todraw()
+  _drawstack()
 {
   assert(w);
   assert(c);
@@ -77,7 +77,7 @@ void RenderingEngine::render() {
   // Get tile renderer
   AbstractRenderer * tilerdr(
         _renderers.find(std::type_index(typeid(Tile)))->second);
-  _todraw.clear();
+  _drawstack.clear();
   // Get initial position and start
   for (
       xx = -_worldView->tileWidth() *2;
@@ -105,13 +105,15 @@ void RenderingEngine::render() {
         if (vec) {
           for (auto & obj : *vec) {
             _worldView->toPixel(obj->pos(), &x, &y);
-            _todraw.emplace(ViewPos(x, y), obj);
+            _drawstack.emplace(ViewPos(x, y), obj);
           }
         }
       }
     }
-  } // for each tile
-  for (auto & itr : _todraw) {
+  } //< for each tile
+  
+  // Draw all entities
+  for (auto & itr : _drawstack) {
     WorldObject *obj(itr.second);
     _renderers.find(std::type_index(typeid(*obj)))->second->renderAt(
         obj,

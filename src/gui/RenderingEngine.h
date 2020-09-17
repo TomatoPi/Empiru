@@ -60,7 +60,7 @@ private:
   WorldInterface *_world;
   
   RendererTable _renderers;
-  DrawStack _todraw;
+  DrawStack     _drawstack;
   
 public:
   

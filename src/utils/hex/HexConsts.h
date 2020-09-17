@@ -16,45 +16,32 @@
  */
 
 /// 
-/// \file   Matrix.cpp
+/// \file   HexConsts.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 10 septembre 2020, 23:48
+/// \date 17 septembre 2020, 14:07
 ///
 
-#include <cassert>
-#include <cmath>
+#ifndef HEXCONSTS_H
+#define HEXCONSTS_H
 
-#include "Matrix.h"
+#include "utils/math/Matrix.h"
+#include "utils/hex/HexCoords.h"
 
-Matrix22::Matrix22(float a, float b, float c, float d) :
-  _a(a),
-  _b(b),
-  _c(c),
-  _d(d)
-{  
+namespace hex {
+  
+  /// \brief Clockwise 90° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_C90A = Matrix22(-0.5, -1, 1.25, 0.5).unit();
+  /// \brief CounterClockwise 90° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_CC90A = Matrix22(0.5, 1, -1.25, -0.5).unit();
+  
+  /// \brief Clockwise 60° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_C60A(0, -1, 1, 1);
+  /// \brief CounterClockwise 60° Axial Coordinate rotation Matrix
+  static const Matrix22 RMatrix_CC60A(1, 1, -1, 0);
+  
+  
 }
 
-Matrix22 Matrix22::operator* (const Matrix22 & A) const {
-  return Matrix22(
-      _a * A._a + _b * A._c, _a * A._b + _b * A._d,
-      _c * A._a + _d * A._c, _c * A._b + _d * A._d);
-}
+#endif /* HEXCONSTS_H */
 
-Matrix22 Matrix22::inverse() const {
-  float det(this->det());
-  assert(det != 0);
-  det = 1. / det;
-  return Matrix22(_d*det, -_b*det, -_c*det, _a*det);
-}
-
-Matrix22 Matrix22::unit() const {
-  float det(this->det());
-  assert(det != 0);
-  det = 1. / sqrt(det);
-  return Matrix22(_a*det, _b*det, _c*det, _d*det);
-}
-
-float Matrix22::det() const {
-  return _a * _d - _b * _c;
-}

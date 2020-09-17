@@ -59,7 +59,12 @@ public:
   /// \brief set object's position
   void pos(const FlatHexPosition & pos);
   
-  /// \brief Method that must return true is 'pos' is in object's hitbox
+  /// \brief return object's size class
+  Size size() const;
+  /// \brief return object's radius or 1 if tile sized
+  float radius() const;
+  
+  /// \brief Method that must return true obj collides this object
   bool collide(const WorldObject * obj) const;
   
 public:
