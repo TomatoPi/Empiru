@@ -29,9 +29,11 @@
 #define HEXCOORDS_H
 
 #include <string>
+#include <functional>
 #include "utils/math/Matrix.h"
 
 /// \brief Represent a position on an Hexagonal Grid with flat disposition
+/// \todo Profile conversion and systems usage
 struct FlatHexPosition {
 
   float _x; ///< Horizontal or RightDown position
@@ -81,23 +83,29 @@ struct FlatHexPosition {
   /// \return this as Axial Vector
   FlatHexPosition operator*(const Matrix22 & M) const;
   
+  /// \brief Call given function on this tile and each adjacent ones
+  ///   this function stops after first tile on which func return true
+  ///   or after tested all 7 tiles
+  /// System of position passed to callback is the same as curent system
+  void mapNeightbours(std::function<bool(const FlatHexPosition &)> func) const;
+  
   /// \brief return distance between a and b
   static float distance(
     const FlatHexPosition & a, 
     const FlatHexPosition & b);
   
   /// \brief Convert this position to 'target' System
-  FlatHexPosition & convert(System target);
+  FlatHexPosition & convertTo(System target);
   /// \brief Return this position converted to 'target' system
   FlatHexPosition convert(System target) const;
   
   /// \brief Round position to it tile's center
-  FlatHexPosition & tile();
+  FlatHexPosition & toTile();
   /// \brief Return position rounded to tile's center
   FlatHexPosition tile() const;
   
   /// \brief Normalize to unitatry vector
-  FlatHexPosition & unit();
+  FlatHexPosition & toUnit();
   /// \brief Return as unitary vector
   FlatHexPosition unit() const;
   

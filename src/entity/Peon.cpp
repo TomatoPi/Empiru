@@ -41,5 +41,5 @@ const FlatHexPosition & Peon::direction() const {
 
 void Peon::setTargetPos(const FlatHexPosition & pos){
   _target = pos;
-  _dir = FlatHexPosition(this->pos(), _target).unit();
+  _dir = FlatHexPosition(this->pos(), _target).toUnit();
 }

@@ -41,24 +41,24 @@ Camera::Camera(
 /// \brief Must scroll the camera Horizontaly at given speed
 void Camera::doUpdateLRScroll(float v) {
   FlatHexPosition pos = target() + _vx * v;
-  pos.convert(FlatHexPosition::Grid);
+  pos.convertTo(FlatHexPosition::Grid);
   if (pos._x < 0) {
     pos._x = 0;
   } else if (_worldWidth*3 < (pos._x+3)) {
     pos._x = _worldWidth*3 -3;
   }
-  target(pos.convert(FlatHexPosition::Axial));
+  target(pos.convertTo(FlatHexPosition::Axial));
 }
 /// \brief Must scroll the camera verticaly at given speed
 void Camera::doUpdateUDScroll(float v) {
   FlatHexPosition pos = target() + _vy * v;
-  pos.convert(FlatHexPosition::Grid);
+  pos.convertTo(FlatHexPosition::Grid);
   if (pos._y < 0) {
     pos._y = 0;
   } else if (_worldHeight*2 < (pos._y+2)) {
     pos._y = _worldHeight*2 -2;
   }
-  target(pos.convert(FlatHexPosition::Axial));
+  target(pos.convertTo(FlatHexPosition::Axial));
 }
 /// \brief Must rotate camera to the left (clockwise)
 void Camera::doRotateLeft() {

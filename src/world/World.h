@@ -51,7 +51,7 @@ public :
   World(int mapWidth, int mapHeight);
   
   virtual void addObject(WorldObject * obj);
-  virtual void removeObject(const FlatHexPosition & pos, WorldObject * obj);
+  virtual void removeObject(WorldObject * obj);
   
   virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const;
   

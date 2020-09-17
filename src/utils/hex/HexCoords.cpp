@@ -131,6 +131,32 @@ FlatHexPosition FlatHexPosition::operator*(const Matrix22 & M) const {
   res._y = y;
   return res;
 }
+  
+/// \brief Call given function on this tile and each adjacent ones
+void FlatHexPosition::mapNeightbours(
+  std::function<bool(const FlatHexPosition &)> func) const 
+{
+  // Hard coded neighbours positions
+  static float oddodd[]  = {0,0, 0,-1, 1,0,  1,1, 0,1, -1,1, -1,0};
+  static float oddeven[] = {0,0, 0,-1, 1,-1, 1,0, 0,1, -1,0, -1,-1};
+  static float axial[]   = {0,0, 0,-1, 1,-1, 1,0, 0,1, -1,1, -1,0};
+  static float grid[]    = {0,0, 0,-2, 3,-1, 3,1, 0,2, -3,1, -3,-1};
+  float *offset(nullptr);
+  // Get right list
+  switch (_type) {
+  case OddQOffset : offset = (math::fastmrnd(_x) & 1) ? oddeven : oddodd; break;
+  case Axial :
+  case Cubic : offset = axial; break;
+  case Grid  : offset = grid; break;
+  default: assert(0);
+  }
+  // map
+  for (int i=0; i<14; i+=2) {
+    if (func(FlatHexPosition(_x+offset[i], _y+offset[i+1], 0, _type))) {
+      break;
+    }
+  }
+}
 
 /// \brief return distance between this and b
 float FlatHexPosition::distance(
@@ -138,12 +164,12 @@ float FlatHexPosition::distance(
     const FlatHexPosition & b) 
 {
   FlatHexPosition v(a, b);
-  v.convert(Axial);
+  v.convertTo(Axial);
   return std::hypotf(v._x, v._y);
 }
 
 /// \brief Convert this position to 'target' System
-FlatHexPosition & FlatHexPosition::convert(System target) {
+FlatHexPosition & FlatHexPosition::convertTo(System target) {
   return convert(this, target);
 }
 /// \brief Return this position converted to 'target' system
@@ -215,7 +241,7 @@ FlatHexPosition & FlatHexPosition::convert(
   // Convert this position to Axial
   switch (pos->_type) {
   case FlatHexPosition::OddQOffset :
-    pos->_y = pos->_y - (pos->_x - ((int)pos->_x & 1)) / 2.;
+    pos->_y = pos->_y - (pos->_x - (math::fastmrnd(pos->_x) & 1)) / 2.;
     break;
   case FlatHexPosition::Axial :
   case FlatHexPosition::Cubic :
@@ -230,7 +256,7 @@ FlatHexPosition & FlatHexPosition::convert(
   // Convert from Axial to Target
   switch (target) {
   case FlatHexPosition::OddQOffset :
-    pos->_y = pos->_y + (pos->_x - ((int)(pos->_x) & 1)) / 2.;
+    pos->_y = pos->_y + (pos->_x - (math::fastmrnd(pos->_x) & 1)) / 2.;
     break;
   case FlatHexPosition::Axial :
     break;
@@ -250,7 +276,7 @@ FlatHexPosition & FlatHexPosition::convert(
 }
 
 /// \brief Round position to it tile's center
-FlatHexPosition & FlatHexPosition::tile() {
+FlatHexPosition & FlatHexPosition::toTile() {
   return FlatHexPosition::tile(this);
 }
 /// \brief Return position rounded to tile's center
@@ -261,7 +287,7 @@ FlatHexPosition FlatHexPosition::tile() const {
 
 /// \brief Effective implementation of tile function
 FlatHexPosition & FlatHexPosition::tile(FlatHexPosition *pos) {
-  pos->convert(Axial);
+  pos->convertTo(Axial);
   int x(math::fastmrnd(pos->_x)), y(math::fastmrnd(pos->_y));
   float xx = pos->_x - x, yy = pos->_y - y;
   float u = xx + 2*yy, v = 2*xx + yy, w = yy - xx;
@@ -283,7 +309,7 @@ FlatHexPosition & FlatHexPosition::tile(FlatHexPosition *pos) {
 }
   
 /// \brief Normalize to unitatry vector
-FlatHexPosition & FlatHexPosition::unit() {
+FlatHexPosition & FlatHexPosition::toUnit() {
   return unit(this);
 }
 /// \brief Return as unitary vector
@@ -293,7 +319,7 @@ FlatHexPosition FlatHexPosition::unit() const {
 }
 /// \brief Effective implementation of unit function
 FlatHexPosition & FlatHexPosition::unit(FlatHexPosition *pos) {
-  pos->convert(Axial);
+  pos->convertTo(Axial);
   float norm(1.0f / std::hypotf(pos->_x, pos->_y));
   pos->_x *= norm, pos->_y *= norm;
   return *pos;
@@ -336,7 +362,7 @@ int FlatHexPosition::orientation() const {
 ///   Hashing is performed on position rounded to it's tile
 ///   So two positions on the same tile will have the same hash
 std::size_t HCHasher::operator() (const FlatHexPosition &obj) const {
-  FlatHexPosition pos = obj.tile().convert(FlatHexPosition::Axial);
+  FlatHexPosition pos = obj.tile().convertTo(FlatHexPosition::Axial);
   size_t x(pos._x), y(pos._y);
   return x ^ ((y << 16) | (y >> (sizeof(size_t) * 8 - 16)));
 }

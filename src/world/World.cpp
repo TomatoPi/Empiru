@@ -45,8 +45,10 @@ void World::addObject(WorldObject * obj){
   }
   itr->second.insert(obj);
 }
-void World::removeObject(const FlatHexPosition & pos, WorldObject * obj) {
-  auto itr(_map.find(pos));
+
+/// \bug Assertion failed, must try to reproduce
+void World::removeObject(WorldObject * obj) {
+  auto itr(_map.find(obj->pos()));
   assert(itr != _map.end());
   itr->second.erase(obj);
   if (itr->second.isEmpty()) {
@@ -63,7 +65,7 @@ const Tile::Content * World::getContentAt(const FlatHexPosition & pos) const {
 }
 
 bool World::isOnMap(const FlatHexPosition & pos) const {
-  FlatHexPosition off(pos.tile().convert(FlatHexPosition::OddQOffset));
+  FlatHexPosition off(pos.tile().convertTo(FlatHexPosition::OddQOffset));
   return 0 <= off._x && 0 <= off._y 
       && off._x < _mapWidth
       && off._y < _mapHeight;

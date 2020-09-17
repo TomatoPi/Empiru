@@ -47,13 +47,32 @@ void GameEngine::update() {
 
 void GameEngine::peonTick(Peon *peon) {
   FlatHexPosition pos(peon->pos());
+  // If target is reached we're done
   if (FlatHexPosition::distance(pos, peon->targetPos()) < 0.02) {
     peon->pos(peon->targetPos());
-  } else {
-    peon->pos(pos + peon->direction() * 0.01);
-    if (pos.tile() != peon->pos().tile()) {
-      _world->removeObject(pos, peon);
-      _world->addObject(peon);
+  } 
+  // Else compute one step
+  else {
+    // Compute default new position
+    pos = pos + peon->direction() * 0.01;
+    // Check validity
+    bool validMove = _world->isOnMap(pos);
+    if (!validMove) {
+      /// \todo Add pathfinding mechanics
+    }
+    if (validMove) {
+      // If tile has changed move peon
+      if (pos.tile() != peon->pos().tile()) {
+        _world->removeObject(peon);
+        peon->pos(pos);
+        _world->addObject(peon);
+      } 
+      // Else simply update
+      else {
+        peon->pos(pos);
+      }
+    } else {
+      /// \todo Add notification if impossible path
     }
   }
 }

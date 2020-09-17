@@ -42,15 +42,21 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
   
   if (content != nullptr){
     for (auto peon : *content){
-      FlatHexPosition tmp_pos(peon->pos(),FlatHexPosition::Grid);
-      if (
-          (fabs(click._x - tmp_pos._x) < 0.25) 
-          && (fabs(click._y + 0.25 - tmp_pos._y) < 0.25)) 
-      {
-        _state.selectPeon(dynamic_cast<Peon*>(peon));
-      } else {
-        _state.deselectPeon();
-      }
+      peon->pos().convert(FlatHexPosition::Grid).mapNeightbours(
+        [&]
+        (const FlatHexPosition & pos) -> bool 
+        {
+          if (
+              (fabs(click._x - pos._x) < 0.25) 
+              && (fabs(click._y + 0.25 - pos._y) < 0.25)) 
+          {
+            _state.selectPeon(dynamic_cast<Peon*>(peon));
+            return true;
+          } else {
+            _state.deselectPeon();
+            return false;
+          }
+        });
      }
   } else {
     _state.deselectPeon();

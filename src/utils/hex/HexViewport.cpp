@@ -70,7 +70,7 @@ void HexViewport::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
   assert(y);
   FlatHexPosition res(pos, FlatHexPosition::Axial);
   res = (res - _pos) * _rotation + (_viewport * 0.5);
-  res.convert(FlatHexPosition::Grid);
+  res.convertTo(FlatHexPosition::Grid);
   *x = 0.25 * res._x * _tileWidth;
   *y = 0.5 * res._y * _tileHeight;
 }

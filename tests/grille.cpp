@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
     for (rect.y = 0; rect.y < HEIGHT; ++rect.y) {
       FlatHexPosition pos;
       camera.fromPixel(rect.x, rect.y, &pos);
-      pos.tile();
+      pos.toTile();
       int r = ((int)pos._x * 10) % 256;
       int g = (((int)pos._y + 5) * 17) % 256;
       int b = (((int)pos._x ^ ((int)pos._y << 3)) * 30) % 256;
@@ -94,9 +94,9 @@ int main(int argc, char** argv) {
       FlatHexPosition pos, tile;
       HCHasher hash;
       camera.fromPixel(e.button.x, e.button.y, &pos);
-      pos.convert(FlatHexPosition::Axial);
+      pos.convertTo(FlatHexPosition::Axial);
       tile = pos;
-      tile.tile();
+      tile.toTile();
       int x(rr(pos._x)), y(rr(pos._y));
       float xx = pos._x - x, yy = pos._y - y;
       float u = xx + 2*yy, v = 2*xx + yy, w = yy - xx;

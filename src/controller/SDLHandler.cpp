@@ -44,13 +44,17 @@ bool SDLHandler::handleSDLEvents() {
     case SDL_QUIT:
       return false;
     case SDL_KEYDOWN:
-      return handleKeyDown(event.key);
+      if (!handleKeyDown(event.key)) return false;
+      break;
     case SDL_KEYUP:
-      return handleKeyUp(event.key);
+      handleKeyUp(event.key);
+      break;
     case SDL_MOUSEBUTTONDOWN:
-      return handleMouseButtonDown(event.button);
+      handleMouseButtonDown(event.button);
+      break;
     case SDL_MOUSEMOTION:
-      return handleMouseMovement(event.motion);
+      handleMouseMovement(event.motion);
+      break;
     }
   }
   return true;
@@ -59,41 +63,44 @@ bool SDLHandler::handleSDLEvents() {
 // ---- Keyboard ---- //
 
 bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
+  // Auto reject key repeat
+  if (key.repeat) return true;
+  // Handle each button
   switch(key.keysym.sym) {
-    case SDLK_ESCAPE:
-      return false;
-    case SDLK_UP:
-      _camera->scrollUp();
-      break;
-    case SDLK_DOWN:
-      _camera->scrollDown();
-      break;
-    case SDLK_RIGHT:
-      _camera->scrollRight();
-      break;
-    case SDLK_LEFT:
-      _camera->scrollLeft();
-      break;
-    case SDLK_a:
-      _camera->rotateRight();
-      break;
-    case SDLK_e:
-      _camera->rotateLeft();
-      break;
+  case SDLK_ESCAPE:
+    return false;
+  case SDLK_UP:
+    _camera->scrollUp();
+    break;
+  case SDLK_DOWN:
+    _camera->scrollDown();
+    break;
+  case SDLK_RIGHT:
+    _camera->scrollRight();
+    break;
+  case SDLK_LEFT:
+    _camera->scrollLeft();
+    break;
+  case SDLK_a:
+    _camera->rotateRight();
+    break;
+  case SDLK_e:
+    _camera->rotateLeft();
+    break;
   }
   return true;
 }
 
 bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
   switch(key.keysym.sym) {
-    case SDLK_UP:
-    case SDLK_DOWN:
-      _camera->stopUDScroll();
-      break;
-    case SDLK_RIGHT:
-    case SDLK_LEFT:
-      _camera->stopLRScroll();
-      break;
+  case SDLK_UP:
+  case SDLK_DOWN:
+    _camera->stopUDScroll();
+    break;
+  case SDLK_RIGHT:
+  case SDLK_LEFT:
+    _camera->stopLRScroll();
+    break;
   }
   return true;
 }
@@ -130,7 +137,7 @@ bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
   
   FlatHexPosition pos;
   _worldview->fromPixel(event.x, event.y, &pos);
-  pos.convert(FlatHexPosition::Grid);
+  pos.convertTo(FlatHexPosition::Grid);
   
   switch(event.button){
     case SDL_BUTTON_LEFT:

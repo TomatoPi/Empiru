@@ -59,8 +59,8 @@ void RenderingEngine::render() {
   _worldView->upLeftCorner(&anchor);
   _worldView->viewPortAxis(&vx, &vy);
   // Move one tile away to always draw left and up tiles
-  anchor = anchor - vx - vy;
-  anchor.tile();
+  anchor = anchor - vx*2 - vy*2;
+  anchor.toTile();
   // Compute render situation
   int x, y, xx, yy,
       dx(_worldView->tileWidth() * 0.75), 
@@ -72,19 +72,19 @@ void RenderingEngine::render() {
   // Get initial position and start
   for (
       xx = -_worldView->tileWidth() *2;
-      xx - _worldView->tileWidth() < _window->width;
+      (xx-dx) - _worldView->tileWidth() < _window->width;
       xx += dx, anchor = anchor +vx
-      ) 
+      )
   {
     for (
         pos = anchor, yy = -_worldView->tileHeight() *2; 
-        yy - _worldView->tileHeight() < _window->height ;
+        (yy-dy) - _worldView->tileHeight() < _window->height ;
         yy += dy, pos = pos +vy
         )
     {
       // Render tile pos at (x, y+offx[!!flip])
       if (_world->isOnMap(pos)) {
-        _worldView->toPixel(pos.tile(), &x, &y);
+        _worldView->toPixel(pos.toTile(), &x, &y);
         if (tilerdr->renderAt(nullptr, _camera->getOrientation(), 
             x, y, _window->renderer)) 
         {
