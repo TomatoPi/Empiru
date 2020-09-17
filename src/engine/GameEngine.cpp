@@ -84,7 +84,7 @@ void GameEngine::peonTick(Peon *peon) {
           esc = esc2;
         }
         peon->pos(oldpos);
-        peon->addStep(oldpos + esc * 1);
+        peon->addStep(oldpos + esc * obstacle->radius() * 2);
         peon->beginStep();
         validMove = true;
       }

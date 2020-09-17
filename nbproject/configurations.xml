@@ -65,6 +65,8 @@
           <itemPath>src/utils/gui/AbstractCamera.h</itemPath>
           <itemPath>src/utils/gui/AbstractRenderer.cpp</itemPath>
           <itemPath>src/utils/gui/AbstractRenderer.h</itemPath>
+          <itemPath>src/utils/gui/Animation.cpp</itemPath>
+          <itemPath>src/utils/gui/Animation.h</itemPath>
           <itemPath>src/utils/gui/SpriteAsset.cpp</itemPath>
           <itemPath>src/utils/gui/SpriteAsset.h</itemPath>
           <itemPath>src/utils/gui/SpriteSheet.cpp</itemPath>
@@ -285,6 +287,10 @@
       </item>
       <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/SpriteAsset.h" ex="false" tool="3" flavor2="0">
@@ -498,6 +504,10 @@
       </item>
       <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/SpriteAsset.h" ex="false" tool="3" flavor2="0">
@@ -705,6 +715,10 @@
       <item path="src/utils/gui/AbstractRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -917,6 +931,10 @@
             flavor2="11">
       </item>
       <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="11">
       </item>

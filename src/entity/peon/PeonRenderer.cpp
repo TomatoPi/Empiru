@@ -22,12 +22,15 @@
 /// \date 16 septembre 2020, 12:48
 ///
 
+#include <cassert>
+
 #include "PeonRenderer.h"
 #include "entity/Peon.h"
 
 /// Constructor
 PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) : 
-  SmallObjectRenderer(std::move(s)) 
+  SmallObjectRenderer(std::move(s)),
+  _targets()
 {
   
 }
@@ -36,8 +39,26 @@ PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) :
 int PeonRenderer::renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) 
 {
   const Peon *peon(static_cast<const Peon*>(obj));
-  return SmallObjectRenderer::renderAt(
-      nullptr, 
-      (ori + 6 - peon->direction().orientation()) % 6,
-      x, y, rdr);
+  int frame = peon->hasPath() ? _targets.at(obj).update() : _targets.at(obj).restart();
+  ori = (ori + 6 - peon->direction().orientation()) % 6;
+  SDL_Rect r;
+  r.w = _sheet->width();
+  r.h = _sheet->height();
+  r.x = x - r.w / 2;
+  r.y = y - r.h;
+  return _sheet->renderFrame(frame, ori, rdr, &r);
+}
+
+/// \brief Called when a new object associated with this renderer is created
+///  may instanciate fine scope datas, like animation state
+void PeonRenderer::addTarget(const WorldObject *obj) {
+  auto insert(_targets.emplace(obj, Animation(7, 6)));
+  assert(insert.second);
+}
+/// \brief Called when an object associated with this renderer is destroyed
+///  may dealocate corresponding datas
+void PeonRenderer::removeTarget(const WorldObject *obj) {
+  auto itr(_targets.find(obj));
+  assert(itr != _targets.end());
+  _targets.erase(itr);
 }

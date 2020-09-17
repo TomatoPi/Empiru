@@ -83,6 +83,9 @@ int main(int argc, char** argv) {
   SmallObjectRenderer treerdr(std::move(treeSprite));
   PeonRenderer prdr(std::move(peonSprite));
   
+  prdr.addTarget(&peon1);
+  prdr.addTarget(&peon2);
+  
   SDLHandler handler(&camera, &camera, &controller);
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
