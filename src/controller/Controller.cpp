@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   Engine.cpp
+/// \file   Controller.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 12 septembre 2020, 08:51
@@ -29,7 +29,7 @@
 #include <cmath>
 
 /// \brief Constructor
-Controller::Controller(World *w) :
+Controller::Controller(WorldInterface & w) :
   _world(w), _state()
 {
   
@@ -45,7 +45,7 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
     [&]
     (const FlatHexPosition & pos) -> bool 
     {
-      auto content = _world->getContentAt(pos);
+      auto content = _world.getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){
           Peon * peon(dynamic_cast<Peon*>(obj));
@@ -62,6 +62,7 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
       }
       return false;
     });
+  // Update controller according to result
   if (selection) {
     _state.selectPeon(selection);
   } else {
@@ -70,8 +71,9 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
 }
 /// \brief Called when a right click is performed at given position
 void Controller::rightClickAt(const FlatHexPosition & click) {
-  //Attention, il faudra vérifier si la position est clickable
-  if (_state.selectedPeon() != nullptr){
+  
+  // If there is a selected peon and click is valid, let's go
+  if (_state.selectedPeon() != nullptr && _world.isOnMap(click)) {
     Peon *peon(_state.selectedPeon());
     peon->clearPath();
     peon->addStep(click);

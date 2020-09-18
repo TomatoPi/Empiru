@@ -20,10 +20,12 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 17 septembre 2020, 08:45
+/// \brief Tree WorldObject declaration
 ///
 
 #include "Tree.h"
 
+/// \brief Constructor
 Tree::Tree(const FlatHexPosition & pos) : WorldObject(pos, 0.1) {
   
 }

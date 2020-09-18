@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   HexCamera.cpp
+/// \file   HexViewport.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 8 septembre 2020, 03:59
@@ -133,9 +133,6 @@ void HexViewport::rotation(const Matrix22 & m) {
   _antirotation = m.inverse();
   _vx = VIEW_VX * m;
   _vy = VIEW_VY * m;
-  LOG_DEBUG("VX  : %s\n", _vx.toString().c_str());
-  LOG_DEBUG("VY  : %s\n", _vy.toString().c_str());
-  LOG_DEBUG("ROT :\n%6f %6f\n%6f %6f\n", _rotation._a, _rotation._b, _rotation._c, _rotation._d);
 }
 
 void HexViewport::rotatedAxialVectors(FlatHexPosition *ax, FlatHexPosition *ay) const {

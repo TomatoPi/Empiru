@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   Camera.cpp
+/// \file   AbstractCamera.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 11 septembre 2020, 17:15
@@ -67,7 +67,7 @@ void AbstractCamera::update() {
   }
 }
 
-int AbstractCamera::getOrientation() {
+int AbstractCamera::getOrientation() const {
   return _orientation;
 }
 

@@ -16,13 +16,14 @@
  */
 
 /// 
-/// \file   AbstractRenderer.cpp
+/// \file   GenericRenderer.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 14 septembre 2020, 12:49
+/// \brief provide template for basic and generic renderers
 ///
 
-#include "AbstractRenderer.h"
+#include "GenericRenderer.h"
 
 /// \brief Put the rectangle 'r' as if (x,y) was tile's center coordinate
 ///
@@ -36,7 +37,7 @@
 /// \param x  : tile's center x
 /// \param y  : tile's center y
 ///
-void TileBlitter::operator() (SDL_Rect * rect, 
+void OnTileBlitter::operator() (SDL_Rect * rect, 
     int w, int h, int tw, int th, int x, int y)
 const {
   rect->w = w, rect->h = h;
@@ -46,7 +47,7 @@ const {
 
 /// \brief Put the rectangle 'r' as if (x,y) was object foot's position
 /// \see void blitTile(SDL_Rect * r, int w, int h, int tw, int th, int x, int y)
-void FootBlitter::operator() (SDL_Rect * rect, 
+void OnFootBlitter::operator() (SDL_Rect * rect, 
     int w, int h, int tw, int th, int x, int y)
 const {
   rect->w = w, rect->h = h;

@@ -68,9 +68,9 @@ int main(int argc, char** argv) {
   Tree tree(FlatHexPosition(1, 1, FlatHexPosition::OddQOffset));
   
   World map(SIZE,SIZE);
-  GameEngine gameEngine(&map);
+  GameEngine gameEngine(map);
   
-  Controller controller(&map);
+  Controller controller(map);
   
   gameEngine.addPeon(&peon1);
   gameEngine.addPeon(&peon2);
@@ -82,14 +82,14 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE);
   
-  GenericRenderer<TileBlitter> tilerdr(std::move(groundSprite));
-  GenericRenderer<FootBlitter> treerdr(std::move(treeSprite));
+  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite));
+  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite));
   PeonRenderer prdr(std::move(peonSprite));
   
   prdr.addTarget(&peon1);
   prdr.addTarget(&peon2);
   
-  SDLHandler handler(&camera, &camera, &controller);
+  SDLHandler handler(camera, camera, controller);
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
     LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
   */
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  RenderingEngine rdr(window, &camera, &camera, &map);
+  RenderingEngine rdr(*window, camera, camera, map);
   rdr.attachRenderer(typeid(Tile), &tilerdr);
   rdr.attachRenderer(typeid(Peon), &prdr);
   rdr.attachRenderer(typeid(Tree), &treerdr);

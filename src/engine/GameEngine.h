@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   Mover.h
+/// \file   GameEngine.h
 /// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
 ///
 /// \date 11 septembre 2020, 16:32
@@ -30,28 +30,35 @@
 #include "entity/peon/Peon.h"
 #include <unordered_set>
 
+/// \brief Core object for in-game mechanics
 class GameEngine {
 private:
 
+  /// \brief Array used to store peons
   typedef std::unordered_set<Peon*> PeonList;
-  PeonList _peons;
   
-  World *_world;
+  PeonList         _peons; ///< List of living peons, peonhouettes and peonpeons
+  WorldInterface & _world; ///< THA WO... oh wait ... joke already used
   
 public:
   
-  GameEngine(World *w);
+  /// \brief Contructor
+  GameEngine(WorldInterface & w);
   
+  /// \brief Add a peon in the game
   void addPeon(Peon *p);
   
+  /// \brief Called on each Main-loop iteration
   void update();
   
 private:
   
+  /// \brief Compute one tick of peon's behaviour
   void peonTick(Peon *peon);
+  /// \brief Return true if given position is valid
+  ///   if position is invalid, return false and return pointer to the obstacle
+  ///   in 'obstacle' if relevant
   bool tryPosition(Peon *peon, WorldObject **obstacle) const;
-  static FlatHexPosition escapeVector(WorldObject *mover, WorldObject *obstacle);
-
 };
 
 #endif /* GAMEENGINE_H */

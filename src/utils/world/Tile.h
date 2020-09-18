@@ -30,6 +30,7 @@
 #include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
 
+/// \brief Tiles are world's container
 class Tile {
 public:
   
@@ -38,20 +39,25 @@ public:
   
 private :
   
-  Content _content;
+  Content _content; ///< Tile's content
   
 public:
   
+  /// \brief Constructor
   Tile();
   
+  /// \brief Add given object to the tile
   void insert(WorldObject * obj);
+  /// \brief Remove given object from the tile
   void erase(WorldObject * obj);
   
+  /// \brief return true if there is nothing on the tile
   bool isEmpty() const;
 
+  /// \brief return tile's content
   const Content & getContent() const;
+  /// \brief return tile's content
   Content & getContent();
 };
-  
 
 #endif /* TILE_H */

@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   HexCamera.h
+/// \file   HexViewport.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 8 septembre 2020, 03:59

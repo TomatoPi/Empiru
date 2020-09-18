@@ -20,12 +20,13 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 17 septembre 2020, 17:52
+/// \brief Simple box to store animated sprite related datas
 ///
 
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-/// \brief Base Object used to store rendering information at WorldObject's level
+/// \brief Simple box to store animated sprite related datas
 class Animation {
 private:
   int _frame;   ///< Current frame

@@ -20,6 +20,7 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 16 septembre 2020, 12:48
+/// \brief Provide PeonRenderer Object
 ///
 
 #ifndef PEONRENDERER_H
@@ -31,13 +32,15 @@
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/assets/Animation.h"
 
+/// \brief Renderer assoaciated with peons
 class PeonRenderer : public AbstractRenderer {
 private:
     
+  /// \brief Animation datas are stored for each attached peon
   typedef std::unordered_map<const WorldObject *, Animation> Targets;
   
-  std::unique_ptr<SpriteSheet> _sheet;
-  Targets _targets;
+  std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
+  Targets                      _targets;  ///< Dict of Animation datas
   
 public:
   

@@ -16,10 +16,11 @@
  */
 
 /// 
-/// \file   PeonRenderer.h
+/// \file   GenericRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 11 septembre 2020, 02:27
+/// \brief provide template for basic and generic renderers
 ///
 
 #ifndef GENERICRENDERER_H
@@ -84,5 +85,32 @@ public:
   virtual void removeTarget(const WorldObject *obj) {}
   
 };
+
+/// \brief Put the rectangle 'r' as if (x,y) was tile's center coordinate
+///
+/// \param r  : return computed blit rectangle
+///
+/// \param w  : blit width
+/// \param h  : blit height
+///
+/// \param tw : tile's width on screen
+/// \param th : tile's height on screen
+/// \param x  : tile's center x
+/// \param y  : tile's center y
+///
+class OnTileBlitter {
+public:
+  void operator() (SDL_Rect * rect,
+      int w, int h, int tw, int th, int x, int y) const;
+};
+
+/// \brief Put the rectangle 'r' as if (x,y) was object foot's position
+/// \see void blitTile(SDL_Rect * r, int w, int h, int tw, int th, int x, int y)
+class OnFootBlitter {
+public:
+  void operator() (SDL_Rect * rect,
+      int w, int h, int tw, int th, int x, int y) const;
+};
+
 
 #endif /* GENERICRENDERER_H */

@@ -20,6 +20,7 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 16 septembre 2020, 12:48
+/// \brief Provide PeonRenderer Object
 ///
 
 #include <cassert>

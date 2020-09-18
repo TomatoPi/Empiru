@@ -16,20 +16,21 @@
  */
 
 /// 
-/// \file   WorldRenderer.h
+/// \file   RenderingEngine.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 10 septembre 2020, 14:56
 /// \brief Core object of rendering engine
 ///
 
-#ifndef WORLDRENDERER_H
-#define WORLDRENDERER_H
+#ifndef RENDERENGINE_H
+#define RENDERENGINE_H
 
 #include <typeindex>
 #include <unordered_map>
 #include <map>
 
+#include "utils/math/Position.h"
 #include "utils/hex/HexViewport.h"
 #include "utils/gui/view/Window.h"
 #include "utils/gui/view/AbstractCamera.h"
@@ -40,35 +41,31 @@
 class RenderingEngine {
 private:
   
-  struct ViewPos {
-    int _x, _y;
-    ViewPos(int x, int y);
-  };
+  /// \brief Table used to make the rendering engine blind on what is in the world
+  ///   One must register each kind of object with it associated renderer
+  typedef std::unordered_map<std::type_index, AbstractRenderer*> RendererTable;
+  /// \brief List used to store the sorted list of objects beeing drawn 
+  ///   during this frame
+  /// Sorting is done on ascending y to ensure that objects away from camera
+  ///   are drawn behind
+  typedef std::map<Position, WorldObject*, PosCompareAscY> DrawStack;
   
-  struct ViewPosCompare {
-    bool operator() (const ViewPos & a, const ViewPos & b) const;
-  };
+  Window &                _window;    ///< Obvious
+  const HexViewport &     _worldView; ///< Bridge between game and user
+  const AbstractCamera &  _camera;    ///< View controller
+  const WorldInterface &  _world;     ///< Obvious too
   
-  typedef std::unordered_map<std::type_index, AbstractRenderer*>
-    RendererTable;
-  typedef std::map<ViewPos, WorldObject*, ViewPosCompare> DrawStack;
-  
-  Window *_window;
-  HexViewport *_worldView;
-  AbstractCamera *_camera;
-  WorldInterface *_world;
-  
-  RendererTable _renderers;
-  DrawStack     _drawstack;
+  RendererTable _renderers; ///< Table of {ObjectType, Associated renderer}
+  DrawStack     _drawstack; ///< Ascending Y sorted list of objects beeing drawn during this frame
   
 public:
   
   /// \brief Constructor
   RenderingEngine(
-          Window *w, 
-          HexViewport *c, 
-          AbstractCamera *ac,
-          WorldInterface *wo);
+      Window &               win,
+      const HexViewport &    vp,
+      const AbstractCamera & cam,
+      const WorldInterface & wo);
   
   /// \brief Add a new renderer associated with given WorldObject type
   void attachRenderer(const std::type_info & info, AbstractRenderer* rdr);
@@ -77,4 +74,4 @@ public:
   void render();
 };
 
-#endif /* WORLDRENDERER_H */
+#endif /* RENDERENGINE_H */

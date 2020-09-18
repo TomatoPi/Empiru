@@ -20,16 +20,17 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 8 septembre 2020, 05:04
+/// \brief Utility file for create window and associated renderer
 ///
 
 #include "Window.h"
 
 #include <SDL2/SDL.h>
 #include <cassert>
-#include <new>
 
 #include "utils/log.h"
 
+/// \brief Constructor
 Window::Window(
         SDL_Window *window, 
         SDL_Renderer *renderer, 
@@ -41,41 +42,49 @@ height(h)
 {
 }
 
+/// \brief Create the window and a renderer
+/// \param width : window's width
+/// \param height : window's height
+/// \return NULL on failure
 Window * Window::createWindow(int width, int height) {
   SDL_Window *window;
   SDL_Renderer *renderer;
-  /* initialisation de la SDL */
+  /* initialize SDL */
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     LOG_ERROR("Failed Init SDL : %s\n", SDL_GetError());
     return NULL;
   }
-  /* creation de la fenetre */
-  window = SDL_CreateWindow("Foobar2221", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+  /* create window */
+  window = SDL_CreateWindow("Empiru", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
   if (!window) {
     LOG_ERROR("Failed Create Window : %s\n", SDL_GetError());
     return NULL;
   }
-  /* creation du renderer principal */
+  /* create main renderer */
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
   if (!renderer) {
     LOG_ERROR("Failed Create Renderer : %s\n", SDL_GetError());
     SDL_DestroyWindow(window);
     return NULL;
   }
+  /* done */
   return new Window(window, renderer, width, height);
 }
 
+/// \brief Destructor
 Window::~Window() {
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();
 }
 
+/// \brief Clear the screen
 void Window::clear() {
   SDL_SetRenderDrawColor(renderer, 128, 128, 128, SDL_ALPHA_OPAQUE);
   SDL_RenderClear(renderer);
 }
 
+/// \brief Update the screen
 void Window::update() {
   SDL_RenderPresent(renderer);
 }

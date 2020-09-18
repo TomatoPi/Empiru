@@ -24,24 +24,30 @@
 #include <cassert>
 #include "Tile.h"
 
+/// \brief Constructor
 Tile::Tile() : _content() {
   
 }
 
+/// \brief Add given object to the tile
 void Tile::insert(WorldObject * obj){
   assert(_content.insert(obj).second);
 }
+/// \brief Remove given object from the tile
 void Tile::erase(WorldObject * obj) {
   assert(_content.erase(obj));
 }
   
+/// \brief return true if there is nothing on the tile
 bool Tile::isEmpty() const {
   return 0 == _content.size();
 }
 
+/// \brief return tile's content
 const Tile::Content & Tile::getContent() const{
   return _content;
 }
+/// \brief return tile's content
 Tile::Content & Tile::getContent() {
   return _content;
 }

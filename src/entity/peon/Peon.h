@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
- * File:   peon.h
- * Author: Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
- *
- * Created on 10 septembre 2020, 16:08
- */
-
+/// 
+/// \file   Peon.h
+/// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
+///
+/// \date 10 septembre 2020, 16:08
+/// \brief The ultimate worker, useful to make anything you can think of
+///
 
 #ifndef PEON_H
 #define PEON_H
@@ -30,28 +30,33 @@
 #include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
 
+/// \brief The ultimate worker, useful to make anything you can think of
+/// \todo revise the path system
 class Peon : public WorldObject {
-  private:
-    
-    typedef std::deque<FlatHexPosition> Path;
-    
-    Path            _path;
-    FlatHexPosition _dir;
-    
-  public:
-    
-    Peon(const FlatHexPosition & pos);
-    
-    std::string toString() const;
+private:
 
-    const FlatHexPosition & target() const;
-    const FlatHexPosition & direction() const;
-    
-    bool hasPath() const;
-    void clearPath();
-    void addStep(const FlatHexPosition & pos);
-    void beginStep();
-    void endstep();
+  /// \brief Store the list of targets positions, used as a stack
+  typedef std::deque<FlatHexPosition> Path;
+
+  Path            _path; ///< stack of in comming positions
+  FlatHexPosition _dir;  ///< Peon's orientation
+
+public:
+
+  /// \brief Constructor
+  Peon(const FlatHexPosition & pos);
+
+  /// \brief Return current peon's target
+  /// \pre peon has a target (path not empty)
+  const FlatHexPosition & target() const;
+  /// \brief Return current peon's orientation
+  const FlatHexPosition & direction() const;
+
+  bool hasPath() const;                       ///< true if path is not empty
+  void clearPath();                           ///< remove all path's steps
+  void addStep(const FlatHexPosition & pos);  ///< add pos on top of path
+  void beginStep();                           ///< set dir according to top step
+  void endstep();                             ///< remove top step
 };
 
 #endif /* PEON_H */

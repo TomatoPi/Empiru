@@ -16,30 +16,28 @@
  */
 
 /// 
-/// \file   SpriteAsset.cpp
+/// \file   Position.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 15 septembre 2020, 13:41
-/// \brief Utility file for loading and auto cut of sprite sheets
-/// \todo Maybe not useful, might be removed and replaced by a function
-///   to load sheet by specifying sprite dimension
+/// \date 18 septembre 2020, 09:09
+/// \brief Provide utils for 2D carthesian coordinates
 ///
 
-#include "SpriteAsset.h"
+#ifndef POSITION_H
+#define POSITION_H
 
-/// \brief Load a sheet from given file and auto cut it in 6 colums
-///   and squared sprites
-std::unique_ptr<SpriteSheet> SpriteAsset::loadFromFile(
-  const char *path, 
-  SDL_Renderer *rdr)
-{
-  // Load the sprite
-  auto sheet(SpriteSheet::loadFromFile(path, 1, 1, rdr));
-  if (!sheet) return nullptr;
-  // Recut the sheet
-  int width(sheet->width() / 6), rows;
-  rows = sheet->height() / width;
-  if (sheet->recut(rows, 6)) return nullptr;
-  // done
-  return sheet;
-}
+/// \brief Integeer 2D coordinates
+struct Position {
+  int _x, _y;
+  Position(int x, int y);
+};
+
+/// \brief Functor that return true if a.y is smaller than b.y 
+///   or y' are equals and x' smaller
+/// Useful to use Position as Key in ordered containers
+///   Resulting an ascending sort on Y coordinate
+struct PosCompareAscY {
+  bool operator() (const Position & a, const Position & b) const;
+};
+
+#endif /* POSITION_H */

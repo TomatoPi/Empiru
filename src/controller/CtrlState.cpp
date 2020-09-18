@@ -43,6 +43,6 @@ void ControllerState::deselectPeon() {
 }
 
 /// \brief Return selected peon or nullptr if no selection
-Peon * ControllerState::selectedPeon(){
+Peon * ControllerState::selectedPeon() {
   return _selectedPeon;
 }

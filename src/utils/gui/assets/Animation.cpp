@@ -20,6 +20,7 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 17 septembre 2020, 17:52
+/// \brief Simple box to store animated sprite related datas
 ///
 
 #include "Animation.h"

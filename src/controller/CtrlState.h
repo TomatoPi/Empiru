@@ -20,10 +20,11 @@
 /// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
 ///
 /// \date 10 septembre 2020, 17:18
+/// \brief Provide state machine for game controller
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef CONTROLLERSTATE_H
+#define CONTROLLERSTATE_H
 
 #include <SDL2/SDL_events.h>
 #include "entity/peon/Peon.h"
@@ -48,4 +49,4 @@ class ControllerState {
     Peon * selectedPeon();
 };
 
-#endif /* CONTROLLER_H */
+#endif /* CONTROLLERSTATE_H */

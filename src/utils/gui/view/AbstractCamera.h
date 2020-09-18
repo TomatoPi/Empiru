@@ -16,14 +16,14 @@
  */
 
 /// 
-/// \file   Camera.h
+/// \file   AbstractCamera.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 11 septembre 2020, 17:15
 ///
 
-#ifndef CAMERAINTERFACE_H
-#define CAMERAINTERFACE_H
+#ifndef ABSTRACTCAMERA_H
+#define ABSTRACTCAMERA_H
 
 class AbstractCamera {
 private:
@@ -52,7 +52,7 @@ public:
   void rotateRight(); ///< Rotation of 60° to the right
   void rotateLeft(); ///< Rotation of 60° to the left
   
-  int getOrientation(); ///< Get the camera orientation between 0 and 5 (included)
+  int getOrientation() const; ///< Get the camera orientation in [0,_nors[
   
 protected:
   
@@ -72,4 +72,4 @@ protected:
   virtual void doRotateRight() = 0;
 };
 
-#endif /* CAMERAINTERFACE_H */
+#endif /* ABSTRACTCAMERA_H */

@@ -20,6 +20,7 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 11 septembre 2020, 17:13
+/// \brief Effective implementation of in-game camera
 ///
 
 #ifndef CAMERA_H
@@ -28,6 +29,7 @@
 #include "utils/hex/HexViewport.h"
 #include "utils/gui/view/AbstractCamera.h"
 
+/// \brief Effective implementation of in-game camera
 class Camera : public AbstractCamera, public HexViewport {
 private:
   
@@ -40,8 +42,13 @@ private:
 public:
   
   /// \brief Constructor of Concrete camera
-  /// \param worldWidth : World's width in tile count
-  /// \param worldHeight: World height in tile count
+  ///
+  /// \param tileWidth    : Tile's width on screen  (px) 
+  /// \param tileHeight   : Tile's height on screen (px)
+  /// \param viewWidth    : View's width            (px)
+  /// \param viewHeight   : View's height           (px)
+  /// \param worldWidth   : World's width           (tile)
+  /// \param worldHeight  : World's height          (tile)
   Camera(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,

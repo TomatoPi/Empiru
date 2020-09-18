@@ -20,6 +20,7 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 14 septembre 2020, 12:49
+/// \brief Skeleton of Rendering objects
 ///
 
 #ifndef ABSTRACTRENDERER_H
@@ -29,6 +30,7 @@
 #include "utils/world/WorldObject.h"
 #include <SDL2/SDL_render.h>
 
+/// \brief Renderers are classes that know how to draw world objects
 class AbstractRenderer {
 public:
   
@@ -52,32 +54,6 @@ public:
   ///  may dealocate corresponding datas
   virtual void removeTarget(const WorldObject *obj) = 0;
   
-};
-
-/// \brief Put the rectangle 'r' as if (x,y) was tile's center coordinate
-///
-/// \param r  : return computed blit rectangle
-///
-/// \param w  : blit width
-/// \param h  : blit height
-///
-/// \param tw : tile's width on screen
-/// \param th : tile's height on screen
-/// \param x  : tile's center x
-/// \param y  : tile's center y
-///
-class TileBlitter {
-public:
-  void operator() (SDL_Rect * rect,
-      int w, int h, int tw, int th, int x, int y) const;
-};
-
-/// \brief Put the rectangle 'r' as if (x,y) was object foot's position
-/// \see void blitTile(SDL_Rect * r, int w, int h, int tw, int th, int x, int y)
-class FootBlitter {
-public:
-  void operator() (SDL_Rect * rect,
-      int w, int h, int tw, int th, int x, int y) const;
 };
 
 #endif /* ABSTRACTRENDERER_H */

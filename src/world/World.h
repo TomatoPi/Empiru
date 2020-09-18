@@ -40,21 +40,26 @@ private :
   
   typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
   
-  int _mapWidth;
-  int _mapHeight;
-  ObjList _map;
+  int _mapWidth;  ///< Horizontal tile count
+  int _mapHeight; ///< Verical tile count
+  ObjList _map;   ///< Hollow matrix of world content
  
 public :
+  
   /// \brief Constructor
   /// \param mapHeight : Height of the map (number of hexs)
   /// \param mapWidth : Width of the map (number of hexs)
   World(int mapWidth, int mapHeight);
   
+  /// \brief Must add given object to the world
   virtual void addObject(WorldObject * obj);
+  /// \brief Must remove given object fro the world
   virtual void removeObject(WorldObject * obj);
   
+  /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const;
   
+  /// \brief Must return true if given pos is on the map
   virtual bool isOnMap(const FlatHexPosition & pos) const;
 };
 

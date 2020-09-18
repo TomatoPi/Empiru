@@ -27,14 +27,19 @@
 
 #include "utils/world/Tile.h"
 
+/// \brief Interface that must be used to comunicate with the World
 class WorldInterface {
 public:
   
+  /// \brief Must add given object to the world
   virtual void addObject(WorldObject * obj) = 0;
+  /// \brief Must remove given object fro the world
   virtual void removeObject(WorldObject * obj) = 0;
   
+  /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const = 0;
   
+  /// \brief Must return true if given pos is on the map
   virtual bool isOnMap(const FlatHexPosition & pos) const = 0;
 };
 

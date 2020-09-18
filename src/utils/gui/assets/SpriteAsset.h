@@ -20,6 +20,9 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 15 septembre 2020, 13:41
+/// \brief Utility file for loading and auto cut of sprite sheets
+/// \todo Maybe not useful, might be removed and replaced by a function
+///   to load sheet by specifying sprite dimension
 ///
 
 #ifndef SPRITEASSET_H
@@ -30,7 +33,8 @@
 
 class SpriteAsset {
 public:
-  /// \brief Load an asset from given file
+  /// \brief Load a sheet from given file and auto cut it in 6 colums
+  ///   and squared sprites
   static std::unique_ptr<SpriteSheet> loadFromFile(
     const char *path, 
     SDL_Renderer *rdr);

@@ -20,6 +20,7 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 8 septembre 2020, 04:28
+/// \brief Provide basic object to load and draw sprites using sprite sheet
 ///
 
 #include <cassert>
@@ -31,6 +32,7 @@
 
 #include "utils/log.h"
 
+/// \brief Constructor
 SpriteSheet::SpriteSheet(SDL_Texture *t, 
           int w, int h,
           unsigned int rows, 
@@ -48,10 +50,19 @@ SpriteSheet::SpriteSheet(SDL_Texture *t,
   assert(0 < cols);
 }
 
+/// \brief Destructor
 SpriteSheet::~SpriteSheet() {
   SDL_DestroyTexture(_sheet);
 }
 
+/// \brief Loads a sprite from an image file
+///
+/// \param path : file's path
+/// \param rows : number of frames by row
+/// \param cols : number of frames by column
+/// \param rdr  : SDL_Renderer associated with targeted viewport
+///
+/// \return NULL on failure
 std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
     const char *path, 
     unsigned int rows,
@@ -64,7 +75,7 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
   /* assertions */
   assert(path);
   assert(rdr);
-  /* Chargement du fichier */
+  /* load the file */
   if (nullptr == (rwop = SDL_RWFromFile(path, "rb"))) {
     LOG_WRN("%s : %s\n", path, SDL_GetError());
     return nullptr;
@@ -73,22 +84,31 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
     LOG_WRN("%s : %s\n", path, IMG_GetError());
     return nullptr;
   }
-  /* Conversion Récupération des infos */
+  /* transform image to texture */
   if (nullptr == (texture = SDL_CreateTextureFromSurface(rdr, surface))) {
     LOG_WRN("%s : %s\n", path, SDL_GetError());
     SDL_FreeSurface(surface);
     return nullptr;
   }
   SDL_FreeSurface(surface);
+  /* create the sheet and cut it according to wanted dimensions */
   auto sprite(std::make_unique<SpriteSheet>(texture, 1, 1, rows, cols));
   if (sprite->recut(rows, cols)) {
     sprite.reset();
     return nullptr;
   }
-  /* finitions */
+  /* done */
   return sprite;
 }
 
+/// \brief Render the sprite in given SDL_Rect
+/// 
+/// \param row        : sprite's row on the sheet
+/// \param col        : sprite's column on the sheet
+/// \param renderer   : the thing that draw things
+/// \param dest       : the destination blit rectangle
+///
+/// \return 0 on success, otherwise error code and SDL_error is set
 int SpriteSheet::renderFrame(
   unsigned int row,
   unsigned int col,
@@ -103,20 +123,28 @@ int SpriteSheet::renderFrame(
   return SDL_RenderCopy(rdr, _sheet, &rect, dest);
 }
 
+/// \brief return sprite's width
 int SpriteSheet::width() const {
   return _w;
 }
+/// \brief return sprite's height
 int SpriteSheet::height() const {
   return _h;
 }
 
+/// \brief return number of frames by row on the sheet
 unsigned int SpriteSheet::colCount() const {
   return _cols;
 }
+/// \brief return number of frames by column on the sheet
 unsigned int SpriteSheet::rowCount() const {
   return _rows;
 }
 
+/// \brief change number of frames by rows and by columns on the sheet
+/// \return 0 on success, <0 error code on failure, >0 code if ill formed sheet
+///   anyway the sheet is cut but accessing last (smaller) sprites may cause
+///   undefined behaviour
 int SpriteSheet::recut(unsigned int rows, unsigned int cols) {
   int width, height;
   if (0 != SDL_QueryTexture(_sheet, nullptr, nullptr, &width, &height)) {

@@ -27,6 +27,7 @@
 
 #include "Matrix.h"
 
+/// \brief Basic constructor
 Matrix22::Matrix22(float a, float b, float c, float d) :
   _a(a),
   _b(b),
@@ -35,12 +36,15 @@ Matrix22::Matrix22(float a, float b, float c, float d) :
 {  
 }
 
+/// \brief Matrix multiplication
 Matrix22 Matrix22::operator* (const Matrix22 & A) const {
   return Matrix22(
       _a * A._a + _b * A._c, _a * A._b + _b * A._d,
       _c * A._a + _d * A._c, _c * A._b + _d * A._d);
 }
 
+/// \brief Inverse Matrix
+/// \pre Matrix must be inversible
 Matrix22 Matrix22::inverse() const {
   float det(this->det());
   assert(det != 0);
@@ -48,6 +52,8 @@ Matrix22 Matrix22::inverse() const {
   return Matrix22(_d*det, -_b*det, -_c*det, _a*det);
 }
 
+/// \brief Turn in unitary Matrix (with det = 1)
+/// \pre Matrix must be inversible
 Matrix22 Matrix22::unit() const {
   float det(this->det());
   assert(det != 0);
@@ -55,6 +61,7 @@ Matrix22 Matrix22::unit() const {
   return Matrix22(_a*det, _b*det, _c*det, _d*det);
 }
 
+/// \brief Return matrix's determinant
 float Matrix22::det() const {
   return _a * _d - _b * _c;
 }

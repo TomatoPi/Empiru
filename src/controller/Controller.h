@@ -23,24 +23,23 @@
 /// \brief Core object for user control
 ///
 
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
 
-#include "world/World.h"
+#include "utils/world/WorldInterface.h"
 #include "controller/CtrlState.h"
 
 /// \brief Main handler for user control
-/// \todo Nettoyer le code
 class Controller {
 private:
   
-  World           *_world; ///< THA WORLDOOOOO
-  ControllerState _state;  ///< The game controller
+  WorldInterface & _world; ///< THA WORLDOOOOO
+  ControllerState  _state; ///< The game controller
   
 public:
   
   /// \brief Constructor
-  Controller(World *w);
+  Controller(WorldInterface & w);
   
   /// \brief Called when a left click is performed at given position
   void leftClickAt(const FlatHexPosition & click);
@@ -48,4 +47,4 @@ public:
   void rightClickAt(const FlatHexPosition & click);
 };
 
-#endif /* ENGINE_H */
+#endif /* CONTROLLER_H */
