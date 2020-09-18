@@ -35,17 +35,19 @@
 /// \brief Represent a position on an Hexagonal Grid with flat disposition
 /// \todo Profile conversion and systems usage
 struct FlatHexPosition {
-
-  float _x; ///< Horizontal or RightDown position
-  float _y; ///< Vertical Position
-  float _z; ///< RightUp position in Cubic System
   
+  /// \enum System List of available coordinate systems
   enum System {
     OddQOffset, ///< Odd-q Offset System
     Axial,      ///< Axial System
     Cubic,      ///< Cubic System
     Grid,       ///< Grid System in (0.75w, 0.5h) basis
-  } _type;  ///< Position's Coordinate System
+  };
+
+  float   _x;     ///< Horizontal or RightDown position
+  float   _y;     ///< Vertical Position
+  float   _z;     ///< RightUp position in Cubic System
+  System  _type;  ///< Position's Coordinate System
   
   /// \brief Axial (0,0)
   FlatHexPosition();

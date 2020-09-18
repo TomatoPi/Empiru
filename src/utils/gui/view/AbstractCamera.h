@@ -25,6 +25,7 @@
 #ifndef ABSTRACTCAMERA_H
 #define ABSTRACTCAMERA_H
 
+/// \brief Abstract object used to control a viewport
 class AbstractCamera {
 private:
   

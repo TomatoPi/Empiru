@@ -25,13 +25,15 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-/// \brief 2x2 Matrix class
+/// \brief 2x2 Matrix class with :
+///   M = |a b|
+///       |c d|
 struct Matrix22 {
   
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
+  float _a; ///< a
+  float _b; ///< b
+  float _c; ///< c
+  float _d; ///< d
   
   /// \brief Basic constructor
   Matrix22(float a, float b, float c, float d);

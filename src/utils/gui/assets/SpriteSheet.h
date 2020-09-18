@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   Sprite.h
+/// \file   SpriteSheet.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 8 septembre 2020, 04:28
@@ -66,16 +66,16 @@ public:
   
   /// \brief Render the sprite in given SDL_Rect
   /// 
-  /// \param row        : sprite's row on the sheet
-  /// \param col        : sprite's column on the sheet
-  /// \param renderer   : the thing that draw things
-  /// \param dest       : the destination blit rectangle
+  /// \param row  : sprite's row on the sheet
+  /// \param col  : sprite's column on the sheet
+  /// \param rdr  : the thing that draw things
+  /// \param dest : the destination blit rectangle
   ///
   /// \return 0 on success, otherwise error code and SDL_error is set
   int renderFrame(
     unsigned int row,
     unsigned int col,
-    SDL_Renderer *renderer,
+    SDL_Renderer *rdr,
     const SDL_Rect *dest);
   
   /// \brief return sprite's width

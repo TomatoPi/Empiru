@@ -48,13 +48,14 @@
 
 #include "utils/log.h"
 
-#define FRAMERATE 60
-#define FRAMETIME (1000/FRAMERATE)
-#define AVGFRAME  (2000)
+#define FRAMERATE 60                ///< Target FPS
+#define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
+#define AVGFRAME  (2000)            ///< Interval between FPS prompt (ms)
 
-#define SIZE 8
-#define FACTOR 2
+#define SIZE 8    ///< World size (square world)
+#define FACTOR 2  ///< Magic number scalling window size
 
+/// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);

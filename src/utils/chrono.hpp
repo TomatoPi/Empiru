@@ -27,22 +27,27 @@
 
 #include <chrono>
 
+/// \brief Basic object to measure execution time
 class Chrono
 {
 public:
+  
+  /// \brief start the chrono
   void start() { 
       begin = std::chrono::high_resolution_clock::now(); 
   }
+  /// \brief stop the chrono
   void stop() { 
       end = std::chrono::high_resolution_clock::now(); 
   }
+  /// \brief return ellapsed time between start and stop
   double timeSpan() const { 
       return (std::chrono::duration_cast<std::chrono::duration<double>>(end - begin)).count();  
   }
 
 private:
-  std::chrono::high_resolution_clock::time_point begin;
-  std::chrono::high_resolution_clock::time_point end;
+  std::chrono::high_resolution_clock::time_point begin; ///< Begin timespan
+  std::chrono::high_resolution_clock::time_point end;   ///< End timespan
 };
 
 

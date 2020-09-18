@@ -37,9 +37,7 @@ const FlatHexPosition HexViewport::VIEW_VY(0, 1, FlatHexPosition::Axial);
 /// \param tileWidth  : Tile's width in pixel on viewport
 /// \param tileHeight : Tile's height in pixel on viewport 
 /// \param viewWidth  : View's width in pixel
-/// \param viewHeight : View's height in pixel 
-/// \param worldWidth : World's width in tile count
-/// \param worldHeight: World height in tile count
+/// \param viewHeight : View's height in pixel
 HexViewport::HexViewport(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight) :
@@ -64,7 +62,7 @@ HexViewport::HexViewport(
 
 /// \brief Convert a position on grid to a position on the screen
 /// \param pos : position to convert
-/// \parma x : pixel column
+/// \param x : pixel column
 /// \param y : pixel row
 void HexViewport::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
   assert(x);
@@ -98,18 +96,21 @@ int HexViewport::tileWidth() const {
 
 /// \brief Compute the position of viewport's upLeftCorner
 /// \param res : result in Axial coordinate system
-void HexViewport::upLeftCorner(FlatHexPosition *p) const {
-  assert(p);
-  *p = _pos - _viewport * _rotation;
+void HexViewport::upLeftCorner(FlatHexPosition *res) const {
+  assert(res);
+  *res = _pos - _viewport * _rotation;
 }
+
 /// \brief Return Viewport's x and y vectors in Axis cs
 void HexViewport::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) const {
   *x = _vx;
   *y = _vy;
 }
+/// \brief Screen horizontal axis in world's coordinate
 const FlatHexPosition & HexViewport::viewportVX() const {
   return _vx;
 }
+/// \brief Screen vertical axis in world's coordinate
 const FlatHexPosition & HexViewport::viewportVY() const {
   return _vy;
 }

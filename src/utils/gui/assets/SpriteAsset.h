@@ -31,6 +31,7 @@
 #include <memory>
 #include "utils/gui/assets/SpriteSheet.h"
 
+/// \brief Must be removed
 class SpriteAsset {
 public:
   /// \brief Load a sheet from given file and auto cut it in 6 colums

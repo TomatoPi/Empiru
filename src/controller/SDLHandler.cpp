@@ -25,6 +25,7 @@
 
 #include "SDLHandler.h"
 
+/// \brief Size of border (in pixels) used to scroll view
 #define MERGE 50
 
 /// \brief Constructor
@@ -62,6 +63,7 @@ bool SDLHandler::handleSDLEvents() {
 
 // ---- Keyboard ---- //
 
+/// \brief Handle keydown
 bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
   // Auto reject key repeat
   if (key.repeat) return true;
@@ -91,6 +93,7 @@ bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
   return true;
 }
 
+/// \brief Handle keyup
 bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
   switch(key.keysym.sym) {
   case SDLK_UP:
@@ -107,6 +110,7 @@ bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
 
 // ---- Mouse ---- //
 
+/// \brief Handle Mouse movement
 bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
   return true;
 /*
@@ -133,6 +137,7 @@ bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
 */
 }
 
+/// \brief Handle mouse button down
 bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   
   FlatHexPosition pos;

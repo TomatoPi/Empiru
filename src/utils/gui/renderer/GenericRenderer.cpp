@@ -27,15 +27,15 @@
 
 /// \brief Put the rectangle 'r' as if (x,y) was tile's center coordinate
 ///
-/// \param r  : return computed blit rectangle
+///   rect : return computed blit rectangle
 ///
-/// \param w  : blit width
-/// \param h  : blit height
+///   w    : blit width
+///   h    : blit height
 ///
-/// \param tw : tile's width on screen
-/// \param th : tile's height on screen
-/// \param x  : tile's center x
-/// \param y  : tile's center y
+///   tw   : tile's width on screen
+///   th   : tile's height on screen
+///   x    : tile's center x
+///   y    : tile's center y
 ///
 void OnTileBlitter::operator() (SDL_Rect * rect, 
     int w, int h, int tw, int th, int x, int y)

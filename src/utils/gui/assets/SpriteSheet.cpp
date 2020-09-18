@@ -103,10 +103,10 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
 
 /// \brief Render the sprite in given SDL_Rect
 /// 
-/// \param row        : sprite's row on the sheet
-/// \param col        : sprite's column on the sheet
-/// \param renderer   : the thing that draw things
-/// \param dest       : the destination blit rectangle
+/// \param row  : sprite's row on the sheet
+/// \param col  : sprite's column on the sheet
+/// \param rdr  : the thing that draw things
+/// \param dest : the destination blit rectangle
 ///
 /// \return 0 on success, otherwise error code and SDL_error is set
 int SpriteSheet::renderFrame(

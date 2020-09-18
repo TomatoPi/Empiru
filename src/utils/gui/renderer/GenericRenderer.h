@@ -38,22 +38,22 @@
 ///
 /// with :
 ///
-///   r  : return computed blit rectangle
+///   rect : return computed blit rectangle
 ///
-///   w  : blit width
-///   h  : blit height
+///   w    : blit width
+///   h    : blit height
 ///
-///   tw : tile's width on screen
-///   th : tile's height on screen
-///   x  : tile's center x
-///   y  : tile's center y
+///   tw   : tile's width on screen
+///   th   : tile's height on screen
+///   x    : tile's center x
+///   y    : tile's center y
 ///
 template <typename Blitter>
 class GenericRenderer : public AbstractRenderer {  
 protected:
   
-  std::unique_ptr<SpriteSheet> _sheet;
-  Blitter                      _blitter;
+  std::unique_ptr<SpriteSheet> _sheet;    ///< The sprite sheet
+  Blitter                      _blitter;  ///< The blitter
   
 public:
 

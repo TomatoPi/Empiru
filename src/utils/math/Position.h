@@ -28,7 +28,8 @@
 
 /// \brief Integeer 2D coordinates
 struct Position {
-  int _x, _y;
+  int _x; ///< Abscissa
+  int _y; ///< Ordinate
   Position(int x, int y);
 };
 
