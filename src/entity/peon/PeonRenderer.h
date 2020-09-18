@@ -25,15 +25,18 @@
 #ifndef PEONRENDERER_H
 #define PEONRENDERER_H
 
+#include <memory>
 #include <unordered_map>
 #include "utils/gui/Animation.h"
-#include "gui/SmallObjectRenderer.h"
+#include "utils/gui/AbstractRenderer.h"
+#include "utils/gui/SpriteSheet.h"
 
-class PeonRenderer : public SmallObjectRenderer {
+class PeonRenderer : public AbstractRenderer {
 private:
     
   typedef std::unordered_map<const WorldObject *, Animation> Targets;
   
+  std::unique_ptr<SpriteSheet> _sheet;
   Targets _targets;
   
 public:
@@ -42,7 +45,11 @@ public:
   PeonRenderer(std::unique_ptr<SpriteSheet> s);
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr);
+  virtual int renderAt(
+    const WorldObject * obj, 
+    int ori, int x, int y,
+    const HexViewport & view,
+    SDL_Renderer *rdr);
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state

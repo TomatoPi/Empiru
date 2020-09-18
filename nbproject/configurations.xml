@@ -48,12 +48,6 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="gui" displayName="gui" projectFiles="true">
-        <logicalFolder name="f1" displayName="Renderer" projectFiles="true">
-          <itemPath>src/gui/SmallObjectRenderer.cpp</itemPath>
-          <itemPath>src/gui/SmallObjectRenderer.h</itemPath>
-          <itemPath>src/gui/TiledObjectRenderer.cpp</itemPath>
-          <itemPath>src/gui/TiledObjectRenderer.h</itemPath>
-        </logicalFolder>
         <itemPath>src/gui/Camera.cpp</itemPath>
         <itemPath>src/gui/Camera.h</itemPath>
         <itemPath>src/gui/RenderingEngine.cpp</itemPath>
@@ -61,18 +55,25 @@
       </logicalFolder>
       <logicalFolder name="utils" displayName="utils" projectFiles="true">
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
-          <itemPath>src/utils/gui/AbstractCamera.cpp</itemPath>
-          <itemPath>src/utils/gui/AbstractCamera.h</itemPath>
-          <itemPath>src/utils/gui/AbstractRenderer.cpp</itemPath>
-          <itemPath>src/utils/gui/AbstractRenderer.h</itemPath>
-          <itemPath>src/utils/gui/Animation.cpp</itemPath>
-          <itemPath>src/utils/gui/Animation.h</itemPath>
-          <itemPath>src/utils/gui/SpriteAsset.cpp</itemPath>
-          <itemPath>src/utils/gui/SpriteAsset.h</itemPath>
-          <itemPath>src/utils/gui/SpriteSheet.cpp</itemPath>
-          <itemPath>src/utils/gui/SpriteSheet.h</itemPath>
-          <itemPath>src/utils/gui/Window.cpp</itemPath>
-          <itemPath>src/utils/gui/Window.h</itemPath>
+          <logicalFolder name="f3" displayName="assets" projectFiles="true">
+            <itemPath>src/utils/gui/Animation.cpp</itemPath>
+            <itemPath>src/utils/gui/Animation.h</itemPath>
+            <itemPath>src/utils/gui/SpriteAsset.cpp</itemPath>
+            <itemPath>src/utils/gui/SpriteAsset.h</itemPath>
+            <itemPath>src/utils/gui/SpriteSheet.cpp</itemPath>
+            <itemPath>src/utils/gui/SpriteSheet.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f1" displayName="renderer" projectFiles="true">
+            <itemPath>src/utils/gui/AbstractRenderer.cpp</itemPath>
+            <itemPath>src/utils/gui/AbstractRenderer.h</itemPath>
+            <itemPath>src/gui/GenericRenderer.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="view" projectFiles="true">
+            <itemPath>src/utils/gui/AbstractCamera.cpp</itemPath>
+            <itemPath>src/utils/gui/AbstractCamera.h</itemPath>
+            <itemPath>src/utils/gui/Window.cpp</itemPath>
+            <itemPath>src/utils/gui/Window.h</itemPath>
+          </logicalFolder>
         </logicalFolder>
         <logicalFolder name="hex" displayName="hex" projectFiles="true">
           <itemPath>src/utils/hex/HexConsts.h</itemPath>
@@ -263,17 +264,11 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -480,17 +475,11 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -692,17 +681,11 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -905,17 +888,11 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.cpp" ex="false" tool="1" flavor2="11">
-      </item>
-      <item path="src/gui/SmallObjectRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.cpp" ex="false" tool="1" flavor2="11">
-      </item>
-      <item path="src/gui/TiledObjectRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
       </item>

@@ -50,7 +50,7 @@ void GameEngine::peonTick(Peon *peon) {
   // Pass if nothing to do
   if (!peon->hasPath()) return;
   // Let's get it started
-  FlatHexPosition oldpos(peon->pos());
+  const FlatHexPosition oldpos(peon->pos());
   // If target is reached we're done
   if (FlatHexPosition::distance(oldpos, peon->target()) < 0.02) {
     peon->endstep();
@@ -83,7 +83,7 @@ void GameEngine::peonTick(Peon *peon) {
         {
           esc = esc2;
         }
-        peon->pos(oldpos);
+        peon->pos(oldpos + collide * 0.01);
         peon->addStep(oldpos + esc * obstacle->radius() * 2);
         peon->beginStep();
         validMove = true;
@@ -91,19 +91,20 @@ void GameEngine::peonTick(Peon *peon) {
     }
     if (validMove) {
       // If tile has changed move peon
-      if (oldpos.tile() != peon->pos().tile()) {
+      /// \bug Sometimes, tile is changed without passing this condition ...
+      //if (oldpos.tile() != peon->pos().tile()) {
         FlatHexPosition tmp(peon->pos());
         peon->pos(oldpos);
         _world->removeObject(peon);
         peon->pos(tmp);
         _world->addObject(peon);
-      }
+      //}
     } else {
       /// \todo Add notification if impossible path
       peon->pos(oldpos);
       peon->clearPath();
     }
-  }
+  } /* else compute one step */
 }
 
 bool GameEngine::tryPosition(Peon *peon, WorldObject **obstacle) const {

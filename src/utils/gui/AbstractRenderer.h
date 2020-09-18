@@ -25,34 +25,59 @@
 #ifndef ABSTRACTRENDERER_H
 #define ABSTRACTRENDERER_H
 
+#include "utils/hex/HexViewport.h"
 #include "utils/world/WorldObject.h"
-#include "utils/gui/SpriteSheet.h"
 #include <SDL2/SDL_render.h>
 
 class AbstractRenderer {
-protected:
-  
-  std::unique_ptr<SpriteSheet> _sheet;
-  
 public:
   
   /// \brief Render the object at given position
+  /// \param obj : the object beeing rendered
   /// \param ori : curent camera's orientation
   /// \param x   : object's x position on screen
   /// \param y   : object's y position on screen
+  /// \param view: rendering viewport
   /// \param rdr : renderer
-  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) = 0;
+  virtual int renderAt(
+    const WorldObject * obj, 
+    int ori, int x, int y,
+    const HexViewport & view,
+    SDL_Renderer *rdr) = 0;
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldObject *obj);
+  virtual void addTarget(const WorldObject *obj) = 0;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldObject *obj);
+  virtual void removeTarget(const WorldObject *obj) = 0;
   
-protected:
-  
-  AbstractRenderer(std::unique_ptr<SpriteSheet> sheet);
+};
+
+/// \brief Put the rectangle 'r' as if (x,y) was tile's center coordinate
+///
+/// \param r  : return computed blit rectangle
+///
+/// \param w  : blit width
+/// \param h  : blit height
+///
+/// \param tw : tile's width on screen
+/// \param th : tile's height on screen
+/// \param x  : tile's center x
+/// \param y  : tile's center y
+///
+class TileBlitter {
+public:
+  void operator() (SDL_Rect * rect,
+      int w, int h, int tw, int th, int x, int y) const;
+};
+
+/// \brief Put the rectangle 'r' as if (x,y) was object foot's position
+/// \see void blitTile(SDL_Rect * r, int w, int h, int tw, int th, int x, int y)
+class FootBlitter {
+public:
+  void operator() (SDL_Rect * rect,
+      int w, int h, int tw, int th, int x, int y) const;
 };
 
 #endif /* ABSTRACTRENDERER_H */

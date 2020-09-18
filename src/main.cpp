@@ -29,8 +29,8 @@
 #include "utils/gui/SpriteAsset.h"
 #include "utils/gui/Window.h"
 #include "gui/RenderingEngine.h"
-#include "gui/TiledObjectRenderer.h"
 #include "entity/peon/PeonRenderer.h"
+#include "gui/GenericRenderer.h"
 
 #include <SDL2/SDL_timer.h>
 //#include <SDL2/SDL_mixer.h>
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
-  auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto peonSprite = SpriteAsset::loadFromFile("medias/peonhouette_palette_animation.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/blue_berry_tree.png", window->renderer);
   
   Peon peon1(FlatHexPosition(0,0,FlatHexPosition::Axial));
@@ -78,9 +78,8 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE);
   
-  
-  TiledObjectRenderer tilerdr(&camera, std::move(groundSprite));
-  SmallObjectRenderer treerdr(std::move(treeSprite));
+  GenericRenderer<TileBlitter> tilerdr(std::move(groundSprite));
+  GenericRenderer<FootBlitter> treerdr(std::move(treeSprite));
   PeonRenderer prdr(std::move(peonSprite));
   
   prdr.addTarget(&peon1);

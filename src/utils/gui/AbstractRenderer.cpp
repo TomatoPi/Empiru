@@ -24,20 +24,32 @@
 
 #include "AbstractRenderer.h"
 
-
-AbstractRenderer::AbstractRenderer(std::unique_ptr<SpriteSheet> sheet) : 
-  _sheet(std::move(sheet))
-{
-  
+/// \brief Put the rectangle 'r' as if (x,y) was tile's center coordinate
+///
+/// \param r  : return computed blit rectangle
+///
+/// \param w  : blit width
+/// \param h  : blit height
+///
+/// \param tw : tile's width on screen
+/// \param th : tile's height on screen
+/// \param x  : tile's center x
+/// \param y  : tile's center y
+///
+void TileBlitter::operator() (SDL_Rect * rect, 
+    int w, int h, int tw, int th, int x, int y)
+const {
+  rect->w = w, rect->h = h;
+  rect->x = x - rect->w/2;
+  rect->y = y + th/2 - rect->h;
 }
 
-/// \brief Called when a new object associated with this renderer is created
-///  may instanciate fine scope datas, like animation state
-void AbstractRenderer::addTarget(const WorldObject *obj) {
-  
-}
-/// \brief Called when an object associated with this renderer is destroyed
-///  may dealocate corresponding datas
-void AbstractRenderer::removeTarget(const WorldObject *obj) {
-  
+/// \brief Put the rectangle 'r' as if (x,y) was object foot's position
+/// \see void blitTile(SDL_Rect * r, int w, int h, int tw, int th, int x, int y)
+void FootBlitter::operator() (SDL_Rect * rect, 
+    int w, int h, int tw, int th, int x, int y)
+const {
+  rect->w = w, rect->h = h;
+  rect->x = x - rect->w/2;
+  rect->y = y - rect->h;
 }

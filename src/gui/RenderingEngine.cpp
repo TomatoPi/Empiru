@@ -95,7 +95,7 @@ void RenderingEngine::render() {
       if (_world->isOnMap(pos)) {
         _worldView->toPixel(pos.toTile(), &x, &y);
         if (tilerdr->renderAt(nullptr, _camera->getOrientation(), 
-            x, y, _window->renderer)) 
+            x, y, *_worldView, _window->renderer)) 
         {
           LOG_WRN("%s\n", SDL_GetError());
           OUPS();
@@ -118,6 +118,6 @@ void RenderingEngine::render() {
     _renderers.find(std::type_index(typeid(*obj)))->second->renderAt(
         obj,
         _camera->getOrientation(), 
-        itr.first._x, itr.first._y, _window->renderer);
+        itr.first._x, itr.first._y, *_worldView, _window->renderer);
   }
 }
