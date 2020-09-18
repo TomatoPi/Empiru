@@ -27,7 +27,7 @@
 #define GAMEENGINE_H
 
 #include "world/World.h"
-#include "entity/Peon.h"
+#include "entity/peon/Peon.h"
 #include <unordered_set>
 
 class GameEngine {

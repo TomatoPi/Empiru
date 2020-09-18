@@ -28,7 +28,6 @@
 
 #include <memory>
 #include <SDL2/SDL_render.h>
-#include <SDL2/SDL_surface.h>
 
 /// \brief Provide basic object to load and draw sprites
 class SpriteSheet {

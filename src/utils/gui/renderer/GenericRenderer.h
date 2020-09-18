@@ -26,8 +26,8 @@
 #define GENERICRENDERER_H
 
 #include <memory>
-#include "utils/gui/AbstractRenderer.h"
-#include "utils/gui/SpriteSheet.h"
+#include "utils/gui/renderer/AbstractRenderer.h"
+#include "utils/gui/assets/SpriteSheet.h"
 
 /// \brief Generic renderer parameterized by the functor used to compute
 ///   blit coordinates

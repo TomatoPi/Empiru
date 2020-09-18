@@ -25,7 +25,7 @@
 #include <cassert>
 
 #include "PeonRenderer.h"
-#include "entity/Peon.h"
+#include "entity/peon/Peon.h"
 
 /// Constructor
 PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) : 

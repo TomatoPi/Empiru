@@ -26,7 +26,7 @@
 #define SPRITEASSET_H
 
 #include <memory>
-#include "utils/gui/SpriteSheet.h"
+#include "utils/gui/assets/SpriteSheet.h"
 
 class SpriteAsset {
 public:

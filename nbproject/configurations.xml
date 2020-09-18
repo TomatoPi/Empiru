@@ -37,8 +37,8 @@
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
         <logicalFolder name="f1" displayName="peon" projectFiles="true">
-          <itemPath>src/entity/Peon.cpp</itemPath>
-          <itemPath>src/entity/Peon.h</itemPath>
+          <itemPath>src/entity/peon/Peon.cpp</itemPath>
+          <itemPath>src/entity/peon/Peon.h</itemPath>
           <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
           <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
         </logicalFolder>
@@ -56,23 +56,23 @@
       <logicalFolder name="utils" displayName="utils" projectFiles="true">
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
           <logicalFolder name="f3" displayName="assets" projectFiles="true">
-            <itemPath>src/utils/gui/Animation.cpp</itemPath>
-            <itemPath>src/utils/gui/Animation.h</itemPath>
-            <itemPath>src/utils/gui/SpriteAsset.cpp</itemPath>
-            <itemPath>src/utils/gui/SpriteAsset.h</itemPath>
-            <itemPath>src/utils/gui/SpriteSheet.cpp</itemPath>
-            <itemPath>src/utils/gui/SpriteSheet.h</itemPath>
+            <itemPath>src/utils/gui/assets/Animation.cpp</itemPath>
+            <itemPath>src/utils/gui/assets/Animation.h</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteAsset.cpp</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteAsset.h</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteSheet.cpp</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteSheet.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="renderer" projectFiles="true">
-            <itemPath>src/utils/gui/AbstractRenderer.cpp</itemPath>
-            <itemPath>src/utils/gui/AbstractRenderer.h</itemPath>
-            <itemPath>src/gui/GenericRenderer.h</itemPath>
+            <itemPath>src/utils/gui/renderer/AbstractRenderer.cpp</itemPath>
+            <itemPath>src/utils/gui/renderer/AbstractRenderer.h</itemPath>
+            <itemPath>src/utils/gui/renderer/GenericRenderer.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="view" projectFiles="true">
-            <itemPath>src/utils/gui/AbstractCamera.cpp</itemPath>
-            <itemPath>src/utils/gui/AbstractCamera.h</itemPath>
-            <itemPath>src/utils/gui/Window.cpp</itemPath>
-            <itemPath>src/utils/gui/Window.h</itemPath>
+            <itemPath>src/utils/gui/view/AbstractCamera.cpp</itemPath>
+            <itemPath>src/utils/gui/view/AbstractCamera.h</itemPath>
+            <itemPath>src/utils/gui/view/Window.cpp</itemPath>
+            <itemPath>src/utils/gui/view/Window.h</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="hex" displayName="hex" projectFiles="true">
@@ -248,9 +248,9 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -264,8 +264,6 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
@@ -274,29 +272,52 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -459,9 +480,9 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -475,8 +496,6 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
@@ -485,29 +504,52 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -665,9 +707,9 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -681,8 +723,6 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
@@ -691,29 +731,52 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -872,9 +935,9 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/Peon.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="11">
       </item>
-      <item path="src/entity/Peon.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -888,8 +951,6 @@
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
@@ -898,32 +959,52 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.cpp"
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
             ex="false"
             tool="1"
             flavor2="11">
       </item>
-      <item path="src/utils/gui/AbstractRenderer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Animation.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
       </item>
-      <item path="src/utils/gui/Animation.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteAsset.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/utils/gui/renderer/AbstractRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
       </item>
-      <item path="src/utils/gui/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/SpriteSheet.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
       </item>
-      <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
       </item>

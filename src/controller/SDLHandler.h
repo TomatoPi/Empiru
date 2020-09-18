@@ -29,7 +29,7 @@
 
 #include <SDL2/SDL_events.h>
 
-#include "utils/gui/AbstractCamera.h"
+#include "utils/gui/view/AbstractCamera.h"
 #include "utils/hex/HexViewport.h"
 #include "controller/Controller.h"
 

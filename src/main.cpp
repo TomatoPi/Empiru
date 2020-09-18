@@ -24,25 +24,29 @@
 
 #include <cstdlib>
 
-#include "gui/Camera.h"
-#include "utils/gui/SpriteSheet.h"
-#include "utils/gui/SpriteAsset.h"
-#include "utils/gui/Window.h"
-#include "gui/RenderingEngine.h"
-#include "entity/peon/PeonRenderer.h"
-#include "gui/GenericRenderer.h"
-
 #include <SDL2/SDL_timer.h>
 //#include <SDL2/SDL_mixer.h>
 
-#include "utils/log.h"
-#include "entity/Peon.h"
+#include "gui/Camera.h"
+#include "utils/gui/assets/SpriteSheet.h"
+#include "utils/gui/assets/SpriteAsset.h"
+#include "utils/gui/renderer/GenericRenderer.h"
+#include "utils/gui/view/Window.h"
+#include "gui/RenderingEngine.h"
+
+#include "entity/peon/Peon.h"
+#include "entity/peon/PeonRenderer.h"
+
 #include "entity/tree/Tree.h"
+
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
+
 #include "engine/GameEngine.h"
+
+#include "utils/log.h"
 
 #define FRAMERATE 60
 #define FRAMETIME (1000/FRAMERATE)
@@ -54,7 +58,7 @@
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  auto groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
+  auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
   auto peonSprite = SpriteAsset::loadFromFile("medias/peonhouette_palette_animation.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/blue_berry_tree.png", window->renderer);
   

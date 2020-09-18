@@ -25,6 +25,7 @@
 #include <cassert>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_rwops.h>
+#include <SDL2/SDL_surface.h>
 
 #include "SpriteSheet.h"
 

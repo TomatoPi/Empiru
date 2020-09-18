@@ -26,7 +26,7 @@
 #define CAMERA_H
 
 #include "utils/hex/HexViewport.h"
-#include "utils/gui/AbstractCamera.h"
+#include "utils/gui/view/AbstractCamera.h"
 
 class Camera : public AbstractCamera, public HexViewport {
 private:

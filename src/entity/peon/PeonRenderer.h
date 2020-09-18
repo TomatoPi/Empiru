@@ -27,9 +27,9 @@
 
 #include <memory>
 #include <unordered_map>
-#include "utils/gui/Animation.h"
-#include "utils/gui/AbstractRenderer.h"
-#include "utils/gui/SpriteSheet.h"
+#include "utils/gui/renderer/AbstractRenderer.h"
+#include "utils/gui/assets/SpriteSheet.h"
+#include "utils/gui/assets/Animation.h"
 
 class PeonRenderer : public AbstractRenderer {
 private:

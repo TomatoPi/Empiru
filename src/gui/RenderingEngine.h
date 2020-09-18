@@ -29,12 +29,11 @@
 #include <typeindex>
 #include <unordered_map>
 #include <map>
-#include <memory>
 
-#include "utils/gui/Window.h"
 #include "utils/hex/HexViewport.h"
-#include "utils/gui/AbstractRenderer.h"
-#include "utils/gui/AbstractCamera.h"
+#include "utils/gui/view/Window.h"
+#include "utils/gui/view/AbstractCamera.h"
+#include "utils/gui/renderer/AbstractRenderer.h"
 #include "utils/world/WorldInterface.h"
 
 /// \brief Object responsible of Game rendering
