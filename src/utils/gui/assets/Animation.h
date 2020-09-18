@@ -16,24 +16,34 @@
  */
 
 /// 
-/// \file   SpriteAsset.h
+/// \file   Animation.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 15 septembre 2020, 13:41
+/// \date 17 septembre 2020, 17:52
+/// \brief Simple box to store animated sprite related datas
 ///
 
-#ifndef SPRITEASSET_H
-#define SPRITEASSET_H
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
-#include <memory>
-#include "utils/gui/SpriteSheet.h"
-
-class SpriteAsset {
+/// \brief Simple box to store animated sprite related datas
+class Animation {
+private:
+  int _frame;   ///< Current frame
+  int _length;  ///< Total frames count
+  int _delay;   ///< Duration of a frame in ticks
+  int _cptr;    ///< Current frame counter
 public:
-  /// \brief Load an asset from given file
-  static std::unique_ptr<SpriteSheet> loadFromFile(
-    const char *path, 
-    SDL_Renderer *rdr);
+  
+  /// \brief Create an animation
+  /// \param length : frames count
+  /// \param delay  : frame duration
+  Animation(int length, int delay);
+  
+  /// \brief Update animation's counter and return current frame index
+  int update();
+  /// \brief Reset animation to initial frame and return 0
+  int restart();
 };
 
-#endif /* SPRITEASSET_H */
+#endif /* ANIMATION_H */

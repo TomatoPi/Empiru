@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   HexCamera.h
+/// \file   HexViewport.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 8 septembre 2020, 03:59
@@ -30,12 +30,11 @@
 #include "utils/math/Matrix.h"
 
 /// \brief Utility object containing position, orientation and zoom of the camera
-/// \todo Create one or two interface / abstract classes to make external code independant of final implementation
 class HexViewport {
 public:
   
-  static constexpr int HEXAGON_WIDTH  = 254;
-  static constexpr int HEXAGON_HEIGHT = 87;
+  static constexpr int HEXAGON_WIDTH  = 254; ///< Tile's on screen width
+  static constexpr int HEXAGON_HEIGHT = 87;  ///< Tile's on screen height
   
   static const Matrix22 ROTATE_LEFT; ///< Clockwise rotation
   static const Matrix22 ROTATE_RIGHT;///< Anti-Clockwise rotation
@@ -47,7 +46,7 @@ private:
   int _tileWidth;   ///< Tile's width on viewport
   int _tileHeight;  ///< Tile's height on viewport
   
-  FlatHexPosition _viewport; /// Viewport's diagonal vector
+  FlatHexPosition _viewport; ///< Viewport's diagonal vector
   FlatHexPosition _pos;      ///< Camera's target (position at center of viewport)
   
   FlatHexPosition _vx;  ///< Viewport's Horizontal vector
@@ -87,7 +86,9 @@ public:
   ///   tile + x is the next tile by moving right on screen
   ///   tile + y is the next tile by moving down on screen
   void viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) const;
+  /// \brief Screen horizontal axis in world's coordinate
   const FlatHexPosition & viewportVX() const;
+  /// \brief Screen vertical axis in world's coordinate
   const FlatHexPosition & viewportVY() const;
   
   /// \brief return camera's targeted position

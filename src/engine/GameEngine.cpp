@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   Mover.h
+/// \file   GameEngine.cpp
 /// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
 ///
 /// \date 11 septembre 2020, 16:32
@@ -28,29 +28,34 @@
 #include "GameEngine.h"
 #include "utils/hex/HexConsts.h"
 
-GameEngine::GameEngine(World *w) : 
+/// \brief Contructor
+GameEngine::GameEngine(WorldInterface & w) : 
   _peons(),
   _world(w)
 {
   
 }
 
+/// \brief Add a peon in the game
 void GameEngine::addPeon(Peon *p) {
   assert(_peons.insert(p).second);
-  _world->addObject(p);
+  _world.addObject(p);
 }
 
+/// \brief Called on each Main-loop iteration
 void GameEngine::update() {
   for (auto peon : _peons) {
     peonTick(peon);
   }
 }
 
+
+/// \brief Compute one tick of peon's behaviour
 void GameEngine::peonTick(Peon *peon) {
   // Pass if nothing to do
   if (!peon->hasPath()) return;
   // Let's get it started
-  FlatHexPosition oldpos(peon->pos());
+  const FlatHexPosition oldpos(peon->pos());
   // If target is reached we're done
   if (FlatHexPosition::distance(oldpos, peon->target()) < 0.02) {
     peon->endstep();
@@ -83,7 +88,7 @@ void GameEngine::peonTick(Peon *peon) {
         {
           esc = esc2;
         }
-        peon->pos(oldpos);
+        peon->pos(oldpos + collide * 0.01);
         peon->addStep(oldpos + esc * obstacle->radius() * 2);
         peon->beginStep();
         validMove = true;
@@ -91,24 +96,30 @@ void GameEngine::peonTick(Peon *peon) {
     }
     if (validMove) {
       // If tile has changed move peon
-      if (oldpos.tile() != peon->pos().tile()) {
+      /// \bug Sometimes, tile is changed without passing this condition ...
+      ///  if (oldpos.tile() != peon->pos().tile()) {
+      ///  ...
+      /// }
         FlatHexPosition tmp(peon->pos());
         peon->pos(oldpos);
-        _world->removeObject(peon);
+        _world.removeObject(peon);
         peon->pos(tmp);
-        _world->addObject(peon);
-      }
+        _world.addObject(peon);
+      // }
     } else {
       /// \todo Add notification if impossible path
       peon->pos(oldpos);
       peon->clearPath();
     }
-  }
+  } /* else compute one step */
 }
 
+/// \brief Return true if given position is valid
+///   if position is invalid, return false and return pointer to the obstacle
+///   in 'obstacle' if relevants
 bool GameEngine::tryPosition(Peon *peon, WorldObject **obstacle) const {
   // Check validity
-  if (!_world->isOnMap(peon->pos())) {
+  if (!_world.isOnMap(peon->pos())) {
     return false;
   }
   // Check collisions
@@ -116,7 +127,7 @@ bool GameEngine::tryPosition(Peon *peon, WorldObject **obstacle) const {
   peon->pos().mapNeightbours(
     [&]
     (const FlatHexPosition & pos) -> bool {
-      auto content = _world->getContentAt(pos);
+      auto content = _world.getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){
           if (obj == peon) 
@@ -131,31 +142,4 @@ bool GameEngine::tryPosition(Peon *peon, WorldObject **obstacle) const {
       return false;
     });
   return valid;
-}
-
-FlatHexPosition GameEngine::escapeVector(
-  WorldObject *mover, WorldObject *obstacle) 
-{
-  assert(mover);
-  assert(obstacle);
-  assert(mover->size() == WorldObject::Small);
-  FlatHexPosition normal(obstacle->pos(), mover->pos());
-  if (obstacle->size() == WorldObject::Small) {
-    return (normal * hex::RMatrix_CC60A).toUnit();
-  } else {
-    static FlatHexPosition vects[] = {
-      FlatHexPosition(-1, 1/2, FlatHexPosition::Axial).unit(),
-      (FlatHexPosition(-1, 1/2, FlatHexPosition::Axial) 
-          * hex::RMatrix_CC60A).unit(),
-      (FlatHexPosition(-1, 1/2, FlatHexPosition::Axial) 
-          * hex::RMatrix_CC60A * hex::RMatrix_CC60A).unit(),
-      
-      FlatHexPosition(1, -1/2, FlatHexPosition::Axial).unit(),
-      (FlatHexPosition(1, -1/2, FlatHexPosition::Axial)
-          * hex::RMatrix_CC60A).unit(),
-      (FlatHexPosition(1, -1/2, FlatHexPosition::Axial)
-          * hex::RMatrix_CC60A * hex::RMatrix_CC60A).unit()
-    };
-    return vects[normal.orientation()];
-  }
 }

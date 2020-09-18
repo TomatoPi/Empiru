@@ -24,38 +24,43 @@
 
 #include <cstdlib>
 
-#include "gui/Camera.h"
-#include "utils/gui/SpriteSheet.h"
-#include "utils/gui/SpriteAsset.h"
-#include "utils/gui/Window.h"
-#include "gui/RenderingEngine.h"
-#include "gui/TiledObjectRenderer.h"
-#include "entity/peon/PeonRenderer.h"
-
 #include <SDL2/SDL_timer.h>
 //#include <SDL2/SDL_mixer.h>
 
-#include "utils/log.h"
-#include "entity/Peon.h"
+#include "gui/Camera.h"
+#include "utils/gui/assets/SpriteSheet.h"
+#include "utils/gui/assets/SpriteAsset.h"
+#include "utils/gui/renderer/GenericRenderer.h"
+#include "utils/gui/view/Window.h"
+#include "gui/RenderingEngine.h"
+
+#include "entity/peon/Peon.h"
+#include "entity/peon/PeonRenderer.h"
+
 #include "entity/tree/Tree.h"
+
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
+
 #include "engine/GameEngine.h"
 
-#define FRAMERATE 60
-#define FRAMETIME (1000/FRAMERATE)
-#define AVGFRAME  (2000)
+#include "utils/log.h"
 
-#define SIZE 8
-#define FACTOR 2
+#define FRAMERATE 60                ///< Target FPS
+#define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
+#define AVGFRAME  (2000)            ///< Interval between FPS prompt (ms)
 
+#define SIZE 8    ///< World size (square world)
+#define FACTOR 2  ///< Magic number scalling window size
+
+/// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  auto groundSprite = SpriteSheet::loadFromFile("medias/sol.png", 1, 1, window->renderer);
-  auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
+  auto peonSprite = SpriteAsset::loadFromFile("medias/peonhouette_palette_animation.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/blue_berry_tree.png", window->renderer);
   
   Peon peon1(FlatHexPosition(0,0,FlatHexPosition::Axial));
@@ -64,9 +69,9 @@ int main(int argc, char** argv) {
   Tree tree(FlatHexPosition(1, 1, FlatHexPosition::OddQOffset));
   
   World map(SIZE,SIZE);
-  GameEngine gameEngine(&map);
+  GameEngine gameEngine(map);
   
-  Controller controller(&map);
+  Controller controller(map);
   
   gameEngine.addPeon(&peon1);
   gameEngine.addPeon(&peon2);
@@ -78,15 +83,14 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE);
   
-  
-  TiledObjectRenderer tilerdr(&camera, std::move(groundSprite));
-  SmallObjectRenderer treerdr(std::move(treeSprite));
+  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite));
+  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite));
   PeonRenderer prdr(std::move(peonSprite));
   
   prdr.addTarget(&peon1);
   prdr.addTarget(&peon2);
   
-  SDLHandler handler(&camera, &camera, &controller);
+  SDLHandler handler(camera, camera, controller);
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
     LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
@@ -99,7 +103,7 @@ int main(int argc, char** argv) {
   */
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
-  RenderingEngine rdr(window, &camera, &camera, &map);
+  RenderingEngine rdr(*window, camera, camera, map);
   rdr.attachRenderer(typeid(Tile), &tilerdr);
   rdr.attachRenderer(typeid(Peon), &prdr);
   rdr.attachRenderer(typeid(Tree), &treerdr);

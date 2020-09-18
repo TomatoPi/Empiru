@@ -23,28 +23,28 @@
 /// \brief Wrapper for SDL_Events handling
 ///
 
-#ifndef HANDLER_H
-#define HANDLER_H
+#ifndef SDLHANDLER_H
+#define SDLHANDLER_H
 
 
 #include <SDL2/SDL_events.h>
 
-#include "utils/gui/AbstractCamera.h"
+#include "utils/gui/view/AbstractCamera.h"
 #include "utils/hex/HexViewport.h"
 #include "controller/Controller.h"
 
-/// \brief Wrapping object for SDL_Events handling
+/// \brief Wrapper object for SDL_Events handling
 class SDLHandler {
 private:
   
-  AbstractCamera *_camera;
-  HexViewport     *_worldview;
-  Controller      *_controller;
+  AbstractCamera    &_camera;    ///< Worldview controller
+  const HexViewport &_worldview; ///< Bridge between userview and controller
+  Controller        &_controller;///< The thing that do things on other things
   
 public:
   
   /// \brief Constructor
-  SDLHandler(AbstractCamera *c, HexViewport *w, Controller *e);
+  SDLHandler(AbstractCamera & c, const HexViewport & w, Controller & e);
   
   /// \brief Core SDLHandler's function, process all events availables
   bool handleSDLEvents();
@@ -63,5 +63,5 @@ private:
   
 };
 
-#endif /* HANDLER_H */
+#endif /* SDLHANDLER_H */
 

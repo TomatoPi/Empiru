@@ -26,7 +26,9 @@
 
 #include "world/World.h"
 
-
+/// \brief Constructor
+/// \param mapHeight : Height of the map (number of hexs)
+/// \param mapWidth : Width of the map (number of hexs)
 World::World(int mapWidth, int mapHeight) :
   _mapWidth(mapWidth),
   _mapHeight(mapHeight),
@@ -36,7 +38,7 @@ World::World(int mapWidth, int mapHeight) :
   assert(0 < mapHeight);
 }
 
-
+/// \brief Must add given object to the world
 void World::addObject(WorldObject * obj){
   const FlatHexPosition & pos(obj->pos());
   auto itr(_map.find(pos));
@@ -46,6 +48,7 @@ void World::addObject(WorldObject * obj){
   itr->second.insert(obj);
 }
 
+/// \brief Must remove given object fro the world
 /// \bug Assertion failed, must try to reproduce
 void World::removeObject(WorldObject * obj) {
   auto itr(_map.find(obj->pos()));
@@ -56,6 +59,7 @@ void World::removeObject(WorldObject * obj) {
   }
 }
 
+/// \brief Must return tile content at given pos, or null if empty
 const Tile::Content * World::getContentAt(const FlatHexPosition & pos) const {
   auto itr(_map.find(pos));
   if (itr != _map.end()){
@@ -64,6 +68,7 @@ const Tile::Content * World::getContentAt(const FlatHexPosition & pos) const {
   return nullptr;
 }
 
+/// \brief Must return true if given pos is on the map
 bool World::isOnMap(const FlatHexPosition & pos) const {
   FlatHexPosition off(pos.tile().convertTo(FlatHexPosition::OddQOffset));
   return 0 <= off._x && 0 <= off._y 

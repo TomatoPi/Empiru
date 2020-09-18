@@ -20,39 +20,40 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 14 septembre 2020, 12:49
+/// \brief Skeleton of Rendering objects
 ///
 
 #ifndef ABSTRACTRENDERER_H
 #define ABSTRACTRENDERER_H
 
+#include "utils/hex/HexViewport.h"
 #include "utils/world/WorldObject.h"
-#include "utils/gui/SpriteSheet.h"
 #include <SDL2/SDL_render.h>
 
+/// \brief Renderers are classes that know how to draw world objects
 class AbstractRenderer {
-protected:
-  
-  std::unique_ptr<SpriteSheet> _sheet;
-  
 public:
   
   /// \brief Render the object at given position
+  /// \param obj : the object beeing rendered
   /// \param ori : curent camera's orientation
   /// \param x   : object's x position on screen
   /// \param y   : object's y position on screen
+  /// \param view: rendering viewport
   /// \param rdr : renderer
-  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) = 0;
+  virtual int renderAt(
+    const WorldObject * obj, 
+    int ori, int x, int y,
+    const HexViewport & view,
+    SDL_Renderer *rdr) = 0;
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldObject *obj);
+  virtual void addTarget(const WorldObject *obj) = 0;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldObject *obj);
+  virtual void removeTarget(const WorldObject *obj) = 0;
   
-protected:
-  
-  AbstractRenderer(std::unique_ptr<SpriteSheet> sheet);
 };
 
 #endif /* ABSTRACTRENDERER_H */

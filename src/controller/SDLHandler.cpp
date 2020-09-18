@@ -16,19 +16,20 @@
  */
 
 /// 
-/// \file   Handler.cpp
+/// \file   SDLHandler.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 9 septembre 2020, 21:55
+/// \brief Wrapper for SDL_Events handling
 ///
 
 #include "SDLHandler.h"
 
-#include <cmath>
-
+/// \brief Size of border (in pixels) used to scroll view
 #define MERGE 50
 
-SDLHandler::SDLHandler(AbstractCamera *c, HexViewport *w, Controller *e) :
+/// \brief Constructor
+SDLHandler::SDLHandler(AbstractCamera & c, const HexViewport & w, Controller & e) :
   _camera(c),
   _worldview(w),
   _controller(e)
@@ -62,6 +63,7 @@ bool SDLHandler::handleSDLEvents() {
 
 // ---- Keyboard ---- //
 
+/// \brief Handle keydown
 bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
   // Auto reject key repeat
   if (key.repeat) return true;
@@ -70,36 +72,37 @@ bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
   case SDLK_ESCAPE:
     return false;
   case SDLK_UP:
-    _camera->scrollUp();
+    _camera.scrollUp();
     break;
   case SDLK_DOWN:
-    _camera->scrollDown();
+    _camera.scrollDown();
     break;
   case SDLK_RIGHT:
-    _camera->scrollRight();
+    _camera.scrollRight();
     break;
   case SDLK_LEFT:
-    _camera->scrollLeft();
+    _camera.scrollLeft();
     break;
   case SDLK_a:
-    _camera->rotateRight();
+    _camera.rotateRight();
     break;
   case SDLK_e:
-    _camera->rotateLeft();
+    _camera.rotateLeft();
     break;
   }
   return true;
 }
 
+/// \brief Handle keyup
 bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
   switch(key.keysym.sym) {
   case SDLK_UP:
   case SDLK_DOWN:
-    _camera->stopUDScroll();
+    _camera.stopUDScroll();
     break;
   case SDLK_RIGHT:
   case SDLK_LEFT:
-    _camera->stopLRScroll();
+    _camera.stopLRScroll();
     break;
   }
   return true;
@@ -107,6 +110,7 @@ bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
 
 // ---- Mouse ---- //
 
+/// \brief Handle Mouse movement
 bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
   return true;
 /*
@@ -133,18 +137,19 @@ bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
 */
 }
 
-bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
+/// \brief Handle mouse button down
+bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   
   FlatHexPosition pos;
-  _worldview->fromPixel(event.x, event.y, &pos);
+  _worldview.fromPixel(event.x, event.y, &pos);
   pos.convertTo(FlatHexPosition::Grid);
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
-      _controller->leftClickAt(pos);
+      _controller.leftClickAt(pos);
       break;
     case SDL_BUTTON_RIGHT:
-      _controller->rightClickAt(pos);
+      _controller.rightClickAt(pos);
       break;
   }
   

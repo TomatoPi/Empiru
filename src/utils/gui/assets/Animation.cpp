@@ -16,33 +16,32 @@
  */
 
 /// 
-/// \file   Animation.h
+/// \file   Animation.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 17 septembre 2020, 17:52
+/// \brief Simple box to store animated sprite related datas
 ///
 
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#include "Animation.h"
 
-/// \brief Base Object used to store rendering information at WorldObject's level
-class Animation {
-private:
-  int _frame;   ///< Current frame
-  int _length;  ///< Total frames count
-  int _delay;   ///< Duration of a frame in ticks
-  int _cptr;    ///< Current frame counter
-public:
+/// \brief Create an animation
+/// \param length : frames count
+/// \param delay  : frame duration
+Animation::Animation(int length, int delay) :
+  _frame(0), _length(length), _delay(delay), _cptr(0)
+{
   
-  /// \brief Create an animation
-  /// \param length : frames count
-  /// \param delay  : frame duration
-  Animation(int length, int delay);
-  
-  /// \brief Update animation's counter and return current frame index
-  int update();
-  /// \brief Reset animation to initial frame and return 0
-  int restart();
-};
+}
 
-#endif /* ANIMATION_H */
+/// \brief Update animation's counter and return current frame index
+int Animation::update() {
+  _cptr = (_cptr+1) % _delay;
+  if (_cptr == 0) 
+    _frame = (_frame+1) % _length;
+  return _frame;
+}
+/// \brief Reset animation to initial frame and return 0
+int Animation::restart() {
+  return _cptr = _frame = 0;
+}

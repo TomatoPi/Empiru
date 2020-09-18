@@ -16,25 +16,29 @@
  */
 
 /// 
-/// \file   PeonRenderer.cpp
+/// \file   SpriteAsset.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 11 septembre 2020, 02:27
+/// \date 15 septembre 2020, 13:41
+/// \brief Utility file for loading and auto cut of sprite sheets
+/// \todo Maybe not useful, might be removed and replaced by a function
+///   to load sheet by specifying sprite dimension
 ///
 
-#include "SmallObjectRenderer.h"
+#ifndef SPRITEASSET_H
+#define SPRITEASSET_H
 
-/// Constructor
-SmallObjectRenderer::SmallObjectRenderer(std::unique_ptr<SpriteSheet> s) : AbstractRenderer(std::move(s)) {
-  
-}
+#include <memory>
+#include "utils/gui/assets/SpriteSheet.h"
 
-/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int SmallObjectRenderer::renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) {
-  SDL_Rect r;
-  r.w = _sheet->width();
-  r.h = _sheet->height();
-  r.x = x - r.w / 2;
-  r.y = y - r.h;
-  return _sheet->renderFrame(0, ori, rdr, &r);
-}
+/// \brief Must be removed
+class SpriteAsset {
+public:
+  /// \brief Load a sheet from given file and auto cut it in 6 colums
+  ///   and squared sprites
+  static std::unique_ptr<SpriteSheet> loadFromFile(
+    const char *path, 
+    SDL_Renderer *rdr);
+};
+
+#endif /* SPRITEASSET_H */

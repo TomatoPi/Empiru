@@ -40,7 +40,6 @@ namespace hex {
   /// \brief CounterClockwise 60° Axial Coordinate rotation Matrix
   static const Matrix22 RMatrix_CC60A(1, 1, -1, 0);
   
-  
 }
 
 #endif /* HEXCONSTS_H */

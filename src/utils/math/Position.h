@@ -16,28 +16,29 @@
  */
 
 /// 
-/// \file   AbstractRenderer.cpp
+/// \file   Position.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
+/// \date 18 septembre 2020, 09:09
+/// \brief Provide utils for 2D carthesian coordinates
 ///
 
-#include "AbstractRenderer.h"
+#ifndef POSITION_H
+#define POSITION_H
 
+/// \brief Integeer 2D coordinates
+struct Position {
+  int _x; ///< Abscissa
+  int _y; ///< Ordinate
+  Position(int x, int y);
+};
 
-AbstractRenderer::AbstractRenderer(std::unique_ptr<SpriteSheet> sheet) : 
-  _sheet(std::move(sheet))
-{
-  
-}
+/// \brief Functor that return true if a.y is smaller than b.y 
+///   or y' are equals and x' smaller
+/// Useful to use Position as Key in ordered containers
+///   Resulting an ascending sort on Y coordinate
+struct PosCompareAscY {
+  bool operator() (const Position & a, const Position & b) const;
+};
 
-/// \brief Called when a new object associated with this renderer is created
-///  may instanciate fine scope datas, like animation state
-void AbstractRenderer::addTarget(const WorldObject *obj) {
-  
-}
-/// \brief Called when an object associated with this renderer is destroyed
-///  may dealocate corresponding datas
-void AbstractRenderer::removeTarget(const WorldObject *obj) {
-  
-}
+#endif /* POSITION_H */

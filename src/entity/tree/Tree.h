@@ -20,6 +20,7 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 17 septembre 2020, 08:45
+/// \brief Tree WorldObject declaration
 ///
 
 #ifndef TREE_H
@@ -27,9 +28,11 @@
 
 #include "utils/world/WorldObject.h"
 
+/// \brief Trees are beautiful things which don't do special things at this moment
 class Tree : public WorldObject {
 public:
   
+  /// \brief Constructor
   Tree(const FlatHexPosition & pos);
 };
 

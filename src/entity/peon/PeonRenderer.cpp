@@ -20,23 +20,28 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 16 septembre 2020, 12:48
+/// \brief Provide PeonRenderer Object
 ///
 
 #include <cassert>
 
 #include "PeonRenderer.h"
-#include "entity/Peon.h"
+#include "entity/peon/Peon.h"
 
 /// Constructor
 PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) : 
-  SmallObjectRenderer(std::move(s)),
+  _sheet(std::move(s)),
   _targets()
 {
   
 }
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int PeonRenderer::renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr) 
+int PeonRenderer::renderAt(
+    const WorldObject * obj, 
+    int ori, int x, int y,
+    const HexViewport & view,
+    SDL_Renderer *rdr) 
 {
   const Peon *peon(static_cast<const Peon*>(obj));
   int frame = peon->hasPath() ? _targets.at(obj).update() : _targets.at(obj).restart();

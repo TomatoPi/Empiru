@@ -16,28 +16,26 @@
  */
 
 /// 
-/// \file   TiledObjectRenderer.h
+/// \file   Position.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 13:33
+/// \date 18 septembre 2020, 09:09
+/// \brief Provide utils for 2D carthesian coordinates
 ///
 
-#ifndef TILEDOBJECTRENDERER_H
-#define TILEDOBJECTRENDERER_H
+#include "Position.h"
 
-#include "utils/hex/HexViewport.h"
-#include "utils/gui/AbstractRenderer.h"
-
-class TiledObjectRenderer : public AbstractRenderer {
-private:
-
-  HexViewport *_worldview;
+/// \brief Integeer 2D coordinates
+Position::Position(int x, int y) : _x(x), _y(y) {
   
-public:
-  
-  TiledObjectRenderer(HexViewport *wv, std::unique_ptr<SpriteSheet> sheet);
-  
-  virtual int renderAt(const WorldObject * obj, int ori, int x, int y, SDL_Renderer *rdr);
-};
+}
 
-#endif /* TILEDOBJECTRENDERER_H */
+/// \brief Functor that return true if a.y is smaller than b.y 
+///   or y' are equals and x' smaller
+/// Useful to use Position as Key in ordered containers
+///   Resulting an ascending sort on Y coordinate
+bool PosCompareAscY::operator() (
+  const Position & a, const Position & b) 
+const {
+  return a._y < b._y || (a._y == b._y && a._x < b._x);
+}

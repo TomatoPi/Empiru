@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   HexCamera.cpp
+/// \file   HexViewport.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 8 septembre 2020, 03:59
@@ -37,9 +37,7 @@ const FlatHexPosition HexViewport::VIEW_VY(0, 1, FlatHexPosition::Axial);
 /// \param tileWidth  : Tile's width in pixel on viewport
 /// \param tileHeight : Tile's height in pixel on viewport 
 /// \param viewWidth  : View's width in pixel
-/// \param viewHeight : View's height in pixel 
-/// \param worldWidth : World's width in tile count
-/// \param worldHeight: World height in tile count
+/// \param viewHeight : View's height in pixel
 HexViewport::HexViewport(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight) :
@@ -64,7 +62,7 @@ HexViewport::HexViewport(
 
 /// \brief Convert a position on grid to a position on the screen
 /// \param pos : position to convert
-/// \parma x : pixel column
+/// \param x : pixel column
 /// \param y : pixel row
 void HexViewport::toPixel(const FlatHexPosition & pos, int *x, int *y) const {
   assert(x);
@@ -98,18 +96,21 @@ int HexViewport::tileWidth() const {
 
 /// \brief Compute the position of viewport's upLeftCorner
 /// \param res : result in Axial coordinate system
-void HexViewport::upLeftCorner(FlatHexPosition *p) const {
-  assert(p);
-  *p = _pos - _viewport * _rotation;
+void HexViewport::upLeftCorner(FlatHexPosition *res) const {
+  assert(res);
+  *res = _pos - _viewport * _rotation;
 }
+
 /// \brief Return Viewport's x and y vectors in Axis cs
 void HexViewport::viewPortAxis(FlatHexPosition *x, FlatHexPosition *y) const {
   *x = _vx;
   *y = _vy;
 }
+/// \brief Screen horizontal axis in world's coordinate
 const FlatHexPosition & HexViewport::viewportVX() const {
   return _vx;
 }
+/// \brief Screen vertical axis in world's coordinate
 const FlatHexPosition & HexViewport::viewportVY() const {
   return _vy;
 }
@@ -133,9 +134,6 @@ void HexViewport::rotation(const Matrix22 & m) {
   _antirotation = m.inverse();
   _vx = VIEW_VX * m;
   _vy = VIEW_VY * m;
-  LOG_DEBUG("VX  : %s\n", _vx.toString().c_str());
-  LOG_DEBUG("VY  : %s\n", _vy.toString().c_str());
-  LOG_DEBUG("ROT :\n%6f %6f\n%6f %6f\n", _rotation._a, _rotation._b, _rotation._c, _rotation._d);
 }
 
 void HexViewport::rotatedAxialVectors(FlatHexPosition *ax, FlatHexPosition *ay) const {

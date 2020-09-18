@@ -44,6 +44,7 @@ public:
   /// \param height : window's height
   /// \return NULL on failure
   static Window * createWindow(int width, int height);
+  
   /// \brief Destructor
   ~Window();
   
@@ -53,6 +54,7 @@ public:
   void update();
   
 private:
+  
   /// \brief Constructor
   Window(SDL_Window *window, SDL_Renderer *renderer, int w, int h);
 };

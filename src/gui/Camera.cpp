@@ -20,11 +20,19 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 11 septembre 2020, 17:13
+/// \brief Effective implementation of in-game camera
 ///
 
 #include "Camera.h"
 
 /// \brief Constructor of Concrete camera
+///
+/// \param tileWidth    : Tile's width on screen  (px) 
+/// \param tileHeight   : Tile's height on screen (px)
+/// \param viewWidth    : View's width            (px)
+/// \param viewHeight   : View's height           (px)
+/// \param worldWidth   : World's width           (tile)
+/// \param worldHeight  : World's height          (tile)
 Camera::Camera(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,
