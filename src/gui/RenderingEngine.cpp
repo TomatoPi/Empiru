@@ -45,7 +45,7 @@ RenderingEngine::RenderingEngine(
 /// \brief Add a new renderer associated with given WorldObject type
 void RenderingEngine::attachRenderer(
   const std::type_info & info, 
-  AbstractRenderer * rdr) 
+  AbstractRenderer & rdr) 
 {
   assert(_renderers.emplace(std::type_index(info), rdr).second);
 }
@@ -63,7 +63,7 @@ void RenderingEngine::render() {
       dx(_worldView.tileWidth() * 0.75), 
       dy(_worldView.tileHeight());
   // Get tile renderer
-  AbstractRenderer * tilerdr(
+  AbstractRenderer & tilerdr(
         _renderers.find(std::type_index(typeid(Tile)))->second);
   _drawstack.clear();
   // Get initial position and start
@@ -82,7 +82,7 @@ void RenderingEngine::render() {
       // Render tile pos at (x, y+offx[!!flip])
       if (_world.isOnMap(pos)) {
         _worldView.toPixel(pos.toTile(), &x, &y);
-        if (tilerdr->renderAt(nullptr, _camera.getOrientation(), 
+        if (tilerdr.renderAt(nullptr, _camera.getOrientation(), 
             x, y, _worldView, _window.renderer)) 
         {
           LOG_WRN("%s\n", SDL_GetError());
@@ -92,7 +92,7 @@ void RenderingEngine::render() {
         auto vec(_world.getContentAt(pos));
         if (vec) {
           for (auto & obj : *vec) {
-            _worldView.toPixel(obj->pos(), &x, &y);
+            _worldView.toPixel((**obj).pos(), &x, &y);
             _drawstack.emplace(Position(x, y), obj);
           }
         }
@@ -102,10 +102,10 @@ void RenderingEngine::render() {
   
   // Draw all entities
   for (auto & itr : _drawstack) {
-    WorldObject *obj(itr.second);
+    const WorldRef * obj(itr.second);
     // Get correct renderer and use it
-    _renderers.find(std::type_index(typeid(*obj)))->second
-        ->renderAt(
+    _renderers.find(std::type_index(typeid(**obj)))->second
+        .renderAt(
             obj,
             _camera.getOrientation(), 
             itr.first._x, itr.first._y, _worldView, _window.renderer);

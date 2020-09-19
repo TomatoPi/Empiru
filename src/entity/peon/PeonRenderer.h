@@ -37,7 +37,7 @@ class PeonRenderer : public AbstractRenderer {
 private:
     
   /// \brief Animation datas are stored for each attached peon
-  typedef std::unordered_map<const WorldObject *, Animation> Targets;
+  typedef std::unordered_map<const WorldRef *, Animation> Targets;
   
   std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
   Targets                      _targets;  ///< Dict of Animation datas
@@ -49,17 +49,17 @@ public:
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual int renderAt(
-    const WorldObject * obj, 
+    const WorldRef * obj, 
     int ori, int x, int y,
     const HexViewport & view,
     SDL_Renderer *rdr);
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldObject *obj);
+  virtual void addTarget(const WorldRef *obj);
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldObject *obj);
+  virtual void removeTarget(const WorldRef *obj);
 };
 
 #endif /* PEONRENDERER_H */

@@ -26,6 +26,6 @@
 #include "Tree.h"
 
 /// \brief Constructor
-Tree::Tree(const FlatHexPosition & pos) : WorldObject(pos, 0.1) {
+Tree::Tree() : WorldObject(FlatHexPosition(), 0.1) {
   
 }

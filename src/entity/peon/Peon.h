@@ -44,6 +44,8 @@ private:
 public:
 
   /// \brief Constructor
+  Peon();
+  /// \brief Constructor
   Peon(const FlatHexPosition & pos);
 
   /// \brief Return current peon's target

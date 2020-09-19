@@ -65,16 +65,16 @@ public:
   float radius() const;
   
   /// \brief Method that must return true obj collides this object
-  bool collide(const WorldObject * obj) const;
+  bool collide(const WorldObject & obj) const;
   
 public:
   
   /// \brief Collision between two small objects
-  static bool smallCollide(const WorldObject *a, const WorldObject *b);
+  static bool smallCollide(const WorldObject &a, const WorldObject &b);
   /// \brief Collision between two tile objects
-  static bool tileCollide(const WorldObject *a, const WorldObject *b);
+  static bool tileCollide(const WorldObject &a, const WorldObject &b);
   /// \brief Collision between a small object and a tile object
-  static bool stCollide(const WorldObject *small, const WorldObject *tile);
+  static bool stCollide(const WorldObject &small, const WorldObject &tile);
 };
 
 #endif /* WORLDOBJECT_H */

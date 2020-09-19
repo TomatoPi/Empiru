@@ -16,24 +16,26 @@
  */
 
 /// 
-/// \file   Tree.h
+/// \file   Behaviourer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 17 septembre 2020, 08:45
-/// \brief Tree WorldObject declaration
+/// \date 18 septembre 2020, 17:06
+/// \brief Interface for WorldObjects mechanics' handlers
 ///
 
-#ifndef TREE_H
-#define TREE_H
+#ifndef BEHAVIOUR_H
+#define BEHAVIOUR_H
 
 #include "utils/world/WorldObject.h"
+#include "utils/world/WorldInterface.h"
 
-/// \brief Trees are beautiful things which don't do special things at this moment
-class Tree : public WorldObject {
+/// \brief Interface for WorldObjects mechanics' handlers
+class Behaviourer {
 public:
   
-  /// \brief Constructor
-  Tree();
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) = 0;
 };
 
-#endif /* TREE_H */
+#endif /* BEHAVIOUR_H */
+

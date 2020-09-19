@@ -33,7 +33,7 @@ ControllerState::ControllerState() : _selectedPeon(nullptr)
 }
 
 /// \brief Select given peon
-void ControllerState::selectPeon(Peon * peon) {
+void ControllerState::selectPeon(WorldRef * peon) {
   assert(peon);
   _selectedPeon = peon;
 }
@@ -43,6 +43,6 @@ void ControllerState::deselectPeon() {
 }
 
 /// \brief Return selected peon or nullptr if no selection
-Peon * ControllerState::selectedPeon() {
+WorldRef * ControllerState::selectedPeon() {
   return _selectedPeon;
 }

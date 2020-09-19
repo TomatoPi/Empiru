@@ -30,11 +30,11 @@ Tile::Tile() : _content() {
 }
 
 /// \brief Add given object to the tile
-void Tile::insert(WorldObject * obj){
+void Tile::insert(WorldRef * obj){
   assert(_content.insert(obj).second);
 }
 /// \brief Remove given object from the tile
-void Tile::erase(WorldObject * obj) {
+void Tile::erase(WorldRef * obj) {
   assert(_content.erase(obj));
 }
   

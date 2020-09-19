@@ -27,13 +27,13 @@
 #define CONTROLLERSTATE_H
 
 #include <SDL2/SDL_events.h>
-#include "entity/peon/Peon.h"
+#include "utils/engine/WorldRef.h"
 
 /// \brief Object used to keep state of game controller
 class ControllerState {
   private:
     
-    Peon * _selectedPeon; ///< Obvious
+    WorldRef * _selectedPeon; ///< Obvious
   
   public:
      
@@ -41,12 +41,12 @@ class ControllerState {
     ControllerState();
     
     /// \brief Select given peon
-    void selectPeon(Peon * peon);
+    void selectPeon(WorldRef * peon);
     /// \brief Clear selection
     void deselectPeon();
     
     /// \brief Return selected peon or nullptr if no selection
-    Peon * selectedPeon();
+    WorldRef * selectedPeon();
 };
 
 #endif /* CONTROLLERSTATE_H */

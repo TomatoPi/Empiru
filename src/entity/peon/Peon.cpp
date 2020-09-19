@@ -27,6 +27,10 @@
 
 #include "Peon.h"
 
+
+/// \brief Constructor
+Peon::Peon() : Peon(FlatHexPosition()) {
+}
 /// \brief Constructor
 Peon::Peon(const FlatHexPosition & pos) : 
   WorldObject(pos, 0.05), 

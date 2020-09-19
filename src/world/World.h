@@ -50,9 +50,9 @@ public :
   World(int mapWidth, int mapHeight);
   
   /// \brief Must add given object to the world
-  virtual void addObject(WorldObject * obj);
+  virtual void addObject(WorldRef * obj);
   /// \brief Must remove given object fro the world
-  virtual void removeObject(WorldObject * obj);
+  virtual void removeObject(WorldRef * obj);
   
   /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const;
@@ -62,4 +62,3 @@ public :
 };
 
 #endif /* WORLD_H*/
-

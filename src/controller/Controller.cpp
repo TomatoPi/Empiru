@@ -25,6 +25,7 @@
 
 #include "Controller.h"
 
+#include "entity/peon/Peon.h"
 #include "utils/log.h"
 #include <cmath>
 
@@ -38,7 +39,7 @@ Controller::Controller(WorldInterface & w) :
 /// \brief Called when a left click is performed at given position
 void Controller::leftClickAt(const FlatHexPosition & click) {
   
-  Peon *selection(nullptr);
+  WorldRef *selection(nullptr);
   // Search for a peon near click
   /// \todo might be slow if there is a great amount of objects near click
   click.convert(FlatHexPosition::Grid).mapNeightbours(
@@ -48,14 +49,14 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
       auto content = _world.getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){
-          Peon * peon(dynamic_cast<Peon*>(obj));
-          if (!peon) continue;
-          FlatHexPosition tmp(peon->pos(), FlatHexPosition::Grid);
+          if (typeid(**obj) != typeid(Peon)) continue;
+          const Peon & peon(static_cast<const Peon &>(**obj));
+          FlatHexPosition tmp(peon.pos(), FlatHexPosition::Grid);
           if (
               (fabs(click._x - tmp._x) < 0.25) 
               && (fabs(click._y + 0.25 - tmp._y) < 0.25)) 
           {
-            selection = peon;
+            selection = obj;
             return true;
           }
         }
@@ -74,9 +75,9 @@ void Controller::rightClickAt(const FlatHexPosition & click) {
   
   // If there is a selected peon and click is valid, let's go
   if (_state.selectedPeon() != nullptr && _world.isOnMap(click)) {
-    Peon *peon(_state.selectedPeon());
-    peon->clearPath();
-    peon->addStep(click);
-    peon->beginStep();
+    Peon & peon(static_cast<Peon &>(**_state.selectedPeon()));
+    peon.clearPath();
+    peon.addStep(click);
+    peon.beginStep();
   }
 }

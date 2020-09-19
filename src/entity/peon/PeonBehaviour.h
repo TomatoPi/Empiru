@@ -16,24 +16,33 @@
  */
 
 /// 
-/// \file   Tree.h
+/// \file   PeonBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 17 septembre 2020, 08:45
-/// \brief Tree WorldObject declaration
+/// \date 18 septembre 2020, 19:18
 ///
 
-#ifndef TREE_H
-#define TREE_H
+#ifndef PEONBEHAVIOUR_H
+#define PEONBEHAVIOUR_H
 
+#include "entity/peon/Peon.h"
 #include "utils/world/WorldObject.h"
+#include "utils/world/WorldInterface.h"
+#include "utils/engine/Behaviourer.h"
 
-/// \brief Trees are beautiful things which don't do special things at this moment
-class Tree : public WorldObject {
+class PeonBehaviour : public Behaviourer {
 public:
   
-  /// \brief Constructor
-  Tree();
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world);
+  
+private:
+  
+  /// \brief Return true if given position is valid
+  ///   if position is invalid, return false and return pointer to the obstacle
+  ///   in 'obstacle' if relevant
+  bool tryPosition(Peon & peon, WorldRef *ref, WorldObject ** obstacle, WorldInterface & world)  
+    const;
 };
 
-#endif /* TREE_H */
+#endif /* PEONBEHAVIOUR_H */

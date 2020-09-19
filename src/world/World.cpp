@@ -39,8 +39,8 @@ World::World(int mapWidth, int mapHeight) :
 }
 
 /// \brief Must add given object to the world
-void World::addObject(WorldObject * obj){
-  const FlatHexPosition & pos(obj->pos());
+void World::addObject(WorldRef * obj){
+  const FlatHexPosition & pos((**obj).pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
@@ -50,8 +50,8 @@ void World::addObject(WorldObject * obj){
 
 /// \brief Must remove given object fro the world
 /// \bug Assertion failed, must try to reproduce
-void World::removeObject(WorldObject * obj) {
-  auto itr(_map.find(obj->pos()));
+void World::removeObject(WorldRef * obj) {
+  auto itr(_map.find((**obj).pos()));
   assert(itr != _map.end());
   itr->second.erase(obj);
   if (itr->second.isEmpty()) {
