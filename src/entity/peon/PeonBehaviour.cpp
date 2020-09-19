@@ -22,6 +22,8 @@
 /// \date 18 septembre 2020, 19:18
 ///
 
+#include <cassert>
+
 #include "PeonBehaviour.h"
 
 #include "utils/hex/HexConsts.h"
@@ -36,7 +38,9 @@ void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & worl
   const FlatHexPosition oldpos(peon.pos());
   // If target is reached we're done
   if (FlatHexPosition::distance(oldpos, peon.target()) < 0.02) {
+    world.removeObject(ref);
     peon.endstep();
+    world.addObject(ref);
     if (!peon.hasPath()) 
        return;
     peon.beginStep();
@@ -74,16 +78,13 @@ void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & worl
     }
     if (validMove) {
       // If tile has changed move peon
-      /// \bug Sometimes, tile is changed without passing this condition ...
-      ///  if (oldpos.tile() != peon.pos().tile()) {
-      ///  ...
-      /// }
+      if (oldpos.tile() != peon.pos().tile()) {
         FlatHexPosition tmp(peon.pos());
         peon.pos(oldpos);
         world.removeObject(ref);
         peon.pos(tmp);
         world.addObject(ref);
-      // }
+      }
     } else {
       /// \todo Add notification if impossible path
       peon.pos(oldpos);

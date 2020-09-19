@@ -31,11 +31,13 @@ Tile::Tile() : _content() {
 
 /// \brief Add given object to the tile
 void Tile::insert(WorldRef * obj){
-  assert(_content.insert(obj).second);
+  bool success(_content.insert(obj).second);
+  assert(success);
 }
 /// \brief Remove given object from the tile
 void Tile::erase(WorldRef * obj) {
-  assert(_content.erase(obj));
+  bool success(_content.erase(obj));
+  assert(success);
 }
   
 /// \brief return true if there is nothing on the tile
