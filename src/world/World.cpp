@@ -49,7 +49,6 @@ void World::addObject(WorldRef * obj){
 }
 
 /// \brief Must remove given object fro the world
-/// \bug Assertion failed, must try to reproduce
 void World::removeObject(WorldRef * obj) {
   auto itr(_map.find((**obj).pos()));
   assert(itr != _map.end());

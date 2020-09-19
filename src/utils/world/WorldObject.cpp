@@ -22,23 +22,25 @@
 /// \date 16 septembre 2020, 11:05
 ///
 
+#include <cassert>
+
 #include "WorldObject.h"
 
 /// \brief Construct a Tile Sized Object
 WorldObject::WorldObject(const FlatHexPosition & pos) : 
-  _pos(pos), _size(Tile), _radius(1) 
+  _pos(pos), _size(STile), _radius(1) 
 {
   
 }
 /// \brief Construct a Small Sized Object with given radius
 WorldObject::WorldObject(const FlatHexPosition & pos, float radius) : 
-  _pos(pos), _size(Small), _radius(radius) 
+  _pos(pos), _size(SSmall), _radius(radius) 
 {
   
 }
 /// \brief Contruct a Hollow Sized Object
 WorldObject::WorldObject(const FlatHexPosition & pos, void * osef) : 
-  _pos(pos), _size(Hollow), _radius(0)
+  _pos(pos), _size(SHollow), _radius(0)
 {
   
 }
@@ -63,14 +65,14 @@ float WorldObject::radius() const {
 
 /// \brief Method that must return true is 'pos' is in object's hitbox
 bool WorldObject::collide(const WorldObject & obj) const {
-  if (_size == Hollow || obj._size == Hollow)
+  if (_size == SHollow || obj._size == SHollow)
     return false;
-  if (_size == Small) {
-    if (obj._size == Small)
+  if (_size == SSmall) {
+    if (obj._size == SSmall)
       return smallCollide(*this, obj);
     return stCollide(*this, obj);
   } else {
-    if (obj._size == Small)
+    if (obj._size == SSmall)
       return stCollide(obj, *this);
     return tileCollide(*this, obj);
   }

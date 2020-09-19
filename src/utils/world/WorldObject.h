@@ -35,9 +35,9 @@ public:
   
   /// \brief Specify object's size on the map
   enum Size {
-    Small,  ///< Objects that can coexist on the same tile with circular hitbox
-    Tile,   ///< Objects that occupy the whole tile
-    Hollow, ///< Utility objects that don't occupy space
+    SSmall,  ///< Objects that can coexist on the same tile with circular hitbox
+    STile,   ///< Objects that occupy the whole tile
+    SHollow, ///< Utility objects that don't occupy space
   };
   
 private:
