@@ -28,37 +28,46 @@
 
 #include "world/World.h"
 #include "entity/peon/Peon.h"
-#include <unordered_set>
+#include "utils/engine/WorldRef.h"
+#include "utils/engine/Allocator.h"
+#include "utils/engine/Behaviourer.h"
+
+#include <typeinfo>
+#include <typeindex>
+#include <unordered_map>
 
 /// \brief Core object for in-game mechanics
 class GameEngine {
 private:
 
-  /// \brief Array used to store peons
-  typedef std::unordered_set<Peon*> PeonList;
+  /// \brief Table of storage by objects type
+  typedef std::unordered_map<std::type_index, Allocator*>   ObjectsTable;
+  /// \brief Table of behaviours by objects type
+  typedef std::unordered_map<std::type_index, Behaviourer*> BehaviourTable;
   
-  PeonList         _peons; ///< List of living peons, peonhouettes and peonpeons
-  WorldInterface & _world; ///< THA WO... oh wait ... joke already used
+  ObjectsTable     _objects; ///< Table of all things that do things
+  BehaviourTable   _behavs;  ///< Table of behaviours
+  WorldInterface & _world;   ///< THA WO... oh wait ... joke already used
   
 public:
   
   /// \brief Contructor
   GameEngine(WorldInterface & w);
   
-  /// \brief Add a peon in the game
-  void addPeon(Peon *p);
+  /// \brief Add an object to the game
+  WorldRef * createObject(const std::type_info & type);
+  /// \brief Remove an object from the game
+  void removeObject(WorldRef * ref);
+  
+  /// \brief Add an object kind to the gameEngine
+  void addObjectKind(const std::type_info & type, Allocator * alloc);
+  /// \brief Add a behaviour for an object Kind.
+  ///   Only kinds with behaviour are sweeped during game tick
+  void attachBehaviour(const std::type_info & type, Behaviourer * behav);
   
   /// \brief Called on each Main-loop iteration
+  ///   Call behaviour of each object
   void update();
-  
-private:
-  
-  /// \brief Compute one tick of peon's behaviour
-  void peonTick(Peon *peon);
-  /// \brief Return true if given position is valid
-  ///   if position is invalid, return false and return pointer to the obstacle
-  ///   in 'obstacle' if relevant
-  bool tryPosition(Peon *peon, WorldObject **obstacle) const;
 };
 
 #endif /* GAMEENGINE_H */

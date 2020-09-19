@@ -35,8 +35,9 @@ public:
   
   /// \brief Specify object's size on the map
   enum Size {
-    Small,///< Objects that can coexist on the same tile with circular hitbox
-    Tile  ///< Objects that occupy the whole tile
+    Small,  ///< Objects that can coexist on the same tile with circular hitbox
+    Tile,   ///< Objects that occupy the whole tile
+    Hollow, ///< Utility objects that don't occupy space
   };
   
 private:
@@ -51,6 +52,8 @@ public:
   WorldObject(const FlatHexPosition & pos);
   /// \brief Construct a Small Sized Object with given radius
   WorldObject(const FlatHexPosition & pos, float radius);
+  /// \brief Contruct a Hollow Sized Object
+  WorldObject(const FlatHexPosition & pos, void * osef);
   /// \brief Destructor
   virtual ~WorldObject() = default;
   
@@ -65,16 +68,16 @@ public:
   float radius() const;
   
   /// \brief Method that must return true obj collides this object
-  bool collide(const WorldObject * obj) const;
+  bool collide(const WorldObject & obj) const;
   
 public:
   
   /// \brief Collision between two small objects
-  static bool smallCollide(const WorldObject *a, const WorldObject *b);
+  static bool smallCollide(const WorldObject &a, const WorldObject &b);
   /// \brief Collision between two tile objects
-  static bool tileCollide(const WorldObject *a, const WorldObject *b);
+  static bool tileCollide(const WorldObject &a, const WorldObject &b);
   /// \brief Collision between a small object and a tile object
-  static bool stCollide(const WorldObject *small, const WorldObject *tile);
+  static bool stCollide(const WorldObject &small, const WorldObject &tile);
 };
 
 #endif /* WORLDOBJECT_H */

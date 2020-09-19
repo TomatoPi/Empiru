@@ -30,116 +30,45 @@
 
 /// \brief Contructor
 GameEngine::GameEngine(WorldInterface & w) : 
-  _peons(),
+  _objects(),
+  _behavs(),
   _world(w)
 {
   
 }
 
-/// \brief Add a peon in the game
-void GameEngine::addPeon(Peon *p) {
-  assert(_peons.insert(p).second);
-  _world.addObject(p);
+/// \brief Add an object to the game
+WorldRef * GameEngine::createObject(const std::type_info & type) {
+  return _objects.at(std::type_index(type))->createObject();
+}
+/// \brief Remove an object from the game
+void GameEngine::removeObject(WorldRef * ref) {
+  _objects.at(std::type_index(typeid(**ref)))->deleteObject(ref);
+}
+
+/// \brief Add an object kind to the gameEngine
+void GameEngine::addObjectKind(const std::type_info & type, Allocator * alloc) {
+  auto res(_objects.emplace(std::type_index(type), alloc));
+  assert(res.second);
+}
+/// \brief Add a behaviour for an object Kind.
+///   Only kinds with behaviour are sweeped during game tick
+void GameEngine::attachBehaviour(const std::type_info & type, Behaviourer * behav) {
+  auto res(_behavs.emplace(std::type_index(type), behav));
+  assert(res.second);
 }
 
 /// \brief Called on each Main-loop iteration
+///   Call behaviour of each object
 void GameEngine::update() {
-  for (auto peon : _peons) {
-    peonTick(peon);
-  }
-}
-
-
-/// \brief Compute one tick of peon's behaviour
-void GameEngine::peonTick(Peon *peon) {
-  // Pass if nothing to do
-  if (!peon->hasPath()) return;
-  // Let's get it started
-  const FlatHexPosition oldpos(peon->pos());
-  // If target is reached we're done
-  if (FlatHexPosition::distance(oldpos, peon->target()) < 0.02) {
-    peon->endstep();
-    if (!peon->hasPath()) 
-       return;
-    peon->beginStep();
-  } 
-  // Else compute one step
-  else {
-    // Compute default new position
-    peon->pos(oldpos + peon->direction() * 0.01);
-    // Check validity
-    WorldObject *obstacle(nullptr);
-    bool validMove(tryPosition(peon, &obstacle));
-    // Try to find alternative path
-    if (!validMove) {
-      // World limit
-      if (!obstacle) {
-        LOG_TODO("Escape World Borders\n");
-      } 
-      // Round obstacle
-      else {
-        FlatHexPosition collide(obstacle->pos(), peon->pos());
-        FlatHexPosition esc1(collide * hex::RMatrix_C60A);
-        FlatHexPosition esc2(collide * hex::RMatrix_CC60A);
-        FlatHexPosition & esc = esc1;
-        if (
-            FlatHexPosition::distance(oldpos + esc2 * 0.01, peon->target()) 
-          < FlatHexPosition::distance(oldpos + esc1 * 0.01, peon->target())) 
-        {
-          esc = esc2;
-        }
-        peon->pos(oldpos + collide * 0.01);
-        peon->addStep(oldpos + esc * obstacle->radius() * 2);
-        peon->beginStep();
-        validMove = true;
-      }
+  for (auto & beh : _behavs) {
+    auto alloc(_objects.find(beh.first));
+    if (alloc != _objects.end()) {
+      alloc->second->foreach(
+          [&]
+          (WorldObject & obj, WorldRef *ref) -> void {
+            beh.second->tick(obj, ref, _world);
+          });
     }
-    if (validMove) {
-      // If tile has changed move peon
-      /// \bug Sometimes, tile is changed without passing this condition ...
-      ///  if (oldpos.tile() != peon->pos().tile()) {
-      ///  ...
-      /// }
-        FlatHexPosition tmp(peon->pos());
-        peon->pos(oldpos);
-        _world.removeObject(peon);
-        peon->pos(tmp);
-        _world.addObject(peon);
-      // }
-    } else {
-      /// \todo Add notification if impossible path
-      peon->pos(oldpos);
-      peon->clearPath();
-    }
-  } /* else compute one step */
-}
-
-/// \brief Return true if given position is valid
-///   if position is invalid, return false and return pointer to the obstacle
-///   in 'obstacle' if relevants
-bool GameEngine::tryPosition(Peon *peon, WorldObject **obstacle) const {
-  // Check validity
-  if (!_world.isOnMap(peon->pos())) {
-    return false;
   }
-  // Check collisions
-  bool valid(true);
-  peon->pos().mapNeightbours(
-    [&]
-    (const FlatHexPosition & pos) -> bool {
-      auto content = _world.getContentAt(pos);
-      if (content != nullptr){
-        for (auto obj : *content){
-          if (obj == peon) 
-            continue;
-          if (obj->collide(peon)) {
-            *obstacle = obj;
-            valid = false;
-            return true;
-          }
-        }
-      }
-      return false;
-    });
-  return valid;
 }

@@ -27,6 +27,7 @@
 
 #include <unordered_set>
 
+#include "utils/engine/WorldRef.h"
 #include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
 
@@ -35,7 +36,7 @@ class Tile {
 public:
   
   /// \brief Tile's sub container
-  typedef std::unordered_set<WorldObject*> Content;
+  typedef std::unordered_set<WorldRef*> Content;
   
 private :
   
@@ -47,9 +48,9 @@ public:
   Tile();
   
   /// \brief Add given object to the tile
-  void insert(WorldObject * obj);
+  void insert(WorldRef * obj);
   /// \brief Remove given object from the tile
-  void erase(WorldObject * obj);
+  void erase(WorldRef * obj);
   
   /// \brief return true if there is nothing on the tile
   bool isEmpty() const;

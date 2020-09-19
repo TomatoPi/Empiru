@@ -24,6 +24,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f4" displayName="controller" projectFiles="true">
+        <logicalFolder name="f1" displayName="selection" projectFiles="true">
+          <itemPath>src/controller/selection/SelectedPeon.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeon.h</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonBehaviour.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonBehaviour.h</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonRenderer.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonRenderer.h</itemPath>
+        </logicalFolder>
         <itemPath>src/controller/Controller.cpp</itemPath>
         <itemPath>src/controller/Controller.h</itemPath>
         <itemPath>src/controller/CtrlState.cpp</itemPath>
@@ -34,11 +42,14 @@
       <logicalFolder name="f2" displayName="engine" projectFiles="true">
         <itemPath>src/engine/GameEngine.cpp</itemPath>
         <itemPath>src/engine/GameEngine.h</itemPath>
+        <itemPath>src/engine/GenericAllocator.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
         <logicalFolder name="f1" displayName="peon" projectFiles="true">
           <itemPath>src/entity/peon/Peon.cpp</itemPath>
           <itemPath>src/entity/peon/Peon.h</itemPath>
+          <itemPath>src/entity/peon/PeonBehaviour.cpp</itemPath>
+          <itemPath>src/entity/peon/PeonBehaviour.h</itemPath>
           <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
           <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
         </logicalFolder>
@@ -54,6 +65,11 @@
         <itemPath>src/gui/RenderingEngine.h</itemPath>
       </logicalFolder>
       <logicalFolder name="utils" displayName="utils" projectFiles="true">
+        <logicalFolder name="f3" displayName="engine" projectFiles="true">
+          <itemPath>src/utils/engine/Allocator.h</itemPath>
+          <itemPath>src/utils/engine/Behaviourer.h</itemPath>
+          <itemPath>src/utils/engine/WorldRef.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
           <logicalFolder name="f3" displayName="assets" projectFiles="true">
             <itemPath>src/utils/gui/assets/Animation.cpp</itemPath>
@@ -246,13 +262,49 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -273,6 +325,12 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -482,13 +540,49 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -509,6 +603,12 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -713,13 +813,49 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -740,6 +876,12 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -945,13 +1087,49 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -972,6 +1150,12 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -16,45 +16,36 @@
  */
 
 /// 
-/// \file   AbstractRenderer.h
+/// \file   SelectedPeonRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
-/// \brief Skeleton of Rendering objects
+/// \date 19 septembre 2020, 10:26
 ///
 
-#ifndef ABSTRACTRENDERER_H
-#define ABSTRACTRENDERER_H
+#ifndef SELECTEDPEONRENDERER_H
+#define SELECTEDPEONRENDERER_H
 
-#include "utils/hex/HexViewport.h"
-#include "utils/engine/WorldRef.h"
-#include "utils/world/WorldObject.h"
-#include <SDL2/SDL_render.h>
+#include "entity/peon/PeonRenderer.h"
 
-/// \brief Renderers are classes that know how to draw world objects
-class AbstractRenderer {
+class SelectedPeonRenderer : public PeonRenderer {
 public:
+  /// Constructor
+  SelectedPeonRenderer(std::unique_ptr<SpriteSheet> s);
   
-  /// \brief Render the object at given position
-  /// \param obj : the object beeing rendered
-  /// \param ori : curent camera's orientation
-  /// \param x   : object's x position on screen
-  /// \param y   : object's y position on screen
-  /// \param view: rendering viewport
-  /// \param rdr : renderer
+  /// \brief Draw the selection overlay on screen
+  ///   with (x,y) coordinate of bottom's middle
   virtual int renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const HexViewport & view,
-    SDL_Renderer *rdr) = 0;
+    SDL_Renderer *rdr);
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldRef * obj) = 0;
+  virtual void addTarget(const WorldRef *obj);
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldRef * obj) = 0;
-  
+  virtual void removeTarget(const WorldRef *obj);
 };
 
-#endif /* ABSTRACTRENDERER_H */
+#endif /* SELECTEDPEONRENDERER_H */

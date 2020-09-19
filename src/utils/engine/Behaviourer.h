@@ -16,35 +16,26 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   Behaviourer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 18 septembre 2020, 17:06
+/// \brief Interface for WorldObjects mechanics' handlers
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef BEHAVIOUR_H
+#define BEHAVIOUR_H
 
+#include "utils/world/WorldObject.h"
 #include "utils/world/WorldInterface.h"
-#include "controller/CtrlState.h"
 
-/// \brief Main handler for user control
-class Controller {
-private:
-  
-  WorldInterface & _world; ///< THA WORLDOOOOO
-  ControllerState  _state; ///< The game controller
-  
+/// \brief Interface for WorldObjects mechanics' handlers
+class Behaviourer {
 public:
   
-  /// \brief Constructor
-  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
-  /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) = 0;
 };
 
-#endif /* CONTROLLER_H */
+#endif /* BEHAVIOUR_H */
+

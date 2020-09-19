@@ -25,24 +25,45 @@
 #include <cassert>
 
 #include "CtrlState.h"
+#include "selection/SelectedPeon.h"
 
 /// \brief Constructor
-ControllerState::ControllerState() : _selectedPeon(nullptr)
+ControllerState::ControllerState(WorldInterface & w, GameEngine & g, RenderingEngine & rdr) :
+  _selectedPeon(nullptr),
+  _selectionTracker(nullptr),
+  _world(w),
+  _gameEngine(g),
+  _rdrEngine(rdr)
 {
   
 }
 
 /// \brief Select given peon
-void ControllerState::selectPeon(Peon * peon) {
+void ControllerState::selectPeon(WorldRef * peon) {
   assert(peon);
+  if (_selectedPeon) {
+    deselectPeon();
+  }
   _selectedPeon = peon;
+  // Create the utility object for rendering selection
+  _selectionTracker = _gameEngine.createObject(typeid(SelectedPeon));
+  SelectedPeon & sel(static_cast<SelectedPeon &>(**_selectionTracker));
+  sel._peon = peon;
+  _rdrEngine.addTarget(_selectionTracker);
+  _world.addObject(_selectionTracker);
 }
 /// \brief Clear selection
 void ControllerState::deselectPeon() {
+  if (_selectionTracker) {
+    _world.removeObject(_selectionTracker);
+    _rdrEngine.removeTarget(_selectionTracker);
+    _gameEngine.removeObject(_selectionTracker);
+  }
   _selectedPeon = nullptr;
+  _selectionTracker = nullptr;
 }
 
 /// \brief Return selected peon or nullptr if no selection
-Peon * ControllerState::selectedPeon() {
+WorldRef * ControllerState::selectedPeon() {
   return _selectedPeon;
 }

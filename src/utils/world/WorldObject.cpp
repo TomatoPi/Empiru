@@ -36,6 +36,12 @@ WorldObject::WorldObject(const FlatHexPosition & pos, float radius) :
 {
   
 }
+/// \brief Contruct a Hollow Sized Object
+WorldObject::WorldObject(const FlatHexPosition & pos, void * osef) : 
+  _pos(pos), _size(Hollow), _radius(0)
+{
+  
+}
 
 /// \brief return object's position
 const FlatHexPosition & WorldObject::pos() const {
@@ -56,28 +62,30 @@ float WorldObject::radius() const {
 }
 
 /// \brief Method that must return true is 'pos' is in object's hitbox
-bool WorldObject::collide(const WorldObject * obj) const {
+bool WorldObject::collide(const WorldObject & obj) const {
+  if (_size == Hollow || obj._size == Hollow)
+    return false;
   if (_size == Small) {
-    if (obj->_size == Small)
-      return smallCollide(this, obj);
-    return stCollide(this, obj);
+    if (obj._size == Small)
+      return smallCollide(*this, obj);
+    return stCollide(*this, obj);
   } else {
-    if (obj->_size == Small)
-      return stCollide(obj, this);
-    return tileCollide(this, obj);
+    if (obj._size == Small)
+      return stCollide(obj, *this);
+    return tileCollide(*this, obj);
   }
 }
 
 /// \brief Collision between two small objects
-bool WorldObject::smallCollide(const WorldObject *a, const WorldObject *b) {
-  return FlatHexPosition::distance(a->_pos, b->_pos) < (a->_radius + b->_radius);
+bool WorldObject::smallCollide(const WorldObject &a, const WorldObject &b) {
+  return FlatHexPosition::distance(a._pos, b._pos) < (a._radius + b._radius);
 }
 /// \brief Collision between two tile objects
-bool WorldObject::tileCollide(const WorldObject *a, const WorldObject *b) {
-  return a->_pos.tile() == b->_pos.tile();
+bool WorldObject::tileCollide(const WorldObject &a, const WorldObject &b) {
+  return a._pos.tile() == b._pos.tile();
 }
 /// \brief Collision between a small object and a tile object
-bool WorldObject::stCollide(const WorldObject *small, const WorldObject *tile) {
+bool WorldObject::stCollide(const WorldObject &small, const WorldObject &tile) {
   // Easier to understand with a drawing
-  return (small->_pos + FlatHexPosition(small->_pos, tile->_pos).toUnit() * small->_radius).toTile() == tile->_pos.tile();
+  return (small._pos + FlatHexPosition(small._pos, tile._pos).toUnit() * small._radius).toTile() == tile._pos.tile();
 }

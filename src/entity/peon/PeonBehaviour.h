@@ -16,35 +16,33 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   PeonBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 18 septembre 2020, 19:18
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef PEONBEHAVIOUR_H
+#define PEONBEHAVIOUR_H
 
+#include "entity/peon/Peon.h"
+#include "utils/world/WorldObject.h"
 #include "utils/world/WorldInterface.h"
-#include "controller/CtrlState.h"
+#include "utils/engine/Behaviourer.h"
 
-/// \brief Main handler for user control
-class Controller {
-private:
-  
-  WorldInterface & _world; ///< THA WORLDOOOOO
-  ControllerState  _state; ///< The game controller
-  
+class PeonBehaviour : public Behaviourer {
 public:
   
-  /// \brief Constructor
-  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world);
   
-  /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
-  /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
+private:
+  
+  /// \brief Return true if given position is valid
+  ///   if position is invalid, return false and return pointer to the obstacle
+  ///   in 'obstacle' if relevant
+  bool tryPosition(Peon & peon, WorldRef *ref, WorldObject ** obstacle, WorldInterface & world)  
+    const;
 };
 
-#endif /* CONTROLLER_H */
+#endif /* PEONBEHAVIOUR_H */

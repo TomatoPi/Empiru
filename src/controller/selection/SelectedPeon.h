@@ -16,35 +16,23 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   SelectedPeon.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 19 septembre 2020, 10:15
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef SELECTEDPEON_H
+#define SELECTEDPEON_H
 
-#include "utils/world/WorldInterface.h"
-#include "controller/CtrlState.h"
+#include "utils/engine/WorldRef.h"
 
-/// \brief Main handler for user control
-class Controller {
-private:
+/// \brief Utility object used to track a selected peon
+struct SelectedPeon : public WorldObject {
   
-  WorldInterface & _world; ///< THA WORLDOOOOO
-  ControllerState  _state; ///< The game controller
+  WorldRef *_peon; ///< The stalked peon
   
-public:
-  
-  /// \brief Constructor
-  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
-  /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
+  SelectedPeon(); ///< Constructor
 };
 
-#endif /* CONTROLLER_H */
+#endif /* SELECTEDPEON_H */

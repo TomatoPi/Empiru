@@ -33,7 +33,7 @@ class Tree : public WorldObject {
 public:
   
   /// \brief Constructor
-  Tree(const FlatHexPosition & pos);
+  Tree();
 };
 
 #endif /* TREE_H */

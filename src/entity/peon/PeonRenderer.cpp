@@ -38,14 +38,14 @@ PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) :
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
 int PeonRenderer::renderAt(
-    const WorldObject * obj, 
+    const WorldRef * obj, 
     int ori, int x, int y,
     const HexViewport & view,
     SDL_Renderer *rdr) 
 {
-  const Peon *peon(static_cast<const Peon*>(obj));
-  int frame = peon->hasPath() ? _targets.at(obj).update() : _targets.at(obj).restart();
-  ori = (ori + 6 - peon->direction().orientation()) % 6;
+  const Peon & peon(static_cast<const Peon &>(**obj));
+  int frame = peon.hasPath() ? _targets.at(obj).update() : _targets.at(obj).restart();
+  ori = (ori + 6 - peon.direction().orientation()) % 6;
   SDL_Rect r;
   r.w = _sheet->width();
   r.h = _sheet->height();
@@ -56,13 +56,13 @@ int PeonRenderer::renderAt(
 
 /// \brief Called when a new object associated with this renderer is created
 ///  may instanciate fine scope datas, like animation state
-void PeonRenderer::addTarget(const WorldObject *obj) {
+void PeonRenderer::addTarget(const WorldRef *obj) {
   auto insert(_targets.emplace(obj, Animation(7, 6)));
   assert(insert.second);
 }
 /// \brief Called when an object associated with this renderer is destroyed
 ///  may dealocate corresponding datas
-void PeonRenderer::removeTarget(const WorldObject *obj) {
+void PeonRenderer::removeTarget(const WorldRef *obj) {
   auto itr(_targets.find(obj));
   assert(itr != _targets.end());
   _targets.erase(itr);

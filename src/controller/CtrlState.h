@@ -27,26 +27,34 @@
 #define CONTROLLERSTATE_H
 
 #include <SDL2/SDL_events.h>
-#include "entity/peon/Peon.h"
+#include "utils/engine/WorldRef.h"
+
+#include "engine/GameEngine.h"
+#include "gui/RenderingEngine.h"
 
 /// \brief Object used to keep state of game controller
 class ControllerState {
   private:
     
-    Peon * _selectedPeon; ///< Obvious
+    WorldRef * _selectedPeon;     ///< Obvious
+    WorldRef * _selectionTracker; ///< SelectedPeon tracking curent selection
+    
+    WorldInterface & _world; ///< THA WORLDOOOOO
+    GameEngine &      _gameEngine; ///< Main engine
+    RenderingEngine & _rdrEngine;  ///< Renderer
   
   public:
      
     /// \brief Constructor
-    ControllerState();
+    ControllerState(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
     
     /// \brief Select given peon
-    void selectPeon(Peon * peon);
+    void selectPeon(WorldRef * peon);
     /// \brief Clear selection
     void deselectPeon();
     
     /// \brief Return selected peon or nullptr if no selection
-    Peon * selectedPeon();
+    WorldRef * selectedPeon();
 };
 
 #endif /* CONTROLLERSTATE_H */

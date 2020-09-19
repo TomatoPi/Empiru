@@ -43,10 +43,15 @@
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
+#include "controller/selection/SelectedPeon.h"
+#include "controller/selection/SelectedPeonBehaviour.h"
+#include "controller/selection/SelectedPeonRenderer.h"
 
+#include "engine/GenericAllocator.h"
 #include "engine/GameEngine.h"
 
 #include "utils/log.h"
+#include "entity/peon/PeonBehaviour.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -60,23 +65,20 @@ int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
-  auto peonSprite = SpriteAsset::loadFromFile("medias/peonhouette_palette_animation.png", window->renderer);
+  auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/blue_berry_tree.png", window->renderer);
   
-  Peon peon1(FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial));
-  
-  Tree tree(FlatHexPosition(1, 1, FlatHexPosition::OddQOffset));
-  
   World map(SIZE,SIZE);
-  GameEngine gameEngine(map);
+  GameEngine game(map);
   
-  Controller controller(map);
+  game.addObjectKind(typeid(Peon), new GenericAllocator<Peon>());
+  game.attachBehaviour(typeid(Peon), new PeonBehaviour());
   
-  gameEngine.addPeon(&peon1);
-  gameEngine.addPeon(&peon2);
+  game.addObjectKind(typeid(SelectedPeon), new GenericAllocator<SelectedPeon>());
+  game.attachBehaviour(typeid(SelectedPeon), new SelectedPeonBehav());
   
-  map.addObject(&tree);
+  game.addObjectKind(typeid(Tree), new GenericAllocator<Tree>());
   
   Camera camera(
     HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
@@ -86,11 +88,8 @@ int main(int argc, char** argv) {
   GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite));
   GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite));
   PeonRenderer prdr(std::move(peonSprite));
+  SelectedPeonRenderer selrdr(std::move(selSprite));
   
-  prdr.addTarget(&peon1);
-  prdr.addTarget(&peon2);
-  
-  SDLHandler handler(camera, camera, controller);
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
     LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
@@ -104,9 +103,45 @@ int main(int argc, char** argv) {
   camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
   
   RenderingEngine rdr(*window, camera, camera, map);
-  rdr.attachRenderer(typeid(Tile), &tilerdr);
-  rdr.attachRenderer(typeid(Peon), &prdr);
-  rdr.attachRenderer(typeid(Tree), &treerdr);
+  rdr.attachRenderer(typeid(Tile), tilerdr);
+  rdr.attachRenderer(typeid(Peon), prdr);
+  rdr.attachRenderer(typeid(SelectedPeon), selrdr);
+  rdr.attachRenderer(typeid(Tree), treerdr);
+  
+  Controller controller(map, game, rdr);
+  SDLHandler handler(camera, camera, controller);
+  
+  /* Manualy populate world */
+  
+  WorldRef *peon(game.createObject(typeid(Peon)));
+  (**peon).pos(FlatHexPosition(0, 0, FlatHexPosition::Axial));
+  prdr.addTarget(peon);
+  map.addObject(peon);
+  
+  peon = game.createObject(typeid(Peon));
+  (**peon).pos(FlatHexPosition(2, 2, FlatHexPosition::Axial));
+  prdr.addTarget(peon);
+  map.addObject(peon);
+  
+  WorldRef *tree(game.createObject(typeid(Tree)));
+  (**tree).pos(FlatHexPosition(1, 1, FlatHexPosition::Axial));
+  prdr.addTarget(tree);
+  map.addObject(tree);
+  
+  tree = game.createObject(typeid(Tree));
+  (**tree).pos(FlatHexPosition(1.6, 1, FlatHexPosition::Axial));
+  prdr.addTarget(tree);
+  map.addObject(tree);
+  tree = game.createObject(typeid(Tree));
+  (**tree).pos(FlatHexPosition(2.6, 1, FlatHexPosition::Axial));
+  prdr.addTarget(tree);
+  map.addObject(tree);
+  tree = game.createObject(typeid(Tree));
+  (**tree).pos(FlatHexPosition(1.3, 1.5, FlatHexPosition::Axial));
+  prdr.addTarget(tree);
+  map.addObject(tree);
+  
+  /* Main loop */
 
   long tickStartTime(0), tickEllapsedTime(0);
   double fpsStart(0), avgload(0), avgcount(0), avgfps(0);
@@ -117,7 +152,7 @@ int main(int argc, char** argv) {
     if (!handler.handleSDLEvents()) break;
     
     camera.update();
-    gameEngine.update();
+    game.update();
 
     window->clear();
     rdr.render();

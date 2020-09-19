@@ -16,35 +16,21 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   SelectedPeonBehaviour.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 19 septembre 2020, 10:22
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#include "SelectedPeonBehaviour.h"
+#include "SelectedPeon.h"
 
-#include "utils/world/WorldInterface.h"
-#include "controller/CtrlState.h"
-
-/// \brief Main handler for user control
-class Controller {
-private:
-  
-  WorldInterface & _world; ///< THA WORLDOOOOO
-  ControllerState  _state; ///< The game controller
-  
-public:
-  
-  /// \brief Constructor
-  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
-  /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
-};
-
-#endif /* CONTROLLER_H */
+/// \brief Must compute one behaviour tick of obj
+void SelectedPeonBehav::tick(
+  WorldObject & obj, WorldRef *ref, WorldInterface & world) 
+{
+  SelectedPeon & sel(static_cast<SelectedPeon &>(obj));
+  world.removeObject(ref);
+  sel.pos((**sel._peon).pos());
+  world.addObject(ref);
+}

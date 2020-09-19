@@ -68,7 +68,7 @@ public:
   
   /// \brief Draw the object at given position
   virtual int renderAt(
-    const WorldObject * obj, 
+    const WorldRef * obj, 
     int ori, int x, int y,
     const HexViewport & view,
     SDL_Renderer *rdr) 
@@ -81,8 +81,8 @@ public:
     return _sheet->renderFrame(0, ori, rdr, &r);
   }
   
-  virtual void addTarget(const WorldObject *obj) {}
-  virtual void removeTarget(const WorldObject *obj) {}
+  virtual void addTarget(const WorldRef *obj) {}
+  virtual void removeTarget(const WorldRef *obj) {}
   
 };
 

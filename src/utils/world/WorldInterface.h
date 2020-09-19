@@ -32,9 +32,9 @@ class WorldInterface {
 public:
   
   /// \brief Must add given object to the world
-  virtual void addObject(WorldObject * obj) = 0;
+  virtual void addObject(WorldRef * obj) = 0;
   /// \brief Must remove given object fro the world
-  virtual void removeObject(WorldObject * obj) = 0;
+  virtual void removeObject(WorldRef * obj) = 0;
   
   /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const = 0;
