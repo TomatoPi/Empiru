@@ -43,6 +43,9 @@
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
+#include "controller/selection/SelectedPeon.h"
+#include "controller/selection/SelectedPeonBehaviour.h"
+#include "controller/selection/SelectedPeonRenderer.h"
 
 #include "engine/GenericAllocator.h"
 #include "engine/GameEngine.h"
@@ -62,7 +65,8 @@ int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
-  auto peonSprite = SpriteAsset::loadFromFile("medias/peonhouette_palette_animation.png", window->renderer);
+  auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/blue_berry_tree.png", window->renderer);
   
   World map(SIZE,SIZE);
@@ -70,9 +74,11 @@ int main(int argc, char** argv) {
   
   game.addObjectKind(typeid(Peon), new GenericAllocator<Peon>());
   game.attachBehaviour(typeid(Peon), new PeonBehaviour());
-  game.addObjectKind(typeid(Tree), new GenericAllocator<Tree>());
   
-  Controller controller(map);
+  game.addObjectKind(typeid(SelectedPeon), new GenericAllocator<SelectedPeon>());
+  game.attachBehaviour(typeid(SelectedPeon), new SelectedPeonBehav());
+  
+  game.addObjectKind(typeid(Tree), new GenericAllocator<Tree>());
   
   Camera camera(
     HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
@@ -82,8 +88,8 @@ int main(int argc, char** argv) {
   GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite));
   GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite));
   PeonRenderer prdr(std::move(peonSprite));
+  SelectedPeonRenderer selrdr(std::move(selSprite));
   
-  SDLHandler handler(camera, camera, controller);
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
     LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
@@ -99,7 +105,11 @@ int main(int argc, char** argv) {
   RenderingEngine rdr(*window, camera, camera, map);
   rdr.attachRenderer(typeid(Tile), tilerdr);
   rdr.attachRenderer(typeid(Peon), prdr);
+  rdr.attachRenderer(typeid(SelectedPeon), selrdr);
   rdr.attachRenderer(typeid(Tree), treerdr);
+  
+  Controller controller(map, game, rdr);
+  SDLHandler handler(camera, camera, controller);
   
   /* Manualy populate world */
   

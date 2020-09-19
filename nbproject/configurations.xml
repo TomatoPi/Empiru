@@ -24,6 +24,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f4" displayName="controller" projectFiles="true">
+        <logicalFolder name="f1" displayName="selection" projectFiles="true">
+          <itemPath>src/controller/selection/SelectedPeon.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeon.h</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonBehaviour.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonBehaviour.h</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonRenderer.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonRenderer.h</itemPath>
+        </logicalFolder>
         <itemPath>src/controller/Controller.cpp</itemPath>
         <itemPath>src/controller/Controller.h</itemPath>
         <itemPath>src/controller/CtrlState.cpp</itemPath>
@@ -253,6 +261,36 @@
       <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -502,6 +540,36 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
@@ -744,6 +812,36 @@
       <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -988,6 +1086,36 @@
       <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>

@@ -16,35 +16,23 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   SelectedPeonBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 19 septembre 2020, 10:22
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef SELECTEDPEONBEHAVIOUR_H
+#define SELECTEDPEONBEHAVIOUR_H
 
-#include "utils/world/WorldInterface.h"
-#include "controller/CtrlState.h"
+#include "utils/engine/Behaviourer.h"
 
-/// \brief Main handler for user control
-class Controller {
-private:
-  
-  WorldInterface & _world; ///< THA WORLDOOOOO
-  ControllerState  _state; ///< The game controller
-  
+/// \brief Behaviour of the utility object 'SelectedPeon'
+/// update it's position according to peon's one
+class SelectedPeonBehav : public Behaviourer {
 public:
-  
-  /// \brief Constructor
-  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
-  /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world);
 };
 
-#endif /* CONTROLLER_H */
+#endif /* SELECTEDPEONBEHAVIOUR_H */

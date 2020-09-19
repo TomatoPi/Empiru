@@ -30,8 +30,8 @@
 #include <cmath>
 
 /// \brief Constructor
-Controller::Controller(WorldInterface & w) :
-  _world(w), _state()
+Controller::Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr) :
+  _world(w), _state(w, g, rdr)
 {
   
 }

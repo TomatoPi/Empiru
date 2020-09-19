@@ -36,6 +36,12 @@ WorldObject::WorldObject(const FlatHexPosition & pos, float radius) :
 {
   
 }
+/// \brief Contruct a Hollow Sized Object
+WorldObject::WorldObject(const FlatHexPosition & pos, void * osef) : 
+  _pos(pos), _size(Hollow), _radius(0)
+{
+  
+}
 
 /// \brief return object's position
 const FlatHexPosition & WorldObject::pos() const {
@@ -57,6 +63,8 @@ float WorldObject::radius() const {
 
 /// \brief Method that must return true is 'pos' is in object's hitbox
 bool WorldObject::collide(const WorldObject & obj) const {
+  if (_size == Hollow || obj._size == Hollow)
+    return false;
   if (_size == Small) {
     if (obj._size == Small)
       return smallCollide(*this, obj);

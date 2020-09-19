@@ -29,16 +29,24 @@
 #include <SDL2/SDL_events.h>
 #include "utils/engine/WorldRef.h"
 
+#include "engine/GameEngine.h"
+#include "gui/RenderingEngine.h"
+
 /// \brief Object used to keep state of game controller
 class ControllerState {
   private:
     
-    WorldRef * _selectedPeon; ///< Obvious
+    WorldRef * _selectedPeon;     ///< Obvious
+    WorldRef * _selectionTracker; ///< SelectedPeon tracking curent selection
+    
+    WorldInterface & _world; ///< THA WORLDOOOOO
+    GameEngine &      _gameEngine; ///< Main engine
+    RenderingEngine & _rdrEngine;  ///< Renderer
   
   public:
      
     /// \brief Constructor
-    ControllerState();
+    ControllerState(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
     
     /// \brief Select given peon
     void selectPeon(WorldRef * peon);

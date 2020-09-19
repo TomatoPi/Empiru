@@ -48,7 +48,7 @@ private:
   ///   during this frame
   /// Sorting is done on ascending y to ensure that objects away from camera
   ///   are drawn behind
-  typedef std::map<Position, const WorldRef *, PosCompareAscY> DrawStack;
+  typedef std::multimap<Position, const WorldRef *, PosCompareAscY> DrawStack;
   
   Window &                _window;    ///< Obvious
   const HexViewport &     _worldView; ///< Bridge between game and user
@@ -69,6 +69,11 @@ public:
   
   /// \brief Add a new renderer associated with given WorldObject type
   void attachRenderer(const std::type_info & info, AbstractRenderer & rdr);
+  
+  /// \brief Add a new target to the rendering engine
+  void addTarget(const WorldRef * obj);
+  /// \brief Remove a target from the rendering engine
+  void removeTarget(const WorldRef * obj);
   
   /// \brief Draw EVERYTHINGS (in the world)
   void render();

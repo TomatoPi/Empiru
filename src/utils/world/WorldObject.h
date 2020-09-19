@@ -35,8 +35,9 @@ public:
   
   /// \brief Specify object's size on the map
   enum Size {
-    Small,///< Objects that can coexist on the same tile with circular hitbox
-    Tile  ///< Objects that occupy the whole tile
+    Small,  ///< Objects that can coexist on the same tile with circular hitbox
+    Tile,   ///< Objects that occupy the whole tile
+    Hollow, ///< Utility objects that don't occupy space
   };
   
 private:
@@ -51,6 +52,8 @@ public:
   WorldObject(const FlatHexPosition & pos);
   /// \brief Construct a Small Sized Object with given radius
   WorldObject(const FlatHexPosition & pos, float radius);
+  /// \brief Contruct a Hollow Sized Object
+  WorldObject(const FlatHexPosition & pos, void * osef);
   /// \brief Destructor
   virtual ~WorldObject() = default;
   

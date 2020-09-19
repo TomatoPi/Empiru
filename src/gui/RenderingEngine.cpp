@@ -47,7 +47,17 @@ void RenderingEngine::attachRenderer(
   const std::type_info & info, 
   AbstractRenderer & rdr) 
 {
-  assert(_renderers.emplace(std::type_index(info), rdr).second);
+  bool success(_renderers.emplace(std::type_index(info), rdr).second);
+  assert(success);
+}
+
+/// \brief Add a new target to the rendering engine
+void RenderingEngine::addTarget(const WorldRef * obj) {
+  _renderers.at(std::type_index(typeid(**obj))).addTarget(obj);
+}
+/// \brief Remove a target from the rendering engine
+void RenderingEngine::removeTarget(const WorldRef * obj) {
+  _renderers.at(std::type_index(typeid(**obj))).removeTarget(obj);
 }
 
 void RenderingEngine::render() {
