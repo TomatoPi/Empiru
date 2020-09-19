@@ -113,7 +113,7 @@ const {
         for (auto obj : *content){
           if (obj == ref) 
             continue;
-          if (peon.collide(**obj)) {
+          if ((**obj).collide(peon)) {
             *obstacle = &(**obj);
             valid = false;
             return true;

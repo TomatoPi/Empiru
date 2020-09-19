@@ -16,26 +16,15 @@
  */
 
 /// 
-/// \file   Tree.cpp
+/// \file   Rock.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 17 septembre 2020, 08:45
-/// \brief Tree WorldObject declaration
+/// \date 19 septembre 2020, 14:18
 ///
 
-#include "Tree.h"
+#include "Rock.h"
 
 /// \brief Constructor
-Tree::Tree() : WorldObject(FlatHexPosition(), 0.1), _size(100) {
+Rock::Rock() : WorldObject(FlatHexPosition(), 0.1) {
   
-}
-
-/// \brief return quantity of wood in this tree
-int Tree::size() const {
-  return _size;
-}
-/// \brief try to remove 'qty' wood from the tree
-/// \return quantity removed
-int Tree::reduce(int qty) {
-  return _size -= std::min(qty, _size);
 }

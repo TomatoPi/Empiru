@@ -77,6 +77,14 @@ bool WorldObject::collide(const WorldObject & obj) const {
     return tileCollide(*this, obj);
   }
 }
+bool WorldObject::collide(const FlatHexPosition & pos) const {
+  if (_size == SHollow) return false;
+  if (_size == SSmall) {
+    return FlatHexPosition::distance(pos, _pos) < _radius;
+  } else {
+    return _pos.tile() == pos.tile();
+  }
+}
 
 /// \brief Collision between two small objects
 bool WorldObject::smallCollide(const WorldObject &a, const WorldObject &b) {
