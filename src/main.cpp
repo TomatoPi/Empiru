@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
   auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
   auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
   auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
-  auto treeSprite = SpriteAsset::loadFromFile("medias/blue_berry_tree.png", window->renderer);
+  auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
   
   World map(SIZE,SIZE);
   GameEngine game(map);
