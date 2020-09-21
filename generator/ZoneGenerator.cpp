@@ -40,6 +40,7 @@ void ZoneGenerator::createZone(int size) {
 
 void ZoneGenerator::addObject() {
   int nb_object = rand()%20;
+  float x_rand,y_rand;
   
   auto res = std::minmax_element(_vertexs.begin(), _vertexs.end(),
   [&]
@@ -49,9 +50,16 @@ void ZoneGenerator::addObject() {
   
   std::default_random_engine generator;
   std::uniform_real_distribution<float> distribution(res.first,res.second);
+  x_rand = distribution(generator);
+    
+  std::uniform_real_distribution<float> distribution2(calculateY()
+    ,calculateY());
+ 
+  y_rand = distribution2(generator);
   
   for (int i = 0 ; i < nb_object ; i++){
-    FlatHexPosition position = FlatHexPosition(distribution(generator), ...
+    FlatHexPosition position = FlatHexPosition(x_rand
+        ,y_rand
         ,FlatHexPosition::Axial);
     // /!\ aux doublons
     _objects.push_back(position);
