@@ -25,7 +25,7 @@
 #ifndef SELECTEDPEON_H
 #define SELECTEDPEON_H
 
-#include "utils/engine/WorldRef.h"
+#include "utils/world/WorldRef.h"
 
 /// \brief Utility object used to track a selected peon
 struct SelectedPeon : public WorldObject {

@@ -26,7 +26,7 @@
 #define ORDER_H
 
 #include "utils/hex/HexCoords.h"
-#include "utils/engine/WorldRef.h"
+#include "utils/world/WorldRef.h"
 
 /// \brief Holder of Peon's orders informations
 class Order {

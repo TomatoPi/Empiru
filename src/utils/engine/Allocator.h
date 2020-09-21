@@ -27,7 +27,7 @@
 #define ALLOCATOR_H
 
 #include <functional>
-#include "utils/engine/WorldRef.h"
+#include "utils/world/WorldRef.h"
 #include "utils/world/WorldObject.h"
 
 /// \brief Interface for worldobjects allocator/container

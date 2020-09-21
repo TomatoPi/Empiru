@@ -28,7 +28,7 @@
 
 #include "world/World.h"
 #include "entity/peon/Peon.h"
-#include "utils/engine/WorldRef.h"
+#include "utils/world/WorldRef.h"
 #include "utils/engine/Allocator.h"
 #include "utils/engine/Behaviourer.h"
 

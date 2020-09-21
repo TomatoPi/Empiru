@@ -27,8 +27,8 @@
 
 #include <unordered_set>
 
-#include "utils/engine/WorldRef.h"
 #include "utils/hex/HexCoords.h"
+#include "utils/world/WorldRef.h"
 #include "utils/world/WorldObject.h"
 
 /// \brief Tiles are world's container

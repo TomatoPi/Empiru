@@ -27,10 +27,10 @@
 #define CONTROLLERSTATE_H
 
 #include <SDL2/SDL_events.h>
-#include "utils/engine/WorldRef.h"
 
 #include "engine/GameEngine.h"
 #include "gui/RenderingEngine.h"
+#include "utils/world/WorldRef.h"
 
 /// \brief Object used to keep state of game controller
 class ControllerState {
