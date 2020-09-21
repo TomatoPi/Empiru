@@ -27,52 +27,79 @@
 
 #include "Peon.h"
 
-
 /// \brief Constructor
 Peon::Peon() : Peon(FlatHexPosition()) {
 }
 /// \brief Constructor
 Peon::Peon(const FlatHexPosition & pos) : 
   WorldObject(pos, 0.05), 
-  _path(),
-  _dir()
+  _todo(),
+  _dir(),
+  _cptr(0),
+  _delay(1),
+  _invetory(0)
 {
   
 }
 
 /// \brief Return current peon's target
 /// \pre peon has a target (path not empty)
-const FlatHexPosition & Peon::target() const {
-  assert(hasPath());
-  return _path.front();
+const Order & Peon::currentOrder() const {
+  assert(hasOrders());
+  return _todo.front();
 }
+  
+/// \brief ressources qty in peon's inventory
+int Peon::inventory() const {
+  return _invetory;
+}
+/// \brief add ressources to peon's inventory
+void Peon::addToInventory(int qty) {
+  _invetory += qty;
+}
+
 /// \brief Return current peon's orientation
 const FlatHexPosition & Peon::direction() const {
   return _dir;
 }
 
 /// \brief true if path is not empty
-bool Peon::hasPath() const {
-  return !_path.empty();
+bool Peon::hasOrders() const {
+  return !_todo.empty();
 }
 /// \brief remove all path's steps
-void Peon::clearPath() {
+void Peon::clearOrders() {
   //_dir._x = _dir._y = _dir._z = 0;
-  _path.clear();
+  _todo.clear();
 }
 /// \brief add pos on top of path
-void Peon::addStep(const FlatHexPosition & pos) {
-  _path.emplace_front(pos);
+void Peon::addOrder(const Order & order) {
+  _todo.emplace_front(order);
 }
 /// \brief set dir according to top step
-void Peon::beginStep() {
-  assert(hasPath());
-  _dir = FlatHexPosition(this->pos(), _path.front()).toUnit();
+void Peon::beginOrder() {
+  assert(hasOrders());
+  _dir = FlatHexPosition(this->pos(), _todo.front().targetPos()).toUnit();
+  switch(_todo.front().type()) {
+  case Order::MoveTo :
+    _delay = 1;
+    break;
+  case Order::Harvest :
+    _delay = 60;
+    break;
+  default :
+    assert(0);
+  }
+  _cptr = _delay-1;
 }
 /// \brief remove top step
-void Peon::endstep() {
-  assert(hasPath());
-  this->pos(_path.front());
-  _path.pop_front();
+void Peon::endOrder() {
+  assert(hasOrders());
+  _todo.pop_front();
   //_dir._x = _dir._y = _dir._z = 0;
+}
+
+/// \brief Increment peon's order counter and return true if order is ready
+bool Peon::tickCptr() {
+  return 0 == (_cptr = (_cptr+1) % _delay);
 }

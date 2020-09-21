@@ -45,6 +45,10 @@ public:
   void leftClickAt(const FlatHexPosition & click);
   /// \brief Called when a right click is performed at given position
   void rightClickAt(const FlatHexPosition & click);
+  
+private:
+  
+  WorldRef * objectAt(const FlatHexPosition & click) const;
 };
 
 #endif /* CONTROLLER_H */

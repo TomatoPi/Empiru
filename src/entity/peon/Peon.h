@@ -27,6 +27,7 @@
 #define PEON_H
 
 #include <deque>
+#include "entity/peon/Order.h"
 #include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
 
@@ -36,10 +37,13 @@ class Peon : public WorldObject {
 private:
 
   /// \brief Store the list of targets positions, used as a stack
-  typedef std::deque<FlatHexPosition> Path;
-
-  Path            _path; ///< stack of in comming positions
-  FlatHexPosition _dir;  ///< Peon's orientation
+  typedef std::deque<Order> TodoList;
+  
+  TodoList        _todo;      ///< stack of pending orders
+  FlatHexPosition _dir;       ///< Peon's orientation
+  int             _cptr;      ///< Peon's order cptr
+  int             _delay;     ///< Peon's order duration
+  int             _invetory;  ///< Peon's wood stock
 
 public:
 
@@ -47,18 +51,25 @@ public:
   Peon();
   /// \brief Constructor
   Peon(const FlatHexPosition & pos);
-
-  /// \brief Return current peon's target
-  /// \pre peon has a target (path not empty)
-  const FlatHexPosition & target() const;
+  
   /// \brief Return current peon's orientation
   const FlatHexPosition & direction() const;
+  
+  /// \brief Return current peon's order
+  /// \pre peon has an order (stack not empty)
+  const Order & currentOrder() const;
+  
+  int inventory() const;         ///< ressources qty in peon's inventory
+  void addToInventory(int qty);  ///< add ressources to peon's inventory
 
-  bool hasPath() const;                       ///< true if path is not empty
-  void clearPath();                           ///< remove all path's steps
-  void addStep(const FlatHexPosition & pos);  ///< add pos on top of path
-  void beginStep();                           ///< set dir according to top step
-  void endstep();                             ///< remove top step
+  bool hasOrders() const;              ///< true if orders is not empty
+  void clearOrders();                  ///< remove all orders
+  void addOrder(const Order & order);  ///< add order on top of the todolist
+  void beginOrder();                   ///< set dir according to top order
+  void endOrder();                     ///< remove top order
+  
+  /// \brief Increment peon's order counter and return true if order is ready
+  bool tickCptr();
 };
 
 #endif /* PEON_H */

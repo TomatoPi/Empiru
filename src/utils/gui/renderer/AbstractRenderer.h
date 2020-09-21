@@ -27,7 +27,7 @@
 #define ABSTRACTRENDERER_H
 
 #include "utils/hex/HexViewport.h"
-#include "utils/engine/WorldRef.h"
+#include "utils/world/WorldRef.h"
 #include "utils/world/WorldObject.h"
 #include <SDL2/SDL_render.h>
 

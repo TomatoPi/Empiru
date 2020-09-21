@@ -40,10 +40,49 @@ Controller::Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr
 /// \brief Called when a left click is performed at given position
 void Controller::leftClickAt(const FlatHexPosition & click) {
   
-  WorldRef *selection(nullptr);
-  WorldRef *miscobj(nullptr);
   // Search for a peon near click
-  /// \todo might be slow if there is a great amount of objects near click
+  WorldRef *selection(objectAt(click));
+  // Update controller according to result
+  if (selection) {
+    if (typeid(**selection) == typeid(Peon)) {
+      _state.selectPeon(selection);
+    }
+    else {
+      _state.deselectPeon();
+      if (selection) {
+        if (typeid(**selection) == typeid(Tree)) {
+          const Tree & t(static_cast<const Tree &>(**selection));
+          LOG_DEBUG("Tree ! : %d\n", t.size());
+        }
+      }
+    }
+  } else {
+    _state.deselectPeon();
+  }
+}
+/// \brief Called when a right click is performed at given position
+void Controller::rightClickAt(const FlatHexPosition & click) {
+  // If there is a selected peon and click is valid, let's go
+  if (_state.selectedPeon() != nullptr && _world.isOnMap(click)) {
+    Peon & peon(static_cast<Peon &>(**_state.selectedPeon()));
+    WorldRef *target(objectAt(click));
+    if (target) {
+      if (typeid(**target) == typeid(Tree)) {
+        peon.clearOrders();
+        peon.addOrder(Order::harvest(target));
+        peon.beginOrder();
+      }
+    } else {
+      peon.clearOrders();
+      peon.addOrder(Order::moveTo(click));
+      peon.beginOrder();
+    }
+  }
+}
+
+/// \todo might be slow if there is a great amount of objects near click
+WorldRef * Controller::objectAt(const FlatHexPosition & click) const {
+  WorldRef *selection(nullptr);
   click.convert(FlatHexPosition::Grid).mapNeightbours(
     [&]
     (const FlatHexPosition & pos) -> bool 
@@ -64,7 +103,7 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
           } /* if peon */
           else {
             if ((**obj).collide(click)) {
-              miscobj = obj;
+              selection = obj;
               return true;
             }
           }
@@ -72,27 +111,5 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
       }
       return false;
     });
-  // Update controller according to result
-  if (selection) {
-    _state.selectPeon(selection);
-  } else {
-    _state.deselectPeon();
-    if (miscobj) {
-      if (typeid(**miscobj) == typeid(Tree)) {
-        const Tree & t(static_cast<const Tree &>(**miscobj));
-        LOG_DEBUG("Tree ! : %d\n", t.size());
-      }
-    }
-  }
-}
-/// \brief Called when a right click is performed at given position
-void Controller::rightClickAt(const FlatHexPosition & click) {
-  
-  // If there is a selected peon and click is valid, let's go
-  if (_state.selectedPeon() != nullptr && _world.isOnMap(click)) {
-    Peon & peon(static_cast<Peon &>(**_state.selectedPeon()));
-    peon.clearPath();
-    peon.addStep(click);
-    peon.beginStep();
-  }
+  return selection;
 }

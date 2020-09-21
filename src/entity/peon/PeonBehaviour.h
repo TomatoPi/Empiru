@@ -38,6 +38,12 @@ public:
   
 private:
   
+  /// \brief compute harvest order
+  void harvest(Peon & peon, WorldRef *ref, WorldInterface & world);
+  
+  /// \brief compute path order for the peon
+  void pathFinding(Peon & peon, WorldRef *ref, WorldInterface & world);
+  
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant

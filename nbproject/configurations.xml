@@ -46,6 +46,8 @@
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
         <logicalFolder name="f1" displayName="peon" projectFiles="true">
+          <itemPath>src/entity/peon/Order.cpp</itemPath>
+          <itemPath>src/entity/peon/Order.h</itemPath>
           <itemPath>src/entity/peon/Peon.cpp</itemPath>
           <itemPath>src/entity/peon/Peon.h</itemPath>
           <itemPath>src/entity/peon/PeonBehaviour.cpp</itemPath>
@@ -72,7 +74,7 @@
         <logicalFolder name="f3" displayName="engine" projectFiles="true">
           <itemPath>src/utils/engine/Allocator.h</itemPath>
           <itemPath>src/utils/engine/Behaviourer.h</itemPath>
-          <itemPath>src/utils/engine/WorldRef.h</itemPath>
+          <itemPath>src/utils/world/WorldRef.h</itemPath>
         </logicalFolder>
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
           <logicalFolder name="f3" displayName="assets" projectFiles="true">
@@ -335,6 +337,10 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -370,8 +376,6 @@
       <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -457,6 +461,8 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -642,6 +648,10 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -677,8 +687,6 @@
       <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -764,6 +772,8 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -944,6 +954,10 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -979,8 +993,6 @@
       <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1066,6 +1078,8 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1247,6 +1261,10 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -1282,8 +1300,6 @@
       <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1369,6 +1385,8 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
       </item>
