@@ -54,15 +54,19 @@ protected:
   
   std::unique_ptr<SpriteSheet> _sheet;    ///< The sprite sheet
   Blitter                      _blitter;  ///< The blitter
+  int _offx;
+  int _offy;
   
 public:
 
   /// Constructor
   GenericRenderer(
-      std::unique_ptr<SpriteSheet> s, 
+      std::unique_ptr<SpriteSheet> s,
+      int offx=0, int offy=0, 
       Blitter b=Blitter()) : 
     _sheet(std::move(s)),
-    _blitter(b)
+    _blitter(b),
+    _offx(offx), _offy(offy)
   {  
   }
   
@@ -77,7 +81,7 @@ public:
     _blitter(&r, 
       _sheet->width(), _sheet->height(), 
       view.tileWidth(), view.tileHeight(), 
-      x, y);
+      x + _offx, y + _offy);
     return _sheet->renderFrame(0, ori, rdr, &r);
   }
   

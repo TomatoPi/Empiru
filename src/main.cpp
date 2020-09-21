@@ -39,6 +39,8 @@
 
 #include "entity/tree/Tree.h"
 
+#include "entity/rock/Rock.h"
+
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
@@ -68,6 +70,7 @@ int main(int argc, char** argv) {
   auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
   auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
+  auto rockSprite = SpriteAsset::loadFromFile("medias/palette_roche_v1.png", window->renderer);
   
   World map(SIZE,SIZE);
   GameEngine game(map);
@@ -80,13 +83,16 @@ int main(int argc, char** argv) {
   
   game.addObjectKind(typeid(Tree), new GenericAllocator<Tree>());
   
+  game.addObjectKind(typeid(Rock), new GenericAllocator<Rock>());
+  
   Camera camera(
     HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
     window->width, window->height,
     SIZE, SIZE);
   
   GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite));
-  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite));
+  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite), 0, 5);
+  GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite));
   PeonRenderer prdr(std::move(peonSprite));
   SelectedPeonRenderer selrdr(std::move(selSprite));
   
@@ -107,6 +113,7 @@ int main(int argc, char** argv) {
   rdr.attachRenderer(typeid(Peon), prdr);
   rdr.attachRenderer(typeid(SelectedPeon), selrdr);
   rdr.attachRenderer(typeid(Tree), treerdr);
+  rdr.attachRenderer(typeid(Rock), rockrdr);
   
   Controller controller(map, game, rdr);
   SDLHandler handler(camera, camera, controller);
@@ -127,7 +134,6 @@ int main(int argc, char** argv) {
   (**tree).pos(FlatHexPosition(1, 1, FlatHexPosition::Axial));
   prdr.addTarget(tree);
   map.addObject(tree);
-  
   tree = game.createObject(typeid(Tree));
   (**tree).pos(FlatHexPosition(1.6, 1, FlatHexPosition::Axial));
   prdr.addTarget(tree);
@@ -140,6 +146,11 @@ int main(int argc, char** argv) {
   (**tree).pos(FlatHexPosition(1.3, 1.5, FlatHexPosition::Axial));
   prdr.addTarget(tree);
   map.addObject(tree);
+  
+  WorldRef *rock(game.createObject(typeid(Rock)));
+  (**rock).pos(FlatHexPosition(0, 2, FlatHexPosition::Axial));
+  prdr.addTarget(rock);
+  map.addObject(rock);
   
   /* Main loop */
 

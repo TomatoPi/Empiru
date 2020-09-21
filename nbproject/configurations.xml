@@ -53,6 +53,10 @@
           <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
           <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f3" displayName="rock" projectFiles="true">
+          <itemPath>src/entity/rock/Rock.cpp</itemPath>
+          <itemPath>src/entity/rock/Rock.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f2" displayName="tree" projectFiles="true">
           <itemPath>src/entity/tree/Tree.cpp</itemPath>
           <itemPath>src/entity/tree/Tree.h</itemPath>
@@ -342,6 +346,10 @@
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -646,6 +654,10 @@
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
@@ -943,6 +955,10 @@
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1242,6 +1258,10 @@
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>

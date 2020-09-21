@@ -35,6 +35,7 @@
 #include <typeinfo>
 #include <typeindex>
 #include <unordered_map>
+#include <list>
 
 /// \brief Core object for in-game mechanics
 class GameEngine {
@@ -44,9 +45,12 @@ private:
   typedef std::unordered_map<std::type_index, Allocator*>   ObjectsTable;
   /// \brief Table of behaviours by objects type
   typedef std::unordered_map<std::type_index, Behaviourer*> BehaviourTable;
+  /// \brief Store Behaviours in order of their priority
+  typedef std::list<std::type_index> PriorityTable;
   
   ObjectsTable     _objects; ///< Table of all things that do things
   BehaviourTable   _behavs;  ///< Table of behaviours
+  PriorityTable    _priors;  ///< Ordered list of behaviours according to tick priority
   WorldInterface & _world;   ///< THA WO... oh wait ... joke already used
   
 public:
@@ -63,6 +67,7 @@ public:
   void addObjectKind(const std::type_info & type, Allocator * alloc);
   /// \brief Add a behaviour for an object Kind.
   ///   Only kinds with behaviour are sweeped during game tick
+  ///   Different types are processed in the same order as their addition
   void attachBehaviour(const std::type_info & type, Behaviourer * behav);
   
   /// \brief Called on each Main-loop iteration

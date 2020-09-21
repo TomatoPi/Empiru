@@ -32,6 +32,7 @@
 GameEngine::GameEngine(WorldInterface & w) : 
   _objects(),
   _behavs(),
+  _priors(),
   _world(w)
 {
   
@@ -55,19 +56,21 @@ void GameEngine::addObjectKind(const std::type_info & type, Allocator * alloc) {
 ///   Only kinds with behaviour are sweeped during game tick
 void GameEngine::attachBehaviour(const std::type_info & type, Behaviourer * behav) {
   auto res(_behavs.emplace(std::type_index(type), behav));
+  _priors.emplace_back(std::type_index(type));
   assert(res.second);
 }
 
 /// \brief Called on each Main-loop iteration
 ///   Call behaviour of each object
 void GameEngine::update() {
-  for (auto & beh : _behavs) {
-    auto alloc(_objects.find(beh.first));
+  for (auto & type : _priors) {
+    auto beh(_behavs.find(type));
+    auto alloc(_objects.find(type));
     if (alloc != _objects.end()) {
       alloc->second->foreach(
           [&]
           (WorldObject & obj, WorldRef *ref) -> void {
-            beh.second->tick(obj, ref, _world);
+            beh->second->tick(obj, ref, _world);
           });
     }
   }

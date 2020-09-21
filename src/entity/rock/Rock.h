@@ -16,26 +16,23 @@
  */
 
 /// 
-/// \file   Tree.cpp
+/// \file   Rock.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 17 septembre 2020, 08:45
-/// \brief Tree WorldObject declaration
+/// \date 19 septembre 2020, 14:18
 ///
 
-#include "Tree.h"
+#ifndef ROCK_H
+#define ROCK_H
 
-/// \brief Constructor
-Tree::Tree() : WorldObject(FlatHexPosition(), 0.1), _size(100) {
+#include "utils/world/WorldObject.h"
+
+/// \brief Rocks are minerals sets forming shapes and things
+class Rock : public WorldObject {
+public:
   
-}
+  /// \brief Constructor
+  Rock();
+};
 
-/// \brief return quantity of wood in this tree
-int Tree::size() const {
-  return _size;
-}
-/// \brief try to remove 'qty' wood from the tree
-/// \return quantity removed
-int Tree::reduce(int qty) {
-  return _size -= std::min(qty, _size);
-}
+#endif /* ROCK_H */

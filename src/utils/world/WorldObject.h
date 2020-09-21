@@ -68,7 +68,9 @@ public:
   float radius() const;
   
   /// \brief Method that must return true obj collides this object
-  bool collide(const WorldObject & obj) const;
+  virtual bool collide(const WorldObject & obj) const;
+  /// \brief Method that return true if pos is in this object
+  virtual bool collide(const FlatHexPosition & pos) const;
   
 public:
   

@@ -27,6 +27,7 @@
 
 #include "entity/peon/Peon.h"
 #include "utils/log.h"
+#include "entity/tree/Tree.h"
 #include <cmath>
 
 /// \brief Constructor
@@ -40,6 +41,7 @@ Controller::Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr
 void Controller::leftClickAt(const FlatHexPosition & click) {
   
   WorldRef *selection(nullptr);
+  WorldRef *miscobj(nullptr);
   // Search for a peon near click
   /// \todo might be slow if there is a great amount of objects near click
   click.convert(FlatHexPosition::Grid).mapNeightbours(
@@ -49,17 +51,24 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
       auto content = _world.getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){
-          if (typeid(**obj) != typeid(Peon)) continue;
-          const Peon & peon(static_cast<const Peon &>(**obj));
-          FlatHexPosition tmp(peon.pos(), FlatHexPosition::Grid);
-          if (
-              (fabs(click._x - tmp._x) < 0.25) 
-              && (fabs(click._y + 0.25 - tmp._y) < 0.25)) 
-          {
-            selection = obj;
-            return true;
+          if (typeid(**obj) == typeid(Peon)) {
+            const Peon & peon(static_cast<const Peon &>(**obj));
+            FlatHexPosition tmp(peon.pos(), FlatHexPosition::Grid);
+            if (
+                (fabs(click._x - tmp._x) < 0.25) 
+                && (fabs(click._y + 0.25 - tmp._y) < 0.25)) 
+            {
+              selection = obj;
+              return true;
+            }
+          } /* if peon */
+          else {
+            if ((**obj).collide(click)) {
+              miscobj = obj;
+              return true;
+            }
           }
-        }
+        } /* for obj */
       }
       return false;
     });
@@ -68,6 +77,12 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
     _state.selectPeon(selection);
   } else {
     _state.deselectPeon();
+    if (miscobj) {
+      if (typeid(**miscobj) == typeid(Tree)) {
+        const Tree & t(static_cast<const Tree &>(**miscobj));
+        LOG_DEBUG("Tree ! : %d\n", t.size());
+      }
+    }
   }
 }
 /// \brief Called when a right click is performed at given position
