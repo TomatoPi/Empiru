@@ -28,22 +28,63 @@
 
 #include "utils/hex/HexConsts.h"
 #include "utils/log.h"
+#include "entity/tree/Tree.h"
 
 /// \brief Must compute one behaviour tick of obj
 void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) {
   Peon & peon(static_cast<Peon &>(obj));
   // Pass if nothing to do
-  if (!peon.hasPath()) return;
+  if (!peon.hasOrders()) return;
+  // if order is not ready
+  if (!peon.tickCptr()) return;
+  // else let's do things
+  switch (peon.currentOrder().type()) {
+  case Order::MoveTo :
+    pathFinding(peon, ref, world);
+    break;
+  case Order::Harvest :
+    harvest(peon, ref, world);
+    break;
+  default:
+    assert(0);
+  }
+}
+
+/// \brief compute harvest order
+void PeonBehaviour::harvest(
+    Peon & peon, WorldRef *ref, WorldInterface & world) 
+{
+  const Order & order(peon.currentOrder());
+  Tree & tree(static_cast<Tree &>(**order.targetHarvest()));
+  // If too far, walk
+  if (tree.radius() + peon.radius() + 0.2
+    < FlatHexPosition::distance(peon.pos(), tree.pos())) 
+  {
+    peon.addOrder(Order::moveTo(tree.pos() 
+        + FlatHexPosition(tree.pos(), peon.pos()).toUnit() * (tree.radius() + 0.1)));
+    peon.beginOrder();
+    return;
+  }
+  // Yes we are ready to take some Wouuuuuuud
+  peon.addToInventory(tree.reduce(1));
+}
+
+/// \brief compute path order for the peon
+void PeonBehaviour::pathFinding(
+    Peon & peon, WorldRef *ref, WorldInterface & world) 
+{
   // Let's get it started
   const FlatHexPosition oldpos(peon.pos());
+  const Order & order(peon.currentOrder());
   // If target is reached we're done
-  if (FlatHexPosition::distance(oldpos, peon.target()) < 0.02) {
+  if (FlatHexPosition::distance(oldpos, order.targetMove()) < 0.02) {
     world.removeObject(ref);
-    peon.endstep();
+    peon.pos(order.targetMove());
     world.addObject(ref);
-    if (!peon.hasPath()) 
+    peon.endOrder();
+    if (!peon.hasOrders()) 
        return;
-    peon.beginStep();
+    peon.beginOrder();
   } 
   // Else compute one step
   else {
@@ -65,14 +106,14 @@ void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & worl
         FlatHexPosition esc2(collide * hex::RMatrix_CC60A);
         FlatHexPosition & esc = esc1;
         if (
-            FlatHexPosition::distance(oldpos + esc2 * 0.01, peon.target()) 
-          < FlatHexPosition::distance(oldpos + esc1 * 0.01, peon.target())) 
+            FlatHexPosition::distance(oldpos + esc2 * 0.01, order.targetMove()) 
+          < FlatHexPosition::distance(oldpos + esc1 * 0.01, order.targetMove())) 
         {
           esc = esc2;
         }
         peon.pos(oldpos + collide * 0.01);
-        peon.addStep(oldpos + esc * obstacle->radius() * 2);
-        peon.beginStep();
+        peon.addOrder(Order::moveTo(oldpos + esc * obstacle->radius() * 2));
+        peon.beginOrder();
         validMove = true;
       }
     }
@@ -88,7 +129,7 @@ void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & worl
     } else {
       /// \todo Add notification if impossible path
       peon.pos(oldpos);
-      peon.clearPath();
+      peon.clearOrders();
     }
   } /* else compute one step */
 }

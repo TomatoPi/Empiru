@@ -44,7 +44,7 @@ int PeonRenderer::renderAt(
     SDL_Renderer *rdr) 
 {
   const Peon & peon(static_cast<const Peon &>(**obj));
-  int frame = peon.hasPath() ? _targets.at(obj).update() : _targets.at(obj).restart();
+  int frame = peon.hasOrders() ? _targets.at(obj).update() : _targets.at(obj).restart();
   ori = (ori + 6 - peon.direction().orientation()) % 6;
   SDL_Rect r;
   r.w = _sheet->width();
