@@ -23,6 +23,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f5" displayName="buildings" projectFiles="true">
+        <itemPath>src/buildings/House.cpp</itemPath>
+        <itemPath>src/buildings/House.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f4" displayName="controller" projectFiles="true">
         <logicalFolder name="f1" displayName="selection" projectFiles="true">
           <itemPath>src/controller/selection/SelectedPeon.cpp</itemPath>
@@ -111,6 +115,12 @@
           <itemPath>src/utils/sound/SoundAsset.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="world" projectFiles="true">
+          <itemPath>src/utils/world/Harvestable.cpp</itemPath>
+          <itemPath>src/utils/world/Harvestable.h</itemPath>
+          <itemPath>src/utils/world/Ressource.cpp</itemPath>
+          <itemPath>src/utils/world/Ressource.h</itemPath>
+          <itemPath>src/utils/world/Storage.cpp</itemPath>
+          <itemPath>src/utils/world/Storage.h</itemPath>
           <itemPath>src/utils/world/Tile.cpp</itemPath>
           <itemPath>src/utils/world/Tile.h</itemPath>
           <itemPath>src/utils/world/WorldInterface.h</itemPath>
@@ -123,8 +133,8 @@
       <logicalFolder name="f1" displayName="world" projectFiles="true">
         <itemPath>src/world/World.cpp</itemPath>
         <itemPath>src/world/World.h</itemPath>
-        <itemPath>generator/ZoneGenerator.cpp</itemPath>
-        <itemPath>generator/ZoneGenerator.h</itemPath>
+        <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
+        <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
@@ -325,10 +335,6 @@
           <output>${TESTDIR}/TestFiles/f4</output>
         </linkerTool>
       </folder>
-      <item path="generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -342,6 +348,10 @@
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -391,10 +401,6 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -407,13 +413,13 @@
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -506,6 +512,18 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
@@ -515,8 +533,6 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -632,10 +648,6 @@
           <output>${TESTDIR}/TestFiles/f4</output>
         </linkerTool>
       </folder>
-      <item path="generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -649,6 +661,10 @@
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -698,10 +714,6 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -714,13 +726,13 @@
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -813,6 +825,18 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
@@ -822,8 +846,6 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -934,10 +956,6 @@
           <output>${TESTDIR}/TestFiles/f4</output>
         </linkerTool>
       </folder>
-      <item path="generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -951,6 +969,10 @@
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1000,10 +1022,6 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -1016,13 +1034,13 @@
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1115,6 +1133,18 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
@@ -1124,8 +1154,6 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1237,10 +1265,6 @@
           <output>${TESTDIR}/TestFiles/f4</output>
         </linkerTool>
       </folder>
-      <item path="generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -1254,6 +1278,10 @@
       <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="11">
       </item>
@@ -1303,10 +1331,6 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
@@ -1319,13 +1343,13 @@
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="11">
       </item>
@@ -1418,6 +1442,18 @@
       </item>
       <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
@@ -1427,8 +1463,6 @@
       <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
       </item>

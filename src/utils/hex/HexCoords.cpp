@@ -29,6 +29,11 @@
 #include <cassert>
 #include <cmath>
 
+#if __PROFILE_HEX__
+FlatHexPosition::ConversionTable FlatHexPosition::__conversions;
+FlatHexPosition::UsageTable      FlatHexPosition::__usages;
+#endif /* profiling */
+
 /// \brief Axial (0,0)
 FlatHexPosition::FlatHexPosition() : 
   FlatHexPosition(0,0,0,Axial) 
@@ -76,7 +81,9 @@ FlatHexPosition::FlatHexPosition(
 FlatHexPosition::FlatHexPosition(float x, float y, float z, System s) : 
   _x(x), _y(y), _z(z), _type(s)
 {
-  
+#if __PROFILE_HEX__
+  __usages[static_cast<std::size_t>(s)] += 1;
+#endif
 }
 
 /// \brief return true if a is at the same position than this
@@ -180,6 +187,7 @@ FlatHexPosition FlatHexPosition::convert(System target) const {
 FlatHexPosition & FlatHexPosition::convert2(
   FlatHexPosition * pos, System target) 
 {
+     
   if (target == pos->_type) {
     return *pos;
   }
@@ -235,6 +243,13 @@ FlatHexPosition & FlatHexPosition::convert2(
 FlatHexPosition & FlatHexPosition::convert(
   FlatHexPosition* pos, System target) 
 {
+  
+#if __PROFILE_HEX__
+  std::size_t i(static_cast<std::size_t>(target));
+  std::size_t j(static_cast<std::size_t>(pos->_type));
+     __conversions[i][j] += 1;
+#endif
+     
   if (target == pos->_type) {
     return *pos;
   }
@@ -270,6 +285,11 @@ FlatHexPosition & FlatHexPosition::convert(
   default :
     assert(0);
   }
+  
+#if __PROFILE_HEX__
+  __usages[static_cast<std::size_t>(target)] += 1;
+#endif
+  
   // This is the end
   pos->_type = target;
   return *pos;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ * Copyright (C) 2020 Alexis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,19 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// 
-/// \file   SelectedPeon.cpp
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
-///
-/// \date 19 septembre 2020, 10:18
-///
+/* 
+ * File:   testgeneration.cpp
+ * Author: Alexis
+ *
+ * Created on 20 septembre 2020, 16:30
+ */
 
-#include "SelectedPeon.h"
+#include <stdlib.h>
+#include <iostream>
 
-/// \brief Constructor
-SelectedPeon::SelectedPeon() : 
-  WorldObject(nullptr), 
-  _peon(nullptr) 
-{
+#include "utils/log.h"
+
+/*
+ * Simple C++ Test Suite
+ */
+
+
+
+int main(int argc, char* argv[]) {
   
+  LOG_DEBUG("Test generation\n");
+  
+  return (EXIT_SUCCESS);
 }
+

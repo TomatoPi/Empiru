@@ -16,18 +16,36 @@
  */
 
 /// 
-/// \file   SelectedPeon.cpp
+/// \file   Storage.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 10:18
+/// \date 22 septembre 2020, 09:25
 ///
 
-#include "SelectedPeon.h"
+#ifndef STORAGE_H
+#define STORAGE_H
 
-/// \brief Constructor
-SelectedPeon::SelectedPeon() : 
-  WorldObject(nullptr), 
-  _peon(nullptr) 
-{
+#include "Ressource.h"
+#include <unordered_set>
+#include <string>
+
+class Storage {
+private:
   
-}
+  typedef std::unordered_set<Stack, StackTypeHash, StackTypeEqual> StackList;
+  StackList _storage;
+  
+public:
+  
+  /// \brief Construct a storage
+  Storage();
+  /// \brief Make class polymorphic
+  virtual ~Storage() = default;
+  
+  /// \brief add given stack to the storage
+  void addToStorage(const Stack & stack);
+  
+  std::string content_str() const;
+};
+
+#endif /* STORAGE_H */

@@ -41,6 +41,13 @@ Order Order::harvest(WorldRef *obj) {
   order._type = Harvest;
   return order;
 }
+/// \brief return a Store Order
+Order Order::store(WorldRef *obj) {
+  Order order;
+  order._target._store._storage = obj;
+  order._type = Store;
+  return order;
+}
 
 /// \brief Order's target's constructor
 Order::Target::Target() {
@@ -58,6 +65,7 @@ const FlatHexPosition & Order::targetPos() const {
   switch (_type) {
   case MoveTo : return _target._move;
   case Harvest : return (**_target._harvest).pos();
+  case Store : return (**_target._store._storage).pos();
   default :
     assert(0);
   }
@@ -74,4 +82,11 @@ const FlatHexPosition & Order::targetMove() const {
 WorldRef * Order::targetHarvest() const {
   assert(_type == Harvest);
   return _target._harvest;
+}
+
+/// \brief return target for Store order
+/// \pre Must be a Store order
+WorldRef * Order::targetStore() const {
+  assert(_type == Store);
+  return _target._store._storage;
 }

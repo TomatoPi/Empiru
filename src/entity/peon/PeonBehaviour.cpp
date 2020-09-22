@@ -29,6 +29,7 @@
 #include "utils/hex/HexConsts.h"
 #include "utils/log.h"
 #include "entity/tree/Tree.h"
+#include "utils/world/Storage.h"
 
 /// \brief Must compute one behaviour tick of obj
 void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) {
@@ -45,9 +46,32 @@ void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & worl
   case Order::Harvest :
     harvest(peon, ref, world);
     break;
+  case Order::Store :
+    store(peon, ref, world);
+    break;
   default:
     assert(0);
   }
+}
+
+/// \brief compute harvest order
+void PeonBehaviour::store(Peon & peon, WorldRef *ref, WorldInterface & world) {
+  const Order & order(peon.currentOrder());
+  const WorldObject & object(static_cast<const WorldObject &>(**order.targetStore()));
+  Storage & storage(dynamic_cast<Storage &>(**order.targetStore()));
+  // If too far, walk
+  if (object.radius() + peon.radius() + 0.15
+    < FlatHexPosition::distance(peon.pos(), object.pos())) 
+  {
+    peon.addOrder(Order::moveTo(object.pos() 
+        + FlatHexPosition(object.pos(), peon.pos()).toUnit() * (object.radius() + 0.1)));
+    peon.beginOrder();
+    return;
+  }
+  // Put the inventory in the warehouse
+  storage.addToStorage(peon.inventory());
+  peon.clearInventory();
+  peon.endOrder();
 }
 
 /// \brief compute harvest order
@@ -55,18 +79,19 @@ void PeonBehaviour::harvest(
     Peon & peon, WorldRef *ref, WorldInterface & world) 
 {
   const Order & order(peon.currentOrder());
-  Tree & tree(static_cast<Tree &>(**order.targetHarvest()));
+  const WorldObject & object(static_cast<const WorldObject &>(**order.targetHarvest()));
+  Harvestable & harvest(dynamic_cast<Harvestable &>(**order.targetHarvest()));
   // If too far, walk
-  if (tree.radius() + peon.radius() + 0.2
-    < FlatHexPosition::distance(peon.pos(), tree.pos())) 
+  if (object.radius() + peon.radius() + 0.15
+    < FlatHexPosition::distance(peon.pos(), object.pos())) 
   {
-    peon.addOrder(Order::moveTo(tree.pos() 
-        + FlatHexPosition(tree.pos(), peon.pos()).toUnit() * (tree.radius() + 0.1)));
+    peon.addOrder(Order::moveTo(object.pos() 
+        + FlatHexPosition(object.pos(), peon.pos()).toUnit() * (object.radius() + 0.1)));
     peon.beginOrder();
     return;
   }
   // Yes we are ready to take some Wouuuuuuud
-  peon.addToInventory(tree.reduce(1));
+  peon.addToInventory(harvest.type(), harvest.reduce(1));
 }
 
 /// \brief compute path order for the peon

@@ -49,11 +49,11 @@ private:
 public:
   
   /// \brief Construct a Tile Sized Object
-  WorldObject(const FlatHexPosition & pos);
+  WorldObject();
   /// \brief Construct a Small Sized Object with given radius
-  WorldObject(const FlatHexPosition & pos, float radius);
+  WorldObject(float radius);
   /// \brief Contruct a Hollow Sized Object
-  WorldObject(const FlatHexPosition & pos, void * osef);
+  WorldObject(void * osef);
   /// \brief Destructor
   virtual ~WorldObject() = default;
   
@@ -63,7 +63,7 @@ public:
   void pos(const FlatHexPosition & pos);
   
   /// \brief return object's size class
-  Size size() const;
+  Size sizeClass() const;
   /// \brief return object's radius or 1 if tile sized
   float radius() const;
   

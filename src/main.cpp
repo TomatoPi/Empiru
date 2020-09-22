@@ -41,6 +41,8 @@
 
 #include "entity/rock/Rock.h"
 
+#include "buildings/House.h"
+
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
@@ -55,7 +57,7 @@
 #include "utils/log.h"
 #include "entity/peon/PeonBehaviour.h"
 
-#include "../generator/ZoneGenerator.h"
+#include "generator/ZoneGenerator.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -73,6 +75,7 @@ int main(int argc, char** argv) {
   auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
   auto rockSprite = SpriteAsset::loadFromFile("medias/palette_roche_v1.png", window->renderer);
+  auto houseSprite = SpriteAsset::loadFromFile("medias/build/house_tower/sprite_house_tower.png", window->renderer);
   
   
   
@@ -89,6 +92,8 @@ int main(int argc, char** argv) {
   
   game.addObjectKind(typeid(Rock), new GenericAllocator<Rock>());
   
+  game.addObjectKind(typeid(House), new GenericAllocator<House>());
+  
   Camera camera(
     HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
     window->width, window->height,
@@ -99,6 +104,7 @@ int main(int argc, char** argv) {
   GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite));
   PeonRenderer prdr(std::move(peonSprite));
   SelectedPeonRenderer selrdr(std::move(selSprite));
+  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite));
   
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
@@ -118,6 +124,7 @@ int main(int argc, char** argv) {
   rdr.attachRenderer(typeid(SelectedPeon), selrdr);
   rdr.attachRenderer(typeid(Tree), treerdr);
   rdr.attachRenderer(typeid(Rock), rockrdr);
+  rdr.attachRenderer(typeid(House), houserdr);
   
   Controller controller(map, game, rdr);
   SDLHandler handler(camera, camera, controller);
@@ -126,29 +133,29 @@ int main(int argc, char** argv) {
   
   WorldRef *peon(game.createObject(typeid(Peon)));
   (**peon).pos(FlatHexPosition(0, 0, FlatHexPosition::Axial));
-  prdr.addTarget(peon);
+  rdr.addTarget(peon);
   map.addObject(peon);
   
   peon = game.createObject(typeid(Peon));
   (**peon).pos(FlatHexPosition(2, 2, FlatHexPosition::Axial));
-  prdr.addTarget(peon);
+  rdr.addTarget(peon);
   map.addObject(peon);
   
   WorldRef *tree(game.createObject(typeid(Tree)));
   (**tree).pos(FlatHexPosition(1, 1, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
   (**tree).pos(FlatHexPosition(1.6, 1, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
   (**tree).pos(FlatHexPosition(2.6, 1, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
   (**tree).pos(FlatHexPosition(1.3, 1.5, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   
   /* ------------------------------------------------- */
@@ -174,8 +181,14 @@ int main(int argc, char** argv) {
   
   WorldRef *rock(game.createObject(typeid(Rock)));
   (**rock).pos(FlatHexPosition(0, 2, FlatHexPosition::Axial));
-  prdr.addTarget(rock);
+  rdr.addTarget(rock);
   map.addObject(rock);
+  
+  
+  WorldRef *house(game.createObject(typeid(House)));
+  (**house).pos(FlatHexPosition(3, 2, FlatHexPosition::Axial));
+  rdr.addTarget(house);
+  map.addObject(house);
   
   /* Main loop */
 
@@ -220,6 +233,21 @@ int main(int argc, char** argv) {
   Mix_CloseAudio();
   Mix_Quit();
   */
+  
+  LOG_INFO("TOTAL CONVERSIONS COUNT : \n");
+  std::size_t N(static_cast<std::size_t>(FlatHexPosition::Count));
+  for (std::size_t i(0) ; i<N ; ++i) {
+    for (std::size_t j(0) ; j<N ; ++j) {
+      LOG_GEN("%6lu ", FlatHexPosition::__conversions[i][j]);
+    }
+    LOG_GEN("\n");
+  }
+  LOG_INFO("TOTAL USAGES : \n");
+  for (std::size_t i(0) ; i<N ; ++i) {
+    LOG_GEN("%6lu ", FlatHexPosition::__usages[i]);
+  }
+  LOG_GEN("\n");
+  
   return 0;
 }
 

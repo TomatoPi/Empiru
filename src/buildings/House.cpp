@@ -16,18 +16,14 @@
  */
 
 /// 
-/// \file   SelectedPeon.cpp
+/// \file   House.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 10:18
+/// \date 22 septembre 2020, 09:18
 ///
 
-#include "SelectedPeon.h"
+#include "House.h"
 
-/// \brief Constructor
-SelectedPeon::SelectedPeon() : 
-  WorldObject(nullptr), 
-  _peon(nullptr) 
-{
+House::House() : WorldObject(), Storage() {
   
 }

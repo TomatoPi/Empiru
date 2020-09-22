@@ -16,18 +16,41 @@
  */
 
 /// 
-/// \file   SelectedPeon.cpp
+/// \file   Storage.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 10:18
+/// \date 22 septembre 2020, 09:25
 ///
 
-#include "SelectedPeon.h"
-
-/// \brief Constructor
-SelectedPeon::SelectedPeon() : 
-  WorldObject(nullptr), 
-  _peon(nullptr) 
-{
+#include "Storage.h"
+#include "utils/gui/view/AbstractCamera.h"
   
+/// \brief Construct a storage
+Storage::Storage() : _storage() {
+  
+}
+
+/// \brief add given stack to the storage
+void Storage::addToStorage(const Stack & stack) {
+  StackList::iterator itr(_storage.find(stack));
+  if (itr == _storage.end()) {
+    _storage.emplace_hint(itr, stack);
+  } else {
+    Stack old(*itr);
+    old.reduce(-stack.size());
+    _storage.erase(itr);
+    _storage.emplace(old);
+  }
+}
+
+std::string Storage::content_str() const {
+  std::string res;
+  for (auto & stack : _storage) {
+    res.append("[");
+    res.append(std::to_string(stack.type()));
+    res.append(":");
+    res.append(std::to_string(stack.size()));
+    res.append("]");
+  }
+  return res;
 }

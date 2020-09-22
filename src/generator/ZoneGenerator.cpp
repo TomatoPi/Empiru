@@ -44,7 +44,6 @@ void ZoneGenerator::createZone(int size) {
      return a._x < b._x;
   });
   
-  
 }
 
 void ZoneGenerator::addObject() {

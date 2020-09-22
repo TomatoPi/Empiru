@@ -16,18 +16,21 @@
  */
 
 /// 
-/// \file   SelectedPeon.cpp
+/// \file   Harvestable.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 10:18
+/// \date 21 septembre 2020, 18:23
 ///
 
-#include "SelectedPeon.h"
+#ifndef HARVESTABLE_H
+#define HARVESTABLE_H
 
-/// \brief Constructor
-SelectedPeon::SelectedPeon() : 
-  WorldObject(nullptr), 
-  _peon(nullptr) 
-{
-  
-}
+#include "Ressource.h"
+
+class Harvestable : public Stack {
+public:
+  Harvestable(Stack::Ressource type, int size);
+  virtual ~Harvestable() = default;
+};
+
+#endif /* HARVESTABLE_H */
