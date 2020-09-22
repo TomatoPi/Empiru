@@ -50,9 +50,9 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
     else {
       _state.deselectPeon();
       if (selection) {
-        if (typeid(**selection) == typeid(Tree)) {
-          const Tree & t(static_cast<const Tree &>(**selection));
-          LOG_DEBUG("Tree ! : %d\n", t.size());
+        if (auto harvest = dynamic_cast<Harvestable*>(&**selection)) {
+          LOG_DEBUG("Ressource : %s : %d\n", 
+              typeid(*harvest).name(), harvest->size());
         }
       }
     }
@@ -67,10 +67,12 @@ void Controller::rightClickAt(const FlatHexPosition & click) {
     Peon & peon(static_cast<Peon &>(**_state.selectedPeon()));
     WorldRef *target(objectAt(click));
     if (target) {
-      if (typeid(**target) == typeid(Tree)) {
-        peon.clearOrders();
-        peon.addOrder(Order::harvest(target));
-        peon.beginOrder();
+      if (auto harvest = dynamic_cast<Harvestable *>(&**target)) {
+        if (peon.canHarvest(harvest->type())) {
+          peon.clearOrders();
+          peon.addOrder(Order::harvest(target));
+          peon.beginOrder();
+        }
       }
     } else {
       peon.clearOrders();

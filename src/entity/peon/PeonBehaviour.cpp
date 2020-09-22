@@ -55,18 +55,19 @@ void PeonBehaviour::harvest(
     Peon & peon, WorldRef *ref, WorldInterface & world) 
 {
   const Order & order(peon.currentOrder());
-  Tree & tree(static_cast<Tree &>(**order.targetHarvest()));
+  const WorldObject & object(static_cast<const WorldObject &>(**order.targetHarvest()));
+  Harvestable & harvest(dynamic_cast<Harvestable &>(**order.targetHarvest()));
   // If too far, walk
-  if (tree.radius() + peon.radius() + 0.2
-    < FlatHexPosition::distance(peon.pos(), tree.pos())) 
+  if (object.radius() + peon.radius() + 0.2
+    < FlatHexPosition::distance(peon.pos(), object.pos())) 
   {
-    peon.addOrder(Order::moveTo(tree.pos() 
-        + FlatHexPosition(tree.pos(), peon.pos()).toUnit() * (tree.radius() + 0.1)));
+    peon.addOrder(Order::moveTo(object.pos() 
+        + FlatHexPosition(object.pos(), peon.pos()).toUnit() * (object.radius() + 0.1)));
     peon.beginOrder();
     return;
   }
   // Yes we are ready to take some Wouuuuuuud
-  peon.addToInventory(tree.reduce(1));
+  peon.addToInventory(harvest.type(), harvest.reduce(1));
 }
 
 /// \brief compute path order for the peon

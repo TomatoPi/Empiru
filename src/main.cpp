@@ -122,34 +122,34 @@ int main(int argc, char** argv) {
   
   WorldRef *peon(game.createObject(typeid(Peon)));
   (**peon).pos(FlatHexPosition(0, 0, FlatHexPosition::Axial));
-  prdr.addTarget(peon);
+  rdr.addTarget(peon);
   map.addObject(peon);
   
   peon = game.createObject(typeid(Peon));
   (**peon).pos(FlatHexPosition(2, 2, FlatHexPosition::Axial));
-  prdr.addTarget(peon);
+  rdr.addTarget(peon);
   map.addObject(peon);
   
   WorldRef *tree(game.createObject(typeid(Tree)));
   (**tree).pos(FlatHexPosition(1, 1, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
   (**tree).pos(FlatHexPosition(1.6, 1, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
   (**tree).pos(FlatHexPosition(2.6, 1, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
   (**tree).pos(FlatHexPosition(1.3, 1.5, FlatHexPosition::Axial));
-  prdr.addTarget(tree);
+  rdr.addTarget(tree);
   map.addObject(tree);
   
   WorldRef *rock(game.createObject(typeid(Rock)));
   (**rock).pos(FlatHexPosition(0, 2, FlatHexPosition::Axial));
-  prdr.addTarget(rock);
+  rdr.addTarget(rock);
   map.addObject(rock);
   
   /* Main loop */

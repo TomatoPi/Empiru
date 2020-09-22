@@ -28,18 +28,14 @@
 #include "Peon.h"
 
 /// \brief Constructor
-Peon::Peon() : Peon(FlatHexPosition()) {
-}
-/// \brief Constructor
-Peon::Peon(const FlatHexPosition & pos) : 
-  WorldObject(pos, 0.05), 
+Peon::Peon() :
+  WorldObject(0.05), 
   _todo(),
   _dir(),
   _cptr(0),
   _delay(1),
-  _invetory(0)
+  _invetory()
 {
-  
 }
 
 /// \brief Return current peon's target
@@ -50,12 +46,22 @@ const Order & Peon::currentOrder() const {
 }
   
 /// \brief ressources qty in peon's inventory
-int Peon::inventory() const {
+const Stack & Peon::inventory() const {
   return _invetory;
 }
 /// \brief add ressources to peon's inventory
-void Peon::addToInventory(int qty) {
-  _invetory += qty;
+void Peon::addToInventory(Stack::Ressource type, int qty) {
+  assert(canHarvest(type));
+  if (_invetory.empty()) {
+    _invetory = Stack(type, qty);
+  } else {
+    _invetory.reduce(-qty);
+  }
+}
+
+/// \brief return true if type is harvestable
+bool Peon::canHarvest(Stack::Ressource type) const {
+  return _invetory.empty() || _invetory.type() == type;
 }
 
 /// \brief Return current peon's orientation

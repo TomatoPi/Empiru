@@ -16,18 +16,42 @@
  */
 
 /// 
-/// \file   SelectedPeon.cpp
+/// \file   Ressource.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 10:18
+/// \date 21 septembre 2020, 19:30
 ///
 
-#include "SelectedPeon.h"
+#include "Ressource.h"
+#include <algorithm>
 
-/// \brief Constructor
-SelectedPeon::SelectedPeon() : 
-  WorldObject(nullptr), 
-  _peon(nullptr) 
+/// \brief Default Constructor, build invalid ressource
+Stack::Stack() : Stack(Invalid, 0) {
+  
+}
+/// \brief Create a ressource of given type and size
+Stack::Stack(Ressource type, int size) : 
+  _size(size), _type(type) 
 {
   
+}
+
+/// \brief return quantity of ressources inside the stack
+int Stack::size() const {
+  return _size;
+}
+/// \brief try to remove 'qty' of ressource from the stack
+/// \return quantity removed : min(size, qty)
+int Stack::reduce(int qty) {
+  return _size -= std::min(_size, qty);
+}
+
+/// \brief return stack type
+Stack::Ressource Stack::type() const {
+  return _type;
+}
+
+/// \brief return true if the stack is empty
+bool Stack::empty() const {
+  return _size <= 0;
 }

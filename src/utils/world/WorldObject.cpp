@@ -27,20 +27,20 @@
 #include "WorldObject.h"
 
 /// \brief Construct a Tile Sized Object
-WorldObject::WorldObject(const FlatHexPosition & pos) : 
-  _pos(pos), _size(STile), _radius(1) 
+WorldObject::WorldObject() : 
+  _pos(), _size(STile), _radius(1) 
 {
   
 }
 /// \brief Construct a Small Sized Object with given radius
-WorldObject::WorldObject(const FlatHexPosition & pos, float radius) : 
-  _pos(pos), _size(SSmall), _radius(radius) 
+WorldObject::WorldObject(float radius) : 
+  _pos(), _size(SSmall), _radius(radius) 
 {
   
 }
 /// \brief Contruct a Hollow Sized Object
-WorldObject::WorldObject(const FlatHexPosition & pos, void * osef) : 
-  _pos(pos), _size(SHollow), _radius(0)
+WorldObject::WorldObject(void * osef) : 
+  _pos(), _size(SHollow), _radius(0)
 {
   
 }
@@ -55,7 +55,7 @@ void WorldObject::pos(const FlatHexPosition & pos) {
 }
 
 /// \brief return object's size class
-WorldObject::Size WorldObject::size() const {
+WorldObject::Size WorldObject::sizeClass() const {
   return _size;
 }
 /// \brief return object's radius or 1 if tile sized

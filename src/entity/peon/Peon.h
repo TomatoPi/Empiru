@@ -30,6 +30,7 @@
 #include "entity/peon/Order.h"
 #include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
+#include "utils/world/Ressource.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
@@ -43,14 +44,12 @@ private:
   FlatHexPosition _dir;       ///< Peon's orientation
   int             _cptr;      ///< Peon's order cptr
   int             _delay;     ///< Peon's order duration
-  int             _invetory;  ///< Peon's wood stock
+  Stack           _invetory;  ///< Peon's inventory
 
 public:
 
   /// \brief Constructor
   Peon();
-  /// \brief Constructor
-  Peon(const FlatHexPosition & pos);
   
   /// \brief Return current peon's orientation
   const FlatHexPosition & direction() const;
@@ -59,8 +58,11 @@ public:
   /// \pre peon has an order (stack not empty)
   const Order & currentOrder() const;
   
-  int inventory() const;         ///< ressources qty in peon's inventory
-  void addToInventory(int qty);  ///< add ressources to peon's inventory
+  const Stack & inventory() const;     ///< ressources qty in peon's inventory
+  void addToInventory(
+    Stack::Ressource type, int qty);   ///< add ressources to peon's inventory
+  bool canHarvest(
+    Stack::Ressource type) const;      ///< return true if type is harvestable
 
   bool hasOrders() const;              ///< true if orders is not empty
   void clearOrders();                  ///< remove all orders

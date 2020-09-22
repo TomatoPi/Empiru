@@ -26,16 +26,6 @@
 #include "Tree.h"
 
 /// \brief Constructor
-Tree::Tree() : WorldObject(FlatHexPosition(), 0.1), _size(100) {
+Tree::Tree() : WorldObject(0.1), Harvestable(Stack::Wood, 100) {
   
-}
-
-/// \brief return quantity of wood in this tree
-int Tree::size() const {
-  return _size;
-}
-/// \brief try to remove 'qty' wood from the tree
-/// \return quantity removed
-int Tree::reduce(int qty) {
-  return _size -= std::min(qty, _size);
 }

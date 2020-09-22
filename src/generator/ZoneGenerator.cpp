@@ -46,7 +46,7 @@ void ZoneGenerator::addObject() {
   (const FlatHexPosition & a, const FlatHexPosition & b) -> bool {
     return a._x < b._x;
   });
-  
+  /*
   std::default_random_engine generator;
   std::uniform_real_distribution<float> distribution(res.first,res.second);
   
@@ -57,7 +57,7 @@ void ZoneGenerator::addObject() {
     _objects.push_back(position);
     
   }
-   
+   */
 }
 
 

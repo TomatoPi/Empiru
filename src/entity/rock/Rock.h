@@ -26,9 +26,10 @@
 #define ROCK_H
 
 #include "utils/world/WorldObject.h"
+#include "utils/world/Harvestable.h"
 
 /// \brief Rocks are minerals sets forming shapes and things
-class Rock : public WorldObject {
+class Rock : public WorldObject, public Harvestable {
 public:
   
   /// \brief Constructor

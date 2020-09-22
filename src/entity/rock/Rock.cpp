@@ -25,6 +25,6 @@
 #include "Rock.h"
 
 /// \brief Constructor
-Rock::Rock() : WorldObject(FlatHexPosition(), 0.1) {
+Rock::Rock() : WorldObject(0.1), Harvestable(Stack::Rock, 50) {
   
 }
