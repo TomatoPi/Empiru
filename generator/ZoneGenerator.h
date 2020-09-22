@@ -29,7 +29,10 @@
 #include <vector>
 
 class ZoneGenerator {
+  
 public:
+  typedef std::vector<FlatHexPosition> Zone;
+  
   /// \brief Constructor
   ZoneGenerator();
   
@@ -40,12 +43,16 @@ public:
   /// \brief Add object in zone
   void addObject();
   
-  //Mettre ça dans module math ???
+  // \brief Calculate the y coordinate according to the equation of line AB, as a function of         an x coordinate
   float calculateY(FlatHexPosition posA, FlatHexPosition posB, float xC);
-private:
-  typedef std::vector<FlatHexPosition> Zone;
-  Zone _vertexs;
-  Zone _objects;
+  
+  Zone objects();
+  
+  Zone vertexs();
+  
+  private:
+    Zone _vertexs;
+    Zone _objects;
 };
 
 #endif /* ZONEGENERATOR_H */
