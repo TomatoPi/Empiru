@@ -32,8 +32,23 @@
 #include <functional>
 #include "utils/math/Matrix.h"
 
+#define __PROFILE_HEX__ 1
+
 /// \brief Represent a position on an Hexagonal Grid with flat disposition
 /// \todo Profile conversion and systems usage
+/// Conversions :
+/// -> 11% : Axial -> Odd
+/// -> 3%  : Odd   -> Axial
+/// -> 80% : Axial -> Axial
+/// -> 0%  : Grid  -> Axial
+/// -> 5%  : Axial -> Grid
+/// -> 0%  : Grid  -> Grid
+///
+/// Usage Approx :
+/// Odd   : 26%
+/// Axial : 61%
+/// Grid  : 13%
+///
 struct FlatHexPosition {
   
   /// \enum System List of available coordinate systems
@@ -42,6 +57,7 @@ struct FlatHexPosition {
     Axial,      ///< Axial System
     Cubic,      ///< Cubic System
     Grid,       ///< Grid System in (0.75w, 0.5h) basis
+    Count       ///< Number of valid systems
   };
 
   float   _x;     ///< Horizontal or RightDown position
@@ -133,6 +149,14 @@ private:
   static FlatHexPosition & convert(FlatHexPosition * pos, System target);
   /// \brief Effective implementation of convert function
   static FlatHexPosition & convert2(FlatHexPosition * pos, System target);
+ 
+#if __PROFILE_HEX__ /* profiling */
+public:
+  typedef std::size_t ConversionTable[System::Count][System::Count];
+  typedef std::size_t UsageTable[System::Count];
+  static ConversionTable __conversions;
+  static UsageTable      __usages;
+#endif /* profiling */
 };
 
 /// \brief Hashing functor on FlatHexPosition objects

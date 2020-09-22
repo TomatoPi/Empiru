@@ -208,6 +208,21 @@ int main(int argc, char** argv) {
   Mix_CloseAudio();
   Mix_Quit();
   */
+  
+  LOG_INFO("TOTAL CONVERSIONS COUNT : \n");
+  std::size_t N(static_cast<std::size_t>(FlatHexPosition::Count));
+  for (std::size_t i(0) ; i<N ; ++i) {
+    for (std::size_t j(0) ; j<N ; ++j) {
+      LOG_GEN("%6lu ", FlatHexPosition::__conversions[i][j]);
+    }
+    LOG_GEN("\n");
+  }
+  LOG_INFO("TOTAL USAGES : \n");
+  for (std::size_t i(0) ; i<N ; ++i) {
+    LOG_GEN("%6lu ", FlatHexPosition::__usages[i]);
+  }
+  LOG_GEN("\n");
+  
   return 0;
 }
 

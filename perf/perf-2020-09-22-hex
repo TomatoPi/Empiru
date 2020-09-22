@@ -1,0 +1,1573 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 18.19      0.06     0.06   356210     0.17     0.20  FlatHexPosition::tile(FlatHexPosition*)
+ 15.15      0.11     0.05  1625917     0.03     0.03  FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System)
+ 15.15      0.16     0.05                             RenderingEngine::render()
+  9.09      0.19     0.03    70419     0.43     0.89  World::getContentAt(FlatHexPosition const&) const
+  6.06      0.21     0.02    87136     0.23     0.29  FlatHexPosition::operator-(FlatHexPosition const&) const
+  3.03      0.22     0.01   292818     0.03     0.03  HexViewport::tileHeight() const
+  3.03      0.23     0.01   184646     0.05     0.25  FlatHexPosition::tile() const
+  3.03      0.24     0.01   183303     0.05     0.34  World::isOnMap(FlatHexPosition const&) const
+  3.03      0.25     0.01    79712     0.13     0.13  FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition::System)
+  3.03      0.26     0.01    79708     0.13     0.13  AbstractCamera::getOrientation() const
+  3.03      0.27     0.01    73099     0.14     0.23  std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const
+  3.03      0.28     0.01    67828     0.15     0.18  GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*)
+  3.03      0.29     0.01    19857     0.50     0.50  WorldObject::pos() const
+  3.03      0.30     0.01    16431     0.61     0.61  Camera::Camera(int, int, int, int, int, int)
+  3.03      0.31     0.01    13390     0.75     0.75  std::_Rb_tree_iterator<std::pair<Position const, WorldRef const*> > std::_Rb_tree<Position, std::pair<Position const, WorldRef const*>, std::_Select1st<std::pair<Position const, WorldRef const*> >, PosCompareAscY, std::allocator<std::pair<Position const, WorldRef const*> > >::_M_emplace_equal<Position, WorldRef* const&>(Position&&, WorldRef* const&)
+  3.03      0.32     0.01     4092     2.44     3.53  std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&)
+  1.52      0.33     0.01     1310     3.82     3.82  SelectedPeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*)
+  1.52      0.33     0.01                             SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >)
+  0.00      0.33     0.00   279825     0.00     0.06  FlatHexPosition::operator+(FlatHexPosition const&) const
+  0.00      0.33     0.00   263052     0.00     0.00  FlatHexPosition::convertTo(FlatHexPosition::System)
+  0.00      0.33     0.00    96518     0.00     0.00  HexViewport::tileWidth() const
+  0.00      0.33     0.00    81235     0.00     0.03  FlatHexPosition::operator*(Matrix22 const&) const
+  0.00      0.33     0.00    79714     0.00     0.00  SpriteSheet::width() const
+  0.00      0.33     0.00    79714     0.00     0.00  SpriteSheet::height() const
+  0.00      0.33     0.00    79708     0.00     0.00  SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*)
+  0.00      0.33     0.00    79708     0.00     0.57  HexViewport::toPixel(FlatHexPosition const&, int*, int*) const
+  0.00      0.33     0.00    73099     0.00     0.23  HCHasher::operator()(FlatHexPosition const&) const
+  0.00      0.33     0.00    67991     0.00     0.00  FlatHexPosition::toTile()
+  0.00      0.33     0.00    67828     0.00     0.00  OnTileBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const
+  0.00      0.33     0.00    41797     0.00     0.00  PosCompareAscY::operator()(Position const&, Position const&) const
+  0.00      0.33     0.00    15237     0.00     0.46  HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const
+  0.00      0.33     0.00    13390     0.00     0.00  Position::Position(int, int)
+  0.00      0.33     0.00    12583     0.00     0.00  Tile::getContent() const
+  0.00      0.33     0.00    10392     0.00     0.00  std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&)
+  0.00      0.33     0.00     7679     0.00     0.00  GenericAllocator<Tree>::GWorldRef::operator*()
+  0.00      0.33     0.00     7550     0.00     0.03  GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*)
+  0.00      0.33     0.00     7550     0.00     0.00  OnFootBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const
+  0.00      0.33     0.00     7358     0.00     0.00  Peon::hasOrders() const
+  0.00      0.33     0.00     7352     0.00     0.00  GenericAllocator<Peon>::GWorldRef::operator*() const
+  0.00      0.33     0.00     6063     0.00     0.00  FlatHexPosition::FlatHexPosition()
+  0.00      0.33     0.00     6044     0.00     0.00  GenericAllocator<Tree>::GWorldRef::operator*() const
+  0.00      0.33     0.00     4918     0.00     0.00  Peon::direction() const
+  0.00      0.33     0.00     4583     0.00     0.00  GenericAllocator<Peon>::GWorldRef::operator*()
+  0.00      0.33     0.00     4544     0.00     0.00  GenericAllocator<SelectedPeon>::GWorldRef::operator*()
+  0.00      0.33     0.00     4330     0.00     0.00  PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*)
+  0.00      0.33     0.00     4330     0.00     0.00  FlatHexPosition::orientation() const
+  0.00      0.33     0.00     4330     0.00     0.00  std::__detail::_Map_base<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(WorldRef const* const&)
+  0.00      0.33     0.00     3812     0.00     0.03  FlatHexPosition::operator*(float const&) const
+  0.00      0.33     0.00     3101     0.00     0.00  Animation::update()
+  0.00      0.33     0.00     3020     0.00     0.00  PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&)
+  0.00      0.33     0.00     3020     0.00     0.00  std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}> const&, std::_Manager_operation)
+  0.00      0.33     0.00     2817     0.00     0.23  WorldObject::collide(WorldObject const&) const
+  0.00      0.33     0.00     2695     0.00     0.32  FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&)
+  0.00      0.33     0.00     2667     0.00     0.46  std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&)
+  0.00      0.33     0.00     2634     0.00     0.00  GenericAllocator<SelectedPeon>::GWorldRef::operator*() const
+  0.00      0.33     0.00     2056     0.00     0.00  Peon::tickCptr()
+  0.00      0.33     0.00     1926     0.00     0.00  WorldObject::pos(FlatHexPosition const&)
+  0.00      0.33     0.00     1807     0.00     0.00  GenericAllocator<Rock>::GWorldRef::operator*()
+  0.00      0.33     0.00     1691     0.00     0.00  GenericAllocator<House>::GWorldRef::operator*()
+  0.00      0.33     0.00     1512     0.00     2.12  GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>)
+  0.00      0.33     0.00     1511     0.00     0.00  GenericAllocator<Rock>::GWorldRef::operator*() const
+  0.00      0.33     0.00     1511     0.00     0.00  GenericAllocator<House>::GWorldRef::operator*() const
+  0.00      0.33     0.00     1510     0.00    10.81  GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>)
+  0.00      0.33     0.00     1510     0.00     0.32  HexViewport::upLeftCorner(FlatHexPosition*) const
+  0.00      0.33     0.00     1510     0.00     0.00  HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const
+  0.00      0.33     0.00     1330     0.00     0.00  Tile::insert(WorldRef*)
+  0.00      0.33     0.00     1330     0.00     0.98  World::addObject(WorldRef*)
+  0.00      0.33     0.00     1329     0.00     0.00  Tile::erase(WorldRef*)
+  0.00      0.33     0.00     1329     0.00     0.97  World::removeObject(WorldRef*)
+  0.00      0.33     0.00     1329     0.00     0.00  Tile::isEmpty() const
+  0.00      0.33     0.00     1310     0.00     1.47  SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&)
+  0.00      0.33     0.00     1256     0.00     0.00  Peon::currentOrder() const
+  0.00      0.33     0.00     1229     0.00     0.00  Animation::restart()
+  0.00      0.33     0.00      650     0.00     0.00  Order::type() const
+  0.00      0.33     0.00      612     0.00     0.00  Order::targetMove() const
+  0.00      0.33     0.00      597     0.00    24.23  FlatHexPosition::mapNeightbours(std::function<bool (FlatHexPosition const&)>) const
+  0.00      0.33     0.00      596     0.00    27.30  PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&)
+  0.00      0.33     0.00      588     0.00    25.58  PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const
+  0.00      0.33     0.00      588     0.00     0.06  FlatHexPosition::operator!=(FlatHexPosition const&) const
+  0.00      0.33     0.00      588     0.00     0.00  std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation)
+  0.00      0.33     0.00      194     0.00     0.29  FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&)
+  0.00      0.33     0.00      190     0.00     0.03  FlatHexPosition::toUnit()
+  0.00      0.33     0.00      165     0.00     0.06  FlatHexPosition::operator==(FlatHexPosition const&) const
+  0.00      0.33     0.00      163     0.00     0.93  WorldObject::stCollide(WorldObject const&, WorldObject const&)
+  0.00      0.33     0.00       73     0.00     0.00  WorldObject::radius() const
+  0.00      0.33     0.00       58     0.00     0.00  Order::targetHarvest() const
+  0.00      0.33     0.00       57     0.00     0.00  Stack::empty() const
+  0.00      0.33     0.00       56     0.00     0.00  Stack::type() const
+  0.00      0.33     0.00       49     0.00     0.00  Stack::reduce(int)
+  0.00      0.33     0.00       29     0.00     1.53  PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&)
+  0.00      0.33     0.00       26     0.00     0.00  Peon::addToInventory(Stack::Ressource, int)
+  0.00      0.33     0.00       22     0.00     1.03  Peon::beginOrder()
+  0.00      0.33     0.00       22     0.00     0.00  Order::targetPos() const
+  0.00      0.33     0.00       16     0.00     0.00  HexViewport::target(FlatHexPosition const&)
+  0.00      0.33     0.00       16     0.00     0.00  HexViewport::target() const
+  0.00      0.33     0.00       15     0.00     0.61  std::__detail::_Map_base<std::type_index, std::pair<std::type_index const, AbstractRenderer&>, std::allocator<std::pair<std::type_index const, AbstractRenderer&> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(std::type_index const&)
+  0.00      0.33     0.00       14     0.00     0.00  Peon::addOrder(Order const&)
+  0.00      0.33     0.00       13     0.00     0.00  Tile::Tile()
+  0.00      0.33     0.00       13     0.00     0.46  std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&)
+  0.00      0.33     0.00       12     0.00     0.00  SpriteSheet::recut(unsigned int, unsigned int)
+  0.00      0.33     0.00       11     0.00     0.00  Peon::inventory() const
+  0.00      0.33     0.00       10     0.00     0.00  ControllerState::selectedPeon()
+  0.00      0.33     0.00       10     0.00     0.00  FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System)
+  0.00      0.33     0.00        9     0.00    27.21  SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&)
+  0.00      0.33     0.00        9     0.00     0.00  Peon::endOrder()
+  0.00      0.33     0.00        9     0.00     0.00  Order::moveTo(FlatHexPosition const&)
+  0.00      0.33     0.00        9     0.00    24.26  Controller::objectAt(FlatHexPosition const&) const
+  0.00      0.33     0.00        9     0.00     0.38  HexViewport::fromPixel(int, int, FlatHexPosition*) const
+  0.00      0.33     0.00        9     0.00     0.03  FlatHexPosition::convert(FlatHexPosition::System) const
+  0.00      0.33     0.00        9     0.00     0.00  std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation)
+  0.00      0.33     0.00        9     0.00     1.42  std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&)
+  0.00      0.33     0.00        8     0.00     0.00  Stack::Stack(Stack::Ressource, int)
+  0.00      0.33     0.00        7     0.00     0.00  WorldObject::WorldObject(float)
+  0.00      0.33     0.00        7     0.00     0.00  std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::erase(std::__detail::_Node_const_iterator<std::pair<FlatHexPosition const, Tile>, false, true>)
+  0.00      0.33     0.00        6     0.00     0.00  SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*)
+  0.00      0.33     0.00        6     0.00     0.00  SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int)
+  0.00      0.33     0.00        6     0.00     0.00  SpriteSheet::~SpriteSheet()
+  0.00      0.33     0.00        6     0.00     0.00  PeonRenderer::addTarget(WorldRef const*)
+  0.00      0.33     0.00        6     0.00     0.00  Animation::Animation(int, int)
+  0.00      0.33     0.00        6     0.00     0.35  WorldObject::collide(FlatHexPosition const&) const
+  0.00      0.33     0.00        6     0.00     0.00  Order::targetStore() const
+  0.00      0.33     0.00        6     0.00     0.00  std::pair<std::__detail::_Node_iterator<std::pair<WorldRef const* const, Animation>, false, false>, bool> std::_Hashtable<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<WorldRef const*&, Animation>(std::integral_constant<bool, true>, WorldRef const*&, Animation&&)
+  0.00      0.33     0.00        5     0.00    24.60  Controller::rightClickAt(FlatHexPosition const&)
+  0.00      0.33     0.00        5     0.00     0.00  Harvestable::Harvestable(Stack::Ressource, int)
+  0.00      0.33     0.00        5     0.00     0.00  GenericRenderer<OnFootBlitter>::addTarget(WorldRef const*)
+  0.00      0.33     0.00        5     0.00     0.00  Peon::clearOrders()
+  0.00      0.33     0.00        4     0.00    28.24  Controller::leftClickAt(FlatHexPosition const&)
+  0.00      0.33     0.00        4     0.00     0.00  GameEngine::createObject(std::type_info const&)
+  0.00      0.33     0.00        4     0.00     0.00  WorldObject::WorldObject(void*)
+  0.00      0.33     0.00        4     0.00     0.00  SelectedPeon::SelectedPeon()
+  0.00      0.33     0.00        4     0.00     3.01  ControllerState::selectPeon(WorldRef*)
+  0.00      0.33     0.00        4     0.00     1.83  RenderingEngine::addTarget(WorldRef const*)
+  0.00      0.33     0.00        4     0.00     0.00  GenericAllocator<SelectedPeon>::createObject()
+  0.00      0.33     0.00        4     0.00     0.00  GenericAllocator<Tree>::createObject()
+  0.00      0.33     0.00        4     0.00     0.00  SelectedPeonRenderer::addTarget(WorldRef const*)
+  0.00      0.33     0.00        4     0.00     0.00  Tree::Tree()
+  0.00      0.33     0.00        4     0.00     0.15  Camera::doUpdateLRScroll(float)
+  0.00      0.33     0.00        4     0.00     0.00  Matrix22::Matrix22(float, float, float, float)
+  0.00      0.33     0.00        4     0.00     0.00  Stack::size() const
+  0.00      0.33     0.00        4     0.00     0.00  Peon* std::__uninitialized_copy<false>::__uninit_copy<Peon const*, Peon*>(Peon const*, Peon const*, Peon*)
+  0.00      0.33     0.00        3     0.00     0.00  GameEngine::removeObject(WorldRef*)
+  0.00      0.33     0.00        3     0.00     0.00  PeonRenderer::removeTarget(WorldRef const*)
+  0.00      0.33     0.00        3     0.00     0.00  SelectedPeon::~SelectedPeon()
+  0.00      0.33     0.00        3     0.00     2.61  PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&)
+  0.00      0.33     0.00        3     0.00     1.58  ControllerState::deselectPeon()
+  0.00      0.33     0.00        3     0.00     0.61  RenderingEngine::removeTarget(WorldRef const*)
+  0.00      0.33     0.00        3     0.00     0.00  GenericAllocator<SelectedPeon>::deleteObject(WorldRef*)
+  0.00      0.33     0.00        3     0.00     0.00  GenericAllocator<SelectedPeon>::GWorldRef::~GWorldRef()
+  0.00      0.33     0.00        3     0.00     0.00  SelectedPeonRenderer::removeTarget(WorldRef const*)
+  0.00      0.33     0.00        3     0.00     0.00  Tree::~Tree()
+  0.00      0.33     0.00        3     0.00     0.00  Order::harvest(WorldRef*)
+  0.00      0.33     0.00        3     0.00     0.00  Peon::canHarvest(Stack::Ressource) const
+  0.00      0.33     0.00        3     0.00     0.00  void std::vector<Tree, std::allocator<Tree> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Tree*, std::vector<Tree, std::allocator<Tree> > >)
+  0.00      0.33     0.00        3     0.00     0.00  void std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Tree>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Tree>::GWorldRef**, std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> > >, GenericAllocator<Tree>::GWorldRef*&)
+  0.00      0.33     0.00        2     0.00     0.00  GenericAllocator<Peon>::createObject()
+  0.00      0.33     0.00        2     0.00     0.00  Peon::Peon()
+  0.00      0.33     0.00        2     0.00     0.00  Order::store(WorldRef*)
+  0.00      0.33     0.00        2     0.00     0.00  Stack::Stack()
+  0.00      0.33     0.00        2     0.00     0.00  StackTypeHash::operator()(Stack const&) const
+  0.00      0.33     0.00        2     0.00     0.00  std::_Hashtable<Stack, Stack, std::allocator<Stack>, std::__detail::_Identity, StackTypeEqual, StackTypeHash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_find_before_node(unsigned long, Stack const&, unsigned long) const
+  0.00      0.33     0.00        2     0.00     0.00  void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >)
+  0.00      0.33     0.00        2     0.00     0.00  void std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Peon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Peon>::GWorldRef**, std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> > >, GenericAllocator<Peon>::GWorldRef*&)
+  0.00      0.33     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN10GameEngineC2ER14WorldInterface
+  0.00      0.33     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN11HexViewport11ROTATE_LEFTE
+  0.00      0.33     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN13PeonBehaviour4tickER11WorldObjectP8WorldRefR14WorldInterface
+  0.00      0.33     0.00        1     0.00     0.03  HexViewport::HexViewport(int, int, int, int)
+  0.00      0.33     0.00        1     0.00     0.00  WorldObject::WorldObject()
+  0.00      0.33     0.00        1     0.00     0.00  PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >)
+  0.00      0.33     0.00        1     0.00     0.00  AbstractCamera::scrollDown()
+  0.00      0.33     0.00        1     0.00     0.00  AbstractCamera::scrollRight()
+  0.00      0.33     0.00        1     0.00     0.00  AbstractCamera::stopLRScroll()
+  0.00      0.33     0.00        1     0.00     0.00  AbstractCamera::stopUDScroll()
+  0.00      0.33     0.00        1     0.00     0.00  AbstractCamera::AbstractCamera(float, float, int)
+  0.00      0.33     0.00        1     0.00     0.00  FlatHexPosition::FlatHexPosition(float, float, float, float, FlatHexPosition::System)
+  0.00      0.33     0.00        1     0.00     0.00  FlatHexPosition::FlatHexPosition(FlatHexPosition::System)
+  0.00      0.33     0.00        1     0.00     0.00  GenericRenderer<OnTileBlitter>::addTarget(WorldRef const*)
+  0.00      0.33     0.00        1     0.00     0.00  GenericAllocator<Rock>::createObject()
+  0.00      0.33     0.00        1     0.00     0.00  GenericAllocator<House>::createObject()
+  0.00      0.33     0.00        1     0.00     0.00  Peon::clearInventory()
+  0.00      0.33     0.00        1     0.00     0.00  Peon::~Peon()
+  0.00      0.33     0.00        1     0.00     0.00  Rock::Rock()
+  0.00      0.33     0.00        1     0.00     0.00  House::House()
+  0.00      0.33     0.00        1     0.00     0.00  Stack::clear()
+  0.00      0.33     0.00        1     0.00     0.00  Storage::addToStorage(Stack const&)
+  0.00      0.33     0.00        1     0.00     0.00  Storage::Storage()
+  0.00      0.33     0.00        1     0.00     0.00  StackTypeEqual::operator()(Stack const&, Stack const&) const
+  0.00      0.33     0.00        1     0.00     0.00  std::_Deque_base<Order, std::allocator<Order> >::_M_initialize_map(unsigned long)
+  0.00      0.33     0.00        1     0.00     0.00  std::_Deque_base<Order, std::allocator<Order> >::~_Deque_base()
+  0.00      0.33     0.00        1     0.00     0.00  void std::vector<SelectedPeon, std::allocator<SelectedPeon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<SelectedPeon*, std::vector<SelectedPeon, std::allocator<SelectedPeon> > >)
+  0.00      0.33     0.00        1     0.00     0.00  void std::vector<Rock, std::allocator<Rock> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Rock*, std::vector<Rock, std::allocator<Rock> > >)
+  0.00      0.33     0.00        1     0.00     0.00  void std::vector<House, std::allocator<House> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<House*, std::vector<House, std::allocator<House> > >)
+  0.00      0.33     0.00        1     0.00     0.00  void std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<SelectedPeon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<SelectedPeon>::GWorldRef**, std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> > >, GenericAllocator<SelectedPeon>::GWorldRef*&)
+  0.00      0.33     0.00        1     0.00     0.00  void std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Rock>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Rock>::GWorldRef**, std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> > >, GenericAllocator<Rock>::GWorldRef*&)
+  0.00      0.33     0.00        1     0.00     0.00  void std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<House>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<House>::GWorldRef**, std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> > >, GenericAllocator<House>::GWorldRef*&)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 3.03% of 0.33 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     92.5    0.05    0.26                 RenderingEngine::render() [1]
+                0.01    0.05  182710/183303      World::isOnMap(FlatHexPosition const&) const [4]
+                0.03    0.03   66318/70419       World::getContentAt(FlatHexPosition const&) const [3]
+                0.00    0.05   79708/79708       HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+                0.01    0.00   67828/356210      FlatHexPosition::tile(FlatHexPosition*) [2]
+                0.01    0.00   67828/67828       GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+                0.00    0.01  199320/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.01    0.00   79708/79708       AbstractCamera::getOrientation() const [22]
+                0.01    0.00   13390/13390       std::_Rb_tree_iterator<std::pair<Position const, WorldRef const*> > std::_Rb_tree<Position, std::pair<Position const, WorldRef const*>, std::_Select1st<std::pair<Position const, WorldRef const*> >, PosCompareAscY, std::allocator<std::pair<Position const, WorldRef const*> > >::_M_emplace_equal<Position, WorldRef* const&>(Position&&, WorldRef* const&) [24]
+                0.01    0.00   16410/16431       Camera::Camera(int, int, int, int, int, int) [19]
+                0.01    0.00  217440/292818      HexViewport::tileHeight() const [20]
+                0.01    0.00   13390/19857       WorldObject::pos() const [23]
+                0.01    0.00    1310/1310        SelectedPeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [26]
+                0.00    0.00    3020/87136       FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+                0.00    0.00    1510/1510        HexViewport::upLeftCorner(FlatHexPosition*) const [36]
+                0.00    0.00    7550/7550        GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+                0.00    0.00    3020/3812        FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00   67828/67991       FlatHexPosition::toTile() [80]
+                0.00    0.00   21140/96518       HexViewport::tileWidth() const [76]
+                0.00    0.00   13390/13390       Position::Position(int, int) [83]
+                0.00    0.00   10287/12583       Tile::getContent() const [84]
+                0.00    0.00    6040/6063        FlatHexPosition::FlatHexPosition() [90]
+                0.00    0.00    6040/7679        GenericAllocator<Tree>::GWorldRef::operator*() [86]
+                0.00    0.00    6040/6044        GenericAllocator<Tree>::GWorldRef::operator*() const [91]
+                0.00    0.00    4330/4330        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+                0.00    0.00    3020/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+                0.00    0.00    3020/7352        GenericAllocator<Peon>::GWorldRef::operator*() const [89]
+                0.00    0.00    1510/1510        HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const [108]
+                0.00    0.00    1510/1691        GenericAllocator<House>::GWorldRef::operator*() [105]
+                0.00    0.00    1510/1807        GenericAllocator<Rock>::GWorldRef::operator*() [104]
+                0.00    0.00    1510/1511        GenericAllocator<House>::GWorldRef::operator*() const [107]
+                0.00    0.00    1510/1511        GenericAllocator<Rock>::GWorldRef::operator*() const [106]
+                0.00    0.00    1310/4544        GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+                0.00    0.00    1310/2634        GenericAllocator<SelectedPeon>::GWorldRef::operator*() const [101]
+-----------------------------------------------
+                0.00    0.00     163/356210      WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+                0.01    0.00   30474/356210      HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [25]
+                0.01    0.00   67828/356210      RenderingEngine::render() [1]
+                0.01    0.00   73099/356210      HCHasher::operator()(FlatHexPosition const&) const [12]
+                0.03    0.01  184646/356210      FlatHexPosition::tile() const [6]
+[2]     21.5    0.06    0.01  356210         FlatHexPosition::tile(FlatHexPosition*) [2]
+                0.01    0.00  356210/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00       9/70419       std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00    4092/70419       std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.03    0.03   66318/70419       RenderingEngine::render() [1]
+[3]     19.0    0.03    0.03   70419         World::getContentAt(FlatHexPosition const&) const [3]
+                0.01    0.01   70419/73099       std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [11]
+                0.00    0.02   70419/73099       HCHasher::operator()(FlatHexPosition const&) const [12]
+-----------------------------------------------
+                0.00    0.00       5/183303      Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00     588/183303      PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const [15]
+                0.01    0.05  182710/183303      RenderingEngine::render() [1]
+[4]     18.8    0.01    0.05  183303         World::isOnMap(FlatHexPosition const&) const [4]
+                0.01    0.04  183303/184646      FlatHexPosition::tile() const [6]
+                0.01    0.00  183303/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+                0.00    0.00  183303/263052      FlatHexPosition::convertTo(FlatHexPosition::System) [75]
+-----------------------------------------------
+                0.00    0.00       1/1625917     HexViewport::HexViewport(int, int, int, int) [67]
+                0.00    0.00       4/1625917     std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00       8/1625917     Camera::doUpdateLRScroll(float) [64]
+                0.00    0.00       9/1625917     SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+                0.00    0.00       9/1625917     FlatHexPosition::convert(FlatHexPosition::System) const [66]
+                0.00    0.00      24/1625917     Camera::doUpdateUDScroll(float) [62]
+                0.00    0.00     190/1625917     FlatHexPosition::toUnit() [56]
+                0.00    0.00     330/1625917     FlatHexPosition::operator==(FlatHexPosition const&) const [51]
+                0.00    0.00    1176/1625917     FlatHexPosition::operator!=(FlatHexPosition const&) const [47]
+                0.00    0.00    2695/1625917     FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+                0.00    0.00    3812/1625917     FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00   30474/1625917     HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [25]
+                0.00    0.00   73099/1625917     HCHasher::operator()(FlatHexPosition const&) const [12]
+                0.00    0.00   81235/1625917     FlatHexPosition::operator*(Matrix22 const&) const [29]
+                0.00    0.00  159416/1625917     HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+                0.01    0.00  174272/1625917     FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+                0.01    0.00  183303/1625917     World::isOnMap(FlatHexPosition const&) const [4]
+                0.01    0.00  356210/1625917     FlatHexPosition::tile(FlatHexPosition*) [2]
+                0.02    0.00  559650/1625917     FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+[5]     15.2    0.05    0.00 1625917         FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00       4/184646      WorldObject::collide(FlatHexPosition const&) const [61]
+                0.00    0.00     163/184646      WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+                0.00    0.00    1176/184646      PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.01    0.04  183303/184646      World::isOnMap(FlatHexPosition const&) const [4]
+[6]     14.2    0.01    0.04  184646         FlatHexPosition::tile() const [6]
+                0.03    0.01  184646/356210      FlatHexPosition::tile(FlatHexPosition*) [2]
+-----------------------------------------------
+                0.00    0.05   79708/79708       RenderingEngine::render() [1]
+[7]     13.8    0.00    0.05   79708         HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+                0.02    0.00   79708/87136       FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+                0.01    0.00   79708/79712       FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition::System) [21]
+                0.00    0.00   79708/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00  159416/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+                0.00    0.00   79708/81235       FlatHexPosition::operator*(Matrix22 const&) const [29]
+                0.00    0.00   79708/263052      FlatHexPosition::convertTo(FlatHexPosition::System) [75]
+-----------------------------------------------
+                0.00    0.00       9/87136       HexViewport::fromPixel(int, int, FlatHexPosition*) const [60]
+                0.00    0.00     194/87136       FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [45]
+                0.00    0.00    1510/87136       HexViewport::upLeftCorner(FlatHexPosition*) const [36]
+                0.00    0.00    2695/87136       FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+                0.00    0.00    3020/87136       RenderingEngine::render() [1]
+                0.02    0.00   79708/87136       HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+[8]      7.7    0.02    0.01   87136         FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+                0.01    0.00  174272/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      5.9    0.00    0.02                 GameEngine::update() [9]
+                0.00    0.02    1510/1510        GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+                0.00    0.00    1510/1512        GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [28]
+                0.00    0.00    6040/10392       std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&) [85]
+                0.00    0.00    3020/3020        std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}> const&, std::_Manager_operation) [100]
+-----------------------------------------------
+                0.00    0.00       2/279825      PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       3/279825      PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00       4/279825      Camera::doUpdateLRScroll(float) [64]
+                0.00    0.00       9/279825      HexViewport::fromPixel(int, int, FlatHexPosition*) const [60]
+                0.00    0.00      12/279825      Camera::doUpdateUDScroll(float) [62]
+                0.00    0.00     163/279825      WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+                0.00    0.00     604/279825      PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00   79708/279825      HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+                0.00    0.01  199320/279825      RenderingEngine::render() [1]
+[10]     5.2    0.00    0.02  279825         FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.02    0.00  559650/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00      13/73099       std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) [55]
+                0.00    0.00    2667/73099       std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [33]
+                0.01    0.01   70419/73099       World::getContentAt(FlatHexPosition const&) const [3]
+[11]     5.2    0.01    0.01   73099         std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [11]
+                0.00    0.01   15237/15237       HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [25]
+-----------------------------------------------
+                0.00    0.00      13/73099       std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) [55]
+                0.00    0.00    2667/73099       std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [33]
+                0.00    0.02   70419/73099       World::getContentAt(FlatHexPosition const&) const [3]
+[12]     5.1    0.00    0.02   73099         HCHasher::operator()(FlatHexPosition const&) const [12]
+                0.01    0.00   73099/356210      FlatHexPosition::tile(FlatHexPosition*) [2]
+                0.00    0.00   73099/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.02    1510/1510        GameEngine::update() [9]
+[13]     4.9    0.00    0.02    1510         GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+                0.00    0.02     596/596         PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00      29/29          PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00       3/3           PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       5/22          Peon::beginOrder() [48]
+                0.00    0.00    3020/3020        PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&) [99]
+                0.00    0.00    3020/10392       std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&) [85]
+                0.00    0.00      26/26          Peon::addToInventory(Stack::Ressource, int) [122]
+                0.00    0.00      23/49          Stack::reduce(int) [121]
+                0.00    0.00       1/9           Peon::endOrder() [132]
+-----------------------------------------------
+                0.00    0.02     596/596         GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+[14]     4.9    0.00    0.02     596         PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.02     588/588         PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const [15]
+                0.00    0.00    1200/19857       WorldObject::pos() const [23]
+                0.00    0.00    1176/184646      FlatHexPosition::tile() const [6]
+                0.00    0.00     604/2695        FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+                0.00    0.00     604/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00     588/588         FlatHexPosition::operator!=(FlatHexPosition const&) const [47]
+                0.00    0.00     608/3812        FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00      16/1330        World::addObject(WorldRef*) [31]
+                0.00    0.00      16/1329        World::removeObject(WorldRef*) [32]
+                0.00    0.00      12/22          Peon::beginOrder() [48]
+                0.00    0.00       4/194         FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [45]
+                0.00    0.00       8/81235       FlatHexPosition::operator*(Matrix22 const&) const [29]
+                0.00    0.00     616/1926        WorldObject::pos(FlatHexPosition const&) [103]
+                0.00    0.00     612/612         Order::targetMove() const [115]
+                0.00    0.00     596/1256        Peon::currentOrder() const [112]
+                0.00    0.00     588/4918        Peon::direction() const [92]
+                0.00    0.00      16/1330        Tile::insert(WorldRef*) [109]
+                0.00    0.00       8/7358        Peon::hasOrders() const [88]
+                0.00    0.00       8/9           Peon::endOrder() [132]
+                0.00    0.00       4/73          WorldObject::radius() const [117]
+                0.00    0.00       4/14          Peon::addOrder(Order const&) [126]
+                0.00    0.00       4/9           Order::moveTo(FlatHexPosition const&) [133]
+-----------------------------------------------
+                0.00    0.02     588/588         PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+[15]     4.6    0.00    0.02     588         PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const [15]
+                0.00    0.01     588/597         FlatHexPosition::mapNeightbours(std::function<bool (FlatHexPosition const&)>) const [16]
+                0.00    0.00    1176/19857       WorldObject::pos() const [23]
+                0.00    0.00     588/183303      World::isOnMap(FlatHexPosition const&) const [4]
+                0.00    0.00     588/588         std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation) [116]
+-----------------------------------------------
+                0.00    0.00       9/597         Controller::objectAt(FlatHexPosition const&) const [40]
+                0.00    0.01     588/597         PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const [15]
+[16]     4.4    0.00    0.01     597         FlatHexPosition::mapNeightbours(std::function<bool (FlatHexPosition const&)>) const [16]
+                0.01    0.00    4092/4092        std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00       9/9           std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+-----------------------------------------------
+                0.01    0.00    4092/4092        FlatHexPosition::mapNeightbours(std::function<bool (FlatHexPosition const&)>) const [16]
+[17]     4.4    0.01    0.00    4092         std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00    4092/70419       World::getContentAt(FlatHexPosition const&) const [3]
+                0.00    0.00    2817/2817        WorldObject::collide(WorldObject const&) const [35]
+                0.00    0.00     163/163         WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+                0.00    0.00    2287/12583       Tile::getContent() const [84]
+                0.00    0.00    1595/7679        GenericAllocator<Tree>::GWorldRef::operator*() [86]
+                0.00    0.00     598/4544        GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+                0.00    0.00     263/1807        GenericAllocator<Rock>::GWorldRef::operator*() [104]
+                0.00    0.00     202/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+                0.00    0.00     163/1691        GenericAllocator<House>::GWorldRef::operator*() [105]
+-----------------------------------------------
+                0.01    0.00   67828/67828       RenderingEngine::render() [1]
+[18]     3.7    0.01    0.00   67828         GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+                0.00    0.00   67828/292818      HexViewport::tileHeight() const [20]
+                0.00    0.00   67828/96518       HexViewport::tileWidth() const [76]
+                0.00    0.00   67828/79714       SpriteSheet::width() const [77]
+                0.00    0.00   67828/79714       SpriteSheet::height() const [78]
+                0.00    0.00   67828/67828       OnTileBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const [81]
+                0.00    0.00   67828/79708       SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) [79]
+-----------------------------------------------
+                0.00    0.00       6/16431       RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer&) [59]
+                0.00    0.00      15/16431       std::__detail::_Map_base<std::type_index, std::pair<std::type_index const, AbstractRenderer&>, std::allocator<std::pair<std::type_index const, AbstractRenderer&> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(std::type_index const&) [52]
+                0.01    0.00   16410/16431       RenderingEngine::render() [1]
+[19]     3.0    0.01    0.00   16431         Camera::Camera(int, int, int, int, int, int) [19]
+                0.00    0.00       1/1           HexViewport::HexViewport(int, int, int, int) [67]
+                0.00    0.00       1/1           AbstractCamera::AbstractCamera(float, float, int) [186]
+-----------------------------------------------
+                0.00    0.00    7550/292818      GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+                0.00    0.00   67828/292818      GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+                0.01    0.00  217440/292818      RenderingEngine::render() [1]
+[20]     3.0    0.01    0.00  292818         HexViewport::tileHeight() const [20]
+-----------------------------------------------
+                0.00    0.00       4/79712       std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.01    0.00   79708/79712       HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+[21]     3.0    0.01    0.00   79712         FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition::System) [21]
+-----------------------------------------------
+                0.01    0.00   79708/79708       RenderingEngine::render() [1]
+[22]     3.0    0.01    0.00   79708         AbstractCamera::getOrientation() const [22]
+-----------------------------------------------
+                0.00    0.00       4/19857       std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00      12/19857       PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00      31/19857       Peon::beginOrder() [48]
+                0.00    0.00      67/19857       PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00    1176/19857       PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const [15]
+                0.00    0.00    1200/19857       PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    1310/19857       SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [30]
+                0.00    0.00    1329/19857       World::removeObject(WorldRef*) [32]
+                0.00    0.00    1338/19857       World::addObject(WorldRef*) [31]
+                0.01    0.00   13390/19857       RenderingEngine::render() [1]
+[23]     3.0    0.01    0.00   19857         WorldObject::pos() const [23]
+-----------------------------------------------
+                0.01    0.00   13390/13390       RenderingEngine::render() [1]
+[24]     3.0    0.01    0.00   13390         std::_Rb_tree_iterator<std::pair<Position const, WorldRef const*> > std::_Rb_tree<Position, std::pair<Position const, WorldRef const*>, std::_Select1st<std::pair<Position const, WorldRef const*> >, PosCompareAscY, std::allocator<std::pair<Position const, WorldRef const*> > >::_M_emplace_equal<Position, WorldRef* const&>(Position&&, WorldRef* const&) [24]
+                0.00    0.00   41797/41797       PosCompareAscY::operator()(Position const&, Position const&) const [82]
+                0.00    0.00       4/6           SpriteSheet::~SpriteSheet() [140]
+-----------------------------------------------
+                0.00    0.01   15237/15237       std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [11]
+[25]     2.1    0.00    0.01   15237         HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const [25]
+                0.01    0.00   30474/356210      FlatHexPosition::tile(FlatHexPosition*) [2]
+                0.00    0.00   30474/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.01    0.00    1310/1310        RenderingEngine::render() [1]
+[26]     1.5    0.01    0.00    1310         SelectedPeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [26]
+                0.00    0.00    1310/2634        GenericAllocator<SelectedPeon>::GWorldRef::operator*() const [101]
+-----------------------------------------------
+                                                 <spontaneous>
+[27]     1.5    0.01    0.00                 SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [27]
+                0.00    0.00       1/1           PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [181]
+-----------------------------------------------
+                0.00    0.00       2/1512        RenderingEngine::~RenderingEngine() [58]
+                0.00    0.00    1510/1512        GameEngine::update() [9]
+[28]     1.0    0.00    0.00    1512         GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [28]
+                0.00    0.00    1310/1310        SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [30]
+                0.00    0.00    1310/1330        World::addObject(WorldRef*) [31]
+                0.00    0.00    1310/1330        Tile::insert(WorldRef*) [109]
+                0.00    0.00    1310/10392       std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&) [85]
+-----------------------------------------------
+                0.00    0.00       8/81235       PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00       9/81235       HexViewport::fromPixel(int, int, FlatHexPosition*) const [60]
+                0.00    0.00    1510/81235       HexViewport::upLeftCorner(FlatHexPosition*) const [36]
+                0.00    0.00   79708/81235       HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+[29]     0.8    0.00    0.00   81235         FlatHexPosition::operator*(Matrix22 const&) const [29]
+                0.00    0.00   81235/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00    1310/1310        GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [28]
+[30]     0.6    0.00    0.00    1310         SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [30]
+                0.00    0.00    1310/1329        World::removeObject(WorldRef*) [32]
+                0.00    0.00    1310/19857       WorldObject::pos() const [23]
+                0.00    0.00    1310/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+                0.00    0.00    1310/1926        WorldObject::pos(FlatHexPosition const&) [103]
+                0.00    0.00       7/7           std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::erase(std::__detail::_Node_const_iterator<std::pair<FlatHexPosition const, Tile>, false, true>) [137]
+-----------------------------------------------
+                0.00    0.00       4/1330        Controller::leftClickAt(FlatHexPosition const&) [44]
+                0.00    0.00      16/1330        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    1310/1330        GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [28]
+[31]     0.4    0.00    0.00    1330         World::addObject(WorldRef*) [31]
+                0.00    0.00    1338/19857       WorldObject::pos() const [23]
+                0.00    0.00    1338/2667        std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [33]
+                0.00    0.00      13/13          std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) [55]
+                0.00    0.00    1314/4544        GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+                0.00    0.00      18/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+                0.00    0.00      13/13          Tile::Tile() [127]
+                0.00    0.00       4/7679        GenericAllocator<Tree>::GWorldRef::operator*() [86]
+                0.00    0.00       1/1691        GenericAllocator<House>::GWorldRef::operator*() [105]
+                0.00    0.00       1/1807        GenericAllocator<Rock>::GWorldRef::operator*() [104]
+-----------------------------------------------
+                0.00    0.00       3/1329        ControllerState::deselectPeon() [57]
+                0.00    0.00      16/1329        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    1310/1329        SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [30]
+[32]     0.4    0.00    0.00    1329         World::removeObject(WorldRef*) [32]
+                0.00    0.00    1329/19857       WorldObject::pos() const [23]
+                0.00    0.00    1329/2667        std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [33]
+                0.00    0.00    1329/1329        Tile::erase(WorldRef*) [110]
+                0.00    0.00    1329/1329        Tile::isEmpty() const [111]
+                0.00    0.00    1313/4544        GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+                0.00    0.00      16/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+-----------------------------------------------
+                0.00    0.00    1329/2667        World::removeObject(WorldRef*) [32]
+                0.00    0.00    1338/2667        World::addObject(WorldRef*) [31]
+[33]     0.4    0.00    0.00    2667         std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&) [33]
+                0.00    0.00    2667/73099       std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [11]
+                0.00    0.00    2667/73099       HCHasher::operator()(FlatHexPosition const&) const [12]
+-----------------------------------------------
+                0.00    0.00       3/2695        PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       3/2695        WorldObject::collide(FlatHexPosition const&) const [61]
+                0.00    0.00      29/2695        PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00     604/2695        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    2056/2695        WorldObject::collide(WorldObject const&) const [35]
+[34]     0.3    0.00    0.00    2695         FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+                0.00    0.00    2695/87136       FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+                0.00    0.00    2695/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00    2817/2817        std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+[35]     0.2    0.00    0.00    2817         WorldObject::collide(WorldObject const&) const [35]
+                0.00    0.00    2056/2695        FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+-----------------------------------------------
+                0.00    0.00    1510/1510        RenderingEngine::render() [1]
+[36]     0.1    0.00    0.00    1510         HexViewport::upLeftCorner(FlatHexPosition*) const [36]
+                0.00    0.00    1510/87136       FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+                0.00    0.00    1510/81235       FlatHexPosition::operator*(Matrix22 const&) const [29]
+-----------------------------------------------
+                0.00    0.00    7550/7550        RenderingEngine::render() [1]
+[37]     0.1    0.00    0.00    7550         GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+                0.00    0.00    7550/292818      HexViewport::tileHeight() const [20]
+                0.00    0.00    7550/96518       HexViewport::tileWidth() const [76]
+                0.00    0.00    7550/79714       SpriteSheet::width() const [77]
+                0.00    0.00    7550/79714       SpriteSheet::height() const [78]
+                0.00    0.00    7550/7550        OnFootBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const [87]
+                0.00    0.00    7550/79708       SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) [79]
+-----------------------------------------------
+                0.00    0.00       9/9           SDLHandler::handleSDLEvents() [39]
+[38]     0.1    0.00    0.00       9         SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+                0.00    0.00       5/5           Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       4/4           Controller::leftClickAt(FlatHexPosition const&) [44]
+                0.00    0.00       5/22          Peon::beginOrder() [48]
+                0.00    0.00       9/9           HexViewport::fromPixel(int, int, FlatHexPosition*) const [60]
+                0.00    0.00       9/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+                0.00    0.00       9/6063        FlatHexPosition::FlatHexPosition() [90]
+                0.00    0.00       9/263052      FlatHexPosition::convertTo(FlatHexPosition::System) [75]
+-----------------------------------------------
+                                                 <spontaneous>
+[39]     0.1    0.00    0.00                 SDLHandler::handleSDLEvents() [39]
+                0.00    0.00       9/9           SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+                0.00    0.00       1/1           AbstractCamera::stopUDScroll() [185]
+                0.00    0.00       1/1           AbstractCamera::stopLRScroll() [184]
+                0.00    0.00       1/1           AbstractCamera::scrollDown() [182]
+                0.00    0.00       1/1           AbstractCamera::scrollRight() [183]
+-----------------------------------------------
+                0.00    0.00       4/9           Controller::leftClickAt(FlatHexPosition const&) [44]
+                0.00    0.00       5/9           Controller::rightClickAt(FlatHexPosition const&) [42]
+[40]     0.1    0.00    0.00       9         Controller::objectAt(FlatHexPosition const&) const [40]
+                0.00    0.00       9/597         FlatHexPosition::mapNeightbours(std::function<bool (FlatHexPosition const&)>) const [16]
+                0.00    0.00       9/9           FlatHexPosition::convert(FlatHexPosition::System) const [66]
+                0.00    0.00       9/9           std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation) [134]
+-----------------------------------------------
+                0.00    0.00     163/163         std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+[41]     0.0    0.00    0.00     163         WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+                0.00    0.00     163/194         FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [45]
+                0.00    0.00     163/184646      FlatHexPosition::tile() const [6]
+                0.00    0.00     163/356210      FlatHexPosition::tile(FlatHexPosition*) [2]
+                0.00    0.00     163/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00     163/165         FlatHexPosition::operator==(FlatHexPosition const&) const [51]
+                0.00    0.00     163/190         FlatHexPosition::toUnit() [56]
+                0.00    0.00     163/3812        FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00     163/67991       FlatHexPosition::toTile() [80]
+-----------------------------------------------
+                0.00    0.00       5/5           SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+[42]     0.0    0.00    0.00       5         Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       5/9           Controller::objectAt(FlatHexPosition const&) const [40]
+                0.00    0.00       5/183303      World::isOnMap(FlatHexPosition const&) const [4]
+                0.00    0.00      10/10          ControllerState::selectedPeon() [130]
+                0.00    0.00       5/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+                0.00    0.00       5/5           Peon::clearOrders() [147]
+                0.00    0.00       5/14          Peon::addOrder(Order const&) [126]
+                0.00    0.00       4/1691        GenericAllocator<House>::GWorldRef::operator*() [105]
+                0.00    0.00       3/3           Peon::canHarvest(Stack::Ressource) const [166]
+                0.00    0.00       3/56          Stack::type() const [120]
+                0.00    0.00       3/3           Order::harvest(WorldRef*) [165]
+                0.00    0.00       2/7679        GenericAllocator<Tree>::GWorldRef::operator*() [86]
+                0.00    0.00       2/57          Stack::empty() const [119]
+                0.00    0.00       2/11          Peon::inventory() const [129]
+                0.00    0.00       2/2           Order::store(WorldRef*) [171]
+                0.00    0.00       1/1807        GenericAllocator<Rock>::GWorldRef::operator*() [104]
+-----------------------------------------------
+                0.00    0.00       2/3812        PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       3/3812        PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00       4/3812        Camera::doUpdateLRScroll(float) [64]
+                0.00    0.00      12/3812        Camera::doUpdateUDScroll(float) [62]
+                0.00    0.00     163/3812        WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+                0.00    0.00     608/3812        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    3020/3812        RenderingEngine::render() [1]
+[43]     0.0    0.00    0.00    3812         FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00    3812/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00       4/4           SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+[44]     0.0    0.00    0.00       4         Controller::leftClickAt(FlatHexPosition const&) [44]
+                0.00    0.00       4/9           Controller::objectAt(FlatHexPosition const&) const [40]
+                0.00    0.00       4/4           ControllerState::selectPeon(WorldRef*) [50]
+                0.00    0.00       4/1330        World::addObject(WorldRef*) [31]
+                0.00    0.00       8/11          Peon::inventory() const [129]
+                0.00    0.00       4/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+                0.00    0.00       4/1330        Tile::insert(WorldRef*) [109]
+                0.00    0.00       4/4           Stack::size() const [156]
+                0.00    0.00       4/56          Stack::type() const [120]
+-----------------------------------------------
+                0.00    0.00       2/194         PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       3/194         PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00       4/194         PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00      22/194         Peon::beginOrder() [48]
+                0.00    0.00     163/194         WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+[45]     0.0    0.00    0.00     194         FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [45]
+                0.00    0.00     194/87136       FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+-----------------------------------------------
+                0.00    0.00      29/29          GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+[46]     0.0    0.00    0.00      29         PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00      67/19857       WorldObject::pos() const [23]
+                0.00    0.00      29/2695        FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+                0.00    0.00       3/194         FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [45]
+                0.00    0.00       3/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00       3/190         FlatHexPosition::toUnit() [56]
+                0.00    0.00       3/3812        FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00      61/73          WorldObject::radius() const [117]
+                0.00    0.00      58/58          Order::targetHarvest() const [118]
+                0.00    0.00      30/7679        GenericAllocator<Tree>::GWorldRef::operator*() [86]
+                0.00    0.00      29/1256        Peon::currentOrder() const [112]
+                0.00    0.00      28/1807        GenericAllocator<Rock>::GWorldRef::operator*() [104]
+                0.00    0.00      26/49          Stack::reduce(int) [121]
+                0.00    0.00      26/56          Stack::type() const [120]
+                0.00    0.00       3/14          Peon::addOrder(Order const&) [126]
+                0.00    0.00       3/9           Order::moveTo(FlatHexPosition const&) [133]
+-----------------------------------------------
+                0.00    0.00     588/588         PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+[47]     0.0    0.00    0.00     588         FlatHexPosition::operator!=(FlatHexPosition const&) const [47]
+                0.00    0.00    1176/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00       5/22          SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+                0.00    0.00       5/22          GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+                0.00    0.00      12/22          PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+[48]     0.0    0.00    0.00      22         Peon::beginOrder() [48]
+                0.00    0.00      31/19857       WorldObject::pos() const [23]
+                0.00    0.00      22/194         FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [45]
+                0.00    0.00      22/190         FlatHexPosition::toUnit() [56]
+                0.00    0.00      22/22          Order::targetPos() const [123]
+                0.00    0.00      22/650         Order::type() const [114]
+-----------------------------------------------
+                0.00    0.00       9/9           FlatHexPosition::mapNeightbours(std::function<bool (FlatHexPosition const&)>) const [16]
+[49]     0.0    0.00    0.00       9         std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00       9/70419       World::getContentAt(FlatHexPosition const&) const [3]
+                0.00    0.00       6/6           WorldObject::collide(FlatHexPosition const&) const [61]
+                0.00    0.00       4/19857       WorldObject::pos() const [23]
+                0.00    0.00       4/79712       FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition::System) [21]
+                0.00    0.00       4/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+                0.00    0.00       9/12583       Tile::getContent() const [84]
+                0.00    0.00       8/4583        GenericAllocator<Peon>::GWorldRef::operator*() [93]
+                0.00    0.00       4/7679        GenericAllocator<Tree>::GWorldRef::operator*() [86]
+                0.00    0.00       4/1691        GenericAllocator<House>::GWorldRef::operator*() [105]
+                0.00    0.00       2/4544        GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+                0.00    0.00       2/1807        GenericAllocator<Rock>::GWorldRef::operator*() [104]
+-----------------------------------------------
+                0.00    0.00       4/4           Controller::leftClickAt(FlatHexPosition const&) [44]
+[50]     0.0    0.00    0.00       4         ControllerState::selectPeon(WorldRef*) [50]
+                0.00    0.00       4/4           RenderingEngine::addTarget(WorldRef const*) [54]
+                0.00    0.00       3/3           ControllerState::deselectPeon() [57]
+                0.00    0.00       4/4           GameEngine::createObject(std::type_info const&) [148]
+                0.00    0.00       4/4544        GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+-----------------------------------------------
+                0.00    0.00       2/165         WorldObject::collide(FlatHexPosition const&) const [61]
+                0.00    0.00     163/165         WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+[51]     0.0    0.00    0.00     165         FlatHexPosition::operator==(FlatHexPosition const&) const [51]
+                0.00    0.00     330/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00       3/15          RenderingEngine::removeTarget(WorldRef const*) [63]
+                0.00    0.00      12/15          RenderingEngine::addTarget(WorldRef const*) [54]
+[52]     0.0    0.00    0.00      15         std::__detail::_Map_base<std::type_index, std::pair<std::type_index const, AbstractRenderer&>, std::allocator<std::pair<std::type_index const, AbstractRenderer&> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(std::type_index const&) [52]
+                0.00    0.00      15/16431       Camera::Camera(int, int, int, int, int, int) [19]
+-----------------------------------------------
+                0.00    0.00       3/3           GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+[53]     0.0    0.00    0.00       3         PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00      12/19857       WorldObject::pos() const [23]
+                0.00    0.00       3/2695        FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+                0.00    0.00       2/194         FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [45]
+                0.00    0.00       2/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00       2/190         FlatHexPosition::toUnit() [56]
+                0.00    0.00       2/3812        FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00       8/73          WorldObject::radius() const [117]
+                0.00    0.00       6/6           Order::targetStore() const [143]
+                0.00    0.00       6/1691        GenericAllocator<House>::GWorldRef::operator*() [105]
+                0.00    0.00       3/1256        Peon::currentOrder() const [112]
+                0.00    0.00       2/9           Order::moveTo(FlatHexPosition const&) [133]
+                0.00    0.00       2/14          Peon::addOrder(Order const&) [126]
+                0.00    0.00       1/1           Storage::addToStorage(Stack const&) [197]
+                0.00    0.00       1/11          Peon::inventory() const [129]
+                0.00    0.00       1/1           Stack::clear() [196]
+                0.00    0.00       1/1           Peon::clearInventory() [192]
+-----------------------------------------------
+                0.00    0.00       4/4           ControllerState::selectPeon(WorldRef*) [50]
+[54]     0.0    0.00    0.00       4         RenderingEngine::addTarget(WorldRef const*) [54]
+                0.00    0.00      12/15          std::__detail::_Map_base<std::type_index, std::pair<std::type_index const, AbstractRenderer&>, std::allocator<std::pair<std::type_index const, AbstractRenderer&> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(std::type_index const&) [52]
+                0.00    0.00       6/6           PeonRenderer::addTarget(WorldRef const*) [141]
+                0.00    0.00       5/5           GenericRenderer<OnFootBlitter>::addTarget(WorldRef const*) [146]
+                0.00    0.00       4/2634        GenericAllocator<SelectedPeon>::GWorldRef::operator*() const [101]
+                0.00    0.00       4/6044        GenericAllocator<Tree>::GWorldRef::operator*() const [91]
+                0.00    0.00       4/4           SelectedPeonRenderer::addTarget(WorldRef const*) [153]
+                0.00    0.00       2/7352        GenericAllocator<Peon>::GWorldRef::operator*() const [89]
+                0.00    0.00       1/1511        GenericAllocator<House>::GWorldRef::operator*() const [107]
+                0.00    0.00       1/1511        GenericAllocator<Rock>::GWorldRef::operator*() const [106]
+                0.00    0.00       1/1           GenericRenderer<OnTileBlitter>::addTarget(WorldRef const*) [189]
+-----------------------------------------------
+                0.00    0.00      13/13          World::addObject(WorldRef*) [31]
+[55]     0.0    0.00    0.00      13         std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&) [55]
+                0.00    0.00      13/73099       std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const [11]
+                0.00    0.00      13/73099       HCHasher::operator()(FlatHexPosition const&) const [12]
+-----------------------------------------------
+                0.00    0.00       2/190         PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       3/190         PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00      22/190         Peon::beginOrder() [48]
+                0.00    0.00     163/190         WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+[56]     0.0    0.00    0.00     190         FlatHexPosition::toUnit() [56]
+                0.00    0.00     190/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00       3/3           ControllerState::selectPeon(WorldRef*) [50]
+[57]     0.0    0.00    0.00       3         ControllerState::deselectPeon() [57]
+                0.00    0.00       3/1329        World::removeObject(WorldRef*) [32]
+                0.00    0.00       3/3           RenderingEngine::removeTarget(WorldRef const*) [63]
+                0.00    0.00       3/3           GameEngine::removeObject(WorldRef*) [158]
+-----------------------------------------------
+                                                 <spontaneous>
+[58]     0.0    0.00    0.00                 RenderingEngine::~RenderingEngine() [58]
+                0.00    0.00       2/1512        GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [28]
+-----------------------------------------------
+                                                 <spontaneous>
+[59]     0.0    0.00    0.00                 RenderingEngine::attachRenderer(std::type_info const&, AbstractRenderer&) [59]
+                0.00    0.00       6/16431       Camera::Camera(int, int, int, int, int, int) [19]
+-----------------------------------------------
+                0.00    0.00       9/9           SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+[60]     0.0    0.00    0.00       9         HexViewport::fromPixel(int, int, FlatHexPosition*) const [60]
+                0.00    0.00       9/87136       FlatHexPosition::operator-(FlatHexPosition const&) const [8]
+                0.00    0.00       9/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00       9/81235       FlatHexPosition::operator*(Matrix22 const&) const [29]
+                0.00    0.00       9/10          FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) [131]
+-----------------------------------------------
+                0.00    0.00       6/6           std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+[61]     0.0    0.00    0.00       6         WorldObject::collide(FlatHexPosition const&) const [61]
+                0.00    0.00       4/184646      FlatHexPosition::tile() const [6]
+                0.00    0.00       3/2695        FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [34]
+                0.00    0.00       2/165         FlatHexPosition::operator==(FlatHexPosition const&) const [51]
+-----------------------------------------------
+                                                 <spontaneous>
+[62]     0.0    0.00    0.00                 Camera::doUpdateUDScroll(float) [62]
+                0.00    0.00      24/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+                0.00    0.00      12/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00      12/3812        FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00      24/263052      FlatHexPosition::convertTo(FlatHexPosition::System) [75]
+                0.00    0.00      12/16          HexViewport::target() const [125]
+                0.00    0.00      12/16          HexViewport::target(FlatHexPosition const&) [124]
+-----------------------------------------------
+                0.00    0.00       3/3           ControllerState::deselectPeon() [57]
+[63]     0.0    0.00    0.00       3         RenderingEngine::removeTarget(WorldRef const*) [63]
+                0.00    0.00       3/15          std::__detail::_Map_base<std::type_index, std::pair<std::type_index const, AbstractRenderer&>, std::allocator<std::pair<std::type_index const, AbstractRenderer&> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(std::type_index const&) [52]
+                0.00    0.00       3/2634        GenericAllocator<SelectedPeon>::GWorldRef::operator*() const [101]
+                0.00    0.00       3/3           PeonRenderer::removeTarget(WorldRef const*) [159]
+                0.00    0.00       3/3           SelectedPeonRenderer::removeTarget(WorldRef const*) [163]
+-----------------------------------------------
+                0.00    0.00       4/4           AbstractCamera::update() [65]
+[64]     0.0    0.00    0.00       4         Camera::doUpdateLRScroll(float) [64]
+                0.00    0.00       8/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+                0.00    0.00       4/279825      FlatHexPosition::operator+(FlatHexPosition const&) const [10]
+                0.00    0.00       4/3812        FlatHexPosition::operator*(float const&) const [43]
+                0.00    0.00       8/263052      FlatHexPosition::convertTo(FlatHexPosition::System) [75]
+                0.00    0.00       4/16          HexViewport::target() const [125]
+                0.00    0.00       4/16          HexViewport::target(FlatHexPosition const&) [124]
+-----------------------------------------------
+                                                 <spontaneous>
+[65]     0.0    0.00    0.00                 AbstractCamera::update() [65]
+                0.00    0.00       4/4           Camera::doUpdateLRScroll(float) [64]
+-----------------------------------------------
+                0.00    0.00       9/9           Controller::objectAt(FlatHexPosition const&) const [40]
+[66]     0.0    0.00    0.00       9         FlatHexPosition::convert(FlatHexPosition::System) const [66]
+                0.00    0.00       9/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+-----------------------------------------------
+                0.00    0.00       1/1           Camera::Camera(int, int, int, int, int, int) [19]
+[67]     0.0    0.00    0.00       1         HexViewport::HexViewport(int, int, int, int) [67]
+                0.00    0.00       1/1625917     FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [5]
+                0.00    0.00       2/4           Matrix22::Matrix22(float, float, float, float) [155]
+                0.00    0.00       1/1           FlatHexPosition::FlatHexPosition(float, float, float, float, FlatHexPosition::System) [187]
+                0.00    0.00       1/1           FlatHexPosition::FlatHexPosition(FlatHexPosition::System) [188]
+-----------------------------------------------
+                0.00    0.00       8/263052      Camera::doUpdateLRScroll(float) [64]
+                0.00    0.00       9/263052      SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+                0.00    0.00      24/263052      Camera::doUpdateUDScroll(float) [62]
+                0.00    0.00   79708/263052      HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [7]
+                0.00    0.00  183303/263052      World::isOnMap(FlatHexPosition const&) const [4]
+[75]     0.0    0.00    0.00  263052         FlatHexPosition::convertTo(FlatHexPosition::System) [75]
+-----------------------------------------------
+                0.00    0.00    7550/96518       GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+                0.00    0.00   21140/96518       RenderingEngine::render() [1]
+                0.00    0.00   67828/96518       GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+[76]     0.0    0.00    0.00   96518         HexViewport::tileWidth() const [76]
+-----------------------------------------------
+                0.00    0.00       6/79714       SpriteAsset::loadFromFile(char const*, SDL_Renderer*) [220]
+                0.00    0.00    4330/79714       PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+                0.00    0.00    7550/79714       GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+                0.00    0.00   67828/79714       GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+[77]     0.0    0.00    0.00   79714         SpriteSheet::width() const [77]
+-----------------------------------------------
+                0.00    0.00       6/79714       SpriteAsset::loadFromFile(char const*, SDL_Renderer*) [220]
+                0.00    0.00    4330/79714       PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+                0.00    0.00    7550/79714       GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+                0.00    0.00   67828/79714       GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+[78]     0.0    0.00    0.00   79714         SpriteSheet::height() const [78]
+-----------------------------------------------
+                0.00    0.00    4330/79708       PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+                0.00    0.00    7550/79708       GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+                0.00    0.00   67828/79708       GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+[79]     0.0    0.00    0.00   79708         SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) [79]
+-----------------------------------------------
+                0.00    0.00     163/67991       WorldObject::stCollide(WorldObject const&, WorldObject const&) [41]
+                0.00    0.00   67828/67991       RenderingEngine::render() [1]
+[80]     0.0    0.00    0.00   67991         FlatHexPosition::toTile() [80]
+-----------------------------------------------
+                0.00    0.00   67828/67828       GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [18]
+[81]     0.0    0.00    0.00   67828         OnTileBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const [81]
+-----------------------------------------------
+                0.00    0.00   41797/41797       std::_Rb_tree_iterator<std::pair<Position const, WorldRef const*> > std::_Rb_tree<Position, std::pair<Position const, WorldRef const*>, std::_Select1st<std::pair<Position const, WorldRef const*> >, PosCompareAscY, std::allocator<std::pair<Position const, WorldRef const*> > >::_M_emplace_equal<Position, WorldRef* const&>(Position&&, WorldRef* const&) [24]
+[82]     0.0    0.00    0.00   41797         PosCompareAscY::operator()(Position const&, Position const&) const [82]
+-----------------------------------------------
+                0.00    0.00   13390/13390       RenderingEngine::render() [1]
+[83]     0.0    0.00    0.00   13390         Position::Position(int, int) [83]
+-----------------------------------------------
+                0.00    0.00       9/12583       std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00    2287/12583       std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00   10287/12583       RenderingEngine::render() [1]
+[84]     0.0    0.00    0.00   12583         Tile::getContent() const [84]
+-----------------------------------------------
+                0.00    0.00       2/10392       GameEngine::attachBehaviour(std::type_info const&, Behaviourer*) [210]
+                0.00    0.00       3/10392       GameEngine::removeObject(WorldRef*) [158]
+                0.00    0.00       5/10392       GameEngine::addObjectKind(std::type_info const&, Allocator*) [209]
+                0.00    0.00      12/10392       GameEngine::createObject(std::type_info const&) [148]
+                0.00    0.00    1310/10392       GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [28]
+                0.00    0.00    3020/10392       GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+                0.00    0.00    6040/10392       GameEngine::update() [9]
+[85]     0.0    0.00    0.00   10392         std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&) [85]
+-----------------------------------------------
+                0.00    0.00       2/7679        Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       4/7679        std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00       4/7679        Order::targetPos() const [123]
+                0.00    0.00       4/7679        World::addObject(WorldRef*) [31]
+                0.00    0.00      30/7679        PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00    1595/7679        std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00    6040/7679        RenderingEngine::render() [1]
+[86]     0.0    0.00    0.00    7679         GenericAllocator<Tree>::GWorldRef::operator*() [86]
+-----------------------------------------------
+                0.00    0.00    7550/7550        GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [37]
+[87]     0.0    0.00    0.00    7550         OnFootBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const [87]
+-----------------------------------------------
+                0.00    0.00       8/7358        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    3020/7358        PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&) [99]
+                0.00    0.00    4330/7358        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+[88]     0.0    0.00    0.00    7358         Peon::hasOrders() const [88]
+-----------------------------------------------
+                0.00    0.00       2/7352        RenderingEngine::addTarget(WorldRef const*) [54]
+                0.00    0.00    3020/7352        RenderingEngine::render() [1]
+                0.00    0.00    4330/7352        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+[89]     0.0    0.00    0.00    7352         GenericAllocator<Peon>::GWorldRef::operator*() const [89]
+-----------------------------------------------
+                0.00    0.00       1/6063        WorldObject::WorldObject() [180]
+                0.00    0.00       2/6063        Peon::Peon() [170]
+                0.00    0.00       4/6063        WorldObject::WorldObject(void*) [149]
+                0.00    0.00       7/6063        WorldObject::WorldObject(float) [136]
+                0.00    0.00       9/6063        SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [38]
+                0.00    0.00    6040/6063        RenderingEngine::render() [1]
+[90]     0.0    0.00    0.00    6063         FlatHexPosition::FlatHexPosition() [90]
+-----------------------------------------------
+                0.00    0.00       4/6044        RenderingEngine::addTarget(WorldRef const*) [54]
+                0.00    0.00    6040/6044        RenderingEngine::render() [1]
+[91]     0.0    0.00    0.00    6044         GenericAllocator<Tree>::GWorldRef::operator*() const [91]
+-----------------------------------------------
+                0.00    0.00     588/4918        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    4330/4918        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+[92]     0.0    0.00    0.00    4918         Peon::direction() const [92]
+-----------------------------------------------
+                0.00    0.00       4/4583        Controller::leftClickAt(FlatHexPosition const&) [44]
+                0.00    0.00       5/4583        Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       8/4583        std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00      16/4583        World::removeObject(WorldRef*) [32]
+                0.00    0.00      18/4583        World::addObject(WorldRef*) [31]
+                0.00    0.00     202/4583        std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00    1310/4583        SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [30]
+                0.00    0.00    3020/4583        RenderingEngine::render() [1]
+[93]     0.0    0.00    0.00    4583         GenericAllocator<Peon>::GWorldRef::operator*() [93]
+-----------------------------------------------
+                0.00    0.00       2/4544        std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00       3/4544        GameEngine::removeObject(WorldRef*) [158]
+                0.00    0.00       4/4544        ControllerState::selectPeon(WorldRef*) [50]
+                0.00    0.00     598/4544        std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00    1310/4544        RenderingEngine::render() [1]
+                0.00    0.00    1313/4544        World::removeObject(WorldRef*) [32]
+                0.00    0.00    1314/4544        World::addObject(WorldRef*) [31]
+[94]     0.0    0.00    0.00    4544         GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+-----------------------------------------------
+                0.00    0.00    4330/4330        RenderingEngine::render() [1]
+[95]     0.0    0.00    0.00    4330         PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+                0.00    0.00    4330/7358        Peon::hasOrders() const [88]
+                0.00    0.00    4330/7352        GenericAllocator<Peon>::GWorldRef::operator*() const [89]
+                0.00    0.00    4330/4330        std::__detail::_Map_base<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(WorldRef const* const&) [97]
+                0.00    0.00    4330/4918        Peon::direction() const [92]
+                0.00    0.00    4330/79714       SpriteSheet::width() const [77]
+                0.00    0.00    4330/4330        FlatHexPosition::orientation() const [96]
+                0.00    0.00    4330/79714       SpriteSheet::height() const [78]
+                0.00    0.00    4330/79708       SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) [79]
+                0.00    0.00    3101/3101        Animation::update() [98]
+                0.00    0.00    1229/1229        Animation::restart() [113]
+-----------------------------------------------
+                0.00    0.00    4330/4330        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+[96]     0.0    0.00    0.00    4330         FlatHexPosition::orientation() const [96]
+-----------------------------------------------
+                0.00    0.00    4330/4330        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+[97]     0.0    0.00    0.00    4330         std::__detail::_Map_base<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(WorldRef const* const&) [97]
+-----------------------------------------------
+                0.00    0.00    3101/3101        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+[98]     0.0    0.00    0.00    3101         Animation::update() [98]
+-----------------------------------------------
+                0.00    0.00    3020/3020        GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+[99]     0.0    0.00    0.00    3020         PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&) [99]
+                0.00    0.00    3020/7358        Peon::hasOrders() const [88]
+                0.00    0.00    2056/2056        Peon::tickCptr() [102]
+                0.00    0.00     628/1256        Peon::currentOrder() const [112]
+                0.00    0.00     628/650         Order::type() const [114]
+-----------------------------------------------
+                0.00    0.00    3020/3020        GameEngine::update() [9]
+[100]    0.0    0.00    0.00    3020         std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}> const&, std::_Manager_operation) [100]
+-----------------------------------------------
+                0.00    0.00       3/2634        SelectedPeonRenderer::removeTarget(WorldRef const*) [163]
+                0.00    0.00       3/2634        RenderingEngine::removeTarget(WorldRef const*) [63]
+                0.00    0.00       4/2634        SelectedPeonRenderer::addTarget(WorldRef const*) [153]
+                0.00    0.00       4/2634        RenderingEngine::addTarget(WorldRef const*) [54]
+                0.00    0.00    1310/2634        SelectedPeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [26]
+                0.00    0.00    1310/2634        RenderingEngine::render() [1]
+[101]    0.0    0.00    0.00    2634         GenericAllocator<SelectedPeon>::GWorldRef::operator*() const [101]
+-----------------------------------------------
+                0.00    0.00    2056/2056        PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&) [99]
+[102]    0.0    0.00    0.00    2056         Peon::tickCptr() [102]
+-----------------------------------------------
+                0.00    0.00     616/1926        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    1310/1926        SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [30]
+[103]    0.0    0.00    0.00    1926         WorldObject::pos(FlatHexPosition const&) [103]
+-----------------------------------------------
+                0.00    0.00       1/1807        Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       1/1807        World::addObject(WorldRef*) [31]
+                0.00    0.00       2/1807        std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00       2/1807        Order::targetPos() const [123]
+                0.00    0.00      28/1807        PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00     263/1807        std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00    1510/1807        RenderingEngine::render() [1]
+[104]    0.0    0.00    0.00    1807         GenericAllocator<Rock>::GWorldRef::operator*() [104]
+-----------------------------------------------
+                0.00    0.00       1/1691        World::addObject(WorldRef*) [31]
+                0.00    0.00       3/1691        Order::targetPos() const [123]
+                0.00    0.00       4/1691        std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [49]
+                0.00    0.00       4/1691        Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       6/1691        PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00     163/1691        std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) [17]
+                0.00    0.00    1510/1691        RenderingEngine::render() [1]
+[105]    0.0    0.00    0.00    1691         GenericAllocator<House>::GWorldRef::operator*() [105]
+-----------------------------------------------
+                0.00    0.00       1/1511        RenderingEngine::addTarget(WorldRef const*) [54]
+                0.00    0.00    1510/1511        RenderingEngine::render() [1]
+[106]    0.0    0.00    0.00    1511         GenericAllocator<Rock>::GWorldRef::operator*() const [106]
+-----------------------------------------------
+                0.00    0.00       1/1511        RenderingEngine::addTarget(WorldRef const*) [54]
+                0.00    0.00    1510/1511        RenderingEngine::render() [1]
+[107]    0.0    0.00    0.00    1511         GenericAllocator<House>::GWorldRef::operator*() const [107]
+-----------------------------------------------
+                0.00    0.00    1510/1510        RenderingEngine::render() [1]
+[108]    0.0    0.00    0.00    1510         HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const [108]
+-----------------------------------------------
+                0.00    0.00       4/1330        Controller::leftClickAt(FlatHexPosition const&) [44]
+                0.00    0.00      16/1330        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00    1310/1330        GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [28]
+[109]    0.0    0.00    0.00    1330         Tile::insert(WorldRef*) [109]
+-----------------------------------------------
+                0.00    0.00    1329/1329        World::removeObject(WorldRef*) [32]
+[110]    0.0    0.00    0.00    1329         Tile::erase(WorldRef*) [110]
+-----------------------------------------------
+                0.00    0.00    1329/1329        World::removeObject(WorldRef*) [32]
+[111]    0.0    0.00    0.00    1329         Tile::isEmpty() const [111]
+-----------------------------------------------
+                0.00    0.00       3/1256        PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00      29/1256        PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00     596/1256        PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00     628/1256        PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&) [99]
+[112]    0.0    0.00    0.00    1256         Peon::currentOrder() const [112]
+-----------------------------------------------
+                0.00    0.00    1229/1229        PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [95]
+[113]    0.0    0.00    0.00    1229         Animation::restart() [113]
+-----------------------------------------------
+                0.00    0.00      22/650         Peon::beginOrder() [48]
+                0.00    0.00     628/650         PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&) [99]
+[114]    0.0    0.00    0.00     650         Order::type() const [114]
+-----------------------------------------------
+                0.00    0.00     612/612         PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+[115]    0.0    0.00    0.00     612         Order::targetMove() const [115]
+-----------------------------------------------
+                0.00    0.00     588/588         PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const [15]
+[116]    0.0    0.00    0.00     588         std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation) [116]
+-----------------------------------------------
+                0.00    0.00       4/73          PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00       8/73          PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00      61/73          PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+[117]    0.0    0.00    0.00      73         WorldObject::radius() const [117]
+-----------------------------------------------
+                0.00    0.00      58/58          PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+[118]    0.0    0.00    0.00      58         Order::targetHarvest() const [118]
+-----------------------------------------------
+                0.00    0.00       2/57          Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       3/57          Peon::canHarvest(Stack::Ressource) const [166]
+                0.00    0.00      52/57          Peon::addToInventory(Stack::Ressource, int) [122]
+[119]    0.0    0.00    0.00      57         Stack::empty() const [119]
+-----------------------------------------------
+                0.00    0.00       3/56          Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       4/56          Controller::leftClickAt(FlatHexPosition const&) [44]
+                0.00    0.00      23/56          Peon::addToInventory(Stack::Ressource, int) [122]
+                0.00    0.00      26/56          PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+[120]    0.0    0.00    0.00      56         Stack::type() const [120]
+-----------------------------------------------
+                0.00    0.00      23/49          GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+                0.00    0.00      26/49          PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+[121]    0.0    0.00    0.00      49         Stack::reduce(int) [121]
+-----------------------------------------------
+                0.00    0.00      26/26          GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+[122]    0.0    0.00    0.00      26         Peon::addToInventory(Stack::Ressource, int) [122]
+                0.00    0.00      52/57          Stack::empty() const [119]
+                0.00    0.00      23/56          Stack::type() const [120]
+                0.00    0.00       3/8           Stack::Stack(Stack::Ressource, int) [135]
+-----------------------------------------------
+                0.00    0.00      22/22          Peon::beginOrder() [48]
+[123]    0.0    0.00    0.00      22         Order::targetPos() const [123]
+                0.00    0.00       4/7679        GenericAllocator<Tree>::GWorldRef::operator*() [86]
+                0.00    0.00       3/1691        GenericAllocator<House>::GWorldRef::operator*() [105]
+                0.00    0.00       2/1807        GenericAllocator<Rock>::GWorldRef::operator*() [104]
+-----------------------------------------------
+                0.00    0.00       4/16          Camera::doUpdateLRScroll(float) [64]
+                0.00    0.00      12/16          Camera::doUpdateUDScroll(float) [62]
+[124]    0.0    0.00    0.00      16         HexViewport::target(FlatHexPosition const&) [124]
+-----------------------------------------------
+                0.00    0.00       4/16          Camera::doUpdateLRScroll(float) [64]
+                0.00    0.00      12/16          Camera::doUpdateUDScroll(float) [62]
+[125]    0.0    0.00    0.00      16         HexViewport::target() const [125]
+-----------------------------------------------
+                0.00    0.00       2/14          PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       3/14          PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00       4/14          PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+                0.00    0.00       5/14          Controller::rightClickAt(FlatHexPosition const&) [42]
+[126]    0.0    0.00    0.00      14         Peon::addOrder(Order const&) [126]
+-----------------------------------------------
+                0.00    0.00      13/13          World::addObject(WorldRef*) [31]
+[127]    0.0    0.00    0.00      13         Tile::Tile() [127]
+-----------------------------------------------
+                0.00    0.00       6/12          SpriteAsset::loadFromFile(char const*, SDL_Renderer*) [220]
+                0.00    0.00       6/12          SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) [138]
+[128]    0.0    0.00    0.00      12         SpriteSheet::recut(unsigned int, unsigned int) [128]
+-----------------------------------------------
+                0.00    0.00       1/11          PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       2/11          Controller::rightClickAt(FlatHexPosition const&) [42]
+                0.00    0.00       8/11          Controller::leftClickAt(FlatHexPosition const&) [44]
+[129]    0.0    0.00    0.00      11         Peon::inventory() const [129]
+-----------------------------------------------
+                0.00    0.00      10/10          Controller::rightClickAt(FlatHexPosition const&) [42]
+[130]    0.0    0.00    0.00      10         ControllerState::selectedPeon() [130]
+-----------------------------------------------
+                0.00    0.00       1/10          __libc_csu_init [325]
+                0.00    0.00       9/10          HexViewport::fromPixel(int, int, FlatHexPosition*) const [60]
+[131]    0.0    0.00    0.00      10         FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) [131]
+-----------------------------------------------
+                0.00    0.00       1/9           GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [13]
+                0.00    0.00       8/9           PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+[132]    0.0    0.00    0.00       9         Peon::endOrder() [132]
+-----------------------------------------------
+                0.00    0.00       2/9           PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+                0.00    0.00       3/9           PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [46]
+                0.00    0.00       4/9           PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [14]
+[133]    0.0    0.00    0.00       9         Order::moveTo(FlatHexPosition const&) [133]
+-----------------------------------------------
+                0.00    0.00       9/9           Controller::objectAt(FlatHexPosition const&) const [40]
+[134]    0.0    0.00    0.00       9         std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation) [134]
+-----------------------------------------------
+                0.00    0.00       3/8           Peon::addToInventory(Stack::Ressource, int) [122]
+                0.00    0.00       5/8           Harvestable::Harvestable(Stack::Ressource, int) [145]
+[135]    0.0    0.00    0.00       8         Stack::Stack(Stack::Ressource, int) [135]
+-----------------------------------------------
+                0.00    0.00       1/7           Rock::Rock() [194]
+                0.00    0.00       2/7           Peon::Peon() [170]
+                0.00    0.00       4/7           Tree::Tree() [154]
+[136]    0.0    0.00    0.00       7         WorldObject::WorldObject(float) [136]
+                0.00    0.00       7/6063        FlatHexPosition::FlatHexPosition() [90]
+-----------------------------------------------
+                0.00    0.00       7/7           SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [30]
+[137]    0.0    0.00    0.00       7         std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::erase(std::__detail::_Node_const_iterator<std::pair<FlatHexPosition const, Tile>, false, true>) [137]
+-----------------------------------------------
+                0.00    0.00       6/6           SpriteAsset::loadFromFile(char const*, SDL_Renderer*) [220]
+[138]    0.0    0.00    0.00       6         SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) [138]
+                0.00    0.00       6/6           SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int) [139]
+                0.00    0.00       6/12          SpriteSheet::recut(unsigned int, unsigned int) [128]
+-----------------------------------------------
+                0.00    0.00       6/6           SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) [138]
+[139]    0.0    0.00    0.00       6         SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int) [139]
+-----------------------------------------------
+                0.00    0.00       2/6           PeonRenderer::~PeonRenderer() [225]
+                0.00    0.00       4/6           std::_Rb_tree_iterator<std::pair<Position const, WorldRef const*> > std::_Rb_tree<Position, std::pair<Position const, WorldRef const*>, std::_Select1st<std::pair<Position const, WorldRef const*> >, PosCompareAscY, std::allocator<std::pair<Position const, WorldRef const*> > >::_M_emplace_equal<Position, WorldRef* const&>(Position&&, WorldRef* const&) [24]
+[140]    0.0    0.00    0.00       6         SpriteSheet::~SpriteSheet() [140]
+-----------------------------------------------
+                0.00    0.00       6/6           RenderingEngine::addTarget(WorldRef const*) [54]
+[141]    0.0    0.00    0.00       6         PeonRenderer::addTarget(WorldRef const*) [141]
+                0.00    0.00       6/6           Animation::Animation(int, int) [142]
+                0.00    0.00       6/6           std::pair<std::__detail::_Node_iterator<std::pair<WorldRef const* const, Animation>, false, false>, bool> std::_Hashtable<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<WorldRef const*&, Animation>(std::integral_constant<bool, true>, WorldRef const*&, Animation&&) [144]
+-----------------------------------------------
+                0.00    0.00       6/6           PeonRenderer::addTarget(WorldRef const*) [141]
+[142]    0.0    0.00    0.00       6         Animation::Animation(int, int) [142]
+-----------------------------------------------
+                0.00    0.00       6/6           PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+[143]    0.0    0.00    0.00       6         Order::targetStore() const [143]
+-----------------------------------------------
+                0.00    0.00       6/6           PeonRenderer::addTarget(WorldRef const*) [141]
+[144]    0.0    0.00    0.00       6         std::pair<std::__detail::_Node_iterator<std::pair<WorldRef const* const, Animation>, false, false>, bool> std::_Hashtable<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<WorldRef const*&, Animation>(std::integral_constant<bool, true>, WorldRef const*&, Animation&&) [144]
+-----------------------------------------------
+                0.00    0.00       1/5           Rock::Rock() [194]
+                0.00    0.00       4/5           Tree::Tree() [154]
+[145]    0.0    0.00    0.00       5         Harvestable::Harvestable(Stack::Ressource, int) [145]
+                0.00    0.00       5/8           Stack::Stack(Stack::Ressource, int) [135]
+-----------------------------------------------
+                0.00    0.00       5/5           RenderingEngine::addTarget(WorldRef const*) [54]
+[146]    0.0    0.00    0.00       5         GenericRenderer<OnFootBlitter>::addTarget(WorldRef const*) [146]
+-----------------------------------------------
+                0.00    0.00       5/5           Controller::rightClickAt(FlatHexPosition const&) [42]
+[147]    0.0    0.00    0.00       5         Peon::clearOrders() [147]
+-----------------------------------------------
+                0.00    0.00       4/4           ControllerState::selectPeon(WorldRef*) [50]
+[148]    0.0    0.00    0.00       4         GameEngine::createObject(std::type_info const&) [148]
+                0.00    0.00      12/10392       std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&) [85]
+                0.00    0.00       4/4           GenericAllocator<SelectedPeon>::createObject() [151]
+                0.00    0.00       4/4           GenericAllocator<Tree>::createObject() [152]
+                0.00    0.00       2/2           GenericAllocator<Peon>::createObject() [169]
+                0.00    0.00       1/1           GenericAllocator<House>::createObject() [191]
+                0.00    0.00       1/1           GenericAllocator<Rock>::createObject() [190]
+-----------------------------------------------
+                0.00    0.00       4/4           SelectedPeon::SelectedPeon() [150]
+[149]    0.0    0.00    0.00       4         WorldObject::WorldObject(void*) [149]
+                0.00    0.00       4/6063        FlatHexPosition::FlatHexPosition() [90]
+-----------------------------------------------
+                0.00    0.00       1/4           void std::vector<SelectedPeon, std::allocator<SelectedPeon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<SelectedPeon*, std::vector<SelectedPeon, std::allocator<SelectedPeon> > >) [202]
+                0.00    0.00       3/4           GenericAllocator<SelectedPeon>::createObject() [151]
+[150]    0.0    0.00    0.00       4         SelectedPeon::SelectedPeon() [150]
+                0.00    0.00       4/4           WorldObject::WorldObject(void*) [149]
+-----------------------------------------------
+                0.00    0.00       4/4           GameEngine::createObject(std::type_info const&) [148]
+[151]    0.0    0.00    0.00       4         GenericAllocator<SelectedPeon>::createObject() [151]
+                0.00    0.00       3/4           SelectedPeon::SelectedPeon() [150]
+                0.00    0.00       1/1           void std::vector<SelectedPeon, std::allocator<SelectedPeon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<SelectedPeon*, std::vector<SelectedPeon, std::allocator<SelectedPeon> > >) [202]
+                0.00    0.00       1/1           void std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<SelectedPeon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<SelectedPeon>::GWorldRef**, std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> > >, GenericAllocator<SelectedPeon>::GWorldRef*&) [205]
+-----------------------------------------------
+                0.00    0.00       4/4           GameEngine::createObject(std::type_info const&) [148]
+[152]    0.0    0.00    0.00       4         GenericAllocator<Tree>::createObject() [152]
+                0.00    0.00       3/3           void std::vector<Tree, std::allocator<Tree> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Tree*, std::vector<Tree, std::allocator<Tree> > >) [167]
+                0.00    0.00       3/3           void std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Tree>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Tree>::GWorldRef**, std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> > >, GenericAllocator<Tree>::GWorldRef*&) [168]
+                0.00    0.00       1/4           Tree::Tree() [154]
+-----------------------------------------------
+                0.00    0.00       4/4           RenderingEngine::addTarget(WorldRef const*) [54]
+[153]    0.0    0.00    0.00       4         SelectedPeonRenderer::addTarget(WorldRef const*) [153]
+                0.00    0.00       4/2634        GenericAllocator<SelectedPeon>::GWorldRef::operator*() const [101]
+-----------------------------------------------
+                0.00    0.00       1/4           GenericAllocator<Tree>::createObject() [152]
+                0.00    0.00       3/4           void std::vector<Tree, std::allocator<Tree> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Tree*, std::vector<Tree, std::allocator<Tree> > >) [167]
+[154]    0.0    0.00    0.00       4         Tree::Tree() [154]
+                0.00    0.00       4/7           WorldObject::WorldObject(float) [136]
+                0.00    0.00       4/5           Harvestable::Harvestable(Stack::Ressource, int) [145]
+-----------------------------------------------
+                0.00    0.00       2/4           HexViewport::HexViewport(int, int, int, int) [67]
+                0.00    0.00       2/4           __libc_csu_init [325]
+[155]    0.0    0.00    0.00       4         Matrix22::Matrix22(float, float, float, float) [155]
+-----------------------------------------------
+                0.00    0.00       4/4           Controller::leftClickAt(FlatHexPosition const&) [44]
+[156]    0.0    0.00    0.00       4         Stack::size() const [156]
+-----------------------------------------------
+                0.00    0.00       4/4           void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >) [175]
+[157]    0.0    0.00    0.00       4         Peon* std::__uninitialized_copy<false>::__uninit_copy<Peon const*, Peon*>(Peon const*, Peon const*, Peon*) [157]
+                0.00    0.00       1/1           std::_Deque_base<Order, std::allocator<Order> >::_M_initialize_map(unsigned long) [200]
+-----------------------------------------------
+                0.00    0.00       3/3           ControllerState::deselectPeon() [57]
+[158]    0.0    0.00    0.00       3         GameEngine::removeObject(WorldRef*) [158]
+                0.00    0.00       3/4544        GenericAllocator<SelectedPeon>::GWorldRef::operator*() [94]
+                0.00    0.00       3/10392       std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&) [85]
+                0.00    0.00       3/3           GenericAllocator<SelectedPeon>::deleteObject(WorldRef*) [161]
+-----------------------------------------------
+                0.00    0.00       3/3           RenderingEngine::removeTarget(WorldRef const*) [63]
+[159]    0.0    0.00    0.00       3         PeonRenderer::removeTarget(WorldRef const*) [159]
+-----------------------------------------------
+                0.00    0.00       3/3           GenericAllocator<SelectedPeon>::deleteObject(WorldRef*) [161]
+[160]    0.0    0.00    0.00       3         SelectedPeon::~SelectedPeon() [160]
+-----------------------------------------------
+                0.00    0.00       3/3           GameEngine::removeObject(WorldRef*) [158]
+[161]    0.0    0.00    0.00       3         GenericAllocator<SelectedPeon>::deleteObject(WorldRef*) [161]
+                0.00    0.00       3/3           SelectedPeon::~SelectedPeon() [160]
+                0.00    0.00       3/3           GenericAllocator<SelectedPeon>::GWorldRef::~GWorldRef() [162]
+-----------------------------------------------
+                0.00    0.00       3/3           GenericAllocator<SelectedPeon>::deleteObject(WorldRef*) [161]
+[162]    0.0    0.00    0.00       3         GenericAllocator<SelectedPeon>::GWorldRef::~GWorldRef() [162]
+-----------------------------------------------
+                0.00    0.00       3/3           RenderingEngine::removeTarget(WorldRef const*) [63]
+[163]    0.0    0.00    0.00       3         SelectedPeonRenderer::removeTarget(WorldRef const*) [163]
+                0.00    0.00       3/2634        GenericAllocator<SelectedPeon>::GWorldRef::operator*() const [101]
+-----------------------------------------------
+                0.00    0.00       3/3           void std::vector<Tree, std::allocator<Tree> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Tree*, std::vector<Tree, std::allocator<Tree> > >) [167]
+[164]    0.0    0.00    0.00       3         Tree::~Tree() [164]
+-----------------------------------------------
+                0.00    0.00       3/3           Controller::rightClickAt(FlatHexPosition const&) [42]
+[165]    0.0    0.00    0.00       3         Order::harvest(WorldRef*) [165]
+-----------------------------------------------
+                0.00    0.00       3/3           Controller::rightClickAt(FlatHexPosition const&) [42]
+[166]    0.0    0.00    0.00       3         Peon::canHarvest(Stack::Ressource) const [166]
+                0.00    0.00       3/57          Stack::empty() const [119]
+-----------------------------------------------
+                0.00    0.00       3/3           GenericAllocator<Tree>::createObject() [152]
+[167]    0.0    0.00    0.00       3         void std::vector<Tree, std::allocator<Tree> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Tree*, std::vector<Tree, std::allocator<Tree> > >) [167]
+                0.00    0.00       3/3           Tree::~Tree() [164]
+                0.00    0.00       3/4           Tree::Tree() [154]
+-----------------------------------------------
+                0.00    0.00       3/3           GenericAllocator<Tree>::createObject() [152]
+[168]    0.0    0.00    0.00       3         void std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Tree>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Tree>::GWorldRef**, std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> > >, GenericAllocator<Tree>::GWorldRef*&) [168]
+-----------------------------------------------
+                0.00    0.00       2/2           GameEngine::createObject(std::type_info const&) [148]
+[169]    0.0    0.00    0.00       2         GenericAllocator<Peon>::createObject() [169]
+                0.00    0.00       2/2           void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >) [175]
+                0.00    0.00       2/2           void std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Peon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Peon>::GWorldRef**, std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> > >, GenericAllocator<Peon>::GWorldRef*&) [176]
+-----------------------------------------------
+                0.00    0.00       2/2           void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >) [175]
+[170]    0.0    0.00    0.00       2         Peon::Peon() [170]
+                0.00    0.00       2/7           WorldObject::WorldObject(float) [136]
+                0.00    0.00       2/6063        FlatHexPosition::FlatHexPosition() [90]
+                0.00    0.00       2/2           Stack::Stack() [172]
+-----------------------------------------------
+                0.00    0.00       2/2           Controller::rightClickAt(FlatHexPosition const&) [42]
+[171]    0.0    0.00    0.00       2         Order::store(WorldRef*) [171]
+-----------------------------------------------
+                0.00    0.00       2/2           Peon::Peon() [170]
+[172]    0.0    0.00    0.00       2         Stack::Stack() [172]
+-----------------------------------------------
+                0.00    0.00       2/2           Storage::addToStorage(Stack const&) [197]
+[173]    0.0    0.00    0.00       2         StackTypeHash::operator()(Stack const&) const [173]
+-----------------------------------------------
+                0.00    0.00       2/2           Storage::addToStorage(Stack const&) [197]
+[174]    0.0    0.00    0.00       2         std::_Hashtable<Stack, Stack, std::allocator<Stack>, std::__detail::_Identity, StackTypeEqual, StackTypeHash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_find_before_node(unsigned long, Stack const&, unsigned long) const [174]
+-----------------------------------------------
+                0.00    0.00       2/2           GenericAllocator<Peon>::createObject() [169]
+[175]    0.0    0.00    0.00       2         void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >) [175]
+                0.00    0.00       4/4           Peon* std::__uninitialized_copy<false>::__uninit_copy<Peon const*, Peon*>(Peon const*, Peon const*, Peon*) [157]
+                0.00    0.00       2/2           Peon::Peon() [170]
+                0.00    0.00       1/1           std::_Deque_base<Order, std::allocator<Order> >::~_Deque_base() [201]
+                0.00    0.00       1/1           Peon::~Peon() [193]
+-----------------------------------------------
+                0.00    0.00       2/2           GenericAllocator<Peon>::createObject() [169]
+[176]    0.0    0.00    0.00       2         void std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Peon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Peon>::GWorldRef**, std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> > >, GenericAllocator<Peon>::GWorldRef*&) [176]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [325]
+[177]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN10GameEngineC2ER14WorldInterface [177]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [325]
+[178]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN11HexViewport11ROTATE_LEFTE [178]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [325]
+[179]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN13PeonBehaviour4tickER11WorldObjectP8WorldRefR14WorldInterface [179]
+-----------------------------------------------
+                0.00    0.00       1/1           House::House() [195]
+[180]    0.0    0.00    0.00       1         WorldObject::WorldObject() [180]
+                0.00    0.00       1/6063        FlatHexPosition::FlatHexPosition() [90]
+-----------------------------------------------
+                0.00    0.00       1/1           SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [27]
+[181]    0.0    0.00    0.00       1         PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [181]
+-----------------------------------------------
+                0.00    0.00       1/1           SDLHandler::handleSDLEvents() [39]
+[182]    0.0    0.00    0.00       1         AbstractCamera::scrollDown() [182]
+-----------------------------------------------
+                0.00    0.00       1/1           SDLHandler::handleSDLEvents() [39]
+[183]    0.0    0.00    0.00       1         AbstractCamera::scrollRight() [183]
+-----------------------------------------------
+                0.00    0.00       1/1           SDLHandler::handleSDLEvents() [39]
+[184]    0.0    0.00    0.00       1         AbstractCamera::stopLRScroll() [184]
+-----------------------------------------------
+                0.00    0.00       1/1           SDLHandler::handleSDLEvents() [39]
+[185]    0.0    0.00    0.00       1         AbstractCamera::stopUDScroll() [185]
+-----------------------------------------------
+                0.00    0.00       1/1           Camera::Camera(int, int, int, int, int, int) [19]
+[186]    0.0    0.00    0.00       1         AbstractCamera::AbstractCamera(float, float, int) [186]
+-----------------------------------------------
+                0.00    0.00       1/1           HexViewport::HexViewport(int, int, int, int) [67]
+[187]    0.0    0.00    0.00       1         FlatHexPosition::FlatHexPosition(float, float, float, float, FlatHexPosition::System) [187]
+-----------------------------------------------
+                0.00    0.00       1/1           HexViewport::HexViewport(int, int, int, int) [67]
+[188]    0.0    0.00    0.00       1         FlatHexPosition::FlatHexPosition(FlatHexPosition::System) [188]
+-----------------------------------------------
+                0.00    0.00       1/1           RenderingEngine::addTarget(WorldRef const*) [54]
+[189]    0.0    0.00    0.00       1         GenericRenderer<OnTileBlitter>::addTarget(WorldRef const*) [189]
+-----------------------------------------------
+                0.00    0.00       1/1           GameEngine::createObject(std::type_info const&) [148]
+[190]    0.0    0.00    0.00       1         GenericAllocator<Rock>::createObject() [190]
+                0.00    0.00       1/1           void std::vector<Rock, std::allocator<Rock> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Rock*, std::vector<Rock, std::allocator<Rock> > >) [203]
+                0.00    0.00       1/1           void std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Rock>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Rock>::GWorldRef**, std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> > >, GenericAllocator<Rock>::GWorldRef*&) [206]
+-----------------------------------------------
+                0.00    0.00       1/1           GameEngine::createObject(std::type_info const&) [148]
+[191]    0.0    0.00    0.00       1         GenericAllocator<House>::createObject() [191]
+                0.00    0.00       1/1           void std::vector<House, std::allocator<House> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<House*, std::vector<House, std::allocator<House> > >) [204]
+                0.00    0.00       1/1           void std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<House>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<House>::GWorldRef**, std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> > >, GenericAllocator<House>::GWorldRef*&) [207]
+-----------------------------------------------
+                0.00    0.00       1/1           PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+[192]    0.0    0.00    0.00       1         Peon::clearInventory() [192]
+-----------------------------------------------
+                0.00    0.00       1/1           void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >) [175]
+[193]    0.0    0.00    0.00       1         Peon::~Peon() [193]
+-----------------------------------------------
+                0.00    0.00       1/1           void std::vector<Rock, std::allocator<Rock> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Rock*, std::vector<Rock, std::allocator<Rock> > >) [203]
+[194]    0.0    0.00    0.00       1         Rock::Rock() [194]
+                0.00    0.00       1/7           WorldObject::WorldObject(float) [136]
+                0.00    0.00       1/5           Harvestable::Harvestable(Stack::Ressource, int) [145]
+-----------------------------------------------
+                0.00    0.00       1/1           void std::vector<House, std::allocator<House> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<House*, std::vector<House, std::allocator<House> > >) [204]
+[195]    0.0    0.00    0.00       1         House::House() [195]
+                0.00    0.00       1/1           WorldObject::WorldObject() [180]
+                0.00    0.00       1/1           Storage::Storage() [198]
+-----------------------------------------------
+                0.00    0.00       1/1           PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+[196]    0.0    0.00    0.00       1         Stack::clear() [196]
+-----------------------------------------------
+                0.00    0.00       1/1           PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [53]
+[197]    0.0    0.00    0.00       1         Storage::addToStorage(Stack const&) [197]
+                0.00    0.00       2/2           StackTypeHash::operator()(Stack const&) const [173]
+                0.00    0.00       2/2           std::_Hashtable<Stack, Stack, std::allocator<Stack>, std::__detail::_Identity, StackTypeEqual, StackTypeHash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_find_before_node(unsigned long, Stack const&, unsigned long) const [174]
+                0.00    0.00       1/1           StackTypeEqual::operator()(Stack const&, Stack const&) const [199]
+-----------------------------------------------
+                0.00    0.00       1/1           House::House() [195]
+[198]    0.0    0.00    0.00       1         Storage::Storage() [198]
+-----------------------------------------------
+                0.00    0.00       1/1           Storage::addToStorage(Stack const&) [197]
+[199]    0.0    0.00    0.00       1         StackTypeEqual::operator()(Stack const&, Stack const&) const [199]
+-----------------------------------------------
+                0.00    0.00       1/1           Peon* std::__uninitialized_copy<false>::__uninit_copy<Peon const*, Peon*>(Peon const*, Peon const*, Peon*) [157]
+[200]    0.0    0.00    0.00       1         std::_Deque_base<Order, std::allocator<Order> >::_M_initialize_map(unsigned long) [200]
+-----------------------------------------------
+                0.00    0.00       1/1           void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >) [175]
+[201]    0.0    0.00    0.00       1         std::_Deque_base<Order, std::allocator<Order> >::~_Deque_base() [201]
+-----------------------------------------------
+                0.00    0.00       1/1           GenericAllocator<SelectedPeon>::createObject() [151]
+[202]    0.0    0.00    0.00       1         void std::vector<SelectedPeon, std::allocator<SelectedPeon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<SelectedPeon*, std::vector<SelectedPeon, std::allocator<SelectedPeon> > >) [202]
+                0.00    0.00       1/4           SelectedPeon::SelectedPeon() [150]
+-----------------------------------------------
+                0.00    0.00       1/1           GenericAllocator<Rock>::createObject() [190]
+[203]    0.0    0.00    0.00       1         void std::vector<Rock, std::allocator<Rock> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Rock*, std::vector<Rock, std::allocator<Rock> > >) [203]
+                0.00    0.00       1/1           Rock::Rock() [194]
+-----------------------------------------------
+                0.00    0.00       1/1           GenericAllocator<House>::createObject() [191]
+[204]    0.0    0.00    0.00       1         void std::vector<House, std::allocator<House> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<House*, std::vector<House, std::allocator<House> > >) [204]
+                0.00    0.00       1/1           House::House() [195]
+-----------------------------------------------
+                0.00    0.00       1/1           GenericAllocator<SelectedPeon>::createObject() [151]
+[205]    0.0    0.00    0.00       1         void std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<SelectedPeon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<SelectedPeon>::GWorldRef**, std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> > >, GenericAllocator<SelectedPeon>::GWorldRef*&) [205]
+-----------------------------------------------
+                0.00    0.00       1/1           GenericAllocator<Rock>::createObject() [190]
+[206]    0.0    0.00    0.00       1         void std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Rock>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Rock>::GWorldRef**, std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> > >, GenericAllocator<Rock>::GWorldRef*&) [206]
+-----------------------------------------------
+                0.00    0.00       1/1           GenericAllocator<House>::createObject() [191]
+[207]    0.0    0.00    0.00       1         void std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<House>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<House>::GWorldRef**, std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> > >, GenericAllocator<House>::GWorldRef*&) [207]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+ [177] _GLOBAL__sub_I__ZN10GameEngineC2ER14WorldInterface (GameEngine.cpp) [93] GenericAllocator<Peon>::GWorldRef::operator*() [82] PosCompareAscY::operator()(Position const&, Position const&) const
+ [178] _GLOBAL__sub_I__ZN11HexViewport11ROTATE_LEFTE (HexViewport.cpp) [190] GenericAllocator<Rock>::createObject() [199] StackTypeEqual::operator()(Stack const&, Stack const&) const
+ [179] _GLOBAL__sub_I__ZN13PeonBehaviour4tickER11WorldObjectP8WorldRefR14WorldInterface (PeonBehaviour.cpp) [104] GenericAllocator<Rock>::GWorldRef::operator*() [96] FlatHexPosition::orientation() const
+  [44] Controller::leftClickAt(FlatHexPosition const&) [152] GenericAllocator<Tree>::createObject() [16] FlatHexPosition::mapNeightbours(std::function<bool (FlatHexPosition const&)>) const
+  [42] Controller::rightClickAt(FlatHexPosition const&) [86] GenericAllocator<Tree>::GWorldRef::operator*() [6] FlatHexPosition::tile() const
+ [148] GameEngine::createObject(std::type_info const&) [191] GenericAllocator<House>::createObject() [66] FlatHexPosition::convert(FlatHexPosition::System) const
+ [158] GameEngine::removeObject(WorldRef*) [105] GenericAllocator<House>::GWorldRef::operator*() [51] FlatHexPosition::operator==(FlatHexPosition const&) const
+  [38] SDLHandler::handleMouseButtonDown(SDL_MouseButtonEvent const&) [30] SelectedPeonBehav::tick(WorldObject&, WorldRef*, WorldInterface&) [8] FlatHexPosition::operator-(FlatHexPosition const&) const
+ [145] Harvestable::Harvestable(Stack::Ressource, int) [163] SelectedPeonRenderer::removeTarget(WorldRef const*) [29] FlatHexPosition::operator*(Matrix22 const&) const
+ [124] HexViewport::target(FlatHexPosition const&) [26] SelectedPeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [43] FlatHexPosition::operator*(float const&) const
+  [67] HexViewport::HexViewport(int, int, int, int) [153] SelectedPeonRenderer::addTarget(WorldRef const*) [47] FlatHexPosition::operator!=(FlatHexPosition const&) const
+  [79] SpriteSheet::renderFrame(unsigned int, unsigned int, SDL_Renderer*, SDL_Rect const*) [27] SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [10] FlatHexPosition::operator+(FlatHexPosition const&) const
+ [138] SpriteSheet::loadFromFile(char const*, unsigned int, unsigned int, SDL_Renderer*) [48] Peon::beginOrder() [101] GenericAllocator<SelectedPeon>::GWorldRef::operator*() const
+ [128] SpriteSheet::recut(unsigned int, unsigned int) [147] Peon::clearOrders() [89] GenericAllocator<Peon>::GWorldRef::operator*() const
+ [139] SpriteSheet::SpriteSheet(SDL_Texture*, int, int, unsigned int, unsigned int) [122] Peon::addToInventory(Stack::Ressource, int) [106] GenericAllocator<Rock>::GWorldRef::operator*() const
+ [140] SpriteSheet::~SpriteSheet() [192] Peon::clearInventory() [91] GenericAllocator<Tree>::GWorldRef::operator*() const
+ [103] WorldObject::pos(FlatHexPosition const&) [126] Peon::addOrder(Order const&) [107] GenericAllocator<House>::GWorldRef::operator*() const
+  [41] WorldObject::stCollide(WorldObject const&, WorldObject const&) [132] Peon::endOrder() [166] Peon::canHarvest(Stack::Ressource) const
+ [149] WorldObject::WorldObject(void*) [102] Peon::tickCptr() [112] Peon::currentOrder() const
+ [136] WorldObject::WorldObject(float) [170] Peon::Peon() [92] Peon::direction() const
+ [180] WorldObject::WorldObject() [193] Peon::~Peon()     [88] Peon::hasOrders() const
+ [159] PeonRenderer::removeTarget(WorldRef const*) [194] Rock::Rock() [129] Peon::inventory() const
+  [95] PeonRenderer::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [110] Tile::erase(WorldRef*) [84] Tile::getContent() const
+ [141] PeonRenderer::addTarget(WorldRef const*) [109] Tile::insert(WorldRef*) [111] Tile::isEmpty() const
+ [181] PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet, std::default_delete<SpriteSheet> >) [127] Tile::Tile() [115] Order::targetMove() const
+ [150] SelectedPeon::SelectedPeon() [154] Tree::Tree()   [143] Order::targetStore() const
+ [160] SelectedPeon::~SelectedPeon() [164] Tree::~Tree() [118] Order::targetHarvest() const
+  [14] PeonBehaviour::pathFinding(Peon&, WorldRef*, WorldInterface&) [195] House::House() [114] Order::type() const
+  [99] PeonBehaviour::tick(WorldObject&, WorldRef*, WorldInterface&) [171] Order::store(WorldRef*) [123] Order::targetPos() const
+  [53] PeonBehaviour::store(Peon&, WorldRef*, WorldInterface&) [133] Order::moveTo(FlatHexPosition const&) [156] Stack::size() const
+  [46] PeonBehaviour::harvest(Peon&, WorldRef*, WorldInterface&) [165] Order::harvest(WorldRef*) [120] Stack::type() const
+ [182] AbstractCamera::scrollDown() [196] Stack::clear() [119] Stack::empty() const
+ [183] AbstractCamera::scrollRight() [121] Stack::reduce(int) [3] World::getContentAt(FlatHexPosition const&) const
+ [184] AbstractCamera::stopLRScroll() [135] Stack::Stack(Stack::Ressource, int) [4] World::isOnMap(FlatHexPosition const&) const
+ [185] AbstractCamera::stopUDScroll() [172] Stack::Stack() [25] HCEquals::operator()(FlatHexPosition const&, FlatHexPosition const&) const
+ [186] AbstractCamera::AbstractCamera(float, float, int) [32] World::removeObject(WorldRef*) [12] HCHasher::operator()(FlatHexPosition const&) const
+  [50] ControllerState::selectPeon(WorldRef*) [31] World::addObject(WorldRef*) [11] std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_find_before_node(unsigned long, FlatHexPosition const&, unsigned long) const
+  [57] ControllerState::deselectPeon() [64] Camera::doUpdateLRScroll(float) [174] std::_Hashtable<Stack, Stack, std::allocator<Stack>, std::__detail::_Identity, StackTypeEqual, StackTypeHash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_find_before_node(unsigned long, Stack const&, unsigned long) const
+ [130] ControllerState::selectedPeon() [19] Camera::Camera(int, int, int, int, int, int) [55] std::pair<std::__detail::_Node_iterator<std::pair<FlatHexPosition const, Tile>, false, true>, bool> std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<FlatHexPosition const&, Tile>(std::integral_constant<bool, true>, FlatHexPosition const&, Tile&&)
+   [2] FlatHexPosition::tile(FlatHexPosition*) [197] Storage::addToStorage(Stack const&) [33] std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::find(FlatHexPosition const&)
+  [80] FlatHexPosition::toTile() [198] Storage::Storage() [137] std::_Hashtable<FlatHexPosition, std::pair<FlatHexPosition const, Tile>, std::allocator<std::pair<FlatHexPosition const, Tile> >, std::__detail::_Select1st, HCEquals, HCHasher, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::erase(std::__detail::_Node_const_iterator<std::pair<FlatHexPosition const, Tile>, false, true>)
+  [56] FlatHexPosition::toUnit() [155] Matrix22::Matrix22(float, float, float, float) [144] std::pair<std::__detail::_Node_iterator<std::pair<WorldRef const* const, Animation>, false, false>, bool> std::_Hashtable<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<WorldRef const*&, Animation>(std::integral_constant<bool, true>, WorldRef const*&, Animation&&)
+   [5] FlatHexPosition::convert(FlatHexPosition*, FlatHexPosition::System) [83] Position::Position(int, int) [200] std::_Deque_base<Order, std::allocator<Order> >::_M_initialize_map(unsigned long)
+  [34] FlatHexPosition::distance(FlatHexPosition const&, FlatHexPosition const&) [98] Animation::update() [201] std::_Deque_base<Order, std::allocator<Order> >::~_Deque_base()
+  [75] FlatHexPosition::convertTo(FlatHexPosition::System) [113] Animation::restart() [134] std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation) (std_function.h)
+ [187] FlatHexPosition::FlatHexPosition(float, float, float, float, FlatHexPosition::System) [142] Animation::Animation(int, int) [49] std::_Function_handler<bool (FlatHexPosition const&), Controller::objectAt(FlatHexPosition const&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) (std_function.h)
+ [188] FlatHexPosition::FlatHexPosition(FlatHexPosition::System) [40] Controller::objectAt(FlatHexPosition const&) const [116] std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}> const&, std::_Manager_operation) (std_function.h)
+  [21] FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition::System) [20] HexViewport::tileHeight() const [17] std::_Function_handler<bool (FlatHexPosition const&), PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const::{lambda(FlatHexPosition const&)#1}>::_M_invoke(std::_Any_data const&, FlatHexPosition const&) (std_function.h)
+  [45] FlatHexPosition::FlatHexPosition(FlatHexPosition const&, FlatHexPosition const&) [36] HexViewport::upLeftCorner(FlatHexPosition*) const [100] std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_manager(std::_Any_data&, std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}> const&, std::_Manager_operation) (std_function.h)
+ [131] FlatHexPosition::FlatHexPosition(float, float, FlatHexPosition::System) [108] HexViewport::viewPortAxis(FlatHexPosition*, FlatHexPosition*) const [85] std::_Function_handler<void (WorldObject&, WorldRef*), GameEngine::update()::{lambda(WorldObject&, WorldRef*)#1}>::_M_invoke(std::_Any_data const&, WorldObject&, WorldRef*&&) (std_function.h)
+  [90] FlatHexPosition::FlatHexPosition() [125] HexViewport::target() const [157] Peon* std::__uninitialized_copy<false>::__uninit_copy<Peon const*, Peon*>(Peon const*, Peon const*, Peon*)
+  [37] GenericRenderer<OnFootBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [7] HexViewport::toPixel(FlatHexPosition const&, int*, int*) const [202] void std::vector<SelectedPeon, std::allocator<SelectedPeon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<SelectedPeon*, std::vector<SelectedPeon, std::allocator<SelectedPeon> > >)
+ [146] GenericRenderer<OnFootBlitter>::addTarget(WorldRef const*) [60] HexViewport::fromPixel(int, int, FlatHexPosition*) const [175] void std::vector<Peon, std::allocator<Peon> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Peon*, std::vector<Peon, std::allocator<Peon> > >)
+  [18] GenericRenderer<OnTileBlitter>::renderAt(WorldRef const*, int, int, int, HexViewport const&, SDL_Renderer*) [76] HexViewport::tileWidth() const [203] void std::vector<Rock, std::allocator<Rock> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Rock*, std::vector<Rock, std::allocator<Rock> > >)
+ [189] GenericRenderer<OnTileBlitter>::addTarget(WorldRef const*) [77] SpriteSheet::width() const [167] void std::vector<Tree, std::allocator<Tree> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<Tree*, std::vector<Tree, std::allocator<Tree> > >)
+  [63] RenderingEngine::removeTarget(WorldRef const*) [78] SpriteSheet::height() const [204] void std::vector<House, std::allocator<House> >::_M_realloc_insert<>(__gnu_cxx::__normal_iterator<House*, std::vector<House, std::allocator<House> > >)
+   [1] RenderingEngine::render() [23] WorldObject::pos() const [205] void std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<SelectedPeon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<SelectedPeon>::GWorldRef**, std::vector<GenericAllocator<SelectedPeon>::GWorldRef*, std::allocator<GenericAllocator<SelectedPeon>::GWorldRef*> > >, GenericAllocator<SelectedPeon>::GWorldRef*&)
+  [54] RenderingEngine::addTarget(WorldRef const*) [117] WorldObject::radius() const [176] void std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Peon>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Peon>::GWorldRef**, std::vector<GenericAllocator<Peon>::GWorldRef*, std::allocator<GenericAllocator<Peon>::GWorldRef*> > >, GenericAllocator<Peon>::GWorldRef*&)
+ [151] GenericAllocator<SelectedPeon>::createObject() [61] WorldObject::collide(FlatHexPosition const&) const [206] void std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Rock>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Rock>::GWorldRef**, std::vector<GenericAllocator<Rock>::GWorldRef*, std::allocator<GenericAllocator<Rock>::GWorldRef*> > >, GenericAllocator<Rock>::GWorldRef*&)
+ [161] GenericAllocator<SelectedPeon>::deleteObject(WorldRef*) [35] WorldObject::collide(WorldObject const&) const [168] void std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<Tree>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<Tree>::GWorldRef**, std::vector<GenericAllocator<Tree>::GWorldRef*, std::allocator<GenericAllocator<Tree>::GWorldRef*> > >, GenericAllocator<Tree>::GWorldRef*&)
+  [28] GenericAllocator<SelectedPeon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [87] OnFootBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const [207] void std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> >::_M_realloc_insert<GenericAllocator<House>::GWorldRef*&>(__gnu_cxx::__normal_iterator<GenericAllocator<House>::GWorldRef**, std::vector<GenericAllocator<House>::GWorldRef*, std::allocator<GenericAllocator<House>::GWorldRef*> > >, GenericAllocator<House>::GWorldRef*&)
+ [162] GenericAllocator<SelectedPeon>::GWorldRef::~GWorldRef() [81] OnTileBlitter::operator()(SDL_Rect*, int, int, int, int, int, int) const [24] std::_Rb_tree_iterator<std::pair<Position const, WorldRef const*> > std::_Rb_tree<Position, std::pair<Position const, WorldRef const*>, std::_Select1st<std::pair<Position const, WorldRef const*> >, PosCompareAscY, std::allocator<std::pair<Position const, WorldRef const*> > >::_M_emplace_equal<Position, WorldRef* const&>(Position&&, WorldRef* const&)
+  [94] GenericAllocator<SelectedPeon>::GWorldRef::operator*() [15] PeonBehaviour::tryPosition(Peon&, WorldRef*, WorldObject**, WorldInterface&) const [97] std::__detail::_Map_base<WorldRef const*, std::pair<WorldRef const* const, Animation>, std::allocator<std::pair<WorldRef const* const, Animation> >, std::__detail::_Select1st, std::equal_to<WorldRef const*>, std::hash<WorldRef const*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(WorldRef const* const&)
+ [169] GenericAllocator<Peon>::createObject() [173] StackTypeHash::operator()(Stack const&) const [52] std::__detail::_Map_base<std::type_index, std::pair<std::type_index const, AbstractRenderer&>, std::allocator<std::pair<std::type_index const, AbstractRenderer&> >, std::__detail::_Select1st, std::equal_to<std::type_index>, std::hash<std::type_index>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::at(std::type_index const&)
+  [13] GenericAllocator<Peon>::foreach(std::function<void (WorldObject&, WorldRef*)>) [22] AbstractCamera::getOrientation() const
