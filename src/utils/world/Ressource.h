@@ -25,6 +25,8 @@
 #ifndef RESSOURCE_H
 #define RESSOURCE_H
 
+#include <cstddef>
+
 /// \brief Represents a ressource stack
 class Stack {
 public:
@@ -53,12 +55,29 @@ public:
   /// \brief try to remove 'qty' of ressource from the stack
   /// \return quantity removed : min(size, qty)
   int reduce(int qty);
+  /// \brief empty the stack
+  void clear();
   
   /// \brief return stack type
   Ressource type() const;
   
   /// \brief return true if the stack is empty
   bool empty() const;
+};
+
+class StackTypeComp {
+public:
+  bool operator() (const Stack & a, const Stack & b) const;
+};
+
+class StackTypeHash {
+public:
+  std::size_t operator() (const Stack & a) const;
+};
+
+class StackTypeEqual {
+public:
+  bool operator() (const Stack & a, const Stack & b) const;
 };
 
 #endif /* RESSOURCE_H */

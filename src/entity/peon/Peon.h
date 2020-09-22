@@ -59,6 +59,7 @@ public:
   const Order & currentOrder() const;
   
   const Stack & inventory() const;     ///< ressources qty in peon's inventory
+  void clearInventory();               ///< remove everythings from the inventory
   void addToInventory(
     Stack::Ressource type, int qty);   ///< add ressources to peon's inventory
   bool canHarvest(

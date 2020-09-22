@@ -49,6 +49,10 @@ const Order & Peon::currentOrder() const {
 const Stack & Peon::inventory() const {
   return _invetory;
 }
+/// \brief remove everythings from the inventory
+void Peon::clearInventory() {
+  _invetory.clear();
+}
 /// \brief add ressources to peon's inventory
 void Peon::addToInventory(Stack::Ressource type, int qty) {
   assert(canHarvest(type));
@@ -92,6 +96,9 @@ void Peon::beginOrder() {
     break;
   case Order::Harvest :
     _delay = 60;
+    break;
+  case Order::Store :
+    _delay = 1;
     break;
   default :
     assert(0);

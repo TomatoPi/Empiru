@@ -39,6 +39,9 @@ public:
 private:
   
   /// \brief compute harvest order
+  void store(Peon & peon, WorldRef *ref, WorldInterface & world);
+  
+  /// \brief compute harvest order
   void harvest(Peon & peon, WorldRef *ref, WorldInterface & world);
   
   /// \brief compute path order for the peon

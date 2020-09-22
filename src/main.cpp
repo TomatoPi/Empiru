@@ -41,6 +41,8 @@
 
 #include "entity/rock/Rock.h"
 
+#include "buildings/House.h"
+
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
@@ -71,6 +73,7 @@ int main(int argc, char** argv) {
   auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
   auto rockSprite = SpriteAsset::loadFromFile("medias/palette_roche_v1.png", window->renderer);
+  auto houseSprite = SpriteAsset::loadFromFile("medias/build/house_tower/sprite_house_tower.png", window->renderer);
   
   World map(SIZE,SIZE);
   GameEngine game(map);
@@ -85,6 +88,8 @@ int main(int argc, char** argv) {
   
   game.addObjectKind(typeid(Rock), new GenericAllocator<Rock>());
   
+  game.addObjectKind(typeid(House), new GenericAllocator<House>());
+  
   Camera camera(
     HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
     window->width, window->height,
@@ -95,6 +100,7 @@ int main(int argc, char** argv) {
   GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite));
   PeonRenderer prdr(std::move(peonSprite));
   SelectedPeonRenderer selrdr(std::move(selSprite));
+  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite));
   
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
@@ -114,6 +120,7 @@ int main(int argc, char** argv) {
   rdr.attachRenderer(typeid(SelectedPeon), selrdr);
   rdr.attachRenderer(typeid(Tree), treerdr);
   rdr.attachRenderer(typeid(Rock), rockrdr);
+  rdr.attachRenderer(typeid(House), houserdr);
   
   Controller controller(map, game, rdr);
   SDLHandler handler(camera, camera, controller);
@@ -151,6 +158,12 @@ int main(int argc, char** argv) {
   (**rock).pos(FlatHexPosition(0, 2, FlatHexPosition::Axial));
   rdr.addTarget(rock);
   map.addObject(rock);
+  
+  
+  WorldRef *house(game.createObject(typeid(House)));
+  (**house).pos(FlatHexPosition(3, 2, FlatHexPosition::Axial));
+  rdr.addTarget(house);
+  map.addObject(house);
   
   /* Main loop */
 

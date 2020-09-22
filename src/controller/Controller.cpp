@@ -28,6 +28,7 @@
 #include "entity/peon/Peon.h"
 #include "utils/log.h"
 #include "entity/tree/Tree.h"
+#include "utils/world/Storage.h"
 #include <cmath>
 
 /// \brief Constructor
@@ -44,8 +45,10 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
   WorldRef *selection(objectAt(click));
   // Update controller according to result
   if (selection) {
-    if (typeid(**selection) == typeid(Peon)) {
+    if (auto peon = dynamic_cast<Peon*>(&**selection)) {
       _state.selectPeon(selection);
+      LOG_DEBUG("Peon : Inventory : %d %d\n", 
+          peon->inventory().type(), peon->inventory().size());
     }
     else {
       _state.deselectPeon();
@@ -53,6 +56,10 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
         if (auto harvest = dynamic_cast<Harvestable*>(&**selection)) {
           LOG_DEBUG("Ressource : %s : %d\n", 
               typeid(*harvest).name(), harvest->size());
+        }
+        else if (auto storage = dynamic_cast<Storage*>(&**selection)) {
+          LOG_DEBUG("Storage : %s : %s\n", 
+              typeid(*storage).name(), storage->content_str().c_str());
         }
       }
     }
@@ -71,6 +78,13 @@ void Controller::rightClickAt(const FlatHexPosition & click) {
         if (peon.canHarvest(harvest->type())) {
           peon.clearOrders();
           peon.addOrder(Order::harvest(target));
+          peon.beginOrder();
+        }
+      }
+      else if (auto storage = dynamic_cast<Storage *>(&**target)) {
+        if (!peon.inventory().empty()) {
+          peon.clearOrders();
+          peon.addOrder(Order::store(target));
           peon.beginOrder();
         }
       }

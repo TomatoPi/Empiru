@@ -45,6 +45,11 @@ int Stack::size() const {
 int Stack::reduce(int qty) {
   return _size -= std::min(_size, qty);
 }
+/// \brief empty the stack
+void Stack::clear() {
+  _size = 0;
+  _type = Invalid;
+}
 
 /// \brief return stack type
 Stack::Ressource Stack::type() const {
@@ -54,4 +59,16 @@ Stack::Ressource Stack::type() const {
 /// \brief return true if the stack is empty
 bool Stack::empty() const {
   return _size <= 0;
+}
+
+bool StackTypeComp::operator() (const Stack & a, const Stack & b) const {
+  return a.type() < b.type();
+}
+
+std::size_t StackTypeHash::operator() (const Stack & a) const {
+  return a.type();
+}
+
+bool StackTypeEqual::operator() (const Stack & a, const Stack & b) const {
+  return a.type() == b.type();
 }

@@ -36,7 +36,8 @@ public:
   enum Type {
     Invalid, ///< Invalid Order
     MoveTo,  ///< Move to another position
-    Harvest  ///< Harvest some ressources
+    Harvest, ///< Harvest some ressources
+    Store,   ///< Put some ressources in a storage
   };
   
 private:
@@ -46,6 +47,9 @@ private:
     Target();                 ///< Constructor
     FlatHexPosition _move;    ///< MoveTo order's target
     WorldRef *      _harvest; ///< Harvest order's target
+    struct {
+      WorldRef *_storage;
+    } _store;                 ///< Store order's target
   } _target;                  ///< Order's target
   
   Type _type; ///< Order's type
@@ -56,7 +60,8 @@ public:
   static Order moveTo(const FlatHexPosition & pos);
   /// \brief return an Harvest Order
   static Order harvest(WorldRef *obj);
-  
+  /// \brief return a Store Order
+  static Order store(WorldRef *obj);  
   /// \brief Constructor
   Order();
   
@@ -73,6 +78,10 @@ public:
   /// \brief return target for Harvest order
   /// \pre Must be a Harvest Order
   WorldRef * targetHarvest() const;
+  
+  /// \brief return target for Store order
+  /// \pre Must be a Store order
+  WorldRef * targetStore() const;
 };
 
 #endif /* ORDER_H */

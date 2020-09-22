@@ -28,7 +28,7 @@
 
 /// \brief Construct a Tile Sized Object
 WorldObject::WorldObject() : 
-  _pos(), _size(STile), _radius(1) 
+  _pos(), _size(STile), _radius(0.5) 
 {
   
 }
