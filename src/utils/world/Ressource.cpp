@@ -43,7 +43,9 @@ int Stack::size() const {
 /// \brief try to remove 'qty' of ressource from the stack
 /// \return quantity removed : min(size, qty)
 int Stack::reduce(int qty) {
-  return _size -= std::min(_size, qty);
+  qty = std::min(_size, qty);
+  _size -= qty;
+  return qty;
 }
 /// \brief empty the stack
 void Stack::clear() {
