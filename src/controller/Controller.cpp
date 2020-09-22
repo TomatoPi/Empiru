@@ -29,6 +29,7 @@
 #include "utils/log.h"
 #include "entity/tree/Tree.h"
 #include "utils/world/Storage.h"
+#include "utils/hex/Conversion.h"
 #include <cmath>
 
 /// \brief Constructor
@@ -39,7 +40,7 @@ Controller::Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr
 }
   
 /// \brief Called when a left click is performed at given position
-void Controller::leftClickAt(const FlatHexPosition & click) {
+void Controller::leftClickAt(const WorldObject::Position & click) {
   
   // Search for a peon near click
   WorldRef *selection(objectAt(click));
@@ -68,7 +69,7 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
   }
 }
 /// \brief Called when a right click is performed at given position
-void Controller::rightClickAt(const FlatHexPosition & click) {
+void Controller::rightClickAt(const WorldObject::Position & click) {
   // If there is a selected peon and click is valid, let's go
   if (_state.selectedPeon() != nullptr && _world.isOnMap(click)) {
     Peon & peon(static_cast<Peon &>(**_state.selectedPeon()));
@@ -97,21 +98,24 @@ void Controller::rightClickAt(const FlatHexPosition & click) {
 }
 
 /// \todo might be slow if there is a great amount of objects near click
-WorldRef * Controller::objectAt(const FlatHexPosition & click) const {
+WorldRef * Controller::objectAt(const WorldObject::Position & click) const {
   WorldRef *selection(nullptr);
-  click.convert(FlatHexPosition::Grid).mapNeightbours(
+  hex::Grid grd(hex::toGrid(click));
+  grd.mapNeightbours(
     [&]
-    (const FlatHexPosition & pos) -> bool 
+    (const hex::Grid & pos) -> bool 
     {
-      auto content = _world.getContentAt(pos);
+      LOG_DEBUG("Try at : (%f,%f)\n", hex::toAxial(pos)._x, hex::toAxial(pos)._y);
+      auto content = _world.getContentAt(hex::toAxial(pos));
+      LOG_DEBUG("%p\n", content);
       if (content != nullptr){
         for (auto obj : *content){
           if (typeid(**obj) == typeid(Peon)) {
             const Peon & peon(static_cast<const Peon &>(**obj));
-            FlatHexPosition tmp(peon.pos(), FlatHexPosition::Grid);
+            hex::Grid tmp(hex::toGrid(peon.pos()));
             if (
-                (fabs(click._x - tmp._x) < 0.25) 
-                && (fabs(click._y + 0.25 - tmp._y) < 0.25)) 
+                (fabs(grd._x - tmp._x) < 0.25) 
+                && (fabs(grd._y + 0.25 - tmp._y) < 0.25)) 
             {
               selection = obj;
               return true;

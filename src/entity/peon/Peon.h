@@ -27,8 +27,8 @@
 #define PEON_H
 
 #include <deque>
+#include "utils/hex/Axial.h"
 #include "entity/peon/Order.h"
-#include "utils/hex/HexCoords.h"
 #include "utils/world/WorldObject.h"
 #include "utils/world/Ressource.h"
 
@@ -40,11 +40,11 @@ private:
   /// \brief Store the list of targets positions, used as a stack
   typedef std::deque<Order> TodoList;
   
-  TodoList        _todo;      ///< stack of pending orders
-  FlatHexPosition _dir;       ///< Peon's orientation
-  int             _cptr;      ///< Peon's order cptr
-  int             _delay;     ///< Peon's order duration
-  Stack           _invetory;  ///< Peon's inventory
+  TodoList   _todo;      ///< stack of pending orders
+  hex::Axial _dir;       ///< Peon's orientation
+  int        _cptr;      ///< Peon's order cptr
+  int        _delay;     ///< Peon's order duration
+  Stack      _invetory;  ///< Peon's inventory
 
 public:
 
@@ -52,7 +52,7 @@ public:
   Peon();
   
   /// \brief Return current peon's orientation
-  const FlatHexPosition & direction() const;
+  const hex::Axial & direction() const;
   
   /// \brief Return current peon's order
   /// \pre peon has an order (stack not empty)

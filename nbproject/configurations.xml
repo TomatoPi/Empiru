@@ -102,19 +102,24 @@
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="hex" displayName="hex" projectFiles="true">
-          <itemPath>src/utils/hex/HexConsts.h</itemPath>
-          <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
-          <itemPath>src/utils/hex/HexCoords.h</itemPath>
-          <itemPath>src/utils/hex/HexViewport.cpp</itemPath>
-          <itemPath>src/utils/hex/HexViewport.h</itemPath>
+          <itemPath>src/utils/hex/Axial.cpp</itemPath>
+          <itemPath>src/utils/hex/Axial.h</itemPath>
+          <itemPath>src/utils/hex/Consts.h</itemPath>
+          <itemPath>src/utils/hex/Conversion.h</itemPath>
+          <itemPath>src/utils/hex/Grid.cpp</itemPath>
+          <itemPath>src/utils/hex/Grid.h</itemPath>
+          <itemPath>src/utils/hex/OddQ.cpp</itemPath>
+          <itemPath>src/utils/hex/OddQ.h</itemPath>
+          <itemPath>src/utils/hex/Viewport.cpp</itemPath>
+          <itemPath>src/utils/hex/Viewport.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="math" projectFiles="true">
           <itemPath>src/utils/math/Math.cpp</itemPath>
           <itemPath>src/utils/math/Math.h</itemPath>
-          <itemPath>src/utils/math/Matrix.cpp</itemPath>
           <itemPath>src/utils/math/Matrix.h</itemPath>
           <itemPath>src/utils/math/Position.cpp</itemPath>
           <itemPath>src/utils/math/Position.h</itemPath>
+          <itemPath>src/utils/math/Vector.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f5" displayName="sound" projectFiles="true">
           <itemPath>src/utils/sound/SoundAsset.cpp</itemPath>
@@ -161,12 +166,6 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/hexcoord.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f4"
-                     displayName="ProceduralGeneration"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>tests/testgeneration.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="RoundOpti"
@@ -262,21 +261,6 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
-      <folder path="TestFiles/f4">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f4</output>
-        </linkerTool>
-      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -444,15 +428,25 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -460,13 +454,13 @@
       </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -505,8 +499,6 @@
       <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/testgeneration.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1" platformSpecific="true">
@@ -595,21 +587,6 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
-      <folder path="TestFiles/f4">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f4</output>
-        </linkerTool>
-      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -777,15 +754,25 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -793,13 +780,13 @@
       </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -838,8 +825,6 @@
       <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/testgeneration.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Linux" type="1" platformSpecific="true">
@@ -923,21 +908,6 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
-      <folder path="TestFiles/f4">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f4</output>
-        </linkerTool>
-      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -1105,15 +1075,25 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1121,13 +1101,13 @@
       </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1167,15 +1147,13 @@
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/testgeneration.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Linux_O2" type="1" platformSpecific="true">
       <toolsSet>
         <compilerSet>default</compilerSet>
         <platform>2</platform>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -1250,21 +1228,6 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f4">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f4</output>
         </linkerTool>
       </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
@@ -1434,15 +1397,25 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexConsts.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1450,13 +1423,13 @@
       </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="11">
-      </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="11">
       </item>
@@ -1495,8 +1468,6 @@
       <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/testgeneration.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

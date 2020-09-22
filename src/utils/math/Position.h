@@ -23,14 +23,13 @@
 /// \brief Provide utils for 2D carthesian coordinates
 ///
 
-#ifndef POSITION_H
-#define POSITION_H
+#pragma once
 
 /// \brief Integeer 2D coordinates
-struct Position {
+struct Position2D {
   int _x; ///< Abscissa
   int _y; ///< Ordinate
-  Position(int x, int y);
+  Position2D(int x, int y);
 };
 
 /// \brief Functor that return true if a.y is smaller than b.y 
@@ -38,7 +37,5 @@ struct Position {
 /// Useful to use Position as Key in ordered containers
 ///   Resulting an ascending sort on Y coordinate
 struct PosCompareAscY {
-  bool operator() (const Position & a, const Position & b) const;
+  bool operator() (const Position2D & a, const Position2D & b) const;
 };
-
-#endif /* POSITION_H */

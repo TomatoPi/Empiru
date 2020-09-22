@@ -24,6 +24,8 @@
 ///
 
 #include "Camera.h"
+#include "utils/hex/Consts.h"
+#include "utils/hex/Conversion.h"
 
 /// \brief Constructor of Concrete camera
 ///
@@ -38,7 +40,7 @@ Camera::Camera(
     int viewWidth, int viewHeight,
     int worldWidth, int worldHeight) : 
   AbstractCamera(0.1, 0.05, 6),
-  HexViewport(tileWidth, tileHeight, viewWidth, viewHeight),
+  Viewport(tileWidth, tileHeight, viewWidth, viewHeight),
   _worldWidth(worldWidth),
   _worldHeight(worldHeight),
   _vx(VIEW_VX),
@@ -48,35 +50,35 @@ Camera::Camera(
 
 /// \brief Must scroll the camera Horizontaly at given speed
 void Camera::doUpdateLRScroll(float v) {
-  FlatHexPosition pos = target() + _vx * v;
-  pos.convertTo(FlatHexPosition::Grid);
-  if (pos._x < 0) {
-    pos._x = 0;
-  } else if (_worldWidth*3 < (pos._x+3)) {
-    pos._x = _worldWidth*3 -3;
+  hex::Axial pos = target() + _vx * v;
+  hex::Grid tmp(hex::toGrid(pos));
+  if (tmp._x < 0) {
+    tmp._x = 0;
+  } else if (_worldWidth*3 < (tmp._x+3)) {
+    tmp._x = _worldWidth*3 -3;
   }
-  target(pos.convertTo(FlatHexPosition::Axial));
+  target(hex::toAxial(tmp));
 }
 /// \brief Must scroll the camera verticaly at given speed
 void Camera::doUpdateUDScroll(float v) {
-  FlatHexPosition pos = target() + _vy * v;
-  pos.convertTo(FlatHexPosition::Grid);
-  if (pos._y < 0) {
-    pos._y = 0;
-  } else if (_worldHeight*2 < (pos._y+2)) {
-    pos._y = _worldHeight*2 -2;
+  hex::Axial pos = target() + _vy * v;
+  hex::Grid tmp(hex::toGrid(pos));
+  if (tmp._y < 0) {
+    tmp._y = 0;
+  } else if (_worldHeight*2 < (tmp._y+2)) {
+    tmp._y = _worldHeight*2 -2;
   }
-  target(pos.convertTo(FlatHexPosition::Axial));
+  target(hex::toAxial(tmp));
 }
 /// \brief Must rotate camera to the left (clockwise)
 void Camera::doRotateLeft() {
-  _vx = _vx * ROTATE_RIGHT;
-  _vy = _vy * ROTATE_RIGHT;
-  rotation(ROTATE_LEFT * rotation());
+  _vx = _vx * hex::RMatrix_CC60A;
+  _vy = _vy * hex::RMatrix_CC60A;
+  rotation(hex::RMatrix_C60A * rotation());
 }
 /// \brief Must rotate camera to the right (anti-clockwise)
 void Camera::doRotateRight() {
-  _vx = _vx * ROTATE_LEFT;
-  _vy = _vy * ROTATE_LEFT;
-  rotation(ROTATE_RIGHT * rotation());
+  _vx = _vx * hex::RMatrix_C60A;
+  _vy = _vy * hex::RMatrix_C60A;
+  rotation(hex::RMatrix_CC60A * rotation());
 }

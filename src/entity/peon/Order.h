@@ -25,7 +25,7 @@
 #ifndef ORDER_H
 #define ORDER_H
 
-#include "utils/hex/HexCoords.h"
+#include "utils/hex/Axial.h"
 #include "utils/world/WorldRef.h"
 
 /// \brief Holder of Peon's orders informations
@@ -45,8 +45,8 @@ private:
   /// \brief Order's target
   union Target {
     Target();                 ///< Constructor
-    FlatHexPosition _move;    ///< MoveTo order's target
-    WorldRef *      _harvest; ///< Harvest order's target
+    WorldObject::Position _move;    ///< MoveTo order's target
+    WorldRef *            _harvest; ///< Harvest order's target
     struct {
       WorldRef *_storage;
     } _store;                 ///< Store order's target
@@ -57,7 +57,7 @@ private:
 public:
   
   /// \brief return a MoveTo Order
-  static Order moveTo(const FlatHexPosition & pos);
+  static Order moveTo(const WorldObject::Position & pos);
   /// \brief return an Harvest Order
   static Order harvest(WorldRef *obj);
   /// \brief return a Store Order
@@ -70,11 +70,11 @@ public:
   
   /// \brief return order target
   /// \pre Order must have a target (!Invalid)
-  const FlatHexPosition & targetPos() const;
+  const WorldObject::Position & targetPos() const;
   
   /// \brief return target for MoveTo order
   /// \pre Must be a MoveTo Order
-  const FlatHexPosition & targetMove() const;
+  const WorldObject::Position & targetMove() const;
   /// \brief return target for Harvest order
   /// \pre Must be a Harvest Order
   WorldRef * targetHarvest() const;

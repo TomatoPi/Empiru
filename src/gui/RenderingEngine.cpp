@@ -30,7 +30,7 @@
 
 RenderingEngine::RenderingEngine(
     Window &               win,
-    const HexViewport &    vp,
+    const hex::Viewport &  vp,
     const AbstractCamera & cam,
     const WorldInterface & wo) : 
   _window(win),
@@ -61,13 +61,12 @@ void RenderingEngine::removeTarget(const WorldRef * obj) {
 }
 
 void RenderingEngine::render() {
-  FlatHexPosition anchor, pos, vx, vy;
+  hex::Axial anchor, pos, vx, vy;
   // Compute anchor position and drawsteps
   _worldView.upLeftCorner(&anchor);
   _worldView.viewPortAxis(&vx, &vy);
   // Move one tile away to always draw left and up tiles
-  anchor = anchor - vx*2 - vy*2;
-  anchor.toTile();
+  anchor = hex::Axial(anchor - vx*2 - vy*2).tile();
   // Compute render situation
   int x, y, xx, yy,
       dx(_worldView.tileWidth() * 0.75), 
@@ -91,7 +90,7 @@ void RenderingEngine::render() {
     {
       // Render tile pos at (x, y+offx[!!flip])
       if (_world.isOnMap(pos)) {
-        _worldView.toPixel(pos.toTile(), &x, &y);
+        _worldView.toPixel(pos.tile(), &x, &y);
         if (tilerdr.renderAt(nullptr, _camera.getOrientation(), 
             x, y, _worldView, _window.renderer)) 
         {
@@ -103,7 +102,7 @@ void RenderingEngine::render() {
         if (vec) {
           for (auto & obj : *vec) {
             _worldView.toPixel((**obj).pos(), &x, &y);
-            _drawstack.emplace(Position(x, y), obj);
+            _drawstack.emplace(Position2D(x, y), obj);
           }
         }
       }

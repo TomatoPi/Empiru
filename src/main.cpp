@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
   game.addObjectKind(typeid(House), new GenericAllocator<House>());
   
   Camera camera(
-    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
+    hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     window->width, window->height,
     SIZE, SIZE);
   
@@ -112,7 +112,7 @@ int main(int argc, char** argv) {
     OUPS();
   }
   */
-  camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
+  camera.target(hex::Axial(0,0));
   
   RenderingEngine rdr(*window, camera, camera, map);
   rdr.attachRenderer(typeid(Tile), tilerdr);
@@ -128,40 +128,40 @@ int main(int argc, char** argv) {
   /* Manualy populate world */
   
   WorldRef *peon(game.createObject(typeid(Peon)));
-  (**peon).pos(FlatHexPosition(0, 0, FlatHexPosition::Axial));
+  (**peon).pos(hex::Axial(0, 0));
   rdr.addTarget(peon);
   map.addObject(peon);
   
   peon = game.createObject(typeid(Peon));
-  (**peon).pos(FlatHexPosition(2, 2, FlatHexPosition::Axial));
+  (**peon).pos(hex::Axial(2, 2));
   rdr.addTarget(peon);
   map.addObject(peon);
   
   WorldRef *tree(game.createObject(typeid(Tree)));
-  (**tree).pos(FlatHexPosition(1, 1, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(1, 1));
   rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
-  (**tree).pos(FlatHexPosition(1.6, 1, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(1.6, 1));
   rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
-  (**tree).pos(FlatHexPosition(2.6, 1, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(2.6, 1));
   rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
-  (**tree).pos(FlatHexPosition(1.3, 1.5, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(1.3, 1.5));
   rdr.addTarget(tree);
   map.addObject(tree);
   
   WorldRef *rock(game.createObject(typeid(Rock)));
-  (**rock).pos(FlatHexPosition(0, 2, FlatHexPosition::Axial));
+  (**rock).pos(hex::Axial(0, 2));
   rdr.addTarget(rock);
   map.addObject(rock);
   
   
   WorldRef *house(game.createObject(typeid(House)));
-  (**house).pos(FlatHexPosition(3, 2, FlatHexPosition::Axial));
+  (**house).pos(hex::Axial(3, 2));
   rdr.addTarget(house);
   map.addObject(house);
   
@@ -208,20 +208,6 @@ int main(int argc, char** argv) {
   Mix_CloseAudio();
   Mix_Quit();
   */
-  
-  LOG_INFO("TOTAL CONVERSIONS COUNT : \n");
-  std::size_t N(static_cast<std::size_t>(FlatHexPosition::Count));
-  for (std::size_t i(0) ; i<N ; ++i) {
-    for (std::size_t j(0) ; j<N ; ++j) {
-      LOG_GEN("%6lu ", FlatHexPosition::__conversions[i][j]);
-    }
-    LOG_GEN("\n");
-  }
-  LOG_INFO("TOTAL USAGES : \n");
-  for (std::size_t i(0) ; i<N ; ++i) {
-    LOG_GEN("%6lu ", FlatHexPosition::__usages[i]);
-  }
-  LOG_GEN("\n");
   
   return 0;
 }

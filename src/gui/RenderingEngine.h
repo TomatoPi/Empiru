@@ -31,7 +31,7 @@
 #include <map>
 
 #include "utils/math/Position.h"
-#include "utils/hex/HexViewport.h"
+#include "utils/hex/Viewport.h"
 #include "utils/gui/view/Window.h"
 #include "utils/gui/view/AbstractCamera.h"
 #include "utils/gui/renderer/AbstractRenderer.h"
@@ -48,10 +48,10 @@ private:
   ///   during this frame
   /// Sorting is done on ascending y to ensure that objects away from camera
   ///   are drawn behind
-  typedef std::multimap<Position, const WorldRef *, PosCompareAscY> DrawStack;
+  typedef std::multimap<Position2D, const WorldRef *, PosCompareAscY> DrawStack;
   
   Window &                _window;    ///< Obvious
-  const HexViewport &     _worldView; ///< Bridge between game and user
+  const hex::Viewport &   _worldView; ///< Bridge between game and user
   const AbstractCamera &  _camera;    ///< View controller
   const WorldInterface &  _world;     ///< Obvious too
   
@@ -63,7 +63,7 @@ public:
   /// \brief Constructor
   RenderingEngine(
       Window &               win,
-      const HexViewport &    vp,
+      const hex::Viewport &  vp,
       const AbstractCamera & cam,
       const WorldInterface & wo);
   

@@ -26,7 +26,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "utils/hex/HexViewport.h"
+#include "utils/hex/Viewport.h"
 #include "SDL2/SDL.h"
 
 #include "utils/log.h"
@@ -57,8 +57,8 @@ int main(int argc, char** argv) {
     return 0;
   }
   
-  HexViewport camera(
-    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
+  Viewport camera(
+    Viewport::HEXAGON_WIDTH, Viewport::HEXAGON_HEIGHT,
     WIDTH, HEIGHT);
   
   SDL_Rect rect;
@@ -111,11 +111,11 @@ int main(int argc, char** argv) {
           LOG_INFO("\n");
         }
         else if (e.button.button == SDL_BUTTON_LEFT) {
-          camera.rotation(camera.rotation() * HexViewport::ROTATE_LEFT);
+          camera.rotation(camera.rotation() * Viewport::ROTATE_LEFT);
           break;
         }
         else if (e.button.button == SDL_BUTTON_RIGHT) {
-          camera.rotation(camera.rotation() * HexViewport::ROTATE_RIGHT);
+          camera.rotation(camera.rotation() * Viewport::ROTATE_RIGHT);
           break;
         }
       }

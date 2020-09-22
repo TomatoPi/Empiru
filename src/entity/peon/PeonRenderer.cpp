@@ -40,7 +40,7 @@ PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) :
 int PeonRenderer::renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
-    const HexViewport & view,
+    const hex::Viewport & view,
     SDL_Renderer *rdr) 
 {
   const Peon & peon(static_cast<const Peon &>(**obj));

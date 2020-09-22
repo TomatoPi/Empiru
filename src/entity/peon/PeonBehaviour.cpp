@@ -26,7 +26,7 @@
 
 #include "PeonBehaviour.h"
 
-#include "utils/hex/HexConsts.h"
+#include "utils/hex/Consts.h"
 #include "utils/log.h"
 #include "entity/tree/Tree.h"
 #include "utils/world/Storage.h"
@@ -61,10 +61,10 @@ void PeonBehaviour::store(Peon & peon, WorldRef *ref, WorldInterface & world) {
   Storage & storage(dynamic_cast<Storage &>(**order.targetStore()));
   // If too far, walk
   if (object.radius() + peon.radius() + 0.15
-    < FlatHexPosition::distance(peon.pos(), object.pos())) 
+    < WorldObject::Position::distance(peon.pos(), object.pos())) 
   {
     peon.addOrder(Order::moveTo(object.pos() 
-        + FlatHexPosition(object.pos(), peon.pos()).toUnit() * (object.radius() + 0.1)));
+        + WorldObject::Position(peon.pos() - object.pos()).toUnit() * (object.radius() + 0.1)));
     peon.beginOrder();
     return;
   }
@@ -83,10 +83,10 @@ void PeonBehaviour::harvest(
   Harvestable & harvest(dynamic_cast<Harvestable &>(**order.targetHarvest()));
   // If too far, walk
   if (object.radius() + peon.radius() + 0.15
-    < FlatHexPosition::distance(peon.pos(), object.pos())) 
+    < WorldObject::Position::distance(peon.pos(), object.pos())) 
   {
     peon.addOrder(Order::moveTo(object.pos() 
-        + FlatHexPosition(object.pos(), peon.pos()).toUnit() * (object.radius() + 0.1)));
+        + WorldObject::Position(peon.pos() - object.pos()).toUnit() * (object.radius() + 0.1)));
     peon.beginOrder();
     return;
   }
@@ -99,10 +99,10 @@ void PeonBehaviour::pathFinding(
     Peon & peon, WorldRef *ref, WorldInterface & world) 
 {
   // Let's get it started
-  const FlatHexPosition oldpos(peon.pos());
+  const WorldObject::Position oldpos(peon.pos());
   const Order & order(peon.currentOrder());
   // If target is reached we're done
-  if (FlatHexPosition::distance(oldpos, order.targetMove()) < 0.02) {
+  if (WorldObject::Position::distance(oldpos, order.targetMove()) < 0.02) {
     world.removeObject(ref);
     peon.pos(order.targetMove());
     world.addObject(ref);
@@ -126,13 +126,13 @@ void PeonBehaviour::pathFinding(
       } 
       // Round obstacle
       else {
-        FlatHexPosition collide(obstacle->pos(), peon.pos());
-        FlatHexPosition esc1(collide * hex::RMatrix_C60A);
-        FlatHexPosition esc2(collide * hex::RMatrix_CC60A);
-        FlatHexPosition & esc = esc1;
+        WorldObject::Position collide(peon.pos() - obstacle->pos());
+        WorldObject::Position esc1(collide * hex::RMatrix_C60A);
+        WorldObject::Position esc2(collide * hex::RMatrix_CC60A);
+        WorldObject::Position & esc = esc1;
         if (
-            FlatHexPosition::distance(oldpos + esc2 * 0.01, order.targetMove()) 
-          < FlatHexPosition::distance(oldpos + esc1 * 0.01, order.targetMove())) 
+            WorldObject::Position::distance(oldpos + esc2 * 0.01, order.targetMove()) 
+          < WorldObject::Position::distance(oldpos + esc1 * 0.01, order.targetMove())) 
         {
           esc = esc2;
         }
@@ -145,7 +145,7 @@ void PeonBehaviour::pathFinding(
     if (validMove) {
       // If tile has changed move peon
       if (oldpos.tile() != peon.pos().tile()) {
-        FlatHexPosition tmp(peon.pos());
+        WorldObject::Position tmp(peon.pos());
         peon.pos(oldpos);
         world.removeObject(ref);
         peon.pos(tmp);
@@ -173,7 +173,7 @@ const {
   bool valid(true);
   peon.pos().mapNeightbours(
     [&]
-    (const FlatHexPosition & pos) -> bool {
+    (const WorldObject::Position & pos) -> bool {
       auto content = world.getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){

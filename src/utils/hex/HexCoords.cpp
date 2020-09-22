@@ -22,6 +22,7 @@
 /// \date 8 septembre 2020, 02:38
 ///
 
+#if 0
 #include "HexCoords.h"
 #include "utils/log.h"
 #include "utils/math/Math.h"
@@ -393,3 +394,4 @@ std::size_t HCHasher::operator() (const FlatHexPosition &obj) const {
 bool HCEquals::operator() (const FlatHexPosition &a, const FlatHexPosition &b) const {
   return a.tile() == b.tile();
 }
+#endif

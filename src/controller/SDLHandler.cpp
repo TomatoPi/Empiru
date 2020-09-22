@@ -24,12 +24,14 @@
 ///
 
 #include "SDLHandler.h"
+#include "utils/hex/Conversion.h"
+#include "utils/log.h"
 
 /// \brief Size of border (in pixels) used to scroll view
 #define MERGE 50
 
 /// \brief Constructor
-SDLHandler::SDLHandler(AbstractCamera & c, const HexViewport & w, Controller & e) :
+SDLHandler::SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e) :
   _camera(c),
   _worldview(w),
   _controller(e)
@@ -140,9 +142,8 @@ bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
 /// \brief Handle mouse button down
 bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   
-  FlatHexPosition pos;
+  hex::Axial pos;
   _worldview.fromPixel(event.x, event.y, &pos);
-  pos.convertTo(FlatHexPosition::Grid);
   
   switch(event.button){
     case SDL_BUTTON_LEFT:

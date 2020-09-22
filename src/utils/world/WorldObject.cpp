@@ -46,11 +46,11 @@ WorldObject::WorldObject(void * osef) :
 }
 
 /// \brief return object's position
-const FlatHexPosition & WorldObject::pos() const {
+const WorldObject::Position & WorldObject::pos() const {
   return _pos;
 }
 /// \brief set object's position
-void WorldObject::pos(const FlatHexPosition & pos) {
+void WorldObject::pos(const Position & pos) {
   _pos = pos;
 }
 
@@ -77,10 +77,10 @@ bool WorldObject::collide(const WorldObject & obj) const {
     return tileCollide(*this, obj);
   }
 }
-bool WorldObject::collide(const FlatHexPosition & pos) const {
+bool WorldObject::collide(const Position & pos) const {
   if (_size == SHollow) return false;
   if (_size == SSmall) {
-    return FlatHexPosition::distance(pos, _pos) < _radius;
+    return Position::distance(pos, _pos) < _radius;
   } else {
     return _pos.tile() == pos.tile();
   }
@@ -88,7 +88,7 @@ bool WorldObject::collide(const FlatHexPosition & pos) const {
 
 /// \brief Collision between two small objects
 bool WorldObject::smallCollide(const WorldObject &a, const WorldObject &b) {
-  return FlatHexPosition::distance(a._pos, b._pos) < (a._radius + b._radius);
+  return Position::distance(a._pos, b._pos) < (a._radius + b._radius);
 }
 /// \brief Collision between two tile objects
 bool WorldObject::tileCollide(const WorldObject &a, const WorldObject &b) {
@@ -97,5 +97,7 @@ bool WorldObject::tileCollide(const WorldObject &a, const WorldObject &b) {
 /// \brief Collision between a small object and a tile object
 bool WorldObject::stCollide(const WorldObject &small, const WorldObject &tile) {
   // Easier to understand with a drawing
-  return (small._pos + FlatHexPosition(small._pos, tile._pos).toUnit() * small._radius).toTile() == tile._pos.tile();
+  return Position(
+      small._pos + math::Vector<float>(small._pos - tile._pos).toUnit() 
+        * small._radius).tile() == tile._pos.tile();
 }

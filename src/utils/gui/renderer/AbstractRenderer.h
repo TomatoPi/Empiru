@@ -26,7 +26,7 @@
 #ifndef ABSTRACTRENDERER_H
 #define ABSTRACTRENDERER_H
 
-#include "utils/hex/HexViewport.h"
+#include "utils/hex/Viewport.h"
 #include "utils/world/WorldRef.h"
 #include "utils/world/WorldObject.h"
 #include <SDL2/SDL_render.h>
@@ -45,7 +45,7 @@ public:
   virtual int renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
-    const HexViewport & view,
+    const hex::Viewport & view,
     SDL_Renderer *rdr) = 0;
   
   /// \brief Called when a new object associated with this renderer is created

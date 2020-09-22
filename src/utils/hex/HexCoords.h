@@ -27,6 +27,7 @@
 
 #ifndef HEXCOORDS_H
 #define HEXCOORDS_H
+#error
 
 #include <string>
 #include <functional>

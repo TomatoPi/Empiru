@@ -37,7 +37,7 @@ SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet> s) :
 int SelectedPeonRenderer::renderAt(
   const WorldRef * obj, 
   int ori, int x, int y,
-  const HexViewport & view,
+  const hex::Viewport & view,
   SDL_Renderer *rdr)
 {
   return PeonRenderer::renderAt(

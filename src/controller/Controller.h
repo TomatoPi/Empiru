@@ -42,13 +42,13 @@ public:
   Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
   
   /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
+  void leftClickAt(const WorldObject::Position & click);
   /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
+  void rightClickAt(const WorldObject::Position & click);
   
 private:
   
-  WorldRef * objectAt(const FlatHexPosition & click) const;
+  WorldRef * objectAt(const WorldObject::Position & click) const;
 };
 
 #endif /* CONTROLLER_H */

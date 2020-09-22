@@ -16,31 +16,46 @@
  */
 
 /// 
-/// \file   HexConsts.h
+/// \file   Conversion.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 17 septembre 2020, 14:07
+/// \date 22 septembre 2020, 22:28
 ///
 
-#ifndef HEXCONSTS_H
-#define HEXCONSTS_H
+#ifndef CONVERSION_H
+#define CONVERSION_H
+#pragma once
 
-#include "utils/math/Matrix.h"
-#include "utils/hex/HexCoords.h"
+#include "OddQ.h"
+#include "Axial.h"
+#include "Grid.h"
 
 namespace hex {
   
-  /// \brief Clockwise 90° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_C90A = Matrix22(-0.5, -1, 1.25, 0.5).unit();
-  /// \brief CounterClockwise 90° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_CC90A = Matrix22(0.5, 1, -1.25, -0.5).unit();
+  inline OddQ toOddQ(const Axial & v) {
+    return OddQ(
+      v._x, 
+      v._y + (v._x - (math::fastmrnd(v._x) & 1)) / 2.);
+  }
   
-  /// \brief Clockwise 60° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_C60A(0, -1, 1, 1);
-  /// \brief CounterClockwise 60° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_CC60A(1, 1, -1, 0);
+  inline Axial toAxial(const OddQ & v) {
+    return Axial(
+      v._x, 
+      v._y - (v._x - (math::fastmrnd(v._x) & 1)) / 2.);
+  }
   
+  inline Axial toAxial(const Grid & v) {
+    return Axial(
+      v._x / 3., 
+      v._y / 2. - v._x / 6.);
+  }
+  
+  inline Grid toGrid(const Axial & v) {
+    return Grid(
+      v._x * 3, 
+      v._y * 2 + v._x);
+  }
 }
 
-#endif /* HEXCONSTS_H */
+#endif /* CONVERSION_H */
 

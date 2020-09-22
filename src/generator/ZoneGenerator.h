@@ -25,7 +25,7 @@
 #ifndef ZONEGENERATOR_H
 #define ZONEGENERATOR_H
 
-#include "utils/hex/HexCoords.h"
+#include "utils/hex/Axial.h"
 #include <vector>
 
 class ZoneGenerator {
@@ -41,9 +41,9 @@ public:
   void addObject();
   
   //Mettre ça dans module math ???
-  float calculateY(FlatHexPosition posA, FlatHexPosition posB, float xC);
+  float calculateY(hex::Axial posA, hex::Axial posB, float xC);
 private:
-  typedef std::vector<FlatHexPosition> Zone;
+  typedef std::vector<hex::Axial> Zone;
   Zone _vertexs;
   Zone _objects;
 };

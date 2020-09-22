@@ -16,26 +16,34 @@
  */
 
 /// 
-/// \file   Position.cpp
+/// \file   HexConsts.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 18 septembre 2020, 09:09
-/// \brief Provide utils for 2D carthesian coordinates
+/// \date 17 septembre 2020, 14:07
 ///
 
-#include "Position.h"
+#ifndef HEXCONSTS_H
+#define HEXCONSTS_H
 
-/// \brief Integeer 2D coordinates
-Position2D::Position2D(int x, int y) : _x(x), _y(y) {
+#include "utils/math/Matrix.h"
+
+namespace hex {
+  
+  typedef math::Matrix22<float> Matrix;
+  
+  static const Matrix Identity(1, 0, 0, 1);
+  
+  /// \brief Clockwise 90° Axial Coordinate rotation Matrix
+  static const Matrix RMatrix_C90A = Matrix(-0.5, -1, 1.25, 0.5).unit();
+  /// \brief CounterClockwise 90° Axial Coordinate rotation Matrix
+  static const Matrix RMatrix_CC90A = Matrix(0.5, 1, -1.25, -0.5).unit();
+  
+  /// \brief Clockwise 60° Axial Coordinate rotation Matrix
+  static const Matrix RMatrix_C60A(0, -1, 1, 1);
+  /// \brief CounterClockwise 60° Axial Coordinate rotation Matrix
+  static const Matrix RMatrix_CC60A(1, 1, -1, 0);
   
 }
 
-/// \brief Functor that return true if a.y is smaller than b.y 
-///   or y' are equals and x' smaller
-/// Useful to use Position as Key in ordered containers
-///   Resulting an ascending sort on Y coordinate
-bool PosCompareAscY::operator() (
-  const Position2D & a, const Position2D & b) 
-const {
-  return a._y < b._y || (a._y == b._y && a._x < b._x);
-}
+#endif /* HEXCONSTS_H */
+
