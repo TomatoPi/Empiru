@@ -37,14 +37,16 @@
 class SDLHandler {
 private:
   
-  AbstractCamera    &_camera;    ///< Worldview controller
+  AbstractCamera      &_camera;    ///< Worldview controller
   const hex::Viewport &_worldview; ///< Bridge between userview and controller
-  Controller        &_controller;///< The thing that do things on other things
+  Controller          &_controller;///< The thing that do things on other things
+  RenderingEngine     &_rengine;
+  Window &            _window;
   
 public:
   
   /// \brief Constructor
-  SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e);
+  SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e, RenderingEngine & rdr, Window & win);
   
   /// \brief Core SDLHandler's function, process all events availables
   bool handleSDLEvents();

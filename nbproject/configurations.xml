@@ -114,11 +114,8 @@
           <itemPath>src/utils/hex/Viewport.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="math" projectFiles="true">
-          <itemPath>src/utils/math/Math.cpp</itemPath>
           <itemPath>src/utils/math/Math.h</itemPath>
           <itemPath>src/utils/math/Matrix.h</itemPath>
-          <itemPath>src/utils/math/Position.cpp</itemPath>
-          <itemPath>src/utils/math/Position.h</itemPath>
           <itemPath>src/utils/math/Vector.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f5" displayName="sound" projectFiles="true">
@@ -160,12 +157,6 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/grille.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f3"
-                     displayName="OptiHexCoord"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>tests/hexcoord.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="RoundOpti"
@@ -246,21 +237,6 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
-      <folder path="TestFiles/f3">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f3</output>
-        </linkerTool>
-      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -450,15 +426,9 @@
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -495,8 +465,6 @@
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -572,21 +540,6 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
-      <folder path="TestFiles/f3">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f3</output>
-        </linkerTool>
-      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -776,15 +729,9 @@
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -821,8 +768,6 @@
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -893,21 +838,6 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
-      <folder path="TestFiles/f3">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f3</output>
-        </linkerTool>
-      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -1097,15 +1027,9 @@
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1142,8 +1066,6 @@
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1213,21 +1135,6 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f3">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
@@ -1419,15 +1326,9 @@
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Math.cpp" ex="false" tool="1" flavor2="11">
-      </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/utils/math/Position.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1464,8 +1365,6 @@
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/hexcoord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>

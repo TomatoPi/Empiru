@@ -30,7 +30,7 @@
 #include <unordered_map>
 #include <map>
 
-#include "utils/math/Position.h"
+#include "utils/math/Vector.h"
 #include "utils/hex/Viewport.h"
 #include "utils/gui/view/Window.h"
 #include "utils/gui/view/AbstractCamera.h"
@@ -39,16 +39,31 @@
 
 /// \brief Object responsible of Game rendering
 class RenderingEngine {
+public:
+  
+  /// \brief Hash an SDL_Color according to its compenents
+  struct ColorHasher {
+    std::size_t operator() (const SDL_Color & c) const;
+  };
+  struct ColorEquals {
+    bool operator() (const SDL_Color & a, const SDL_Color & b) const;
+  };
+  
+  typedef std::unordered_map<SDL_Color, WorldRef *, ColorHasher, ColorEquals>
+  ColorTable;
+  
 private:
   
   /// \brief Table used to make the rendering engine blind on what is in the world
   ///   One must register each kind of object with it associated renderer
   typedef std::unordered_map<std::type_index, AbstractRenderer&> RendererTable;
+  /// \brief Represent a pixel on the screen
+  typedef math::Vector<int> Pixel;
   /// \brief List used to store the sorted list of objects beeing drawn 
   ///   during this frame
   /// Sorting is done on ascending y to ensure that objects away from camera
   ///   are drawn behind
-  typedef std::multimap<Position2D, const WorldRef *, PosCompareAscY> DrawStack;
+  typedef std::multimap<Pixel, WorldRef *, Pixel::AscYCompare> DrawStack;
   
   Window &                _window;    ///< Obvious
   const hex::Viewport &   _worldView; ///< Bridge between game and user
@@ -57,6 +72,8 @@ private:
   
   RendererTable _renderers; ///< Table of {ObjectType, Associated renderer}
   DrawStack     _drawstack; ///< Ascending Y sorted list of objects beeing drawn during this frame
+  ColorTable    _colors;
+  uint8_t       _r, _g, _b;
   
 public:
   
@@ -77,6 +94,11 @@ public:
   
   /// \brief Draw EVERYTHINGS (in the world)
   void render();
+  /// \brief Draw every sized object 
+  void drawPixelPerfectZones();
+  
+  /// \brief Return last computed color table
+  const ColorTable & colorTable() const;
 };
 
 #endif /* RENDERENGINE_H */

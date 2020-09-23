@@ -28,6 +28,17 @@
 #include "RenderingEngine.h"
 #include "utils/log.h"
 
+std::size_t RenderingEngine::ColorHasher::operator() (const SDL_Color & c) const {
+  std::size_t r(static_cast<std::size_t>(c.r));
+  std::size_t g(static_cast<std::size_t>(c.g));
+  std::size_t b(static_cast<std::size_t>(c.b));
+  std::size_t a(static_cast<std::size_t>(c.a));
+  return (r << 24) ^ (g << 16) ^ (b << 8) ^ a;
+}
+bool RenderingEngine::ColorEquals::operator() (const SDL_Color & a, const SDL_Color & b) const {
+  return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
+}
+
 RenderingEngine::RenderingEngine(
     Window &               win,
     const hex::Viewport &  vp,
@@ -94,7 +105,7 @@ void RenderingEngine::render() {
         if (tilerdr.renderAt(nullptr, _camera.getOrientation(), 
             x, y, _worldView, _window.renderer)) 
         {
-          LOG_WRN("%s\n", SDL_GetError());
+          LOG_ERROR("Failed draw tile : %s\n", SDL_GetError());
           OUPS();
         }
         
@@ -102,7 +113,7 @@ void RenderingEngine::render() {
         if (vec) {
           for (auto & obj : *vec) {
             _worldView.toPixel((**obj).pos(), &x, &y);
-            _drawstack.emplace(Position2D(x, y), obj);
+            _drawstack.emplace(Pixel(x, y), obj);
           }
         }
       }
@@ -113,10 +124,52 @@ void RenderingEngine::render() {
   for (auto & itr : _drawstack) {
     const WorldRef * obj(itr.second);
     // Get correct renderer and use it
-    _renderers.find(std::type_index(typeid(**obj)))->second
+    if (int err = _renderers.find(std::type_index(typeid(**obj)))->second
         .renderAt(
             obj,
             _camera.getOrientation(), 
-            itr.first._x, itr.first._y, _worldView, _window.renderer);
+            itr.first._x, itr.first._y, _worldView, _window.renderer))
+    {
+      LOG_ERROR("Failed draw object : %d : %s\n", err, SDL_GetError());
+      OUPS();
+    }
   }
+}
+
+/// \brief Draw every sized object 
+void RenderingEngine::drawPixelPerfectZones() {
+  // Clear the mask
+  SDL_SetRenderDrawColor(_window.vrenderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+  SDL_RenderClear(_window.vrenderer);
+  // Iniitalise unique colors
+  _colors.clear();
+  uint32_t cptr(1);
+  // Draw is made according to last drawstack
+  for (auto & itr : _drawstack) {
+    WorldRef * obj(itr.second);
+    if ((**obj).sizeClass() == WorldObject::SHollow) {
+      continue;
+    }
+    SDL_Color color;
+    color.r = (cptr & 0x000000FF) >> 0;
+    color.g = (cptr & 0x0000FF00) >> 8;
+    color.b = (cptr & 0x00FF0000) >> 16;
+    color.a = 255;
+    // Get correct renderer and use it
+    if (int err = _renderers.find(std::type_index(typeid(**obj)))->second
+        .renderAt(
+            obj,
+            _camera.getOrientation(), 
+            itr.first._x, itr.first._y, _worldView, _window.vrenderer,
+            color))
+    {
+      LOG_ERROR("Failed draw object : %d : %s\n", err, SDL_GetError());
+      OUPS();
+    }
+    _colors.emplace(color, obj);
+    cptr += 1;
+  }
+}
+const RenderingEngine::ColorTable & RenderingEngine::colorTable() const {
+  return _colors;
 }

@@ -40,12 +40,13 @@ private:
   typedef std::unordered_map<const WorldRef *, Animation> Targets;
   
   std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
+  std::unique_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
   Targets                      _targets;  ///< Dict of Animation datas
   
 public:
   
   /// Constructor
-  PeonRenderer(std::unique_ptr<SpriteSheet> s);
+  PeonRenderer(std::unique_ptr<SpriteSheet> s, std::unique_ptr<SpriteSheet> m);
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual int renderAt(
@@ -53,6 +54,15 @@ public:
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr);
+  
+  /// \brief Render the object at given position, replacing the texture with
+  ///   'color'
+  virtual int renderAt(
+    const WorldRef * obj,
+    int ori, int x, int y,
+    const hex::Viewport & view,
+    SDL_Renderer * rdr,
+    const SDL_Color & color); 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state

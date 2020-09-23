@@ -31,10 +31,12 @@
 #define MERGE 50
 
 /// \brief Constructor
-SDLHandler::SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e) :
+SDLHandler::SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e, RenderingEngine & rdr, Window & win) :
   _camera(c),
   _worldview(w),
-  _controller(e)
+  _controller(e),
+  _rengine(rdr),
+  _window(win)
 {
   
 }
@@ -144,13 +146,27 @@ bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   
   hex::Axial pos;
   _worldview.fromPixel(event.x, event.y, &pos);
+  _rengine.drawPixelPerfectZones();
+  auto & table(_rengine.colorTable());
+  SDL_LockSurface(_window.vsurface);
+  SDL_Color color{255, 255, 255, 255};
+  SDL_GetRGB(static_cast<uint32_t*>(_window.vsurface->pixels)[event.y * _window.vsurface->w + event.x],
+      _window.vsurface->format,
+      &color.r, &color.g, &color.b);
+  SDL_UnlockSurface(_window.vsurface);
+  LOG_DEBUG("Color at click : %u %u %u %u\n", color.r, color.g, color.b, color.a);
+  auto itr(table.find(color));
+  WorldRef * obj(nullptr);
+  if (itr != table.end()) {
+    obj = itr->second;
+  }
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
-      _controller.leftClickAt(pos);
+      _controller.leftClickOn(pos, obj);
       break;
     case SDL_BUTTON_RIGHT:
-      _controller.rightClickAt(pos);
+      _controller.rightClickOn(pos, obj);
       break;
   }
   

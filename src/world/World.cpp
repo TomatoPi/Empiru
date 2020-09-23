@@ -71,6 +71,12 @@ const Tile::Content * World::getContentAt(const WorldObject::Position & pos) con
 
 /// \brief Must return true if given pos is on the map
 bool World::isOnMap(const WorldObject::Position & pos) const {
+  hex::Grid grd(hex::toGrid(pos));
+  // Easy case
+  if (0 < grd._x && 0 < grd._y 
+    && grd._x < _mapWidth*4 && grd._y < _mapHeight*2) {
+    return true;
+  }
   hex::OddQ off(hex::toOddQ(pos.tile()));
   return 0 <= off._x && 0 <= off._y 
       && off._x < _mapWidth

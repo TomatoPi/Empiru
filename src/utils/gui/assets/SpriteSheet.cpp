@@ -123,6 +123,11 @@ int SpriteSheet::renderFrame(
   return SDL_RenderCopy(rdr, _sheet, &rect, dest);
 }
 
+/// \brief Change color of the sprite
+int SpriteSheet::setColorMod(const SDL_Color & c) {
+  return SDL_SetTextureColorMod(_sheet, c.r, c.g, c.b);
+}
+
 /// \brief return sprite's width
 int SpriteSheet::width() const {
   return _w;

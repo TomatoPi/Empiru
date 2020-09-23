@@ -27,7 +27,7 @@
 
 /// Constructor
 SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet> s) :
-  PeonRenderer(std::move(s))
+  PeonRenderer(std::move(s), nullptr)
 {
   
 }

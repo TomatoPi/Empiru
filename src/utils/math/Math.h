@@ -47,10 +47,6 @@ namespace math {
     return (int)(a + (a < -0.5f ? -0.5f : 0.5f)) 
          + (a < -0.5f && ((int)a - a) == 0.5f);
   }
-  /// \brief Overload for integers, do nothing
-  inline int fastmrnd(int a) {
-    return a;
-  }
   /// \brief Same as mrnd but faster
   /// \see int math::mrnd(float a)
   inline int fastmrnd2(float a) {

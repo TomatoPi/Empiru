@@ -78,6 +78,9 @@ public:
     SDL_Renderer *rdr,
     const SDL_Rect *dest);
   
+  /// \brief Change color of the sprite
+  int setColorMod(const SDL_Color & c);
+  
   /// \brief return sprite's width
   int width() const;
   /// \brief return sprite's height

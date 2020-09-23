@@ -70,10 +70,17 @@ int main(int argc, char** argv) {
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
   auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto peonMask = SpriteAsset::loadFromFile("medias/peon_palette_animation_mask.png", window->vrenderer);
+  
   auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
+  auto treeMask = SpriteAsset::loadFromFile("medias/toufu_tree_palette_mask.png", window->vrenderer);
+  
   auto rockSprite = SpriteAsset::loadFromFile("medias/palette_roche_v1.png", window->renderer);
+  auto rockMask = SpriteAsset::loadFromFile("medias/palette_roche_v1_mask.png", window->vrenderer);
+  
   auto houseSprite = SpriteAsset::loadFromFile("medias/build/house_tower/sprite_house_tower.png", window->renderer);
+  auto houseMask = SpriteAsset::loadFromFile("medias/sprite_house_tower_mask.png", window->vrenderer);
   
   World map(SIZE,SIZE);
   GameEngine game(map);
@@ -95,12 +102,12 @@ int main(int argc, char** argv) {
     window->width, window->height,
     SIZE, SIZE);
   
-  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite));
-  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite), 0, 5);
-  GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite));
-  PeonRenderer prdr(std::move(peonSprite));
+  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite), nullptr);
+  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite), std::move(treeMask));
+  GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite), std::move(rockMask));
+  PeonRenderer prdr(std::move(peonSprite), std::move(peonMask));
   SelectedPeonRenderer selrdr(std::move(selSprite));
-  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite));
+  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite), std::move(houseMask));
   
   /*
   if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
@@ -123,7 +130,7 @@ int main(int argc, char** argv) {
   rdr.attachRenderer(typeid(House), houserdr);
   
   Controller controller(map, game, rdr);
-  SDLHandler handler(camera, camera, controller);
+  SDLHandler handler(camera, camera, controller, rdr, *window);
   
   /* Manualy populate world */
   
@@ -179,8 +186,26 @@ int main(int argc, char** argv) {
     game.update();
 
     window->clear();
+    //*
     rdr.render();
     window->update();
+    //*/
+    /*
+    rdr.drawPixelPerfectZones();
+    SDL_Surface * screen = SDL_GetWindowSurface(window->window);
+    if (!screen) {
+      LOG_ERROR("Failed Get Screen : %s\n", SDL_GetError());
+      OUPS();
+    }
+    if (SDL_BlitSurface(window->vsurface, nullptr, screen, nullptr)) {
+      LOG_ERROR("%s\n", SDL_GetError());
+      OUPS();
+    }
+    if (SDL_UpdateWindowSurface(window->window)) {
+      LOG_ERROR("Failed update window : %s\n", SDL_GetError());
+      OUPS();
+    }
+    //*/
     
     ++avgcount;
     avgfps = SDL_GetTicks() - fpsStart;

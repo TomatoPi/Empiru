@@ -53,6 +53,7 @@ class GenericRenderer : public AbstractRenderer {
 protected:
   
   std::unique_ptr<SpriteSheet> _sheet;    ///< The sprite sheet
+  std::unique_ptr<SpriteSheet> _mask;     ///< The mask sheet
   Blitter                      _blitter;  ///< The blitter
   int _offx;
   int _offy;
@@ -62,9 +63,11 @@ public:
   /// Constructor
   GenericRenderer(
       std::unique_ptr<SpriteSheet> s,
+      std::unique_ptr<SpriteSheet> m,
       int offx=0, int offy=0, 
       Blitter b=Blitter()) : 
     _sheet(std::move(s)),
+    _mask(std::move(m)),
     _blitter(b),
     _offx(offx), _offy(offy)
   {  
@@ -83,6 +86,26 @@ public:
       view.tileWidth(), view.tileHeight(), 
       x + _offx, y + _offy);
     return _sheet->renderFrame(0, ori, rdr, &r);
+  }
+  
+  /// \brief Render the object at given position, replacing the texture with
+  ///   'color'
+  virtual int renderAt(
+    const WorldRef * obj,
+    int ori, int x, int y,
+    const hex::Viewport & view,
+    SDL_Renderer * rdr,
+    const SDL_Color & c)
+  {
+    SDL_Rect r;
+    _blitter(&r, 
+      _mask->width(), _mask->height(), 
+      view.tileWidth(), view.tileHeight(), 
+      x + _offx, y + _offy);
+    if (int err = _mask->setColorMod(c)) {
+      return err;
+    }
+    return _mask->renderFrame(0, ori, rdr, &r);
   }
   
   virtual void addTarget(const WorldRef *obj) {}

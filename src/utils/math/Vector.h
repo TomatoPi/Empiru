@@ -42,13 +42,12 @@ namespace math {
     /// \brief Build a vector with given components
     Vector(const T & x, const T & y) : _x(x), _y(y) {
     }
+    /// \brief Copy constructor
     template <typename F>
     Vector(const Vector<F> & v) : 
       _x(static_cast<F>(v._x)), _y(static_cast<F>(v._y))
     {
     }
-    /// \brief Copy constructor
-    Vector(const Vector & v) = default;
     
     /// \brief Return true if all coordinates are equals
     bool operator== (const Vector & v) const {
@@ -123,6 +122,14 @@ namespace math {
     static T distance(const Vector & a, const Vector & b) {
       return (a - b).norm();
     }
+    
+    /// \brief Functor that define an order relation on vectors.
+    /// sorting them by ascending Y
+    struct AscYCompare {
+      bool operator() (const Vector & u, const Vector & v) {
+        return u._y < v._y || (u._y == v._y && u._x < v._x);
+      }
+    };
   };
 }
 
