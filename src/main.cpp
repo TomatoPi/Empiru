@@ -24,75 +24,202 @@
 
 #include <cstdlib>
 
-#include "gui/Camera.h"
-#include "utils/gui/Sprite.h"
-#include "utils/gui/Window.h"
-#include "gui/WorldRenderer.h"
 #include <SDL2/SDL_timer.h>
+//#include <SDL2/SDL_mixer.h>
 
-#include "utils/log.h"
-#include "entity/peon.h"
+#include "gui/Camera.h"
+#include "utils/gui/assets/SpriteSheet.h"
+#include "utils/gui/assets/SpriteAsset.h"
+#include "utils/gui/renderer/GenericRenderer.h"
+#include "utils/gui/view/Window.h"
+#include "gui/RenderingEngine.h"
+
+#include "entity/peon/Peon.h"
+#include "entity/peon/PeonRenderer.h"
+
+#include "entity/tree/Tree.h"
+
+#include "entity/rock/Rock.h"
+
+#include "buildings/House.h"
+
 #include "world/World.h"
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
+#include "controller/selection/SelectedPeon.h"
+#include "controller/selection/SelectedPeonBehaviour.h"
+#include "controller/selection/SelectedPeonRenderer.h"
 
-#define FRAMERATE 60
-#define FRAMETIME (1000/FRAMERATE)
+#include "engine/GenericAllocator.h"
+#include "engine/GameEngine.h"
 
-#define SIZE 8
-#define FACTOR 2
+#include "utils/log.h"
+#include "entity/peon/PeonBehaviour.h"
 
+#define FRAMERATE 60                ///< Target FPS
+#define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
+#define AVGFRAME  (2000)            ///< Interval between FPS prompt (ms)
+
+#define SIZE 8    ///< World size (square world)
+#define FACTOR 2  ///< Magic number scalling window size
+
+/// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
 
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  Sprite *sprite = Sprite::loadFromFile("medias/sol.png", window->renderer);
-  PeonRenderer *prdr = PeonRenderer::create("medias/peon.png",window->renderer);
+  auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
+  auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto peonMask = SpriteAsset::loadFromFile("medias/peon_palette_animation_mask.png", window->vrenderer);
   
-  Peon peon(FlatHexPosition(0,0,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Peon peon2(FlatHexPosition(2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
-  Peon peon3(FlatHexPosition(-2,2,FlatHexPosition::Axial),FlatHexPosition(0,0,FlatHexPosition::Axial));
+  auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
+  auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
+  auto treeMask = SpriteAsset::loadFromFile("medias/toufu_tree_palette_mask.png", window->vrenderer);
   
-  World map_test(SIZE,SIZE);
+  auto rockSprite = SpriteAsset::loadFromFile("medias/palette_roche_v1.png", window->renderer);
+  auto rockMask = SpriteAsset::loadFromFile("medias/palette_roche_v1_mask.png", window->vrenderer);
   
-  Controller controller(&map_test);
+  auto houseSprite = SpriteAsset::loadFromFile("medias/build/house_tower/sprite_house_tower.png", window->renderer);
+  auto houseMask = SpriteAsset::loadFromFile("medias/sprite_house_tower_mask.png", window->vrenderer);
   
-  map_test.addObject(&peon);
-  map_test.addObject(&peon2);
-  map_test.addObject(&peon3);
-  LOG_DEBUG("TEST MAP : %s \n",map_test.toString().c_str());
+  World map(SIZE,SIZE);
+  GameEngine game(map);
+  
+  game.addObjectKind(typeid(Peon), new GenericAllocator<Peon>());
+  game.attachBehaviour(typeid(Peon), new PeonBehaviour());
+  
+  game.addObjectKind(typeid(SelectedPeon), new GenericAllocator<SelectedPeon>());
+  game.attachBehaviour(typeid(SelectedPeon), new SelectedPeonBehav());
+  
+  game.addObjectKind(typeid(Tree), new GenericAllocator<Tree>());
+  
+  game.addObjectKind(typeid(Rock), new GenericAllocator<Rock>());
+  
+  game.addObjectKind(typeid(House), new GenericAllocator<House>());
   
   Camera camera(
-    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
+    hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     window->width, window->height,
     SIZE, SIZE);
   
-  SDLHandler handler(&camera, &camera, &controller);
+  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite), nullptr);
+  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite), std::move(treeMask));
+  GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite), std::move(rockMask));
+  PeonRenderer prdr(std::move(peonSprite), std::move(peonMask));
+  SelectedPeonRenderer selrdr(std::move(selSprite));
+  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite), std::move(houseMask));
+  
+  /*
+  if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
+    LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
+    OUPS();
+  }
+  if (0 != Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024)) {
+    LOG_ERROR("Failed open audio : %s\n", Mix_GetError());
+    OUPS();
+  }
+  */
+  camera.target(hex::Axial(0,0));
+  
+  RenderingEngine rdr(*window, camera, camera, map);
+  rdr.attachRenderer(typeid(Tile), tilerdr);
+  rdr.attachRenderer(typeid(Peon), prdr);
+  rdr.attachRenderer(typeid(SelectedPeon), selrdr);
+  rdr.attachRenderer(typeid(Tree), treerdr);
+  rdr.attachRenderer(typeid(Rock), rockrdr);
+  rdr.attachRenderer(typeid(House), houserdr);
+  
+  Controller controller(map, game, rdr);
+  SDLHandler handler(camera, camera, controller, rdr, *window);
+  
+  /* Manualy populate world */
+  
+  WorldRef *peon(game.createObject(typeid(Peon)));
+  (**peon).pos(hex::Axial(0, 0));
+  rdr.addTarget(peon);
+  map.addObject(peon);
+  
+  peon = game.createObject(typeid(Peon));
+  (**peon).pos(hex::Axial(2, 2));
+  rdr.addTarget(peon);
+  map.addObject(peon);
+  
+  WorldRef *tree(game.createObject(typeid(Tree)));
+  (**tree).pos(hex::Axial(1, 1));
+  rdr.addTarget(tree);
+  map.addObject(tree);
+  tree = game.createObject(typeid(Tree));
+  (**tree).pos(hex::Axial(1.6, 1));
+  rdr.addTarget(tree);
+  map.addObject(tree);
+  tree = game.createObject(typeid(Tree));
+  (**tree).pos(hex::Axial(2.6, 1));
+  rdr.addTarget(tree);
+  map.addObject(tree);
+  tree = game.createObject(typeid(Tree));
+  (**tree).pos(hex::Axial(1.3, 1.5));
+  rdr.addTarget(tree);
+  map.addObject(tree);
+  
+  WorldRef *rock(game.createObject(typeid(Rock)));
+  (**rock).pos(hex::Axial(0, 2));
+  rdr.addTarget(rock);
+  map.addObject(rock);
   
   
-  LOG_DEBUG("Window : %d,%d\nSprite : %d,%d\nCamera : %d,%d\n", 
-      window->width, window->height,
-      sprite->width(), sprite->height(),
-      camera.tileWidth(), camera.tileHeight());
+  WorldRef *house(game.createObject(typeid(House)));
+  (**house).pos(hex::Axial(3, 2));
+  rdr.addTarget(house);
+  map.addObject(house);
   
-  camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
-  
-  WorldRenderer rdr(window, &camera, sprite, &map_test, prdr);
+  /* Main loop */
 
-  long tickStartTime, tickEllapsedTime;
-  while(handler.handleSDLEvents()) {
+  long tickStartTime(0), tickEllapsedTime(0);
+  double fpsStart(0), avgload(0), avgcount(0), avgfps(0);
+  while(true) {
     
     tickStartTime = SDL_GetTicks();
     
+    if (!handler.handleSDLEvents()) break;
+    
     camera.update();
+    game.update();
 
     window->clear();
-
+    //*
     rdr.render();
-    
     window->update();
+    //*/
+    /*
+    rdr.drawPixelPerfectZones();
+    SDL_Surface * screen = SDL_GetWindowSurface(window->window);
+    if (!screen) {
+      LOG_ERROR("Failed Get Screen : %s\n", SDL_GetError());
+      OUPS();
+    }
+    if (SDL_BlitSurface(window->vsurface, nullptr, screen, nullptr)) {
+      LOG_ERROR("%s\n", SDL_GetError());
+      OUPS();
+    }
+    if (SDL_UpdateWindowSurface(window->window)) {
+      LOG_ERROR("Failed update window : %s\n", SDL_GetError());
+      OUPS();
+    }
+    //*/
+    
+    ++avgcount;
+    avgfps = SDL_GetTicks() - fpsStart;
+    if (avgfps >= AVGFRAME) {
+      LOG_INFO("AVG FPS  : %3.0f : LOAD : %3.1f%%\n", 
+          avgcount * 1000 / avgfps,
+          avgload / avgcount);
+      fpsStart = SDL_GetTicks();
+      avgcount = 0;
+      avgload = 0;
+    }
 
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;
+    avgload += tickEllapsedTime * 100. / FRAMETIME;
     if (tickEllapsedTime > FRAMETIME) {
       LOG_WRN("System Overload !! %ld ms late\n", tickEllapsedTime - FRAMETIME);
     }
@@ -101,9 +228,11 @@ int main(int argc, char** argv) {
     }
   }
   
-  delete sprite;
-  delete prdr;
   delete window;
+  /*
+  Mix_CloseAudio();
+  Mix_Quit();
+  */
   
   return 0;
 }

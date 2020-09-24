@@ -27,39 +27,43 @@
 
 #include <unordered_map>
 
-#include "Tile.h"
+#include "utils/world/WorldInterface.h"
+#include "utils/world/Tile.h"
 #include "utils/log.h"
 
 /// \brief Object that handle Map and Objects
-class World {
+class World : public WorldInterface {
 private :
-  int _mapWidth;
-  int _mapHeight;
-  int* _map; /* Use for path finding and printing */
-  typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
-  ObjList _objects; /*  */
+  
+  /// \brief Hollow Matrix
+  typedef std::unordered_map<
+      WorldObject::Position,
+      Tile,
+      hex::Axial::TileHasher,
+      hex::Axial::TileEquals> 
+    ObjList;
+  
+  int _mapWidth;  ///< Horizontal tile count
+  int _mapHeight; ///< Verical tile count
+  ObjList _map;   ///< Hollow matrix of world content
  
 public :
-  ///\brief Constructor
-  ///\param mapHeight : Height of the map (number of hexs)
-  ///\param mapWidth : Width of the map (number of hexs)
+  
+  /// \brief Constructor
+  /// \param mapHeight : Height of the map (number of hexs)
+  /// \param mapWidth : Width of the map (number of hexs)
   World(int mapWidth, int mapHeight);
   
-  ///\brief Add an object to the world set
-  ///\param obj :  object to add
-  void addObject(Peon* pitou);
-
-  /// \brief Get list of Peons at given pos
-  /// \return nullptr if none
-  const std::vector<Peon*> * getVectorFromPos(FlatHexPosition pos);
+  /// \brief Must add given object to the world
+  virtual void addObject(WorldRef * obj);
+  /// \brief Must remove given object fro the world
+  virtual void removeObject(WorldRef * obj);
   
-  ///\brief toString
-  std::string toString() const;
+  /// \brief Must return tile content at given pos, or null if empty
+  virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const;
   
-  int width() const;  ///< World's width
-  int height() const; ///< World's height
-  ObjList objects() const; ///< List objects
+  /// \brief Must return true if given pos is on the map
+  virtual bool isOnMap(const WorldObject::Position & pos) const;
 };
 
 #endif /* WORLD_H*/
-

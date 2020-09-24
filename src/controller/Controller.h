@@ -16,35 +16,35 @@
  */
 
 /// 
-/// \file   Engine.h
+/// \file   Controller.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 12 septembre 2020, 08:51
 /// \brief Core object for user control
 ///
 
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
 
-#include "world/World.h"
+#include "utils/world/WorldInterface.h"
 #include "controller/CtrlState.h"
 
 /// \brief Main handler for user control
 class Controller {
 private:
   
-  World           *_world; ///< THA WORLDOOOOO
-  ControllerState _state;  ///< The game controller
+  WorldInterface & _world; ///< THA WORLDOOOOO
+  ControllerState  _state; ///< The game controller
   
 public:
   
   /// \brief Constructor
-  Controller(World *w);
+  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
   
   /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
+  void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
   /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
+  void rightClickOn(const WorldObject::Position & click, WorldRef *obj);
 };
 
-#endif /* ENGINE_H */
+#endif /* CONTROLLER_H */

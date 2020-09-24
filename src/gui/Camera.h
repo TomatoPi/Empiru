@@ -20,28 +20,35 @@
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 11 septembre 2020, 17:13
+/// \brief Effective implementation of in-game camera
 ///
 
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "utils/hex/HexViewport.h"
-#include "utils/gui/AbstractCamera.h"
+#include "utils/hex/Viewport.h"
+#include "utils/gui/view/AbstractCamera.h"
 
-class Camera : public AbstractCamera, public HexViewport {
+/// \brief Effective implementation of in-game camera
+class Camera : public AbstractCamera, public hex::Viewport {
 private:
   
   int _worldWidth;  ///< World's width in tile count
   int _worldHeight; ///< World height in tile count
   
-  FlatHexPosition _vx; ///< Camera's motion X vector
-  FlatHexPosition _vy; ///< Camera's motion Y vector
+  hex::Axial _vx; ///< Camera's motion X vector
+  hex::Axial _vy; ///< Camera's motion Y vector
   
 public:
   
   /// \brief Constructor of Concrete camera
-  /// \param worldWidth : World's width in tile count
-  /// \param worldHeight: World height in tile count
+  ///
+  /// \param tileWidth    : Tile's width on screen  (px) 
+  /// \param tileHeight   : Tile's height on screen (px)
+  /// \param viewWidth    : View's width            (px)
+  /// \param viewHeight   : View's height           (px)
+  /// \param worldWidth   : World's width           (tile)
+  /// \param worldHeight  : World's height          (tile)
   Camera(
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,

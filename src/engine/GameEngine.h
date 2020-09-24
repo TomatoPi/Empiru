@@ -16,7 +16,7 @@
  */
 
 /// 
-/// \file   Mover.h
+/// \file   GameEngine.h
 /// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
 ///
 /// \date 11 septembre 2020, 16:32
@@ -26,15 +26,52 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
-#include "world/World.h"
+#include "utils/world/WorldInterface.h"
+#include "utils/world/WorldRef.h"
+#include "utils/engine/Allocator.h"
+#include "utils/engine/Behaviourer.h"
 
+#include <typeinfo>
+#include <typeindex>
+#include <unordered_map>
+#include <list>
+
+/// \brief Core object for in-game mechanics
 class GameEngine {
 private:
 
+  /// \brief Table of storage by objects type
+  typedef std::unordered_map<std::type_index, Allocator*>   ObjectsTable;
+  /// \brief Table of behaviours by objects type
+  typedef std::unordered_map<std::type_index, Behaviourer*> BehaviourTable;
+  /// \brief Store Behaviours in order of their priority
+  typedef std::list<std::type_index> PriorityTable;
+  
+  ObjectsTable     _objects; ///< Table of all things that do things
+  BehaviourTable   _behavs;  ///< Table of behaviours
+  PriorityTable    _priors;  ///< Ordered list of behaviours according to tick priority
+  WorldInterface & _world;   ///< THA WO... oh wait ... joke already used
+  
 public:
-
-  void crashAndTurn(World & world);
-
+  
+  /// \brief Contructor
+  GameEngine(WorldInterface & w);
+  
+  /// \brief Add an object to the game
+  WorldRef * createObject(const std::type_info & type);
+  /// \brief Remove an object from the game
+  void removeObject(WorldRef * ref);
+  
+  /// \brief Add an object kind to the gameEngine
+  void addObjectKind(const std::type_info & type, Allocator * alloc);
+  /// \brief Add a behaviour for an object Kind.
+  ///   Only kinds with behaviour are sweeped during game tick
+  ///   Different types are processed in the same order as their addition
+  void attachBehaviour(const std::type_info & type, Behaviourer * behav);
+  
+  /// \brief Called on each Main-loop iteration
+  ///   Call behaviour of each object
+  void update();
 };
 
 #endif /* GAMEENGINE_H */

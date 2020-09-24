@@ -25,78 +25,60 @@
 #include <cassert>
 
 #include "world/World.h"
+#include "utils/hex/OddQ.h"
+#include "utils/hex/Conversion.h"
 
-
+/// \brief Constructor
+/// \param mapHeight : Height of the map (number of hexs)
+/// \param mapWidth : Width of the map (number of hexs)
 World::World(int mapWidth, int mapHeight) :
   _mapWidth(mapWidth),
   _mapHeight(mapHeight),
-  _map(nullptr),
-  _objects()
+  _map()
 {
   assert(0 < mapWidth);
   assert(0 < mapHeight);
-  _map = new int[mapWidth*mapHeight];
-  for (int i; i<mapWidth*mapHeight;i++){
-    _map[i] = 0;
+}
+
+/// \brief Must add given object to the world
+void World::addObject(WorldRef * obj){
+  const WorldObject::Position & pos((**obj).pos());
+  auto itr(_map.find(pos));
+  if (itr == _map.end()) {
+    itr = _map.emplace(pos,Tile()).first;
+  }
+  itr->second.insert(obj);
+}
+
+/// \brief Must remove given object fro the world
+void World::removeObject(WorldRef * obj) {
+  auto itr(_map.find((**obj).pos()));
+  assert(itr != _map.end());
+  itr->second.erase(obj);
+  if (itr->second.isEmpty()) {
+    _map.erase(itr);
   }
 }
 
-
-void World::addObject(Peon *pitou){
-  const FlatHexPosition & pitou_pos = pitou->pos();
-  auto itr = _objects.find(pitou_pos);
-  if (itr == _objects.end()) {
-    itr = _objects.emplace(pitou_pos,Tile(pitou_pos, pitou)).first;
-  }
-  else {
-    itr->second.insert(pitou);
-  }
-}
-
-const std::vector<Peon*> * World::getVectorFromPos(FlatHexPosition pos){
-  if (_objects.find(pos) != _objects.end()){
-    return _objects.find(pos)->second.getVector();
+/// \brief Must return tile content at given pos, or null if empty
+const Tile::Content * World::getContentAt(const WorldObject::Position & pos) const {
+  auto itr(_map.find(pos));
+  if (itr != _map.end()){
+    return &itr->second.getContent();
   }
   return nullptr;
 }
 
-std::string World::toString() const{
-  std::string ts = "[Map Height : ";
-  ts.append(std::to_string(_mapHeight))
-    .append(", Map Width : ")
-    .append(std::to_string(_mapWidth))
-    .append("]\n");
-  
-  for (auto & itr : _objects){
-    ts.append(std::to_string(itr.second.pos()._x))
-      .append("/")
-      .append(std::to_string(itr.second.pos()._y))
-      .append("/")
-      .append(std::to_string(itr.second.pos()._y))
-      .append("\n");
+/// \brief Must return true if given pos is on the map
+bool World::isOnMap(const WorldObject::Position & pos) const {
+  hex::Grid grd(hex::toGrid(pos));
+  // Easy case
+  if (0 < grd._x && 0 < grd._y 
+    && grd._x < _mapWidth*4 && grd._y < _mapHeight*2) {
+    return true;
   }
-  /*
-  for(int i = 0; i <_mapHeight*_mapWidth;i++){
-    if (i%_mapWidth == 0){
-      ts = ts.append("\n");
-    }
-    ts.append(std::to_string(_map[i]))
-      .append(" ");
-  }
-  */
-  //ts.append("\n");
-  /*for(Tile wo : _objects){
-    ts.append(wo.toString()).append("\n");
-  }*/
-  return ts;//.append("\n");
-}
-int World::width() const {
-  return _mapWidth;
-}
-int World::height() const {
-  return _mapHeight;
-}
-
-World::ObjList World::objects() const {
-  return _objects;
+  hex::OddQ off(hex::toOddQ(pos.tile()));
+  return 0 <= off._x && 0 <= off._y 
+      && off._x < _mapWidth
+      && off._y < _mapHeight;
 }

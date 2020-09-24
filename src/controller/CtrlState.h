@@ -20,32 +20,41 @@
 /// \author Alexis CORREIA HENRIQUES <alex2ikangame@gmail.com>
 ///
 /// \date 10 septembre 2020, 17:18
+/// \brief Provide state machine for game controller
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef CONTROLLERSTATE_H
+#define CONTROLLERSTATE_H
 
 #include <SDL2/SDL_events.h>
-#include "entity/peon.h"
+
+#include "engine/GameEngine.h"
+#include "gui/RenderingEngine.h"
+#include "utils/world/WorldRef.h"
 
 /// \brief Object used to keep state of game controller
 class ControllerState {
   private:
     
-    Peon * _selectedPeon; ///< Obvious
+    WorldRef * _selectedPeon;     ///< Obvious
+    WorldRef * _selectionTracker; ///< SelectedPeon tracking curent selection
+    
+    WorldInterface & _world; ///< THA WORLDOOOOO
+    GameEngine &      _gameEngine; ///< Main engine
+    RenderingEngine & _rdrEngine;  ///< Renderer
   
   public:
      
     /// \brief Constructor
-    ControllerState();
+    ControllerState(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
     
     /// \brief Select given peon
-    void selectPeon(Peon * peon);
+    void selectPeon(WorldRef * peon);
     /// \brief Clear selection
     void deselectPeon();
     
     /// \brief Return selected peon or nullptr if no selection
-    Peon * selectedPeon();
+    WorldRef * selectedPeon();
 };
 
-#endif /* CONTROLLER_H */
+#endif /* CONTROLLERSTATE_H */

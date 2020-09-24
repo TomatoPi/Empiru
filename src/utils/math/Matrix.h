@@ -25,23 +25,62 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-/// \brief 2x2 Matrix class
-struct Matrix22 {
-  
-  /// \brief Matrix factors
-  /// a b
-  /// c d
-  float _a, _b, _c, _d;
-  
-  /// \brief Basic constructor
-  Matrix22(float a, float b, float c, float d);
-  
-  /// \brief Matrix multiplication
-  Matrix22 operator* (const Matrix22 & b) const;
-  
-  /// \brief Inverse Matrix
-  /// \pre Matrix must be inversible
-  Matrix22 inverse() const;
-};
+#include <cmath>
+#include <cassert>
+
+namespace math {
+  /// \brief 2x2 Matrix class with :
+  ///   M = |a b|
+  ///       |c d|
+  template <typename T>
+  struct Matrix22 {
+
+    T _a; ///< a
+    T _b; ///< b
+    T _c; ///< c
+    T _d; ///< d
+
+    /// \brief Basic constructor
+    Matrix22(const T & a, const T & b, const T & c, const T & d) :
+      _a(a), _b(b), _c(c), _d(d)
+    {
+
+    }
+
+    /// \brief Matrix multiplication
+    Matrix22 operator* (const Matrix22 & A) const {
+      return Matrix22(
+        _a * A._a + _b * A._c, _a * A._b + _b * A._d,
+        _c * A._a + _d * A._c, _c * A._b + _d * A._d);
+    }
+    /// \brief Matrix multiplication
+    Matrix22 & operator*= (const Matrix22 & A) {
+      return *this = *this * A;
+    }
+
+    /// \brief Inverse Matrix
+    /// \pre Matrix must be inversible
+    Matrix22 inverse() const {
+      T d(det());
+      assert(d != static_cast<T>(0));
+      d = static_cast<T>(1) / d;
+      return Matrix22(_d*d, -_b*d, -_c*d, _a*d);
+    }
+
+    /// \brief Turn in unitary Matrix (with det = 1)
+    /// \pre Matrix must be inversible
+    Matrix22 unit() const {
+      T d(det());
+      assert(d != static_cast<T>(0));
+      d = static_cast<T>(1) / std::sqrt(d);
+      return Matrix22(_a*d, _b*d, _c*d, _d*d);
+    }
+
+    /// \brief Return matrix's determinant
+    T det() const {
+      return _a * _d - _b * _c;
+    }
+  };
+}
 
 #endif /* MATRIX_H */

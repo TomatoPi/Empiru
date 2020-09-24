@@ -16,22 +16,27 @@
  */
 
 /// 
-/// \file   Handler.cpp
+/// \file   SDLHandler.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 9 septembre 2020, 21:55
+/// \brief Wrapper for SDL_Events handling
 ///
 
 #include "SDLHandler.h"
+#include "utils/hex/Conversion.h"
+#include "utils/log.h"
 
-#include <cmath>
-
+/// \brief Size of border (in pixels) used to scroll view
 #define MERGE 50
 
-SDLHandler::SDLHandler(AbstractCamera *c, HexViewport *w, Controller *e) :
+/// \brief Constructor
+SDLHandler::SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e, RenderingEngine & rdr, Window & win) :
   _camera(c),
   _worldview(w),
-  _controller(e)
+  _controller(e),
+  _rengine(rdr),
+  _window(win)
 {
   
 }
@@ -44,13 +49,17 @@ bool SDLHandler::handleSDLEvents() {
     case SDL_QUIT:
       return false;
     case SDL_KEYDOWN:
-      return handleKeyDown(event.key);
+      if (!handleKeyDown(event.key)) return false;
+      break;
     case SDL_KEYUP:
-      return handleKeyUp(event.key);
+      handleKeyUp(event.key);
+      break;
     case SDL_MOUSEBUTTONDOWN:
-      return handleMouseButtonDown(event.button);
+      handleMouseButtonDown(event.button);
+      break;
     case SDL_MOUSEMOTION:
-      return handleMouseMovement(event.motion);
+      handleMouseMovement(event.motion);
+      break;
     }
   }
   return true;
@@ -58,48 +67,54 @@ bool SDLHandler::handleSDLEvents() {
 
 // ---- Keyboard ---- //
 
+/// \brief Handle keydown
 bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
+  // Auto reject key repeat
+  if (key.repeat) return true;
+  // Handle each button
   switch(key.keysym.sym) {
-    case SDLK_ESCAPE:
-      return false;
-    case SDLK_UP:
-      _camera->scrollUp();
-      break;
-    case SDLK_DOWN:
-      _camera->scrollDown();
-      break;
-    case SDLK_RIGHT:
-      _camera->scrollRight();
-      break;
-    case SDLK_LEFT:
-      _camera->scrollLeft();
-      break;
-    case SDLK_a:
-      _camera->rotateLeft();
-      break;
-    case SDLK_e:
-      _camera->rotateRight();
-      break;
+  case SDLK_ESCAPE:
+    return false;
+  case SDLK_UP:
+    _camera.scrollUp();
+    break;
+  case SDLK_DOWN:
+    _camera.scrollDown();
+    break;
+  case SDLK_RIGHT:
+    _camera.scrollRight();
+    break;
+  case SDLK_LEFT:
+    _camera.scrollLeft();
+    break;
+  case SDLK_a:
+    _camera.rotateRight();
+    break;
+  case SDLK_e:
+    _camera.rotateLeft();
+    break;
   }
   return true;
 }
 
+/// \brief Handle keyup
 bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
   switch(key.keysym.sym) {
-    case SDLK_UP:
-    case SDLK_DOWN:
-      _camera->stopUDScroll();
-      break;
-    case SDLK_RIGHT:
-    case SDLK_LEFT:
-      _camera->stopLRScroll();
-      break;
+  case SDLK_UP:
+  case SDLK_DOWN:
+    _camera.stopUDScroll();
+    break;
+  case SDLK_RIGHT:
+  case SDLK_LEFT:
+    _camera.stopLRScroll();
+    break;
   }
   return true;
 }
 
 // ---- Mouse ---- //
 
+/// \brief Handle Mouse movement
 bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
   return true;
 /*
@@ -126,18 +141,32 @@ bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
 */
 }
 
-bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event){
+/// \brief Handle mouse button down
+bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   
-  FlatHexPosition pos;
-  _worldview->fromPixel(event.x, event.y, &pos);
-  pos.convert(FlatHexPosition::Grid);
+  hex::Axial pos;
+  _worldview.fromPixel(event.x, event.y, &pos);
+  _rengine.drawPixelPerfectZones();
+  auto & table(_rengine.colorTable());
+  SDL_LockSurface(_window.vsurface);
+  SDL_Color color{255, 255, 255, 255};
+  SDL_GetRGB(static_cast<uint32_t*>(_window.vsurface->pixels)[event.y * _window.vsurface->w + event.x],
+      _window.vsurface->format,
+      &color.r, &color.g, &color.b);
+  SDL_UnlockSurface(_window.vsurface);
+  LOG_DEBUG("Color at click : %u %u %u %u\n", color.r, color.g, color.b, color.a);
+  auto itr(table.find(color));
+  WorldRef * obj(nullptr);
+  if (itr != table.end()) {
+    obj = itr->second;
+  }
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
-      _controller->leftClickAt(pos);
+      _controller.leftClickOn(pos, obj);
       break;
     case SDL_BUTTON_RIGHT:
-      _controller->rightClickAt(pos);
+      _controller.rightClickOn(pos, obj);
       break;
   }
   

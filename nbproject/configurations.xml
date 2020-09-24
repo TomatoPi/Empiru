@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="perf" displayName="Profiling" projectFiles="true">
+      <itemPath>perf/perf-2020-09-16</itemPath>
+      <itemPath>perf/perf-2020-09-16-O2</itemPath>
+      <itemPath>perf/perf-2020-09-16-fastmrnd</itemPath>
+      <itemPath>perf/perf-2020-09-17</itemPath>
+    </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
@@ -10,13 +16,26 @@
       </logicalFolder>
       <logicalFolder name="medias" displayName="medias" projectFiles="true">
         <itemPath>medias/peon.png</itemPath>
+        <itemPath>medias/peon_palette_animation.png</itemPath>
         <itemPath>medias/sol.png</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f5" displayName="buildings" projectFiles="true">
+        <itemPath>src/buildings/House.cpp</itemPath>
+        <itemPath>src/buildings/House.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f4" displayName="controller" projectFiles="true">
+        <logicalFolder name="f1" displayName="selection" projectFiles="true">
+          <itemPath>src/controller/selection/SelectedPeon.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeon.h</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonBehaviour.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonBehaviour.h</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonRenderer.cpp</itemPath>
+          <itemPath>src/controller/selection/SelectedPeonRenderer.h</itemPath>
+        </logicalFolder>
         <itemPath>src/controller/Controller.cpp</itemPath>
         <itemPath>src/controller/Controller.h</itemPath>
         <itemPath>src/controller/CtrlState.cpp</itemPath>
@@ -27,48 +46,106 @@
       <logicalFolder name="f2" displayName="engine" projectFiles="true">
         <itemPath>src/engine/GameEngine.cpp</itemPath>
         <itemPath>src/engine/GameEngine.h</itemPath>
+        <itemPath>src/engine/GenericAllocator.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
-        <itemPath>src/entity/peon.cpp</itemPath>
-        <itemPath>src/entity/peon.h</itemPath>
+        <logicalFolder name="f1" displayName="peon" projectFiles="true">
+          <itemPath>src/entity/peon/Order.cpp</itemPath>
+          <itemPath>src/entity/peon/Order.h</itemPath>
+          <itemPath>src/entity/peon/Peon.cpp</itemPath>
+          <itemPath>src/entity/peon/Peon.h</itemPath>
+          <itemPath>src/entity/peon/PeonBehaviour.cpp</itemPath>
+          <itemPath>src/entity/peon/PeonBehaviour.h</itemPath>
+          <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
+          <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="rock" projectFiles="true">
+          <itemPath>src/entity/rock/Rock.cpp</itemPath>
+          <itemPath>src/entity/rock/Rock.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="tree" projectFiles="true">
+          <itemPath>src/entity/tree/Tree.cpp</itemPath>
+          <itemPath>src/entity/tree/Tree.h</itemPath>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="gui" displayName="gui" projectFiles="true">
         <itemPath>src/gui/Camera.cpp</itemPath>
         <itemPath>src/gui/Camera.h</itemPath>
-        <itemPath>src/gui/PeonRenderer.cpp</itemPath>
-        <itemPath>src/gui/PeonRenderer.h</itemPath>
-        <itemPath>src/gui/WorldRenderer.cpp</itemPath>
-        <itemPath>src/gui/WorldRenderer.h</itemPath>
+        <itemPath>src/gui/RenderingEngine.cpp</itemPath>
+        <itemPath>src/gui/RenderingEngine.h</itemPath>
       </logicalFolder>
       <logicalFolder name="utils" displayName="utils" projectFiles="true">
+        <logicalFolder name="f3" displayName="engine" projectFiles="true">
+          <itemPath>src/utils/engine/Allocator.h</itemPath>
+          <itemPath>src/utils/engine/Behaviourer.h</itemPath>
+          <itemPath>src/utils/world/WorldRef.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
-          <itemPath>src/utils/gui/AbstractCamera.cpp</itemPath>
-          <itemPath>src/utils/gui/AbstractCamera.h</itemPath>
-          <itemPath>src/utils/gui/Sprite.cpp</itemPath>
-          <itemPath>src/utils/gui/Sprite.h</itemPath>
-          <itemPath>src/utils/gui/Window.cpp</itemPath>
-          <itemPath>src/utils/gui/Window.h</itemPath>
+          <logicalFolder name="f3" displayName="assets" projectFiles="true">
+            <itemPath>src/utils/gui/assets/Animation.cpp</itemPath>
+            <itemPath>src/utils/gui/assets/Animation.h</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteAsset.cpp</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteAsset.h</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteSheet.cpp</itemPath>
+            <itemPath>src/utils/gui/assets/SpriteSheet.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f1" displayName="renderer" projectFiles="true">
+            <itemPath>src/utils/gui/renderer/AbstractRenderer.h</itemPath>
+            <itemPath>src/utils/gui/renderer/GenericRenderer.cpp</itemPath>
+            <itemPath>src/utils/gui/renderer/GenericRenderer.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="view" projectFiles="true">
+            <itemPath>src/utils/gui/view/AbstractCamera.cpp</itemPath>
+            <itemPath>src/utils/gui/view/AbstractCamera.h</itemPath>
+            <itemPath>src/utils/gui/view/Window.cpp</itemPath>
+            <itemPath>src/utils/gui/view/Window.h</itemPath>
+          </logicalFolder>
         </logicalFolder>
         <logicalFolder name="hex" displayName="hex" projectFiles="true">
-          <itemPath>src/utils/hex/HexCoords.cpp</itemPath>
-          <itemPath>src/utils/hex/HexCoords.h</itemPath>
-          <itemPath>src/utils/hex/HexViewport.cpp</itemPath>
-          <itemPath>src/utils/hex/HexViewport.h</itemPath>
+          <itemPath>src/utils/hex/Axial.cpp</itemPath>
+          <itemPath>src/utils/hex/Axial.h</itemPath>
+          <itemPath>src/utils/hex/Consts.h</itemPath>
+          <itemPath>src/utils/hex/Conversion.h</itemPath>
+          <itemPath>src/utils/hex/Grid.cpp</itemPath>
+          <itemPath>src/utils/hex/Grid.h</itemPath>
+          <itemPath>src/utils/hex/OddQ.cpp</itemPath>
+          <itemPath>src/utils/hex/OddQ.h</itemPath>
+          <itemPath>src/utils/hex/Viewport.cpp</itemPath>
+          <itemPath>src/utils/hex/Viewport.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="math" projectFiles="true">
-          <itemPath>src/utils/math/Math.cpp</itemPath>
           <itemPath>src/utils/math/Math.h</itemPath>
-          <itemPath>src/utils/math/Matrix.cpp</itemPath>
           <itemPath>src/utils/math/Matrix.h</itemPath>
+          <itemPath>src/utils/math/Vector.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f5" displayName="sound" projectFiles="true">
+          <itemPath>src/utils/sound/SoundAsset.cpp</itemPath>
+          <itemPath>src/utils/sound/SoundAsset.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="world" projectFiles="true">
+          <itemPath>src/utils/world/Harvestable.cpp</itemPath>
+          <itemPath>src/utils/world/Harvestable.h</itemPath>
+          <itemPath>src/utils/world/Ressource.cpp</itemPath>
+          <itemPath>src/utils/world/Ressource.h</itemPath>
+          <itemPath>src/utils/world/Storage.cpp</itemPath>
+          <itemPath>src/utils/world/Storage.h</itemPath>
+          <itemPath>src/utils/world/Tile.cpp</itemPath>
+          <itemPath>src/utils/world/Tile.h</itemPath>
+          <itemPath>src/utils/world/WorldInterface.h</itemPath>
+          <itemPath>src/utils/world/WorldObject.cpp</itemPath>
+          <itemPath>src/utils/world/WorldObject.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/utils/chrono.hpp</itemPath>
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
-        <itemPath>src/world/Tile.cpp</itemPath>
-        <itemPath>src/world/Tile.h</itemPath>
         <itemPath>src/world/World.cpp</itemPath>
         <itemPath>src/world/World.h</itemPath>
+        <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
+        <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
+      <itemPath>src/generator/ProceduralGenerator.cpp</itemPath>
+      <itemPath>src/generator/ProceduralGenerator.h</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -80,6 +157,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/grille.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="RoundOpti"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/roundopti.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -139,9 +222,38 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -155,67 +267,206 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/gui/PeonRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/WorldRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/WorldRenderer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Sprite.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1" platformSpecific="true">
@@ -274,9 +525,38 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -290,67 +570,206 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/gui/PeonRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/WorldRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/WorldRenderer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Sprite.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Linux" type="1" platformSpecific="true">
@@ -367,10 +786,11 @@
             <pElem>src</pElem>
             <pElem>include</pElem>
           </incDir>
+          <commandLine>-pg</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <commandLine>-lSDL2 -lSDL2_image</commandLine>
+          <commandLine>-lSDL2 -lSDL2_image -lSDL2_mixer</commandLine>
         </linkerTool>
       </compileType>
       <item path="brainstorm/implementation_0" ex="false" tool="3" flavor2="0">
@@ -385,7 +805,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <commandLine>-lSDL2 -lSDL2_image -lcppunit</commandLine>
+          <commandLine>-lSDL2 -lSDL2_image -lSDL2_mixer -lcppunit</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
@@ -403,9 +823,38 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -419,67 +868,505 @@
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/peon.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gui/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/gui/PeonRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gui/WorldRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gui/WorldRenderer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/AbstractCamera.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Sprite.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/Window.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexCoords.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/HexViewport.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/math/Math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/math/Matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Linux_O2" type="1" platformSpecific="true">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <platform>2</platform>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>11</standard>
+          <incDir>
+            <pElem>src</pElem>
+            <pElem>include</pElem>
+          </incDir>
+          <commandLine>-pg -O2</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lSDL2 -lSDL2_image -lSDL2_mixer</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="brainstorm/implementation_0" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+            <pElem>include</pElem>
+          </incDir>
+          <commandLine>-O2</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lSDL2 -lSDL2_image -lSDL2_mixer -lcppunit</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-O2" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-16-fastmrnd" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/buildings/House.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/buildings/House.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/controller/Controller.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/controller/Controller.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/controller/CtrlState.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/controller/CtrlState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeon.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/controller/selection/SelectedPeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ProceduralGenerator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/gui/RenderingEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+      </item>
+      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/gui/assets/SpriteSheet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+      </item>
+      <item path="src/utils/gui/assets/SpriteSheet.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/AbstractRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+      </item>
+      <item path="src/utils/gui/renderer/GenericRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+      </item>
+      <item path="src/utils/gui/view/AbstractCamera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/gui/view/Window.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/hex/Viewport.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/hex/Viewport.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Math.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Matrix.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/math/Vector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/sound/SoundAsset.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/sound/SoundAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/roundopti.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -3,4 +3,7 @@
 /doc/
 /nbproject/private/
 /nbproject/*.mk
+/medias/*~
+/medias/*/*~
 doxwarn
+gmon.out

@@ -1,0 +1,75 @@
+/*
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/// 
+/// \file   PeonRenderer.h
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+///
+/// \date 16 septembre 2020, 12:48
+/// \brief Provide PeonRenderer Object
+///
+
+#ifndef PEONRENDERER_H
+#define PEONRENDERER_H
+
+#include <memory>
+#include <unordered_map>
+#include "utils/gui/renderer/AbstractRenderer.h"
+#include "utils/gui/assets/SpriteSheet.h"
+#include "utils/gui/assets/Animation.h"
+
+/// \brief Renderer assoaciated with peons
+class PeonRenderer : public AbstractRenderer {
+private:
+    
+  /// \brief Animation datas are stored for each attached peon
+  typedef std::unordered_map<const WorldRef *, Animation> Targets;
+  
+  std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
+  std::unique_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
+  Targets                      _targets;  ///< Dict of Animation datas
+  
+public:
+  
+  /// Constructor
+  PeonRenderer(std::unique_ptr<SpriteSheet> s, std::unique_ptr<SpriteSheet> m);
+  
+  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+  virtual int renderAt(
+    const WorldRef * obj, 
+    int ori, int x, int y,
+    const hex::Viewport & view,
+    SDL_Renderer *rdr);
+  
+  /// \brief Render the object at given position, replacing the texture with
+  ///   'color'
+  virtual int renderAt(
+    const WorldRef * obj,
+    int ori, int x, int y,
+    const hex::Viewport & view,
+    SDL_Renderer * rdr,
+    const SDL_Color & color); 
+  
+  /// \brief Called when a new object associated with this renderer is created
+  ///  may instanciate fine scope datas, like animation state
+  virtual void addTarget(const WorldRef *obj);
+  /// \brief Called when an object associated with this renderer is destroyed
+  ///  may dealocate corresponding datas
+  virtual void removeTarget(const WorldRef *obj);
+};
+
+#endif /* PEONRENDERER_H */
