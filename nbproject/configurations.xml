@@ -200,6 +200,7 @@
             <linkerLibLibItem>SDL2</linkerLibLibItem>
             <linkerLibLibItem>SDL2_image</linkerLibLibItem>
             <linkerLibLibItem>SDL2main</linkerLibLibItem>
+            <linkerLibLibItem>SDL2_mixer</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
