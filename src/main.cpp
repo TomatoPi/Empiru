@@ -25,7 +25,7 @@
 #include <cstdlib>
 
 #include <SDL2/SDL_timer.h>
-//#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "gui/Camera.h"
 #include "utils/gui/assets/SpriteSheet.h"
@@ -56,6 +56,7 @@
 
 #include "utils/log.h"
 #include "entity/peon/PeonBehaviour.h"
+#include "utils/sound/SoundAsset.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -109,16 +110,6 @@ int main(int argc, char** argv) {
   SelectedPeonRenderer selrdr(std::move(selSprite));
   GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite), std::move(houseMask));
   
-  /*
-  if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
-    LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
-    OUPS();
-  }
-  if (0 != Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024)) {
-    LOG_ERROR("Failed open audio : %s\n", Mix_GetError());
-    OUPS();
-  }
-  */
   camera.target(hex::Axial(0,0));
   
   RenderingEngine rdr(*window, camera, camera, map);
@@ -129,7 +120,13 @@ int main(int argc, char** argv) {
   rdr.attachRenderer(typeid(Rock), rockrdr);
   rdr.attachRenderer(typeid(House), houserdr);
   
-  Controller controller(map, game, rdr);
+  SoundEngine *sounder(SoundEngine::create());
+  
+  auto selectPeonSound = SoundAsset::loadFromFiles("medias/sounds/peons/peon-", ".ogg", 3);
+  
+  sounder->registerSound(std::move(selectPeonSound));
+  
+  Controller controller(map, game, rdr, *sounder);
   SDLHandler handler(camera, camera, controller, rdr, *window);
   
   /* Manualy populate world */
@@ -229,10 +226,8 @@ int main(int argc, char** argv) {
   }
   
   delete window;
-  /*
-  Mix_CloseAudio();
-  Mix_Quit();
-  */
+  //*
+  //*/
   
   return 0;
 }

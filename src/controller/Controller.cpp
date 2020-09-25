@@ -33,8 +33,13 @@
 #include <cmath>
 
 /// \brief Constructor
-Controller::Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr) :
-  _world(w), _state(w, g, rdr)
+Controller::Controller(
+            WorldInterface & w, 
+            GameEngine & g, 
+            RenderingEngine & rdr, 
+            SoundEngine & s) :
+  _world(w), _state(w, g, rdr),
+  _soundEngine(s)
 {
   
 }
@@ -45,6 +50,7 @@ void Controller::leftClickOn(const WorldObject::Position & click, WorldRef *obj)
   if (obj) {
     if (auto peon = dynamic_cast<Peon*>(&**obj)) {
       _state.selectPeon(obj);
+      _soundEngine.playRandomSound(0);
       LOG_DEBUG("Peon : Inventory : %d %d\n", 
           peon->inventory().type(), peon->inventory().size());
     }
@@ -76,6 +82,7 @@ void Controller::rightClickOn(const WorldObject::Position & click, WorldRef *obj
           peon.clearOrders();
           peon.addOrder(Order::harvest(obj));
           peon.beginOrder();
+          _soundEngine.playRandomSound(0);
         }
       }
       else if (auto storage = dynamic_cast<Storage *>(&**obj)) {
@@ -83,6 +90,7 @@ void Controller::rightClickOn(const WorldObject::Position & click, WorldRef *obj
           peon.clearOrders();
           peon.addOrder(Order::store(obj));
           peon.beginOrder();
+          _soundEngine.playRandomSound(0);
         }
       }
     } else {

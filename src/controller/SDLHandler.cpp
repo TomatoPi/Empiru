@@ -154,7 +154,7 @@ bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
       _window.vsurface->format,
       &color.r, &color.g, &color.b);
   SDL_UnlockSurface(_window.vsurface);
-  LOG_DEBUG("Color at click : %u %u %u %u\n", color.r, color.g, color.b, color.a);
+  //LOG_DEBUG("Color at click : %u %u %u %u\n", color.r, color.g, color.b, color.a);
   auto itr(table.find(color));
   WorldRef * obj(nullptr);
   if (itr != table.end()) {

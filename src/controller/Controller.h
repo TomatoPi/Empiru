@@ -33,13 +33,18 @@
 class Controller {
 private:
   
-  WorldInterface & _world; ///< THA WORLDOOOOO
-  ControllerState  _state; ///< The game controller
+  WorldInterface & _world;       ///< THA WORLDOOOOO
+  ControllerState  _state;       ///< The game controller
+  SoundEngine &    _soundEngine; ///< Mamaaaa OUHOUHOUUUUUUUUUU
   
 public:
   
   /// \brief Constructor
-  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
+  Controller(
+            WorldInterface & w,
+            GameEngine & g,
+            RenderingEngine & rdr,
+            SoundEngine & s);
   
   /// \brief Called when a left click is performed at given position
   void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
