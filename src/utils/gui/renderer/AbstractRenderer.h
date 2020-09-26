@@ -47,7 +47,7 @@ public:
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr) = 0;
+    SDL_Renderer *rdr) noexcept = 0;
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
@@ -64,14 +64,14 @@ public:
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
-    const SDL_Color & color) = 0; 
+    const SDL_Color & color) noexcept = 0; 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldRef * obj) = 0;
+  virtual void addTarget(const WorldRef * obj) noexcept = 0;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldRef * obj) = 0;
+  virtual void removeTarget(const WorldRef * obj) noexcept = 0;
 };
 
 #endif /* ABSTRACTRENDERER_H */

@@ -91,24 +91,19 @@
           </logicalFolder>
           <logicalFolder name="f1" displayName="renderer" projectFiles="true">
             <itemPath>src/utils/gui/renderer/AbstractRenderer.h</itemPath>
-            <itemPath>src/utils/gui/renderer/GenericRenderer.cpp</itemPath>
             <itemPath>src/utils/gui/renderer/GenericRenderer.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="view" projectFiles="true">
-            <itemPath>src/utils/gui/view/AbstractCamera.cpp</itemPath>
             <itemPath>src/utils/gui/view/AbstractCamera.h</itemPath>
             <itemPath>src/utils/gui/view/Window.cpp</itemPath>
             <itemPath>src/utils/gui/view/Window.h</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="hex" displayName="hex" projectFiles="true">
-          <itemPath>src/utils/hex/Axial.cpp</itemPath>
           <itemPath>src/utils/hex/Axial.h</itemPath>
           <itemPath>src/utils/hex/Consts.h</itemPath>
           <itemPath>src/utils/hex/Conversion.h</itemPath>
-          <itemPath>src/utils/hex/Grid.cpp</itemPath>
           <itemPath>src/utils/hex/Grid.h</itemPath>
-          <itemPath>src/utils/hex/OddQ.cpp</itemPath>
           <itemPath>src/utils/hex/OddQ.h</itemPath>
           <itemPath>src/utils/hex/Viewport.cpp</itemPath>
           <itemPath>src/utils/hex/Viewport.h</itemPath>
@@ -125,16 +120,11 @@
           <itemPath>src/utils/sound/SoundEngine.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="world" projectFiles="true">
-          <itemPath>src/utils/world/Harvestable.cpp</itemPath>
           <itemPath>src/utils/world/Harvestable.h</itemPath>
-          <itemPath>src/utils/world/Ressource.cpp</itemPath>
           <itemPath>src/utils/world/Ressource.h</itemPath>
-          <itemPath>src/utils/world/Storage.cpp</itemPath>
           <itemPath>src/utils/world/Storage.h</itemPath>
-          <itemPath>src/utils/world/Tile.cpp</itemPath>
           <itemPath>src/utils/world/Tile.h</itemPath>
           <itemPath>src/utils/world/WorldInterface.h</itemPath>
-          <itemPath>src/utils/world/WorldObject.cpp</itemPath>
           <itemPath>src/utils/world/WorldObject.h</itemPath>
         </logicalFolder>
         <itemPath>src/utils/chrono.hpp</itemPath>
@@ -159,6 +149,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/grille.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="FixedPoint"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/fixedpoint.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="RoundOpti"
@@ -240,6 +236,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -383,19 +394,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/utils/gui/renderer/GenericRenderer.h"
             ex="false"
             tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/gui/view/AbstractCamera.cpp"
-            ex="false"
-            tool="1"
             flavor2="0">
       </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
@@ -407,19 +408,13 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -443,25 +438,15 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -470,6 +455,8 @@
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -547,6 +534,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -690,19 +692,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/utils/gui/renderer/GenericRenderer.h"
             ex="false"
             tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/gui/view/AbstractCamera.cpp"
-            ex="false"
-            tool="1"
             flavor2="0">
       </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
@@ -714,19 +706,13 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -750,25 +736,15 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -777,6 +753,8 @@
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -849,6 +827,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
@@ -992,19 +985,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/utils/gui/renderer/GenericRenderer.h"
             ex="false"
             tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/gui/view/AbstractCamera.cpp"
-            ex="false"
-            tool="1"
             flavor2="0">
       </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
@@ -1016,19 +999,13 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1052,25 +1029,15 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1079,6 +1046,8 @@
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1150,6 +1119,21 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
       <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
@@ -1295,20 +1279,10 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="11">
-      </item>
       <item path="src/utils/gui/renderer/GenericRenderer.h"
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/utils/gui/view/AbstractCamera.cpp"
-            ex="false"
-            tool="1"
-            flavor2="11">
       </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
@@ -1319,19 +1293,13 @@
       </item>
       <item path="src/utils/gui/view/Window.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Axial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Axial.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Consts.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/hex/Conversion.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/hex/Grid.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/hex/Grid.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/hex/OddQ.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/hex/OddQ.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1355,25 +1323,15 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Harvestable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Storage.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Tile.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1382,6 +1340,8 @@
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/grille.cpp" ex="false" tool="1" flavor2="0">
       </item>

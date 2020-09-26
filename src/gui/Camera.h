@@ -57,13 +57,13 @@ public:
 protected:
   
   /// \brief Must scroll the camera Horizontaly at given speed
-  virtual void doUpdateLRScroll(float v);
+  virtual void doUpdateLRScroll(float v) noexcept ;
   /// \brief Must scroll the camera verticaly at given speed
-  virtual void doUpdateUDScroll(float v);
+  virtual void doUpdateUDScroll(float v) noexcept ;
   /// \brief Must rotate camera to the left (clockwise)
-  virtual void doRotateLeft();
+  virtual void doRotateLeft() noexcept ;
   /// \brief Must rotate camera to the right (anti-clockwise)
-  virtual void doRotateRight();
+  virtual void doRotateRight() noexcept ;
 };
 
 #endif /* CAMERA_H */

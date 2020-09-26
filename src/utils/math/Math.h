@@ -38,18 +38,18 @@ namespace math {
   ///
   ///   This function will round -0.5 and 0.5 to 0 and 1 (resp)
   ///   which may be more stable for several operations
-  inline int mrnd(float a) {
-    return roundf(a) + ((a < 0) && (fabsf(a - roundf(a)) >= 0.5f));
+  inline int mrnd(float a) noexcept {
+    return std::roundf(a) + ((a < 0) && (fabsf(a - std::roundf(a)) >= 0.5f));
   }
   /// \brief Fastest mrnd function, faster than mrnd by ~20%
   /// \see int math::mrnd(float a)
-  inline int fastmrnd(float a) {
+  inline int fastmrnd(float a) noexcept {
     return (int)(a + (a < -0.5f ? -0.5f : 0.5f)) 
          + (a < -0.5f && ((int)a - a) == 0.5f);
   }
   /// \brief Same as mrnd but faster
   /// \see int math::mrnd(float a)
-  inline int fastmrnd2(float a) {
+  inline int fastmrnd2(float a) noexcept {
     return (int)(a + (a < -0.5f ? -0.5f + (((int)a - a) == 0.5f) : 0.5f));
   }
 }

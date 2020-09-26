@@ -46,38 +46,67 @@ private:
 public:
   
   /// \brief Default Constructor, build invalid ressource
-  Stack();
+  Stack() noexcept :
+    Stack(Invalid, 0)
+  {    
+  }
   /// \brief Create a ressource of given type and size
-  Stack(Ressource type, int size);
+  Stack(Ressource type, int size) noexcept :
+    _size(size), _type(type)
+  {
+  }
+  /// \brief Default members
+  Stack(const Stack &) = default;
+  Stack & operator= (const Stack &) = default;
+  ~Stack() = default;
   
   /// \brief return quantity of ressources inside the stack
-  int size() const;
+  int size() const noexcept {
+    return _size;
+  }
   /// \brief try to remove 'qty' of ressource from the stack
   /// \return quantity removed : min(size, qty)
-  int reduce(int qty);
+  int reduce(int qty) noexcept {
+    qty = std::min(_size, qty);
+    _size -= qty;
+    return qty;
+  }
   /// \brief empty the stack
-  void clear();
+  void clear() noexcept {
+    _size = 0;
+    _type = Invalid;
+  }
   
   /// \brief return stack type
-  Ressource type() const;
+  Ressource type() const noexcept {
+    return _type;
+  }
   
   /// \brief return true if the stack is empty
-  bool empty() const;
+  bool empty() const noexcept {
+    return _size <= 0;
+  }
 };
 
 class StackTypeComp {
 public:
-  bool operator() (const Stack & a, const Stack & b) const;
+  bool operator() (const Stack & a, const Stack & b) const noexcept {
+    return a.type() < b.type();
+  }
 };
 
 class StackTypeHash {
 public:
-  std::size_t operator() (const Stack & a) const;
+  std::size_t operator() (const Stack & a) const noexcept {
+    return a.type();
+  }
 };
 
 class StackTypeEqual {
 public:
-  bool operator() (const Stack & a, const Stack & b) const;
+  bool operator() (const Stack & a, const Stack & b) const noexcept {
+    return a.type() == b.type();
+  }
 };
 
 #endif /* RESSOURCE_H */

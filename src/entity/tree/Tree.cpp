@@ -26,6 +26,8 @@
 #include "Tree.h"
 
 /// \brief Constructor
-Tree::Tree() : WorldObject(0.1), Harvestable(Stack::Wood, 100) {
-  
+Tree::Tree() : 
+  WorldObject(WorldObject::SSmall, 0.1), 
+  Harvestable(Stack::Wood, 100) 
+{
 }

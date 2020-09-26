@@ -25,6 +25,8 @@
 #include "Rock.h"
 
 /// \brief Constructor
-Rock::Rock() : WorldObject(0.1), Harvestable(Stack::Rock, 50) {
-  
+Rock::Rock() : 
+  WorldObject(WorldObject::SSmall, 0.1), 
+  Harvestable(Stack::Rock, 50)
+{  
 }

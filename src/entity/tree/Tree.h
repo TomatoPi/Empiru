@@ -36,6 +36,8 @@ public:
   
   /// \brief Constructor
   Tree();
+  Tree(const Tree &) = default;
+  Tree & operator= (const Tree &) = default;
 };
 
 #endif /* TREE_H */

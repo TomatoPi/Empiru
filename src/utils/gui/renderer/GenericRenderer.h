@@ -65,7 +65,8 @@ public:
       std::unique_ptr<SpriteSheet> s,
       std::unique_ptr<SpriteSheet> m,
       int offx=0, int offy=0, 
-      Blitter b=Blitter()) : 
+      Blitter b=Blitter())
+  noexcept : 
     _sheet(std::move(s)),
     _mask(std::move(m)),
     _blitter(b),
@@ -79,6 +80,7 @@ public:
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr) 
+  noexcept
   {
     SDL_Rect r;
     _blitter(&r, 
@@ -96,6 +98,7 @@ public:
     const hex::Viewport & view,
     SDL_Renderer * rdr,
     const SDL_Color & c)
+  noexcept
   {
     SDL_Rect r;
     _blitter(&r, 
@@ -108,8 +111,8 @@ public:
     return _mask->renderFrame(0, ori, rdr, &r);
   }
   
-  virtual void addTarget(const WorldRef *obj) {}
-  virtual void removeTarget(const WorldRef *obj) {}
+  virtual void addTarget(const WorldRef *obj) noexcept {}
+  virtual void removeTarget(const WorldRef *obj) noexcept {}
   
 };
 
@@ -128,7 +131,12 @@ public:
 class OnTileBlitter {
 public:
   void operator() (SDL_Rect * rect,
-      int w, int h, int tw, int th, int x, int y) const;
+      int w, int h, int tw, int th, int x, int y) const noexcept 
+  {
+    rect->w = w, rect->h = h;
+    rect->x = x - rect->w/2;
+    rect->y = y + th/2 - rect->h;
+  }
 };
 
 /// \brief Put the rectangle 'r' as if (x,y) was object foot's position
@@ -136,7 +144,12 @@ public:
 class OnFootBlitter {
 public:
   void operator() (SDL_Rect * rect,
-      int w, int h, int tw, int th, int x, int y) const;
+      int w, int h, int tw, int th, int x, int y) const noexcept 
+  {
+    rect->w = w, rect->h = h;
+    rect->x = x - rect->w/2;
+    rect->y = y - rect->h;
+  }
 };
 
 

@@ -22,9 +22,8 @@
 /// \date 22 septembre 2020, 22:28
 ///
 
-#ifndef CONVERSION_H
-#define CONVERSION_H
-#pragma once
+#ifndef HEX_COORDS_CONVERSION_H
+#define HEX_COORDS_CONVERSION_H
 
 #include "OddQ.h"
 #include "Axial.h"
@@ -32,30 +31,30 @@
 
 namespace hex {
   
-  inline OddQ toOddQ(const Axial & v) {
+  inline OddQ toOddQ(const Axial & v) noexcept {
     return OddQ(
       v._x, 
-      v._y + (v._x - (math::fastmrnd(v._x) & 1)) / 2.);
+      v._y + (v._x - (math::fastmrnd(v._x) & 1)) / 2.f);
   }
   
-  inline Axial toAxial(const OddQ & v) {
+  inline Axial toAxial(const OddQ & v) noexcept {
     return Axial(
       v._x, 
-      v._y - (v._x - (math::fastmrnd(v._x) & 1)) / 2.);
+      v._y - (v._x - (math::fastmrnd(v._x) & 1)) / 2.f);
   }
   
-  inline Axial toAxial(const Grid & v) {
+  inline Axial toAxial(const Grid & v) noexcept {
     return Axial(
-      v._x / 3., 
-      v._y / 2. - v._x / 6.);
+      v._x / 3.f, 
+      v._y / 2.f - v._x / 6.f);
   }
   
-  inline Grid toGrid(const Axial & v) {
+  inline Grid toGrid(const Axial & v) noexcept {
     return Grid(
       v._x * 3, 
       v._y * 2 + v._x);
   }
 }
 
-#endif /* CONVERSION_H */
+#endif /* HEX_COORDS_CONVERSION_H */
 

@@ -49,7 +49,7 @@ Camera::Camera(
 }
 
 /// \brief Must scroll the camera Horizontaly at given speed
-void Camera::doUpdateLRScroll(float v) {
+void Camera::doUpdateLRScroll(float v) noexcept {
   hex::Axial pos = target() + _vx * v;
   hex::Grid tmp(hex::toGrid(pos));
   if (tmp._x < 0) {
@@ -60,7 +60,7 @@ void Camera::doUpdateLRScroll(float v) {
   target(hex::toAxial(tmp));
 }
 /// \brief Must scroll the camera verticaly at given speed
-void Camera::doUpdateUDScroll(float v) {
+void Camera::doUpdateUDScroll(float v) noexcept {
   hex::Axial pos = target() + _vy * v;
   hex::Grid tmp(hex::toGrid(pos));
   if (tmp._y < 0) {
@@ -71,13 +71,13 @@ void Camera::doUpdateUDScroll(float v) {
   target(hex::toAxial(tmp));
 }
 /// \brief Must rotate camera to the left (clockwise)
-void Camera::doRotateLeft() {
+void Camera::doRotateLeft() noexcept {
   _vx = _vx * hex::RMatrix_CC60A;
   _vy = _vy * hex::RMatrix_CC60A;
   rotation(hex::RMatrix_C60A * rotation());
 }
 /// \brief Must rotate camera to the right (anti-clockwise)
-void Camera::doRotateRight() {
+void Camera::doRotateRight() noexcept {
   _vx = _vx * hex::RMatrix_C60A;
   _vy = _vy * hex::RMatrix_C60A;
   rotation(hex::RMatrix_CC60A * rotation());

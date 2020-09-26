@@ -23,8 +23,8 @@
 /// \brief Implementation of an Isometric Camera for an Hexagonal map
 ///
 
-#ifndef HEXVIEWPORT_H
-#define HEXVIEWPORT_H
+#ifndef HEX_VIEWPORT_H
+#define HEX_VIEWPORT_H
 
 #include "Axial.h"
 #include "Consts.h"
@@ -100,4 +100,4 @@ namespace hex {
 
 }
 
-#endif /* HEXVIEWPORT_H */
+#endif /* HEX_VIEWPORT_H */

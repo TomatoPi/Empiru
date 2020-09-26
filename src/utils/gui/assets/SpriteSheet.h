@@ -45,10 +45,10 @@ public:
   SpriteSheet(SDL_Texture *t, 
           int w, int h,
           unsigned int rows, 
-          unsigned int cols);
+          unsigned int cols) noexcept;
   
   /// \brief Destructor
-  ~SpriteSheet();
+  ~SpriteSheet() noexcept;
   
   /// \brief Loads a sprite from an image file
   ///
@@ -76,26 +76,26 @@ public:
     unsigned int row,
     unsigned int col,
     SDL_Renderer *rdr,
-    const SDL_Rect *dest);
+    const SDL_Rect *dest) noexcept;
   
   /// \brief Change color of the sprite
-  int setColorMod(const SDL_Color & c);
+  int setColorMod(const SDL_Color & c) noexcept;
   
   /// \brief return sprite's width
-  int width() const;
+  int width() const noexcept;
   /// \brief return sprite's height
-  int height() const;
+  int height() const noexcept;
   
   /// \brief return number of frames by row on the sheet
-  unsigned int colCount() const;
+  unsigned int colCount() const noexcept;
   /// \brief return number of frames by column on the sheet
-  unsigned int rowCount() const;
+  unsigned int rowCount() const noexcept;
   
   /// \brief change number of frames by rows and by columns on the sheet
   /// \return 0 on success, <0 error code on failure, >0 code if ill formed sheet
   ///   anyway the sheet is cut but accessing last (smaller) sprites may cause
   ///   undefined behaviour
-  int recut(unsigned int rows, unsigned int cols);
+  int recut(unsigned int rows, unsigned int cols) noexcept;
 };
 
 #endif /* SPRITE_H */

@@ -27,9 +27,14 @@
 
 #include "Ressource.h"
 
+/// \brief Component for WorldObjects that are ressources deposits
+/// \todo this class is very ugly, make it clean
 class Harvestable : public Stack {
 public:
-  Harvestable(Stack::Ressource type, int size);
+  Harvestable(Stack::Ressource type, int size) noexcept : 
+    Stack(type, size)
+  {    
+  }
   virtual ~Harvestable() = default;
 };
 

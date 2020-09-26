@@ -36,7 +36,8 @@
 SpriteSheet::SpriteSheet(SDL_Texture *t, 
           int w, int h,
           unsigned int rows, 
-          unsigned int cols) :
+          unsigned int cols) 
+noexcept :
   _sheet(t),
   _w(w),
   _h(h),
@@ -51,7 +52,7 @@ SpriteSheet::SpriteSheet(SDL_Texture *t,
 }
 
 /// \brief Destructor
-SpriteSheet::~SpriteSheet() {
+SpriteSheet::~SpriteSheet() noexcept {
   SDL_DestroyTexture(_sheet);
 }
 
@@ -114,6 +115,7 @@ int SpriteSheet::renderFrame(
   unsigned int col,
   SDL_Renderer *rdr,
   const SDL_Rect *dest)
+noexcept
 {
   assert(rdr);
   assert(row < _rows);
@@ -124,25 +126,25 @@ int SpriteSheet::renderFrame(
 }
 
 /// \brief Change color of the sprite
-int SpriteSheet::setColorMod(const SDL_Color & c) {
+int SpriteSheet::setColorMod(const SDL_Color & c) noexcept {
   return SDL_SetTextureColorMod(_sheet, c.r, c.g, c.b);
 }
 
 /// \brief return sprite's width
-int SpriteSheet::width() const {
+int SpriteSheet::width() const noexcept {
   return _w;
 }
 /// \brief return sprite's height
-int SpriteSheet::height() const {
+int SpriteSheet::height() const noexcept {
   return _h;
 }
 
 /// \brief return number of frames by row on the sheet
-unsigned int SpriteSheet::colCount() const {
+unsigned int SpriteSheet::colCount() const noexcept {
   return _cols;
 }
 /// \brief return number of frames by column on the sheet
-unsigned int SpriteSheet::rowCount() const {
+unsigned int SpriteSheet::rowCount() const noexcept {
   return _rows;
 }
 
@@ -150,7 +152,7 @@ unsigned int SpriteSheet::rowCount() const {
 /// \return 0 on success, <0 error code on failure, >0 code if ill formed sheet
 ///   anyway the sheet is cut but accessing last (smaller) sprites may cause
 ///   undefined behaviour
-int SpriteSheet::recut(unsigned int rows, unsigned int cols) {
+int SpriteSheet::recut(unsigned int rows, unsigned int cols) noexcept {
   int width, height;
   if (0 != SDL_QueryTexture(_sheet, nullptr, nullptr, &width, &height)) {
     LOG_WRN("%s\n", SDL_GetError());

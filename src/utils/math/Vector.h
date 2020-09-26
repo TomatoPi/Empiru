@@ -22,8 +22,8 @@
 /// \date 22 septembre 2020, 19:28
 ///
 
-#ifndef VECTORIAL_H
-#define VECTORIAL_H
+#ifndef MATH_2D_VECTOR_H
+#define MATH_2D_VECTOR_H
 
 #include <cmath>
 #include "Matrix.h"
@@ -37,100 +37,100 @@ namespace math {
     T _y; ///< Vertical Position
     
     /// \brief Build the null vector
-    Vector() : Vector(static_cast<T>(0), static_cast<T>(0)) {
+    Vector() noexcept : Vector(static_cast<T>(0), static_cast<T>(0)) {
     }
     /// \brief Build a vector with given components
-    Vector(const T & x, const T & y) : _x(x), _y(y) {
+    Vector(T x, T y) noexcept : _x(x), _y(y) {
     }
     /// \brief Copy constructor
     template <typename F>
-    Vector(const Vector<F> & v) : 
+    Vector(const Vector<F> & v) noexcept : 
       _x(static_cast<F>(v._x)), _y(static_cast<F>(v._y))
     {
     }
     
     /// \brief Return true if all coordinates are equals
-    bool operator== (const Vector & v) const {
+    bool operator== (const Vector & v) const noexcept {
       return _x == v._x && _y == v._y;
     }
     /// \brief Return false if all coordinates are equals
-    bool operator!= (const Vector & v) const {
+    bool operator!= (const Vector & v) const noexcept {
       return ! (*this == v);
     }
     
     /// \brief Scale the vector by given factor
     template <typename F>
-    Vector operator* (const F & f) const {
+    Vector operator* (F f) const noexcept {
       return Vector(_x * f, _y * f);
     }
     /// \brief Scale the vector by given factor
     template <typename F>
-    Vector & operator*= (const F & f) {
+    Vector & operator*= (F f) noexcept {
       return *this = *this * f;
     }
     
     /// \brief Summ two vectors
-    Vector operator+ (const Vector & v) const {
+    Vector operator+ (const Vector & v) const noexcept {
       return Vector(_x + v._x, _y + v._y);
     }
     /// \brief Summ two vectors
-    Vector & operator+= (const Vector & v) {
+    Vector & operator+= (const Vector & v) noexcept {
       return *this = *this + v;
     }
     
     /// \brief Substract two vectors, return this - v
-    Vector operator- (const Vector & v) const {
+    Vector operator- (const Vector & v) const noexcept {
       return Vector(_x - v._x, _y - v._y);
     }
     /// \brief Substract two vectors, return this - v
-    Vector & operator-= (const Vector & v) {
+    Vector & operator-= (const Vector & v) noexcept {
       return *this = *this - v;
     }
     
     /// \brief Return the oposite vector
-    Vector operator- () const {
+    Vector operator- () const noexcept {
       return Vector(-_x, -_y);
     }
     
     /// \brief Apply given transformation to this vector
     template <typename F>
-    Vector operator* (const Matrix22<F> & M) const {
+    Vector operator* (const Matrix22<F> & M) const noexcept {
       return Vector(_x * M._a + _y * M._b, _x * M._c + _y * M._d);
     }
     /// \brief Apply given transformation to this vector
     template <typename F>
-    Vector & operator*= (const Matrix22<F> & M) const {
+    Vector & operator*= (const Matrix22<F> & M) const noexcept {
       return *this = *this * M;
     }
     
     /// \brief Return as unitary vector
-    Vector unit() const {
+    Vector unit() const noexcept {
       T n(static_cast<T>(1) / norm());
       return Vector(_x * n, _y * n);
     }
     /// \brief Normalize to unitatry vector
-    Vector & toUnit() {
+    Vector & toUnit() noexcept {
       return *this = unit();
     }
     
     /// \brief Return vector's norm
-    T norm() const {
+    T norm() const noexcept {
       return std::hypot(_x, _y);
     }
     
     /// \brief Return distance between points a and b
-    static T distance(const Vector & a, const Vector & b) {
+    static T distance(const Vector & a, const Vector & b) noexcept {
       return (a - b).norm();
     }
     
     /// \brief Functor that define an order relation on vectors.
     /// sorting them by ascending Y
     struct AscYCompare {
-      bool operator() (const Vector & u, const Vector & v) {
+      bool operator() (const Vector & u, const Vector & v) noexcept {
         return u._y < v._y || (u._y == v._y && u._x < v._x);
       }
     };
   };
 }
 
-#endif /* VECTORIAL_H */
+#endif /* MATH_2D_VECTOR_H */

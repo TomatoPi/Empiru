@@ -46,14 +46,15 @@ private:
 public:
   
   /// Constructor
-  PeonRenderer(std::unique_ptr<SpriteSheet> s, std::unique_ptr<SpriteSheet> m);
+  PeonRenderer(std::unique_ptr<SpriteSheet> s, std::unique_ptr<SpriteSheet> m)  
+  noexcept;
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual int renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr);
+    SDL_Renderer *rdr) noexcept;
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
@@ -62,14 +63,14 @@ public:
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
-    const SDL_Color & color); 
+    const SDL_Color & color) noexcept; 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldRef *obj);
+  virtual void addTarget(const WorldRef *obj) noexcept;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldRef *obj);
+  virtual void removeTarget(const WorldRef *obj) noexcept;
 };
 
 #endif /* PEONRENDERER_H */

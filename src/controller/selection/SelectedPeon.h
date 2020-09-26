@@ -33,6 +33,8 @@ struct SelectedPeon : public WorldObject {
   WorldRef *_peon; ///< The stalked peon
   
   SelectedPeon(); ///< Constructor
+  SelectedPeon(const SelectedPeon &) = default;
+  SelectedPeon & operator= (const SelectedPeon &) = default;
 };
 
 #endif /* SELECTEDPEON_H */

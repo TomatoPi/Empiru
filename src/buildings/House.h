@@ -31,6 +31,8 @@
 class House : public WorldObject, public Storage {
 public:
   House();
+  House(const House &) = default;
+  House & operator= (const House &) = default;
 };
 
 #endif /* HOUSE_H */
