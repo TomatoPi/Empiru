@@ -74,7 +74,7 @@ bool World::isOnMap(const WorldObject::Position & pos) const {
   hex::Grid grd(hex::toGrid(pos));
   // Easy case
   if (0 < grd._x && 0 < grd._y 
-    && grd._x < _mapWidth*4 && grd._y < _mapHeight*2) {
+    && grd._x < _mapWidth*3-1 && grd._y < _mapHeight*2-1) {
     return true;
   }
   hex::OddQ off(hex::toOddQ(pos.tile()));
