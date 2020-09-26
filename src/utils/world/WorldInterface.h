@@ -37,10 +37,10 @@ public:
   virtual void removeObject(WorldRef * obj) = 0;
   
   /// \brief Must return tile content at given pos, or null if empty
-  virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const = 0;
+  virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const = 0;
   
   /// \brief Must return true if given pos is on the map
-  virtual bool isOnMap(const FlatHexPosition & pos) const = 0;
+  virtual bool isOnMap(const WorldObject::Position & pos) const = 0;
 };
 
 #endif /* WORLDINTERFACE_H */

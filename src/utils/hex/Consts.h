@@ -26,19 +26,22 @@
 #define HEXCONSTS_H
 
 #include "utils/math/Matrix.h"
-#include "utils/hex/HexCoords.h"
 
 namespace hex {
   
+  typedef math::Matrix22<float> Matrix;
+  
+  static const Matrix Identity(1, 0, 0, 1);
+  
   /// \brief Clockwise 90° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_C90A = Matrix22(-0.5, -1, 1.25, 0.5).unit();
+  static const Matrix RMatrix_C90A = Matrix(-0.5, -1, 1.25, 0.5).unit();
   /// \brief CounterClockwise 90° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_CC90A = Matrix22(0.5, 1, -1.25, -0.5).unit();
+  static const Matrix RMatrix_CC90A = Matrix(0.5, 1, -1.25, -0.5).unit();
   
   /// \brief Clockwise 60° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_C60A(0, -1, 1, 1);
+  static const Matrix RMatrix_C60A(0, -1, 1, 1);
   /// \brief CounterClockwise 60° Axial Coordinate rotation Matrix
-  static const Matrix22 RMatrix_CC60A(1, 1, -1, 0);
+  static const Matrix RMatrix_CC60A(1, 1, -1, 0);
   
 }
 

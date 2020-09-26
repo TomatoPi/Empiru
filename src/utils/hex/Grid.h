@@ -16,26 +16,33 @@
  */
 
 /// 
-/// \file   Position.cpp
+/// \file   Grid.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 18 septembre 2020, 09:09
-/// \brief Provide utils for 2D carthesian coordinates
+/// \date 22 septembre 2020, 22:30
 ///
 
-#include "Position.h"
+#ifndef GRID_H
+#define GRID_H
 
-/// \brief Integeer 2D coordinates
-Position::Position(int x, int y) : _x(x), _y(y) {
+#include <functional>
+#include "utils/math/Vector.h"
+
+namespace hex {
   
+  struct Grid : public math::Vector<float> {
+    
+    Grid();
+    Grid(const float & x, const float & y);
+    Grid(const math::Vector<float> & v);
+    
+    /// \brief Call given function on this tile and each adjacent ones
+    ///   this function stops after first tile on which func return true
+    ///   or after tested all 7 tiles
+    /// System of position passed to callback is the same as curent system
+    void mapNeightbours(const std::function<bool(const Grid &)> & func) const;
+  };
 }
 
-/// \brief Functor that return true if a.y is smaller than b.y 
-///   or y' are equals and x' smaller
-/// Useful to use Position as Key in ordered containers
-///   Resulting an ascending sort on Y coordinate
-bool PosCompareAscY::operator() (
-  const Position & a, const Position & b) 
-const {
-  return a._y < b._y || (a._y == b._y && a._x < b._x);
-}
+#endif /* GRID_H */
+

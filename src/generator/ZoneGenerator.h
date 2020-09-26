@@ -25,13 +25,13 @@
 #ifndef ZONEGENERATOR_H
 #define ZONEGENERATOR_H
 
-#include "utils/hex/HexCoords.h"
+#include "utils/hex/Axial.h"
 #include <vector>
 
 class ZoneGenerator {
   
 public:
-  typedef std::vector<FlatHexPosition> Zone;
+  typedef std::vector<hex::Axial> Zone;
   
   /// \brief Constructor
   ZoneGenerator();
@@ -42,17 +42,17 @@ public:
   
   /// \brief Add object in zone
   void addObject();
-  
-  // \brief Calculate the y coordinate according to the equation of line AB, as a function of         an x coordinate
-  float calculateY(FlatHexPosition posA, FlatHexPosition posB, float xC);
-  
+
+  // \brief Calculate the y coordinate according to the equation of line AB, as a function of an x coordinate
+  float calculateY(hex::Axial posA, hex::Axial posB, float xC);
+
   Zone objects();
   
   Zone vertexs();
   
-  private:
-    Zone _vertexs;
-    Zone _objects;
+private:
+  Zone _vertexs;
+  Zone _objects;
 };
 
 #endif /* ZONEGENERATOR_H */

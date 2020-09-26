@@ -33,22 +33,23 @@
 class Controller {
 private:
   
-  WorldInterface & _world; ///< THA WORLDOOOOO
-  ControllerState  _state; ///< The game controller
+  WorldInterface & _world;       ///< THA WORLDOOOOO
+  ControllerState  _state;       ///< The game controller
+  SoundEngine &    _soundEngine; ///< Mamaaaa OUHOUHOUUUUUUUUUU
   
 public:
   
   /// \brief Constructor
-  Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
+  Controller(
+            WorldInterface & w,
+            GameEngine & g,
+            RenderingEngine & rdr,
+            SoundEngine & s);
   
   /// \brief Called when a left click is performed at given position
-  void leftClickAt(const FlatHexPosition & click);
+  void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
   /// \brief Called when a right click is performed at given position
-  void rightClickAt(const FlatHexPosition & click);
-  
-private:
-  
-  WorldRef * objectAt(const FlatHexPosition & click) const;
+  void rightClickOn(const WorldObject::Position & click, WorldRef *obj);
 };
 
 #endif /* CONTROLLER_H */

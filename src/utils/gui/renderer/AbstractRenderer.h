@@ -26,7 +26,7 @@
 #ifndef ABSTRACTRENDERER_H
 #define ABSTRACTRENDERER_H
 
-#include "utils/hex/HexViewport.h"
+#include "utils/hex/Viewport.h"
 #include "utils/world/WorldRef.h"
 #include "utils/world/WorldObject.h"
 #include <SDL2/SDL_render.h>
@@ -42,11 +42,29 @@ public:
   /// \param y   : object's y position on screen
   /// \param view: rendering viewport
   /// \param rdr : renderer
+  /// \return 0 on success
   virtual int renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
-    const HexViewport & view,
+    const hex::Viewport & view,
     SDL_Renderer *rdr) = 0;
+  
+  /// \brief Render the object at given position, replacing the texture with
+  ///   'color'
+  /// \param obj   : the object beeing drawn
+  /// \param ori   : curent camera's orientation
+  /// \param x     : object's x position on screen
+  /// \param y     : object's y position on screen
+  /// \param view  : rendering viewport
+  /// \param rdr   : renderer
+  /// \param color : color that must be used to draw
+  /// \return 0 on success
+  virtual int renderAt(
+    const WorldRef * obj,
+    int ori, int x, int y,
+    const hex::Viewport & view,
+    SDL_Renderer * rdr,
+    const SDL_Color & color) = 0; 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
@@ -54,7 +72,6 @@ public:
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
   virtual void removeTarget(const WorldRef * obj) = 0;
-  
 };
 
 #endif /* ABSTRACTRENDERER_H */

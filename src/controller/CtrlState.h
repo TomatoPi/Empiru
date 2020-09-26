@@ -31,6 +31,7 @@
 #include "engine/GameEngine.h"
 #include "gui/RenderingEngine.h"
 #include "utils/world/WorldRef.h"
+#include "utils/sound/SoundEngine.h"
 
 /// \brief Object used to keep state of game controller
 class ControllerState {
@@ -39,14 +40,17 @@ class ControllerState {
     WorldRef * _selectedPeon;     ///< Obvious
     WorldRef * _selectionTracker; ///< SelectedPeon tracking curent selection
     
-    WorldInterface & _world; ///< THA WORLDOOOOO
-    GameEngine &      _gameEngine; ///< Main engine
-    RenderingEngine & _rdrEngine;  ///< Renderer
+    WorldInterface & _world;        ///< THA WORLDOOOOO
+    GameEngine &      _gameEngine;  ///< Main engine
+    RenderingEngine & _rdrEngine;   ///< Renderer
   
   public:
      
     /// \brief Constructor
-    ControllerState(WorldInterface & w, GameEngine & g, RenderingEngine & rdr);
+    ControllerState(
+            WorldInterface & w, 
+            GameEngine & g, 
+            RenderingEngine & rdr);
     
     /// \brief Select given peon
     void selectPeon(WorldRef * peon);

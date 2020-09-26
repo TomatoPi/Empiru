@@ -25,7 +25,7 @@
 #include <cstdlib>
 
 #include <SDL2/SDL_timer.h>
-//#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "gui/Camera.h"
 #include "utils/gui/assets/SpriteSheet.h"
@@ -56,6 +56,7 @@
 
 #include "utils/log.h"
 #include "entity/peon/PeonBehaviour.h"
+#include "utils/sound/SoundAsset.h"
 
 #include "generator/ZoneGenerator.h"
 
@@ -72,10 +73,17 @@ int main(int argc, char** argv) {
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
   auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
+  auto peonMask = SpriteAsset::loadFromFile("medias/peon_palette_animation_mask.png", window->vrenderer);
+  
   auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
   auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
+  auto treeMask = SpriteAsset::loadFromFile("medias/toufu_tree_palette_mask.png", window->vrenderer);
+  
   auto rockSprite = SpriteAsset::loadFromFile("medias/palette_roche_v1.png", window->renderer);
+  auto rockMask = SpriteAsset::loadFromFile("medias/palette_roche_v1_mask.png", window->vrenderer);
+  
   auto houseSprite = SpriteAsset::loadFromFile("medias/build/house_tower/sprite_house_tower.png", window->renderer);
+  auto houseMask = SpriteAsset::loadFromFile("medias/sprite_house_tower_mask.png", window->vrenderer);
   
   
   
@@ -95,28 +103,18 @@ int main(int argc, char** argv) {
   game.addObjectKind(typeid(House), new GenericAllocator<House>());
   
   Camera camera(
-    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
+    hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     window->width, window->height,
     SIZE, SIZE);
   
-  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite));
-  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite), 0, 5);
-  GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite));
-  PeonRenderer prdr(std::move(peonSprite));
+  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite), nullptr);
+  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite), std::move(treeMask));
+  GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite), std::move(rockMask));
+  PeonRenderer prdr(std::move(peonSprite), std::move(peonMask));
   SelectedPeonRenderer selrdr(std::move(selSprite));
-  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite));
+  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite), std::move(houseMask));
   
-  /*
-  if (MIX_INIT_OGG != Mix_Init(MIX_INIT_OGG)) {
-    LOG_ERROR("Failed start sound engine : %s\n", Mix_GetError());
-    OUPS();
-  }
-  if (0 != Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024)) {
-    LOG_ERROR("Failed open audio : %s\n", Mix_GetError());
-    OUPS();
-  }
-  */
-  camera.target(FlatHexPosition(0.5,0,FlatHexPosition::OddQOffset));
+  camera.target(hex::Axial(0,0));
   
   RenderingEngine rdr(*window, camera, camera, map);
   rdr.attachRenderer(typeid(Tile), tilerdr);
@@ -126,35 +124,41 @@ int main(int argc, char** argv) {
   rdr.attachRenderer(typeid(Rock), rockrdr);
   rdr.attachRenderer(typeid(House), houserdr);
   
-  Controller controller(map, game, rdr);
-  SDLHandler handler(camera, camera, controller);
+  SoundEngine *sounder(SoundEngine::create());
+  
+  auto selectPeonSound = SoundAsset::loadFromFiles("medias/sounds/peons/peon-", ".ogg", 3);
+  
+  sounder->registerSound(std::move(selectPeonSound));
+  
+  Controller controller(map, game, rdr, *sounder);
+  SDLHandler handler(camera, camera, controller, rdr, *window);
   
   /* Manualy populate world */
   
   WorldRef *peon(game.createObject(typeid(Peon)));
-  (**peon).pos(FlatHexPosition(0, 0, FlatHexPosition::Axial));
+  (**peon).pos(hex::Axial(0, 0));
   rdr.addTarget(peon);
   map.addObject(peon);
   
   peon = game.createObject(typeid(Peon));
-  (**peon).pos(FlatHexPosition(2, 2, FlatHexPosition::Axial));
+  (**peon).pos(hex::Axial(2, 2));
   rdr.addTarget(peon);
   map.addObject(peon);
   
   WorldRef *tree(game.createObject(typeid(Tree)));
-  (**tree).pos(FlatHexPosition(1, 1, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(1, 1));
   rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
-  (**tree).pos(FlatHexPosition(1.6, 1, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(1.6, 1));
   rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
-  (**tree).pos(FlatHexPosition(2.6, 1, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(2.6, 1));
   rdr.addTarget(tree);
   map.addObject(tree);
   tree = game.createObject(typeid(Tree));
-  (**tree).pos(FlatHexPosition(1.3, 1.5, FlatHexPosition::Axial));
+  (**tree).pos(hex::Axial(1.3, 1.5));
   rdr.addTarget(tree);
   map.addObject(tree);
   
@@ -180,13 +184,13 @@ int main(int argc, char** argv) {
   /* ------------------------------------------------- */
   
   WorldRef *rock(game.createObject(typeid(Rock)));
-  (**rock).pos(FlatHexPosition(0, 2, FlatHexPosition::Axial));
+  (**rock).pos(hex::Axial(0, 2));
   rdr.addTarget(rock);
   map.addObject(rock);
   
   
   WorldRef *house(game.createObject(typeid(House)));
-  (**house).pos(FlatHexPosition(3, 2, FlatHexPosition::Axial));
+  (**house).pos(hex::Axial(3, 2));
   rdr.addTarget(house);
   map.addObject(house);
   
@@ -204,8 +208,26 @@ int main(int argc, char** argv) {
     game.update();
 
     window->clear();
+    //*
     rdr.render();
     window->update();
+    //*/
+    /*
+    rdr.drawPixelPerfectZones();
+    SDL_Surface * screen = SDL_GetWindowSurface(window->window);
+    if (!screen) {
+      LOG_ERROR("Failed Get Screen : %s\n", SDL_GetError());
+      OUPS();
+    }
+    if (SDL_BlitSurface(window->vsurface, nullptr, screen, nullptr)) {
+      LOG_ERROR("%s\n", SDL_GetError());
+      OUPS();
+    }
+    if (SDL_UpdateWindowSurface(window->window)) {
+      LOG_ERROR("Failed update window : %s\n", SDL_GetError());
+      OUPS();
+    }
+    //*/
     
     ++avgcount;
     avgfps = SDL_GetTicks() - fpsStart;
@@ -229,24 +251,8 @@ int main(int argc, char** argv) {
   }
   
   delete window;
-  /*
-  Mix_CloseAudio();
-  Mix_Quit();
-  */
-  
-  LOG_INFO("TOTAL CONVERSIONS COUNT : \n");
-  std::size_t N(static_cast<std::size_t>(FlatHexPosition::Count));
-  for (std::size_t i(0) ; i<N ; ++i) {
-    for (std::size_t j(0) ; j<N ; ++j) {
-      LOG_GEN("%6lu ", FlatHexPosition::__conversions[i][j]);
-    }
-    LOG_GEN("\n");
-  }
-  LOG_INFO("TOTAL USAGES : \n");
-  for (std::size_t i(0) ; i<N ; ++i) {
-    LOG_GEN("%6lu ", FlatHexPosition::__usages[i]);
-  }
-  LOG_GEN("\n");
+  //*
+  //*/
   
   return 0;
 }

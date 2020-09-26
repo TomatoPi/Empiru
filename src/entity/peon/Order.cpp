@@ -28,7 +28,7 @@
 #include "Order.h"
   
 /// \brief return a MoveTo Order
-Order Order::moveTo(const FlatHexPosition & pos) {
+Order Order::moveTo(const WorldObject::Position & pos) {
   Order order;
   order._target._move = pos;
   order._type = MoveTo;
@@ -61,7 +61,7 @@ Order::Type Order::type() const {
   return _type;
 }
 
-const FlatHexPosition & Order::targetPos() const {
+const WorldObject::Position & Order::targetPos() const {
   switch (_type) {
   case MoveTo : return _target._move;
   case Harvest : return (**_target._harvest).pos();
@@ -73,7 +73,7 @@ const FlatHexPosition & Order::targetPos() const {
 
 /// \brief return target for MoveTo order
 /// \pre Must be a MoveTo Order
-const FlatHexPosition & Order::targetMove() const {
+const WorldObject::Position & Order::targetMove() const {
   assert(_type == MoveTo);
   return _target._move;
 }

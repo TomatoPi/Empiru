@@ -33,15 +33,14 @@ ZoneGenerator::ZoneGenerator() : _vertexs(), _objects() {
 
 void ZoneGenerator::createZone(int size) {
   for (int i = 0 ; i < size ; i++){
-    FlatHexPosition position = FlatHexPosition((rand()%8),(rand()%8)
-        ,FlatHexPosition::OddQOffset);
+    hex::Axial position = hex::Axial((rand()%8),(rand()%8));
     _vertexs.push_back(position);
   }
   
   std::sort(_vertexs.begin(), _vertexs.end(), 
   [&]
-  (const FlatHexPosition & a, const FlatHexPosition & b) -> bool {
-     return a._x < b._x;
+  (const hex::Axial & a, const hex::Axial & b) -> bool {
+    return a._x < b._x;
   });
   
 }
@@ -76,15 +75,13 @@ void ZoneGenerator::addObject() {
       yRand = distribution2(generator);
     }
     
-    FlatHexPosition position = FlatHexPosition(xRand
-        ,yRand
-        ,FlatHexPosition::Axial);
+    hex::Axial position = hex::Axial(xRand,yRand);
     _objects.push_back(position);
   }
 }
 
 
-float ZoneGenerator::calculateY(FlatHexPosition posA, FlatHexPosition posB, float xC){
+float ZoneGenerator::calculateY(hex::Axial posA, hex::Axial posB, float xC){
   float y,a,b,c;
   
   b = -(posB._x - posA._x);

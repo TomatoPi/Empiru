@@ -16,29 +16,46 @@
  */
 
 /// 
-/// \file   Position.h
+/// \file   Conversion.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 18 septembre 2020, 09:09
-/// \brief Provide utils for 2D carthesian coordinates
+/// \date 22 septembre 2020, 22:28
 ///
 
-#ifndef POSITION_H
-#define POSITION_H
+#ifndef CONVERSION_H
+#define CONVERSION_H
+#pragma once
 
-/// \brief Integeer 2D coordinates
-struct Position {
-  int _x; ///< Abscissa
-  int _y; ///< Ordinate
-  Position(int x, int y);
-};
+#include "OddQ.h"
+#include "Axial.h"
+#include "Grid.h"
 
-/// \brief Functor that return true if a.y is smaller than b.y 
-///   or y' are equals and x' smaller
-/// Useful to use Position as Key in ordered containers
-///   Resulting an ascending sort on Y coordinate
-struct PosCompareAscY {
-  bool operator() (const Position & a, const Position & b) const;
-};
+namespace hex {
+  
+  inline OddQ toOddQ(const Axial & v) {
+    return OddQ(
+      v._x, 
+      v._y + (v._x - (math::fastmrnd(v._x) & 1)) / 2.);
+  }
+  
+  inline Axial toAxial(const OddQ & v) {
+    return Axial(
+      v._x, 
+      v._y - (v._x - (math::fastmrnd(v._x) & 1)) / 2.);
+  }
+  
+  inline Axial toAxial(const Grid & v) {
+    return Axial(
+      v._x / 3., 
+      v._y / 2. - v._x / 6.);
+  }
+  
+  inline Grid toGrid(const Axial & v) {
+    return Grid(
+      v._x * 3, 
+      v._y * 2 + v._x);
+  }
+}
 
-#endif /* POSITION_H */
+#endif /* CONVERSION_H */
+

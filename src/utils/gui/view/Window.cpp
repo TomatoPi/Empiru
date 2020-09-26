@@ -32,11 +32,13 @@
 
 /// \brief Constructor
 Window::Window(
-        SDL_Window *window, 
-        SDL_Renderer *renderer, 
-        int w, int h):
+          SDL_Window *window, SDL_Renderer *renderer, 
+          SDL_Surface * vs, SDL_Renderer * vr, 
+          int w, int h):
 window(window),
 renderer(renderer),
+vsurface(vs),
+vrenderer(vr),
 width(w),
 height(h)
 {
@@ -48,7 +50,8 @@ height(h)
 /// \return NULL on failure
 Window * Window::createWindow(int width, int height) {
   SDL_Window *window;
-  SDL_Renderer *renderer;
+  SDL_Renderer *renderer, *vrdr;
+  SDL_Surface *vsurf;
   /* initialize SDL */
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     LOG_ERROR("Failed Init SDL : %s\n", SDL_GetError());
@@ -67,12 +70,31 @@ Window * Window::createWindow(int width, int height) {
     SDL_DestroyWindow(window);
     return NULL;
   }
+  /* create virtual surface and software renderer */
+  vsurf = SDL_CreateRGBSurface(0, width, height, 32, 0,0,0,0);
+  if (!vsurf) {
+    LOG_ERROR("Failed Create Surface : %s\n", SDL_GetError());
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    return nullptr;
+  }
+  /* create the software renderer associated with surface */
+  vrdr = SDL_CreateSoftwareRenderer(vsurf);
+  if (!vrdr) {
+    LOG_ERROR("Failed Create Software Renderer : %s\n", SDL_GetError());
+    SDL_FreeSurface(vsurf);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    return nullptr;
+  }
   /* done */
-  return new Window(window, renderer, width, height);
+  return new Window(window, renderer, vsurf, vrdr, width, height);
 }
 
 /// \brief Destructor
 Window::~Window() {
+  SDL_DestroyRenderer(vrenderer);
+  SDL_FreeSurface(vsurface);
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();

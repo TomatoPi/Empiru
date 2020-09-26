@@ -40,6 +40,14 @@ int control(float a) {
   return std::roundf(a);
 }
 
+int truncature(float a) {
+  return static_cast<int>(a);
+}
+
+int stdtrunc(float a) {
+  return std::trunc(a);
+}
+
 void perf(const char *msg, std::function<int(float)> func, float * array) {
   for (size_t run=0 ; run<DRY ; ++run) {
     for (size_t i=0 ; i<N ; ++i)
@@ -83,10 +91,12 @@ int main(int argc, char** argv) {
   array[3] = 1.5;
   for (size_t i = 4; i < N ; ++i) array[i] = dis(gen);
   
-  perf("std     ", control, array);
-  perf("mrnd    ", math::mrnd, array);
-  perf("fastmrnd", math::fastmrnd, array);
-  perf("fastmrnd2", math::fastmrnd2, array);
+  perf("std       ", control, array);
+  perf("mrnd      ", math::mrnd, array);
+  perf("fastmrnd  ", math::fastmrnd, array);
+  perf("fastmrnd2 ", math::fastmrnd2, array);
+  perf("truncature", truncature, array);
+  perf("trunc     ", stdtrunc, array);
   
   check("mrnd vs fast         ", math::mrnd, math::fastmrnd, array);
   check("fastmrnd vs fastmrnd2", math::fastmrnd, math::fastmrnd2, array);

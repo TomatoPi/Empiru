@@ -28,7 +28,10 @@
 #include "selection/SelectedPeon.h"
 
 /// \brief Constructor
-ControllerState::ControllerState(WorldInterface & w, GameEngine & g, RenderingEngine & rdr) :
+ControllerState::ControllerState(
+            WorldInterface & w, 
+            GameEngine & g, 
+            RenderingEngine & rdr) :
   _selectedPeon(nullptr),
   _selectionTracker(nullptr),
   _world(w),

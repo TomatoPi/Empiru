@@ -29,35 +29,39 @@
 #include "utils/log.h"
 #include "entity/tree/Tree.h"
 #include "utils/world/Storage.h"
+#include "utils/hex/Conversion.h"
 #include <cmath>
 
 /// \brief Constructor
-Controller::Controller(WorldInterface & w, GameEngine & g, RenderingEngine & rdr) :
-  _world(w), _state(w, g, rdr)
+Controller::Controller(
+            WorldInterface & w, 
+            GameEngine & g, 
+            RenderingEngine & rdr, 
+            SoundEngine & s) :
+  _world(w), _state(w, g, rdr),
+  _soundEngine(s)
 {
   
 }
   
 /// \brief Called when a left click is performed at given position
-void Controller::leftClickAt(const FlatHexPosition & click) {
-  
-  // Search for a peon near click
-  WorldRef *selection(objectAt(click));
+void Controller::leftClickOn(const WorldObject::Position & click, WorldRef *obj) {
   // Update controller according to result
-  if (selection) {
-    if (auto peon = dynamic_cast<Peon*>(&**selection)) {
-      _state.selectPeon(selection);
+  if (obj) {
+    if (auto peon = dynamic_cast<Peon*>(&**obj)) {
+      _state.selectPeon(obj);
+      _soundEngine.playRandomSound(0);
       LOG_DEBUG("Peon : Inventory : %d %d\n", 
           peon->inventory().type(), peon->inventory().size());
     }
     else {
       _state.deselectPeon();
-      if (selection) {
-        if (auto harvest = dynamic_cast<Harvestable*>(&**selection)) {
+      if (obj) {
+        if (auto harvest = dynamic_cast<Harvestable*>(&**obj)) {
           LOG_DEBUG("Ressource : %s : %d\n", 
               typeid(*harvest).name(), harvest->size());
         }
-        else if (auto storage = dynamic_cast<Storage*>(&**selection)) {
+        else if (auto storage = dynamic_cast<Storage*>(&**obj)) {
           LOG_DEBUG("Storage : %s : %s\n", 
               typeid(*storage).name(), storage->content_str().c_str());
         }
@@ -68,24 +72,25 @@ void Controller::leftClickAt(const FlatHexPosition & click) {
   }
 }
 /// \brief Called when a right click is performed at given position
-void Controller::rightClickAt(const FlatHexPosition & click) {
+void Controller::rightClickOn(const WorldObject::Position & click, WorldRef *obj) {
   // If there is a selected peon and click is valid, let's go
   if (_state.selectedPeon() != nullptr && _world.isOnMap(click)) {
     Peon & peon(static_cast<Peon &>(**_state.selectedPeon()));
-    WorldRef *target(objectAt(click));
-    if (target) {
-      if (auto harvest = dynamic_cast<Harvestable *>(&**target)) {
+    if (obj) {
+      if (auto harvest = dynamic_cast<Harvestable *>(&**obj)) {
         if (peon.canHarvest(harvest->type())) {
           peon.clearOrders();
-          peon.addOrder(Order::harvest(target));
+          peon.addOrder(Order::harvest(obj));
           peon.beginOrder();
+          _soundEngine.playRandomSound(0);
         }
       }
-      else if (auto storage = dynamic_cast<Storage *>(&**target)) {
+      else if (auto storage = dynamic_cast<Storage *>(&**obj)) {
         if (!peon.inventory().empty()) {
           peon.clearOrders();
-          peon.addOrder(Order::store(target));
+          peon.addOrder(Order::store(obj));
           peon.beginOrder();
+          _soundEngine.playRandomSound(0);
         }
       }
     } else {
@@ -94,38 +99,4 @@ void Controller::rightClickAt(const FlatHexPosition & click) {
       peon.beginOrder();
     }
   }
-}
-
-/// \todo might be slow if there is a great amount of objects near click
-WorldRef * Controller::objectAt(const FlatHexPosition & click) const {
-  WorldRef *selection(nullptr);
-  click.convert(FlatHexPosition::Grid).mapNeightbours(
-    [&]
-    (const FlatHexPosition & pos) -> bool 
-    {
-      auto content = _world.getContentAt(pos);
-      if (content != nullptr){
-        for (auto obj : *content){
-          if (typeid(**obj) == typeid(Peon)) {
-            const Peon & peon(static_cast<const Peon &>(**obj));
-            FlatHexPosition tmp(peon.pos(), FlatHexPosition::Grid);
-            if (
-                (fabs(click._x - tmp._x) < 0.25) 
-                && (fabs(click._y + 0.25 - tmp._y) < 0.25)) 
-            {
-              selection = obj;
-              return true;
-            }
-          } /* if peon */
-          else {
-            if ((**obj).collide(click)) {
-              selection = obj;
-              return true;
-            }
-          }
-        } /* for obj */
-      }
-      return false;
-    });
-  return selection;
 }

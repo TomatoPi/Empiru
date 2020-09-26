@@ -27,7 +27,7 @@
 
 #include <unordered_set>
 
-#include "utils/hex/HexCoords.h"
+#include "utils/hex/Axial.h"
 #include "utils/world/WorldRef.h"
 #include "utils/world/WorldObject.h"
 

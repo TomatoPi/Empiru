@@ -25,6 +25,8 @@
 #include <cassert>
 
 #include "world/World.h"
+#include "utils/hex/OddQ.h"
+#include "utils/hex/Conversion.h"
 
 /// \brief Constructor
 /// \param mapHeight : Height of the map (number of hexs)
@@ -40,7 +42,7 @@ World::World(int mapWidth, int mapHeight) :
 
 /// \brief Must add given object to the world
 void World::addObject(WorldRef * obj){
-  const FlatHexPosition & pos((**obj).pos());
+  const WorldObject::Position & pos((**obj).pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
@@ -59,7 +61,7 @@ void World::removeObject(WorldRef * obj) {
 }
 
 /// \brief Must return tile content at given pos, or null if empty
-const Tile::Content * World::getContentAt(const FlatHexPosition & pos) const {
+const Tile::Content * World::getContentAt(const WorldObject::Position & pos) const {
   auto itr(_map.find(pos));
   if (itr != _map.end()){
     return &itr->second.getContent();
@@ -68,8 +70,14 @@ const Tile::Content * World::getContentAt(const FlatHexPosition & pos) const {
 }
 
 /// \brief Must return true if given pos is on the map
-bool World::isOnMap(const FlatHexPosition & pos) const {
-  FlatHexPosition off(pos.tile().convertTo(FlatHexPosition::OddQOffset));
+bool World::isOnMap(const WorldObject::Position & pos) const {
+  hex::Grid grd(hex::toGrid(pos));
+  // Easy case
+  if (0 < grd._x && 0 < grd._y 
+    && grd._x < _mapWidth*4 && grd._y < _mapHeight*2) {
+    return true;
+  }
+  hex::OddQ off(hex::toOddQ(pos.tile()));
   return 0 <= off._x && 0 <= off._y 
       && off._x < _mapWidth
       && off._y < _mapHeight;

@@ -29,8 +29,11 @@
 #include "entity/peon/Peon.h"
 
 /// Constructor
-PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) : 
+PeonRenderer::PeonRenderer(
+    std::unique_ptr<SpriteSheet> s, 
+    std::unique_ptr<SpriteSheet> m) : 
   _sheet(std::move(s)),
+  _mask(std::move(m)),
   _targets()
 {
   
@@ -40,7 +43,7 @@ PeonRenderer::PeonRenderer(std::unique_ptr<SpriteSheet> s) :
 int PeonRenderer::renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
-    const HexViewport & view,
+    const hex::Viewport & view,
     SDL_Renderer *rdr) 
 {
   const Peon & peon(static_cast<const Peon &>(**obj));
@@ -52,6 +55,28 @@ int PeonRenderer::renderAt(
   r.x = x - r.w / 2;
   r.y = y - r.h;
   return _sheet->renderFrame(frame, ori, rdr, &r);
+}
+
+/// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
+int PeonRenderer::renderAt(
+    const WorldRef * obj, 
+    int ori, int x, int y,
+    const hex::Viewport & view,
+    SDL_Renderer *rdr,
+    const SDL_Color & c) 
+{
+  const Peon & peon(static_cast<const Peon &>(**obj));
+  int frame = peon.hasOrders() ? _targets.at(obj).update() : _targets.at(obj).restart();
+  ori = (ori + 6 - peon.direction().orientation()) % 6;
+  SDL_Rect r;
+  r.w = _mask->width();
+  r.h = _mask->height();
+  r.x = x - r.w / 2;
+  r.y = y - r.h;
+  if (int err = _mask->setColorMod(c)) {
+    return err;
+  }
+  return _mask->renderFrame(frame, ori, rdr, &r);
 }
 
 /// \brief Called when a new object associated with this renderer is created

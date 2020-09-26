@@ -25,7 +25,7 @@
 #ifndef WORLDOBJECT_H
 #define WORLDOBJECT_H
 
-#include "utils/hex/HexCoords.h"
+#include "utils/hex/Axial.h"
 
 /// \brief Base polymorphic object for things on the map
 /// Each object is caracterized by a position and a pseudo hitbox
@@ -40,11 +40,13 @@ public:
     SHollow, ///< Utility objects that don't occupy space
   };
   
+  typedef hex::Axial Position;
+  
 private:
   
-  FlatHexPosition _pos;     ///< Object's position
-  Size            _size;    ///< Object's size
-  float           _radius;  ///< Hitbox radius for small objects
+  Position _pos;     ///< Object's position
+  Size     _size;    ///< Object's size
+  float    _radius;  ///< Hitbox radius for small objects
   
 public:
   
@@ -58,9 +60,9 @@ public:
   virtual ~WorldObject() = default;
   
   /// \brief return object's position
-  const FlatHexPosition & pos() const;
+  const Position & pos() const;
   /// \brief set object's position
-  void pos(const FlatHexPosition & pos);
+  void pos(const Position & pos);
   
   /// \brief return object's size class
   Size sizeClass() const;
@@ -70,7 +72,7 @@ public:
   /// \brief Method that must return true obj collides this object
   virtual bool collide(const WorldObject & obj) const;
   /// \brief Method that return true if pos is in this object
-  virtual bool collide(const FlatHexPosition & pos) const;
+  virtual bool collide(const Position & pos) const;
   
 public:
   

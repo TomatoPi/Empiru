@@ -26,7 +26,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "utils/hex/HexViewport.h"
+#include "utils/hex/Viewport.h"
 #include "SDL2/SDL.h"
 
 #include "utils/log.h"
@@ -57,8 +57,8 @@ int main(int argc, char** argv) {
     return 0;
   }
   
-  HexViewport camera(
-    HexViewport::HEXAGON_WIDTH, HexViewport::HEXAGON_HEIGHT,
+  hex::Viewport camera(
+    hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     WIDTH, HEIGHT);
   
   SDL_Rect rect;
@@ -70,9 +70,9 @@ int main(int argc, char** argv) {
     
     for (rect.x = 0; rect.x < WIDTH; ++rect.x) {
       for (rect.y = 0; rect.y < HEIGHT; ++rect.y) {
-        FlatHexPosition pos;
+        hex::Axial pos;
         camera.fromPixel(rect.x, rect.y, &pos);
-        pos.toTile();
+        pos = pos.tile();
         int r = ((int)pos._x * 10) % 256;
         int g = (((int)pos._y + 5) * 17) % 256;
         int b = (((int)pos._x ^ ((int)pos._y << 3)) * 30) % 256;
@@ -95,27 +95,25 @@ int main(int argc, char** argv) {
         return EXIT_SUCCESS;
       } else if (e.type == SDL_MOUSEBUTTONDOWN) {
         if (e.button.button == SDL_BUTTON_MIDDLE) {
-          FlatHexPosition pos, tile;
-          HCHasher hash;
+          hex::Axial pos, tile;
+          hex::Axial::TileHasher hash;
           camera.fromPixel(e.button.x, e.button.y, &pos);
-          pos.convertTo(FlatHexPosition::Axial);
-          tile = pos;
-          tile.toTile();
+          tile = pos.tile();
           int x(rr(pos._x)), y(rr(pos._y));
           float xx = pos._x - x, yy = pos._y - y;
           float u = xx + 2*yy, v = 2*xx + yy, w = yy - xx;
-          LOG_INFO("Clic : (%d,%d) -> %s\n", e.button.x, e.button.y, pos.toString().c_str());
+          LOG_INFO("Clic : (%d,%d) -> (%f,%f)\n", e.button.x, e.button.y, pos._x, pos._y);
           LOG_INFO("%d,%f  %d,%f  %f %f %f\n", x, xx, y, yy, u, v, w);
-          LOG_INFO("Round : %s\n", tile.toString().c_str());
+          LOG_INFO("Round : %f,%f\n", tile._x, tile._y);
           LOG_INFO("Hash  : %lu\n", hash(pos));
           LOG_INFO("\n");
         }
         else if (e.button.button == SDL_BUTTON_LEFT) {
-          camera.rotation(camera.rotation() * HexViewport::ROTATE_LEFT);
+          camera.rotation(camera.rotation() * hex::RMatrix_C60A);
           break;
         }
         else if (e.button.button == SDL_BUTTON_RIGHT) {
-          camera.rotation(camera.rotation() * HexViewport::ROTATE_RIGHT);
+          camera.rotation(camera.rotation() * hex::RMatrix_CC60A);
           break;
         }
       }

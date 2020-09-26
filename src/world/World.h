@@ -36,7 +36,12 @@ class World : public WorldInterface {
 private :
   
   /// \brief Hollow Matrix
-  typedef std::unordered_map<FlatHexPosition,Tile,HCHasher,HCEquals> ObjList;
+  typedef std::unordered_map<
+      WorldObject::Position,
+      Tile,
+      hex::Axial::TileHasher,
+      hex::Axial::TileEquals> 
+    ObjList;
   
   int _mapWidth;  ///< Horizontal tile count
   int _mapHeight; ///< Verical tile count
@@ -55,10 +60,10 @@ public :
   virtual void removeObject(WorldRef * obj);
   
   /// \brief Must return tile content at given pos, or null if empty
-  virtual const Tile::Content * getContentAt(const FlatHexPosition & pos) const;
+  virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const;
   
   /// \brief Must return true if given pos is on the map
-  virtual bool isOnMap(const FlatHexPosition & pos) const;
+  virtual bool isOnMap(const WorldObject::Position & pos) const;
 };
 
 #endif /* WORLD_H*/

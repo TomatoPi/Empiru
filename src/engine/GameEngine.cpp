@@ -26,7 +26,7 @@
 #include <cassert>
 
 #include "GameEngine.h"
-#include "utils/hex/HexConsts.h"
+#include "utils/hex/Consts.h"
 
 /// \brief Contructor
 GameEngine::GameEngine(WorldInterface & w) : 

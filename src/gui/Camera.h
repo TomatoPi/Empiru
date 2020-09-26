@@ -26,18 +26,18 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "utils/hex/HexViewport.h"
+#include "utils/hex/Viewport.h"
 #include "utils/gui/view/AbstractCamera.h"
 
 /// \brief Effective implementation of in-game camera
-class Camera : public AbstractCamera, public HexViewport {
+class Camera : public AbstractCamera, public hex::Viewport {
 private:
   
   int _worldWidth;  ///< World's width in tile count
   int _worldHeight; ///< World height in tile count
   
-  FlatHexPosition _vx; ///< Camera's motion X vector
-  FlatHexPosition _vy; ///< Camera's motion Y vector
+  hex::Axial _vx; ///< Camera's motion X vector
+  hex::Axial _vy; ///< Camera's motion Y vector
   
 public:
   

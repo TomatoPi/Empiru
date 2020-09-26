@@ -37,7 +37,7 @@ public:
   virtual int renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
-    const HexViewport & view,
+    const hex::Viewport & view,
     SDL_Renderer *rdr);
   
   /// \brief Called when a new object associated with this renderer is created

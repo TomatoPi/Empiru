@@ -26,8 +26,7 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
-#include "world/World.h"
-#include "entity/peon/Peon.h"
+#include "utils/world/WorldInterface.h"
 #include "utils/world/WorldRef.h"
 #include "utils/engine/Allocator.h"
 #include "utils/engine/Behaviourer.h"

@@ -30,21 +30,23 @@
 #include <SDL2/SDL_events.h>
 
 #include "utils/gui/view/AbstractCamera.h"
-#include "utils/hex/HexViewport.h"
+#include "utils/hex/Viewport.h"
 #include "controller/Controller.h"
 
 /// \brief Wrapper object for SDL_Events handling
 class SDLHandler {
 private:
   
-  AbstractCamera    &_camera;    ///< Worldview controller
-  const HexViewport &_worldview; ///< Bridge between userview and controller
-  Controller        &_controller;///< The thing that do things on other things
+  AbstractCamera      &_camera;    ///< Worldview controller
+  const hex::Viewport &_worldview; ///< Bridge between userview and controller
+  Controller          &_controller;///< The thing that do things on other things
+  RenderingEngine     &_rengine;
+  Window &            _window;
   
 public:
   
   /// \brief Constructor
-  SDLHandler(AbstractCamera & c, const HexViewport & w, Controller & e);
+  SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e, RenderingEngine & rdr, Window & win);
   
   /// \brief Core SDLHandler's function, process all events availables
   bool handleSDLEvents();

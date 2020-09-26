@@ -16,11 +16,27 @@
  */
 
 /// 
-/// \file   Math.cpp
+/// \file   OddQ.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 06:41
+/// \date 22 septembre 2020, 22:33
 ///
 
-#include "Math.h"
+#ifndef ODDQ_H
+#define ODDQ_H
+
+#include "utils/math/Vector.h"
+
+namespace hex {
+ 
+  struct OddQ : public math::Vector<float> {
+    
+    OddQ();
+    OddQ(const float & x, const float & y);
+    OddQ(const math::Vector<float> & v);
+    
+  };
+}
+
+#endif /* ODDQ_H */
 

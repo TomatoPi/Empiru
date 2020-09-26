@@ -69,7 +69,7 @@ bool Peon::canHarvest(Stack::Ressource type) const {
 }
 
 /// \brief Return current peon's orientation
-const FlatHexPosition & Peon::direction() const {
+const hex::Axial & Peon::direction() const {
   return _dir;
 }
 
@@ -89,7 +89,7 @@ void Peon::addOrder(const Order & order) {
 /// \brief set dir according to top step
 void Peon::beginOrder() {
   assert(hasOrders());
-  _dir = FlatHexPosition(this->pos(), _todo.front().targetPos()).toUnit();
+  _dir = hex::Axial(_todo.front().targetPos() - this->pos()).toUnit();
   switch(_todo.front().type()) {
   case Order::MoveTo :
     _delay = 1;

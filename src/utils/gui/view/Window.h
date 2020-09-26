@@ -35,6 +35,9 @@ public:
   
   SDL_Window* window; ///< The window
   SDL_Renderer* renderer; ///< The default renderer
+  
+  SDL_Surface * vsurface;   ///< Virtual drawing surface
+  SDL_Renderer * vrenderer; ///< Renderer associated with vsurface
 
   int width;  ///< Window's width
   int height; ///< Window's height
@@ -56,7 +59,9 @@ public:
 private:
   
   /// \brief Constructor
-  Window(SDL_Window *window, SDL_Renderer *renderer, int w, int h);
+  Window(SDL_Window *window, SDL_Renderer *renderer, 
+          SDL_Surface * vs, SDL_Renderer * vr, 
+          int w, int h);
 };
 
 #endif /* WINDOW_H */
