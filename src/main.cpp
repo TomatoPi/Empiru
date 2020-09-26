@@ -58,6 +58,8 @@
 #include "entity/peon/PeonBehaviour.h"
 #include "utils/sound/SoundAsset.h"
 
+#include "generator/ZoneGenerator.h"
+
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
 #define AVGFRAME  (2000)            ///< Interval between FPS prompt (ms)
@@ -67,7 +69,7 @@
 
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
-
+  
   Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
   auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
   auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
@@ -82,6 +84,8 @@ int main(int argc, char** argv) {
   
   auto houseSprite = SpriteAsset::loadFromFile("medias/build/house_tower/sprite_house_tower.png", window->renderer);
   auto houseMask = SpriteAsset::loadFromFile("medias/sprite_house_tower_mask.png", window->vrenderer);
+  
+  
   
   World map(SIZE,SIZE);
   GameEngine game(map);
@@ -157,6 +161,27 @@ int main(int argc, char** argv) {
   (**tree).pos(hex::Axial(1.3, 1.5));
   rdr.addTarget(tree);
   map.addObject(tree);
+  
+  /* ------------------------------------------------- */
+  
+  ZoneGenerator zone;
+  
+  zone.createZone(3);
+  zone.addObject();
+  
+  for (auto obj : zone.objects()){
+    LOG_DEBUG("object : %f %f\n",obj._x,obj._y);
+    tree = game.createObject(typeid(Tree));
+    (**tree).pos(obj);
+    prdr.addTarget(tree);
+    map.addObject(tree);
+  }
+  
+  for (auto vertex : zone.vertexs()){
+    LOG_DEBUG("vertex : %f %f\n",vertex._x,vertex._y);
+  }
+   
+  /* ------------------------------------------------- */
   
   WorldRef *rock(game.createObject(typeid(Rock)));
   (**rock).pos(hex::Axial(0, 2));

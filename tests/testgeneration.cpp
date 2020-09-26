@@ -16,25 +16,27 @@
  */
 
 /* 
- * File:   ProceduralGenerator.h
+ * File:   testgeneration.cpp
  * Author: Alexis
  *
- * Created on 20 septembre 2020, 16:44
+ * Created on 20 septembre 2020, 16:30
  */
 
-#ifndef PROCEDURALGENERATOR_H
-#define PROCEDURALGENERATOR_H
+#include <stdlib.h>
+#include <iostream>
 
-#include "ZoneGenerator.h"
+#include "utils/log.h"
 
-class ProceduralGenerator {
-public:
-  ProceduralGenerator();
+/*
+ * Simple C++ Test Suite
+ */
+
+
+
+int main(int argc, char* argv[]) {
   
+  LOG_DEBUG("Test generation\n");
   
-private:
-  typedef std::vector<ZoneGenerator> ZoneList;
-};
+  return (EXIT_SUCCESS);
+}
 
-
-#endif /* PROCEDURALGENERATOR_H */

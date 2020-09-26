@@ -136,8 +136,6 @@
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
-      <itemPath>src/generator/ProceduralGenerator.cpp</itemPath>
-      <itemPath>src/generator/ProceduralGenerator.h</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -340,16 +338,6 @@
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/generator/ProceduralGenerator.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/generator/ProceduralGenerator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -639,16 +627,6 @@
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/generator/ProceduralGenerator.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/generator/ProceduralGenerator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -931,16 +909,6 @@
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/generator/ProceduralGenerator.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/generator/ProceduralGenerator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1225,16 +1193,6 @@
       <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/generator/ProceduralGenerator.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/generator/ProceduralGenerator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>

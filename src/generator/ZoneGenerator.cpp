@@ -23,6 +23,7 @@
  */
 
 #include "ZoneGenerator.h"
+#include "world/World.h"
 #include <random>
 #include <algorithm>
 
@@ -35,33 +36,53 @@ void ZoneGenerator::createZone(int size) {
     hex::Axial position = hex::Axial((rand()%8),(rand()%8));
     _vertexs.push_back(position);
   }
-}
-
-void ZoneGenerator::addObject() {
-  int nb_object = rand()%20;
   
-  auto res = std::minmax_element(_vertexs.begin(), _vertexs.end(),
+  std::sort(_vertexs.begin(), _vertexs.end(), 
   [&]
   (const hex::Axial & a, const hex::Axial & b) -> bool {
     return a._x < b._x;
   });
-  /*
+  
+}
+
+void ZoneGenerator::addObject() {
+  int nb_object = 20;
+  float xRand,yRand;
+  float y1,y2;
+  
   std::default_random_engine generator;
-  std::uniform_real_distribution<float> distribution(res.first,res.second);
   
   for (int i = 0 ; i < nb_object ; i++){
-    FlatHexPosition position = FlatHexPosition(distribution(generator), ...
-        ,FlatHexPosition::Axial);
-    // /!\ aux doublons
-    _objects.push_back(position);
+    std::uniform_real_distribution<float> distribution(_vertexs.front()._x
+      ,_vertexs.back()._x);
+    xRand = distribution(generator);
+
+    y1 = calculateY(_vertexs.front(),_vertexs.back(),xRand);
+
+    if ((_vertexs.front()._x < xRand) && (xRand < _vertexs[1]._x)){
+      y2 = calculateY(_vertexs.front(),_vertexs[1],xRand);
+    }
+    if ((_vertexs[1]._x < xRand) && (xRand < _vertexs.back()._x)) {
+      y2 = calculateY(_vertexs[1],_vertexs.back(),xRand);
+    }
+
+    if (y1 < y2){
+      std::uniform_real_distribution<float> distribution2(y1,y2);
+      yRand = distribution2(generator);
+    }
+    else {
+      std::uniform_real_distribution<float> distribution2(y2,y1);
+      yRand = distribution2(generator);
+    }
     
+    hex::Axial position = hex::Axial(xRand,yRand);
+    _objects.push_back(position);
   }
-   */
 }
 
 
 float ZoneGenerator::calculateY(hex::Axial posA, hex::Axial posB, float xC){
-  float y,x,a,b,c;
+  float y,a,b,c;
   
   b = -(posB._x - posA._x);
   a = posB._y - posA._y;
@@ -69,4 +90,13 @@ float ZoneGenerator::calculateY(hex::Axial posA, hex::Axial posB, float xC){
   y = (-(a * xC + c)) / b;
 
   return y;
+}
+
+
+ZoneGenerator::Zone ZoneGenerator::objects(){
+  return _objects;
+}
+
+ZoneGenerator::Zone ZoneGenerator::vertexs(){
+  return _vertexs;
 }

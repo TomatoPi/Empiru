@@ -40,7 +40,7 @@ class ControllerState {
     WorldRef * _selectedPeon;     ///< Obvious
     WorldRef * _selectionTracker; ///< SelectedPeon tracking curent selection
     
-    WorldInterface & _world;        ///< THA WORLDOOOOO
+    WorldInterface &  _world;       ///< THA WORLDOOOOO
     GameEngine &      _gameEngine;  ///< Main engine
     RenderingEngine & _rdrEngine;   ///< Renderer
   
