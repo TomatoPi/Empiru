@@ -16,35 +16,38 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   ControllerEvents.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 27 septembre 2020, 12:56
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef CONTROLLEREVENTS_H
+#define CONTROLLEREVENTS_H
 
+#include "utils/world/WorldRef.h"
 #include "utils/engine/Observer.h"
-#include "utils/world/WorldInterface.h"
 
-/// \brief Main handler for user control
-class Controller : public Subject {
-private:
-  
-  WorldRef *       _selection;  ///< The selected Object
-  WorldInterface & _world;      ///< THA WORLDOOOOO
-  
+struct EventObjectSelected : public Event {
 public:
-  
-  /// \brief Constructor
-  Controller(WorldInterface & w) noexcept;
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
-  /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position & click, WorldRef *obj);
+  WorldRef *_obj;
+  EventObjectSelected(WorldRef *obj) noexcept : _obj(obj) {}
 };
 
-#endif /* CONTROLLER_H */
+struct EventObjectDeselected : public Event {
+public:
+  WorldRef *_obj;
+  EventObjectDeselected(WorldRef *obj) noexcept : _obj(obj) {}
+};
+
+struct EventObjectAction : public Event {
+public:
+  WorldRef * _obj;
+  WorldRef * _target;
+  EventObjectAction(WorldRef *obj, WorldRef *target) noexcept :
+    _obj(obj), _target(target)
+  {}
+};
+
+#endif /* CONTROLLEREVENTS_H */
+

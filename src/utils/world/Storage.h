@@ -62,6 +62,10 @@ public:
     }
   }
   
+  bool canStore(Stack::Ressource type) const noexcept {
+    return true;
+  }
+  
   /// \brief Debug method
   std::string content_str() const noexcept {
     std::string res;

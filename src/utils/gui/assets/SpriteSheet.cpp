@@ -27,6 +27,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_rwops.h>
 #include <SDL2/SDL_surface.h>
+#include <stdexcept>
 
 #include "SpriteSheet.h"
 
@@ -70,36 +71,30 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
     unsigned int cols,
     SDL_Renderer *rdr) 
 {
-  SDL_Surface *surface;
-  SDL_Texture *texture;
-  SDL_RWops   *rwop;
   /* assertions */
   assert(path);
   assert(rdr);
-  /* load the file */
-  if (nullptr == (rwop = SDL_RWFromFile(path, "rb"))) {
-    LOG_WRN("%s : %s\n", path, SDL_GetError());
-    return nullptr;
-  }
-  if (nullptr == (surface = IMG_Load_RW(rwop, 1))) {
-    LOG_WRN("%s : %s\n", path, IMG_GetError());
-    return nullptr;
-  }
-  /* transform image to texture */
-  if (nullptr == (texture = SDL_CreateTextureFromSurface(rdr, surface))) {
-    LOG_WRN("%s : %s\n", path, SDL_GetError());
+  /* tmp objects */
+  SDL_Surface *surface(nullptr);
+  SDL_Texture *texture(nullptr);
+  try {
+    /* load the file */
+    if (nullptr == (surface = IMG_Load(path))) {
+      throw std::runtime_error(IMG_GetError());
+    }
+    /* transform image to texture */
+    if (nullptr == (texture = SDL_CreateTextureFromSurface(rdr, surface))) {
+      throw std::runtime_error(SDL_GetError());
+    }
     SDL_FreeSurface(surface);
-    return nullptr;
+    /* create the sheet and cut it according to wanted dimensions */
+    auto sprite(std::make_unique<SpriteSheet>(texture, 1, 1, rows, cols));
+    sprite->recut(rows, cols);
+    return sprite;
+  } catch (const std::exception & e) {
+    LOG_WRN("%s : %s\n", path, e.what());
+    throw;
   }
-  SDL_FreeSurface(surface);
-  /* create the sheet and cut it according to wanted dimensions */
-  auto sprite(std::make_unique<SpriteSheet>(texture, 1, 1, rows, cols));
-  if (sprite->recut(rows, cols)) {
-    sprite.reset();
-    return nullptr;
-  }
-  /* done */
-  return sprite;
 }
 
 /// \brief Render the sprite in given SDL_Rect
@@ -109,25 +104,29 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
 /// \param rdr  : the thing that draw things
 /// \param dest : the destination blit rectangle
 ///
-/// \return 0 on success, otherwise error code and SDL_error is set
-int SpriteSheet::renderFrame(
+/// \throw runtime_error on failure
+void SpriteSheet::renderFrame(
   unsigned int row,
   unsigned int col,
   SDL_Renderer *rdr,
   const SDL_Rect *dest)
-noexcept
 {
   assert(rdr);
   assert(row < _rows);
   assert(col < _cols);
   SDL_Rect rect;
   rect.w = _w, rect.h = _h, rect.x = col * _w, rect.y = row * _h;
-  return SDL_RenderCopy(rdr, _sheet, &rect, dest);
+  if (SDL_RenderCopy(rdr, _sheet, &rect, dest)) {
+    throw std::runtime_error(SDL_GetError());
+  }
 }
 
 /// \brief Change color of the sprite
-int SpriteSheet::setColorMod(const SDL_Color & c) noexcept {
-  return SDL_SetTextureColorMod(_sheet, c.r, c.g, c.b);
+/// \throw runtime_error on failure
+void SpriteSheet::setColorMod(const SDL_Color & c) {
+  if (SDL_SetTextureColorMod(_sheet, c.r, c.g, c.b)) {
+    throw std::runtime_error(SDL_GetError());
+  }
 }
 
 /// \brief return sprite's width
@@ -149,19 +148,17 @@ unsigned int SpriteSheet::rowCount() const noexcept {
 }
 
 /// \brief change number of frames by rows and by columns on the sheet
-/// \return 0 on success, <0 error code on failure, >0 code if ill formed sheet
-///   anyway the sheet is cut but accessing last (smaller) sprites may cause
-///   undefined behaviour
-int SpriteSheet::recut(unsigned int rows, unsigned int cols) noexcept {
+///   if resulting sheet is ill formed (width%cols != 0 or height%rows != 0)
+///   accessing last (smaller) sprites may cause undefined behaviour
+/// \throw runtime_error on failure
+void SpriteSheet::recut(unsigned int rows, unsigned int cols) {
   int width, height;
   if (0 != SDL_QueryTexture(_sheet, nullptr, nullptr, &width, &height)) {
-    LOG_WRN("%s\n", SDL_GetError());
-    return -1;
+    throw std::runtime_error(SDL_GetError());
   }
   if ((width % cols) != 0 || (height % rows) != 0) {
     LOG_WRN("Ill formed Sprite Sheet ... inequals sprites\n");
   }
   width /= cols, height /= rows;
   _w = width, _h = height, _rows = rows, _cols = cols;
-  return 0;
 }

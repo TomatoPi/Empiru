@@ -27,15 +27,16 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_mixer.h>
 
-#include "gui/Camera.h"
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/assets/SpriteAsset.h"
-#include "utils/gui/renderer/GenericRenderer.h"
 #include "utils/gui/view/Window.h"
+#include "gui/Camera.h"
 #include "gui/RenderingEngine.h"
+#include "gui/GenericRenderer.h"
 
 #include "entity/peon/Peon.h"
 #include "entity/peon/PeonRenderer.h"
+#include "entity/peon/PeonBehaviour.h"
 
 #include "entity/tree/Tree.h"
 
@@ -47,16 +48,14 @@
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
-#include "controller/selection/SelectedPeon.h"
-#include "controller/selection/SelectedPeonBehaviour.h"
-#include "controller/selection/SelectedPeonRenderer.h"
 
 #include "engine/GenericAllocator.h"
 #include "engine/GameEngine.h"
 
-#include "utils/log.h"
-#include "entity/peon/PeonBehaviour.h"
 #include "utils/sound/SoundAsset.h"
+#include "utils/sound/SoundEngine.h"
+
+#include "utils/log.h"
 
 #include "generator/ZoneGenerator.h"
 
@@ -67,101 +66,101 @@
 #define SIZE 8    ///< World size (square world)
 #define FACTOR 2  ///< Magic number scalling window size
 
+namespace {
+  
+  struct MoverTo {
+    float x, y;
+    MoverTo(float x, float y) noexcept : x(x), y(y) {}
+    void operator() (WorldRef *ref) const noexcept {
+      (**ref).pos(hex::Axial(x,y));
+    }
+  };
+}
+
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
   
-  Window *window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  auto groundSprite = SpriteAsset::loadFromFile("medias/sol.png", window->renderer);
-  auto peonSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation.png", window->renderer);
-  auto peonMask = SpriteAsset::loadFromFile("medias/peon_palette_animation_mask.png", window->vrenderer);
+  /* Create the World and main engine */
+  WorldMap _worldMap(SIZE,SIZE);
+  Controller _gameController(_worldMap);
+  GameEngine _gameEngine(_worldMap);
   
-  auto selSprite = SpriteAsset::loadFromFile("medias/peon_palette_animation_select.png", window->renderer);
-  auto treeSprite = SpriteAsset::loadFromFile("medias/toufu_tree_palette.png", window->renderer);
-  auto treeMask = SpriteAsset::loadFromFile("medias/toufu_tree_palette_mask.png", window->vrenderer);
-  
-  auto rockSprite = SpriteAsset::loadFromFile("medias/palette_roche_v1.png", window->renderer);
-  auto rockMask = SpriteAsset::loadFromFile("medias/palette_roche_v1_mask.png", window->vrenderer);
-  
-  auto houseSprite = SpriteAsset::loadFromFile("medias/build/house_tower/sprite_house_tower.png", window->renderer);
-  auto houseMask = SpriteAsset::loadFromFile("medias/sprite_house_tower_mask.png", window->vrenderer);
-  
-  
-  
-  World map(SIZE,SIZE);
-  GameEngine game(map);
-  
-  game.addObjectKind(typeid(Peon), new GenericAllocator<Peon>());
-  game.attachBehaviour(typeid(Peon), new PeonBehaviour());
-  
-  game.addObjectKind(typeid(SelectedPeon), new GenericAllocator<SelectedPeon>());
-  game.attachBehaviour(typeid(SelectedPeon), new SelectedPeonBehav());
-  
-  game.addObjectKind(typeid(Tree), new GenericAllocator<Tree>());
-  
-  game.addObjectKind(typeid(Rock), new GenericAllocator<Rock>());
-  
-  game.addObjectKind(typeid(House), new GenericAllocator<House>());
-  
-  Camera camera(
+  /* Create the UI */
+  Window *_window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
+  Camera _camera(
     hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
-    window->width, window->height,
+    _window->width, _window->height,
     SIZE, SIZE);
+  RenderingEngine _rdrEngine(*_window, _camera, _camera, _worldMap);
+  SDLHandler _sdlHandler(_camera, _camera, _gameController, _rdrEngine);
   
-  GenericRenderer<OnTileBlitter> tilerdr(std::move(groundSprite), nullptr);
-  GenericRenderer<OnFootBlitter> treerdr(std::move(treeSprite), std::move(treeMask));
-  GenericRenderer<OnFootBlitter> rockrdr(std::move(rockSprite), std::move(rockMask));
-  PeonRenderer prdr(std::move(peonSprite), std::move(peonMask));
-  SelectedPeonRenderer selrdr(std::move(selSprite));
-  GenericRenderer<OnTileBlitter> houserdr(std::move(houseSprite), std::move(houseMask));
+  /* Create the sound Engine */
+  SoundEngine *_soundEngine(SoundEngine::create());
   
-  camera.target(hex::Axial(0,0));
+  /* Setup things and Attach the Engines together */
+  _camera.target(hex::Axial(0,0));
   
-  RenderingEngine rdr(*window, camera, camera, map);
-  rdr.attachRenderer(typeid(Tile), tilerdr);
-  rdr.attachRenderer(typeid(Peon), prdr);
-  rdr.attachRenderer(typeid(SelectedPeon), selrdr);
-  rdr.attachRenderer(typeid(Tree), treerdr);
-  rdr.attachRenderer(typeid(Rock), rockrdr);
-  rdr.attachRenderer(typeid(House), houserdr);
+  _gameController.attachObserver(&_rdrEngine);
+  _gameController.attachObserver(_soundEngine);
   
-  SoundEngine *sounder(SoundEngine::create());
+  _gameEngine.attachObserver(&_rdrEngine);
   
-  auto selectPeonSound = SoundAsset::loadFromFiles("medias/sounds/peons/peon-", ".ogg", 3);
+  /* Register basic kinds */
   
-  sounder->registerSound(std::move(selectPeonSound));
-  
-  Controller controller(map, game, rdr, *sounder);
-  SDLHandler handler(camera, camera, controller, rdr, *window);
+  { /* tile */
+    _rdrEngine.attachRenderer(typeid(Tile), new GenericRenderer<OnTileBlitter>(
+        "medias/sprites/land/ground_sheet.png", 
+        _window->renderer));
+  }
+  { /* peon */
+    PeonRenderer::SheetsPaths paths;
+    paths.peon_sheet = "medias/sprites/entity/peon/peon_sheet.png";
+    paths.mask_sheet = "medias/sprites/entity/peon/peon_mask.png";
+    paths.select_sheet = "medias/sprites/entity/peon/peon_select.png";
+    
+    _gameEngine.registerObjectKind(typeid(Peon), new GenericAllocator<Peon>());
+    _gameEngine.attachBehaviour(typeid(Peon), new PeonBehaviour());
+    _rdrEngine.attachRenderer(typeid(Peon), 
+        new PeonRenderer(paths, _window->renderer, _window->vrenderer));
+    _soundEngine->registerSound(SoundAsset::loadFromFiles(
+        "medias/sounds/peons/peon-", ".ogg", 3));
+  }
+  { /* Tree */
+    _gameEngine.registerObjectKind(typeid(Tree), new GenericAllocator<Tree>());
+    _rdrEngine.attachRenderer(typeid(Tree), new GenericRenderer<OnFootBlitter>(
+        "medias/sprites/land/toufu_sheet.png",
+        "medias/sprites/land/toufu_mask.png",
+        _window->renderer, _window->vrenderer));
+  }
+  { /* Rocks */
+    _gameEngine.registerObjectKind(typeid(Rock), new GenericAllocator<Rock>());
+    _rdrEngine.attachRenderer(typeid(Rock), new GenericRenderer<OnFootBlitter>(
+        "medias/sprites/land/rock_sheet.png",
+        "medias/sprites/land/rock_mask.png",
+        _window->renderer, _window->vrenderer));
+  }
+  { /* House */
+    _gameEngine.registerObjectKind(typeid(House), new GenericAllocator<House>());
+    _rdrEngine.attachRenderer(typeid(House), new GenericRenderer<OnTileBlitter>(
+        "medias/sprites/buildings/house_sheet.png",
+        "medias/sprites/buildings/house_mask.png",
+        _window->renderer, _window->vrenderer));
+  }
   
   /* Manualy populate world */
   
-  WorldRef *peon(game.createObject(typeid(Peon)));
-  (**peon).pos(hex::Axial(0, 0));
-  rdr.addTarget(peon);
-  map.addObject(peon);
+  _gameEngine.createObject(typeid(Peon), MoverTo(0,0));
+  _gameEngine.createObject(typeid(Peon), MoverTo(2,2));
   
-  peon = game.createObject(typeid(Peon));
-  (**peon).pos(hex::Axial(2, 2));
-  rdr.addTarget(peon);
-  map.addObject(peon);
+  _gameEngine.createObject(typeid(Tree), MoverTo(1,1));
+  _gameEngine.createObject(typeid(Tree), MoverTo(1.6,1));
+  _gameEngine.createObject(typeid(Tree), MoverTo(2.6,1));
+  _gameEngine.createObject(typeid(Tree), MoverTo(1.3,1.5));
   
-  WorldRef *tree(game.createObject(typeid(Tree)));
-  (**tree).pos(hex::Axial(1, 1));
-  rdr.addTarget(tree);
-  map.addObject(tree);
-  tree = game.createObject(typeid(Tree));
-  (**tree).pos(hex::Axial(1.6, 1));
-  rdr.addTarget(tree);
-  map.addObject(tree);
-  tree = game.createObject(typeid(Tree));
-  (**tree).pos(hex::Axial(2.6, 1));
-  rdr.addTarget(tree);
-  map.addObject(tree);
-  tree = game.createObject(typeid(Tree));
-  (**tree).pos(hex::Axial(1.3, 1.5));
-  rdr.addTarget(tree);
-  map.addObject(tree);
+  _gameEngine.createObject(typeid(Rock), MoverTo(0,2));
   
+  _gameEngine.createObject(typeid(House), MoverTo(3,2));
+ 
   /* ------------------------------------------------- */
   
   ZoneGenerator zone;
@@ -171,10 +170,8 @@ int main(int argc, char** argv) {
   
   for (auto obj : zone.objects()){
     LOG_DEBUG("object : %f %f\n",obj._x,obj._y);
-    tree = game.createObject(typeid(Tree));
-    (**tree).pos(obj);
-    prdr.addTarget(tree);
-    map.addObject(tree);
+    MoverTo mover(obj._x, obj._y);
+    _gameEngine.createObject(typeid(Tree), mover);
   }
   
   for (auto vertex : zone.vertexs()){
@@ -182,17 +179,6 @@ int main(int argc, char** argv) {
   }
    
   /* ------------------------------------------------- */
-  
-  WorldRef *rock(game.createObject(typeid(Rock)));
-  (**rock).pos(hex::Axial(0, 2));
-  rdr.addTarget(rock);
-  map.addObject(rock);
-  
-  
-  WorldRef *house(game.createObject(typeid(House)));
-  (**house).pos(hex::Axial(3, 2));
-  rdr.addTarget(house);
-  map.addObject(house);
   
   /* Main loop */
 
@@ -202,15 +188,15 @@ int main(int argc, char** argv) {
     
     tickStartTime = SDL_GetTicks();
     
-    if (!handler.handleSDLEvents()) break;
+    if (!_sdlHandler.handleSDLEvents()) break;
     
-    camera.update();
-    game.update();
+    _camera.update();
+    _gameEngine.update();
 
-    window->clear();
+    _window->clear();
     //*
-    rdr.render();
-    window->update();
+    _rdrEngine.render();
+    _window->update();
     //*/
     /*
     rdr.drawPixelPerfectZones();
@@ -250,7 +236,7 @@ int main(int argc, char** argv) {
     }
   }
   
-  delete window;
+  delete _window;
   //*
   //*/
   

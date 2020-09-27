@@ -16,30 +16,10 @@
  */
 
 /// 
-/// \file   SpriteAsset.cpp
+/// \file   GameCore.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 15 septembre 2020, 13:41
-/// \brief Utility file for loading and auto cut of sprite sheets
-/// \todo Maybe not useful, might be removed and replaced by a function
-///   to load sheet by specifying sprite dimension
+/// \date 27 septembre 2020, 16:37
 ///
 
-#include "SpriteAsset.h"
-
-/// \brief Load a sheet from given file and auto cut it in 6 colums
-///   and squared sprites
-std::unique_ptr<SpriteSheet> SpriteAsset::loadFromFile(
-  const char *path, 
-  SDL_Renderer *rdr)
-{
-  // Load the sprite
-  auto sheet(SpriteSheet::loadFromFile(path, 1, 1, rdr));
-  if (!sheet) return nullptr;
-  // Recut the sheet
-  int width(sheet->width() / 6), rows;
-  rows = sheet->height() / width;
-  sheet->recut(rows, 6);
-  // done
-  return sheet;
-}
+#include "GameCore.h"

@@ -35,35 +35,49 @@
 /// \brief Renderer assoaciated with peons
 class PeonRenderer : public AbstractRenderer {
 private:
+  
+  struct Datas {
+    Datas() : _anim(7,6), _select(false) {}
+    Animation _anim;
+    bool      _select;
+  };
     
   /// \brief Animation datas are stored for each attached peon
-  typedef std::unordered_map<const WorldRef *, Animation> Targets;
+  typedef std::unordered_map<const WorldRef *, Datas> Targets;
   
   std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
   std::unique_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
+  std::unique_ptr<SpriteSheet> _select;   ///< Overlay when selected
   Targets                      _targets;  ///< Dict of Animation datas
   
 public:
   
-  /// Constructor
-  PeonRenderer(std::unique_ptr<SpriteSheet> s, std::unique_ptr<SpriteSheet> m)  
-  noexcept;
+  /// \brief Struct used to pass args to PeonRenderer Constructor
+  struct SheetsPaths {
+    const char* peon_sheet;   ///< Base selection sheet
+    const char* mask_sheet;   ///< Mask for pixel perfect selection
+    const char* select_sheet; ///< Selection overlay
+  };
+  
+  /// \brief Constructor
+  /// \throw runtime_error on failure
+  PeonRenderer(const SheetsPaths & args, SDL_Renderer *rdr, SDL_Renderer *mrdr);
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-  virtual int renderAt(
+  virtual void renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr) noexcept;
+    SDL_Renderer *rdr);
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
-  virtual int renderAt(
+  virtual void renderAt(
     const WorldRef * obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
-    const SDL_Color & color) noexcept; 
+    const SDL_Color & color); 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
@@ -71,6 +85,12 @@ public:
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
   virtual void removeTarget(const WorldRef *obj) noexcept;
+  /// \brief Called when an object associated with this renderer is selected
+  ///  may remember draw a special overlay around it
+  virtual void targetSelected(const WorldRef * obj);
+  /// \brief Called when an object associated with this renderer is deselected
+  ///  may remember to stop draw special overlay
+  virtual void targetDeselected(const WorldRef * obj);
 };
 
 #endif /* PEONRENDERER_H */

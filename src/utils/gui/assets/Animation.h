@@ -38,12 +38,28 @@ public:
   /// \brief Create an animation
   /// \param length : frames count
   /// \param delay  : frame duration
-  Animation(int length, int delay);
+  Animation(int length, int delay) noexcept :
+    _frame(0), _length(length), _delay(delay), _cptr(0)
+  {}
   
   /// \brief Update animation's counter and return current frame index
-  int update();
+  int update() noexcept {
+    if (++_cptr >= _delay) {
+      _cptr = 0;
+      return _frame = (_frame+1) % _length;
+    }
+    return _frame;
+  }
+  
+  /// \brief Return curent's animation frame
+  int frame() const noexcept {
+    return _frame;
+  }
+  
   /// \brief Reset animation to initial frame and return 0
-  int restart();
+  int restart() noexcept {
+    return _cptr = _frame = 0;
+  }
 };
 
 #endif /* ANIMATION_H */

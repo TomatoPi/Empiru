@@ -30,6 +30,8 @@
 #include "utils/world/WorldRef.h"
 #include "utils/engine/Allocator.h"
 #include "utils/engine/Behaviourer.h"
+#include "utils/engine/Observer.h"
+#include "events/GameEvents.h"
 
 #include <typeinfo>
 #include <typeindex>
@@ -37,7 +39,7 @@
 #include <list>
 
 /// \brief Core object for in-game mechanics
-class GameEngine {
+class GameEngine : public Subject {
 private:
 
   /// \brief Table of storage by objects type
@@ -58,12 +60,18 @@ public:
   GameEngine(WorldInterface & w);
   
   /// \brief Add an object to the game
-  WorldRef * createObject(const std::type_info & type);
+  template <typename Builder>
+  void createObject(const std::type_info & type, const Builder & builder) {
+    WorldRef * obj(_objects.at(std::type_index(type))->createObject());
+    builder(obj);
+    _world.addObject(obj);
+    this->sendNotification(EventObjectCreated(obj));
+  }
   /// \brief Remove an object from the game
   void removeObject(WorldRef * ref);
   
   /// \brief Add an object kind to the gameEngine
-  void addObjectKind(const std::type_info & type, Allocator * alloc);
+  void registerObjectKind(const std::type_info & type, Allocator * alloc);
   /// \brief Add a behaviour for an object Kind.
   ///   Only kinds with behaviour are sweeped during game tick
   ///   Different types are processed in the same order as their addition

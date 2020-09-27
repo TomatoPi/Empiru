@@ -38,17 +38,15 @@ GameEngine::GameEngine(WorldInterface & w) :
   
 }
 
-/// \brief Add an object to the game
-WorldRef * GameEngine::createObject(const std::type_info & type) {
-  return _objects.at(std::type_index(type))->createObject();
-}
 /// \brief Remove an object from the game
 void GameEngine::removeObject(WorldRef * ref) {
+  this->sendNotification(EventObjectDestroyed(ref));
+  _world.removeObject(ref);
   _objects.at(std::type_index(typeid(**ref)))->deleteObject(ref);
 }
 
 /// \brief Add an object kind to the gameEngine
-void GameEngine::addObjectKind(const std::type_info & type, Allocator * alloc) {
+void GameEngine::registerObjectKind(const std::type_info & type, Allocator * alloc) {
   auto res(_objects.emplace(std::type_index(type), alloc));
   assert(res.second);
 }
@@ -64,14 +62,12 @@ void GameEngine::attachBehaviour(const std::type_info & type, Behaviourer * beha
 ///   Call behaviour of each object
 void GameEngine::update() {
   for (auto & type : _priors) {
-    auto beh(_behavs.find(type));
-    auto alloc(_objects.find(type));
-    if (alloc != _objects.end()) {
-      alloc->second->foreach(
-          [&]
-          (WorldObject & obj, WorldRef *ref) -> void {
-            beh->second->tick(obj, ref, _world);
-          });
-    }
+    auto & beh(_behavs.at(type));
+    auto & alloc(_objects.at(type));
+    alloc->foreach(
+        [&]
+        (WorldObject & obj, WorldRef *ref) -> void {
+          beh->tick(obj, ref, _world);
+        });
   }
 }

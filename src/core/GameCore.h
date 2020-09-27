@@ -16,35 +16,29 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   GameCore.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 27 septembre 2020, 16:37
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#define EMPIRU_GAMECORE_H
+#ifndef EMPIRU_GAMECORE_H
+#define EMPIRU_GAMECORE_H
 
-#include "utils/engine/Observer.h"
-#include "utils/world/WorldInterface.h"
-
-/// \brief Main handler for user control
-class Controller : public Subject {
-private:
-  
-  WorldRef *       _selection;  ///< The selected Object
-  WorldInterface & _world;      ///< THA WORLDOOOOO
-  
+struct GameCore {
 public:
   
-  /// \brief Constructor
-  Controller(WorldInterface & w) noexcept;
+  Window window;
+  Camera camera;
   
-  /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
-  /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position & click, WorldRef *obj);
+  WorldMap    worldMap;
+  Controller  gameController;
+  SDLHandler  sdlHandler;
+  
+  GameEngine      gameEngine;
+  RenderingEngine rdrEngine;
+  SoundEngine     soundEngine;
 };
 
-#endif /* CONTROLLER_H */
+#endif /* EMPIRU_GAMECORE_H */

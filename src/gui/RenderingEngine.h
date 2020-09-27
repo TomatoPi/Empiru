@@ -34,29 +34,39 @@
 #include "utils/hex/Viewport.h"
 #include "utils/gui/view/Window.h"
 #include "utils/gui/view/AbstractCamera.h"
+#include "utils/gui/view/PixelPerfectClicker.h"
 #include "utils/gui/renderer/AbstractRenderer.h"
 #include "utils/world/WorldInterface.h"
+#include "utils/engine/Observer.h"
 
 /// \brief Object responsible of Game rendering
-class RenderingEngine {
+class RenderingEngine : public PixelPerfectClicker, public Observer {
 public:
   
   /// \brief Hash an SDL_Color according to its compenents
   struct ColorHasher {
-    std::size_t operator() (const SDL_Color & c) const;
+    std::size_t operator() (const SDL_Color & c) const noexcept {
+      std::size_t r(static_cast<std::size_t>(c.r));
+      std::size_t g(static_cast<std::size_t>(c.g));
+      std::size_t b(static_cast<std::size_t>(c.b));
+      std::size_t a(static_cast<std::size_t>(c.a));
+      return (r << 24) ^ (g << 16) ^ (b << 8) ^ a;
+    }
   };
   struct ColorEquals {
-    bool operator() (const SDL_Color & a, const SDL_Color & b) const;
+    bool operator() (const SDL_Color & a, const SDL_Color & b) const noexcept {
+      return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
+    }
   };
+  
+private:
   
   typedef std::unordered_map<SDL_Color, WorldRef *, ColorHasher, ColorEquals>
   ColorTable;
   
-private:
-  
   /// \brief Table used to make the rendering engine blind on what is in the world
   ///   One must register each kind of object with it associated renderer
-  typedef std::unordered_map<std::type_index, AbstractRenderer&> RendererTable;
+  typedef std::unordered_map<std::type_index, AbstractRenderer*> RendererTable;
   /// \brief Represent a pixel on the screen
   typedef math::Vector<int> Pixel;
   /// \brief List used to store the sorted list of objects beeing drawn 
@@ -73,7 +83,6 @@ private:
   RendererTable _renderers; ///< Table of {ObjectType, Associated renderer}
   DrawStack     _drawstack; ///< Ascending Y sorted list of objects beeing drawn during this frame
   ColorTable    _colors;
-  uint8_t       _r, _g, _b;
   
 public:
   
@@ -83,22 +92,25 @@ public:
       const hex::Viewport &  vp,
       const AbstractCamera & cam,
       const WorldInterface & wo);
+  virtual ~RenderingEngine() noexcept = default;
   
   /// \brief Add a new renderer associated with given WorldObject type
-  void attachRenderer(const std::type_info & info, AbstractRenderer & rdr);
-  
-  /// \brief Add a new target to the rendering engine
-  void addTarget(const WorldRef * obj);
-  /// \brief Remove a target from the rendering engine
-  void removeTarget(const WorldRef * obj);
+  void attachRenderer(const std::type_info & info, AbstractRenderer * rdr);
   
   /// \brief Draw EVERYTHINGS (in the world)
   void render();
-  /// \brief Draw every sized object 
-  void drawPixelPerfectZones();
   
-  /// \brief Return last computed color table
-  const ColorTable & colorTable() const;
+  
+  /// \brief Draw every sized object 
+  virtual void updateClickZones();
+  /// \brief Return object at x,y or nullptr if none
+  virtual WorldRef * objectAt(int x, int y) const noexcept;
+  
+private:
+
+  /// \brief renturn the renderer for specified type 
+  ///   or throw if type not registered
+  AbstractRenderer * getrdr(const WorldRef * obj);
 };
 
 #endif /* RENDERENGINE_H */

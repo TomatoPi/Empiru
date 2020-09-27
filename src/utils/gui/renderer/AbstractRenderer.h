@@ -23,8 +23,8 @@
 /// \brief Skeleton of Rendering objects
 ///
 
-#ifndef ABSTRACTRENDERER_H
-#define ABSTRACTRENDERER_H
+#ifndef GUI_RDR_ABSTRACTRENDERER_H
+#define GUI_RDR_ABSTRACTRENDERER_H
 
 #include "utils/hex/Viewport.h"
 #include "utils/world/WorldRef.h"
@@ -42,12 +42,12 @@ public:
   /// \param y   : object's y position on screen
   /// \param view: rendering viewport
   /// \param rdr : renderer
-  /// \return 0 on success
-  virtual int renderAt(
+  /// \throw runtime_error on failure
+  virtual void renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr) noexcept = 0;
+    SDL_Renderer *rdr) = 0;
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
@@ -58,20 +58,26 @@ public:
   /// \param view  : rendering viewport
   /// \param rdr   : renderer
   /// \param color : color that must be used to draw
-  /// \return 0 on success
-  virtual int renderAt(
+  /// \throw runtime_error on failure
+  virtual void renderAt(
     const WorldRef * obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
-    const SDL_Color & color) noexcept = 0; 
+    const SDL_Color & color) = 0; 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldRef * obj) noexcept = 0;
+  virtual void addTarget(const WorldRef * obj) = 0;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldRef * obj) noexcept = 0;
+  virtual void removeTarget(const WorldRef * obj) = 0;
+  /// \brief Called when an object associated with this renderer is selected
+  ///  may remember draw a special overlay around it
+  virtual void targetSelected(const WorldRef * obj) = 0;
+  /// \brief Called when an object associated with this renderer is deselected
+  ///  may remember to stop draw special overlay
+  virtual void targetDeselected(const WorldRef * obj) = 0;
 };
 
-#endif /* ABSTRACTRENDERER_H */
+#endif /* GUI_RDR_ABSTRACTRENDERER_H */

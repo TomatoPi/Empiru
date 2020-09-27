@@ -15,9 +15,9 @@
         <itemPath>brainstorm/prototype_0</itemPath>
       </logicalFolder>
       <logicalFolder name="medias" displayName="medias" projectFiles="true">
-        <itemPath>medias/peon.png</itemPath>
-        <itemPath>medias/peon_palette_animation.png</itemPath>
-        <itemPath>medias/sol.png</itemPath>
+        <itemPath>medias/sprites/land/ground_sheet.png</itemPath>
+        <itemPath>medias/sprites/raw/misc/peon.png</itemPath>
+        <itemPath>medias/sprites/entity/peon/peon_sheet.png</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -28,20 +28,14 @@
         <itemPath>src/buildings/House.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="controller" projectFiles="true">
-        <logicalFolder name="f1" displayName="selection" projectFiles="true">
-          <itemPath>src/controller/selection/SelectedPeon.cpp</itemPath>
-          <itemPath>src/controller/selection/SelectedPeon.h</itemPath>
-          <itemPath>src/controller/selection/SelectedPeonBehaviour.cpp</itemPath>
-          <itemPath>src/controller/selection/SelectedPeonBehaviour.h</itemPath>
-          <itemPath>src/controller/selection/SelectedPeonRenderer.cpp</itemPath>
-          <itemPath>src/controller/selection/SelectedPeonRenderer.h</itemPath>
-        </logicalFolder>
         <itemPath>src/controller/Controller.cpp</itemPath>
         <itemPath>src/controller/Controller.h</itemPath>
-        <itemPath>src/controller/CtrlState.cpp</itemPath>
-        <itemPath>src/controller/CtrlState.h</itemPath>
         <itemPath>src/controller/SDLHandler.cpp</itemPath>
         <itemPath>src/controller/SDLHandler.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="core" projectFiles="true">
+        <itemPath>src/core/GameCore.cpp</itemPath>
+        <itemPath>src/core/GameCore.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="engine" projectFiles="true">
         <itemPath>src/engine/GameEngine.cpp</itemPath>
@@ -68,9 +62,14 @@
           <itemPath>src/entity/tree/Tree.h</itemPath>
         </logicalFolder>
       </logicalFolder>
+      <logicalFolder name="f6" displayName="events" projectFiles="true">
+        <itemPath>src/events/ControllerEvents.h</itemPath>
+        <itemPath>src/events/GameEvents.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="gui" displayName="gui" projectFiles="true">
         <itemPath>src/gui/Camera.cpp</itemPath>
         <itemPath>src/gui/Camera.h</itemPath>
+        <itemPath>src/gui/GenericRenderer.h</itemPath>
         <itemPath>src/gui/RenderingEngine.cpp</itemPath>
         <itemPath>src/gui/RenderingEngine.h</itemPath>
       </logicalFolder>
@@ -83,7 +82,6 @@
         </logicalFolder>
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
           <logicalFolder name="f3" displayName="assets" projectFiles="true">
-            <itemPath>src/utils/gui/assets/Animation.cpp</itemPath>
             <itemPath>src/utils/gui/assets/Animation.h</itemPath>
             <itemPath>src/utils/gui/assets/SpriteAsset.cpp</itemPath>
             <itemPath>src/utils/gui/assets/SpriteAsset.h</itemPath>
@@ -92,10 +90,10 @@
           </logicalFolder>
           <logicalFolder name="f1" displayName="renderer" projectFiles="true">
             <itemPath>src/utils/gui/renderer/AbstractRenderer.h</itemPath>
-            <itemPath>src/utils/gui/renderer/GenericRenderer.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="view" projectFiles="true">
             <itemPath>src/utils/gui/view/AbstractCamera.h</itemPath>
+            <itemPath>src/utils/gui/view/PixelPerfectClicker.h</itemPath>
             <itemPath>src/utils/gui/view/Window.cpp</itemPath>
             <itemPath>src/utils/gui/view/Window.h</itemPath>
           </logicalFolder>
@@ -250,11 +248,17 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
-      <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/entity/peon/peon_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/land/ground_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/raw/misc/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
       </item>
@@ -272,43 +276,13 @@
       </item>
       <item path="src/controller/Controller.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/CtrlState.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/controller/CtrlState.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -340,6 +314,10 @@
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -347,6 +325,8 @@
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -361,8 +341,6 @@
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -385,12 +363,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.h"
+      <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/view/AbstractCamera.h"
+      <item path="src/utils/gui/view/PixelPerfectClicker.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -540,11 +518,17 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
-      <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/entity/peon/peon_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/land/ground_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/raw/misc/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
       </item>
@@ -562,43 +546,13 @@
       </item>
       <item path="src/controller/Controller.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/CtrlState.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/controller/CtrlState.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -630,6 +584,10 @@
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -637,6 +595,8 @@
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -651,8 +611,6 @@
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -675,12 +633,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.h"
+      <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/view/AbstractCamera.h"
+      <item path="src/utils/gui/view/PixelPerfectClicker.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -825,11 +783,17 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
-      <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/entity/peon/peon_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/land/ground_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/raw/misc/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
       </item>
@@ -847,43 +811,13 @@
       </item>
       <item path="src/controller/Controller.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/CtrlState.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/controller/CtrlState.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -915,6 +849,10 @@
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -922,6 +860,8 @@
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -936,8 +876,6 @@
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -960,12 +898,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.h"
+      <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/view/AbstractCamera.h"
+      <item path="src/utils/gui/view/PixelPerfectClicker.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1111,11 +1049,17 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
-      <item path="medias/peon.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/entity/peon/peon_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/peon_palette_animation.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/land/ground_sheet.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="medias/sol.png" ex="false" tool="3" flavor2="0">
+      <item path="medias/sprites/raw/misc/peon.png" ex="false" tool="3" flavor2="0">
       </item>
       <item path="perf/perf-2020-09-16" ex="false" tool="3" flavor2="0">
       </item>
@@ -1133,43 +1077,13 @@
       </item>
       <item path="src/controller/Controller.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/CtrlState.cpp" ex="false" tool="1" flavor2="11">
-      </item>
-      <item path="src/controller/CtrlState.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/controller/SDLHandler.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/controller/SDLHandler.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/controller/selection/SelectedPeon.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/controller/selection/SelectedPeonRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>
@@ -1201,6 +1115,10 @@
       </item>
       <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -1208,6 +1126,8 @@
       <item path="src/gui/Camera.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/gui/Camera.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gui/GenericRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gui/RenderingEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>
@@ -1222,8 +1142,6 @@
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1246,12 +1164,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/renderer/GenericRenderer.h"
+      <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/view/AbstractCamera.h"
+      <item path="src/utils/gui/view/PixelPerfectClicker.h"
             ex="false"
             tool="3"
             flavor2="0">

@@ -62,57 +62,69 @@ public:
 
   /// Constructor
   GenericRenderer(
-      std::unique_ptr<SpriteSheet> s,
-      std::unique_ptr<SpriteSheet> m,
+      const char* sheet,
+      const char* mask,
+      SDL_Renderer* rdr,
+      SDL_Renderer* mrdr,
       int offx=0, int offy=0, 
       Blitter b=Blitter())
   noexcept : 
-    _sheet(std::move(s)),
-    _mask(std::move(m)),
+    _sheet(SpriteAsset::loadFromFile(sheet, rdr)),
+    _mask(SpriteAsset::loadFromFile(mask, mrdr)),
+    _blitter(b),
+    _offx(offx), _offy(offy)
+  {  
+  }
+  GenericRenderer(
+      const char* sheet,
+      SDL_Renderer* rdr,
+      int offx=0, int offy=0, 
+      Blitter b=Blitter())
+  noexcept : 
+    _sheet(SpriteAsset::loadFromFile(sheet, rdr)),
+    _mask(nullptr),
     _blitter(b),
     _offx(offx), _offy(offy)
   {  
   }
   
   /// \brief Draw the object at given position
-  virtual int renderAt(
+  virtual void renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr) 
-  noexcept
+    SDL_Renderer *rdr)
   {
     SDL_Rect r;
     _blitter(&r, 
       _sheet->width(), _sheet->height(), 
       view.tileWidth(), view.tileHeight(), 
       x + _offx, y + _offy);
-    return _sheet->renderFrame(0, ori, rdr, &r);
+    _sheet->renderFrame(0, ori, rdr, &r);
   }
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
-  virtual int renderAt(
+  virtual void renderAt(
     const WorldRef * obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
     const SDL_Color & c)
-  noexcept
   {
     SDL_Rect r;
     _blitter(&r, 
       _mask->width(), _mask->height(), 
       view.tileWidth(), view.tileHeight(), 
       x + _offx, y + _offy);
-    if (int err = _mask->setColorMod(c)) {
-      return err;
-    }
-    return _mask->renderFrame(0, ori, rdr, &r);
+    _mask->setColorMod(c);
+    _mask->renderFrame(0, ori, rdr, &r);
   }
   
-  virtual void addTarget(const WorldRef *obj) noexcept {}
-  virtual void removeTarget(const WorldRef *obj) noexcept {}
+  virtual void addTarget(const WorldRef * obj) noexcept {}
+  virtual void removeTarget(const WorldRef * obj) noexcept {}
+  virtual void targetSelected(const WorldRef * obj) noexcept {}
+  virtual void targetDeselected(const WorldRef * obj) noexcept {}
   
 };
 

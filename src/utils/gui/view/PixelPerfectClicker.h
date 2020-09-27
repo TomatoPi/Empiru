@@ -16,35 +16,24 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   PixelPerfectClicker.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 27 septembre 2020, 11:13
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef PIXELPERFECTCLICKER_H
+#define PIXELPERFECTCLICKER_H
 
-#include "utils/engine/Observer.h"
-#include "utils/world/WorldInterface.h"
+#include "utils/world/WorldRef.h"
 
-/// \brief Main handler for user control
-class Controller : public Subject {
-private:
-  
-  WorldRef *       _selection;  ///< The selected Object
-  WorldInterface & _world;      ///< THA WORLDOOOOO
-  
+class PixelPerfectClicker {
 public:
+  virtual ~PixelPerfectClicker() noexcept = default;
   
-  /// \brief Constructor
-  Controller(WorldInterface & w) noexcept;
+  virtual void updateClickZones() = 0;
   
-  /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
-  /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position & click, WorldRef *obj);
+  virtual WorldRef * objectAt(int x, int y) const noexcept = 0;
 };
 
-#endif /* CONTROLLER_H */
+#endif /* PIXELPERFECTCLICKER_H */

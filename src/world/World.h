@@ -32,7 +32,7 @@
 #include "utils/log.h"
 
 /// \brief Object that handle Map and Objects
-class World : public WorldInterface {
+class WorldMap : public WorldInterface {
 private :
   
   /// \brief Hollow Matrix
@@ -52,7 +52,7 @@ public :
   /// \brief Constructor
   /// \param mapHeight : Height of the map (number of hexs)
   /// \param mapWidth : Width of the map (number of hexs)
-  World(int mapWidth, int mapHeight);
+  WorldMap(int mapWidth, int mapHeight);
   
   /// \brief Must add given object to the world
   virtual void addObject(WorldRef * obj);

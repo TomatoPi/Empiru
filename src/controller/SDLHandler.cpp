@@ -26,17 +26,22 @@
 #include "SDLHandler.h"
 #include "utils/hex/Conversion.h"
 #include "utils/log.h"
+#include "utils/hex/Viewport.h"
 
 /// \brief Size of border (in pixels) used to scroll view
 #define MERGE 50
 
 /// \brief Constructor
-SDLHandler::SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e, RenderingEngine & rdr, Window & win) :
+SDLHandler::SDLHandler(
+          AbstractCamera & c,
+          const hex::Viewport & v,
+          Controller & e,
+          PixelPerfectClicker & click) 
+noexcept :
   _camera(c),
-  _worldview(w),
+  _viewport(v),
   _controller(e),
-  _rengine(rdr),
-  _window(win)
+  _clicker(click)
 {
   
 }
@@ -145,21 +150,9 @@ bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
 bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   
   hex::Axial pos;
-  _worldview.fromPixel(event.x, event.y, &pos);
-  _rengine.drawPixelPerfectZones();
-  auto & table(_rengine.colorTable());
-  SDL_LockSurface(_window.vsurface);
-  SDL_Color color{255, 255, 255, 255};
-  SDL_GetRGB(static_cast<uint32_t*>(_window.vsurface->pixels)[event.y * _window.vsurface->w + event.x],
-      _window.vsurface->format,
-      &color.r, &color.g, &color.b);
-  SDL_UnlockSurface(_window.vsurface);
-  //LOG_DEBUG("Color at click : %u %u %u %u\n", color.r, color.g, color.b, color.a);
-  auto itr(table.find(color));
-  WorldRef * obj(nullptr);
-  if (itr != table.end()) {
-    obj = itr->second;
-  }
+  _viewport.fromPixel(event.x, event.y, &pos);
+  _clicker.updateClickZones();
+  WorldRef * obj(_clicker.objectAt(event.x, event.y));
   
   switch(event.button){
     case SDL_BUTTON_LEFT:

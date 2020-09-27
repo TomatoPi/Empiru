@@ -27,65 +27,68 @@
 
 #include "PeonRenderer.h"
 #include "entity/peon/Peon.h"
+#include "utils/gui/assets/SpriteAsset.h"
 
-/// Constructor
+/// \brief Constructor
+/// \throw runtime_error on failure
 PeonRenderer::PeonRenderer(
-    std::unique_ptr<SpriteSheet> s, 
-    std::unique_ptr<SpriteSheet> m) 
-noexcept : 
-  _sheet(std::move(s)),
-  _mask(std::move(m)),
+    const SheetsPaths & args, 
+    SDL_Renderer *rdr, 
+    SDL_Renderer *mrdr) : 
+  _sheet(SpriteAsset::loadFromFile(args.peon_sheet, rdr)),
+  _mask(SpriteAsset::loadFromFile(args.mask_sheet, mrdr)),
+  _select(SpriteAsset::loadFromFile(args.select_sheet, rdr)),
   _targets()
 {
-  
 }
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int PeonRenderer::renderAt(
+void PeonRenderer::renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr)
-noexcept 
 {
   const Peon & peon(static_cast<const Peon &>(**obj));
-  int frame = peon.hasOrders() ? _targets.at(obj).update() : _targets.at(obj).restart();
+  Datas & datas(_targets.at(obj));
+  int frame = peon.hasOrders() ? datas._anim.update() : datas._anim.restart();
   ori = (ori + 6 - peon.direction().orientation()) % 6;
   SDL_Rect r;
   r.w = _sheet->width();
   r.h = _sheet->height();
   r.x = x - r.w / 2;
   r.y = y - r.h;
-  return _sheet->renderFrame(frame, ori, rdr, &r);
+  if (datas._select) {
+    _select->renderFrame(frame, ori, rdr, &r);
+  }
+  _sheet->renderFrame(frame, ori, rdr, &r);
 }
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-int PeonRenderer::renderAt(
+void PeonRenderer::renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr,
-    const SDL_Color & c) 
-noexcept 
+    const SDL_Color & c)
 {
   const Peon & peon(static_cast<const Peon &>(**obj));
-  int frame = peon.hasOrders() ? _targets.at(obj).update() : _targets.at(obj).restart();
+  Datas & datas(_targets.at(obj));
+  int frame = peon.hasOrders() ? datas._anim.frame() : 0;
   ori = (ori + 6 - peon.direction().orientation()) % 6;
   SDL_Rect r;
   r.w = _mask->width();
   r.h = _mask->height();
   r.x = x - r.w / 2;
   r.y = y - r.h;
-  if (int err = _mask->setColorMod(c)) {
-    return err;
-  }
-  return _mask->renderFrame(frame, ori, rdr, &r);
+  _mask->setColorMod(c);
+  _mask->renderFrame(frame, ori, rdr, &r);
 }
 
 /// \brief Called when a new object associated with this renderer is created
 ///  may instanciate fine scope datas, like animation state
 void PeonRenderer::addTarget(const WorldRef *obj) noexcept {
-  auto insert(_targets.emplace(obj, Animation(7, 6)));
+  auto insert(_targets.emplace(obj, Datas()));
   assert(insert.second);
 }
 /// \brief Called when an object associated with this renderer is destroyed
@@ -94,4 +97,14 @@ void PeonRenderer::removeTarget(const WorldRef *obj) noexcept {
   auto itr(_targets.find(obj));
   assert(itr != _targets.end());
   _targets.erase(itr);
+}
+/// \brief Called when an object associated with this renderer is selected
+///  may remember draw a special overlay around it
+void PeonRenderer::targetSelected(const WorldRef * obj) {
+  _targets.at(obj)._select = true;
+}
+/// \brief Called when an object associated with this renderer is deselected
+///  may remember to stop draw special overlay
+void PeonRenderer::targetDeselected(const WorldRef * obj) {
+  _targets.at(obj)._select = false;
 }

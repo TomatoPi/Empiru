@@ -31,7 +31,7 @@
 /// \brief Constructor
 /// \param mapHeight : Height of the map (number of hexs)
 /// \param mapWidth : Width of the map (number of hexs)
-World::World(int mapWidth, int mapHeight) :
+WorldMap::WorldMap(int mapWidth, int mapHeight) :
   _mapWidth(mapWidth),
   _mapHeight(mapHeight),
   _map()
@@ -41,7 +41,7 @@ World::World(int mapWidth, int mapHeight) :
 }
 
 /// \brief Must add given object to the world
-void World::addObject(WorldRef * obj){
+void WorldMap::addObject(WorldRef * obj){
   const WorldObject::Position & pos((**obj).pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
@@ -51,7 +51,7 @@ void World::addObject(WorldRef * obj){
 }
 
 /// \brief Must remove given object fro the world
-void World::removeObject(WorldRef * obj) {
+void WorldMap::removeObject(WorldRef * obj) {
   auto itr(_map.find((**obj).pos()));
   assert(itr != _map.end());
   itr->second.erase(obj);
@@ -61,7 +61,7 @@ void World::removeObject(WorldRef * obj) {
 }
 
 /// \brief Must return tile content at given pos, or null if empty
-const Tile::Content * World::getContentAt(const WorldObject::Position & pos) const {
+const Tile::Content * WorldMap::getContentAt(const WorldObject::Position & pos) const {
   auto itr(_map.find(pos));
   if (itr != _map.end()){
     return &itr->second.getContent();
@@ -70,7 +70,7 @@ const Tile::Content * World::getContentAt(const WorldObject::Position & pos) con
 }
 
 /// \brief Must return true if given pos is on the map
-bool World::isOnMap(const WorldObject::Position & pos) const {
+bool WorldMap::isOnMap(const WorldObject::Position & pos) const {
   hex::Grid grd(hex::toGrid(pos));
   // Easy case
   if (0 < grd._x && 0 < grd._y 

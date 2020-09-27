@@ -42,6 +42,8 @@
 #include <unordered_map>
 #include <cassert>
 
+#include "utils/log.h"
+
 /// \brief Base class for all events launched by a Subject
 class Event {
 public:
@@ -117,7 +119,7 @@ public:
     //        "EventFunctorT must be callable on EventT");
     bool result(_table.emplace(
       typeid(EventT), 
-      new Handler<EventT,EventFunctorT>(func)));
+      new Handler<EventT,EventFunctorT>(func)).second);
     assert(result);
   }
   
@@ -127,7 +129,12 @@ public:
   void handleEvent(const Event & event) const {
     auto itr(_table.find(std::type_index(typeid(event))));
     if (itr != _table.end()) {
+      LOG_DEBUG("Handle known Event : %s<-%s\n", 
+              typeid(*this).name(), typeid(event).name());
       itr->second->operator()(event);
+    } else {
+      LOG_DEBUG("Unkown event Kind : %s<-%s\n", 
+              typeid(*this).name(), typeid(event).name());
     }
   }
 };
@@ -155,9 +162,14 @@ protected:
   
   /// \brief Called to send event to attached observers
   void sendNotification(const Event & event) const {
+    LOG_DEBUG("Send Event : %s->%s\n", 
+            typeid(*this).name(), typeid(event).name());
+    int i(0);
     for (auto & observer : _watchers) {
       observer->handleEvent(event);
+      ++i;
     }
+    LOG_DEBUG("%d Notifications have been sent\n", i);
   }
 };
 
