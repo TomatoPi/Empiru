@@ -78,6 +78,7 @@
         <logicalFolder name="f3" displayName="engine" projectFiles="true">
           <itemPath>src/utils/engine/Allocator.h</itemPath>
           <itemPath>src/utils/engine/Behaviourer.h</itemPath>
+          <itemPath>src/utils/engine/Observer.h</itemPath>
           <itemPath>src/utils/world/WorldRef.h</itemPath>
         </logicalFolder>
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
@@ -358,6 +359,8 @@
       <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -647,6 +650,8 @@
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
@@ -929,6 +934,8 @@
       <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1213,6 +1220,8 @@
       <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>

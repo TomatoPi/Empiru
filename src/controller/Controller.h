@@ -26,11 +26,12 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include "utils/engine/Observer.h"
 #include "utils/world/WorldInterface.h"
 #include "controller/CtrlState.h"
 
 /// \brief Main handler for user control
-class Controller {
+class Controller : public Subject {
 private:
   
   WorldInterface & _world;       ///< THA WORLDOOOOO
