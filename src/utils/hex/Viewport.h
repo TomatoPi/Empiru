@@ -29,10 +29,12 @@
 #include "Axial.h"
 #include "Consts.h"
 
+#include "utils/gui/view/View.h"
+
 namespace hex {
 
   /// \brief Utility object containing position, orientation and zoom of the camera
-  class Viewport {
+  class Viewport : public gui::View {
   public:
 
     static constexpr int HEXAGON_WIDTH  = 254; ///< Tile's on screen width
@@ -42,7 +44,7 @@ namespace hex {
     static const Axial VIEW_VY;  ///< Vertical Axis
 
   private:
-
+    
     int _tileWidth;   ///< Tile's width on viewport
     int _tileHeight;  ///< Tile's height on viewport
 
@@ -58,11 +60,14 @@ namespace hex {
   public:
 
     /// \brief Constructor
+    /// \param offsetX    : View's up left corner X
+    /// \param offsetY    : View's up left corner Y
     /// \param tileWidth  : Tile's width in pixel on viewport
     /// \param tileHeight : Tile's height in pixel on viewport 
     /// \param viewWidth  : View's width in pixel
     /// \param viewHeight : View's height in pixel
     Viewport(
+      int offsetX, int offsetY,
       int tileWidth, int tileHeight, 
       int viewWidth, int viewHeight);
 

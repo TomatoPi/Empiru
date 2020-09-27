@@ -26,9 +26,10 @@
 #include <cassert>
 
 #include "RenderingEngine.h"
-#include "utils/log.h"
 #include "events/ControllerEvents.h"
 #include "events/GameEvents.h"
+
+#include "utils/log.h"
 
 RenderingEngine::RenderingEngine(
     Window &               win,
@@ -186,13 +187,12 @@ WorldRef * RenderingEngine::objectAt(int x, int y) const noexcept {
       _window.vsurface->format,
       &color.r, &color.g, &color.b);
   SDL_UnlockSurface(_window.vsurface);
-  LOG_DEBUG("Click at : %d,%d : color : %d,%d,%d",
-      x, y, color.r, color.g, color.b);
+  //LOG_DEBUG("Click at : %d,%d : color : %d,%d,%d\n", x, y, color.r, color.g, color.b);
   auto itr(_colors.find(color));
   if (itr != _colors.end()) {
-    LOG_DEBUG("OBJ : %s\n", typeid(**(itr->second)).name());
+    //LOG_DEBUG("OBJ : %s\n", typeid(**(itr->second)).name());
     return itr->second;
   }
-  LOG_DEBUG("NOTHING\n");
+  //LOG_DEBUG("NOTHING\n");
   return nullptr;
 }

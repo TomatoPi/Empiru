@@ -29,6 +29,8 @@
 
 /// \brief Constructor of Concrete camera
 ///
+/// \param offsetX    : View's up left corner X
+/// \param offsetY    : View's up left corner Y
 /// \param tileWidth    : Tile's width on screen  (px) 
 /// \param tileHeight   : Tile's height on screen (px)
 /// \param viewWidth    : View's width            (px)
@@ -36,11 +38,12 @@
 /// \param worldWidth   : World's width           (tile)
 /// \param worldHeight  : World's height          (tile)
 Camera::Camera(
+    int offsetX, int offsetY,
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,
     int worldWidth, int worldHeight) : 
   AbstractCamera(0.1, 0.05, 6),
-  Viewport(tileWidth, tileHeight, viewWidth, viewHeight),
+  Viewport(offsetX, offsetY, tileWidth, tileHeight, viewWidth, viewHeight),
   _worldWidth(worldWidth),
   _worldHeight(worldHeight),
   _vx(VIEW_VX),

@@ -43,6 +43,8 @@ public:
   
   /// \brief Constructor of Concrete camera
   ///
+  /// \param offsetX    : View's up left corner X
+  /// \param offsetY    : View's up left corner Y
   /// \param tileWidth    : Tile's width on screen  (px) 
   /// \param tileHeight   : Tile's height on screen (px)
   /// \param viewWidth    : View's width            (px)
@@ -50,6 +52,7 @@ public:
   /// \param worldWidth   : World's width           (tile)
   /// \param worldHeight  : World's height          (tile)
   Camera(
+    int offsetX, int offsetY,
     int tileWidth, int tileHeight, 
     int viewWidth, int viewHeight,
     int worldWidth, int worldHeight);
