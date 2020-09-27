@@ -36,11 +36,13 @@ SDLHandler::SDLHandler(
           AbstractCamera & c,
           const hex::Viewport & v,
           Controller & e,
+          ControlPannel & pan,
           PixelPerfectClicker & click) 
 noexcept :
   _camera(c),
   _viewport(v),
   _controller(e),
+  _controlPannel(pan),
   _clicker(click)
 {
   
@@ -156,10 +158,12 @@ bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
-      _controller.leftClickOn(pos, obj);
+      if (_viewport.isInView(event.x, event.y))
+        _controller.leftClickOn(pos, obj);
       break;
     case SDL_BUTTON_RIGHT:
-      _controller.rightClickOn(pos, obj);
+      if (_viewport.isInView(event.x, event.y))
+        _controller.rightClickOn(pos, obj);
       break;
   }
   

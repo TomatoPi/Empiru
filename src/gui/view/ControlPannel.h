@@ -16,35 +16,32 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   ControlPannel.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 27 septembre 2020, 20:04
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef CONTROLPANNEL_H
+#define CONTROLPANNEL_H
 
+#include "utils/gui/view/View.h"
 #include "utils/engine/Observer.h"
-#include "utils/world/WorldInterface.h"
+#include "utils/gui/view/Window.h"
+#include "utils/gui/assets/SpriteSheet.h"
 
-/// \brief Main handler for user control
-class Controller : public Subject {
+class ControlPannel : public gui::View, public Observer {
 private:
   
-  WorldRef *       _selection;    ///< The selected Object
-  WorldInterface & _world;        ///< THA WORLDOOOOO
+  Window & _window;
+  std::unique_ptr<SpriteSheet> _background; ///< Pannel's background sprite
   
 public:
+  /// Create the control pannel and load right assets
+  ControlPannel(int viewwidth, int viewheight, Window & window);
   
-  /// \brief Constructor
-  Controller(WorldInterface & w) noexcept;
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
-  /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position & click, WorldRef *obj);
+  /// Draw the control pannel
+  void draw();
 };
 
-#endif /* CONTROLLER_H */
+#endif /* CONTROLPANNEL_H */

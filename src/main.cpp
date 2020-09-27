@@ -58,13 +58,14 @@
 #include "utils/log.h"
 
 #include "generator/ZoneGenerator.h"
+#include "gui/view/ControlPannel.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
 #define AVGFRAME  (2000)            ///< Interval between FPS prompt (ms)
 
 #define SIZE 8    ///< World size (square world)
-#define FACTOR 2  ///< Magic number scalling window size
+#define FACTOR 1.5  ///< Magic number scalling window size
 
 namespace {
   
@@ -87,12 +88,14 @@ int main(int argc, char** argv) {
   
   /* Create the UI */
   Window *_window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
+  ControlPannel _controlPanel(409/FACTOR, 1080/FACTOR, *_window);
   Camera _camera(
+    371/FACTOR, 0,
     hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     _window->width, _window->height,
     SIZE, SIZE);
   RenderingEngine _rdrEngine(*_window, _camera, _camera, _worldMap);
-  SDLHandler _sdlHandler(_camera, _camera, _gameController, _rdrEngine);
+  SDLHandler _sdlHandler(_camera, _camera, _gameController, _controlPanel, _rdrEngine);
   
   /* Create the sound Engine */
   SoundEngine *_soundEngine(SoundEngine::create());
@@ -168,13 +171,12 @@ int main(int argc, char** argv) {
   zone.createZone(3);
   zone.addObject();
   
-  for (auto obj : zone.objects()){
+  for (auto obj : zone.objects()) {
     LOG_DEBUG("object : %f %f\n",obj._x,obj._y);
-    MoverTo mover(obj._x, obj._y);
-    _gameEngine.createObject(typeid(Tree), mover);
+    _gameEngine.createObject(typeid(Tree), MoverTo(obj._x, obj._y));
   }
   
-  for (auto vertex : zone.vertexs()){
+  for (auto vertex : zone.vertexs()) {
     LOG_DEBUG("vertex : %f %f\n",vertex._x,vertex._y);
   }
    
@@ -194,26 +196,10 @@ int main(int argc, char** argv) {
     _gameEngine.update();
 
     _window->clear();
-    //*
+    
     _rdrEngine.render();
+    _controlPanel.draw();
     _window->update();
-    //*/
-    /*
-    rdr.drawPixelPerfectZones();
-    SDL_Surface * screen = SDL_GetWindowSurface(window->window);
-    if (!screen) {
-      LOG_ERROR("Failed Get Screen : %s\n", SDL_GetError());
-      OUPS();
-    }
-    if (SDL_BlitSurface(window->vsurface, nullptr, screen, nullptr)) {
-      LOG_ERROR("%s\n", SDL_GetError());
-      OUPS();
-    }
-    if (SDL_UpdateWindowSurface(window->window)) {
-      LOG_ERROR("Failed update window : %s\n", SDL_GetError());
-      OUPS();
-    }
-    //*/
     
     ++avgcount;
     avgfps = SDL_GetTicks() - fpsStart;

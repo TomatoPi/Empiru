@@ -32,6 +32,7 @@
 #include "utils/hex/Viewport.h"
 #include "utils/gui/view/PixelPerfectClicker.h"
 #include "utils/gui/view/AbstractCamera.h"
+#include "gui/view/ControlPannel.h"
 #include "controller/Controller.h"
 
 /// \brief Wrapper object for SDL_Events handling
@@ -41,6 +42,7 @@ private:
   AbstractCamera      &_camera;    ///< Worldview controller
   const hex::Viewport &_viewport; 
   Controller          &_controller;///< The thing that do things on other things
+  ControlPannel       &_controlPannel; ///< The beautiful pannel on the left
   PixelPerfectClicker &_clicker;
   
 public:
@@ -49,7 +51,8 @@ public:
   SDLHandler(
           AbstractCamera & c, 
           const hex::Viewport & v,
-          Controller & e, 
+          Controller & e,
+          ControlPannel & pan,
           PixelPerfectClicker & click) noexcept;
   
   /// \brief Core SDLHandler's function, process all events availables

@@ -41,9 +41,11 @@ namespace hex {
   /// \param viewWidth  : View's width in pixel
   /// \param viewHeight : View's height in pixel
   Viewport::Viewport(
+      int offsetX, int offsetY,
       int tileWidth, int tileHeight, 
       int viewWidth, int viewHeight) :
-
+    gui::View(offsetX, offsetY, viewWidth, viewHeight),
+      
     _tileWidth(tileWidth),
     _tileHeight(tileHeight),
 
@@ -71,14 +73,14 @@ namespace hex {
     assert(y);
     Axial res((pos - _pos) * _rotation + _viewport);
     Grid g(toGrid(res));
-    *x = 0.25 * g._x * _tileWidth;
-    *y = 0.5 * g._y * _tileHeight;
+    *x = _offsetX + 0.25 * g._x * _tileWidth;
+    *y = _offsetY + 0.5 * g._y * _tileHeight;
   }
   /// \brief Convert a position on the screen to position in grid
   void Viewport::fromPixel(int x, int y, Axial *pos) const {
     assert(pos);
-    float xx = x * 4. / _tileWidth;
-    float yy = y * 2. / _tileHeight;
+    float xx = (x - _offsetX) * 4. / _tileWidth;
+    float yy = (y - _offsetY) * 2. / _tileHeight;
     *pos = toAxial(Grid(xx, yy));
     *pos = _pos + (*pos - _viewport) * _antirotation;
   }
