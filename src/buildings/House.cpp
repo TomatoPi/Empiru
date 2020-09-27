@@ -24,6 +24,6 @@
 
 #include "House.h"
 
-House::House() : WorldObject(), Storage() {
+House::House() : WorldObject(WorldObject::STile), Storage() {
   
 }

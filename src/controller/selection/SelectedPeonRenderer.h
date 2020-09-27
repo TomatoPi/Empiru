@@ -30,7 +30,7 @@
 class SelectedPeonRenderer : public PeonRenderer {
 public:
   /// Constructor
-  SelectedPeonRenderer(std::unique_ptr<SpriteSheet> s);
+  SelectedPeonRenderer(std::unique_ptr<SpriteSheet> s) noexcept;
   
   /// \brief Draw the selection overlay on screen
   ///   with (x,y) coordinate of bottom's middle
@@ -38,14 +38,14 @@ public:
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr);
+    SDL_Renderer *rdr) noexcept;
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldRef *obj);
+  virtual void addTarget(const WorldRef *obj) noexcept;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldRef *obj);
+  virtual void removeTarget(const WorldRef *obj) noexcept;
 };
 
 #endif /* SELECTEDPEONRENDERER_H */

@@ -39,7 +39,7 @@ std::unique_ptr<SpriteSheet> SpriteAsset::loadFromFile(
   // Recut the sheet
   int width(sheet->width() / 6), rows;
   rows = sheet->height() / width;
-  if (sheet->recut(rows, 6)) return nullptr;
+  sheet->recut(rows, 6);
   // done
   return sheet;
 }

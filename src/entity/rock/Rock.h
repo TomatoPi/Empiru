@@ -34,6 +34,8 @@ public:
   
   /// \brief Constructor
   Rock();
+  Rock(const Rock &) = default;
+  Rock & operator= (const Rock &) = default;
 };
 
 #endif /* ROCK_H */

@@ -26,8 +26,8 @@
 
 /// \brief Constructor
 SelectedPeon::SelectedPeon() : 
-  WorldObject(nullptr), 
-  _peon(nullptr) 
+  WorldObject(WorldObject::SHollow), 
+  _peon(nullptr)
 {
   
 }

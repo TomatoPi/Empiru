@@ -62,35 +62,50 @@ public:
 
   /// Constructor
   GenericRenderer(
-      std::unique_ptr<SpriteSheet> s,
-      std::unique_ptr<SpriteSheet> m,
+      const char* sheet,
+      const char* mask,
+      SDL_Renderer* rdr,
+      SDL_Renderer* mrdr,
       int offx=0, int offy=0, 
-      Blitter b=Blitter()) : 
-    _sheet(std::move(s)),
-    _mask(std::move(m)),
+      Blitter b=Blitter())
+  noexcept : 
+    _sheet(SpriteAsset::loadFromFile(sheet, rdr)),
+    _mask(SpriteAsset::loadFromFile(mask, mrdr)),
+    _blitter(b),
+    _offx(offx), _offy(offy)
+  {  
+  }
+  GenericRenderer(
+      const char* sheet,
+      SDL_Renderer* rdr,
+      int offx=0, int offy=0, 
+      Blitter b=Blitter())
+  noexcept : 
+    _sheet(SpriteAsset::loadFromFile(sheet, rdr)),
+    _mask(nullptr),
     _blitter(b),
     _offx(offx), _offy(offy)
   {  
   }
   
   /// \brief Draw the object at given position
-  virtual int renderAt(
+  virtual void renderAt(
     const WorldRef * obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr) 
+    SDL_Renderer *rdr)
   {
     SDL_Rect r;
     _blitter(&r, 
       _sheet->width(), _sheet->height(), 
       view.tileWidth(), view.tileHeight(), 
       x + _offx, y + _offy);
-    return _sheet->renderFrame(0, ori, rdr, &r);
+    _sheet->renderFrame(0, ori, rdr, &r);
   }
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
-  virtual int renderAt(
+  virtual void renderAt(
     const WorldRef * obj,
     int ori, int x, int y,
     const hex::Viewport & view,
@@ -102,14 +117,14 @@ public:
       _mask->width(), _mask->height(), 
       view.tileWidth(), view.tileHeight(), 
       x + _offx, y + _offy);
-    if (int err = _mask->setColorMod(c)) {
-      return err;
-    }
-    return _mask->renderFrame(0, ori, rdr, &r);
+    _mask->setColorMod(c);
+    _mask->renderFrame(0, ori, rdr, &r);
   }
   
-  virtual void addTarget(const WorldRef *obj) {}
-  virtual void removeTarget(const WorldRef *obj) {}
+  virtual void addTarget(const WorldRef * obj) noexcept {}
+  virtual void removeTarget(const WorldRef * obj) noexcept {}
+  virtual void targetSelected(const WorldRef * obj) noexcept {}
+  virtual void targetDeselected(const WorldRef * obj) noexcept {}
   
 };
 
@@ -128,7 +143,12 @@ public:
 class OnTileBlitter {
 public:
   void operator() (SDL_Rect * rect,
-      int w, int h, int tw, int th, int x, int y) const;
+      int w, int h, int tw, int th, int x, int y) const noexcept 
+  {
+    rect->w = w, rect->h = h;
+    rect->x = x - rect->w/2;
+    rect->y = y + th/2 - rect->h;
+  }
 };
 
 /// \brief Put the rectangle 'r' as if (x,y) was object foot's position
@@ -136,7 +156,12 @@ public:
 class OnFootBlitter {
 public:
   void operator() (SDL_Rect * rect,
-      int w, int h, int tw, int th, int x, int y) const;
+      int w, int h, int tw, int th, int x, int y) const noexcept 
+  {
+    rect->w = w, rect->h = h;
+    rect->x = x - rect->w/2;
+    rect->y = y - rect->h;
+  }
 };
 
 

@@ -16,18 +16,29 @@
  */
 
 /// 
-/// \file   Tree.cpp
+/// \file   GameCore.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 17 septembre 2020, 08:45
-/// \brief Tree WorldObject declaration
+/// \date 27 septembre 2020, 16:37
 ///
 
-#include "Tree.h"
+#define EMPIRU_GAMECORE_H
+#ifndef EMPIRU_GAMECORE_H
+#define EMPIRU_GAMECORE_H
 
-/// \brief Constructor
-Tree::Tree() : 
-  WorldObject(WorldObject::SSmall, 0.1), 
-  Harvestable(Stack::Wood, 100) 
-{
-}
+struct GameCore {
+public:
+  
+  Window window;
+  Camera camera;
+  
+  WorldMap    worldMap;
+  Controller  gameController;
+  SDLHandler  sdlHandler;
+  
+  GameEngine      gameEngine;
+  RenderingEngine rdrEngine;
+  SoundEngine     soundEngine;
+};
+
+#endif /* EMPIRU_GAMECORE_H */

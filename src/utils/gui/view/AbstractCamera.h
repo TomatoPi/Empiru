@@ -22,8 +22,8 @@
 /// \date 11 septembre 2020, 17:15
 ///
 
-#ifndef ABSTRACTCAMERA_H
-#define ABSTRACTCAMERA_H
+#ifndef GUI_ABSTRACT_CAMERA_H
+#define GUI_ABSTRACT_CAMERA_H
 
 /// \brief Abstract object used to control a viewport
 class AbstractCamera {
@@ -40,20 +40,57 @@ private:
   
 public:
   
-  void scrollLeft();  ///< Start scroll to left
-  void scrollRight(); ///< Start scroll to right
-  void stopLRScroll();///< Stop Left or Right scrolling
+  /// \brief Start scroll to left
+  void scrollLeft() noexcept  {
+    _scrollH = -_hScrollSpeed;
+  }
+  /// \brief Start scroll to right
+  void scrollRight() noexcept  {
+    _scrollH = _hScrollSpeed;
+  }
+  /// \brief Stop Left or Right scrolling
+  void stopLRScroll() noexcept  {
+    _scrollH = 0;
+  }
   
-  void scrollUp();    ///< Start scroll up
-  void scrollDown();  ///< Start scroll down
-  void stopUDScroll();///< Stop Up or Down scrolling
+  /// \brief Start scroll up
+  void scrollUp() noexcept {
+    _scrollV = -_vScrollSpeed;
+  }
+  /// \brief  Start scroll down
+  void scrollDown() noexcept {
+    _scrollV = _vScrollSpeed;
+  }
+  /// \brief Stop Up or Down scrolling
+  void stopUDScroll() noexcept {
+    _scrollV = 0;
+  }
   
-  void update(); ///< Update camera position according to scroll
+  /// \brief Update camera position according to scroll
+  void update() noexcept {
+    if (_scrollH) {
+      this->doUpdateLRScroll(_scrollH);
+    }
+    if (_scrollV) {
+      this->doUpdateUDScroll(_scrollV);
+    }
+  }
   
-  void rotateRight(); ///< Rotation of 60° to the right
-  void rotateLeft(); ///< Rotation of 60° to the left
+  /// \brief Rotation of 60° to the right
+  void rotateRight() noexcept {
+    _orientation = (_orientation <= 0 ? _nors : _orientation) -1;
+    this->doRotateRight();
+  }
+  /// \brief Rotation of 60° to the left
+  void rotateLeft() noexcept {
+    _orientation = (_orientation+1) %_nors;
+    this->doRotateLeft();
+  }
   
-  int getOrientation() const; ///< Get the camera orientation in [0,_nors[
+  /// \brief Get the camera orientation in [0,_nors[
+  int getOrientation() const noexcept {
+    return _orientation;
+  }
   
 protected:
   
@@ -61,16 +98,21 @@ protected:
   /// \param hs : Horizontal scroll speed
   /// \param vs : Vertical scroll speed
   /// \param nors : Count of available orientations
-  AbstractCamera(float hs, float vs, int nors);
+  AbstractCamera(float hs, float vs, int nors) noexcept :
+    _hScrollSpeed(hs), _vScrollSpeed(vs),
+    _scrollH(0), _scrollV(0),
+    _orientation(0), _nors(nors)
+  {
+  } 
   
   /// \brief Must scroll the camera Horizontaly at given speed
-  virtual void doUpdateLRScroll(float v) = 0;
+  virtual void doUpdateLRScroll(float v) noexcept = 0;
   /// \brief Must scroll the camera verticaly at given speed
-  virtual void doUpdateUDScroll(float v) = 0;
+  virtual void doUpdateUDScroll(float v) noexcept = 0;
   /// \brief Must rotate camera to the left (clockwise)
-  virtual void doRotateLeft() = 0;
+  virtual void doRotateLeft() noexcept = 0;
   /// \brief Must rotate camera to the right (anti-clockwise)
-  virtual void doRotateRight() = 0;
+  virtual void doRotateRight() noexcept = 0;
 };
 
-#endif /* ABSTRACTCAMERA_H */
+#endif /* GUI_ABSTRACT_CAMERA_H */

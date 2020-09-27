@@ -25,78 +25,63 @@
 
 #include "Controller.h"
 
-#include "entity/peon/Peon.h"
 #include "utils/log.h"
-#include "entity/tree/Tree.h"
+#include "entity/peon/Peon.h"
+#include "utils/world/Harvestable.h"
 #include "utils/world/Storage.h"
-#include "utils/hex/Conversion.h"
-#include <cmath>
+#include "events/ControllerEvents.h"
 
 /// \brief Constructor
-Controller::Controller(
-            WorldInterface & w, 
-            GameEngine & g, 
-            RenderingEngine & rdr, 
-            SoundEngine & s) :
-  _world(w), _state(w, g, rdr),
-  _soundEngine(s)
+Controller::Controller(WorldInterface & w) noexcept :
+  _selection(nullptr), _world(w)
 {
-  
 }
   
 /// \brief Called when a left click is performed at given position
 void Controller::leftClickOn(const WorldObject::Position & click, WorldRef *obj) {
   // Update controller according to result
+  if (_selection) {
+    sendNotification(EventObjectDeselected(_selection));
+  }
   if (obj) {
-    if (auto peon = dynamic_cast<Peon*>(&**obj)) {
-      _state.selectPeon(obj);
-      _soundEngine.playRandomSound(0);
-      LOG_DEBUG("Peon : Inventory : %d %d\n", 
-          peon->inventory().type(), peon->inventory().size());
-    }
-    else {
-      _state.deselectPeon();
-      if (obj) {
-        if (auto harvest = dynamic_cast<Harvestable*>(&**obj)) {
-          LOG_DEBUG("Ressource : %s : %d\n", 
-              typeid(*harvest).name(), harvest->size());
-        }
-        else if (auto storage = dynamic_cast<Storage*>(&**obj)) {
-          LOG_DEBUG("Storage : %s : %s\n", 
-              typeid(*storage).name(), storage->content_str().c_str());
-        }
-      }
-    }
+    _selection = obj;
+    sendNotification(EventObjectSelected(_selection));
   } else {
-    _state.deselectPeon();
+    _selection = nullptr;
   }
 }
 /// \brief Called when a right click is performed at given position
 void Controller::rightClickOn(const WorldObject::Position & click, WorldRef *obj) {
   // If there is a selected peon and click is valid, let's go
-  if (_state.selectedPeon() != nullptr && _world.isOnMap(click)) {
-    Peon & peon(static_cast<Peon &>(**_state.selectedPeon()));
+  if (_selection != nullptr && _world.isOnMap(click)) {
+    Peon * peon(dynamic_cast<Peon *>(&**_selection));
+    if (!peon) {
+      return;
+    }
     if (obj) {
       if (auto harvest = dynamic_cast<Harvestable *>(&**obj)) {
-        if (peon.canHarvest(harvest->type())) {
-          peon.clearOrders();
-          peon.addOrder(Order::harvest(obj));
-          peon.beginOrder();
-          _soundEngine.playRandomSound(0);
+        if (peon->canHarvest(harvest->type())) {
+          peon->clearOrders();
+          peon->addOrder(Order::harvest(obj));
+          peon->beginOrder();
+          sendNotification(EventObjectAction(_selection, obj));
         }
       }
       else if (auto storage = dynamic_cast<Storage *>(&**obj)) {
-        if (!peon.inventory().empty()) {
-          peon.clearOrders();
-          peon.addOrder(Order::store(obj));
-          peon.beginOrder();
-          _soundEngine.playRandomSound(0);
+        if (!peon->inventory().empty() 
+          && storage->canStore(peon->inventory().type())) 
+        {
+          peon->clearOrders();
+          peon->addOrder(Order::store(obj));
+          peon->beginOrder();
+          sendNotification(EventObjectAction(_selection, obj));
         }
       }
     } else {
-      peon.clearOrders();
-      peon.addOrder(Order::moveTo(click));
-      peon.beginOrder();
+      peon->clearOrders();
+      peon->addOrder(Order::moveTo(click));
+      peon->beginOrder();
+      sendNotification(EventObjectAction(_selection, nullptr));
     }
   }
 }

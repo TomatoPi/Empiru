@@ -27,9 +27,10 @@
 
 #include <memory>
 #include <vector>
+#include "utils/engine/Observer.h"
 #include "utils/sound/SoundAsset.h"
 
-class SoundEngine {
+class SoundEngine : public Observer {
 public:
   
   /// \brief Object that will be used to refer a specific asset;

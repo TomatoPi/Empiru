@@ -50,6 +50,8 @@ public:
 
   /// \brief Constructor
   Peon();
+  Peon(const Peon &) = default;
+  Peon & operator= (const Peon &) = default;
   
   /// \brief Return current peon's orientation
   const hex::Axial & direction() const;

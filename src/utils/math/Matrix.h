@@ -41,26 +41,26 @@ namespace math {
     T _d; ///< d
 
     /// \brief Basic constructor
-    Matrix22(const T & a, const T & b, const T & c, const T & d) :
+    Matrix22(const T & a, const T & b, const T & c, const T & d) noexcept :
       _a(a), _b(b), _c(c), _d(d)
     {
 
     }
 
     /// \brief Matrix multiplication
-    Matrix22 operator* (const Matrix22 & A) const {
+    Matrix22 operator* (const Matrix22 & A) const noexcept {
       return Matrix22(
         _a * A._a + _b * A._c, _a * A._b + _b * A._d,
         _c * A._a + _d * A._c, _c * A._b + _d * A._d);
     }
     /// \brief Matrix multiplication
-    Matrix22 & operator*= (const Matrix22 & A) {
+    Matrix22 & operator*= (const Matrix22 & A) noexcept {
       return *this = *this * A;
     }
 
     /// \brief Inverse Matrix
     /// \pre Matrix must be inversible
-    Matrix22 inverse() const {
+    Matrix22 inverse() const noexcept {
       T d(det());
       assert(d != static_cast<T>(0));
       d = static_cast<T>(1) / d;
@@ -69,7 +69,7 @@ namespace math {
 
     /// \brief Turn in unitary Matrix (with det = 1)
     /// \pre Matrix must be inversible
-    Matrix22 unit() const {
+    Matrix22 unit() const noexcept {
       T d(det());
       assert(d != static_cast<T>(0));
       d = static_cast<T>(1) / std::sqrt(d);
@@ -77,7 +77,7 @@ namespace math {
     }
 
     /// \brief Return matrix's determinant
-    T det() const {
+    T det() const noexcept {
       return _a * _d - _b * _c;
     }
   };

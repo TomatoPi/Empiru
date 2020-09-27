@@ -26,10 +26,23 @@
 
 #include "SoundEngine.h"
 #include "utils/log.h"
+#include "events/ControllerEvents.h"
+#include "entity/peon/Peon.h"
 
 /// \brief Don't do great things
 SoundEngine::SoundEngine() : _table() {
-  
+  this->registerEvent<EventObjectSelected>(
+      [this](const EventObjectSelected & event) -> void {
+        if (typeid(Peon) != typeid(**event._obj))
+          return;
+        this->playRandomSound(0);
+      });
+  this->registerEvent<EventObjectAction>(
+      [this](const EventObjectAction & event) -> void {
+        if (typeid(Peon) != typeid(**event._obj))
+          return;
+        this->playRandomSound(0);
+      });
 }
 /// \brief Unload sound engine and quit SDL_Mixer
 SoundEngine::~SoundEngine() {

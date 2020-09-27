@@ -26,7 +26,8 @@
 #include "SelectedPeon.h"
 
 /// Constructor
-SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet> s) :
+SelectedPeonRenderer::SelectedPeonRenderer(std::unique_ptr<SpriteSheet> s)  
+noexcept:
   PeonRenderer(std::move(s), nullptr)
 {
   
@@ -39,6 +40,7 @@ int SelectedPeonRenderer::renderAt(
   int ori, int x, int y,
   const hex::Viewport & view,
   SDL_Renderer *rdr)
+noexcept
 {
   return PeonRenderer::renderAt(
       static_cast<const SelectedPeon &>(**obj)._peon,
@@ -47,11 +49,11 @@ int SelectedPeonRenderer::renderAt(
 
 /// \brief Called when a new object associated with this renderer is created
 ///  may instanciate fine scope datas, like animation state
-void SelectedPeonRenderer::addTarget(const WorldRef *obj) {
+void SelectedPeonRenderer::addTarget(const WorldRef *obj) noexcept {
   PeonRenderer::addTarget(static_cast<const SelectedPeon &>(**obj)._peon);
 }
 /// \brief Called when an object associated with this renderer is destroyed
 ///  may dealocate corresponding datas
-void SelectedPeonRenderer::removeTarget(const WorldRef *obj) {
+void SelectedPeonRenderer::removeTarget(const WorldRef *obj) noexcept {
   PeonRenderer::removeTarget(static_cast<const SelectedPeon &>(**obj)._peon);
 }

@@ -26,25 +26,20 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include "utils/engine/Observer.h"
 #include "utils/world/WorldInterface.h"
-#include "controller/CtrlState.h"
 
 /// \brief Main handler for user control
-class Controller {
+class Controller : public Subject {
 private:
   
-  WorldInterface & _world;       ///< THA WORLDOOOOO
-  ControllerState  _state;       ///< The game controller
-  SoundEngine &    _soundEngine; ///< Mamaaaa OUHOUHOUUUUUUUUUU
+  WorldRef *       _selection;  ///< The selected Object
+  WorldInterface & _world;      ///< THA WORLDOOOOO
   
 public:
   
   /// \brief Constructor
-  Controller(
-            WorldInterface & w,
-            GameEngine & g,
-            RenderingEngine & rdr,
-            SoundEngine & s);
+  Controller(WorldInterface & w) noexcept;
   
   /// \brief Called when a left click is performed at given position
   void leftClickOn(const WorldObject::Position & click, WorldRef *obj);

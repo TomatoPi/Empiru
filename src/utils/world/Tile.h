@@ -22,9 +22,10 @@
 /// \date 10 septembre 2020, 13:49
 ///
 
-#ifndef TILE_H
-#define TILE_H
+#ifndef WORLD_TILE_H
+#define WORLD_TILE_H
 
+#include <cassert>
 #include <unordered_set>
 
 #include "utils/hex/Axial.h"
@@ -45,20 +46,37 @@ private :
 public:
   
   /// \brief Constructor
-  Tile();
+  Tile() noexcept : 
+    _content() 
+  {
+  }
+  /// \brief Default copy constructor
+  Tile(const Tile &) = default;
+  /// \brief Default assignment copy
+  Tile & operator= (const Tile &) = default;
+  /// \brief Default destructor
+  ~Tile() = default;
   
   /// \brief Add given object to the tile
-  void insert(WorldRef * obj);
+  void insert(WorldRef * obj) noexcept {
+    bool success(_content.insert(obj).second);
+    assert(success);
+  }
   /// \brief Remove given object from the tile
-  void erase(WorldRef * obj);
+  void erase(WorldRef * obj) noexcept {
+    bool success(_content.erase(obj));
+    assert(success);
+  }
   
   /// \brief return true if there is nothing on the tile
-  bool isEmpty() const;
+  bool isEmpty() const noexcept {
+    return 0 == _content.size();
+  }
 
   /// \brief return tile's content
-  const Content & getContent() const;
-  /// \brief return tile's content
-  Content & getContent();
+  const Content & getContent() const noexcept {
+    return _content;
+  }
 };
 
-#endif /* TILE_H */
+#endif /* WORLD_TILE_H */

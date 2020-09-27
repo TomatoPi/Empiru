@@ -22,8 +22,8 @@
 /// \date 22 septembre 2020, 22:33
 ///
 
-#ifndef ODDQ_H
-#define ODDQ_H
+#ifndef HEX_ODDQ_COORDS_H
+#define HEX_ODDQ_COORDS_H
 
 #include "utils/math/Vector.h"
 
@@ -31,12 +31,21 @@ namespace hex {
  
   struct OddQ : public math::Vector<float> {
     
-    OddQ();
-    OddQ(const float & x, const float & y);
-    OddQ(const math::Vector<float> & v);
+    OddQ() noexcept : 
+      math::Vector<float>() 
+    {
+    }
+    OddQ(float x, float y) noexcept : 
+      math::Vector<float>(x,y) 
+    {
+    }
+    OddQ(const math::Vector<float> & v) noexcept : 
+      math::Vector<float>(v) 
+    {
+    }
     
   };
 }
 
-#endif /* ODDQ_H */
+#endif /* HEX_ODDQ_COORDS_H */
 

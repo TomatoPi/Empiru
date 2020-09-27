@@ -45,10 +45,10 @@ public:
   SpriteSheet(SDL_Texture *t, 
           int w, int h,
           unsigned int rows, 
-          unsigned int cols);
+          unsigned int cols) noexcept;
   
   /// \brief Destructor
-  ~SpriteSheet();
+  ~SpriteSheet() noexcept;
   
   /// \brief Loads a sprite from an image file
   ///
@@ -57,7 +57,7 @@ public:
   /// \param cols : number of frames by column
   /// \param rdr  : SDL_Renderer associated with targeted viewport
   ///
-  /// \return NULL on failure
+  /// \throw runtime_error on failure
   static std::unique_ptr<SpriteSheet> loadFromFile(
     const char *path, 
     unsigned int rows, 
@@ -71,31 +71,32 @@ public:
   /// \param rdr  : the thing that draw things
   /// \param dest : the destination blit rectangle
   ///
-  /// \return 0 on success, otherwise error code and SDL_error is set
-  int renderFrame(
+  /// \throw runtime_error on failure
+  void renderFrame(
     unsigned int row,
     unsigned int col,
     SDL_Renderer *rdr,
     const SDL_Rect *dest);
   
   /// \brief Change color of the sprite
-  int setColorMod(const SDL_Color & c);
+  /// \throw runtime_error on failure
+  void setColorMod(const SDL_Color & c);
   
   /// \brief return sprite's width
-  int width() const;
+  int width() const noexcept;
   /// \brief return sprite's height
-  int height() const;
+  int height() const noexcept;
   
   /// \brief return number of frames by row on the sheet
-  unsigned int colCount() const;
+  unsigned int colCount() const noexcept;
   /// \brief return number of frames by column on the sheet
-  unsigned int rowCount() const;
+  unsigned int rowCount() const noexcept;
   
   /// \brief change number of frames by rows and by columns on the sheet
-  /// \return 0 on success, <0 error code on failure, >0 code if ill formed sheet
-  ///   anyway the sheet is cut but accessing last (smaller) sprites may cause
-  ///   undefined behaviour
-  int recut(unsigned int rows, unsigned int cols);
+  ///   if resulting sheet is ill formed (width%cols != 0 or height%rows != 0)
+  ///   accessing last (smaller) sprites may cause undefined behaviour
+  /// \throw runtime_error on failure
+  void recut(unsigned int rows, unsigned int cols);
 };
 
 #endif /* SPRITE_H */

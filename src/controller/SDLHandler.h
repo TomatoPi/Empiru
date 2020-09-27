@@ -29,8 +29,9 @@
 
 #include <SDL2/SDL_events.h>
 
-#include "utils/gui/view/AbstractCamera.h"
 #include "utils/hex/Viewport.h"
+#include "utils/gui/view/PixelPerfectClicker.h"
+#include "utils/gui/view/AbstractCamera.h"
 #include "controller/Controller.h"
 
 /// \brief Wrapper object for SDL_Events handling
@@ -38,15 +39,18 @@ class SDLHandler {
 private:
   
   AbstractCamera      &_camera;    ///< Worldview controller
-  const hex::Viewport &_worldview; ///< Bridge between userview and controller
+  const hex::Viewport &_viewport; 
   Controller          &_controller;///< The thing that do things on other things
-  RenderingEngine     &_rengine;
-  Window &            _window;
+  PixelPerfectClicker &_clicker;
   
 public:
   
   /// \brief Constructor
-  SDLHandler(AbstractCamera & c, const hex::Viewport & w, Controller & e, RenderingEngine & rdr, Window & win);
+  SDLHandler(
+          AbstractCamera & c, 
+          const hex::Viewport & v,
+          Controller & e, 
+          PixelPerfectClicker & click) noexcept;
   
   /// \brief Core SDLHandler's function, process all events availables
   bool handleSDLEvents();

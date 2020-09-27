@@ -16,14 +16,29 @@
  */
 
 /// 
-/// \file   Harvestable.cpp
+/// \file   GameEvents.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 septembre 2020, 18:23
+/// \date 27 septembre 2020, 16:54
 ///
 
-#include "Harvestable.h"
+#ifndef GAMEEVENTS_H
+#define GAMEEVENTS_H
 
-Harvestable::Harvestable(Ressource type, int size) : Stack(type, size) {
-  
-}
+#include "utils/world/WorldRef.h"
+#include "utils/engine/Observer.h"
+
+struct EventObjectCreated : public Event {
+public:
+  WorldRef *_obj;
+  EventObjectCreated(WorldRef *obj) noexcept : _obj(obj) {}
+};
+
+struct EventObjectDestroyed : public Event {
+public:
+  WorldRef *_obj;
+  EventObjectDestroyed(WorldRef *obj) noexcept : _obj(obj) {}
+};
+
+#endif /* GAMEEVENTS_H */
+

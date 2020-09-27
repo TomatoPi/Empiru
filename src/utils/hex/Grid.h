@@ -22,8 +22,8 @@
 /// \date 22 septembre 2020, 22:30
 ///
 
-#ifndef GRID_H
-#define GRID_H
+#ifndef HEX_GRID_COORDS_H
+#define HEX_GRID_COORDS_H
 
 #include <functional>
 #include "utils/math/Vector.h"
@@ -32,17 +32,35 @@ namespace hex {
   
   struct Grid : public math::Vector<float> {
     
-    Grid();
-    Grid(const float & x, const float & y);
-    Grid(const math::Vector<float> & v);
+    Grid() noexcept : 
+      math::Vector<float>() 
+    {
+    }
+    Grid(float x, float y) noexcept : 
+      math::Vector<float>(x,y) 
+    {
+    }
+    Grid(const math::Vector<float> & v) noexcept : 
+      math::Vector<float>(v) 
+    {
+    }
     
     /// \brief Call given function on this tile and each adjacent ones
     ///   this function stops after first tile on which func return true
     ///   or after tested all 7 tiles
     /// System of position passed to callback is the same as curent system
-    void mapNeightbours(const std::function<bool(const Grid &)> & func) const;
+    void mapNeightbours(const std::function<bool(const Grid &)> & func) 
+      const noexcept
+    {
+      static float offsets[] = {0,0, 0,-2, 3,-1, 3,1, 0,2, -3,1, -3,-1};
+      for (size_t i(0) ; i<14 ; i+=2) {
+        if (func(Grid(_x + offsets[i], _y + offsets[i+1]))) {
+          break;
+        }
+      }
+    }
   };
 }
 
-#endif /* GRID_H */
+#endif /* HEX_GRID_COORDS_H */
 

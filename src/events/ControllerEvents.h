@@ -16,23 +16,38 @@
  */
 
 /// 
-/// \file   OddQ.cpp
+/// \file   ControllerEvents.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 23:50
+/// \date 27 septembre 2020, 12:56
 ///
 
-#include "OddQ.h"
+#ifndef CONTROLLEREVENTS_H
+#define CONTROLLEREVENTS_H
 
-namespace hex {
-  
-  OddQ::OddQ() : math::Vector<float>() {
-  }
-  OddQ::OddQ(const float & x, const float & y) : 
-    math::Vector<float>(x,y) {
-  }
-  OddQ::OddQ(const math::Vector<float> & v) : 
-    math::Vector<float>(v) {
-  }
+#include "utils/world/WorldRef.h"
+#include "utils/engine/Observer.h"
 
-}
+struct EventObjectSelected : public Event {
+public:
+  WorldRef *_obj;
+  EventObjectSelected(WorldRef *obj) noexcept : _obj(obj) {}
+};
+
+struct EventObjectDeselected : public Event {
+public:
+  WorldRef *_obj;
+  EventObjectDeselected(WorldRef *obj) noexcept : _obj(obj) {}
+};
+
+struct EventObjectAction : public Event {
+public:
+  WorldRef * _obj;
+  WorldRef * _target;
+  EventObjectAction(WorldRef *obj, WorldRef *target) noexcept :
+    _obj(obj), _target(target)
+  {}
+};
+
+#endif /* CONTROLLEREVENTS_H */
+
