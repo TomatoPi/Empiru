@@ -33,7 +33,7 @@ ZoneGenerator::ZoneGenerator() : _vertexs(), _objects() {
 
 void ZoneGenerator::createZone(int size) {
   for (int i = 0 ; i < size ; i++){
-    hex::Axial position = hex::Axial((rand()%8),(rand()%8));
+    hex::Axial position = hex::Axial((rand()%10),(rand()%10));
     _vertexs.push_back(position);
   }
   
@@ -46,7 +46,7 @@ void ZoneGenerator::createZone(int size) {
 }
 
 void ZoneGenerator::addObject() {
-  int nb_object = 20;
+  int nb_object = 10;
   float xRand,yRand;
   float y1,y2;
   
