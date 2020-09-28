@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
   
   { /* tile */
     _rdrEngine.attachRenderer(typeid(Tile), new GenericRenderer<OnTileBlitter>(
-        "medias/sprites/land/ground_sheet.png", 
+        "medias/sprites/land/ground_super_sheet.png", 
         _window->renderer));
   }
   { /* peon */
@@ -146,8 +146,8 @@ int main(int argc, char** argv) {
   { /* House */
     _gameEngine.registerObjectKind(typeid(House), new GenericAllocator<House>());
     _rdrEngine.attachRenderer(typeid(House), new GenericRenderer<OnTileBlitter>(
-        "medias/sprites/buildings/house_sheet.png",
-        "medias/sprites/buildings/house_mask.png",
+        "medias/sprites/buildings/house_peon/house_peon_sheet.png",
+        "medias/sprites/buildings/house_peon/house_peon_mask.png",
         _window->renderer, _window->vrenderer));
   }
   
