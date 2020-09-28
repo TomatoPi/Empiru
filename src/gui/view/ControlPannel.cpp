@@ -29,7 +29,7 @@ ControlPannel::ControlPannel(int viewwidth, int viewheight, Window & window) :
   View(0,0,viewwidth, viewheight),
   _window(window),
   _background(SpriteSheet::loadFromFile(
-      "medias/sprites/ui/background.png", 1, 1, window.renderer))
+      "medias/sprites/ui/parts/background.png", 1, 1, window.renderer))
 {
 }
 
@@ -40,5 +40,5 @@ void ControlPannel::draw() {
   rect.h = _viewHeight;
   rect.x = _offsetX;
   rect.y = _offsetY;
-  _background->renderFrame(0, 0, _window.renderer, &rect);
+  _background->renderFrame(0, 0, &rect);
 }

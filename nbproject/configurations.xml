@@ -97,6 +97,10 @@
           <logicalFolder name="f1" displayName="renderer" projectFiles="true">
             <itemPath>src/utils/gui/renderer/AbstractRenderer.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="f4" displayName="ui" projectFiles="true">
+            <itemPath>src/utils/gui/ui/FontPrinter.cpp</itemPath>
+            <itemPath>src/utils/gui/ui/FontPrinter.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="f2" displayName="view" projectFiles="true">
             <itemPath>src/utils/gui/view/AbstractCamera.h</itemPath>
             <itemPath>src/utils/gui/view/PixelPerfectClicker.h</itemPath>
@@ -374,6 +378,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/utils/gui/ui/FontPrinter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/ui/FontPrinter.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
             tool="3"
@@ -650,6 +658,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/utils/gui/ui/FontPrinter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/ui/FontPrinter.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
             tool="3"
@@ -920,6 +932,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/utils/gui/ui/FontPrinter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/ui/FontPrinter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"
@@ -1192,6 +1208,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/utils/gui/ui/FontPrinter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/gui/ui/FontPrinter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/view/AbstractCamera.h"
             ex="false"

@@ -100,7 +100,7 @@ public:
       _sheet->width(), _sheet->height(), 
       view.tileWidth(), view.tileHeight(), 
       x + _offx, y + _offy);
-    _sheet->renderFrame(0, ori, rdr, &r);
+    _sheet->renderFrame(0, ori, &r);
   }
   
   /// \brief Render the object at given position, replacing the texture with
@@ -118,7 +118,7 @@ public:
       view.tileWidth(), view.tileHeight(), 
       x + _offx, y + _offy);
     _mask->setColorMod(c);
-    _mask->renderFrame(0, ori, rdr, &r);
+    _mask->renderFrame(0, ori, &r);
   }
   
   virtual void addTarget(const WorldRef * obj) noexcept {}

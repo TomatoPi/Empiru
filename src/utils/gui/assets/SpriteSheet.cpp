@@ -34,17 +34,21 @@
 #include "utils/log.h"
 
 /// \brief Constructor
-SpriteSheet::SpriteSheet(SDL_Texture *t, 
+SpriteSheet::SpriteSheet(
+          SDL_Renderer *r,
+          SDL_Texture *t, 
           int w, int h,
           unsigned int rows, 
           unsigned int cols) 
 noexcept :
+  _rdr(r),
   _sheet(t),
   _w(w),
   _h(h),
   _rows(rows),
   _cols(cols)
 {
+  assert(r);
   assert(t);
   assert(0 < w);
   assert(0 < h);
@@ -88,7 +92,7 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
     }
     SDL_FreeSurface(surface);
     /* create the sheet and cut it according to wanted dimensions */
-    auto sprite(std::make_unique<SpriteSheet>(texture, 1, 1, rows, cols));
+    auto sprite(std::make_unique<SpriteSheet>(rdr, texture, 1, 1, rows, cols));
     sprite->recut(rows, cols);
     return sprite;
   } catch (const std::exception & e) {
@@ -108,15 +112,13 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
 void SpriteSheet::renderFrame(
   unsigned int row,
   unsigned int col,
-  SDL_Renderer *rdr,
   const SDL_Rect *dest)
 {
-  assert(rdr);
   assert(row < _rows);
   assert(col < _cols);
   SDL_Rect rect;
   rect.w = _w, rect.h = _h, rect.x = col * _w, rect.y = row * _h;
-  if (SDL_RenderCopy(rdr, _sheet, &rect, dest)) {
+  if (SDL_RenderCopy(_rdr, _sheet, &rect, dest)) {
     throw std::runtime_error(SDL_GetError());
   }
 }

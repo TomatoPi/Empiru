@@ -59,6 +59,7 @@
 
 #include "generator/ZoneGenerator.h"
 #include "gui/view/ControlPannel.h"
+#include "utils/gui/ui/FontPrinter.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -182,6 +183,8 @@ int main(int argc, char** argv) {
    
   /* ------------------------------------------------- */
   
+  FontPrinter printer(_window->renderer);
+  
   /* Main loop */
 
   long tickStartTime(0), tickEllapsedTime(0);
@@ -199,6 +202,7 @@ int main(int argc, char** argv) {
     
     _rdrEngine.render();
     _controlPanel.draw();
+    printer.drawStringAt((1920/FACTOR)/2, (1080/FACTOR)/2, FontPrinter::DownLeft, "0246897531");
     _window->update();
     
     ++avgcount;

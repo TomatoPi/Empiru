@@ -59,9 +59,9 @@ void PeonRenderer::renderAt(
   r.x = x - r.w / 2;
   r.y = y - r.h;
   if (datas._select) {
-    _select->renderFrame(frame, ori, rdr, &r);
+    _select->renderFrame(frame, ori, &r);
   }
-  _sheet->renderFrame(frame, ori, rdr, &r);
+  _sheet->renderFrame(frame, ori, &r);
 }
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
@@ -82,7 +82,7 @@ void PeonRenderer::renderAt(
   r.x = x - r.w / 2;
   r.y = y - r.h;
   _mask->setColorMod(c);
-  _mask->renderFrame(frame, ori, rdr, &r);
+  _mask->renderFrame(frame, ori, &r);
 }
 
 /// \brief Called when a new object associated with this renderer is created

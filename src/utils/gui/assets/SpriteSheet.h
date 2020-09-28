@@ -33,6 +33,7 @@
 class SpriteSheet {
 protected:
   
+  SDL_Renderer*_rdr;   ///< Renderer associated with this sheet
   SDL_Texture *_sheet; ///< The sheet
   int          _w;     ///< Sprite's width
   int          _h;     ///< Sprite's height
@@ -42,7 +43,9 @@ protected:
 public:
   
   /// \brief Constructor
-  SpriteSheet(SDL_Texture *t, 
+  SpriteSheet(
+          SDL_Renderer *r,
+          SDL_Texture *t, 
           int w, int h,
           unsigned int rows, 
           unsigned int cols) noexcept;
@@ -75,7 +78,6 @@ public:
   void renderFrame(
     unsigned int row,
     unsigned int col,
-    SDL_Renderer *rdr,
     const SDL_Rect *dest);
   
   /// \brief Change color of the sprite
