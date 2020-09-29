@@ -111,6 +111,7 @@ int main(int argc, char** argv) {
   
   _gameController.attachObserver(&_rdrEngine);
   _gameController.attachObserver(_soundEngine);
+  _gameController.attachObserver(&_controlPanel);
   
   _gameEngine.attachObserver(&_rdrEngine);
   

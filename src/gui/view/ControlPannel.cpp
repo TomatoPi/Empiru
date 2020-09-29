@@ -24,6 +24,10 @@
 
 #include "ControlPannel.h"
 #include "utils/gui/view/Window.h"
+#include "events/ControllerEvents.h"
+#include "entity/peon/Peon.h"
+#include "utils/world/Storage.h"
+#include "utils/world/Harvestable.h"
 
 ControlPannel::ControlPannel(
             int viewwidth, int viewheight, 
@@ -32,6 +36,7 @@ ControlPannel::ControlPannel(
   View(0,0,viewwidth, viewheight),
   _window(window),
   _playerTribe(playerTribe),
+  _selectedObject(nullptr),
     
   _background(SpriteSheet::loadFromFile(
       "medias/sprites/ui/parts/background.png", 1, 1, window.renderer)), 
@@ -40,6 +45,14 @@ ControlPannel::ControlPannel(
     
   _printer(window.renderer)
 {
+  this->registerEvent<EventObjectSelected>(
+      [this](const EventObjectSelected & event) -> void {
+        _selectedObject = event._obj;
+      });
+  this->registerEvent<EventObjectDeselected>(
+      [this](const EventObjectDeselected & event) -> void {
+        _selectedObject = nullptr;
+      });
 }
 
 /// Draw the control pannel
@@ -68,5 +81,31 @@ void ControlPannel::draw() {
     _icons->renderFrame(0, iconframes[type], &rect);
     _printer.drawStringAt(rect.x + 192, rect.y + rect.h/2, FontPrinter::CenterRight, 
         std::to_string(stocks[type]));
+  }
+  /* draw selected unit infos */
+  if (_selectedObject) {
+    std::vector<Stack> inventory;
+    if (Peon *peon = dynamic_cast<Peon*>(&**_selectedObject)) {
+      if (!peon->inventory().empty())
+        inventory.push_back(peon->inventory());
+    }
+    else if (Storage *store = dynamic_cast<Storage*>(&**_selectedObject)) {
+      for (auto & stack : store->stock()) {
+        inventory.push_back(stack);
+      }
+    }
+    else if (Harvestable *harv = dynamic_cast<Harvestable*>(&**_selectedObject)) {
+      inventory.push_back(*harv);
+    }
+    rect.w = _icons->width();
+    rect.h = _icons->height();
+    rect.x = 19;
+    rect.y = 345;
+    for (auto & stack : inventory) {
+      _icons->renderFrame(0, iconframes[stack.type()], &rect);
+      _printer.drawStringAt(rect.x + 205, rect.y + rect.h/2, FontPrinter::CenterRight, 
+          std::to_string(stack.size()));
+      rect.y += rect.h + 1;
+    }
   }
 }
