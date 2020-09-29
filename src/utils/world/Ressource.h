@@ -35,8 +35,11 @@ public:
   enum Ressource {
     Invalid,
     Wood,
-    Rock
+    Rock,
+    Count
   };
+  
+  static constexpr int RessourceBegin = static_cast<int>(Wood);
   
 private:
   

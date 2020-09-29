@@ -29,16 +29,29 @@
 #include "utils/engine/Observer.h"
 #include "utils/gui/view/Window.h"
 #include "utils/gui/assets/SpriteSheet.h"
+#include "utils/gui/ui/FontPrinter.h"
+#include "utils/world/WorldRef.h"
+
+#include "entity/functionals/TribeInfos.h"
 
 class ControlPannel : public gui::View, public Observer {
 private:
   
-  Window & _window;
+  Window &           _window;
+  const TribeInfos & _playerTribe;
+  WorldRef *         _selectedObject;
+  
   std::unique_ptr<SpriteSheet> _background; ///< Pannel's background sprite
+  std::unique_ptr<SpriteSheet> _icons;
+  
+  FontPrinter _printer;
   
 public:
   /// Create the control pannel and load right assets
-  ControlPannel(int viewwidth, int viewheight, Window & window);
+  ControlPannel(
+            int viewwidth, int viewheight, 
+            Window & window, 
+            const TribeInfos & playerTribe);
   
   /// Draw the control pannel
   void draw();

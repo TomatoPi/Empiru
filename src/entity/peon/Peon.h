@@ -42,9 +42,13 @@ private:
   
   TodoList   _todo;      ///< stack of pending orders
   hex::Axial _dir;       ///< Peon's orientation
+  
   int        _cptr;      ///< Peon's order cptr
   int        _delay;     ///< Peon's order duration
+  bool       _paused;    ///< True if peon's order is paused
   Stack      _invetory;  ///< Peon's inventory
+  
+  WorldRef * _warehouse; ///< Warehouse this peon is attached to
 
 public:
 
@@ -68,10 +72,17 @@ public:
     Stack::Ressource type) const;      ///< return true if type is harvestable
 
   bool hasOrders() const;              ///< true if orders is not empty
+  bool isPaused() const;               ///< true if peon is paused
+  
   void clearOrders();                  ///< remove all orders
   void addOrder(const Order & order);  ///< add order on top of the todolist
   void beginOrder();                   ///< set dir according to top order
   void endOrder();                     ///< remove top order
+  void pauseOrder();                   ///< Halt current order excecution
+  
+  void attachWarehouse(WorldRef *ref); ///< Attach this peon to a warehouse
+  const WorldRef * attachtedWharehouse() const;
+  WorldRef * attachtedWharehouse();
   
   /// \brief Increment peon's order counter and return true if order is ready
   bool tickCptr();

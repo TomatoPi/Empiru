@@ -33,6 +33,8 @@
 #include "utils/engine/Observer.h"
 #include "events/GameEvents.h"
 
+#include "entity/functionals/TribeInfos.h"
+
 #include <typeinfo>
 #include <typeindex>
 #include <unordered_map>
@@ -51,7 +53,9 @@ private:
   
   ObjectsTable     _objects; ///< Table of all things that do things
   BehaviourTable   _behavs;  ///< Table of behaviours
-  PriorityTable    _priors;  ///< Ordered list of behaviours according to tick priority
+  PriorityTable    _priors;  ///< List of behaviours ordered on priority
+  
+  TribeInfos   _playerTribe; ///< Object that store player's tribe infos
   WorldInterface & _world;   ///< THA WO... oh wait ... joke already used
   
 public:
@@ -61,11 +65,12 @@ public:
   
   /// \brief Add an object to the game
   template <typename Builder>
-  void createObject(const std::type_info & type, const Builder & builder) {
-    WorldRef * obj(_objects.at(std::type_index(type))->createObject());
-    builder(obj);
-    _world.addObject(obj);
-    this->sendNotification(EventObjectCreated(obj));
+  WorldRef * createObject(const std::type_info & type, const Builder & builder) {
+    WorldRef * ref(_objects.at(std::type_index(type))->createObject());
+    builder(ref);
+    _world.addObject(ref);
+    this->sendNotification(EventObjectCreated(ref));
+    return ref;
   }
   /// \brief Remove an object from the game
   void removeObject(WorldRef * ref);
@@ -76,6 +81,9 @@ public:
   ///   Only kinds with behaviour are sweeped during game tick
   ///   Different types are processed in the same order as their addition
   void attachBehaviour(const std::type_info & type, Behaviourer * behav);
+  
+  TribeInfos & playerTribe();
+  const TribeInfos & playerTribe() const;
   
   /// \brief Called on each Main-loop iteration
   ///   Call behaviour of each object

@@ -45,7 +45,10 @@ private:
   /// \brief Order's target
   union Target {
     Target();                 ///< Constructor
-    WorldObject::Position _move;    ///< MoveTo order's target
+    struct {
+      WorldObject::Position _target; ///< MoveTo order's target
+      float              _tolerance; ///< MoveTo tolerance
+    } _move;
     WorldRef *            _harvest; ///< Harvest order's target
     struct {
       WorldRef *_storage;
@@ -57,7 +60,7 @@ private:
 public:
   
   /// \brief return a MoveTo Order
-  static Order moveTo(const WorldObject::Position & pos);
+  static Order moveTo(const WorldObject::Position & pos, float tolerance);
   /// \brief return an Harvest Order
   static Order harvest(WorldRef *obj);
   /// \brief return a Store Order
@@ -75,6 +78,8 @@ public:
   /// \brief return target for MoveTo order
   /// \pre Must be a MoveTo Order
   const WorldObject::Position & targetMove() const;
+  float moveTolerance() const;
+  
   /// \brief return target for Harvest order
   /// \pre Must be a Harvest Order
   WorldRef * targetHarvest() const;

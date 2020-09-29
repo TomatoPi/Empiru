@@ -71,7 +71,7 @@ void Controller::rightClickOn(const WorldObject::Position & click, WorldRef *obj
         if (!peon->inventory().empty() 
           && storage->canStore(peon->inventory().type())) 
         {
-          peon->clearOrders();
+          peon->attachWarehouse(obj);
           peon->addOrder(Order::store(obj));
           peon->beginOrder();
           sendNotification(EventObjectAction(_selection, obj));
@@ -79,7 +79,7 @@ void Controller::rightClickOn(const WorldObject::Position & click, WorldRef *obj
       }
     } else {
       peon->clearOrders();
-      peon->addOrder(Order::moveTo(click));
+      peon->addOrder(Order::moveTo(click, 0.01));
       peon->beginOrder();
       sendNotification(EventObjectAction(_selection, nullptr));
     }
