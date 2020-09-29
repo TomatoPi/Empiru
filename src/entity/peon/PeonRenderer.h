@@ -37,8 +37,10 @@ class PeonRenderer : public AbstractRenderer {
 private:
   
   struct Datas {
-    Datas() : _anim(7,6), _select(false) {}
+    Datas() : _anim(7,6), _wanim(6,6), _notanim(2,6), _select(false) {}
     Animation _anim;
+    Animation _wanim;
+    Animation _notanim;
     bool      _select;
   };
     
@@ -48,6 +50,8 @@ private:
   std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
   std::unique_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
   std::unique_ptr<SpriteSheet> _select;   ///< Overlay when selected
+  std::unique_ptr<SpriteSheet> _whareh;   ///< Attached warehouse icon
+  std::unique_ptr<SpriteSheet> _notify;   ///< Notification icons
   Targets                      _targets;  ///< Dict of Animation datas
   
 public:
@@ -57,6 +61,8 @@ public:
     const char* peon_sheet;   ///< Base selection sheet
     const char* mask_sheet;   ///< Mask for pixel perfect selection
     const char* select_sheet; ///< Selection overlay
+    const char* whareh_sheet; ///< WhareHouse overlay
+    const char* notify_sheet; ///< Notification icons
   };
   
   /// \brief Constructor

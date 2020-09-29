@@ -102,7 +102,7 @@ Window::~Window() {
 
 /// \brief Clear the screen
 void Window::clear() {
-  SDL_SetRenderDrawColor(renderer, 128, 128, 128, SDL_ALPHA_OPAQUE);
+  SDL_SetRenderDrawColor(renderer, 16, 16, 16, SDL_ALPHA_OPAQUE);
   SDL_RenderClear(renderer);
 }
 

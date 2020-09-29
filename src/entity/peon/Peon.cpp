@@ -34,7 +34,9 @@ Peon::Peon() :
   _dir(),
   _cptr(0),
   _delay(1),
-  _invetory()
+  _paused(true),
+  _invetory(),
+  _warehouse(nullptr)
 {
 }
 
@@ -77,6 +79,11 @@ const hex::Axial & Peon::direction() const {
 bool Peon::hasOrders() const {
   return !_todo.empty();
 }
+/// \brief true if peon is paused
+bool Peon::isPaused() const {
+  return _paused;
+}
+
 /// \brief remove all path's steps
 void Peon::clearOrders() {
   //_dir._x = _dir._y = _dir._z = 0;
@@ -90,7 +97,8 @@ void Peon::addOrder(const Order & order) {
 void Peon::beginOrder() {
   assert(hasOrders());
   _dir = hex::Axial(_todo.front().targetPos() - this->pos()).toUnit();
-  switch(_todo.front().type()) {
+  Order::Type type(_todo.front().type());
+  switch (type) {
   case Order::MoveTo :
     _delay = 1;
     break;
@@ -104,6 +112,11 @@ void Peon::beginOrder() {
     assert(0);
   }
   _cptr = _delay-1;
+  _paused = false;
+}
+/// \brief Halt current order excecution
+void Peon::pauseOrder() {
+  _paused = true;
 }
 /// \brief remove top step
 void Peon::endOrder() {
@@ -112,7 +125,20 @@ void Peon::endOrder() {
   //_dir._x = _dir._y = _dir._z = 0;
 }
 
+/// \brief Attach this peon to a warehouse
+void Peon::attachWarehouse(WorldRef *ref) {
+  assert(ref);
+  _warehouse = ref;
+}
+const WorldRef * Peon::attachtedWharehouse() const {
+  return _warehouse;
+}
+WorldRef * Peon::attachtedWharehouse() {
+  return _warehouse;
+}
+
 /// \brief Increment peon's order counter and return true if order is ready
 bool Peon::tickCptr() {
+  if (_paused) return false;
   return 0 == (_cptr = (_cptr+1) % _delay);
 }

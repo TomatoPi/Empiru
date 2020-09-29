@@ -38,6 +38,8 @@ PeonRenderer::PeonRenderer(
   _sheet(SpriteAsset::loadFromFile(args.peon_sheet, rdr)),
   _mask(SpriteAsset::loadFromFile(args.mask_sheet, mrdr)),
   _select(SpriteAsset::loadFromFile(args.select_sheet, rdr)),
+  _whareh(SpriteSheet::loadFromFile(args.whareh_sheet, 1, 6, rdr)),
+  _notify(SpriteSheet::loadFromFile(args.notify_sheet, 1, 2, rdr)),
   _targets()
 {
 }
@@ -51,7 +53,9 @@ void PeonRenderer::renderAt(
 {
   const Peon & peon(static_cast<const Peon &>(**obj));
   Datas & datas(_targets.at(obj));
-  int frame = peon.hasOrders() ? datas._anim.update() : datas._anim.restart();
+  int frame = peon.hasOrders() && !peon.isPaused() ? 
+    datas._anim.update() : 
+    datas._anim.restart();
   ori = (ori + 6 - peon.direction().orientation()) % 6;
   SDL_Rect r;
   r.w = _sheet->width();
@@ -60,6 +64,25 @@ void PeonRenderer::renderAt(
   r.y = y - r.h;
   if (datas._select) {
     _select->renderFrame(frame, ori, &r);
+    if (const WorldRef *ref = peon.attachtedWharehouse()) {
+      const WorldObject & obj(**ref);
+      int x, y;
+      view.toPixel(obj.pos(), &x, &y);
+      SDL_Rect r;
+      r.w = _whareh->width();
+      r.h = _whareh->height();
+      r.x = x - r.w / 2;
+      r.y = y - r.h - 70;
+      _whareh->renderFrame(0, datas._wanim.update(), &r);
+    }
+  }
+  if (peon.isPaused()) {
+    SDL_Rect r;
+    r.w = _notify->width();
+    r.h = _notify->height();
+    r.x = x - r.w / 2 - 1;
+    r.y = y - r.h - _sheet->height() + 9;
+    _notify->renderFrame(0, datas._notanim.update(), &r);
   }
   _sheet->renderFrame(frame, ori, &r);
 }
@@ -102,6 +125,7 @@ void PeonRenderer::removeTarget(const WorldRef *obj) noexcept {
 ///  may remember draw a special overlay around it
 void PeonRenderer::targetSelected(const WorldRef * obj) {
   _targets.at(obj)._select = true;
+  _targets.at(obj)._wanim.restart();
 }
 /// \brief Called when an object associated with this renderer is deselected
 ///  may remember to stop draw special overlay

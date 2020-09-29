@@ -63,8 +63,7 @@ void PeonBehaviour::store(Peon & peon, WorldRef *ref, WorldInterface & world) {
   if (object.radius() + peon.radius() + 0.15
     < WorldObject::Position::distance(peon.pos(), object.pos())) 
   {
-    peon.addOrder(Order::moveTo(object.pos() 
-        + WorldObject::Position(peon.pos() - object.pos()).toUnit() * (object.radius() + 0.1)));
+    peon.addOrder(Order::moveTo(object.pos(), object.radius() + peon.radius() + 0.1));
     peon.beginOrder();
     return;
   }
@@ -85,13 +84,26 @@ void PeonBehaviour::harvest(
   if (object.radius() + peon.radius() + 0.15
     < WorldObject::Position::distance(peon.pos(), object.pos())) 
   {
-    peon.addOrder(Order::moveTo(object.pos() 
-        + WorldObject::Position(peon.pos() - object.pos()).toUnit() * (object.radius() + 0.1)));
+    peon.addOrder(Order::moveTo(object.pos(), object.radius() + peon.radius() + 0.1));
     peon.beginOrder();
     return;
   }
   // Yes we are ready to take some Wouuuuuuud
-  peon.addToInventory(harvest.type(), harvest.reduce(1));
+  if (peon.inventory().size() >= 10) {
+    if (peon.attachtedWharehouse()) {
+      peon.addOrder(Order::store(peon.attachtedWharehouse()));
+      peon.beginOrder();
+    } else {
+      peon.pauseOrder();
+    }
+  } else {
+    int qty(harvest.reduce(1));
+    if (qty) {
+      peon.addToInventory(harvest.type(), qty);
+    } else {
+      peon.pauseOrder();
+    }
+  }
 }
 
 /// \brief compute path order for the peon
@@ -102,10 +114,7 @@ void PeonBehaviour::pathFinding(
   const WorldObject::Position oldpos(peon.pos());
   const Order & order(peon.currentOrder());
   // If target is reached we're done
-  if (WorldObject::Position::distance(oldpos, order.targetMove()) < 0.02) {
-    world.removeObject(ref);
-    peon.pos(order.targetMove());
-    world.addObject(ref);
+  if (WorldObject::Position::distance(oldpos, order.targetMove()) < order.moveTolerance()) {
     peon.endOrder();
     if (!peon.hasOrders()) 
        return;
@@ -126,7 +135,7 @@ void PeonBehaviour::pathFinding(
       } 
       // Round obstacle
       else {
-        WorldObject::Position collide(peon.pos() - obstacle->pos());
+        WorldObject::Position collide((peon.pos() - obstacle->pos()).unit());
         WorldObject::Position esc1(collide * hex::RMatrix_C60A);
         WorldObject::Position esc2(collide * hex::RMatrix_CC60A);
         WorldObject::Position & esc = esc1;
@@ -137,7 +146,7 @@ void PeonBehaviour::pathFinding(
           esc = esc2;
         }
         peon.pos(oldpos + collide * 0.01);
-        peon.addOrder(Order::moveTo(oldpos + esc * obstacle->radius() * 2));
+        peon.addOrder(Order::moveTo(oldpos + esc * obstacle->radius() , 0.01));
         peon.beginOrder();
         validMove = true;
       }

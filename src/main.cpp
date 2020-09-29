@@ -127,6 +127,8 @@ int main(int argc, char** argv) {
     paths.peon_sheet = "medias/sprites/entity/peon/peon_sheet.png";
     paths.mask_sheet = "medias/sprites/entity/peon/peon_mask.png";
     paths.select_sheet = "medias/sprites/entity/peon/peon_select.png";
+    paths.whareh_sheet = "medias/sprites/entity/peon/attached_warehouse.png";
+    paths.notify_sheet = "medias/sprites/entity/peon/notify.png";
     
     _gameEngine.registerObjectKind(typeid(Peon), new GenericAllocator<Peon>());
     _gameEngine.attachBehaviour(typeid(Peon), new PeonBehaviour());

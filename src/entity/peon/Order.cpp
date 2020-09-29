@@ -28,9 +28,10 @@
 #include "Order.h"
   
 /// \brief return a MoveTo Order
-Order Order::moveTo(const WorldObject::Position & pos) {
+Order Order::moveTo(const WorldObject::Position & pos, float tol) {
   Order order;
-  order._target._move = pos;
+  order._target._move._target = pos;
+  order._target._move._tolerance = tol;
   order._type = MoveTo;
   return order;
 }
@@ -63,7 +64,7 @@ Order::Type Order::type() const {
 
 const WorldObject::Position & Order::targetPos() const {
   switch (_type) {
-  case MoveTo : return _target._move;
+  case MoveTo : return _target._move._target;
   case Harvest : return (**_target._harvest).pos();
   case Store : return (**_target._store._storage).pos();
   default :
@@ -75,7 +76,11 @@ const WorldObject::Position & Order::targetPos() const {
 /// \pre Must be a MoveTo Order
 const WorldObject::Position & Order::targetMove() const {
   assert(_type == MoveTo);
-  return _target._move;
+  return _target._move._target;
+}
+float Order::moveTolerance() const {
+  assert(_type == MoveTo);
+  return _target._move._tolerance;
 }
 /// \brief return target for Harvest order
 /// \pre Must be a Harvest Order
