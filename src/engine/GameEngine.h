@@ -41,7 +41,7 @@
 #include <list>
 
 /// \brief Core object for in-game mechanics
-class GameEngine : public Subject {
+class GameEngine : public Subject, public Observer {
 private:
 
   /// \brief Table of storage by objects type
@@ -50,15 +50,24 @@ private:
   typedef std::unordered_map<std::type_index, Behaviourer*> BehaviourTable;
   /// \brief Store Behaviours in order of their priority
   typedef std::list<std::type_index> PriorityTable;
+  /// \brief Store list of objects beeing created
+  typedef std::vector<WorldRef*> DyingObjectsList;
   
   ObjectsTable     _objects; ///< Table of all things that do things
   BehaviourTable   _behavs;  ///< Table of behaviours
   PriorityTable    _priors;  ///< List of behaviours ordered on priority
+  DyingObjectsList _dyings;  ///< List of objects beeing destroyed
   
   TribeInfos   _playerTribe; ///< Object that store player's tribe infos
   WorldInterface & _world;   ///< THA WO... oh wait ... joke already used
   
+  static GameEngine * _Engine;
+  
 public:
+  
+  static GameEngine & Get() noexcept {
+    return *_Engine;
+  }
   
   /// \brief Contructor
   GameEngine(WorldInterface & w);
@@ -73,6 +82,8 @@ public:
     return ref;
   }
   /// \brief Remove an object from the game
+  /// The object is marked for destruction, and removed when we are sure that
+  /// it will not break the game
   void removeObject(WorldRef * ref);
   
   /// \brief Add an object kind to the gameEngine

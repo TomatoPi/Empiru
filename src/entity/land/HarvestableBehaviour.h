@@ -16,32 +16,33 @@
  */
 
 /// 
-/// \file   GameEvents.h
+/// \file   HarvestableBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 septembre 2020, 16:54
+/// \date 29 septembre 2020, 16:20
 ///
 
-#ifndef GAMEEVENTS_H
-#define GAMEEVENTS_H
+#ifndef HARVESTABLEBEHAVIOUR_H
+#define HARVESTABLEBEHAVIOUR_H
 
-#include "utils/world/WorldRef.h"
-#include "utils/engine/Observer.h"
+#include "utils/world/WorldObject.h"
+#include "utils/world/WorldInterface.h"
+#include "utils/engine/Behaviourer.h"
+#include "utils/world/Harvestable.h"
+#include "engine/GameEngine.h"
+#include "events/GameEvents.h"
 
-struct EventObjectCreated : public Event {
-  WorldRef *_ref;
-  EventObjectCreated(WorldRef *ref) noexcept : _ref(ref) {}
+class HarvestableBehaviour : public Behaviourer {
+public:
+  
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) {
+    Harvestable & harvest(dynamic_cast<Harvestable &>(obj));
+    if (harvest.empty()) {
+      GameEngine::Get().removeObject(ref);
+    }
+  }
 };
 
-struct EventObjectDestroyed : public Event {
-  WorldRef *_ref;
-  EventObjectDestroyed(WorldRef *ref) noexcept : _ref(ref) {}
-};
-
-struct EventEntityDied : public Event {
-  WorldRef * _ref;
-  EventEntityDied(WorldRef * ref) noexcept : _ref(ref) {};
-};
-
-#endif /* GAMEEVENTS_H */
+#endif /* HARVESTABLEBEHAVIOUR_H */
 

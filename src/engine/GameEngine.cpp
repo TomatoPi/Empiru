@@ -27,22 +27,26 @@
 
 #include "GameEngine.h"
 #include "utils/hex/Consts.h"
+#include "events/GameEvents.h"
+
+GameEngine * GameEngine::_Engine(nullptr);
 
 /// \brief Contructor
 GameEngine::GameEngine(WorldInterface & w) : 
+  Subject(), Observer(),
   _objects(),
   _behavs(),
   _priors(),
   _world(w)
 {
-  
+  if (_Engine) assert(0);
+  _Engine = this;
 }
 
 /// \brief Remove an object from the game
 void GameEngine::removeObject(WorldRef * ref) {
   this->sendNotification(EventObjectDestroyed(ref));
-  _world.removeObject(ref);
-  _objects.at(std::type_index(typeid(**ref)))->deleteObject(ref);
+  _dyings.push_back(ref);
 }
 
 /// \brief Add an object kind to the gameEngine
@@ -79,4 +83,9 @@ void GameEngine::update() {
           beh->tick(obj, ref, _world);
         });
   }
+  for (auto ref : _dyings) {
+    _world.removeObject(ref);
+    _objects.at(std::type_index(typeid(**ref)))->deleteObject(ref);
+  }
+  _dyings.clear();
 }

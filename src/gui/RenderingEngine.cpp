@@ -59,17 +59,17 @@ RenderingEngine::RenderingEngine(
       });
   this->registerEvent<EventObjectCreated>(
       [this](const EventObjectCreated & event) -> void{
-        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+        if ((**event._ref).sizeClass() == WorldObject::SHollow) {
           return;
         }
-        getrdr(event._obj)->addTarget(event._obj);
+        getrdr(event._ref)->addTarget(event._ref);
       });
   this->registerEvent<EventObjectDestroyed>(
       [this](const EventObjectDestroyed & event) -> void{
-        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+        if ((**event._ref).sizeClass() == WorldObject::SHollow) {
           return;
         }
-        getrdr(event._obj)->addTarget(event._obj);
+        getrdr(event._ref)->addTarget(event._ref);
       });
 }
 

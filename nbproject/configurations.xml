@@ -50,6 +50,7 @@
             <itemPath>src/entity/tree/Tree.cpp</itemPath>
             <itemPath>src/entity/tree/Tree.h</itemPath>
           </logicalFolder>
+          <itemPath>src/entity/land/HarvestableBehaviour.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f4" displayName="units" projectFiles="true">
           <logicalFolder name="f1" displayName="peon" projectFiles="true">
@@ -315,6 +316,11 @@
             flavor2="0">
       </item>
       <item path="src/entity/functionals/TribeInfos.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/land/HarvestableBehaviour.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -609,6 +615,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/land/HarvestableBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
@@ -890,6 +901,11 @@
             flavor2="0">
       </item>
       <item path="src/entity/functionals/TribeInfos.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/land/HarvestableBehaviour.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1176,6 +1192,11 @@
             flavor2="0">
       </item>
       <item path="src/entity/functionals/TribeInfos.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/land/HarvestableBehaviour.h"
             ex="false"
             tool="3"
             flavor2="0">

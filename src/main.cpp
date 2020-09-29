@@ -42,6 +42,8 @@
 
 #include "entity/rock/Rock.h"
 
+#include "entity/land/HarvestableBehaviour.h"
+
 #include "buildings/House.h"
 #include "entity/buildings/StorageBehaviour.h"
 
@@ -139,6 +141,7 @@ int main(int argc, char** argv) {
   }
   { /* Tree */
     _gameEngine.registerObjectKind(typeid(Tree), new GenericAllocator<Tree>());
+    _gameEngine.attachBehaviour(typeid(Tree), new HarvestableBehaviour());
     _rdrEngine.attachRenderer(typeid(Tree), new GenericRenderer<OnFootBlitter>(
         "medias/sprites/land/toufu_sheet.png",
         "medias/sprites/land/toufu_mask.png",
@@ -146,6 +149,7 @@ int main(int argc, char** argv) {
   }
   { /* Rocks */
     _gameEngine.registerObjectKind(typeid(Rock), new GenericAllocator<Rock>());
+    _gameEngine.attachBehaviour(typeid(Rock), new HarvestableBehaviour());
     _rdrEngine.attachRenderer(typeid(Rock), new GenericRenderer<OnFootBlitter>(
         "medias/sprites/land/rock_sheet.png",
         "medias/sprites/land/rock_mask.png",
@@ -233,8 +237,6 @@ int main(int argc, char** argv) {
   }
   
   delete _window;
-  //*
-  //*/
   
   return 0;
 }
