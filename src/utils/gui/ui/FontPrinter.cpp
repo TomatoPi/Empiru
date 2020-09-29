@@ -53,6 +53,10 @@ void FontPrinter::drawStringAt(
   case DownLeft:
     y -= stack.totalSize._y;
     break;
+  case CenterRight:
+    x -= stack.totalSize._x;
+    y -= stack.totalSize._y / 2;
+    break;
   default:
     assert(0);
   }

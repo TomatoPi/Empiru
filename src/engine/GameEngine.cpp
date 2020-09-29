@@ -58,9 +58,18 @@ void GameEngine::attachBehaviour(const std::type_info & type, Behaviourer * beha
   assert(res.second);
 }
 
+TribeInfos & GameEngine::playerTribe() {
+  return _playerTribe;
+}
+const TribeInfos & GameEngine::playerTribe() const {
+  return _playerTribe;
+}
+
 /// \brief Called on each Main-loop iteration
 ///   Call behaviour of each object
 void GameEngine::update() {
+  /* first init the tribe */
+  _playerTribe.init();
   for (auto & type : _priors) {
     auto & beh(_behavs.at(type));
     auto & alloc(_objects.at(type));

@@ -16,43 +16,41 @@
  */
 
 /// 
-/// \file   ControlPannel.h
+/// \file   StorageBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 septembre 2020, 20:04
+/// \date 29 septembre 2020, 00:44
 ///
 
-#ifndef CONTROLPANNEL_H
-#define CONTROLPANNEL_H
-
-#include "utils/gui/view/View.h"
-#include "utils/engine/Observer.h"
-#include "utils/gui/view/Window.h"
-#include "utils/gui/assets/SpriteSheet.h"
-#include "utils/gui/ui/FontPrinter.h"
+#ifndef STORAGEBEHAVIOUR_H
+#define STORAGEBEHAVIOUR_H
 
 #include "entity/functionals/TribeInfos.h"
+#include "utils/world/WorldObject.h"
+#include "utils/world/WorldInterface.h"
+#include "utils/engine/Behaviourer.h"
+#include "utils/world/Storage.h"
 
-class ControlPannel : public gui::View, public Observer {
+class StorageBehaviour : public Behaviourer {
 private:
   
-  Window &           _window;
-  const TribeInfos & _playerTribe;
-  
-  std::unique_ptr<SpriteSheet> _background; ///< Pannel's background sprite
-  std::unique_ptr<SpriteSheet> _icons;
-  
-  FontPrinter _printer;
+  TribeInfos & _infos;
   
 public:
-  /// Create the control pannel and load right assets
-  ControlPannel(
-            int viewwidth, int viewheight, 
-            Window & window, 
-            const TribeInfos & playerTribe);
   
-  /// Draw the control pannel
-  void draw();
+  StorageBehaviour(TribeInfos & infos) : 
+    _infos(infos)
+  {      
+  }
+  
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) {
+    Storage & storage(dynamic_cast<Storage &>(obj));
+    for (auto & stack : storage.stock()) {
+      _infos.addStack(stack);
+    }
+  }
 };
 
-#endif /* CONTROLPANNEL_H */
+#endif /* STORAGEBEHAVIOUR_H */
+

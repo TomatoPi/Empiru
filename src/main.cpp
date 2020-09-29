@@ -43,6 +43,7 @@
 #include "entity/rock/Rock.h"
 
 #include "buildings/House.h"
+#include "entity/buildings/StorageBehaviour.h"
 
 #include "world/World.h"
 
@@ -59,7 +60,8 @@
 
 #include "generator/ZoneGenerator.h"
 #include "gui/view/ControlPannel.h"
-#include "utils/gui/ui/FontPrinter.h"
+
+#include "entity/functionals/TribeInfos.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -89,7 +91,10 @@ int main(int argc, char** argv) {
   
   /* Create the UI */
   Window *_window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
-  ControlPannel _controlPanel(409/FACTOR, 1080/FACTOR, *_window);
+  ControlPannel _controlPanel(
+    409/FACTOR, 1080/FACTOR, 
+    *_window, 
+    _gameEngine.playerTribe());
   Camera _camera(
     371/FACTOR, 0,
     hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
@@ -145,6 +150,7 @@ int main(int argc, char** argv) {
   }
   { /* House */
     _gameEngine.registerObjectKind(typeid(House), new GenericAllocator<House>());
+    _gameEngine.attachBehaviour(typeid(House), new StorageBehaviour(_gameEngine.playerTribe()));
     _rdrEngine.attachRenderer(typeid(House), new GenericRenderer<OnTileBlitter>(
         "medias/sprites/buildings/house_peon/house_peon_sheet.png",
         "medias/sprites/buildings/house_peon/house_peon_mask.png",
@@ -183,8 +189,6 @@ int main(int argc, char** argv) {
    
   /* ------------------------------------------------- */
   
-  FontPrinter printer(_window->renderer);
-  
   /* Main loop */
 
   long tickStartTime(0), tickEllapsedTime(0);
@@ -202,7 +206,6 @@ int main(int argc, char** argv) {
     
     _rdrEngine.render();
     _controlPanel.draw();
-    //printer.drawStringAt((1920/FACTOR)/2, (1080/FACTOR)/2, FontPrinter::DownLeft, "0246897531");
     _window->update();
     
     ++avgcount;

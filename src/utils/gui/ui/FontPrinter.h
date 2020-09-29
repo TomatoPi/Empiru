@@ -37,7 +37,8 @@ public:
     UpLeft,
     UpRight,
     DownRight,
-    DownLeft
+    DownLeft,
+    CenterRight
   };
   
 public:

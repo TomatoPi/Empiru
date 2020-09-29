@@ -31,10 +31,12 @@
 
 /// \brief Component for WorldObjects that store ressources
 class Storage {
-private:
   
   /// \brief Table of Stack hashed by type
   typedef std::unordered_set<Stack, StackTypeHash, StackTypeEqual> StackList;
+  
+private:
+  
   StackList _storage; ///< Current storage
   
 public:
@@ -60,6 +62,10 @@ public:
       _storage.erase(itr);
       _storage.emplace(old);
     }
+  }
+  
+  const StackList & stock() const noexcept {
+    return _storage;
   }
   
   bool canStore(Stack::Ressource type) const noexcept {

@@ -25,20 +25,48 @@
 #include "ControlPannel.h"
 #include "utils/gui/view/Window.h"
 
-ControlPannel::ControlPannel(int viewwidth, int viewheight, Window & window) :
+ControlPannel::ControlPannel(
+            int viewwidth, int viewheight, 
+            Window & window, 
+            const TribeInfos & playerTribe) :
   View(0,0,viewwidth, viewheight),
   _window(window),
+  _playerTribe(playerTribe),
+    
   _background(SpriteSheet::loadFromFile(
-      "medias/sprites/ui/parts/background.png", 1, 1, window.renderer))
+      "medias/sprites/ui/parts/background.png", 1, 1, window.renderer)), 
+  _icons(SpriteSheet::loadFromFile(
+      "medias/sprites/ui/parts/icons.png", 1, 4, window.renderer)),
+    
+  _printer(window.renderer)
 {
 }
 
 /// Draw the control pannel
 void ControlPannel::draw() {
+  /* draw background */
   SDL_Rect rect;
   rect.w = _viewWidth;
   rect.h = _viewHeight;
   rect.x = _offsetX;
   rect.y = _offsetY;
   _background->renderFrame(0, 0, &rect);
+  /* draw ressources */
+  rect.w = _icons->width();
+  rect.h = _icons->height();
+  rect.x = 25;
+  rect.y = 114;
+  static std::array<int,Stack::Ressource::Count> iconframes;
+  iconframes[Stack::Rock] = 2;
+  iconframes[Stack::Wood] = 3;
+  const TribeInfos::TribeStocks & stocks(_playerTribe.stocks());
+  for (
+      int type(Stack::RessourceBegin) ; 
+      type != Stack::Ressource::Count ; 
+      ++type, rect.y += rect.h + 2)
+  {
+    _icons->renderFrame(0, iconframes[type], &rect);
+    _printer.drawStringAt(rect.x + 192, rect.y + rect.h/2, FontPrinter::CenterRight, 
+        std::to_string(stocks[type]));
+  }
 }

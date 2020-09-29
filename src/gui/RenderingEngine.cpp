@@ -45,18 +45,30 @@ RenderingEngine::RenderingEngine(
 {
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
+        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+          return;
+        }
         getrdr(event._obj)->targetSelected(event._obj);
       });
   this->registerEvent<EventObjectDeselected>(
       [this](const EventObjectDeselected & event) -> void {
+        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+          return;
+        }
         getrdr(event._obj)->targetDeselected(event._obj);
       });
   this->registerEvent<EventObjectCreated>(
       [this](const EventObjectCreated & event) -> void{
+        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+          return;
+        }
         getrdr(event._obj)->addTarget(event._obj);
       });
   this->registerEvent<EventObjectDestroyed>(
       [this](const EventObjectDestroyed & event) -> void{
+        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+          return;
+        }
         getrdr(event._obj)->addTarget(event._obj);
       });
 }

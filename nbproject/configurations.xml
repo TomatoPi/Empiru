@@ -23,10 +23,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="f5" displayName="buildings" projectFiles="true">
-        <itemPath>src/buildings/House.cpp</itemPath>
-        <itemPath>src/buildings/House.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f7" displayName="core" projectFiles="true">
         <itemPath>src/core/GameCore.cpp</itemPath>
         <itemPath>src/core/GameCore.h</itemPath>
@@ -37,23 +33,35 @@
         <itemPath>src/engine/GenericAllocator.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
-        <logicalFolder name="f1" displayName="peon" projectFiles="true">
-          <itemPath>src/entity/peon/Order.cpp</itemPath>
-          <itemPath>src/entity/peon/Order.h</itemPath>
-          <itemPath>src/entity/peon/Peon.cpp</itemPath>
-          <itemPath>src/entity/peon/Peon.h</itemPath>
-          <itemPath>src/entity/peon/PeonBehaviour.cpp</itemPath>
-          <itemPath>src/entity/peon/PeonBehaviour.h</itemPath>
-          <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
-          <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
+        <logicalFolder name="f5" displayName="buildings" projectFiles="true">
+          <itemPath>src/buildings/House.cpp</itemPath>
+          <itemPath>src/buildings/House.h</itemPath>
+          <itemPath>src/entity/buildings/StorageBehaviour.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="f3" displayName="rock" projectFiles="true">
-          <itemPath>src/entity/rock/Rock.cpp</itemPath>
-          <itemPath>src/entity/rock/Rock.h</itemPath>
+        <logicalFolder name="f2" displayName="functionals" projectFiles="true">
+          <itemPath>src/entity/functionals/TribeInfos.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="f2" displayName="tree" projectFiles="true">
-          <itemPath>src/entity/tree/Tree.cpp</itemPath>
-          <itemPath>src/entity/tree/Tree.h</itemPath>
+        <logicalFolder name="f1" displayName="land" projectFiles="true">
+          <logicalFolder name="f3" displayName="rock" projectFiles="true">
+            <itemPath>src/entity/rock/Rock.cpp</itemPath>
+            <itemPath>src/entity/rock/Rock.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="tree" projectFiles="true">
+            <itemPath>src/entity/tree/Tree.cpp</itemPath>
+            <itemPath>src/entity/tree/Tree.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="f4" displayName="units" projectFiles="true">
+          <logicalFolder name="f1" displayName="peon" projectFiles="true">
+            <itemPath>src/entity/peon/Order.cpp</itemPath>
+            <itemPath>src/entity/peon/Order.h</itemPath>
+            <itemPath>src/entity/peon/Peon.cpp</itemPath>
+            <itemPath>src/entity/peon/Peon.h</itemPath>
+            <itemPath>src/entity/peon/PeonBehaviour.cpp</itemPath>
+            <itemPath>src/entity/peon/PeonBehaviour.h</itemPath>
+            <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
+            <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
+          </logicalFolder>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f6" displayName="events" projectFiles="true">
@@ -300,6 +308,16 @@
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/functionals/TribeInfos.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -581,6 +599,16 @@
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/functionals/TribeInfos.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
@@ -855,6 +883,16 @@
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/functionals/TribeInfos.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1131,6 +1169,16 @@
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/functionals/TribeInfos.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>

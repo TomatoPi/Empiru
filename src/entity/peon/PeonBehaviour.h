@@ -30,7 +30,7 @@
 #include "utils/world/WorldInterface.h"
 #include "utils/engine/Behaviourer.h"
 
-class PeonBehaviour : public Behaviourer {
+class PeonBehaviour : public Behaviourer {  
 public:
   
   /// \brief Must compute one behaviour tick of obj
