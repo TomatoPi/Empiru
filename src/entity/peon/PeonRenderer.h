@@ -28,6 +28,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include "utils/world/WorldPtr.h"
 #include "utils/gui/renderer/AbstractRenderer.h"
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/assets/Animation.h"
@@ -45,7 +46,8 @@ private:
   };
     
   /// \brief Animation datas are stored for each attached peon
-  typedef std::unordered_map<const WorldRef *, Datas> Targets;
+  typedef std::unordered_map<WorldPtr, Datas, WorldPtrHash, WorldPtrEquals> 
+    Targets;
   
   std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
   std::unique_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
@@ -71,7 +73,7 @@ public:
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual void renderAt(
-    const WorldRef * obj, 
+    const WorldPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr);
@@ -79,7 +81,7 @@ public:
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
   virtual void renderAt(
-    const WorldRef * obj,
+    const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
@@ -87,16 +89,16 @@ public:
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldRef *obj) noexcept;
+  virtual void addTarget(const WorldPtr& obj) noexcept;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldRef *obj) noexcept;
+  virtual void removeTarget(const WorldPtr& obj) noexcept;
   /// \brief Called when an object associated with this renderer is selected
   ///  may remember draw a special overlay around it
-  virtual void targetSelected(const WorldRef * obj);
+  virtual void targetSelected(const WorldPtr& obj);
   /// \brief Called when an object associated with this renderer is deselected
   ///  may remember to stop draw special overlay
-  virtual void targetDeselected(const WorldRef * obj);
+  virtual void targetDeselected(const WorldPtr& obj);
 };
 
 #endif /* PEONRENDERER_H */

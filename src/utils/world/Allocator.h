@@ -27,12 +27,11 @@
 #define ALLOCATOR_H
 
 #include <functional>
-#include "utils/world/WorldRef.h"
-#include "utils/world/WorldObject.h"
 
 /// \brief Interface for worldobjects allocator/container
 ///   All objects of the same kind are sweeped on each game tick
 ///   So allocator should be aware of cache issues and data continuity
+template <class Base, class Ptr>
 class Allocator {
 public:
   
@@ -40,16 +39,19 @@ public:
   /// This allocator is the only object's owner, and user should never
   ///   delete them himself.
   /// Refecrences returned must be stable (always represent the same object)
-  virtual WorldRef * createObject() = 0;
+  virtual Ptr createObject() = 0;
   
   /// \brief Must free obj and dealocate associated memory.
   /// Must be the only way used to destroy objects
-  virtual void deleteObject(WorldRef * ref) = 0;
+  virtual void deleteObject(const Ptr & ptr) = 0;
+  
+  virtual Base & operator[] (std::size_t) = 0;
+  virtual const Base & operator[] (std::size_t) const = 0;
   
   /// \brief Must call given callback on each object
   ///   Callback parameters are the object and the associated reference
   /// \warning Delete objects inside the callback may cause miss
-  virtual void foreach(std::function<void(WorldObject & obj, WorldRef *)> func) = 0;
+  virtual void foreach(std::function<void(Base & obj, Ptr)> func) = 0;
 };
 
 #endif /* ALLOCATOR_H */

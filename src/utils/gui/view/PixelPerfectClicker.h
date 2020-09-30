@@ -25,7 +25,7 @@
 #ifndef PIXELPERFECTCLICKER_H
 #define PIXELPERFECTCLICKER_H
 
-#include "utils/world/WorldRef.h"
+#include "utils/world/WorldPtr.h"
 
 class PixelPerfectClicker {
 public:
@@ -33,7 +33,7 @@ public:
   
   virtual void updateClickZones() = 0;
   
-  virtual WorldRef * objectAt(int x, int y) const noexcept = 0;
+  virtual WorldPtr objectAt(int x, int y) const noexcept = 0;
 };
 
 #endif /* PIXELPERFECTCLICKER_H */

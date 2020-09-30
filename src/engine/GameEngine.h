@@ -27,8 +27,8 @@
 #define GAMEENGINE_H
 
 #include "utils/world/WorldInterface.h"
-#include "utils/world/WorldRef.h"
-#include "utils/engine/Allocator.h"
+#include "utils/world/WorldPtr.h"
+#include "utils/world/Allocator.h"
 #include "utils/engine/Behaviourer.h"
 #include "utils/engine/Observer.h"
 #include "events/GameEvents.h"
@@ -41,42 +41,55 @@
 #include <list>
 
 /// \brief Core object for in-game mechanics
-class GameEngine : public Subject {
+class GameEngine : public Subject, public Observer {
 private:
+  
+  typedef Allocator<WorldObject,WorldPtr> _Allocator;
 
   /// \brief Table of storage by objects type
-  typedef std::unordered_map<std::type_index, Allocator*>   ObjectsTable;
+  typedef std::unordered_map<std::type_index, _Allocator*>   ObjectsTable;
   /// \brief Table of behaviours by objects type
   typedef std::unordered_map<std::type_index, Behaviourer*> BehaviourTable;
   /// \brief Store Behaviours in order of their priority
   typedef std::list<std::type_index> PriorityTable;
+  /// \brief Store list of objects beeing created
+  typedef std::vector<WorldPtr> DyingObjectsList;
   
   ObjectsTable     _objects; ///< Table of all things that do things
   BehaviourTable   _behavs;  ///< Table of behaviours
   PriorityTable    _priors;  ///< List of behaviours ordered on priority
+  DyingObjectsList _dyings;  ///< List of objects beeing destroyed
   
   TribeInfos   _playerTribe; ///< Object that store player's tribe infos
   WorldInterface & _world;   ///< THA WO... oh wait ... joke already used
   
+  static GameEngine * _Engine;
+  
 public:
+  
+  static GameEngine & Get() noexcept {
+    return *_Engine;
+  }
   
   /// \brief Contructor
   GameEngine(WorldInterface & w);
   
   /// \brief Add an object to the game
   template <typename Builder>
-  WorldRef * createObject(const std::type_info & type, const Builder & builder) {
-    WorldRef * ref(_objects.at(std::type_index(type))->createObject());
-    builder(ref);
-    _world.addObject(ref);
-    this->sendNotification(EventObjectCreated(ref));
-    return ref;
+  WorldPtr createObject(const std::type_info & type, const Builder & builder) {
+    WorldPtr ptr(_objects.at(std::type_index(type))->createObject());
+    builder(ptr);
+    _world.addObject(ptr);
+    this->sendNotification(EventObjectCreated(ptr));
+    return ptr;
   }
   /// \brief Remove an object from the game
-  void removeObject(WorldRef * ref);
+  /// The object is marked for destruction, and removed when we are sure that
+  /// it will not break the game
+  void removeObject(const WorldPtr& ptr);
   
   /// \brief Add an object kind to the gameEngine
-  void registerObjectKind(const std::type_info & type, Allocator * alloc);
+  void registerObjectKind(const std::type_info & type, _Allocator * alloc);
   /// \brief Add a behaviour for an object Kind.
   ///   Only kinds with behaviour are sweeped during game tick
   ///   Different types are processed in the same order as their addition

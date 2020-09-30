@@ -27,44 +27,16 @@
 
 #include <vector>
 #include <cassert>
-#include "utils/engine/Allocator.h"
+#include "utils/world/WorldPtr.h"
+#include "utils/world/Allocator.h"
 
-/// \brief Generic implementation of Allocators using STL vectors
+/// \brief Concrete implementation of Allocators using STL vectors
 template <class T>
-class GenericAllocator : public Allocator {
+class WorldAllocator : public Allocator<WorldObject,WorldPtr> {
 private:
   
-  /// \brief Private implementation of WorldRef
-  struct GWorldRef : public WorldRef {
-    
-    GenericAllocator & _alloc; ///< Container
-    std::size_t        _idx;   ///< Refered object
-    
-    /// \brief Constructor
-    GWorldRef(GenericAllocator & alloc, std::size_t idx) : 
-      _alloc(alloc), _idx(idx) 
-    {
-    }
-    /// \brief return referenced object
-    virtual WorldObject & operator-> () {
-      return _alloc._objects[_idx];
-    }
-    /// \brief return referenced object as immutable
-    virtual const WorldObject & operator-> () const {
-      return _alloc._objects[_idx];
-    }
-    /// \brief return referenced object
-    virtual WorldObject & operator* () {
-      return _alloc._objects[_idx];
-    }
-    /// \brief return referenced object as immutable
-    virtual const WorldObject & operator* () const {
-      return _alloc._objects[_idx];
-    }
-  };
-
-  typedef std::vector<T>          Container; ///< Array of objects
-  typedef std::vector<GWorldRef*> RefTable;  ///< Array of references
+  typedef std::vector<T>        Container; ///< Array of objects
+  typedef std::vector<WorldPtr> RefTable;  ///< Array of references
   
   Container _objects; ///< Array of objects
   RefTable  _rtable;  ///< Array of references
@@ -72,48 +44,55 @@ private:
 public:
   
   /// \brief Constructor
-  GenericAllocator() : _objects(), _rtable() {}
+  WorldAllocator() : _objects(), _rtable() {}
     
   /// \brief Must create one instance of associated object and return it.
   /// This allocator is the only object's owner, and user should never
   ///   delete them himself.
   /// Refecrences returned must be stable (always represent the same object)
   /// \warning not thread safe
-  virtual WorldRef * createObject() {
+  virtual WorldPtr createObject() {
     assert(_objects.size() == _rtable.size());
     std::size_t idx(_objects.size());
-    GWorldRef *ref(new GWorldRef(*this, idx));
+    WorldPtr ptr(*this, idx);
     _objects.emplace_back();
-    _rtable.emplace_back(ref);
+    _rtable.emplace_back(ptr);
     assert(_objects.size() == _rtable.size());
-    return ref;
+    return ptr;
   }
   
   /// \brief Must free obj and dealocate associated memory.
   /// Must be the only way used to destroy objects.
   /// The strategy used for dealocation is swap ersaed obj and last obj,
   ///   reducing reference update count to one or zero
-  virtual void deleteObject(WorldRef * r) {
+  virtual void deleteObject(const WorldPtr & ref) {
+    assert(ref.isValid());
     assert(_objects.size() == _rtable.size());
-    GWorldRef *ref(static_cast<GWorldRef*>(r));
-    std::size_t erased(ref->_idx), swapped(_objects.size() -1);
+    std::size_t erased(ref._ref->_idx), swapped(_objects.size() -1);
     // Swap last and erased elements then update associated reference
     if (1 < _objects.size() && erased != swapped) {
-      _rtable[swapped]->_idx = erased;
+      _rtable[swapped]._ref->_idx = erased;
       std::swap(_objects[erased], _objects[swapped]);
       std::swap(_rtable[erased], _rtable[swapped]);
     }
     // destroy last object and associated reference
+    _rtable.back().deprecate();
     _objects.pop_back();
     _rtable.pop_back();
-    delete ref;
     assert(_objects.size() == _rtable.size());
+  }
+  
+  virtual WorldObject & operator[] (std::size_t idx) {
+    return _objects[idx];
+  }
+  virtual const WorldObject & operator[] (std::size_t idx) const {
+    return _objects[idx];
   }
   
   /// \brief Must call given callback on each object
   ///   Callback parameters are the object and the associated reference
   /// \warning Delete objects inside the callback may cause miss
-  virtual void foreach(std::function<void(WorldObject & obj, WorldRef *)> func)
+  virtual void foreach(std::function<void(WorldObject &, WorldPtr)> func)
   {
     assert(_objects.size() == _rtable.size());
     for (std::size_t i(0) ; i<_objects.size() ; ++i) {

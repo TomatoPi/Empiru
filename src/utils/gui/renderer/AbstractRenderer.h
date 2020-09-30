@@ -27,7 +27,7 @@
 #define GUI_RDR_ABSTRACTRENDERER_H
 
 #include "utils/hex/Viewport.h"
-#include "utils/world/WorldRef.h"
+#include "utils/world/WorldPtr.h"
 #include "utils/world/WorldObject.h"
 #include <SDL2/SDL_render.h>
 
@@ -44,7 +44,7 @@ public:
   /// \param rdr : renderer
   /// \throw runtime_error on failure
   virtual void renderAt(
-    const WorldRef * obj, 
+    const WorldPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr) = 0;
@@ -60,7 +60,7 @@ public:
   /// \param color : color that must be used to draw
   /// \throw runtime_error on failure
   virtual void renderAt(
-    const WorldRef * obj,
+    const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
@@ -68,16 +68,16 @@ public:
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldRef * obj) = 0;
+  virtual void addTarget(const WorldPtr& obj) = 0;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldRef * obj) = 0;
+  virtual void removeTarget(const WorldPtr& obj) = 0;
   /// \brief Called when an object associated with this renderer is selected
   ///  may remember draw a special overlay around it
-  virtual void targetSelected(const WorldRef * obj) = 0;
+  virtual void targetSelected(const WorldPtr& obj) = 0;
   /// \brief Called when an object associated with this renderer is deselected
   ///  may remember to stop draw special overlay
-  virtual void targetDeselected(const WorldRef * obj) = 0;
+  virtual void targetDeselected(const WorldPtr& obj) = 0;
 };
 
 #endif /* GUI_RDR_ABSTRACTRENDERER_H */

@@ -32,7 +32,7 @@
 #include "utils/world/Storage.h"
 
 /// \brief Must compute one behaviour tick of obj
-void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) {
+void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world) {
   Peon & peon(static_cast<Peon &>(obj));
   // Pass if nothing to do
   if (!peon.hasOrders()) return;
@@ -41,13 +41,13 @@ void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & worl
   // else let's do things
   switch (peon.currentOrder().type()) {
   case Order::MoveTo :
-    pathFinding(peon, ref, world);
+    moveTo(peon, ptr, world);
     break;
   case Order::Harvest :
-    harvest(peon, ref, world);
+    harvest(peon, ptr, world);
     break;
   case Order::Store :
-    store(peon, ref, world);
+    store(peon, ptr, world);
     break;
   default:
     assert(0);
@@ -55,15 +55,23 @@ void PeonBehaviour::tick(WorldObject & obj, WorldRef *ref, WorldInterface & worl
 }
 
 /// \brief compute harvest order
-void PeonBehaviour::store(Peon & peon, WorldRef *ref, WorldInterface & world) {
-  const Order & order(peon.currentOrder());
-  const WorldObject & object(static_cast<const WorldObject &>(**order.targetStore()));
-  Storage & storage(dynamic_cast<Storage &>(**order.targetStore()));
+void PeonBehaviour::store(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+  const OrderStore& order(static_cast<const OrderStore&>(peon.currentOrder()));
+  WorldPtr obj(order.target());
+  // check if target always exists
+  if (!obj) {
+    if (peon.attachtedWharehouse() == obj) {
+      peon.detachWarehouse();
+    }
+    peon.endOrder();
+    return;
+  }
+  Storage & storage(dynamic_cast<Storage &>(*obj));
   // If too far, walk
-  if (object.radius() + peon.radius() + 0.15
-    < WorldObject::Position::distance(peon.pos(), object.pos())) 
+  if (obj->radius() + peon.radius() + 0.15
+    < WorldObject::Position::distance(peon.pos(), obj->pos())) 
   {
-    peon.addOrder(Order::moveTo(object.pos(), object.radius() + peon.radius() + 0.1));
+    peon.addOrder(new OrderMoveTo(obj->pos(), obj->radius() + peon.radius() + 0.1));
     peon.beginOrder();
     return;
   }
@@ -74,24 +82,27 @@ void PeonBehaviour::store(Peon & peon, WorldRef *ref, WorldInterface & world) {
 }
 
 /// \brief compute harvest order
-void PeonBehaviour::harvest(
-    Peon & peon, WorldRef *ref, WorldInterface & world) 
-{
-  const Order & order(peon.currentOrder());
-  const WorldObject & object(static_cast<const WorldObject &>(**order.targetHarvest()));
-  Harvestable & harvest(dynamic_cast<Harvestable &>(**order.targetHarvest()));
+void PeonBehaviour::harvest(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+  const OrderHarvest& order(static_cast<const OrderHarvest&>(peon.currentOrder()));
+  WorldPtr obj(order.target());
+  // check if target always exists
+  if (!obj) {
+    peon.endOrder();
+    return;
+  }
+  Harvestable & harvest(dynamic_cast<Harvestable &>(*obj));
   // If too far, walk
-  if (object.radius() + peon.radius() + 0.15
-    < WorldObject::Position::distance(peon.pos(), object.pos())) 
+  if (obj->radius() + peon.radius() + 0.15
+    < WorldObject::Position::distance(peon.pos(), obj->pos())) 
   {
-    peon.addOrder(Order::moveTo(object.pos(), object.radius() + peon.radius() + 0.1));
+    peon.addOrder(new OrderMoveTo(obj->pos(), obj->radius() + peon.radius() + 0.1));
     peon.beginOrder();
     return;
   }
   // Yes we are ready to take some Wouuuuuuud
   if (peon.inventory().size() >= 10) {
     if (peon.attachtedWharehouse()) {
-      peon.addOrder(Order::store(peon.attachtedWharehouse()));
+      peon.addOrder(new OrderStore(peon.attachtedWharehouse()));
       peon.beginOrder();
     } else {
       peon.pauseOrder();
@@ -107,14 +118,12 @@ void PeonBehaviour::harvest(
 }
 
 /// \brief compute path order for the peon
-void PeonBehaviour::pathFinding(
-    Peon & peon, WorldRef *ref, WorldInterface & world) 
-{
+void PeonBehaviour::moveTo(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
   // Let's get it started
   const WorldObject::Position oldpos(peon.pos());
-  const Order & order(peon.currentOrder());
+  const OrderMoveTo& order(static_cast<const OrderMoveTo&>(peon.currentOrder()));
   // If target is reached we're done
-  if (WorldObject::Position::distance(oldpos, order.targetMove()) < order.moveTolerance()) {
+  if (WorldObject::Position::distance(oldpos, order.targetPos()) < order.tolerance()) {
     peon.endOrder();
     if (!peon.hasOrders()) 
        return;
@@ -126,7 +135,7 @@ void PeonBehaviour::pathFinding(
     peon.pos(oldpos + peon.direction() * 0.01);
     // Check validity
     WorldObject *obstacle(nullptr);
-    bool validMove(tryPosition(peon, ref, &obstacle, world));
+    bool validMove(tryPosition(peon, ptr, &obstacle, world));
     // Try to find alternative path
     if (!validMove) {
       // World limit
@@ -140,13 +149,13 @@ void PeonBehaviour::pathFinding(
         WorldObject::Position esc2(collide * hex::RMatrix_CC60A);
         WorldObject::Position & esc = esc1;
         if (
-            WorldObject::Position::distance(oldpos + esc2 * 0.01, order.targetMove()) 
-          < WorldObject::Position::distance(oldpos + esc1 * 0.01, order.targetMove())) 
+            WorldObject::Position::distance(oldpos + esc2 * 0.01, order.targetPos()) 
+          < WorldObject::Position::distance(oldpos + esc1 * 0.01, order.targetPos())) 
         {
           esc = esc2;
         }
         peon.pos(oldpos + collide * 0.01);
-        peon.addOrder(Order::moveTo(oldpos + esc * obstacle->radius() , 0.01));
+        peon.addOrder(new OrderMoveTo(oldpos + esc * obstacle->radius() , 0.01));
         peon.beginOrder();
         validMove = true;
       }
@@ -156,9 +165,9 @@ void PeonBehaviour::pathFinding(
       if (oldpos.tile() != peon.pos().tile()) {
         WorldObject::Position tmp(peon.pos());
         peon.pos(oldpos);
-        world.removeObject(ref);
+        world.removeObject(ptr);
         peon.pos(tmp);
-        world.addObject(ref);
+        world.addObject(ptr);
       }
     } else {
       /// \todo Add notification if impossible path
@@ -172,7 +181,10 @@ void PeonBehaviour::pathFinding(
 ///   if position is invalid, return false and return pointer to the obstacle
 ///   in 'obstacle' if relevant
 bool PeonBehaviour::tryPosition(
-    Peon & peon, WorldRef *ref, WorldObject ** obstacle, WorldInterface & world)
+        Peon& peon, 
+        WorldPtr& ptr, 
+        WorldObject** obstacle, 
+        WorldInterface& world)
 const {
   // Check validity
   if (!world.isOnMap(peon.pos())) {
@@ -186,10 +198,10 @@ const {
       auto content = world.getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){
-          if (obj == ref) 
+          if (obj == ptr) 
             continue;
-          if ((**obj).collide(peon)) {
-            *obstacle = &(**obj);
+          if (obj->collide(peon)) {
+            *obstacle = &*obj;
             valid = false;
             return true;
           }

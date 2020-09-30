@@ -44,7 +44,7 @@ Peon::Peon() :
 /// \pre peon has a target (path not empty)
 const Order & Peon::currentOrder() const {
   assert(hasOrders());
-  return _todo.front();
+  return *_todo.front();
 }
   
 /// \brief ressources qty in peon's inventory
@@ -90,14 +90,18 @@ void Peon::clearOrders() {
   _todo.clear();
 }
 /// \brief add pos on top of path
-void Peon::addOrder(const Order & order) {
+void Peon::addOrder(Order* order) {
   _todo.emplace_front(order);
 }
 /// \brief set dir according to top step
 void Peon::beginOrder() {
   assert(hasOrders());
-  _dir = hex::Axial(_todo.front().targetPos() - this->pos()).toUnit();
-  Order::Type type(_todo.front().type());
+  if (!_todo.front()->isValid()) {
+    this->endOrder();
+    return;
+  }
+  _dir = hex::Axial(_todo.front()->targetPos() - this->pos()).toUnit();
+  Order::Type type(_todo.front()->type());
   switch (type) {
   case Order::MoveTo :
     _delay = 1;
@@ -121,19 +125,25 @@ void Peon::pauseOrder() {
 /// \brief remove top step
 void Peon::endOrder() {
   assert(hasOrders());
+  delete _todo.front();
   _todo.pop_front();
   //_dir._x = _dir._y = _dir._z = 0;
 }
 
 /// \brief Attach this peon to a warehouse
-void Peon::attachWarehouse(WorldRef *ref) {
-  assert(ref);
-  _warehouse = ref;
+void Peon::attachWarehouse(const WorldPtr& ptr) {
+  assert(ptr);
+  _warehouse = ptr;
 }
-const WorldRef * Peon::attachtedWharehouse() const {
+/// \brief Detach this peon to it's warehouse
+void Peon::detachWarehouse() {
+  _warehouse = nullptr;
+}
+const WorldPtr& Peon::attachtedWharehouse() const {
   return _warehouse;
 }
-WorldRef * Peon::attachtedWharehouse() {
+/// \brief return current peon's warehouse
+WorldPtr Peon::attachtedWharehouse() {
   return _warehouse;
 }
 

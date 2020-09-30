@@ -31,6 +31,7 @@
 #include "entity/peon/Order.h"
 #include "utils/world/WorldObject.h"
 #include "utils/world/Ressource.h"
+#include "utils/world/WorldPtr.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
@@ -38,7 +39,7 @@ class Peon : public WorldObject {
 private:
 
   /// \brief Store the list of targets positions, used as a stack
-  typedef std::deque<Order> TodoList;
+  typedef std::deque<Order*> TodoList;
   
   TodoList   _todo;      ///< stack of pending orders
   hex::Axial _dir;       ///< Peon's orientation
@@ -48,7 +49,7 @@ private:
   bool       _paused;    ///< True if peon's order is paused
   Stack      _invetory;  ///< Peon's inventory
   
-  WorldRef * _warehouse; ///< Warehouse this peon is attached to
+  WorldPtr  _warehouse; ///< Warehouse this peon is attached to
 
 public:
 
@@ -75,14 +76,15 @@ public:
   bool isPaused() const;               ///< true if peon is paused
   
   void clearOrders();                  ///< remove all orders
-  void addOrder(const Order & order);  ///< add order on top of the todolist
+  void addOrder(Order* order);  ///< add order on top of the todolist
   void beginOrder();                   ///< set dir according to top order
   void endOrder();                     ///< remove top order
   void pauseOrder();                   ///< Halt current order excecution
   
-  void attachWarehouse(WorldRef *ref); ///< Attach this peon to a warehouse
-  const WorldRef * attachtedWharehouse() const;
-  WorldRef * attachtedWharehouse();
+  void attachWarehouse(const WorldPtr& ptr);  ///< Attach this peon to a warehouse
+  void detachWarehouse();                     ///< Detach this peon to it's warehouse
+  const WorldPtr& attachtedWharehouse() const;///< return current peon's warehouse
+  WorldPtr attachtedWharehouse();             ///< return current peon's warehouse
   
   /// \brief Increment peon's order counter and return true if order is ready
   bool tickCptr();

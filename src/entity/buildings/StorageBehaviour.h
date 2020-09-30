@@ -44,7 +44,7 @@ public:
   }
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) {
+  virtual void tick(WorldObject & obj, WorldPtr& ptr, WorldInterface & world) {
     Storage & storage(dynamic_cast<Storage &>(obj));
     for (auto & stack : storage.stock()) {
       _infos.addStack(stack);

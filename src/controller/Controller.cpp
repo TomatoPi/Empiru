@@ -32,54 +32,54 @@
 #include "events/ControllerEvents.h"
 
 /// \brief Constructor
-Controller::Controller(WorldInterface & w) noexcept :
+Controller::Controller(WorldInterface& w) noexcept :
   _selection(nullptr), _world(w)
 {
 }
   
 /// \brief Called when a left click is performed at given position
-void Controller::leftClickOn(const WorldObject::Position & click, WorldRef *obj) {
+void Controller::leftClickOn(const WorldObject::Position& click, WorldPtr& ptr) {
   // Update controller according to result
   if (_selection) {
     sendNotification(EventObjectDeselected(_selection));
   }
-  if (obj) {
-    _selection = obj;
+  if (ptr) {
+    _selection = ptr;
     sendNotification(EventObjectSelected(_selection));
   } else {
     _selection = nullptr;
   }
 }
 /// \brief Called when a right click is performed at given position
-void Controller::rightClickOn(const WorldObject::Position & click, WorldRef *obj) {
+void Controller::rightClickOn(const WorldObject::Position& click, WorldPtr& ptr) {
   // If there is a selected peon and click is valid, let's go
-  if (_selection != nullptr && _world.isOnMap(click)) {
-    Peon * peon(dynamic_cast<Peon *>(&**_selection));
+  if (_selection && _world.isOnMap(click)) {
+    Peon * peon(dynamic_cast<Peon *>(&*_selection));
     if (!peon) {
       return;
     }
-    if (obj) {
-      if (auto harvest = dynamic_cast<Harvestable *>(&**obj)) {
+    if (ptr) {
+      if (auto harvest = dynamic_cast<Harvestable *>(&*ptr)) {
         if (peon->canHarvest(harvest->type())) {
           peon->clearOrders();
-          peon->addOrder(Order::harvest(obj));
+          peon->addOrder(new OrderHarvest(ptr));
           peon->beginOrder();
-          sendNotification(EventObjectAction(_selection, obj));
+          sendNotification(EventObjectAction(_selection, ptr));
         }
       }
-      else if (auto storage = dynamic_cast<Storage *>(&**obj)) {
+      else if (auto storage = dynamic_cast<Storage *>(&*ptr)) {
         if (!peon->inventory().empty() 
           && storage->canStore(peon->inventory().type())) 
         {
-          peon->attachWarehouse(obj);
-          peon->addOrder(Order::store(obj));
+          peon->attachWarehouse(ptr);
+          peon->addOrder(new OrderStore(ptr));
           peon->beginOrder();
-          sendNotification(EventObjectAction(_selection, obj));
+          sendNotification(EventObjectAction(_selection, ptr));
         }
       }
     } else {
       peon->clearOrders();
-      peon->addOrder(Order::moveTo(click, 0.01));
+      peon->addOrder(new OrderMoveTo(click, 0.01));
       peon->beginOrder();
       sendNotification(EventObjectAction(_selection, nullptr));
     }

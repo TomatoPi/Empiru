@@ -16,36 +16,33 @@
  */
 
 /// 
-/// \file   Controller.h
+/// \file   HarvestableBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 12 septembre 2020, 08:51
-/// \brief Core object for user control
+/// \date 29 septembre 2020, 16:20
 ///
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef HARVESTABLEBEHAVIOUR_H
+#define HARVESTABLEBEHAVIOUR_H
 
-#include "utils/engine/Observer.h"
+#include "utils/world/WorldObject.h"
 #include "utils/world/WorldInterface.h"
-#include "utils/world/WorldPtr.h"
+#include "utils/engine/Behaviourer.h"
+#include "utils/world/Harvestable.h"
+#include "engine/GameEngine.h"
+#include "events/GameEvents.h"
 
-/// \brief Main handler for user control
-class Controller : public Subject {
-private:
-  
-  WorldPtr        _selection;    ///< The selected Object
-  WorldInterface& _world;        ///< THA WORLDOOOOO
-  
+class HarvestableBehaviour : public Behaviourer {
 public:
   
-  /// \brief Constructor
-  Controller(WorldInterface& w) noexcept;
-  
-  /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position& click, WorldPtr& obj);
-  /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position& click, WorldPtr& obj);
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject& obj, WorldPtr& ptr, WorldInterface & world) {
+    Harvestable & harvest(dynamic_cast<Harvestable &>(obj));
+    if (harvest.empty()) {
+      GameEngine::Get().removeObject(ptr);
+    }
+  }
 };
 
-#endif /* CONTROLLER_H */
+#endif /* HARVESTABLEBEHAVIOUR_H */
+

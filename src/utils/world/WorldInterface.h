@@ -25,6 +25,7 @@
 #ifndef WORLDINTERFACE_H
 #define WORLDINTERFACE_H
 
+#include "utils/world/WorldPtr.h"
 #include "utils/world/Tile.h"
 
 /// \brief Interface that must be used to comunicate with the World
@@ -32,9 +33,9 @@ class WorldInterface {
 public:
   
   /// \brief Must add given object to the world
-  virtual void addObject(WorldRef * obj) = 0;
+  virtual void addObject(const WorldPtr& ptr) = 0;
   /// \brief Must remove given object fro the world
-  virtual void removeObject(WorldRef * obj) = 0;
+  virtual void removeObject(const WorldPtr& ptr) = 0;
   
   /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const = 0;

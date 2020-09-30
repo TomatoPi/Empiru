@@ -45,31 +45,31 @@ RenderingEngine::RenderingEngine(
 {
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
-        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::SHollow) {
           return;
         }
-        getrdr(event._obj)->targetSelected(event._obj);
+        getrdr(event._ptr)->targetSelected(event._ptr);
       });
   this->registerEvent<EventObjectDeselected>(
       [this](const EventObjectDeselected & event) -> void {
-        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::SHollow) {
           return;
         }
-        getrdr(event._obj)->targetDeselected(event._obj);
+        getrdr(event._ptr)->targetDeselected(event._ptr);
       });
   this->registerEvent<EventObjectCreated>(
       [this](const EventObjectCreated & event) -> void{
-        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::SHollow) {
           return;
         }
-        getrdr(event._obj)->addTarget(event._obj);
+        getrdr(event._ptr)->addTarget(event._ptr);
       });
   this->registerEvent<EventObjectDestroyed>(
       [this](const EventObjectDestroyed & event) -> void{
-        if ((**event._obj).sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::SHollow) {
           return;
         }
-        getrdr(event._obj)->addTarget(event._obj);
+        getrdr(event._ptr)->addTarget(event._ptr);
       });
 }
 
@@ -84,8 +84,8 @@ void RenderingEngine::attachRenderer(
 
 /// \brief renturn the renderer for specified type 
 ///   or throw if type not registered
-AbstractRenderer * RenderingEngine::getrdr(const WorldRef * obj) {
-  return _renderers.at(std::type_index(typeid(**obj)));
+AbstractRenderer * RenderingEngine::getrdr(const WorldPtr& obj) {
+  return _renderers.at(std::type_index(typeid(*obj)));
 }
 
 void RenderingEngine::render() {
@@ -100,7 +100,7 @@ void RenderingEngine::render() {
       dx(_worldView.tileWidth() * 0.75), 
       dy(_worldView.tileHeight());
   // Get tile renderer
-  AbstractRenderer * tilerdr(_renderers.at(std::type_index(typeid(Tile))));
+  AbstractRenderer* tilerdr(_renderers.at(std::type_index(typeid(Tile))));
   _drawstack.clear();
   // Get initial position and start
   for (
@@ -129,7 +129,7 @@ void RenderingEngine::render() {
         auto vec(_world.getContentAt(pos));
         if (vec) {
           for (auto & obj : *vec) {
-            _worldView.toPixel((**obj).pos(), &x, &y);
+            _worldView.toPixel(obj->pos(), &x, &y);
             _drawstack.emplace(Pixel(x, y), obj);
           }
         }
@@ -139,7 +139,7 @@ void RenderingEngine::render() {
   
   // Draw all entities
   for (auto & itr : _drawstack) {
-    const WorldRef * obj(itr.second);
+    const WorldPtr& obj(itr.second);
     // Get correct renderer and use it
     try {
       getrdr(obj)->renderAt(
@@ -164,8 +164,8 @@ void RenderingEngine::updateClickZones() {
   uint32_t cptr(1);
   // Draw is made according to last drawstack
   for (auto & itr : _drawstack) {
-    WorldRef * obj(itr.second);
-    if ((**obj).sizeClass() == WorldObject::SHollow) {
+    const WorldPtr& obj(itr.second);
+    if (obj->sizeClass() == WorldObject::SHollow) {
       continue;
     }
     SDL_Color color;
@@ -190,7 +190,7 @@ void RenderingEngine::updateClickZones() {
   }
 }
 
-WorldRef * RenderingEngine::objectAt(int x, int y) const noexcept {
+WorldPtr RenderingEngine::objectAt(int x, int y) const noexcept {
   SDL_LockSurface(_window.vsurface);
   SDL_Color color{255, 255, 255, 255};
   SDL_GetRGB(

@@ -33,13 +33,13 @@
 SoundEngine::SoundEngine() : _table() {
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
-        if (typeid(Peon) != typeid(**event._obj))
+        if (typeid(Peon) != typeid(*event._ptr))
           return;
         this->playRandomSound(0);
       });
   this->registerEvent<EventObjectAction>(
       [this](const EventObjectAction & event) -> void {
-        if (typeid(Peon) != typeid(**event._obj))
+        if (typeid(Peon) != typeid(*event._obj))
           return;
         this->playRandomSound(0);
       });
