@@ -55,9 +55,9 @@ public :
   WorldMap(int mapWidth, int mapHeight);
   
   /// \brief Must add given object to the world
-  virtual void addObject(WorldRef * obj);
+  virtual void addObject(const WorldPtr& ptr);
   /// \brief Must remove given object fro the world
-  virtual void removeObject(WorldRef * obj);
+  virtual void removeObject(const WorldPtr& ptr);
   
   /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const;

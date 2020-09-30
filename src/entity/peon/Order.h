@@ -26,7 +26,8 @@
 #define ORDER_H
 
 #include "utils/hex/Axial.h"
-#include "utils/world/WorldRef.h"
+#include "utils/world/WorldPtr.h"
+#include "utils/world/WorldObject.h"
 
 /// \brief Holder of Peon's orders informations
 class Order {
@@ -42,51 +43,107 @@ public:
   
 private:
   
-  /// \brief Order's target
-  union Target {
-    Target();                 ///< Constructor
-    struct {
-      WorldObject::Position _target; ///< MoveTo order's target
-      float              _tolerance; ///< MoveTo tolerance
-    } _move;
-    WorldRef *            _harvest; ///< Harvest order's target
-    struct {
-      WorldRef *_storage;
-    } _store;                 ///< Store order's target
-  } _target;                  ///< Order's target
+  Type  _type;  ///< Order's type
   
-  Type _type; ///< Order's type
+protected:
+  
+  Order(Type type) : _type(type) {}
   
 public:
   
-  /// \brief return a MoveTo Order
-  static Order moveTo(const WorldObject::Position & pos, float tolerance);
-  /// \brief return an Harvest Order
-  static Order harvest(WorldRef *obj);
-  /// \brief return a Store Order
-  static Order store(WorldRef *obj);  
-  /// \brief Constructor
-  Order();
+  Order() : _type(Invalid) {}
+  virtual ~Order() noexcept = default;
   
   /// \brief return Order's type
-  Type type() const;
+  Type type() const noexcept {
+    return _type;
+  }
+  /// \brief return order's target position
+  virtual const WorldObject::Position & targetPos() const noexcept = 0;
+  /// \brief return true if order target exists
+  virtual bool isValid() const noexcept = 0;
+};
+
+class OrderMoveTo : public Order {
+private:
   
-  /// \brief return order target
-  /// \pre Order must have a target (!Invalid)
-  const WorldObject::Position & targetPos() const;
+  WorldObject::Position _target;
+  float                 _tolerance;
   
-  /// \brief return target for MoveTo order
-  /// \pre Must be a MoveTo Order
-  const WorldObject::Position & targetMove() const;
-  float moveTolerance() const;
+public:
+  
+  OrderMoveTo(const WorldObject::Position& pos, float tolerance) :
+    Order(MoveTo), _target(pos), _tolerance(tolerance)
+  {
+  }
+    
+  /// \brief return order's target position
+  virtual const WorldObject::Position & targetPos() const noexcept {
+    return _target;
+  }
+  /// \brief return minimal distance at whitch the target will be considered
+  ///   as reached
+  float tolerance() const noexcept {
+    return _tolerance;
+  }
+  /// \brief return true if order target exists
+  virtual bool isValid() const noexcept {
+    return true;
+  }
+};
+
+class OrderHarvest : public Order {
+private:
+  
+  WorldPtr _target;
+  
+public:
+  
+  OrderHarvest(const WorldPtr& ptr) : 
+    Order(Harvest), _target(ptr) 
+  {
+  }
   
   /// \brief return target for Harvest order
   /// \pre Must be a Harvest Order
-  WorldRef * targetHarvest() const;
+  const WorldPtr& target() const {
+    return _target;
+  }
+  /// \brief return order's target position
+  virtual const WorldObject::Position & targetPos() const noexcept {
+    return _target->pos();
+  }
+  /// \brief return true if order target exists
+  virtual bool isValid() const noexcept {
+    return _target.isValid();
+  }
+};
+
+class OrderStore: public Order {
+private:
   
-  /// \brief return target for Store order
-  /// \pre Must be a Store order
-  WorldRef * targetStore() const;
+  WorldPtr _target;
+  
+public:
+  
+  OrderStore(const WorldPtr& ptr) : 
+    Order(Store), _target(ptr) 
+  {
+  }
+  
+  /// \brief return target for Harvest order
+  /// \pre Must be a Harvest Order
+  const WorldPtr& target() const {
+    return _target;
+  }
+  /// \brief return order's target position
+  virtual const WorldObject::Position & targetPos() const noexcept {
+    return _target->pos();
+  }
+  /// \brief return true if order target exists
+  virtual bool isValid() const noexcept {
+    return _target.isValid();
+  }
 };
 
 #endif /* ORDER_H */

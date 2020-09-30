@@ -25,26 +25,26 @@
 #ifndef CONTROLLEREVENTS_H
 #define CONTROLLEREVENTS_H
 
-#include "utils/world/WorldRef.h"
+#include "utils/world/WorldPtr.h"
 #include "utils/engine/Observer.h"
 
 struct EventObjectSelected : public Event {
 public:
-  WorldRef *_obj;
-  EventObjectSelected(WorldRef *obj) noexcept : _obj(obj) {}
+  const WorldPtr& _ptr;
+  EventObjectSelected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectDeselected : public Event {
 public:
-  WorldRef *_obj;
-  EventObjectDeselected(WorldRef *obj) noexcept : _obj(obj) {}
+  const WorldPtr& _ptr;
+  EventObjectDeselected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectAction : public Event {
 public:
-  WorldRef * _obj;
-  WorldRef * _target;
-  EventObjectAction(WorldRef *obj, WorldRef *target) noexcept :
+  const WorldPtr& _obj;
+  const WorldPtr& _target;
+  EventObjectAction(const WorldPtr& obj, const WorldPtr& target) noexcept :
     _obj(obj), _target(target)
   {}
 };

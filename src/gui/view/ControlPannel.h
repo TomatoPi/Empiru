@@ -30,7 +30,7 @@
 #include "utils/gui/view/Window.h"
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/ui/FontPrinter.h"
-#include "utils/world/WorldRef.h"
+#include "utils/world/WorldPtr.h"
 
 #include "entity/functionals/TribeInfos.h"
 
@@ -39,7 +39,7 @@ private:
   
   Window &           _window;
   const TribeInfos & _playerTribe;
-  WorldRef *         _selectedObject;
+  WorldPtr           _selectedObject;
   
   std::unique_ptr<SpriteSheet> _background; ///< Pannel's background sprite
   std::unique_ptr<SpriteSheet> _icons;

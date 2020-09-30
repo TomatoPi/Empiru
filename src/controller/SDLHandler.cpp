@@ -154,7 +154,7 @@ bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   hex::Axial pos;
   _viewport.fromPixel(event.x, event.y, &pos);
   _clicker.updateClickZones();
-  WorldRef * obj(_clicker.objectAt(event.x, event.y));
+  WorldPtr obj(_clicker.objectAt(event.x, event.y));
   
   switch(event.button){
     case SDL_BUTTON_LEFT:

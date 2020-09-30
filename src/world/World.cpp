@@ -41,20 +41,20 @@ WorldMap::WorldMap(int mapWidth, int mapHeight) :
 }
 
 /// \brief Must add given object to the world
-void WorldMap::addObject(WorldRef * obj){
-  const WorldObject::Position & pos((**obj).pos());
+void WorldMap::addObject(const WorldPtr& ptr){
+  const WorldObject::Position & pos(ptr->pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
   }
-  itr->second.insert(obj);
+  itr->second.insert(ptr);
 }
 
 /// \brief Must remove given object fro the world
-void WorldMap::removeObject(WorldRef * obj) {
-  auto itr(_map.find((**obj).pos()));
+void WorldMap::removeObject(const WorldPtr& ptr) {
+  auto itr(_map.find(ptr->pos()));
   assert(itr != _map.end());
-  itr->second.erase(obj);
+  itr->second.erase(ptr);
   if (itr->second.isEmpty()) {
     _map.erase(itr);
   }

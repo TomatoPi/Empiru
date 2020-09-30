@@ -30,7 +30,6 @@
       <logicalFolder name="f2" displayName="engine" projectFiles="true">
         <itemPath>src/engine/GameEngine.cpp</itemPath>
         <itemPath>src/engine/GameEngine.h</itemPath>
-        <itemPath>src/engine/GenericAllocator.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
         <logicalFolder name="f5" displayName="buildings" projectFiles="true">
@@ -54,7 +53,6 @@
         </logicalFolder>
         <logicalFolder name="f4" displayName="units" projectFiles="true">
           <logicalFolder name="f1" displayName="peon" projectFiles="true">
-            <itemPath>src/entity/peon/Order.cpp</itemPath>
             <itemPath>src/entity/peon/Order.h</itemPath>
             <itemPath>src/entity/peon/Peon.cpp</itemPath>
             <itemPath>src/entity/peon/Peon.h</itemPath>
@@ -90,10 +88,8 @@
       </logicalFolder>
       <logicalFolder name="utils" displayName="utils" projectFiles="true">
         <logicalFolder name="f3" displayName="engine" projectFiles="true">
-          <itemPath>src/utils/engine/Allocator.h</itemPath>
           <itemPath>src/utils/engine/Behaviourer.h</itemPath>
           <itemPath>src/utils/engine/Observer.h</itemPath>
-          <itemPath>src/utils/world/WorldRef.h</itemPath>
         </logicalFolder>
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
           <logicalFolder name="f3" displayName="assets" projectFiles="true">
@@ -139,12 +135,14 @@
           <itemPath>src/utils/sound/SoundEngine.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="world" projectFiles="true">
+          <itemPath>src/utils/world/Allocator.h</itemPath>
           <itemPath>src/utils/world/Harvestable.h</itemPath>
           <itemPath>src/utils/world/Ressource.h</itemPath>
           <itemPath>src/utils/world/Storage.h</itemPath>
           <itemPath>src/utils/world/Tile.h</itemPath>
           <itemPath>src/utils/world/WorldInterface.h</itemPath>
           <itemPath>src/utils/world/WorldObject.h</itemPath>
+          <itemPath>src/utils/world/WorldPtr.h</itemPath>
         </logicalFolder>
         <itemPath>src/utils/chrono.hpp</itemPath>
         <itemPath>src/utils/log.h</itemPath>
@@ -152,6 +150,7 @@
       <logicalFolder name="f1" displayName="world" projectFiles="true">
         <itemPath>src/world/World.cpp</itemPath>
         <itemPath>src/world/World.h</itemPath>
+        <itemPath>src/world/WorldAllocator.h</itemPath>
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
@@ -308,8 +307,6 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
             tool="3"
@@ -324,8 +321,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -374,8 +369,6 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -452,6 +445,8 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
@@ -464,11 +459,13 @@
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -603,8 +600,6 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
             tool="3"
@@ -619,8 +614,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -669,8 +662,6 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -747,6 +738,8 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
@@ -759,11 +752,13 @@
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -893,8 +888,6 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
             tool="3"
@@ -909,8 +902,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -959,8 +950,6 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1037,6 +1026,8 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
@@ -1049,11 +1040,13 @@
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1184,8 +1177,6 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GenericAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
             tool="3"
@@ -1200,8 +1191,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1250,8 +1239,6 @@
       <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1328,6 +1315,8 @@
       </item>
       <item path="src/utils/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
@@ -1340,11 +1329,13 @@
       </item>
       <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldRef.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>

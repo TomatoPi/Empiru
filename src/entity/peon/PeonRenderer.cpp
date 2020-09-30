@@ -46,12 +46,12 @@ PeonRenderer::PeonRenderer(
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
 void PeonRenderer::renderAt(
-    const WorldRef * obj, 
+    const WorldPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr)
 {
-  const Peon & peon(static_cast<const Peon &>(**obj));
+  const Peon & peon(static_cast<const Peon &>(*obj));
   Datas & datas(_targets.at(obj));
   int frame = peon.hasOrders() && !peon.isPaused() ? 
     datas._anim.update() : 
@@ -64,8 +64,8 @@ void PeonRenderer::renderAt(
   r.y = y - r.h;
   if (datas._select) {
     _select->renderFrame(frame, ori, &r);
-    if (const WorldRef *ref = peon.attachtedWharehouse()) {
-      const WorldObject & obj(**ref);
+    if (const WorldPtr& ref = peon.attachtedWharehouse()) {
+      const WorldObject & obj(*ref);
       int x, y;
       view.toPixel(obj.pos(), &x, &y);
       SDL_Rect r;
@@ -89,13 +89,13 @@ void PeonRenderer::renderAt(
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
 void PeonRenderer::renderAt(
-    const WorldRef * obj, 
+    const WorldPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr,
     const SDL_Color & c)
 {
-  const Peon & peon(static_cast<const Peon &>(**obj));
+  const Peon & peon(static_cast<const Peon &>(*obj));
   Datas & datas(_targets.at(obj));
   int frame = peon.hasOrders() ? datas._anim.frame() : 0;
   ori = (ori + 6 - peon.direction().orientation()) % 6;
@@ -110,25 +110,25 @@ void PeonRenderer::renderAt(
 
 /// \brief Called when a new object associated with this renderer is created
 ///  may instanciate fine scope datas, like animation state
-void PeonRenderer::addTarget(const WorldRef *obj) noexcept {
+void PeonRenderer::addTarget(const WorldPtr& obj) noexcept {
   auto insert(_targets.emplace(obj, Datas()));
   assert(insert.second);
 }
 /// \brief Called when an object associated with this renderer is destroyed
 ///  may dealocate corresponding datas
-void PeonRenderer::removeTarget(const WorldRef *obj) noexcept {
+void PeonRenderer::removeTarget(const WorldPtr& obj) noexcept {
   auto itr(_targets.find(obj));
   assert(itr != _targets.end());
   _targets.erase(itr);
 }
 /// \brief Called when an object associated with this renderer is selected
 ///  may remember draw a special overlay around it
-void PeonRenderer::targetSelected(const WorldRef * obj) {
+void PeonRenderer::targetSelected(const WorldPtr& obj) {
   _targets.at(obj)._select = true;
   _targets.at(obj)._wanim.restart();
 }
 /// \brief Called when an object associated with this renderer is deselected
 ///  may remember to stop draw special overlay
-void PeonRenderer::targetDeselected(const WorldRef * obj) {
+void PeonRenderer::targetDeselected(const WorldPtr& obj) {
   _targets.at(obj)._select = false;
 }

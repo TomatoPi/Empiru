@@ -44,13 +44,13 @@ GameEngine::GameEngine(WorldInterface & w) :
 }
 
 /// \brief Remove an object from the game
-void GameEngine::removeObject(WorldRef * ref) {
-  this->sendNotification(EventObjectDestroyed(ref));
-  _dyings.push_back(ref);
+void GameEngine::removeObject(const WorldPtr& ptr) {
+  this->sendNotification(EventObjectDestroyed(ptr));
+  _dyings.push_back(ptr);
 }
 
 /// \brief Add an object kind to the gameEngine
-void GameEngine::registerObjectKind(const std::type_info & type, Allocator * alloc) {
+void GameEngine::registerObjectKind(const std::type_info & type, _Allocator * alloc) {
   auto res(_objects.emplace(std::type_index(type), alloc));
   assert(res.second);
 }
@@ -79,13 +79,13 @@ void GameEngine::update() {
     auto & alloc(_objects.at(type));
     alloc->foreach(
         [&]
-        (WorldObject & obj, WorldRef *ref) -> void {
-          beh->tick(obj, ref, _world);
+        (WorldObject & obj, WorldPtr ptr) -> void {
+          beh->tick(obj, ptr, _world);
         });
   }
-  for (auto ref : _dyings) {
-    _world.removeObject(ref);
-    _objects.at(std::type_index(typeid(**ref)))->deleteObject(ref);
+  for (auto ptr : _dyings) {
+    _world.removeObject(ptr);
+    _objects.at(std::type_index(typeid(*ptr)))->deleteObject(ptr);
   }
   _dyings.clear();
 }

@@ -61,19 +61,19 @@ public:
   
 private:
   
-  typedef std::unordered_map<SDL_Color, WorldRef *, ColorHasher, ColorEquals>
+  typedef std::unordered_map<SDL_Color,WorldPtr,ColorHasher,ColorEquals>
   ColorTable;
   
   /// \brief Table used to make the rendering engine blind on what is in the world
   ///   One must register each kind of object with it associated renderer
-  typedef std::unordered_map<std::type_index, AbstractRenderer*> RendererTable;
+  typedef std::unordered_map<std::type_index,AbstractRenderer*> RendererTable;
   /// \brief Represent a pixel on the screen
   typedef math::Vector<int> Pixel;
   /// \brief List used to store the sorted list of objects beeing drawn 
   ///   during this frame
   /// Sorting is done on ascending y to ensure that objects away from camera
   ///   are drawn behind
-  typedef std::multimap<Pixel, WorldRef *, Pixel::AscYCompare> DrawStack;
+  typedef std::multimap<Pixel,WorldPtr,Pixel::AscYCompare> DrawStack;
   
   Window &                _window;    ///< Obvious
   const hex::Viewport &   _worldView; ///< Bridge between game and user
@@ -104,13 +104,13 @@ public:
   /// \brief Draw every sized object 
   virtual void updateClickZones();
   /// \brief Return object at x,y or nullptr if none
-  virtual WorldRef * objectAt(int x, int y) const noexcept;
+  virtual WorldPtr objectAt(int x, int y) const noexcept;
   
 private:
 
   /// \brief renturn the renderer for specified type 
   ///   or throw if type not registered
-  AbstractRenderer * getrdr(const WorldRef * obj);
+  AbstractRenderer * getrdr(const WorldPtr& obj);
 };
 
 #endif /* RENDERENGINE_H */

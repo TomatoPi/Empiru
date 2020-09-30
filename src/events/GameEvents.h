@@ -25,22 +25,22 @@
 #ifndef GAMEEVENTS_H
 #define GAMEEVENTS_H
 
-#include "utils/world/WorldRef.h"
+#include "utils/world/WorldPtr.h"
 #include "utils/engine/Observer.h"
 
 struct EventObjectCreated : public Event {
-  WorldRef *_ref;
-  EventObjectCreated(WorldRef *ref) noexcept : _ref(ref) {}
+  const WorldPtr& _ptr;
+  EventObjectCreated(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectDestroyed : public Event {
-  WorldRef *_ref;
-  EventObjectDestroyed(WorldRef *ref) noexcept : _ref(ref) {}
+  const WorldPtr& _ptr;
+  EventObjectDestroyed(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventEntityDied : public Event {
-  WorldRef * _ref;
-  EventEntityDied(WorldRef * ref) noexcept : _ref(ref) {};
+  const WorldPtr& _ptr;
+  EventEntityDied(const WorldPtr& ptr) noexcept : _ptr(ptr) {};
 };
 
 #endif /* GAMEEVENTS_H */

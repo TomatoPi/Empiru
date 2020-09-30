@@ -90,7 +90,7 @@ public:
   
   /// \brief Draw the object at given position
   virtual void renderAt(
-    const WorldRef * obj, 
+    const WorldPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer *rdr)
@@ -106,7 +106,7 @@ public:
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
   virtual void renderAt(
-    const WorldRef * obj,
+    const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     SDL_Renderer * rdr,
@@ -121,10 +121,10 @@ public:
     _mask->renderFrame(0, ori, &r);
   }
   
-  virtual void addTarget(const WorldRef * obj) noexcept {}
-  virtual void removeTarget(const WorldRef * obj) noexcept {}
-  virtual void targetSelected(const WorldRef * obj) noexcept {}
-  virtual void targetDeselected(const WorldRef * obj) noexcept {}
+  virtual void addTarget(const WorldPtr& obj) noexcept {}
+  virtual void removeTarget(const WorldPtr& obj) noexcept {}
+  virtual void targetSelected(const WorldPtr& obj) noexcept {}
+  virtual void targetDeselected(const WorldPtr& obj) noexcept {}
   
 };
 

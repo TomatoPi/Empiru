@@ -28,23 +28,24 @@
 
 #include "utils/engine/Observer.h"
 #include "utils/world/WorldInterface.h"
+#include "utils/world/WorldPtr.h"
 
 /// \brief Main handler for user control
 class Controller : public Subject {
 private:
   
-  WorldRef *       _selection;    ///< The selected Object
-  WorldInterface & _world;        ///< THA WORLDOOOOO
+  WorldPtr        _selection;    ///< The selected Object
+  WorldInterface& _world;        ///< THA WORLDOOOOO
   
 public:
   
   /// \brief Constructor
-  Controller(WorldInterface & w) noexcept;
+  Controller(WorldInterface& w) noexcept;
   
   /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position & click, WorldRef *obj);
+  void leftClickOn(const WorldObject::Position& click, WorldPtr& obj);
   /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position & click, WorldRef *obj);
+  void rightClickOn(const WorldObject::Position& click, WorldPtr& obj);
 };
 
 #endif /* CONTROLLER_H */

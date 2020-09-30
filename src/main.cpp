@@ -48,11 +48,11 @@
 #include "entity/buildings/StorageBehaviour.h"
 
 #include "world/World.h"
+#include "world/WorldAllocator.h"
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
 
-#include "engine/GenericAllocator.h"
 #include "engine/GameEngine.h"
 
 #include "utils/sound/SoundAsset.h"
@@ -77,8 +77,8 @@ namespace {
   struct MoverTo {
     float x, y;
     MoverTo(float x, float y) noexcept : x(x), y(y) {}
-    void operator() (WorldRef *ref) const noexcept {
-      (**ref).pos(hex::Axial(x,y));
+    void operator() (WorldPtr &ptr) const noexcept {
+      ptr->pos(hex::Axial(x,y));
     }
   };
 }
@@ -132,7 +132,7 @@ int main(int argc, char** argv) {
     paths.whareh_sheet = "medias/sprites/entity/peon/attached_warehouse.png";
     paths.notify_sheet = "medias/sprites/entity/peon/notify.png";
     
-    _gameEngine.registerObjectKind(typeid(Peon), new GenericAllocator<Peon>());
+    _gameEngine.registerObjectKind(typeid(Peon), new WorldAllocator<Peon>());
     _gameEngine.attachBehaviour(typeid(Peon), new PeonBehaviour());
     _rdrEngine.attachRenderer(typeid(Peon), 
         new PeonRenderer(paths, _window->renderer, _window->vrenderer));
@@ -140,7 +140,7 @@ int main(int argc, char** argv) {
         "medias/sounds/peons/peon-", ".ogg", 3));
   }
   { /* Tree */
-    _gameEngine.registerObjectKind(typeid(Tree), new GenericAllocator<Tree>());
+    _gameEngine.registerObjectKind(typeid(Tree), new WorldAllocator<Tree>());
     _gameEngine.attachBehaviour(typeid(Tree), new HarvestableBehaviour());
     _rdrEngine.attachRenderer(typeid(Tree), new GenericRenderer<OnFootBlitter>(
         "medias/sprites/land/toufu_sheet.png",
@@ -148,7 +148,7 @@ int main(int argc, char** argv) {
         _window->renderer, _window->vrenderer));
   }
   { /* Rocks */
-    _gameEngine.registerObjectKind(typeid(Rock), new GenericAllocator<Rock>());
+    _gameEngine.registerObjectKind(typeid(Rock), new WorldAllocator<Rock>());
     _gameEngine.attachBehaviour(typeid(Rock), new HarvestableBehaviour());
     _rdrEngine.attachRenderer(typeid(Rock), new GenericRenderer<OnFootBlitter>(
         "medias/sprites/land/rock_sheet.png",
@@ -156,7 +156,7 @@ int main(int argc, char** argv) {
         _window->renderer, _window->vrenderer));
   }
   { /* House */
-    _gameEngine.registerObjectKind(typeid(House), new GenericAllocator<House>());
+    _gameEngine.registerObjectKind(typeid(House), new WorldAllocator<House>());
     _gameEngine.attachBehaviour(typeid(House), new StorageBehaviour(_gameEngine.playerTribe()));
     _rdrEngine.attachRenderer(typeid(House), new GenericRenderer<OnTileBlitter>(
         "medias/sprites/buildings/house_peon/house_peon_sheet.png",

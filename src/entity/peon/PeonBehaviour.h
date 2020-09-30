@@ -34,23 +34,27 @@ class PeonBehaviour : public Behaviourer {
 public:
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world);
+  virtual void tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world);
   
 private:
   
   /// \brief compute harvest order
-  void store(Peon & peon, WorldRef *ref, WorldInterface & world);
+  void store(Peon& peon, WorldPtr& ptr, WorldInterface& world);
   
   /// \brief compute harvest order
-  void harvest(Peon & peon, WorldRef *ref, WorldInterface & world);
+  void harvest(Peon& peon, WorldPtr& ptr, WorldInterface& world);
   
   /// \brief compute path order for the peon
-  void pathFinding(Peon & peon, WorldRef *ref, WorldInterface & world);
+  void moveTo(Peon& peon, WorldPtr& ptr, WorldInterface& world);
   
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant
-  bool tryPosition(Peon & peon, WorldRef *ref, WorldObject ** obstacle, WorldInterface & world)  
+  bool tryPosition(
+        Peon& peon, 
+        WorldPtr& ptr, 
+        WorldObject** obstacle, 
+        WorldInterface& world)  
     const;
 };
 

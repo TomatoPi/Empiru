@@ -28,13 +28,14 @@
 
 #include "utils/world/WorldObject.h"
 #include "utils/world/WorldInterface.h"
+#include "utils/world/WorldPtr.h"
 
 /// \brief Interface for WorldObjects mechanics' handlers
 class Behaviourer {
 public:
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) = 0;
+  virtual void tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world) = 0;
 };
 
 #endif /* BEHAVIOUR_H */

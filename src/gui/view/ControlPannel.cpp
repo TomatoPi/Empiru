@@ -47,7 +47,7 @@ ControlPannel::ControlPannel(
 {
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
-        _selectedObject = event._obj;
+        _selectedObject = event._ptr;
       });
   this->registerEvent<EventObjectDeselected>(
       [this](const EventObjectDeselected & event) -> void {
@@ -85,16 +85,16 @@ void ControlPannel::draw() {
   /* draw selected unit infos */
   if (_selectedObject) {
     std::vector<Stack> inventory;
-    if (Peon *peon = dynamic_cast<Peon*>(&**_selectedObject)) {
+    if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
       if (!peon->inventory().empty())
         inventory.push_back(peon->inventory());
     }
-    else if (Storage *store = dynamic_cast<Storage*>(&**_selectedObject)) {
+    else if (Storage *store = dynamic_cast<Storage*>(&*_selectedObject)) {
       for (auto & stack : store->stock()) {
         inventory.push_back(stack);
       }
     }
-    else if (Harvestable *harv = dynamic_cast<Harvestable*>(&**_selectedObject)) {
+    else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {
       inventory.push_back(*harv);
     }
     rect.w = _icons->width();

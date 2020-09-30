@@ -36,10 +36,10 @@ class HarvestableBehaviour : public Behaviourer {
 public:
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject & obj, WorldRef *ref, WorldInterface & world) {
+  virtual void tick(WorldObject& obj, WorldPtr& ptr, WorldInterface & world) {
     Harvestable & harvest(dynamic_cast<Harvestable &>(obj));
     if (harvest.empty()) {
-      GameEngine::Get().removeObject(ref);
+      GameEngine::Get().removeObject(ptr);
     }
   }
 };
