@@ -120,7 +120,7 @@ void RenderingEngine::render() {
         _worldView.toPixel(pos.tile(), &x, &y);
         try {
           tilerdr->renderAt(nullptr, _camera.getOrientation(), 
-            x, y, _worldView, _window.renderer);
+            x, y, _worldView);
         } catch (const std::exception & e) {
           LOG_ERROR("Failed draw tile : %s\n", SDL_GetError());
           throw;
@@ -146,7 +146,7 @@ void RenderingEngine::render() {
             obj,
             _camera.getOrientation(), 
             itr.first._x, itr.first._y,
-            _worldView, _window.renderer);
+            _worldView);
     } catch (const std::exception & e) {
       LOG_ERROR("Failed draw object : %s\n", e.what());
       throw;
@@ -179,8 +179,7 @@ void RenderingEngine::updateClickZones() {
           obj,
           _camera.getOrientation(), 
           itr.first._x, itr.first._y,
-          _worldView, _window.vrenderer,
-          color);
+          _worldView, color);
     } catch (const std::exception & e) {
       LOG_ERROR("Failed draw object : %s\n", e.what());
       throw;

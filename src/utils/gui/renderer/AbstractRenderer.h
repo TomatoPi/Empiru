@@ -46,8 +46,7 @@ public:
   virtual void renderAt(
     const WorldPtr& obj, 
     int ori, int x, int y,
-    const hex::Viewport & view,
-    SDL_Renderer *rdr) = 0;
+    const hex::Viewport & view) = 0;
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
@@ -63,7 +62,6 @@ public:
     const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer * rdr,
     const SDL_Color & color) = 0; 
   
   /// \brief Called when a new object associated with this renderer is created

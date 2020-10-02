@@ -16,29 +16,22 @@
  */
 
 /// 
-/// \file   SpriteAsset.h
+/// \file   ConstructSite.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 15 septembre 2020, 13:41
-/// \brief Utility file for loading and auto cut of sprite sheets
-/// \todo Maybe not useful, might be removed and replaced by a function
-///   to load sheet by specifying sprite dimension
+/// \date 30 septembre 2020, 11:20
 ///
 
-#ifndef SPRITEASSET_H
-#define SPRITEASSET_H
+#ifndef CONSTRUCTSITE_H
+#define CONSTRUCTSITE_H
 
-#include <memory>
-#include "utils/gui/assets/SpriteSheet.h"
+#include "utils/world/WorldObject.h"
 
-/// \brief Must be removed
-class SpriteAsset {
+class ConstructionSite : public WorldObject {
 public:
-  /// \brief Load a sheet from given file and auto cut it in 6 colums
-  ///   and squared sprites
-  static std::unique_ptr<SpriteSheet> loadFromFile(
-    const char *path, 
-    SDL_Renderer *rdr);
+  ConstructionSite();
+  ConstructionSite(const ConstructionSite &) = default;
+  ConstructionSite & operator= (const ConstructionSite &) = default;
 };
 
-#endif /* SPRITEASSET_H */
+#endif /* CONSTRUCTSITE_H */

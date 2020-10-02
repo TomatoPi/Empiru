@@ -29,7 +29,7 @@
 #include "utils/world/WorldPtr.h"
 #include "utils/world/WorldObject.h"
 
-/// \brief Holder of Peon's orders informations
+/// \brief Base class for orders
 class Order {
 public:
   
@@ -64,6 +64,7 @@ public:
   virtual bool isValid() const noexcept = 0;
 };
 
+/// \brief MoveTo order object
 class OrderMoveTo : public Order {
 private:
   
@@ -92,15 +93,16 @@ public:
   }
 };
 
-class OrderHarvest : public Order {
+/// \brief Base class for orders that refers to a WorldObject
+class _OrderWorldTarget : public Order {
 private:
   
   WorldPtr _target;
   
 public:
   
-  OrderHarvest(const WorldPtr& ptr) : 
-    Order(Harvest), _target(ptr) 
+  _OrderWorldTarget(Type type, const WorldPtr& ptr) : 
+    Order(type), _target(ptr) 
   {
   }
   
@@ -119,30 +121,23 @@ public:
   }
 };
 
-class OrderStore: public Order {
-private:
-  
-  WorldPtr _target;
-  
+/// \brief Harvest Order
+class OrderHarvest : public _OrderWorldTarget {
 public:
   
-  OrderStore(const WorldPtr& ptr) : 
-    Order(Store), _target(ptr) 
+  OrderHarvest(const WorldPtr& ptr) :
+    _OrderWorldTarget(Harvest, ptr)
   {
   }
+};
+
+/// \brief Store Order
+class OrderStore : public _OrderWorldTarget {
+public:
   
-  /// \brief return target for Harvest order
-  /// \pre Must be a Harvest Order
-  const WorldPtr& target() const {
-    return _target;
-  }
-  /// \brief return order's target position
-  virtual const WorldObject::Position & targetPos() const noexcept {
-    return _target->pos();
-  }
-  /// \brief return true if order target exists
-  virtual bool isValid() const noexcept {
-    return _target.isValid();
+  OrderStore(const WorldPtr& ptr) :
+    _OrderWorldTarget(Store, ptr)
+  {
   }
 };
 

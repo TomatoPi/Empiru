@@ -33,8 +33,14 @@
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
         <logicalFolder name="f5" displayName="buildings" projectFiles="true">
-          <itemPath>src/buildings/House.cpp</itemPath>
-          <itemPath>src/buildings/House.h</itemPath>
+          <logicalFolder name="f1" displayName="house" projectFiles="true">
+            <itemPath>src/buildings/House.cpp</itemPath>
+            <itemPath>src/buildings/House.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="site" projectFiles="true">
+            <itemPath>src/entity/buildings/site/ConstructSite.cpp</itemPath>
+            <itemPath>src/entity/buildings/site/ConstructSite.h</itemPath>
+          </logicalFolder>
           <itemPath>src/entity/buildings/StorageBehaviour.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="functionals" projectFiles="true">
@@ -87,15 +93,18 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="utils" displayName="utils" projectFiles="true">
+        <logicalFolder name="f4" displayName="core" projectFiles="true">
+          <itemPath>src/utils/core/AssetManager.h</itemPath>
+          <itemPath>src/utils/engine/Observer.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f3" displayName="engine" projectFiles="true">
           <itemPath>src/utils/engine/Behaviourer.h</itemPath>
-          <itemPath>src/utils/engine/Observer.h</itemPath>
         </logicalFolder>
         <logicalFolder name="utils" displayName="gui" projectFiles="true">
           <logicalFolder name="f3" displayName="assets" projectFiles="true">
             <itemPath>src/utils/gui/assets/Animation.h</itemPath>
-            <itemPath>src/utils/gui/assets/SpriteAsset.cpp</itemPath>
-            <itemPath>src/utils/gui/assets/SpriteAsset.h</itemPath>
+            <itemPath>src/utils/gui/assets/GraphicAssetsRegister.cpp</itemPath>
+            <itemPath>src/utils/gui/assets/GraphicAssetsRegister.h</itemPath>
             <itemPath>src/utils/gui/assets/SpriteSheet.cpp</itemPath>
             <itemPath>src/utils/gui/assets/SpriteSheet.h</itemPath>
           </logicalFolder>
@@ -312,6 +321,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -370,18 +389,23 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/AssetManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/SpriteSheet.cpp"
             ex="false"
@@ -605,6 +629,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -663,18 +697,23 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/AssetManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/SpriteSheet.cpp"
             ex="false"
@@ -893,6 +932,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -951,18 +1000,23 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/AssetManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/SpriteSheet.cpp"
             ex="false"
@@ -1182,6 +1236,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -1240,18 +1304,23 @@
       </item>
       <item path="src/utils/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/AssetManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.cpp"
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
             ex="false"
             tool="1"
-            flavor2="11">
+            flavor2="0">
       </item>
-      <item path="src/utils/gui/assets/SpriteAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/gui/assets/GraphicAssetsRegister.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/SpriteSheet.cpp"
             ex="false"

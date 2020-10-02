@@ -29,19 +29,16 @@
 #include "utils/engine/Observer.h"
 
 struct EventObjectSelected : public Event {
-public:
   const WorldPtr& _ptr;
   EventObjectSelected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectDeselected : public Event {
-public:
   const WorldPtr& _ptr;
   EventObjectDeselected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectAction : public Event {
-public:
   const WorldPtr& _obj;
   const WorldPtr& _target;
   EventObjectAction(const WorldPtr& obj, const WorldPtr& target) noexcept :

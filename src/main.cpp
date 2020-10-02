@@ -28,7 +28,6 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "utils/gui/assets/SpriteSheet.h"
-#include "utils/gui/assets/SpriteAsset.h"
 #include "utils/gui/view/Window.h"
 #include "gui/Camera.h"
 #include "gui/RenderingEngine.h"
@@ -64,6 +63,7 @@
 #include "gui/view/ControlPannel.h"
 
 #include "entity/functionals/TribeInfos.h"
+#include "utils/gui/assets/GraphicAssetsRegister.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -108,6 +108,9 @@ int main(int argc, char** argv) {
   /* Create the sound Engine */
   SoundEngine *_soundEngine(SoundEngine::create());
   
+  /* Create the assets managers */
+  gui::TypedRegister _spritesRegister;
+  
   /* Setup things and Attach the Engines together */
   _camera.target(hex::Axial(0,0));
   
@@ -120,48 +123,68 @@ int main(int argc, char** argv) {
   /* Register basic kinds */
   
   { /* tile */
-    _rdrEngine.attachRenderer(typeid(Tile), new GenericRenderer<OnTileBlitter>(
-        "medias/sprites/land/ground_super_sheet.png", 
-        _window->renderer));
+    auto asset(_spritesRegister.registerAsset(typeid(Tile),
+        "medias/sprites/land/ground_super", 
+        gui::ObjectAsset::ReqSheet, 
+        _window->renderer,
+        _window->vrenderer));
+    
+    _rdrEngine.attachRenderer(typeid(Tile), 
+        new GenericRenderer<OnTileBlitter>(asset));
   }
   { /* peon */
     PeonRenderer::SheetsPaths paths;
-    paths.peon_sheet = "medias/sprites/entity/peon/peon_sheet.png";
-    paths.mask_sheet = "medias/sprites/entity/peon/peon_mask.png";
-    paths.select_sheet = "medias/sprites/entity/peon/peon_select.png";
     paths.whareh_sheet = "medias/sprites/entity/peon/attached_warehouse.png";
     paths.notify_sheet = "medias/sprites/entity/peon/notify.png";
+    
+    auto asset(_spritesRegister.registerAsset(typeid(Peon),
+        "medias/sprites/entity/peon/peon", 
+        gui::ObjectAsset::ReqAll, 
+        _window->renderer,
+        _window->vrenderer));
     
     _gameEngine.registerObjectKind(typeid(Peon), new WorldAllocator<Peon>());
     _gameEngine.attachBehaviour(typeid(Peon), new PeonBehaviour());
     _rdrEngine.attachRenderer(typeid(Peon), 
-        new PeonRenderer(paths, _window->renderer, _window->vrenderer));
+        new PeonRenderer(asset, paths, _window->renderer));
     _soundEngine->registerSound(SoundAsset::loadFromFiles(
         "medias/sounds/peons/peon-", ".ogg", 3));
   }
   { /* Tree */
+    auto asset(_spritesRegister.registerAsset(typeid(Tree),
+        "medias/sprites/land/toufu", 
+        gui::ObjectAsset::ReqSheet | gui::ObjectAsset::ReqMask, 
+        _window->renderer,
+        _window->vrenderer));
+    
     _gameEngine.registerObjectKind(typeid(Tree), new WorldAllocator<Tree>());
     _gameEngine.attachBehaviour(typeid(Tree), new HarvestableBehaviour());
-    _rdrEngine.attachRenderer(typeid(Tree), new GenericRenderer<OnFootBlitter>(
-        "medias/sprites/land/toufu_sheet.png",
-        "medias/sprites/land/toufu_mask.png",
-        _window->renderer, _window->vrenderer));
+    _rdrEngine.attachRenderer(typeid(Tree), 
+        new GenericRenderer<OnFootBlitter>(asset));
   }
   { /* Rocks */
+    auto asset(_spritesRegister.registerAsset(typeid(Rock),
+        "medias/sprites/land/rock", 
+        gui::ObjectAsset::ReqSheet | gui::ObjectAsset::ReqMask, 
+        _window->renderer,
+        _window->vrenderer));
+    
     _gameEngine.registerObjectKind(typeid(Rock), new WorldAllocator<Rock>());
     _gameEngine.attachBehaviour(typeid(Rock), new HarvestableBehaviour());
-    _rdrEngine.attachRenderer(typeid(Rock), new GenericRenderer<OnFootBlitter>(
-        "medias/sprites/land/rock_sheet.png",
-        "medias/sprites/land/rock_mask.png",
-        _window->renderer, _window->vrenderer));
+    _rdrEngine.attachRenderer(typeid(Rock), 
+        new GenericRenderer<OnFootBlitter>(asset));
   }
   { /* House */
+    auto asset(_spritesRegister.registerAsset(typeid(House),
+        "medias/sprites/buildings/house_peon/house_peon", 
+        gui::ObjectAsset::ReqSheet | gui::ObjectAsset::ReqMask, 
+        _window->renderer,
+        _window->vrenderer));
+    
     _gameEngine.registerObjectKind(typeid(House), new WorldAllocator<House>());
     _gameEngine.attachBehaviour(typeid(House), new StorageBehaviour(_gameEngine.playerTribe()));
-    _rdrEngine.attachRenderer(typeid(House), new GenericRenderer<OnTileBlitter>(
-        "medias/sprites/buildings/house_peon/house_peon_sheet.png",
-        "medias/sprites/buildings/house_peon/house_peon_mask.png",
-        _window->renderer, _window->vrenderer));
+    _rdrEngine.attachRenderer(typeid(House), 
+        new GenericRenderer<OnTileBlitter>(asset));
   }
   
   /* Manualy populate world */

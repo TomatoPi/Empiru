@@ -32,6 +32,7 @@
 #include "utils/gui/renderer/AbstractRenderer.h"
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/assets/Animation.h"
+#include "utils/gui/assets/GraphicAssetsRegister.h"
 
 /// \brief Renderer assoaciated with peons
 class PeonRenderer : public AbstractRenderer {
@@ -49,34 +50,33 @@ private:
   typedef std::unordered_map<WorldPtr, Datas, WorldPtrHash, WorldPtrEquals> 
     Targets;
   
-  std::unique_ptr<SpriteSheet> _sheet;    ///< Basic asset
-  std::unique_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
-  std::unique_ptr<SpriteSheet> _select;   ///< Overlay when selected
-  std::unique_ptr<SpriteSheet> _whareh;   ///< Attached warehouse icon
-  std::unique_ptr<SpriteSheet> _notify;   ///< Notification icons
+  std::shared_ptr<SpriteSheet> _sheet;    ///< Basic asset
+  std::shared_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
+  std::shared_ptr<SpriteSheet> _select;   ///< Overlay when selected
+  std::shared_ptr<SpriteSheet> _whareh;   ///< Attached warehouse icon
+  std::shared_ptr<SpriteSheet> _notify;   ///< Notification icons
   Targets                      _targets;  ///< Dict of Animation datas
   
 public:
   
   /// \brief Struct used to pass args to PeonRenderer Constructor
   struct SheetsPaths {
-    const char* peon_sheet;   ///< Base selection sheet
-    const char* mask_sheet;   ///< Mask for pixel perfect selection
-    const char* select_sheet; ///< Selection overlay
     const char* whareh_sheet; ///< WhareHouse overlay
     const char* notify_sheet; ///< Notification icons
   };
   
   /// \brief Constructor
   /// \throw runtime_error on failure
-  PeonRenderer(const SheetsPaths & args, SDL_Renderer *rdr, SDL_Renderer *mrdr);
+  PeonRenderer(
+          const gui::ObjectAsset& assets, 
+          const SheetsPaths & args, 
+          SDL_Renderer *rdr);
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual void renderAt(
     const WorldPtr& obj, 
     int ori, int x, int y,
-    const hex::Viewport & view,
-    SDL_Renderer *rdr);
+    const hex::Viewport & view);
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
@@ -84,7 +84,6 @@ public:
     const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer * rdr,
     const SDL_Color & color); 
   
   /// \brief Called when a new object associated with this renderer is created

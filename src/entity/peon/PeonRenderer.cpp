@@ -27,17 +27,16 @@
 
 #include "PeonRenderer.h"
 #include "entity/peon/Peon.h"
-#include "utils/gui/assets/SpriteAsset.h"
 
 /// \brief Constructor
 /// \throw runtime_error on failure
 PeonRenderer::PeonRenderer(
-    const SheetsPaths & args, 
-    SDL_Renderer *rdr, 
-    SDL_Renderer *mrdr) : 
-  _sheet(SpriteAsset::loadFromFile(args.peon_sheet, rdr)),
-  _mask(SpriteAsset::loadFromFile(args.mask_sheet, mrdr)),
-  _select(SpriteAsset::loadFromFile(args.select_sheet, rdr)),
+          const gui::ObjectAsset& assets, 
+          const SheetsPaths & args, 
+          SDL_Renderer *rdr) :
+  _sheet(assets._sheet),
+  _mask(assets._mask),
+  _select(assets._select),
   _whareh(SpriteSheet::loadFromFile(args.whareh_sheet, 1, 6, rdr)),
   _notify(SpriteSheet::loadFromFile(args.notify_sheet, 1, 2, rdr)),
   _targets()
@@ -48,8 +47,7 @@ PeonRenderer::PeonRenderer(
 void PeonRenderer::renderAt(
     const WorldPtr& obj, 
     int ori, int x, int y,
-    const hex::Viewport & view,
-    SDL_Renderer *rdr)
+    const hex::Viewport & view)
 {
   const Peon & peon(static_cast<const Peon &>(*obj));
   Datas & datas(_targets.at(obj));
@@ -92,7 +90,6 @@ void PeonRenderer::renderAt(
     const WorldPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer *rdr,
     const SDL_Color & c)
 {
   const Peon & peon(static_cast<const Peon &>(*obj));

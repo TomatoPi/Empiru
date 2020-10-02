@@ -41,8 +41,8 @@ private:
   const TribeInfos & _playerTribe;
   WorldPtr           _selectedObject;
   
-  std::unique_ptr<SpriteSheet> _background; ///< Pannel's background sprite
-  std::unique_ptr<SpriteSheet> _icons;
+  std::shared_ptr<SpriteSheet> _background; ///< Pannel's background sprite
+  std::shared_ptr<SpriteSheet> _icons;
   
   FontPrinter _printer;
   
