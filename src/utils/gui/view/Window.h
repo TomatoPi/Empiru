@@ -26,28 +26,37 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include <memory>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 
 /// \brief Basic window object
 class Window {
 public:
   
-  SDL_Window* window; ///< The window
-  SDL_Renderer* renderer; ///< The default renderer
+  SDL_Window* window;     ///< The window (owned)
+  SDL_Renderer* renderer; ///< The default renderer (owned)
   
-  SDL_Surface * vsurface;   ///< Virtual drawing surface
-  SDL_Renderer * vrenderer; ///< Renderer associated with vsurface
+  SDL_Surface* vsurface;   ///< Virtual drawing surface (owned)
+  SDL_Renderer* vrenderer; ///< Renderer associated with vsurface (owned)
 
-  int width;  ///< Window's width
-  int height; ///< Window's height
+  int width;    ///< Window's width
+  int height;   ///< Window's height
+  float scale;  ///< Window's scale factor
   
   /// \brief Create the window and a renderer
   /// \param width : window's width
   /// \param height : window's height
-  /// \return NULL on failure
-  static Window * createWindow(int width, int height);
+  /// \param scale : window scale factor
+  static std::shared_ptr<Window> 
+  createWindow(int width, int height, float scale);
   
+  
+  /// \brief Constructor
+  Window(SDL_Window*&& window, SDL_Renderer*&& renderer, 
+          SDL_Surface*&& vs, SDL_Renderer*&& vr, 
+          int w, int h, float f);
   /// \brief Destructor
   ~Window();
   
@@ -55,13 +64,6 @@ public:
   void clear();
   /// \brief Update the screen
   void update();
-  
-private:
-  
-  /// \brief Constructor
-  Window(SDL_Window *window, SDL_Renderer *renderer, 
-          SDL_Surface * vs, SDL_Renderer * vr, 
-          int w, int h);
 };
 
 #endif /* WINDOW_H */

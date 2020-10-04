@@ -28,7 +28,7 @@
 #include "utils/log.h"
 
 /// \brief Constructor
-SoundAsset::SoundAsset(Sounds && sounds) :
+SoundAsset::SoundAsset(Sounds&& sounds) :
   _sounds(sounds)
 {
   
@@ -46,9 +46,9 @@ SoundAsset::~SoundAsset() {
 /// \param count : Number of sounds files
 /// \return An Asset on success or nullptr if one of file has failed
 std::unique_ptr<SoundAsset> SoundAsset::loadFromFiles(
-    const std::string & path, 
-    const std::string & ext, 
-    const std::size_t & count)
+    const std::string& path, 
+    const std::string& ext, 
+    const std::size_t& count)
 {
   Sounds sounds(count, nullptr);
   for (std::size_t i(0) ; i<count ; ++i) {
@@ -71,8 +71,8 @@ std::unique_ptr<SoundAsset> SoundAsset::loadFromFiles(
 /// \param sound   : index of the sound to play in this asset
 /// \return -1 on error, the channel the sample is played on otherwise
 int SoundAsset::play(
-    const int & channel, 
-    const int & loop, 
+    const int channel, 
+    const int loop, 
     const std::size_t & sound) 
 {
   assert(-1 <= channel && "Invalid Play channel");

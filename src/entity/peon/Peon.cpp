@@ -85,6 +85,7 @@ bool Peon::isPaused() const {
 }
 
 /// \brief remove all path's steps
+/// \bug MEMORY LEAK !!!!
 void Peon::clearOrders() {
   //_dir._x = _dir._y = _dir._z = 0;
   _todo.clear();

@@ -30,6 +30,10 @@
 #include "utils/world/WorldObject.h"
 
 /// \brief Base class for orders
+/// \todo In the actual implementation, a great number of orders may result
+///   in a great number of new and deletes
+/// Future implementation should use a special allocator or find a way to
+///   not use pointers.
 class Order {
 public:
   

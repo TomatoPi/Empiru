@@ -26,6 +26,8 @@
 #define MATH_2D_VECTOR_H
 
 #include <cmath>
+#include <typeinfo>
+#include <type_traits>
 #include "Matrix.h"
 
 namespace math {
@@ -43,8 +45,14 @@ namespace math {
     Vector(T x, T y) noexcept : _x(x), _y(y) {
     }
     /// \brief Copy constructor
+    Vector(const Vector& v) noexcept :
+      _x(v._x), _y(v._y)
+    {
+    }
+    
+    /// \brief Conversion constructor
     template <typename F>
-    Vector(const Vector<F> & v) noexcept : 
+    explicit Vector(const Vector<F> & v) noexcept : 
       _x(static_cast<F>(v._x)), _y(static_cast<F>(v._y))
     {
     }
@@ -104,7 +112,10 @@ namespace math {
     }
     
     /// \brief Return as unitary vector
+    /// \warning Require T beeing an non integral type
     Vector unit() const noexcept {
+      static_assert(std::is_floating_point<T>::value, 
+              "Require T beeing a non integral type");
       T n(static_cast<T>(1) / norm());
       return Vector(_x * n, _y * n);
     }

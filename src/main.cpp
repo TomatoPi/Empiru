@@ -86,23 +86,25 @@ namespace {
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
   
+  LOG_DEBUG("%lu %lu\n", sizeof(WorldPtr), sizeof(void*));
+  
   /* Create the World and main engine */
   WorldMap _worldMap(SIZE,SIZE);
   Controller _gameController(_worldMap);
   GameEngine _gameEngine(_worldMap);
   
   /* Create the UI */
-  Window *_window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
+  std::shared_ptr<Window> _window = Window::createWindow(1920/FACTOR, 1080/FACTOR, FACTOR);
   ControlPannel _controlPanel(
     409/FACTOR, 1080/FACTOR, 
-    *_window, 
+    *_window.get(), 
     _gameEngine.playerTribe());
   Camera _camera(
     371/FACTOR, 0,
     hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     _window->width, _window->height,
     SIZE, SIZE);
-  RenderingEngine _rdrEngine(*_window, _camera, _camera, _worldMap);
+  RenderingEngine _rdrEngine(*_window.get(), _camera, _camera, _worldMap);
   SDLHandler _sdlHandler(_camera, _camera, _gameController, _controlPanel, _rdrEngine);
   
   /* Create the sound Engine */
@@ -258,8 +260,6 @@ int main(int argc, char** argv) {
       SDL_Delay(FRAMETIME - tickEllapsedTime);
     }
   }
-  
-  delete _window;
   
   return 0;
 }

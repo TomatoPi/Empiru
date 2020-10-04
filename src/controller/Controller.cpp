@@ -68,10 +68,10 @@ void Controller::rightClickOn(const WorldObject::Position& click, WorldPtr& ptr)
         }
       }
       else if (auto storage = dynamic_cast<Storage *>(&*ptr)) {
+        peon->attachWarehouse(ptr);
         if (!peon->inventory().empty() 
           && storage->canStore(peon->inventory().type())) 
         {
-          peon->attachWarehouse(ptr);
           peon->addOrder(new OrderStore(ptr));
           peon->beginOrder();
           sendNotification(EventObjectAction(_selection, ptr));

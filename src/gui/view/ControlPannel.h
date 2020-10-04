@@ -46,6 +46,9 @@ private:
   
   FontPrinter _printer;
   
+  SDL_Rect _pannel_1;
+  SDL_Rect _pannel_2;
+  
 public:
   /// Create the control pannel and load right assets
   ControlPannel(
@@ -55,6 +58,13 @@ public:
   
   /// Draw the control pannel
   void draw();
+  
+private:
+  
+  void drawBackround();
+  void drawGlobalRessources(const SDL_Rect& pannel);
+  void drawObjectInventory(const SDL_Rect& pannel);
+  void drawControls();
 };
 
 #endif /* CONTROLPANNEL_H */
