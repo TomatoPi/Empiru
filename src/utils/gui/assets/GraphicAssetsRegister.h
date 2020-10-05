@@ -37,7 +37,7 @@ namespace gui {
       ReqSheet =0x01,
       ReqMask  =0x02,
       ReqSelect=0x04,
-      ReqAll   = ReqSheet | ReqMask | ReqSelect,
+      ReqGhost =0x08,
     };
     
     ObjectAsset(
@@ -49,6 +49,7 @@ namespace gui {
     std::shared_ptr<SpriteSheet> _sheet;
     std::shared_ptr<SpriteSheet> _mask;
     std::shared_ptr<SpriteSheet> _select;
+    std::shared_ptr<SpriteSheet> _ghost;
   };
   
   inline ObjectAsset::Sheet 
@@ -57,7 +58,7 @@ namespace gui {
             static_cast<uint8_t>(a) | static_cast<uint8_t>(b));
   }
   
-  class TypedRegister : public AssetManager<ObjectAsset> {};
+  class TypedRegister : public AssetManager<ObjectAsset, TypedRegister> {};
 }
 
 #endif /* GRAPHICASSETSREGISTER_H */

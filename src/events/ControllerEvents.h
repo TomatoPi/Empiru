@@ -46,5 +46,19 @@ struct EventObjectAction : public Event {
   {}
 };
 
+struct EventCursorMoved : public Event {
+  const WorldObject::Position& _click;
+  int _x;
+  int _y;
+  EventCursorMoved(const WorldObject::Position& click, int x, int y) noexcept :
+    _click(click), _x(x), _y(y)
+  {}
+};
+
+struct EventConstructionSiteSelected : public Event {
+  const std::type_info& _type;
+  EventConstructionSiteSelected(const std::type_info& t) noexcept : _type(t) {}
+};
+
 #endif /* CONTROLLEREVENTS_H */
 

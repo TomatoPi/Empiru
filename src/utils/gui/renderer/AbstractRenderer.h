@@ -33,6 +33,8 @@
 
 /// \brief Renderers are classes that know how to draw world objects
 class AbstractRenderer {
+private:
+  
 public:
   
   /// \brief Render the object at given position

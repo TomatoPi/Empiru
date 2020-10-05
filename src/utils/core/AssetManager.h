@@ -32,19 +32,25 @@
 
 /// \brief Template class used to store assets in a {Type:TypeAsset} dict, and
 ///   to store specific assets in a {Key:UniqueAsset} dict
-template <class Asset>
+template <class Asset, class Manager>
 class AssetManager {
 private:
   
   /// \brief Dict of assets
   typedef std::unordered_map<std::type_index,Asset> AssetsTable;
-  
   AssetsTable       _table;   ///< Typed assets
   
-public:
+protected:
   
   /// \brief Basic constructor, register the singleton
   AssetManager() noexcept = default;
+  
+public:
+  
+  static Manager& Get() noexcept {
+    static Manager _singleton;
+    return _singleton;
+  }
   /// \brief Basic destructor, release the destructor
   virtual ~AssetManager() noexcept = default;
   

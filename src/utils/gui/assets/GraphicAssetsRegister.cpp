@@ -59,7 +59,8 @@ namespace gui {
             SDL_Renderer* mrdr) :
     _sheet(tryLoad(path + "_sheet.png", requireds & Sheet::ReqSheet, rdr)), 
     _mask(tryLoad(path + "_mask.png", requireds & Sheet::ReqMask, mrdr)), 
-    _select(tryLoad(path + "_select.png", requireds & Sheet::ReqSelect, rdr))
+    _select(tryLoad(path + "_select.png", requireds & Sheet::ReqSelect, rdr)),
+    _ghost(tryLoad(path + "_ghost.png", requireds & Sheet::ReqGhost, rdr))
   {
   }
 }

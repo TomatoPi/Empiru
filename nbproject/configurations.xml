@@ -40,6 +40,9 @@
           <logicalFolder name="f2" displayName="site" projectFiles="true">
             <itemPath>src/entity/buildings/site/ConstructSite.cpp</itemPath>
             <itemPath>src/entity/buildings/site/ConstructSite.h</itemPath>
+            <itemPath>src/entity/buildings/site/ConstructionGhost.h</itemPath>
+            <itemPath>src/entity/buildings/site/GhostRenderer.cpp</itemPath>
+            <itemPath>src/entity/buildings/site/GhostRenderer.h</itemPath>
           </logicalFolder>
           <itemPath>src/entity/buildings/StorageBehaviour.h</itemPath>
         </logicalFolder>
@@ -327,6 +330,21 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -639,6 +657,21 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -938,6 +971,21 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1242,6 +1290,21 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/GhostRenderer.h"
             ex="false"
             tool="3"
             flavor2="0">

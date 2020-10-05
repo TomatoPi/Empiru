@@ -16,63 +16,38 @@
  */
 
 /// 
-/// \file   PeonRenderer.h
+/// \file   GhostRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 16 septembre 2020, 12:48
-/// \brief Provide PeonRenderer Object
+/// \date 5 octobre 2020, 23:52
 ///
 
-#ifndef PEONRENDERER_H
-#define PEONRENDERER_H
+#ifndef GHOSTRENDERER_H
+#define GHOSTRENDERER_H
 
-#include <memory>
-#include <unordered_map>
-#include "utils/world/WorldPtr.h"
 #include "utils/gui/renderer/AbstractRenderer.h"
-#include "utils/gui/assets/SpriteSheet.h"
-#include "utils/gui/assets/Animation.h"
-#include "utils/gui/assets/GraphicAssetsRegister.h"
+#include "gui/GenericRenderer.h"
 
-/// \brief Renderer assoaciated with peons
-class PeonRenderer : public AbstractRenderer {
+/// \brief Renderers are classes that know how to draw world objects
+class GhostRenderer : public AbstractRenderer {
 private:
   
-  struct Datas {
-    Datas() : _anim(7,6), _wanim(6,6), _notanim(2,6), _select(false) {}
-    Animation _anim;
-    Animation _wanim;
-    Animation _notanim;
-    bool      _select;
-  };
-    
-  /// \brief Animation datas are stored for each attached peon
-  typedef std::unordered_map<WorldPtr,Datas,WorldPtrHash,WorldPtrEquals> 
+  typedef std::unordered_map<WorldPtr,bool,WorldPtrHash,WorldPtrEquals> 
     Targets;
   
-  std::shared_ptr<SpriteSheet> _sheet;    ///< Basic asset
-  std::shared_ptr<SpriteSheet> _mask;     ///< Mask for pixelPerfect click
-  std::shared_ptr<SpriteSheet> _select;   ///< Overlay when selected
-  std::shared_ptr<SpriteSheet> _whareh;   ///< Attached warehouse icon
-  std::shared_ptr<SpriteSheet> _notify;   ///< Notification icons
-  Targets                      _targets;  ///< Dict of Animation datas
+  Targets       _targets;
+  OnTileBlitter _blitter;
   
 public:
   
-  /// \brief Struct used to pass args to PeonRenderer Constructor
-  struct SheetsPaths {
-    const char* whareh_sheet; ///< WhareHouse overlay
-    const char* notify_sheet; ///< Notification icons
-  };
-  
-  /// \brief Constructor
+  /// \brief Render the object at given position
+  /// \param obj : the object beeing rendered
+  /// \param ori : curent camera's orientation
+  /// \param x   : object's x position on screen
+  /// \param y   : object's y position on screen
+  /// \param view: rendering viewport
+  /// \param rdr : renderer
   /// \throw runtime_error on failure
-  PeonRenderer(
-          const gui::ObjectAsset& assets, 
-          const SheetsPaths & args, 
-          SDL_Renderer *rdr);
-  
-  /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual void renderAt(
     const WorldPtr& obj, 
     int ori, int x, int y,
@@ -80,11 +55,20 @@ public:
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
+  /// \param obj   : the object beeing drawn
+  /// \param ori   : curent camera's orientation
+  /// \param x     : object's x position on screen
+  /// \param y     : object's y position on screen
+  /// \param view  : rendering viewport
+  /// \param rdr   : renderer
+  /// \param color : color that must be used to draw
+  /// \throw runtime_error on failure
   virtual void renderAt(
     const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
-    const SDL_Color & color); 
+    const SDL_Color & color) 
+  noexcept {}
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
@@ -94,10 +78,10 @@ public:
   virtual void removeTarget(const WorldPtr& obj) noexcept;
   /// \brief Called when an object associated with this renderer is selected
   ///  may remember draw a special overlay around it
-  virtual void targetSelected(const WorldPtr& obj);
+  virtual void targetSelected(const WorldPtr& obj) noexcept {}
   /// \brief Called when an object associated with this renderer is deselected
   ///  may remember to stop draw special overlay
-  virtual void targetDeselected(const WorldPtr& obj);
+  virtual void targetDeselected(const WorldPtr& obj) noexcept {}
 };
 
-#endif /* PEONRENDERER_H */
+#endif /* GHOSTRENDERER_H */

@@ -32,6 +32,8 @@
 #include "utils/gui/ui/FontPrinter.h"
 #include "utils/world/WorldPtr.h"
 
+#include "gui/GenericRenderer.h"
+
 #include "entity/functionals/TribeInfos.h"
 
 class ControlPannel : public gui::View, public Observer {
@@ -42,9 +44,9 @@ private:
   WorldPtr           _selectedObject;
   
   std::shared_ptr<SpriteSheet> _background; ///< Pannel's background sprite
-  std::shared_ptr<SpriteSheet> _icons;
+  std::shared_ptr<SpriteSheet> _icons;      ///< Pannel's icons sprites
   
-  FontPrinter _printer;
+  FontPrinter   _printer;
   
   SDL_Rect _pannel_1;
   SDL_Rect _pannel_2;
@@ -64,6 +66,7 @@ private:
   void drawBackround();
   void drawGlobalRessources(const SDL_Rect& pannel);
   void drawObjectInventory(const SDL_Rect& pannel);
+  void drawGhost();
   void drawControls();
 };
 

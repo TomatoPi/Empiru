@@ -43,6 +43,10 @@
 
 #include "entity/land/HarvestableBehaviour.h"
 
+#include "entity/buildings/site/ConstructionGhost.h"
+#include "entity/buildings/site/ConstructSite.h"
+#include "entity/buildings/site/GhostRenderer.h"
+
 #include "buildings/House.h"
 #include "entity/buildings/StorageBehaviour.h"
 
@@ -90,8 +94,8 @@ int main(int argc, char** argv) {
   
   /* Create the World and main engine */
   WorldMap _worldMap(SIZE,SIZE);
-  Controller _gameController(_worldMap);
   GameEngine _gameEngine(_worldMap);
+  Controller _gameController(_worldMap, _gameEngine);
   
   /* Create the UI */
   std::shared_ptr<Window> _window = Window::createWindow(1920/FACTOR, 1080/FACTOR, FACTOR);
@@ -111,7 +115,7 @@ int main(int argc, char** argv) {
   SoundEngine *_soundEngine(SoundEngine::create());
   
   /* Create the assets managers */
-  gui::TypedRegister _spritesRegister;
+  gui::TypedRegister& _spritesRegister(gui::TypedRegister::Get());
   
   /* Setup things and Attach the Engines together */
   _camera.target(hex::Axial(0,0));
@@ -141,7 +145,9 @@ int main(int argc, char** argv) {
     
     auto asset(_spritesRegister.registerAsset(typeid(Peon),
         "medias/sprites/entity/peon/peon", 
-        gui::ObjectAsset::ReqAll, 
+        gui::ObjectAsset::ReqSheet
+          | gui::ObjectAsset::ReqMask
+          | gui::ObjectAsset::ReqSelect, 
         _window->renderer,
         _window->vrenderer));
     
@@ -179,7 +185,9 @@ int main(int argc, char** argv) {
   { /* House */
     auto asset(_spritesRegister.registerAsset(typeid(House),
         "medias/sprites/buildings/house_peon/house_peon", 
-        gui::ObjectAsset::ReqSheet | gui::ObjectAsset::ReqMask, 
+        gui::ObjectAsset::ReqSheet 
+          | gui::ObjectAsset::ReqMask 
+          | gui::ObjectAsset::ReqGhost, 
         _window->renderer,
         _window->vrenderer));
     
@@ -187,6 +195,11 @@ int main(int argc, char** argv) {
     _gameEngine.attachBehaviour(typeid(House), new StorageBehaviour(_gameEngine.playerTribe()));
     _rdrEngine.attachRenderer(typeid(House), 
         new GenericRenderer<OnTileBlitter>(asset));
+  }
+  { /* ghost */
+    _gameEngine.registerObjectKind(typeid(ConstructionGhost), 
+        new WorldAllocator<ConstructionGhost>());
+    _rdrEngine.attachRenderer(typeid(ConstructionGhost), new GhostRenderer());
   }
   
   /* Manualy populate world */
