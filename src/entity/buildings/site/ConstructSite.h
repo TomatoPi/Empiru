@@ -26,12 +26,32 @@
 #define CONSTRUCTSITE_H
 
 #include "utils/world/WorldObject.h"
+#include "utils/world/WorldPtr.h"
+#include "utils/world/Recipe.h"
+#include "utils/log.h"
 
-class ConstructionSite : public WorldObject {
+#include "buildings/House.h"
+#include "ConstructionGhost.h"
+
+class ConstructionSite : public WorldObject, public Recipe {
 public:
   ConstructionSite();
   ConstructionSite(const ConstructionSite &) = default;
   ConstructionSite & operator= (const ConstructionSite &) = default;
+  
+  struct Builder {
+    const ConstructionGhost& _ghost;
+    Builder(const ConstructionGhost& ghost) noexcept : _ghost(ghost) {}
+    void operator() (WorldPtr& ptr) const noexcept {
+      ConstructionSite& site = static_cast<ConstructionSite&>(*ptr);
+      if (typeid(House) != _ghost.type()) {
+        LOG_TODO("Build something else than a house...\n");
+        assert(0);
+      }
+      site.pos(_ghost.pos());
+      site.setRecipe({Stack(Stack::Wood, 50), Stack(Stack::Rock, 10)});
+    }
+  };
 };
 
 #endif /* CONSTRUCTSITE_H */

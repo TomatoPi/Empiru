@@ -28,6 +28,7 @@
 #include "entity/peon/Peon.h"
 #include "utils/world/Storage.h"
 #include "utils/world/Harvestable.h"
+#include "entity/buildings/site/ConstructSite.h"
 
 namespace {
   /// \brief Array of indexes of ressources icons indexes on icon sheet
@@ -111,27 +112,39 @@ void ControlPannel::drawGlobalRessources(const SDL_Rect& pannel) {
 }
 void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
   SDL_Rect rect;
-  std::vector<Stack> inventory;
+  std::vector<std::pair<Stack::Ressource,std::string>> inventory;
   if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
     if (!peon->inventory().empty())
-      inventory.push_back(peon->inventory());
+      inventory.emplace_back(
+        peon->inventory().type(), 
+        std::to_string(peon->inventory().size()));
   }
   else if (Storage *store = dynamic_cast<Storage*>(&*_selectedObject)) {
     for (auto & stack : store->stock()) {
-      inventory.push_back(stack);
+      inventory.emplace_back(stack.type(), std::to_string(stack.size()));
     }
   }
   else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {
-    inventory.push_back(*harv);
+    inventory.emplace_back(harv->type(), std::to_string(harv->size()));
+  } 
+  else if (
+    ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*_selectedObject))
+  {
+    for (auto & stack : site->recipe()) {
+      inventory.emplace_back(
+          stack.first, 
+          std::to_string(site->supplied().at(stack.first))
+            + " "
+            + std::to_string(stack.second));
+    }
   }
   rect.w = _icons->width();
   rect.h = _icons->height();
   rect.x = pannel.x;
   rect.y = pannel.y;
   for (auto & stack : inventory) {
-    _icons->renderFrame(0, iconframes[stack.type()], &rect);
-    _printer.drawStringAt(rect.x + pannel.w, rect.y + rect.h/2, FontPrinter::CenterRight, 
-        std::to_string(stack.size()));
+    _icons->renderFrame(0, iconframes[stack.first], &rect);
+    _printer.drawStringAt(rect.x + pannel.w, rect.y + rect.h/2, FontPrinter::CenterRight, stack.second);
     rect.y += rect.h + 2;
   }
 }

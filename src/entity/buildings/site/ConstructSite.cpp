@@ -25,6 +25,6 @@
 #include "ConstructSite.h"
 
 ConstructionSite::ConstructionSite() : 
-  WorldObject(WorldObject::STile) 
+  WorldObject(WorldObject::SHollow) 
 {  
 }

@@ -59,8 +59,9 @@ void GhostRenderer::renderAt(
 /// \brief Called when a new object associated with this renderer is created
 ///  may instanciate fine scope datas, like animation state
 void GhostRenderer::addTarget(const WorldPtr& obj) noexcept {
-  auto insert(_targets.emplace(obj, false));
-  LOG_DEBUG("Pouet\n");
+  auto insert(
+      _targets.emplace(obj, 
+      ! static_cast<const ConstructionGhost&>(*obj).valid()));
   assert(insert.second);
 }
 /// \brief Called when an object associated with this renderer is destroyed

@@ -59,7 +59,8 @@ private:
     Invalid,
     Number,
     LowerCase,
-    UpperCase
+    UpperCase,
+    Space,
   };
   
   struct DrawStep {

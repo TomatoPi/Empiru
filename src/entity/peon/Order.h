@@ -43,6 +43,7 @@ public:
     MoveTo,  ///< Move to another position
     Harvest, ///< Harvest some ressources
     Store,   ///< Put some ressources in a storage
+    Supply,  ///< Supply a building or a site with ressources
   };
   
 private:
@@ -141,6 +142,16 @@ public:
   
   OrderStore(const WorldPtr& ptr) :
     _OrderWorldTarget(Store, ptr)
+  {
+  }
+};
+
+/// \brief Store Order
+class OrderSupply : public _OrderWorldTarget {
+public:
+  
+  OrderSupply(const WorldPtr& ptr) :
+    _OrderWorldTarget(Supply, ptr)
   {
   }
 };

@@ -113,6 +113,9 @@ void Peon::beginOrder() {
   case Order::Store :
     _delay = 1;
     break;
+  case Order::Supply : 
+    _delay = 1;
+    break;
   default :
     assert(0);
   }

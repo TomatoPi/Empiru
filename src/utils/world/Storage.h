@@ -69,7 +69,7 @@ public:
   }
   
   bool canStore(Stack::Ressource type) const noexcept {
-    return true;
+    return type != Stack::Invalid;
   }
   
   /// \brief Debug method

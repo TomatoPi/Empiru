@@ -179,7 +179,9 @@ void RenderingEngine::updateClickZones() {
   for (auto & itr : _drawstack) {
     const WorldPtr& obj(itr.second);
     if (obj->sizeClass() == WorldObject::SHollow) {
-      continue;
+      if (findrdr(obj) == nullptr) {
+        continue;
+      }
     }
     SDL_Color color;
     color.r = (cptr & 0x000000FF) >> 0;

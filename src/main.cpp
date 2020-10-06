@@ -68,6 +68,7 @@
 
 #include "entity/functionals/TribeInfos.h"
 #include "utils/gui/assets/GraphicAssetsRegister.h"
+#include "entity/buildings/site/SiteRenderer.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -200,6 +201,19 @@ int main(int argc, char** argv) {
     _gameEngine.registerObjectKind(typeid(ConstructionGhost), 
         new WorldAllocator<ConstructionGhost>());
     _rdrEngine.attachRenderer(typeid(ConstructionGhost), new GhostRenderer());
+  }
+  { /* site */
+    auto asset(_spritesRegister.registerAsset(typeid(ConstructionSite),
+        "medias/sprites/buildings/site/site", 
+        gui::ObjectAsset::ReqSheet 
+          | gui::ObjectAsset::ReqMask, 
+        _window->renderer,
+        _window->vrenderer));
+    
+    _gameEngine.registerObjectKind(typeid(ConstructionSite), 
+        new WorldAllocator<ConstructionSite>());
+    _rdrEngine.attachRenderer(typeid(ConstructionSite), 
+        new SiteRenderer(asset));
   }
   
   /* Manualy populate world */

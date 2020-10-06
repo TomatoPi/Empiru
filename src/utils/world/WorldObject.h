@@ -49,6 +49,12 @@ private:
   float    _radius;  ///< Hitbox radius for small objects
   Size     _size;    ///< Object's size
   
+protected:
+  
+  void setSizeClass(Size s) {
+    _size = s;
+  }
+  
 public:
   
   /// \brief Construct a Tile Sized Object

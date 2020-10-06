@@ -30,6 +30,8 @@
 #include "utils/log.h"
 #include "entity/tree/Tree.h"
 #include "utils/world/Storage.h"
+#include "utils/world/Recipe.h"
+#include "utils/world/Recipe.h"
 
 /// \brief Must compute one behaviour tick of obj
 void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world) {
@@ -49,9 +51,37 @@ void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world)
   case Order::Store :
     store(peon, ptr, world);
     break;
+  case Order::Supply :
+    supply(peon, ptr, world);
+    break;
   default:
     assert(0);
   }
+}
+
+/// \brief compute harvest order
+void PeonBehaviour::supply(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+  const OrderSupply& order(static_cast<const OrderSupply&>(peon.currentOrder()));
+  WorldPtr obj(order.target());
+  // check if target always exists
+  if (!obj) {
+    peon.endOrder();
+    return;
+  }
+  // If too far, walk
+  if (obj->radius() + peon.radius() + 0.15
+    < WorldObject::Position::distance(peon.pos(), obj->pos())) 
+  {
+    peon.addOrder(new OrderMoveTo(obj->pos(), obj->radius() + peon.radius() + 0.1));
+    peon.beginOrder();
+    return;
+  }
+  // Put the inventory in the warehouse
+  Recipe& recipe(dynamic_cast<Recipe&>(*obj));
+  Stack residue(recipe.supply(peon.inventory()));
+  peon.clearInventory();
+  peon.addToInventory(residue.type(), residue.size());
+  peon.endOrder();
 }
 
 /// \brief compute harvest order
@@ -66,7 +96,6 @@ void PeonBehaviour::store(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
     peon.endOrder();
     return;
   }
-  Storage & storage(dynamic_cast<Storage &>(*obj));
   // If too far, walk
   if (obj->radius() + peon.radius() + 0.15
     < WorldObject::Position::distance(peon.pos(), obj->pos())) 
@@ -76,6 +105,7 @@ void PeonBehaviour::store(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
     return;
   }
   // Put the inventory in the warehouse
+  Storage & storage(dynamic_cast<Storage &>(*obj));
   storage.addToStorage(peon.inventory());
   peon.clearInventory();
   peon.endOrder();
@@ -90,7 +120,6 @@ void PeonBehaviour::harvest(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
     peon.endOrder();
     return;
   }
-  Harvestable & harvest(dynamic_cast<Harvestable &>(*obj));
   // If too far, walk
   if (obj->radius() + peon.radius() + 0.15
     < WorldObject::Position::distance(peon.pos(), obj->pos())) 
@@ -100,6 +129,7 @@ void PeonBehaviour::harvest(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
     return;
   }
   // Yes we are ready to take some Wouuuuuuud
+  Harvestable & harvest(dynamic_cast<Harvestable &>(*obj));
   if (peon.inventory().size() >= 10) {
     if (peon.attachtedWharehouse()) {
       peon.addOrder(new OrderStore(peon.attachtedWharehouse()));

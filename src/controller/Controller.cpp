@@ -31,6 +31,7 @@
 #include "utils/world/Storage.h"
 #include "events/ControllerEvents.h"
 #include "entity/buildings/site/ConstructionGhost.h"
+#include "entity/buildings/site/ConstructSite.h"
 
 /// \brief Constructor
 Controller::Controller(WorldInterface& w, GameEngine& engine) noexcept :
@@ -46,6 +47,15 @@ void Controller::leftClickOn(const WorldObject::Position& click, WorldPtr& ptr) 
   if (_selection) {
     if (typeid(*_selection) == typeid(ConstructionGhost)) {
       ConstructionGhost& ghost = static_cast<ConstructionGhost&>(*_selection);
+      if (!ghost.valid()) {
+        return;
+      }
+      sendNotification(EventObjectDeselected(_selection));
+      ConstructionSite::Builder builder(ghost);
+      WorldPtr site(_engine.createObject(typeid(ConstructionSite), builder));
+      _engine.removeObject(_selection);
+      _selection = site;
+      sendNotification(EventObjectSelected(_selection));
       return;
     } /* if selection is ghost */
     sendNotification(EventObjectDeselected(_selection));
@@ -78,7 +88,7 @@ void Controller::peonRightClick(
   WorldPtr& ptr) 
 {
   if (ptr) {
-    if (auto harvest = dynamic_cast<Harvestable *>(&*ptr)) {
+    if (Harvestable* harvest = dynamic_cast<Harvestable*>(&*ptr)) {
       if (peon->canHarvest(harvest->type())) {
         peon->clearOrders();
         peon->addOrder(new OrderHarvest(ptr));
@@ -86,12 +96,18 @@ void Controller::peonRightClick(
         sendNotification(EventObjectAction(_selection, ptr));
       }
     }
-    else if (auto storage = dynamic_cast<Storage *>(&*ptr)) {
+    else if (Storage* storage = dynamic_cast<Storage*>(&*ptr)) {
       peon->attachWarehouse(ptr);
-      if (!peon->inventory().empty() 
-        && storage->canStore(peon->inventory().type())) 
+      if (storage->canStore(peon->inventory().type())) 
       {
         peon->addOrder(new OrderStore(ptr));
+        peon->beginOrder();
+        sendNotification(EventObjectAction(_selection, ptr));
+      }
+    } 
+    else if (ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*ptr)) {
+      if (site->need(peon->inventory())) {
+        peon->addOrder(new OrderSupply(ptr));
         peon->beginOrder();
         sendNotification(EventObjectAction(_selection, ptr));
       }

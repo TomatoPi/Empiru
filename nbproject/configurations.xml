@@ -43,6 +43,8 @@
             <itemPath>src/entity/buildings/site/ConstructionGhost.h</itemPath>
             <itemPath>src/entity/buildings/site/GhostRenderer.cpp</itemPath>
             <itemPath>src/entity/buildings/site/GhostRenderer.h</itemPath>
+            <itemPath>src/entity/buildings/site/SiteRenderer.cpp</itemPath>
+            <itemPath>src/entity/buildings/site/SiteRenderer.h</itemPath>
           </logicalFolder>
           <itemPath>src/entity/buildings/StorageBehaviour.h</itemPath>
         </logicalFolder>
@@ -149,6 +151,7 @@
         <logicalFolder name="f2" displayName="world" projectFiles="true">
           <itemPath>src/utils/world/Allocator.h</itemPath>
           <itemPath>src/utils/world/Harvestable.h</itemPath>
+          <itemPath>src/utils/world/Recipe.h</itemPath>
           <itemPath>src/utils/world/Ressource.h</itemPath>
           <itemPath>src/utils/world/Storage.h</itemPath>
           <itemPath>src/utils/world/Tile.h</itemPath>
@@ -349,6 +352,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -490,6 +503,8 @@
       <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -672,6 +687,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -813,6 +838,8 @@
       <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -990,6 +1017,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -1131,6 +1168,8 @@
       <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1309,6 +1348,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/functionals/TribeInfos.h"
             ex="false"
             tool="3"
@@ -1450,6 +1499,8 @@
       <item path="src/utils/world/Allocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
