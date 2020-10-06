@@ -62,7 +62,34 @@ Implémentation :
 
 Contrôle des villageois (0)
   → Clic gauche pour sélectionner le villageois.
-  → Clic gauche pressé pour faire un carré de sélection (2).
+  → Clic gauche pressé pdu territoire (à priori après que les péons aient un minimum d'automatismes dans leur comportement)
+  → On pose un fantôme de batiment :
+    - doit etre dans le champ de vision + terrain dégagé
+  → Contre coût le fantôme est transformé par un villageois en chantier
+  → Le chantier à une demande de ressource.
+  → Les villageois rassemblent les ressources nécessaire en faisant des aller-retour entre stock et chantier, si nécessaire.
+  → Une fois les ressources rassemblées, la construction peut commencer.
+  → La vitesse de construction dépend de la main-d'œuvre.
+  → Mécanique des chantiers :
+    - Le chantier a X tâches unitaires à faire
+    - Chaque Péon effectue Y tâches par unités de temps
+    - Il y a un nombre maximal de péon qui peuvent travailler en meme temps sur un chantier
+  → Liste des premiers bâtiments :
+    - Maison : faible capacité de stockage.
+    - Monolithe : pour faire jolie, ou convertit les villageois en soldats 				(optionnel ?)
+    - Puits de stock : forte capacité de stockage.
+    - Camp de bûcheron : forte capacité spécifique de stockage (optionnel ?)		
+  → Si les villageois ne trouvent pas de ressources, les villageois préviennent qu’ils 	n’ont rien.
+
+Feuille de Route :
+  Grosso merdo tout d'un coup X)
+
+Implémentation :
+
+  Fantôme :
+    Type de batiment en devenir, (dimensions inclu dans objet de la map)
+    Coût d'initiation
+our faire un carré de sélection (2).
   → Ctrl + Clic droit pour donner une liste d'ordres (1)
   → Clic droit sur une ressource pour la récolter. (0 : il s'y déplace, 1 : on affine)
   → Clic droit sur le reste pour le déplacement.

@@ -1,0 +1,30 @@
+prototype 1 : Peonurium Update
+
+-> Rôle des péons
+  - batailleur  (péonus) 25
+  - ingénieur   (péonhouètte) 89 - 5
+  - récolteur   (péon) 45 + 5
+  - gigaporteur (péonpéon) 12
+
+-> Monolithe et minilithe
+  -Les minilithes sont des terminaux de monolithe, il permet de changer les péons.
+
+-> Règle d'appartenance d'un bâtiment
+  - A la construction, le bâtiment appartient au constructeur, par défaut.
+  - Pour posséder un bâtiment, des unités de la même équipe doivent être aux alentours.
+  - Chaque batiment ou groupe de batiment à un genre ed jauge de revendication, 
+  qui décroit lentement avec le temps, et remonte en fonction de qui est aux alentours
+
+-> Mécanique de combat
+   - Attaquer du gibier/péon
+    Séléctionner un péon/péons, clic droit sur un gibier ou péon ennemi pour attaquer.
+    La cible morte, devient récoltable.
+
+-> Mécanique de pillage
+   - On peut piller les bâtiments à l'aide des péons en faisant clic-droit
+
+(-> Mécanique de conquête)
+   - On peut prendre le contrôle d'un bâtiment.
+
+-> IA Teubé
+  - Elle fait les trucs de base mais nullement.
