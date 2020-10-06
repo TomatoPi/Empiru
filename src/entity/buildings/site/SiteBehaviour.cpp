@@ -33,7 +33,7 @@ void SiteBehaviour::tick(WorldObject & obj, WorldPtr& ptr, WorldInterface & worl
   }
   if (site.isFinished()) {
     GameEngine& engine(GameEngine::Get());
-    WorldPtr building(engine.createObject(typeid(House), 
+    WorldPtr building(engine.createObject(site.type(), 
         [&] (WorldPtr& ptr) -> void {
           ptr->pos(obj.pos());
         }));

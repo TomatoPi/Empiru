@@ -28,7 +28,7 @@
 
 FontPrinter::FontPrinter(SDL_Renderer *rdr) : 
   _numbers(SpriteSheet::loadFromFile(
-    "medias/sprites/ui/font/numbers.png", 1, 10, rdr)),
+    "medias/sprites/ui/font/numbers.png", 2, 10, rdr)),
   _chars(nullptr)
 {
 }

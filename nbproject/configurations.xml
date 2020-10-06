@@ -13,6 +13,7 @@
       <logicalFolder name="brainstorm" displayName="brainstorm" projectFiles="true">
         <itemPath>brainstorm/implementation_0</itemPath>
         <itemPath>brainstorm/prototype_0</itemPath>
+        <itemPath>brainstorm/prototype_1</itemPath>
       </logicalFolder>
       <logicalFolder name="medias" displayName="medias" projectFiles="true">
         <itemPath>medias/sprites/land/ground_sheet.png</itemPath>
@@ -47,6 +48,10 @@
             <itemPath>src/entity/buildings/site/SiteBehaviour.h</itemPath>
             <itemPath>src/entity/buildings/site/SiteRenderer.cpp</itemPath>
             <itemPath>src/entity/buildings/site/SiteRenderer.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f3" displayName="warehouse" projectFiles="true">
+            <itemPath>src/entity/buildings/warehouse/Warehouse.cpp</itemPath>
+            <itemPath>src/entity/buildings/warehouse/Warehouse.h</itemPath>
           </logicalFolder>
           <itemPath>src/entity/buildings/StorageBehaviour.h</itemPath>
         </logicalFolder>
@@ -239,6 +244,8 @@
       </item>
       <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="brainstorm/prototype_1" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -370,6 +377,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -584,6 +601,8 @@
       </item>
       <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="brainstorm/prototype_1" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -715,6 +734,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -913,6 +942,8 @@
       </item>
       <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="brainstorm/prototype_1" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles">
         <ccTool>
           <incDir>
@@ -1055,6 +1086,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1253,6 +1294,8 @@
       </item>
       <item path="brainstorm/prototype_0" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="brainstorm/prototype_1" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles">
         <ccTool>
           <incDir>
@@ -1396,6 +1439,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/warehouse/Warehouse.h"
             ex="false"
             tool="3"
             flavor2="0">

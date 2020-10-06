@@ -32,6 +32,7 @@
 #include "utils/world/Recipe.h"
 #include "utils/log.h"
 
+#include "entity/buildings/warehouse/Warehouse.h"
 #include "buildings/House.h"
 #include "ConstructionGhost.h"
 
@@ -43,6 +44,8 @@ public:
 private:
 
   WorkersList _workers;
+  const std::type_info* _type;
+  
   int _progress;
   int _cptr;
   int _difficulty;
@@ -60,19 +63,28 @@ public:
   void removeWorker(const WorldPtr& ptr);
   const WorkersList& workers() const noexcept;
   
+  const std::type_info& type() const noexcept;
+  
   struct Builder {
     const ConstructionGhost& _ghost;
     Builder(const ConstructionGhost& ghost) noexcept : _ghost(ghost) {}
     void operator() (WorldPtr& ptr) const noexcept {
       ConstructionSite& site = static_cast<ConstructionSite&>(*ptr);
-      if (typeid(House) != _ghost.type()) {
-        LOG_TODO("Build something else than a house...\n");
+      site.pos(_ghost.pos());
+      site._progress = 0;
+      site._type = &_ghost.type();
+      if (typeid(House) == _ghost.type()) {
+        site.setRecipe({Stack(Stack::Wood, 50), Stack(Stack::Rock, 10)});
+        site._difficulty = 30;
+      }
+      else if (typeid(Warehouse) == _ghost.type()) {
+        site.setRecipe({Stack(Stack::Wood, 100), Stack(Stack::Rock, 10)});
+        site._difficulty = 40;
+      } 
+      else {
+        LOG_TODO("Build a %s\n", _ghost.type().name());
         assert(0);
       }
-      site.pos(_ghost.pos());
-      site.setRecipe({Stack(Stack::Wood, 50), Stack(Stack::Rock, 10)});
-      site._progress = 0;
-      site._difficulty = 30;
     }
   };
 };
