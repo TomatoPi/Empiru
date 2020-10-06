@@ -29,21 +29,20 @@
 
 namespace hex {
  
-  struct OddQ : public math::Vector<float> {
+  struct OddQ : public math::_Vector<float,OddQ> {
     
     OddQ() noexcept : 
-      math::Vector<float>() 
+      math::_Vector<float,OddQ>() 
     {
     }
     OddQ(float x, float y) noexcept : 
-      math::Vector<float>(x,y) 
+      math::_Vector<float,OddQ>(x,y) 
     {
     }
-    OddQ(const math::Vector<float> & v) noexcept : 
-      math::Vector<float>(v) 
+    explicit OddQ(const math::_Vector<float,OddQ>& v) noexcept : 
+      math::_Vector<float,OddQ>(v) 
     {
     }
-    
   };
 }
 

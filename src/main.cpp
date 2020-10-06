@@ -79,7 +79,6 @@
 #define FACTOR 1.5  ///< Magic number scalling window size
 
 namespace {
-  
   struct MoverTo {
     float x, y;
     MoverTo(float x, float y) noexcept : x(x), y(y) {}

@@ -33,100 +33,101 @@
 namespace math {
   
   /// \brief 2D Vector class
-  template <typename T>
-  struct Vector {
+  template <typename T, class _Vect>
+  struct _Vector {
+    
     T _x; ///< Horizontal or RightDown position
     T _y; ///< Vertical Position
     
     /// \brief Build the null vector
-    Vector() noexcept : Vector(static_cast<T>(0), static_cast<T>(0)) {
+    _Vector() noexcept : _Vector(static_cast<T>(0), static_cast<T>(0)) {
     }
     /// \brief Build a vector with given components
-    Vector(T x, T y) noexcept : _x(x), _y(y) {
+    _Vector(T x, T y) noexcept : _x(x), _y(y) {
     }
     /// \brief Copy constructor
-    Vector(const Vector& v) noexcept :
+    _Vector(const _Vector& v) noexcept :
       _x(v._x), _y(v._y)
     {
     }
     
-    static Vector polar(T ro, T theta) noexcept {
+    static _Vect polar(T ro, T theta) noexcept {
       static_assert(std::is_floating_point<T>::value, 
               "Require T beeing a non integral type");
-      return Vector(ro * std::cos(theta), ro * std::sin(theta));
+      return _Vect(ro * std::cos(theta), ro * std::sin(theta));
     }
     
     /// \brief Conversion constructor
-    template <typename F>
-    explicit Vector(const Vector<F> & v) noexcept : 
+    template <typename F, class _VectF>
+    explicit _Vector(const _Vector<F,_VectF> & v) noexcept : 
       _x(static_cast<F>(v._x)), _y(static_cast<F>(v._y))
     {
     }
     
     /// \brief Return true if all coordinates are equals
-    bool operator== (const Vector & v) const noexcept {
+    bool operator== (const _Vect & v) const noexcept {
       return _x == v._x && _y == v._y;
     }
     /// \brief Return false if all coordinates are equals
-    bool operator!= (const Vector & v) const noexcept {
+    bool operator!= (const _Vect & v) const noexcept {
       return ! (*this == v);
     }
     
     /// \brief Scale the vector by given factor
     template <typename F>
-    Vector operator* (F f) const noexcept {
-      return Vector(_x * f, _y * f);
+    _Vect operator* (F f) const noexcept {
+      return _Vect(_x * f, _y * f);
     }
     /// \brief Scale the vector by given factor
     template <typename F>
-    Vector & operator*= (F f) noexcept {
+    _Vect & operator*= (F f) noexcept {
       return *this = *this * f;
     }
     
     /// \brief Summ two vectors
-    Vector operator+ (const Vector & v) const noexcept {
-      return Vector(_x + v._x, _y + v._y);
+    _Vect operator+ (const _Vect & v) const noexcept {
+      return _Vect(_x + v._x, _y + v._y);
     }
     /// \brief Summ two vectors
-    Vector & operator+= (const Vector & v) noexcept {
+    _Vector& operator+= (const _Vect & v) noexcept {
       return *this = *this + v;
     }
     
     /// \brief Substract two vectors, return this - v
-    Vector operator- (const Vector & v) const noexcept {
-      return Vector(_x - v._x, _y - v._y);
+    _Vect operator- (const _Vect & v) const noexcept {
+      return _Vect(_x - v._x, _y - v._y);
     }
     /// \brief Substract two vectors, return this - v
-    Vector & operator-= (const Vector & v) noexcept {
+    _Vector& operator-= (const _Vect & v) noexcept {
       return *this = *this - v;
     }
     
     /// \brief Return the oposite vector
-    Vector operator- () const noexcept {
-      return Vector(-_x, -_y);
+    _Vect operator- () const noexcept {
+      return _Vect(-_x, -_y);
     }
     
     /// \brief Apply given transformation to this vector
     template <typename F>
-    Vector operator* (const Matrix22<F> & M) const noexcept {
-      return Vector(_x * M._a + _y * M._b, _x * M._c + _y * M._d);
+    _Vect operator* (const Matrix22<F> & M) const noexcept {
+      return _Vect(_x * M._a + _y * M._b, _x * M._c + _y * M._d);
     }
     /// \brief Apply given transformation to this vector
     template <typename F>
-    Vector & operator*= (const Matrix22<F> & M) const noexcept {
+    _Vector& operator*= (const Matrix22<F> & M) const noexcept {
       return *this = *this * M;
     }
     
     /// \brief Return as unitary vector
     /// \warning Require T beeing an non integral type
-    Vector unit() const noexcept {
+    _Vect unit() const noexcept {
       static_assert(std::is_floating_point<T>::value, 
               "Require T beeing a non integral type");
       T n(static_cast<T>(1) / norm());
-      return Vector(_x * n, _y * n);
+      return _Vect(_x * n, _y * n);
     }
     /// \brief Normalize to unitatry vector
-    Vector & toUnit() noexcept {
+    _Vector& toUnit() noexcept {
       return *this = unit();
     }
     
@@ -136,17 +137,33 @@ namespace math {
     }
     
     /// \brief Return distance between points a and b
-    static T distance(const Vector & a, const Vector & b) noexcept {
+    static T distance(const _Vect & a, const _Vect & b) noexcept {
       return (a - b).norm();
     }
     
     /// \brief Functor that define an order relation on vectors.
     /// sorting them by ascending Y
     struct AscYCompare {
-      bool operator() (const Vector & u, const Vector & v) noexcept {
+      bool operator() (const _Vect & u, const _Vect & v) noexcept {
         return u._y < v._y || (u._y == v._y && u._x < v._x);
       }
     };
+  };
+  
+  template <typename T>
+  struct Vector : public _Vector<T,Vector<T>> {
+    Vector() noexcept : 
+      math::_Vector<T,Vector<T>>() 
+    {
+    }
+    Vector(T x, T y) noexcept : 
+      math::_Vector<T,Vector<T>>(x,y) 
+    {
+    }
+    Vector(const math::_Vector<T,Vector<T>>& v) noexcept : 
+      math::_Vector<T,Vector<T>>(v) 
+    {
+    }
   };
 }
 
