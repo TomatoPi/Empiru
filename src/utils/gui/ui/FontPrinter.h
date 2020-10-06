@@ -52,14 +52,15 @@ public:
   
 private:
   
-  std::unique_ptr<SpriteSheet> _numbers;
-  std::unique_ptr<SpriteSheet> _chars;
+  std::shared_ptr<SpriteSheet> _numbers;
+  std::shared_ptr<SpriteSheet> _chars;
   
   enum Sheet {
     Invalid,
     Number,
     LowerCase,
-    UpperCase
+    UpperCase,
+    Space,
   };
   
   struct DrawStep {

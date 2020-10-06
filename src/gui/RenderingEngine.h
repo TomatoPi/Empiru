@@ -111,6 +111,8 @@ private:
   /// \brief renturn the renderer for specified type 
   ///   or throw if type not registered
   AbstractRenderer * getrdr(const WorldPtr& obj);
+  
+  AbstractRenderer* findrdr(const WorldPtr& ptr);
 };
 
 #endif /* RENDERENGINE_H */

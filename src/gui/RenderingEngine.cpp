@@ -60,16 +60,22 @@ RenderingEngine::RenderingEngine(
   this->registerEvent<EventObjectCreated>(
       [this](const EventObjectCreated & event) -> void{
         if (event._ptr->sizeClass() == WorldObject::SHollow) {
-          return;
+          if (AbstractRenderer* rdr = findrdr(event._ptr)) {
+            rdr->addTarget(event._ptr);
+          }
+        } else {
+          getrdr(event._ptr)->addTarget(event._ptr);
         }
-        getrdr(event._ptr)->addTarget(event._ptr);
       });
   this->registerEvent<EventObjectDestroyed>(
       [this](const EventObjectDestroyed & event) -> void{
         if (event._ptr->sizeClass() == WorldObject::SHollow) {
-          return;
+          if (AbstractRenderer* rdr = findrdr(event._ptr)) {
+            rdr->removeTarget(event._ptr);
+          }
+        } else {
+          getrdr(event._ptr)->removeTarget(event._ptr);
         }
-        getrdr(event._ptr)->addTarget(event._ptr);
       });
 }
 
@@ -80,6 +86,13 @@ void RenderingEngine::attachRenderer(
 {
   bool success(_renderers.emplace(std::type_index(info), rdr).second);
   assert(success);
+}
+AbstractRenderer* RenderingEngine::findrdr(const WorldPtr& ptr) {
+  auto itr(_renderers.find(std::type_index(typeid(*ptr))));
+  if (itr != _renderers.end()) {
+    return itr->second;
+  }
+  return nullptr;
 }
 
 /// \brief renturn the renderer for specified type 
@@ -120,7 +133,7 @@ void RenderingEngine::render() {
         _worldView.toPixel(pos.tile(), &x, &y);
         try {
           tilerdr->renderAt(nullptr, _camera.getOrientation(), 
-            x, y, _worldView, _window.renderer);
+            x, y, _worldView);
         } catch (const std::exception & e) {
           LOG_ERROR("Failed draw tile : %s\n", SDL_GetError());
           throw;
@@ -138,19 +151,19 @@ void RenderingEngine::render() {
   } //< for each tile
   
   // Draw all entities
-  for (auto & itr : _drawstack) {
-    const WorldPtr& obj(itr.second);
-    // Get correct renderer and use it
-    try {
+  try {
+    for (auto & itr : _drawstack) {
+      const WorldPtr& obj(itr.second);
+      // Get correct renderer and use it
       getrdr(obj)->renderAt(
             obj,
             _camera.getOrientation(), 
             itr.first._x, itr.first._y,
-            _worldView, _window.renderer);
-    } catch (const std::exception & e) {
-      LOG_ERROR("Failed draw object : %s\n", e.what());
-      throw;
+            _worldView);
     }
+  } catch (const std::exception & e) {
+    LOG_ERROR("Failed draw object : %s\n", e.what());
+    throw;
   }
 }
 
@@ -166,7 +179,9 @@ void RenderingEngine::updateClickZones() {
   for (auto & itr : _drawstack) {
     const WorldPtr& obj(itr.second);
     if (obj->sizeClass() == WorldObject::SHollow) {
-      continue;
+      if (findrdr(obj) == nullptr) {
+        continue;
+      }
     }
     SDL_Color color;
     color.r = (cptr & 0x000000FF) >> 0;
@@ -179,8 +194,7 @@ void RenderingEngine::updateClickZones() {
           obj,
           _camera.getOrientation(), 
           itr.first._x, itr.first._y,
-          _worldView, _window.vrenderer,
-          color);
+          _worldView, color);
     } catch (const std::exception & e) {
       LOG_ERROR("Failed draw object : %s\n", e.what());
       throw;

@@ -27,6 +27,7 @@
 #include "utils/hex/Conversion.h"
 #include "utils/log.h"
 #include "utils/hex/Viewport.h"
+#include "buildings/House.h"
 
 /// \brief Size of border (in pixels) used to scroll view
 #define MERGE 50
@@ -43,14 +44,29 @@ noexcept :
   _viewport(v),
   _controller(e),
   _controlPannel(pan),
-  _clicker(click)
+  _clicker(click),
+      
+  _mouseMoved(false),
+  _mouseX(0), _mouseY(0)
 {
   
+}
+  
+void SDLHandler::beginTick() {
+  _mouseMoved = false;
+}
+void SDLHandler::endTick() {
+  if (_mouseMoved) {
+    hex::Axial pos;
+    _viewport.fromPixel(_mouseX, _mouseY, &pos);
+    _controller.cursorMoved(pos, _mouseX, _mouseY);
+  }
 }
 
 /// \brief Core SDLHandler's function, process all events availables
 bool SDLHandler::handleSDLEvents() {
   SDL_Event event;
+  beginTick();
   while (SDL_PollEvent(&event)) {
     switch(event.type) {
     case SDL_QUIT:
@@ -69,6 +85,7 @@ bool SDLHandler::handleSDLEvents() {
       break;
     }
   }
+  endTick();
   return true;
 }
 
@@ -100,6 +117,9 @@ bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
   case SDLK_e:
     _camera.rotateLeft();
     break;
+  case SDLK_h:
+    _controller.selectConstructionGhost(typeid(House));
+    break;
   }
   return true;
 }
@@ -123,6 +143,9 @@ bool SDLHandler::handleKeyUp(const SDL_KeyboardEvent & key) {
 
 /// \brief Handle Mouse movement
 bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent & mouse) {
+  _mouseMoved = true;
+  _mouseX = mouse.x;
+  _mouseY = mouse.y;
   return true;
 /*
   if (mouse.y <= MERGE) {

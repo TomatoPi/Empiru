@@ -45,6 +45,9 @@ private:
   ControlPannel       &_controlPannel; ///< The beautiful pannel on the left
   PixelPerfectClicker &_clicker;
   
+  bool _mouseMoved;
+  int _mouseX, _mouseY;
+  
 public:
   
   /// \brief Constructor
@@ -59,6 +62,9 @@ public:
   bool handleSDLEvents();
   
 private:
+  
+  void beginTick();
+  void endTick();
   
   // ---- Keyboard ---- //
   

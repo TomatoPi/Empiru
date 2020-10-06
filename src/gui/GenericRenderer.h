@@ -29,6 +29,7 @@
 #include <memory>
 #include "utils/gui/renderer/AbstractRenderer.h"
 #include "utils/gui/assets/SpriteSheet.h"
+#include "utils/gui/assets/GraphicAssetsRegister.h"
 
 /// \brief Generic renderer parameterized by the functor used to compute
 ///   blit coordinates
@@ -52,8 +53,9 @@ template <typename Blitter>
 class GenericRenderer : public AbstractRenderer {  
 protected:
   
-  std::unique_ptr<SpriteSheet> _sheet;    ///< The sprite sheet
-  std::unique_ptr<SpriteSheet> _mask;     ///< The mask sheet
+  std::shared_ptr<SpriteSheet> _sheet;    ///< The sprite sheet
+  std::shared_ptr<SpriteSheet> _mask;     ///< The mask sheet
+  std::shared_ptr<SpriteSheet> _select;   ///< The slection sheet
   Blitter                      _blitter;  ///< The blitter
   int _offx;
   int _offy;
@@ -62,27 +64,13 @@ public:
 
   /// Constructor
   GenericRenderer(
-      const char* sheet,
-      const char* mask,
-      SDL_Renderer* rdr,
-      SDL_Renderer* mrdr,
+      const gui::ObjectAsset& assets,
       int offx=0, int offy=0, 
       Blitter b=Blitter())
   noexcept : 
-    _sheet(SpriteAsset::loadFromFile(sheet, rdr)),
-    _mask(SpriteAsset::loadFromFile(mask, mrdr)),
-    _blitter(b),
-    _offx(offx), _offy(offy)
-  {  
-  }
-  GenericRenderer(
-      const char* sheet,
-      SDL_Renderer* rdr,
-      int offx=0, int offy=0, 
-      Blitter b=Blitter())
-  noexcept : 
-    _sheet(SpriteAsset::loadFromFile(sheet, rdr)),
-    _mask(nullptr),
+    _sheet(assets._sheet),
+    _mask(assets._mask),
+    _select(assets._select),
     _blitter(b),
     _offx(offx), _offy(offy)
   {  
@@ -92,8 +80,7 @@ public:
   virtual void renderAt(
     const WorldPtr& obj, 
     int ori, int x, int y,
-    const hex::Viewport & view,
-    SDL_Renderer *rdr)
+    const hex::Viewport & view)
   {
     SDL_Rect r;
     _blitter(&r, 
@@ -109,7 +96,6 @@ public:
     const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
-    SDL_Renderer * rdr,
     const SDL_Color & c)
   {
     SDL_Rect r;

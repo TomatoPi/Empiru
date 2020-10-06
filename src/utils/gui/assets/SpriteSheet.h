@@ -26,26 +26,28 @@
 #ifndef SPRITESHEET_H
 #define SPRITESHEET_H
 
+#include <string>
 #include <memory>
 #include <SDL2/SDL_render.h>
 
 /// \brief Provide basic object to load and draw sprites
-class SpriteSheet {
+class SpriteSheet final {
 protected:
   
-  SDL_Renderer*_rdr;   ///< Renderer associated with this sheet
-  SDL_Texture *_sheet; ///< The sheet
-  int          _w;     ///< Sprite's width
-  int          _h;     ///< Sprite's height
-  unsigned int _rows;  ///< Number of frames by column
-  unsigned int _cols;  ///< Number of frames by row
+  SDL_Renderer* _rdr;   ///< The associated Renderer (shared)
+  SDL_Texture*  _sheet; ///< The sheet (owned)
+  int           _w;     ///< Sprite's width
+  int           _h;     ///< Sprite's height
+  unsigned int  _rows;  ///< Number of frames by column
+  unsigned int  _cols;  ///< Number of frames by row
   
 public:
   
   /// \brief Constructor
+  /// \warning The sprite sheet takes ownership on the texture
   SpriteSheet(
-          SDL_Renderer *r,
-          SDL_Texture *t, 
+          SDL_Renderer* r,
+          SDL_Texture*&& t,
           int w, int h,
           unsigned int rows, 
           unsigned int cols) noexcept;
@@ -61,8 +63,8 @@ public:
   /// \param rdr  : SDL_Renderer associated with targeted viewport
   ///
   /// \throw runtime_error on failure
-  static std::unique_ptr<SpriteSheet> loadFromFile(
-    const char *path, 
+  static std::shared_ptr<SpriteSheet> loadFromFile(
+    const std::string& path, 
     unsigned int rows, 
     unsigned int cols, 
     SDL_Renderer *rdr);

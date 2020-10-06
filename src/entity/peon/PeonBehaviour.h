@@ -47,6 +47,12 @@ private:
   /// \brief compute path order for the peon
   void moveTo(Peon& peon, WorldPtr& ptr, WorldInterface& world);
   
+  /// \brief compute supply peon
+  void supply(Peon& peon, WorldPtr& ptr, WorldInterface& world);
+  
+  /// \brief compute supply peon
+  void build(Peon& peon, WorldPtr& ptr, WorldInterface& world);
+  
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant

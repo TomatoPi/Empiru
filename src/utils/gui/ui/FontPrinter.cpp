@@ -89,6 +89,7 @@ void FontPrinter::drawStep(
     break;
   case UpperCase:
     _chars->renderFrame(1, step.index, &rect);
+  case Space:
     break;
   }
 }
@@ -127,6 +128,9 @@ const
       math::Vector<int>(_chars->width(), _chars->height()), 
       c - 'A',
       UpperCase};
+  }
+  if (' ' == c) {
+    return DrawStep{math::Vector<int>(_numbers->width(), 0), 0, Space};
   }
   assert(0 && "Invalid string content");
   LOG_WRN("Invalid String content : %c\n", c);

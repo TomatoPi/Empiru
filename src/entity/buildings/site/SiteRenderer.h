@@ -16,26 +16,29 @@
  */
 
 /// 
-/// \file   AbstractRenderer.h
+/// \file   SiteRenderer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 14 septembre 2020, 12:49
-/// \brief Skeleton of Rendering objects
+/// \date 6 octobre 2020, 12:03
 ///
 
-#ifndef GUI_RDR_ABSTRACTRENDERER_H
-#define GUI_RDR_ABSTRACTRENDERER_H
+#ifndef SITERENDERER_H
+#define SITERENDERER_H
 
-#include "utils/hex/Viewport.h"
-#include "utils/world/WorldPtr.h"
-#include "utils/world/WorldObject.h"
-#include <SDL2/SDL_render.h>
+#include "utils/gui/renderer/AbstractRenderer.h"
+#include "utils/gui/assets/GraphicAssetsRegister.h"
+#include "gui/GenericRenderer.h"
 
-/// \brief Renderers are classes that know how to draw world objects
-class AbstractRenderer {
+class SiteRenderer : public AbstractRenderer {
 private:
   
+  std::shared_ptr<SpriteSheet> _sheet;
+  std::shared_ptr<SpriteSheet> _mask;
+  OnTileBlitter                _blitter;
+  
 public:
+  
+  SiteRenderer(const gui::ObjectAsset& asset) noexcept;
   
   /// \brief Render the object at given position
   /// \param obj : the object beeing rendered
@@ -48,7 +51,7 @@ public:
   virtual void renderAt(
     const WorldPtr& obj, 
     int ori, int x, int y,
-    const hex::Viewport & view) = 0;
+    const hex::Viewport & view);
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
@@ -64,20 +67,19 @@ public:
     const WorldPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
-    const SDL_Color & color) = 0; 
+    const SDL_Color & color);
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldPtr& obj) = 0;
+  virtual void addTarget(const WorldPtr& obj) noexcept {}
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldPtr& obj) = 0;
+  virtual void removeTarget(const WorldPtr& obj) noexcept {}
   /// \brief Called when an object associated with this renderer is selected
   ///  may remember draw a special overlay around it
-  virtual void targetSelected(const WorldPtr& obj) = 0;
+  virtual void targetSelected(const WorldPtr& obj) noexcept {}
   /// \brief Called when an object associated with this renderer is deselected
   ///  may remember to stop draw special overlay
-  virtual void targetDeselected(const WorldPtr& obj) = 0;
+  virtual void targetDeselected(const WorldPtr& obj) noexcept {}
 };
-
-#endif /* GUI_RDR_ABSTRACTRENDERER_H */
+#endif /* SITERENDERER_H */

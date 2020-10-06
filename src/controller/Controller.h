@@ -29,23 +29,45 @@
 #include "utils/engine/Observer.h"
 #include "utils/world/WorldInterface.h"
 #include "utils/world/WorldPtr.h"
+#include "engine/GameEngine.h"
+#include "entity/peon/Peon.h"
 
 /// \brief Main handler for user control
 class Controller : public Subject {
 private:
   
-  WorldPtr        _selection;    ///< The selected Object
-  WorldInterface& _world;        ///< THA WORLDOOOOO
+  WorldInterface& _world;           ///< THA WORLDOOOOO
+  GameEngine&     _engine;          ///< The Core of the GAMEUUH
+  
+  WorldPtr        _selection;       ///< The selected Object
+  WorldObject::Position _cursor;    ///< Cursor position
   
 public:
   
   /// \brief Constructor
-  Controller(WorldInterface& w) noexcept;
+  Controller(WorldInterface& w, GameEngine& engine) noexcept;
   
   /// \brief Called when a left click is performed at given position
   void leftClickOn(const WorldObject::Position& click, WorldPtr& obj);
   /// \brief Called when a right click is performed at given position
   void rightClickOn(const WorldObject::Position& click, WorldPtr& obj);
+  
+  /// \brief Called when a building has been selected
+  void selectConstructionGhost(const std::type_info& type);
+  
+  /// \brief Called when the mouse has moved, maximum one time at each frame
+  ///   Only the last position is passed to this function
+  void cursorMoved(const WorldObject::Position& click, int x, int y);
+  
+  /// \brief Return the current position of the cursor
+  const WorldObject::Position& cursor() const noexcept;
+  
+private:
+  
+  void peonRightClick(
+    Peon* peon, 
+    const WorldObject::Position& click, 
+    WorldPtr& ptr);
 };
 
 #endif /* CONTROLLER_H */

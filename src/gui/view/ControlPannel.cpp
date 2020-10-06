@@ -28,6 +28,13 @@
 #include "entity/peon/Peon.h"
 #include "utils/world/Storage.h"
 #include "utils/world/Harvestable.h"
+#include "entity/buildings/site/ConstructSite.h"
+
+namespace {
+  /// \brief Array of indexes of ressources icons indexes on icon sheet
+  ///   initialized in the ControlPannel constructor
+  static std::array<int,Stack::Ressource::Count> iconframes;
+}
 
 ControlPannel::ControlPannel(
             int viewwidth, int viewheight, 
@@ -43,8 +50,19 @@ ControlPannel::ControlPannel(
   _icons(SpriteSheet::loadFromFile(
       "medias/sprites/ui/parts/icons.png", 1, 4, window.renderer)),
     
-  _printer(window.renderer)
+  _printer(window.renderer),
+  
+  _pannel_1{
+    int(17 * _window.scale), int(76 * _window.scale), 
+    int(128 * _window.scale), 0},
+  _pannel_2{
+    int(13 * _window.scale), int(230 * _window.scale), 
+    int(137 * _window.scale), 0}
 {
+  /* register icons indexes */
+  iconframes[Stack::Rock] = 2;
+  iconframes[Stack::Wood] = 3;
+  /* register callbacks */
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
         _selectedObject = event._ptr;
@@ -58,20 +76,29 @@ ControlPannel::ControlPannel(
 /// Draw the control pannel
 void ControlPannel::draw() {
   /* draw background */
+  drawBackround();
+  if (_selectedObject) {
+    drawObjectInventory(_pannel_1);
+  } else {
+    drawGlobalRessources(_pannel_1);
+  }
+  drawControls();
+}
+
+void ControlPannel::drawBackround() {
   SDL_Rect rect;
   rect.w = _viewWidth;
   rect.h = _viewHeight;
   rect.x = _offsetX;
   rect.y = _offsetY;
   _background->renderFrame(0, 0, &rect);
-  /* draw ressources */
+}
+void ControlPannel::drawGlobalRessources(const SDL_Rect& pannel) {
+  SDL_Rect rect;
   rect.w = _icons->width();
   rect.h = _icons->height();
-  rect.x = 25;
-  rect.y = 114;
-  static std::array<int,Stack::Ressource::Count> iconframes;
-  iconframes[Stack::Rock] = 2;
-  iconframes[Stack::Wood] = 3;
+  rect.x = pannel.x;
+  rect.y = pannel.y;
   const TribeInfos::TribeStocks & stocks(_playerTribe.stocks());
   for (
       int type(Stack::RessourceBegin) ; 
@@ -79,33 +106,61 @@ void ControlPannel::draw() {
       ++type, rect.y += rect.h + 2)
   {
     _icons->renderFrame(0, iconframes[type], &rect);
-    _printer.drawStringAt(rect.x + 192, rect.y + rect.h/2, FontPrinter::CenterRight, 
+    _printer.drawStringAt(rect.x + pannel.w, rect.y + rect.h/2, FontPrinter::CenterRight, 
         std::to_string(stocks[type]));
   }
-  /* draw selected unit infos */
-  if (_selectedObject) {
-    std::vector<Stack> inventory;
-    if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
-      if (!peon->inventory().empty())
-        inventory.push_back(peon->inventory());
-    }
-    else if (Storage *store = dynamic_cast<Storage*>(&*_selectedObject)) {
-      for (auto & stack : store->stock()) {
-        inventory.push_back(stack);
-      }
-    }
-    else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {
-      inventory.push_back(*harv);
-    }
-    rect.w = _icons->width();
-    rect.h = _icons->height();
-    rect.x = 19;
-    rect.y = 345;
-    for (auto & stack : inventory) {
-      _icons->renderFrame(0, iconframes[stack.type()], &rect);
-      _printer.drawStringAt(rect.x + 205, rect.y + rect.h/2, FontPrinter::CenterRight, 
-          std::to_string(stack.size()));
-      rect.y += rect.h + 1;
+}
+void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
+  SDL_Rect rect;
+  std::vector<std::pair<int,std::string>> inventory;
+  if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
+    if (!peon->inventory().empty())
+      inventory.emplace_back(
+        iconframes[peon->inventory().type()], 
+        std::to_string(peon->inventory().size()));
+  }
+  else if (Storage *store = dynamic_cast<Storage*>(&*_selectedObject)) {
+    for (auto & stack : store->stock()) {
+      inventory.emplace_back(
+        iconframes[stack.type()], 
+        std::to_string(stack.size()));
     }
   }
+  else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {
+    inventory.emplace_back(
+      iconframes[harv->type()], 
+      std::to_string(harv->size()));
+  } 
+  else if (
+    ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*_selectedObject))
+  {
+    if (!site->isFilled()) {
+      for (auto & stack : site->recipe()) {
+        inventory.emplace_back(
+            iconframes[stack.first], 
+            std::to_string(site->supplied().at(stack.first))
+              + " "
+              + std::to_string(stack.second));
+      }
+    }
+    else {
+      inventory.emplace_back(0, std::to_string(site->workers().size()));
+      inventory.emplace_back(1, std::to_string(site->progress()));
+    }
+  }
+  rect.w = _icons->width();
+  rect.h = _icons->height();
+  rect.x = pannel.x;
+  rect.y = pannel.y;
+  for (auto & stack : inventory) {
+    _icons->renderFrame(0, stack.first, &rect);
+    _printer.drawStringAt(
+      rect.x + pannel.w, rect.y + rect.h/2, 
+      FontPrinter::CenterRight, 
+      stack.second);
+    rect.y += rect.h + 2;
+  }
+}
+void ControlPannel::drawControls() {
+  
 }

@@ -28,7 +28,6 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "utils/gui/assets/SpriteSheet.h"
-#include "utils/gui/assets/SpriteAsset.h"
 #include "utils/gui/view/Window.h"
 #include "gui/Camera.h"
 #include "gui/RenderingEngine.h"
@@ -43,6 +42,10 @@
 #include "entity/rock/Rock.h"
 
 #include "entity/land/HarvestableBehaviour.h"
+
+#include "entity/buildings/site/ConstructionGhost.h"
+#include "entity/buildings/site/ConstructSite.h"
+#include "entity/buildings/site/GhostRenderer.h"
 
 #include "buildings/House.h"
 #include "entity/buildings/StorageBehaviour.h"
@@ -64,6 +67,9 @@
 #include "gui/view/ControlPannel.h"
 
 #include "entity/functionals/TribeInfos.h"
+#include "utils/gui/assets/GraphicAssetsRegister.h"
+#include "entity/buildings/site/SiteRenderer.h"
+#include "entity/buildings/site/SiteBehaviour.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -86,27 +92,32 @@ namespace {
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
   
+  LOG_DEBUG("%lu %lu\n", sizeof(WorldPtr), sizeof(void*));
+  
   /* Create the World and main engine */
   WorldMap _worldMap(SIZE,SIZE);
-  Controller _gameController(_worldMap);
   GameEngine _gameEngine(_worldMap);
+  Controller _gameController(_worldMap, _gameEngine);
   
   /* Create the UI */
-  Window *_window = Window::createWindow(1920/FACTOR, 1080/FACTOR);
+  std::shared_ptr<Window> _window = Window::createWindow(1920/FACTOR, 1080/FACTOR, FACTOR);
   ControlPannel _controlPanel(
     409/FACTOR, 1080/FACTOR, 
-    *_window, 
+    *_window.get(), 
     _gameEngine.playerTribe());
   Camera _camera(
     371/FACTOR, 0,
     hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     _window->width, _window->height,
     SIZE, SIZE);
-  RenderingEngine _rdrEngine(*_window, _camera, _camera, _worldMap);
+  RenderingEngine _rdrEngine(*_window.get(), _camera, _camera, _worldMap);
   SDLHandler _sdlHandler(_camera, _camera, _gameController, _controlPanel, _rdrEngine);
   
   /* Create the sound Engine */
   SoundEngine *_soundEngine(SoundEngine::create());
+  
+  /* Create the assets managers */
+  gui::TypedRegister& _spritesRegister(gui::TypedRegister::Get());
   
   /* Setup things and Attach the Engines together */
   _camera.target(hex::Axial(0,0));
@@ -120,48 +131,91 @@ int main(int argc, char** argv) {
   /* Register basic kinds */
   
   { /* tile */
-    _rdrEngine.attachRenderer(typeid(Tile), new GenericRenderer<OnTileBlitter>(
-        "medias/sprites/land/ground_super_sheet.png", 
-        _window->renderer));
+    auto asset(_spritesRegister.registerAsset(typeid(Tile),
+        "medias/sprites/land/ground_super", 
+        gui::ObjectAsset::ReqSheet, 
+        _window->renderer,
+        _window->vrenderer));
+    
+    _rdrEngine.attachRenderer(typeid(Tile), 
+        new GenericRenderer<OnTileBlitter>(asset));
   }
   { /* peon */
     PeonRenderer::SheetsPaths paths;
-    paths.peon_sheet = "medias/sprites/entity/peon/peon_sheet.png";
-    paths.mask_sheet = "medias/sprites/entity/peon/peon_mask.png";
-    paths.select_sheet = "medias/sprites/entity/peon/peon_select.png";
     paths.whareh_sheet = "medias/sprites/entity/peon/attached_warehouse.png";
     paths.notify_sheet = "medias/sprites/entity/peon/notify.png";
+    
+    auto asset(_spritesRegister.registerAsset(typeid(Peon),
+        "medias/sprites/entity/peon/peon", 
+        gui::ObjectAsset::ReqSheet
+          | gui::ObjectAsset::ReqMask
+          | gui::ObjectAsset::ReqSelect, 
+        _window->renderer,
+        _window->vrenderer));
     
     _gameEngine.registerObjectKind(typeid(Peon), new WorldAllocator<Peon>());
     _gameEngine.attachBehaviour(typeid(Peon), new PeonBehaviour());
     _rdrEngine.attachRenderer(typeid(Peon), 
-        new PeonRenderer(paths, _window->renderer, _window->vrenderer));
+        new PeonRenderer(asset, paths, _window->renderer));
     _soundEngine->registerSound(SoundAsset::loadFromFiles(
         "medias/sounds/peons/peon-", ".ogg", 3));
   }
   { /* Tree */
+    auto asset(_spritesRegister.registerAsset(typeid(Tree),
+        "medias/sprites/land/toufu", 
+        gui::ObjectAsset::ReqSheet | gui::ObjectAsset::ReqMask, 
+        _window->renderer,
+        _window->vrenderer));
+    
     _gameEngine.registerObjectKind(typeid(Tree), new WorldAllocator<Tree>());
     _gameEngine.attachBehaviour(typeid(Tree), new HarvestableBehaviour());
-    _rdrEngine.attachRenderer(typeid(Tree), new GenericRenderer<OnFootBlitter>(
-        "medias/sprites/land/toufu_sheet.png",
-        "medias/sprites/land/toufu_mask.png",
-        _window->renderer, _window->vrenderer));
+    _rdrEngine.attachRenderer(typeid(Tree), 
+        new GenericRenderer<OnFootBlitter>(asset));
   }
   { /* Rocks */
+    auto asset(_spritesRegister.registerAsset(typeid(Rock),
+        "medias/sprites/land/rock", 
+        gui::ObjectAsset::ReqSheet | gui::ObjectAsset::ReqMask, 
+        _window->renderer,
+        _window->vrenderer));
+    
     _gameEngine.registerObjectKind(typeid(Rock), new WorldAllocator<Rock>());
     _gameEngine.attachBehaviour(typeid(Rock), new HarvestableBehaviour());
-    _rdrEngine.attachRenderer(typeid(Rock), new GenericRenderer<OnFootBlitter>(
-        "medias/sprites/land/rock_sheet.png",
-        "medias/sprites/land/rock_mask.png",
-        _window->renderer, _window->vrenderer));
+    _rdrEngine.attachRenderer(typeid(Rock), 
+        new GenericRenderer<OnFootBlitter>(asset));
   }
   { /* House */
+    auto asset(_spritesRegister.registerAsset(typeid(House),
+        "medias/sprites/buildings/house_peon/house_peon", 
+        gui::ObjectAsset::ReqSheet 
+          | gui::ObjectAsset::ReqMask 
+          | gui::ObjectAsset::ReqGhost, 
+        _window->renderer,
+        _window->vrenderer));
+    
     _gameEngine.registerObjectKind(typeid(House), new WorldAllocator<House>());
     _gameEngine.attachBehaviour(typeid(House), new StorageBehaviour(_gameEngine.playerTribe()));
-    _rdrEngine.attachRenderer(typeid(House), new GenericRenderer<OnTileBlitter>(
-        "medias/sprites/buildings/house_peon/house_peon_sheet.png",
-        "medias/sprites/buildings/house_peon/house_peon_mask.png",
-        _window->renderer, _window->vrenderer));
+    _rdrEngine.attachRenderer(typeid(House), 
+        new GenericRenderer<OnTileBlitter>(asset));
+  }
+  { /* ghost */
+    _gameEngine.registerObjectKind(typeid(ConstructionGhost), 
+        new WorldAllocator<ConstructionGhost>());
+    _rdrEngine.attachRenderer(typeid(ConstructionGhost), new GhostRenderer());
+  }
+  { /* site */
+    auto asset(_spritesRegister.registerAsset(typeid(ConstructionSite),
+        "medias/sprites/buildings/site/site", 
+        gui::ObjectAsset::ReqSheet 
+          | gui::ObjectAsset::ReqMask, 
+        _window->renderer,
+        _window->vrenderer));
+    
+    _gameEngine.registerObjectKind(typeid(ConstructionSite), 
+        new WorldAllocator<ConstructionSite>());
+    _gameEngine.attachBehaviour(typeid(ConstructionSite), new SiteBehaviour());
+    _rdrEngine.attachRenderer(typeid(ConstructionSite), 
+        new SiteRenderer(asset));
   }
   
   /* Manualy populate world */
@@ -235,8 +289,6 @@ int main(int argc, char** argv) {
       SDL_Delay(FRAMETIME - tickEllapsedTime);
     }
   }
-  
-  delete _window;
   
   return 0;
 }

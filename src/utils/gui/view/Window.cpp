@@ -32,15 +32,18 @@
 
 /// \brief Constructor
 Window::Window(
-          SDL_Window *window, SDL_Renderer *renderer, 
-          SDL_Surface * vs, SDL_Renderer * vr, 
-          int w, int h):
+          SDL_Window*&& window, SDL_Renderer*&& renderer, 
+          SDL_Surface*&& vs, SDL_Renderer*&& vr, 
+          int w, int h, float f):
 window(window),
 renderer(renderer),
+    
 vsurface(vs),
 vrenderer(vr),
+    
 width(w),
-height(h)
+height(h),
+scale(f)
 {
 }
 
@@ -48,10 +51,14 @@ height(h)
 /// \param width : window's width
 /// \param height : window's height
 /// \return NULL on failure
-Window * Window::createWindow(int width, int height) {
-  SDL_Window *window;
-  SDL_Renderer *renderer, *vrdr;
-  SDL_Surface *vsurf;
+std::shared_ptr<Window> 
+Window::createWindow(int width, int height, float factor) 
+{
+  /* vars */
+  SDL_Window* window;
+  SDL_Renderer* renderer;
+  SDL_Surface* vsurf;
+  SDL_Renderer* vrdr;
   /* initialize SDL */
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     LOG_ERROR("Failed Init SDL : %s\n", SDL_GetError());
@@ -88,7 +95,11 @@ Window * Window::createWindow(int width, int height) {
     return nullptr;
   }
   /* done */
-  return new Window(window, renderer, vsurf, vrdr, width, height);
+  using std::move;
+  return std::make_shared<Window>(
+      move(window), move(renderer), 
+      move(vsurf), move(vrdr),
+      width, height, factor);
 }
 
 /// \brief Destructor

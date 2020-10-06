@@ -16,30 +16,21 @@
  */
 
 /// 
-/// \file   SpriteAsset.cpp
+/// \file   SiteBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 15 septembre 2020, 13:41
-/// \brief Utility file for loading and auto cut of sprite sheets
-/// \todo Maybe not useful, might be removed and replaced by a function
-///   to load sheet by specifying sprite dimension
+/// \date 6 octobre 2020, 14:38
 ///
 
-#include "SpriteAsset.h"
+#ifndef SITEBEHAVIOUR_H
+#define SITEBEHAVIOUR_H
 
-/// \brief Load a sheet from given file and auto cut it in 6 colums
-///   and squared sprites
-std::unique_ptr<SpriteSheet> SpriteAsset::loadFromFile(
-  const char *path, 
-  SDL_Renderer *rdr)
-{
-  // Load the sprite
-  auto sheet(SpriteSheet::loadFromFile(path, 1, 1, rdr));
-  if (!sheet) return nullptr;
-  // Recut the sheet
-  int width(sheet->width() / 6), rows;
-  rows = sheet->height() / width;
-  sheet->recut(rows, 6);
-  // done
-  return sheet;
-}
+#include "utils/engine/Behaviourer.h"
+
+class SiteBehaviour : public Behaviourer {
+public:
+  
+  virtual void tick(WorldObject & obj, WorldPtr& ptr, WorldInterface & world);
+};
+
+#endif /* SITEBEHAVIOUR_H */

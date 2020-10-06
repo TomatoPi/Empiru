@@ -29,7 +29,11 @@
 #include "utils/world/WorldPtr.h"
 #include "utils/world/WorldObject.h"
 
-/// \brief Holder of Peon's orders informations
+/// \brief Base class for orders
+/// \todo In the actual implementation, a great number of orders may result
+///   in a great number of new and deletes
+/// Future implementation should use a special allocator or find a way to
+///   not use pointers.
 class Order {
 public:
   
@@ -39,6 +43,8 @@ public:
     MoveTo,  ///< Move to another position
     Harvest, ///< Harvest some ressources
     Store,   ///< Put some ressources in a storage
+    Supply,  ///< Supply a building or a site with ressources
+    Build,   ///< Work on a construction site
   };
   
 private:
@@ -64,6 +70,7 @@ public:
   virtual bool isValid() const noexcept = 0;
 };
 
+/// \brief MoveTo order object
 class OrderMoveTo : public Order {
 private:
   
@@ -92,15 +99,16 @@ public:
   }
 };
 
-class OrderHarvest : public Order {
+/// \brief Base class for orders that refers to a WorldObject
+class _OrderWorldTarget : public Order {
 private:
   
   WorldPtr _target;
   
 public:
   
-  OrderHarvest(const WorldPtr& ptr) : 
-    Order(Harvest), _target(ptr) 
+  _OrderWorldTarget(Type type, const WorldPtr& ptr) : 
+    Order(type), _target(ptr) 
   {
   }
   
@@ -119,30 +127,43 @@ public:
   }
 };
 
-class OrderStore: public Order {
-private:
-  
-  WorldPtr _target;
-  
+/// \brief Harvest Order
+class OrderHarvest : public _OrderWorldTarget {
 public:
   
-  OrderStore(const WorldPtr& ptr) : 
-    Order(Store), _target(ptr) 
+  OrderHarvest(const WorldPtr& ptr) :
+    _OrderWorldTarget(Harvest, ptr)
   {
   }
+};
+
+/// \brief Store Order
+class OrderStore : public _OrderWorldTarget {
+public:
   
-  /// \brief return target for Harvest order
-  /// \pre Must be a Harvest Order
-  const WorldPtr& target() const {
-    return _target;
+  OrderStore(const WorldPtr& ptr) :
+    _OrderWorldTarget(Store, ptr)
+  {
   }
-  /// \brief return order's target position
-  virtual const WorldObject::Position & targetPos() const noexcept {
-    return _target->pos();
+};
+
+/// \brief Supply Order
+class OrderSupply : public _OrderWorldTarget {
+public:
+  
+  OrderSupply(const WorldPtr& ptr) :
+    _OrderWorldTarget(Supply, ptr)
+  {
   }
-  /// \brief return true if order target exists
-  virtual bool isValid() const noexcept {
-    return _target.isValid();
+};
+
+/// \brief Build Order
+class OrderBuild : public _OrderWorldTarget {
+public:
+  
+  OrderBuild(const WorldPtr& ptr) :
+    _OrderWorldTarget(Build, ptr)
+  {
   }
 };
 

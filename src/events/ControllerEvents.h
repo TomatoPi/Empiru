@@ -29,24 +29,35 @@
 #include "utils/engine/Observer.h"
 
 struct EventObjectSelected : public Event {
-public:
   const WorldPtr& _ptr;
   EventObjectSelected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectDeselected : public Event {
-public:
   const WorldPtr& _ptr;
   EventObjectDeselected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectAction : public Event {
-public:
   const WorldPtr& _obj;
   const WorldPtr& _target;
   EventObjectAction(const WorldPtr& obj, const WorldPtr& target) noexcept :
     _obj(obj), _target(target)
   {}
+};
+
+struct EventCursorMoved : public Event {
+  const WorldObject::Position& _click;
+  int _x;
+  int _y;
+  EventCursorMoved(const WorldObject::Position& click, int x, int y) noexcept :
+    _click(click), _x(x), _y(y)
+  {}
+};
+
+struct EventConstructionSiteSelected : public Event {
+  const std::type_info& _type;
+  EventConstructionSiteSelected(const std::type_info& t) noexcept : _type(t) {}
 };
 
 #endif /* CONTROLLEREVENTS_H */

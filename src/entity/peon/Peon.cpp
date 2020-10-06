@@ -85,6 +85,7 @@ bool Peon::isPaused() const {
 }
 
 /// \brief remove all path's steps
+/// \bug MEMORY LEAK !!!!
 void Peon::clearOrders() {
   //_dir._x = _dir._y = _dir._z = 0;
   _todo.clear();
@@ -110,6 +111,12 @@ void Peon::beginOrder() {
     _delay = 60;
     break;
   case Order::Store :
+    _delay = 1;
+    break;
+  case Order::Supply : 
+    _delay = 1;
+    break;
+  case Order::Build : 
     _delay = 1;
     break;
   default :

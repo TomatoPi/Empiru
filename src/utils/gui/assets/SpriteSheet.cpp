@@ -24,10 +24,10 @@
 ///
 
 #include <cassert>
+#include <stdexcept>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_rwops.h>
 #include <SDL2/SDL_surface.h>
-#include <stdexcept>
 
 #include "SpriteSheet.h"
 
@@ -36,7 +36,7 @@
 /// \brief Constructor
 SpriteSheet::SpriteSheet(
           SDL_Renderer *r,
-          SDL_Texture *t, 
+          SDL_Texture*&& t, 
           int w, int h,
           unsigned int rows, 
           unsigned int cols) 
@@ -69,21 +69,20 @@ SpriteSheet::~SpriteSheet() noexcept {
 /// \param rdr  : SDL_Renderer associated with targeted viewport
 ///
 /// \return NULL on failure
-std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
-    const char *path, 
+std::shared_ptr<SpriteSheet> SpriteSheet::loadFromFile(
+    const std::string& path, 
     unsigned int rows,
     unsigned int cols,
     SDL_Renderer *rdr) 
 {
   /* assertions */
-  assert(path);
   assert(rdr);
   /* tmp objects */
   SDL_Surface *surface(nullptr);
   SDL_Texture *texture(nullptr);
   try {
     /* load the file */
-    if (nullptr == (surface = IMG_Load(path))) {
+    if (nullptr == (surface = IMG_Load(path.c_str()))) {
       throw std::runtime_error(IMG_GetError());
     }
     /* transform image to texture */
@@ -91,12 +90,19 @@ std::unique_ptr<SpriteSheet> SpriteSheet::loadFromFile(
       throw std::runtime_error(SDL_GetError());
     }
     SDL_FreeSurface(surface);
-    /* create the sheet and cut it according to wanted dimensions */
-    auto sprite(std::make_unique<SpriteSheet>(rdr, texture, 1, 1, rows, cols));
+    surface = nullptr;
+    /* create the sheet */
+    auto sprite(std::make_shared<SpriteSheet>(
+        rdr, std::move(texture), 1, 1, rows, cols));
+    /* cut it according to wanted dimensions */
     sprite->recut(rows, cols);
     return sprite;
-  } catch (const std::exception & e) {
-    LOG_WRN("%s : %s\n", path, e.what());
+    /* done */
+  } 
+  catch (const std::exception & e) {
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+    LOG_WRN("%s : %s\n", path.c_str(), e.what());
     throw;
   }
 }
