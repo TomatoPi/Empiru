@@ -110,6 +110,11 @@ void Controller::peonRightClick(
         peon->addOrder(new OrderSupply(ptr));
         peon->beginOrder();
         sendNotification(EventObjectAction(_selection, ptr));
+      } 
+      else if (site->isFilled()) {
+        peon->addOrder(new OrderBuild(ptr));
+        peon->beginOrder();
+        sendNotification(EventObjectAction(_selection, ptr));
       }
     }
   } else {

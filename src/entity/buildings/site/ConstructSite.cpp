@@ -25,6 +25,32 @@
 #include "ConstructSite.h"
 
 ConstructionSite::ConstructionSite() : 
-  WorldObject(WorldObject::SHollow) 
+  WorldObject(WorldObject::SHollow),
+  _workers(),
+  _progress(0), _cptr(0), _difficulty(0)
 {  
+}
+
+int ConstructionSite::progress() const noexcept {
+  return _progress;
+}
+bool ConstructionSite::isFinished() const noexcept {
+  return _progress >= 100;
+}
+void ConstructionSite::progressTick(int speed) {
+  int tmp(_cptr + speed);
+  _progress += tmp / _difficulty;
+  _cptr = tmp % _difficulty;
+}
+
+void ConstructionSite::addWorker(const WorldPtr& ptr) {
+  bool success(_workers.emplace(ptr).second);
+  assert(success);
+}
+void ConstructionSite::removeWorker(const WorldPtr& ptr) {
+  bool success(_workers.erase(ptr));
+  assert(success);
+}
+const ConstructionSite::WorkersList& ConstructionSite::workers() const noexcept {
+  return _workers;
 }

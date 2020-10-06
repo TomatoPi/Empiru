@@ -69,6 +69,7 @@
 #include "entity/functionals/TribeInfos.h"
 #include "utils/gui/assets/GraphicAssetsRegister.h"
 #include "entity/buildings/site/SiteRenderer.h"
+#include "entity/buildings/site/SiteBehaviour.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -212,6 +213,7 @@ int main(int argc, char** argv) {
     
     _gameEngine.registerObjectKind(typeid(ConstructionSite), 
         new WorldAllocator<ConstructionSite>());
+    _gameEngine.attachBehaviour(typeid(ConstructionSite), new SiteBehaviour());
     _rdrEngine.attachRenderer(typeid(ConstructionSite), 
         new SiteRenderer(asset));
   }

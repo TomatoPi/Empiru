@@ -32,6 +32,7 @@
 #include "utils/world/Storage.h"
 #include "utils/world/Recipe.h"
 #include "utils/world/Recipe.h"
+#include "entity/buildings/site/ConstructSite.h"
 
 /// \brief Must compute one behaviour tick of obj
 void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world) {
@@ -54,9 +55,36 @@ void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world)
   case Order::Supply :
     supply(peon, ptr, world);
     break;
+  case Order::Build :
+    build(peon, ptr, world);
+    break;
   default:
     assert(0);
   }
+}
+
+/// \brief compute harvest order
+void PeonBehaviour::build(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+  const OrderBuild& order(static_cast<const OrderBuild&>(peon.currentOrder()));
+  WorldPtr obj(order.target());
+  // check if target always exists
+  if (!obj) {
+    peon.endOrder();
+    return;
+  }
+  // If too far, walk
+  if (obj->radius() + peon.radius() + 0.15
+    < WorldObject::Position::distance(peon.pos(), obj->pos())) 
+  {
+    peon.addOrder(new OrderMoveTo(obj->pos(), obj->radius() + peon.radius() + 0.1));
+    peon.beginOrder();
+    return;
+  }
+  // Move the peon in the site
+  ConstructionSite& site(static_cast<ConstructionSite&>(*obj));
+  world.removeObject(ptr);
+  site.addWorker(ptr);
+  peon.clearOrders();
 }
 
 /// \brief compute harvest order

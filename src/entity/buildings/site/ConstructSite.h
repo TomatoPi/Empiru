@@ -25,6 +25,8 @@
 #ifndef CONSTRUCTSITE_H
 #define CONSTRUCTSITE_H
 
+#include <unordered_set>
+
 #include "utils/world/WorldObject.h"
 #include "utils/world/WorldPtr.h"
 #include "utils/world/Recipe.h"
@@ -35,9 +37,28 @@
 
 class ConstructionSite : public WorldObject, public Recipe {
 public:
+  
+  typedef std::unordered_set<WorldPtr,WorldPtrHash,WorldPtrEquals> WorkersList;
+  
+private:
+
+  WorkersList _workers;
+  int _progress;
+  int _cptr;
+  int _difficulty;
+  
+public:
   ConstructionSite();
   ConstructionSite(const ConstructionSite &) = default;
   ConstructionSite & operator= (const ConstructionSite &) = default;
+  
+  int progress() const noexcept;
+  bool isFinished() const noexcept;
+  void progressTick(int speed);
+  
+  void addWorker(const WorldPtr& ptr);
+  void removeWorker(const WorldPtr& ptr);
+  const WorkersList& workers() const noexcept;
   
   struct Builder {
     const ConstructionGhost& _ghost;
@@ -50,6 +71,8 @@ public:
       }
       site.pos(_ghost.pos());
       site.setRecipe({Stack(Stack::Wood, 50), Stack(Stack::Rock, 10)});
+      site._progress = 0;
+      site._difficulty = 30;
     }
   };
 };

@@ -44,6 +44,7 @@ public:
     Harvest, ///< Harvest some ressources
     Store,   ///< Put some ressources in a storage
     Supply,  ///< Supply a building or a site with ressources
+    Build,   ///< Work on a construction site
   };
   
 private:
@@ -146,12 +147,22 @@ public:
   }
 };
 
-/// \brief Store Order
+/// \brief Supply Order
 class OrderSupply : public _OrderWorldTarget {
 public:
   
   OrderSupply(const WorldPtr& ptr) :
     _OrderWorldTarget(Supply, ptr)
+  {
+  }
+};
+
+/// \brief Build Order
+class OrderBuild : public _OrderWorldTarget {
+public:
+  
+  OrderBuild(const WorldPtr& ptr) :
+    _OrderWorldTarget(Build, ptr)
   {
   }
 };

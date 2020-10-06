@@ -43,6 +43,8 @@
             <itemPath>src/entity/buildings/site/ConstructionGhost.h</itemPath>
             <itemPath>src/entity/buildings/site/GhostRenderer.cpp</itemPath>
             <itemPath>src/entity/buildings/site/GhostRenderer.h</itemPath>
+            <itemPath>src/entity/buildings/site/SiteBehaviour.cpp</itemPath>
+            <itemPath>src/entity/buildings/site/SiteBehaviour.h</itemPath>
             <itemPath>src/entity/buildings/site/SiteRenderer.cpp</itemPath>
             <itemPath>src/entity/buildings/site/SiteRenderer.h</itemPath>
           </logicalFolder>
@@ -348,6 +350,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -687,6 +699,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/buildings/site/SiteRenderer.cpp"
             ex="false"
             tool="1"
@@ -1013,6 +1035,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1344,6 +1376,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/buildings/site/SiteBehaviour.h"
             ex="false"
             tool="3"
             flavor2="0">

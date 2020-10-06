@@ -23,6 +23,7 @@
 ///
 
 #include "SiteRenderer.h"
+#include "ConstructSite.h"
 
 SiteRenderer::SiteRenderer(const gui::ObjectAsset& asset) noexcept :
   _sheet(asset._sheet), _mask(asset._mask), _blitter()
@@ -35,12 +36,14 @@ void SiteRenderer::renderAt(
   int ori, int x, int y,
   const hex::Viewport & view)
 {
+  const ConstructionSite& site(static_cast<const ConstructionSite&>(*obj));
+  int frame = std::min(site.progress() / 25, 3);
   SDL_Rect r;
   _blitter(&r, 
     _sheet->width(), _sheet->height(), 
     view.tileWidth(), view.tileHeight(), 
     x, y);
-  _sheet->renderFrame(0, ori, &r);
+  _sheet->renderFrame(frame, ori, &r);
 }
 
 /// \brief Render the object at given position, replacing the texture with
@@ -51,11 +54,13 @@ void SiteRenderer::renderAt(
   const hex::Viewport & view,
   const SDL_Color & c)
 {
+  const ConstructionSite& site(static_cast<const ConstructionSite&>(*obj));
+  int frame = std::min(site.progress() / 25, 3);
   SDL_Rect r;
   _blitter(&r, 
     _mask->width(), _mask->height(), 
     view.tileWidth(), view.tileHeight(), 
     x, y);
   _mask->setColorMod(c);
-  _mask->renderFrame(0, ori, &r);
+  _mask->renderFrame(frame, ori, &r);
 }

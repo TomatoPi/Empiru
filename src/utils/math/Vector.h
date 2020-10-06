@@ -50,6 +50,12 @@ namespace math {
     {
     }
     
+    static Vector polar(T ro, T theta) noexcept {
+      static_assert(std::is_floating_point<T>::value, 
+              "Require T beeing a non integral type");
+      return Vector(ro * std::cos(theta), ro * std::sin(theta));
+    }
+    
     /// \brief Conversion constructor
     template <typename F>
     explicit Vector(const Vector<F> & v) noexcept : 
