@@ -97,12 +97,19 @@ void Controller::peonRightClick(
       }
     }
     else if (Storage* storage = dynamic_cast<Storage*>(&*ptr)) {
-      peon->attachWarehouse(ptr);
-      if (storage->canStore(peon->inventory().type())) 
-      {
+      if (storage->canStore(peon->inventory().type())) {
+        peon->attachWarehouse(ptr);
         peon->addOrder(new OrderStore(ptr));
         peon->beginOrder();
         sendNotification(EventObjectAction(_selection, ptr));
+      }
+      else {
+        if (peon->attachtedWharehouse() == ptr) {
+          peon->detachWarehouse();
+        }
+        else {
+          peon->attachWarehouse(ptr);
+        }
       }
     } 
     else if (ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*ptr)) {

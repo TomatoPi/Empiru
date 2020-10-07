@@ -88,6 +88,9 @@ bool Peon::isPaused() const {
 /// \bug MEMORY LEAK !!!!
 void Peon::clearOrders() {
   //_dir._x = _dir._y = _dir._z = 0;
+  for (auto& order : _todo) {
+    delete order;
+  }
   _todo.clear();
 }
 /// \brief add pos on top of path

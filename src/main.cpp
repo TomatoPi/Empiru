@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
   LOG_DEBUG("%lu %lu\n", sizeof(WorldPtr), sizeof(void*));
   
   /* Create the World and main engine */
-  WorldMap _worldMap(SIZE,SIZE);
+  WorldMap   _worldMap(SIZE,SIZE);
   GameEngine _gameEngine(_worldMap);
   Controller _gameController(_worldMap, _gameEngine);
   
@@ -194,7 +194,8 @@ int main(int argc, char** argv) {
         _window->vrenderer));
     
     _gameEngine.registerObjectKind(typeid(House), new WorldAllocator<House>());
-    _gameEngine.attachBehaviour(typeid(House), new StorageBehaviour(_gameEngine.playerTribe()));
+    _gameEngine.attachBehaviour(typeid(House), 
+        new StorageBehaviour(_gameEngine.playerTribe()));
     _rdrEngine.attachRenderer(typeid(House), 
         new GenericRenderer<OnTileBlitter>(asset));
   }
@@ -208,7 +209,8 @@ int main(int argc, char** argv) {
         _window->vrenderer));
     
     _gameEngine.registerObjectKind(typeid(Warehouse), new WorldAllocator<Warehouse>());
-    _gameEngine.attachBehaviour(typeid(Warehouse), new StorageBehaviour(_gameEngine.playerTribe()));
+    _gameEngine.attachBehaviour(typeid(Warehouse), 
+        new StorageBehaviour(_gameEngine.playerTribe()));
     _rdrEngine.attachRenderer(typeid(Warehouse), 
         new GenericRenderer<OnTileBlitter>(asset));
   }
