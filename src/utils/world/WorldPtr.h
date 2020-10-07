@@ -88,6 +88,10 @@ private:
     if (_ref) {
       _ref->_count -= 1;
       if (_ref->_count == 0) {
+        /* if the pointer was the last ref, but the object is always valid */
+        /* it means that we're losing reference to an object in the allocator */
+        /* and the we're discarding ptr without explicit release of memory */
+        assert(!_ref->_valid && "Memory Leaked !!");
         delete _ref;
       }
     }

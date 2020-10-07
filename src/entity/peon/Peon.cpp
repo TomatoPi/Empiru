@@ -29,7 +29,7 @@
 
 /// \brief Constructor
 Peon::Peon() :
-  WorldObject(WorldObject::SSmall, 0.05), 
+  WorldObject(WorldObject::Size::Small, 0.05), 
   _todo(),
   _dir(),
   _cptr(0),

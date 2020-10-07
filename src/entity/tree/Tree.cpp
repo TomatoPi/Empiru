@@ -27,7 +27,7 @@
 
 /// \brief Constructor
 Tree::Tree() : 
-  WorldObject(WorldObject::SSmall, 0.1), 
+  WorldObject(WorldObject::Size::Small, 0.1), 
   Harvestable(Stack::Wood, 100) 
 {
 }

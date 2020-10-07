@@ -45,21 +45,21 @@ RenderingEngine::RenderingEngine(
 {
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
-        if (event._ptr->sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
           return;
         }
         getrdr(event._ptr)->targetSelected(event._ptr);
       });
   this->registerEvent<EventObjectDeselected>(
       [this](const EventObjectDeselected & event) -> void {
-        if (event._ptr->sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
           return;
         }
         getrdr(event._ptr)->targetDeselected(event._ptr);
       });
   this->registerEvent<EventObjectCreated>(
       [this](const EventObjectCreated & event) -> void{
-        if (event._ptr->sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
           if (AbstractRenderer* rdr = findrdr(event._ptr)) {
             rdr->addTarget(event._ptr);
           }
@@ -69,7 +69,7 @@ RenderingEngine::RenderingEngine(
       });
   this->registerEvent<EventObjectDestroyed>(
       [this](const EventObjectDestroyed & event) -> void{
-        if (event._ptr->sizeClass() == WorldObject::SHollow) {
+        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
           if (AbstractRenderer* rdr = findrdr(event._ptr)) {
             rdr->removeTarget(event._ptr);
           }
@@ -178,7 +178,7 @@ void RenderingEngine::updateClickZones() {
   // Draw is made according to last drawstack
   for (auto & itr : _drawstack) {
     const WorldPtr& obj(itr.second);
-    if (obj->sizeClass() == WorldObject::SHollow) {
+    if (obj->sizeClass() == WorldObject::Size::Hollow) {
       if (findrdr(obj) == nullptr) {
         continue;
       }

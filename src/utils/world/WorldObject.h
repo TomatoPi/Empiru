@@ -35,10 +35,10 @@ class WorldObject {
 public:
   
   /// \brief Specify object's size on the map
-  enum Size {
-    SSmall,  ///< Objects that can coexist on the same tile with circular hitbox
-    STile,   ///< Objects that occupy the whole tile
-    SHollow, ///< Utility objects that don't occupy space
+  enum class Size {
+    Small,  ///< Objects that can coexist on the same tile with circular hitbox
+    Tile,   ///< Objects that occupy the whole tile
+    Hollow, ///< Utility objects that don't occupy space
   };
   
   typedef hex::Axial Position;
@@ -91,15 +91,15 @@ public:
   
   /// \brief Method that must return true obj collides this object
   virtual bool collide(const WorldObject & obj) const noexcept {
-    if (_size == SHollow || obj._size == SHollow)
+    if (_size == Size::Hollow || obj._size == Size::Hollow)
       return false;
-    if (_size == SSmall) {
-      if (obj._size == SSmall)
+    if (_size == Size::Small) {
+      if (obj._size == Size::Small)
         return smallCollide(*this, obj);
       return stCollide(*this, obj);
     }
-    if (_size == STile) {
-      if (obj._size == SSmall)
+    if (_size == Size::Tile) {
+      if (obj._size == Size::Small)
         return stCollide(obj, *this);
       return tileCollide(*this, obj);
     }
@@ -108,11 +108,11 @@ public:
   }
   /// \brief Method that return true if pos is in this object
   virtual bool collide(const Position & pos) const noexcept {
-    if (_size == SHollow) return false;
-    if (_size == SSmall) {
+    if (_size == Size::Hollow) return false;
+    if (_size == Size::Small) {
       return Position::distance(pos, _pos) < _radius;
     }
-    if (_size == STile) {
+    if (_size == Size::Tile) {
       return _pos.tile() == pos.tile();
     }
     assert(0);

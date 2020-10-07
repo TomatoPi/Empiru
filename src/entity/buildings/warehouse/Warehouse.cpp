@@ -24,6 +24,6 @@
 
 #include "Warehouse.h"
 
-Warehouse::Warehouse() : WorldObject(WorldObject::STile), Storage() {
+Warehouse::Warehouse() : WorldObject(WorldObject::Size::Tile), Storage() {
   
 }

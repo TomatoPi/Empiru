@@ -26,7 +26,7 @@
 
 /// \brief Constructor
 Rock::Rock() : 
-  WorldObject(WorldObject::SSmall, 0.1), 
+  WorldObject(WorldObject::Size::Small, 0.1), 
   Harvestable(Stack::Rock, 50)
 {  
 }

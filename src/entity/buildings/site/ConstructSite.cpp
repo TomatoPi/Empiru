@@ -25,7 +25,7 @@
 #include "ConstructSite.h"
 
 ConstructionSite::ConstructionSite() : 
-  WorldObject(WorldObject::SHollow),
+  WorldObject(WorldObject::Size::Hollow),
   _workers(),
   _type(nullptr),
   _progress(0), _cptr(0), _difficulty(0)

@@ -36,7 +36,7 @@ private:
   
 public:
     
-  ConstructionGhost() : WorldObject(SHollow), _type(nullptr), _valid(false) {}
+  ConstructionGhost() : WorldObject(Size::Hollow), _type(nullptr), _valid(false) {}
   
   const std::type_info& type() const noexcept {
     return *_type;
