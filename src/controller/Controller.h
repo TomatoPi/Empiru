@@ -30,17 +30,31 @@
 #include "utils/world/WorldInterface.h"
 #include "utils/world/WorldPtr.h"
 #include "engine/GameEngine.h"
-#include "entity/peon/Peon.h"
 
 /// \brief Main handler for user control
 class Controller : public Subject {
 private:
   
-  WorldInterface& _world;           ///< THA WORLDOOOOO
-  GameEngine&     _engine;          ///< The Core of the GAMEUUH
+  enum class StateFlag {
+    NoSelection,
+    ObjectSelected,
+    BuildGhost,
+  };
   
-  WorldPtr        _selection;       ///< The selected Object
+  WorldInterface&       _world;     ///< THA WORLDOOOOO
+  GameEngine&           _engine;    ///< The Core of the GAMEUUH
+  
+  WorldPtr              _selection; ///< The selected Object
   WorldObject::Position _cursor;    ///< Cursor position
+  StateFlag             _status;
+  
+  void selectObject(WorldPtr& ptr) noexcept;
+  void deselectObject() noexcept;
+  void objectAction(WorldPtr& ptr) noexcept;
+  void createGhost(const std::type_info& type) noexcept;
+  void destroyGhost() noexcept;
+  void createBuildSite() noexcept;
+  bool updateGhost() noexcept;
   
 public:
   
@@ -61,13 +75,6 @@ public:
   
   /// \brief Return the current position of the cursor
   const WorldObject::Position& cursor() const noexcept;
-  
-private:
-  
-  void peonRightClick(
-    Peon* peon, 
-    const WorldObject::Position& click, 
-    WorldPtr& ptr);
 };
 
 #endif /* CONTROLLER_H */

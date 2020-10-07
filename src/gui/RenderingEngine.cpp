@@ -132,7 +132,7 @@ void RenderingEngine::render() {
       if (_world.isOnMap(pos)) {
         _worldView.toPixel(pos.tile(), &x, &y);
         try {
-          tilerdr->renderAt(nullptr, _camera.getOrientation(), 
+          tilerdr->renderAt(WorldPtr(nullptr), _camera.getOrientation(), 
             x, y, _worldView);
         } catch (const std::exception & e) {
           LOG_ERROR("Failed draw tile : %s\n", SDL_GetError());
@@ -220,5 +220,5 @@ WorldPtr RenderingEngine::objectAt(int x, int y) const noexcept {
     return itr->second;
   }
   //LOG_DEBUG("NOTHING\n");
-  return nullptr;
+  return WorldPtr(nullptr);
 }

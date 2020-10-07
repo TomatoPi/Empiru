@@ -37,134 +37,194 @@
 Controller::Controller(WorldInterface& w, GameEngine& engine) noexcept :
   _world(w), _engine(engine), 
   _selection(nullptr),
-  _cursor()
+  _cursor(),
+  _status(StateFlag::NoSelection)
 {
+}
+
+void Controller::selectObject(WorldPtr& ptr) noexcept {
+  _selection = ptr;
+  sendNotification(EventObjectSelected(_selection));
+}
+void Controller::deselectObject() noexcept {
+  sendNotification(EventObjectDeselected(_selection));
+  _selection = nullptr;
+}
+void Controller::objectAction(WorldPtr& ptr) noexcept {
+  if (Peon * peon = dynamic_cast<Peon *>(&*_selection)) {
+    if (ptr) {
+      if (Harvestable* harvest = dynamic_cast<Harvestable*>(&*ptr)) {
+        if (peon->canHarvest(harvest->type())) {
+          peon->clearOrders();
+          peon->addOrder(new OrderHarvest(ptr));
+          peon->beginOrder();
+          sendNotification(EventObjectAction(_selection, ptr));
+        }
+      }
+      else if (Storage* storage = dynamic_cast<Storage*>(&*ptr)) {
+        if (storage->canStore(peon->inventory().type())) {
+          peon->attachWarehouse(ptr);
+          peon->addOrder(new OrderStore(ptr));
+          peon->beginOrder();
+          sendNotification(EventObjectAction(_selection, ptr));
+        }
+        else {
+          if (peon->attachtedWharehouse() == ptr) {
+            peon->detachWarehouse();
+          }
+          else {
+            peon->attachWarehouse(ptr);
+          }
+        }
+      } 
+      else if (ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*ptr)) {
+        if (site->need(peon->inventory())) {
+          peon->addOrder(new OrderSupply(ptr));
+          peon->beginOrder();
+          sendNotification(EventObjectAction(_selection, ptr));
+        } 
+        else if (site->isFilled()) {
+          peon->addOrder(new OrderBuild(ptr));
+          peon->beginOrder();
+          sendNotification(EventObjectAction(_selection, ptr));
+        }
+      }
+    } 
+    else {
+      peon->clearOrders();
+      peon->addOrder(new OrderMoveTo(_cursor, 0.01));
+      peon->beginOrder();
+      sendNotification(EventObjectAction(_selection, WorldPtr(nullptr)));
+    } 
+  }
+}
+void Controller::createGhost(const std::type_info& type) noexcept {
+  ConstructionGhost::Builder builder(type, _cursor.tile());
+  _selection = _engine.createObject(typeid(ConstructionGhost), builder);
+  sendNotification(EventObjectSelected(_selection));
+}
+void Controller::destroyGhost() noexcept {
+  assert(typeid(*_selection) == typeid(ConstructionGhost));
+  sendNotification(EventObjectDeselected(_selection));
+  _engine.removeObject(_selection);
+  _selection = nullptr;
+}
+void Controller::createBuildSite() noexcept {
+  ConstructionGhost& ghost = static_cast<ConstructionGhost&>(*_selection);
+  sendNotification(EventObjectDeselected(_selection));
+  ConstructionSite::Builder builder(ghost);
+  WorldPtr site(_engine.createObject(typeid(ConstructionSite), builder));
+  _engine.removeObject(_selection);
+  _selection = site;
+  sendNotification(EventObjectSelected(_selection));
+}
+bool Controller::updateGhost() noexcept {
+  _world.removeObject(_selection);
+  _selection->pos(_cursor.tile());
+  _world.addObject(_selection);
+  /* set the valid flag depending on tile content */
+  /*  an empty tile */
+  const Tile::Content* tile = _world.getContentAt(_selection->pos());
+  static_cast<ConstructionGhost&>(*_selection).valid(
+        tile && (tile->size() == 1));
+  return static_cast<ConstructionGhost&>(*_selection).valid();
 }
   
 /// \brief Called when a left click is performed at given position
 void Controller::leftClickOn(const WorldObject::Position& click, WorldPtr& ptr) {
-  // Update controller according to result
-  if (_selection) {
-    if (typeid(*_selection) == typeid(ConstructionGhost)) {
-      ConstructionGhost& ghost = static_cast<ConstructionGhost&>(*_selection);
-      if (!ghost.valid()) {
-        return;
-      }
-      sendNotification(EventObjectDeselected(_selection));
-      ConstructionSite::Builder builder(ghost);
-      WorldPtr site(_engine.createObject(typeid(ConstructionSite), builder));
-      _engine.removeObject(_selection);
-      _selection = site;
-      sendNotification(EventObjectSelected(_selection));
-      return;
-    } /* if selection is ghost */
-    sendNotification(EventObjectDeselected(_selection));
-  }
-  if (ptr) {
-    _selection = ptr;
-    sendNotification(EventObjectSelected(_selection));
-  } else {
-    _selection = nullptr;
+  _cursor = click;
+  switch (_status) {
+    
+  case StateFlag::NoSelection :
+    if (!ptr) return;
+    selectObject(ptr);
+    _status = StateFlag::ObjectSelected;
+    break;
+    
+  case StateFlag::ObjectSelected :
+    if (!ptr) {
+      deselectObject();
+      _status = StateFlag::NoSelection;
+    }
+    else {
+      deselectObject();
+      selectObject(ptr);
+    }
+    break;
+    
+  case StateFlag::BuildGhost :
+    if (updateGhost()) {
+      createBuildSite();
+      _status = StateFlag::ObjectSelected;
+    }
+    break;
+    
+  default:
+    assert(0);
   }
 }
 /// \brief Called when a right click is performed at given position
 void Controller::rightClickOn(const WorldObject::Position& click, WorldPtr& ptr) {
-  // If there is a selected peon and click is valid, let's go
-  if (_selection && _world.isOnMap(click)) {
+  _cursor = click;
+  switch (_status) {
     
-    if (Peon * peon = dynamic_cast<Peon *>(&*_selection)) {
-      peonRightClick(peon, click, ptr);
-      return;
-    }
-    else if (typeid(*_selection) == typeid(ConstructionGhost)) {
-      _engine.removeObject(_selection);
-      _selection = nullptr;
-    }
-  }
-}
-void Controller::peonRightClick(
-  Peon *peon, 
-  const WorldObject::Position& click, 
-  WorldPtr& ptr) 
-{
-  if (ptr) {
-    if (Harvestable* harvest = dynamic_cast<Harvestable*>(&*ptr)) {
-      if (peon->canHarvest(harvest->type())) {
-        peon->clearOrders();
-        peon->addOrder(new OrderHarvest(ptr));
-        peon->beginOrder();
-        sendNotification(EventObjectAction(_selection, ptr));
-      }
-    }
-    else if (Storage* storage = dynamic_cast<Storage*>(&*ptr)) {
-      if (storage->canStore(peon->inventory().type())) {
-        peon->attachWarehouse(ptr);
-        peon->addOrder(new OrderStore(ptr));
-        peon->beginOrder();
-        sendNotification(EventObjectAction(_selection, ptr));
-      }
-      else {
-        if (peon->attachtedWharehouse() == ptr) {
-          peon->detachWarehouse();
-        }
-        else {
-          peon->attachWarehouse(ptr);
-        }
-      }
-    } 
-    else if (ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*ptr)) {
-      if (site->need(peon->inventory())) {
-        peon->addOrder(new OrderSupply(ptr));
-        peon->beginOrder();
-        sendNotification(EventObjectAction(_selection, ptr));
-      } 
-      else if (site->isFilled()) {
-        peon->addOrder(new OrderBuild(ptr));
-        peon->beginOrder();
-        sendNotification(EventObjectAction(_selection, ptr));
-      }
-    }
-  } 
-  else {
-    peon->clearOrders();
-    peon->addOrder(new OrderMoveTo(click, 0.01));
-    peon->beginOrder();
-    sendNotification(EventObjectAction(_selection, nullptr));
+  case StateFlag::NoSelection :
+    /* nothing */
+    break;
+    
+  case StateFlag::ObjectSelected :
+    objectAction(ptr);
+    break;
+    
+  case StateFlag::BuildGhost :
+    destroyGhost();
+    _status = StateFlag::NoSelection;
+    break;
+    
+  default:
+    assert(0);
   }
 }
 
 /// \brief Called when a building has been selected
 void Controller::selectConstructionGhost(const std::type_info& type) {
-  /* potentialy deselect object */
-  if (_selection) {
-    sendNotification(EventObjectDeselected(_selection));
-    if (typeid(*_selection) == typeid(ConstructionGhost)) {
-      _engine.removeObject(_selection);
-    }
-    _selection = nullptr;
+  switch (_status) {
+    
+  case StateFlag::BuildGhost :
+    destroyGhost();
+    
+  case StateFlag::NoSelection :
+  case StateFlag::ObjectSelected :
+    
+    createGhost(type);
+    updateGhost();
+    _status = StateFlag::BuildGhost;
+    break;
+    
+  default:
+    assert(0);
   }
-  /* create a new ghost */
-  ConstructionGhost::Builder builder(type, _cursor.tile());
-  _selection = _engine.createObject(typeid(ConstructionGhost), builder);
-  sendNotification(EventObjectSelected(_selection));
 }
 
 /// \brief Called when the mouse has moved, maximum one time at each frame
 ///   Only the last position is passed to this function
 void Controller::cursorMoved(const WorldObject::Position& click, int x, int y) {
-  sendNotification(EventCursorMoved(click, x, y));
-  /* if current selection is a ghost */
-  if (_selection && (typeid(ConstructionGhost) == typeid(*_selection))) {
-    _world.removeObject(_selection);
-    _selection->pos(click.tile());
-    _world.addObject(_selection);
-    /* set the valid flag depending on tile content */
-    /*  an empty tile */
-    const Tile::Content* tile = _world.getContentAt(_selection->pos());
-    static_cast<ConstructionGhost&>(*_selection).valid(
-          tile && (tile->size() == 1));
-  }
   _cursor = click;
+  switch (_status) {
+    
+  case StateFlag::NoSelection :
+  case StateFlag::ObjectSelected :
+    /* nothing */
+    break;
+    
+  case StateFlag::BuildGhost :
+    updateGhost();
+    _status = StateFlag::BuildGhost;
+    break;
+    
+  default:
+    assert(0);
+  }
 }
 
 /// \brief Return the current position of the cursor

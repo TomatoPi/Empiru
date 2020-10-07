@@ -116,7 +116,7 @@ private:
   
 public:
   /// \brief Create a nullptr
-  WorldPtr(std::nullptr_t) :
+  explicit WorldPtr(std::nullptr_t) :
       _ref(nullptr)
   {
   }
