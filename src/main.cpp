@@ -51,7 +51,7 @@
 #include "entity/buildings/StorageBehaviour.h"
 
 #include "world/World.h"
-#include "utils/world/WorldAllocator.h"
+#include "utils/world/core/WorldAllocator.h"
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"

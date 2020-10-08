@@ -26,16 +26,16 @@
 #ifndef BEHAVIOUR_H
 #define BEHAVIOUR_H
 
-#include "utils/world/WorldObject.h"
-#include "utils/world/WorldInterface.h"
-#include "utils/world/WorldPtr.h"
+#include "utils/world/map/MapInterface.h"
+#include "utils/world/core/WorldObject.h"
+#include "utils/world/core/WorldPtr.h"
 
 /// \brief Interface for WorldObjects mechanics' handlers
 class Behaviourer {
 public:
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world) = 0;
+  virtual void tick(WorldObject& obj, WorldPtr& ptr, MapInterface& world) = 0;
 };
 
 #endif /* BEHAVIOUR_H */

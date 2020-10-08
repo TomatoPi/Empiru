@@ -111,7 +111,7 @@
           <itemPath>src/utils/core/Automaton.h</itemPath>
           <itemPath>src/utils/core/IndexAllocator.h</itemPath>
           <itemPath>src/utils/core/IndexPtr.h</itemPath>
-          <itemPath>src/utils/engine/Observer.h</itemPath>
+          <itemPath>src/utils/core/Observer.h</itemPath>
           <itemPath>src/utils/core/Pointer.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="engine" projectFiles="true">
@@ -161,14 +161,24 @@
           <itemPath>src/utils/sound/SoundEngine.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="world" projectFiles="true">
+          <logicalFolder name="f1" displayName="core" projectFiles="true">
+            <itemPath>src/utils/world/core/WorldAllocator.h</itemPath>
+            <itemPath>src/utils/world/core/WorldObject.cpp</itemPath>
+            <itemPath>src/utils/world/core/WorldObject.h</itemPath>
+            <itemPath>src/utils/world/core/WorldPtr.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="map" projectFiles="true">
+            <itemPath>src/utils/world/map/MapInterface.h</itemPath>
+            <itemPath>src/utils/world/map/Tile.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f3" displayName="objects" projectFiles="true">
+            <itemPath>src/world/objects/MonoObject.cpp</itemPath>
+            <itemPath>src/world/objects/MonoObject.h</itemPath>
+          </logicalFolder>
           <itemPath>src/utils/world/Harvestable.h</itemPath>
           <itemPath>src/utils/world/Recipe.h</itemPath>
           <itemPath>src/utils/world/Ressource.h</itemPath>
           <itemPath>src/utils/world/Storage.h</itemPath>
-          <itemPath>src/utils/world/Tile.h</itemPath>
-          <itemPath>src/utils/world/WorldInterface.h</itemPath>
-          <itemPath>src/utils/world/WorldObject.h</itemPath>
-          <itemPath>src/utils/world/WorldPtr.h</itemPath>
         </logicalFolder>
         <itemPath>src/utils/chrono.hpp</itemPath>
         <itemPath>src/utils/log.h</itemPath>
@@ -176,7 +186,6 @@
       <logicalFolder name="f1" displayName="world" projectFiles="true">
         <itemPath>src/world/World.cpp</itemPath>
         <itemPath>src/world/World.h</itemPath>
-        <itemPath>src/utils/world/WorldAllocator.h</itemPath>
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
@@ -466,11 +475,11 @@
       </item>
       <item path="src/utils/core/IndexPtr.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -554,19 +563,31 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.cpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -834,11 +855,11 @@
       </item>
       <item path="src/utils/core/IndexPtr.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -922,19 +943,31 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.cpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1197,11 +1230,11 @@
       </item>
       <item path="src/utils/core/IndexPtr.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1285,19 +1318,31 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1561,11 +1606,11 @@
       </item>
       <item path="src/utils/core/IndexPtr.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/Observer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1649,19 +1694,31 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.cpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/world/WorldInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/WorldPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/world/objects/MonoObject.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/fixedpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>

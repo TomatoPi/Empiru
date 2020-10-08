@@ -32,7 +32,7 @@
 GameEngine * GameEngine::_Engine(nullptr);
 
 /// \brief Contructor
-GameEngine::GameEngine(WorldInterface & w) : 
+GameEngine::GameEngine(MapInterface & w) : 
   Subject(), Observer(),
   _objects(),
   _behavs(),

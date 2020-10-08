@@ -26,8 +26,8 @@
 #define ORDER_H
 
 #include "utils/hex/Axial.h"
-#include "utils/world/WorldPtr.h"
-#include "utils/world/WorldObject.h"
+#include "utils/world/core/WorldPtr.h"
+#include "utils/world/core/WorldObject.h"
 
 /// \brief Base class for orders
 /// \todo In the actual implementation, a great number of orders may result

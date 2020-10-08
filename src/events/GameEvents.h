@@ -25,8 +25,8 @@
 #ifndef GAMEEVENTS_H
 #define GAMEEVENTS_H
 
-#include "utils/world/WorldPtr.h"
-#include "utils/engine/Observer.h"
+#include "utils/world/core/WorldPtr.h"
+#include "utils/core/Observer.h"
 
 struct EventObjectCreated : public Event {
   WorldPtr _ptr;

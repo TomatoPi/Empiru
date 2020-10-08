@@ -28,7 +28,7 @@
 
 #include <memory>
 #include <unordered_map>
-#include "utils/world/WorldPtr.h"
+#include "utils/world/core/WorldPtr.h"
 #include "utils/gui/renderer/AbstractRenderer.h"
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/assets/Animation.h"

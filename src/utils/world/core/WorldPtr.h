@@ -16,23 +16,18 @@
  */
 
 /// 
-/// \file   Warehouse.h
+/// \file   WorldRef.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 7 octobre 2020, 00:56
+/// \date 19 septembre 2020, 06:14
 ///
 
-#ifndef WAREHOUSE_H
-#define WAREHOUSE_H
+#ifndef WORLDREF_H
+#define WORLDREF_H
 
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/Storage.h"
+#include "utils/core/IndexPtr.h"
 
-class Warehouse : public WorldObject, public Storage {
-public:
-  Warehouse();
-  Warehouse(const Warehouse &) = default;
-  Warehouse& operator= (const Warehouse&) = default;
-};
+class WorldObject;
+using WorldPtr = core::IndexPtr<WorldObject>;
 
-#endif /* WAREHOUSE_H */
+#endif /* WORLDREF_H */

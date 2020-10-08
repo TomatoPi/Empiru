@@ -26,7 +26,7 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "utils/world/WorldObject.h"
+#include "utils/world/core/WorldObject.h"
 #include "utils/world/Harvestable.h"
 
 /// \brief Trees are beautiful things which don't do special things at this moment

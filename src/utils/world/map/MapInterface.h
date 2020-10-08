@@ -25,11 +25,11 @@
 #ifndef WORLDINTERFACE_H
 #define WORLDINTERFACE_H
 
-#include "utils/world/WorldPtr.h"
-#include "utils/world/Tile.h"
+#include "utils/world/core/WorldPtr.h"
+#include "utils/world/map/Tile.h"
 
 /// \brief Interface that must be used to comunicate with the World
-class WorldInterface {
+class MapInterface {
 public:
   
   /// \brief Must add given object to the world

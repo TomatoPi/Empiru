@@ -109,4 +109,3 @@ namespace core {
 }
 
 #endif /* INDEXALLOCATOR_H */
-

@@ -16,19 +16,14 @@
  */
 
 /// 
-/// \file   GenericAllocator.h
+/// \file   MonoObject.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 06:18
+/// \date 8 octobre 2020, 22:32
 ///
 
-#ifndef GENERICALLOCATOR_H
-#define GENERICALLOCATOR_H
+#ifndef WORLD_MONOOBJECT_H
+#define WORLD_MONOOBJECT_H
 
-#include "utils/core/IndexAllocator.h"
-#include "utils/world/WorldObject.h"
 
-template <class T>
-using WorldAllocator = core::IndexAllocator<T,WorldObject>;
-
-#endif /* GENERICALLOCATOR_H */
+#endif /* WORLD_MONOOBJECT_H */

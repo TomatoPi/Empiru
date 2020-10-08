@@ -26,7 +26,7 @@
 #include "ConstructSite.h"
 #include "engine/GameEngine.h"
 
-void SiteBehaviour::tick(WorldObject & obj, WorldPtr& ptr, WorldInterface & world) {
+void SiteBehaviour::tick(WorldObject & obj, WorldPtr& ptr, MapInterface & world) {
   ConstructionSite& site(static_cast<ConstructionSite&>(obj));
   if (!site.isFilled()) {
     return;

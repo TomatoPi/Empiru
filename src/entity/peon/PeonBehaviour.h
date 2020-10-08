@@ -26,32 +26,32 @@
 #define PEONBEHAVIOUR_H
 
 #include "entity/peon/Peon.h"
-#include "utils/world/WorldObject.h"
-#include "utils/world/WorldInterface.h"
+#include "utils/world/core/WorldObject.h"
+#include "utils/world/map/MapInterface.h"
 #include "utils/engine/Behaviourer.h"
 
 class PeonBehaviour : public Behaviourer {  
 public:
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world);
+  virtual void tick(WorldObject& obj, WorldPtr& ptr, MapInterface& world);
   
 private:
   
   /// \brief compute harvest order
-  void store(Peon& peon, WorldPtr& ptr, WorldInterface& world);
+  void store(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute harvest order
-  void harvest(Peon& peon, WorldPtr& ptr, WorldInterface& world);
+  void harvest(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute path order for the peon
-  void moveTo(Peon& peon, WorldPtr& ptr, WorldInterface& world);
+  void moveTo(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute supply peon
-  void supply(Peon& peon, WorldPtr& ptr, WorldInterface& world);
+  void supply(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute supply peon
-  void build(Peon& peon, WorldPtr& ptr, WorldInterface& world);
+  void build(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
@@ -60,7 +60,7 @@ private:
         Peon& peon, 
         WorldPtr& ptr, 
         WorldObject** obstacle, 
-        WorldInterface& world)  
+        MapInterface& world)  
     const;
 };
 

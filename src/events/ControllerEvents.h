@@ -25,8 +25,9 @@
 #ifndef CONTROLLEREVENTS_H
 #define CONTROLLEREVENTS_H
 
-#include "utils/world/WorldPtr.h"
-#include "utils/engine/Observer.h"
+#include "utils/world/core/WorldObject.h"
+#include "utils/world/core/WorldPtr.h"
+#include "utils/core/Observer.h"
 
 struct EventObjectSelected : public Event {
   WorldPtr _ptr;

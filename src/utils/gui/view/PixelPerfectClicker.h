@@ -25,7 +25,7 @@
 #ifndef PIXELPERFECTCLICKER_H
 #define PIXELPERFECTCLICKER_H
 
-#include "utils/world/WorldPtr.h"
+#include "utils/world/core/WorldPtr.h"
 
 class PixelPerfectClicker {
 public:

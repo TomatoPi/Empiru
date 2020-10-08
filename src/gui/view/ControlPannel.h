@@ -25,12 +25,12 @@
 #ifndef CONTROLPANNEL_H
 #define CONTROLPANNEL_H
 
+#include "utils/core/Observer.h"
 #include "utils/gui/view/View.h"
-#include "utils/engine/Observer.h"
 #include "utils/gui/view/Window.h"
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/ui/FontPrinter.h"
-#include "utils/world/WorldPtr.h"
+#include "utils/world/core/WorldPtr.h"
 
 #include "gui/GenericRenderer.h"
 

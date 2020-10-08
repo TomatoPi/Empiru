@@ -35,7 +35,7 @@ RenderingEngine::RenderingEngine(
     Window &               win,
     const hex::Viewport &  vp,
     const AbstractCamera & cam,
-    const WorldInterface & wo) : 
+    const MapInterface & wo) : 
   _window(win),
   _worldView(vp),
   _camera(cam),
@@ -45,36 +45,26 @@ RenderingEngine::RenderingEngine(
 {
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
-        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
-          return;
+        if (AbstractRenderer* rdr = findrdr(event._ptr)) {
+          rdr->targetSelected(event._ptr);
         }
-        getrdr(event._ptr)->targetSelected(event._ptr);
       });
   this->registerEvent<EventObjectDeselected>(
       [this](const EventObjectDeselected & event) -> void {
-        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
-          return;
+        if (AbstractRenderer* rdr = findrdr(event._ptr)) {
+          rdr->targetDeselected(event._ptr);
         }
-        getrdr(event._ptr)->targetDeselected(event._ptr);
       });
   this->registerEvent<EventObjectCreated>(
       [this](const EventObjectCreated & event) -> void{
-        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
-          if (AbstractRenderer* rdr = findrdr(event._ptr)) {
-            rdr->addTarget(event._ptr);
-          }
-        } else {
-          getrdr(event._ptr)->addTarget(event._ptr);
+        if (AbstractRenderer* rdr = findrdr(event._ptr)) {
+          rdr->addTarget(event._ptr);
         }
       });
   this->registerEvent<EventObjectDestroyed>(
       [this](const EventObjectDestroyed & event) -> void{
-        if (event._ptr->sizeClass() == WorldObject::Size::Hollow) {
-          if (AbstractRenderer* rdr = findrdr(event._ptr)) {
-            rdr->removeTarget(event._ptr);
-          }
-        } else {
-          getrdr(event._ptr)->removeTarget(event._ptr);
+        if (AbstractRenderer* rdr = findrdr(event._ptr)) {
+          rdr->removeTarget(event._ptr);
         }
       });
 }
@@ -176,31 +166,28 @@ void RenderingEngine::updateClickZones() {
   _colors.clear();
   uint32_t cptr(1);
   // Draw is made according to last drawstack
-  for (auto & itr : _drawstack) {
-    const WorldPtr& obj(itr.second);
-    if (obj->sizeClass() == WorldObject::Size::Hollow) {
-      if (findrdr(obj) == nullptr) {
-        continue;
+  try {
+    for (auto & itr : _drawstack) {
+      const WorldPtr& obj(itr.second);
+      if (AbstractRenderer* rdr = findrdr(obj)) {
+        SDL_Color color;
+        color.r = (cptr & 0x000000FF) >> 0;
+        color.g = (cptr & 0x0000FF00) >> 8;
+        color.b = (cptr & 0x00FF0000) >> 16;
+        color.a = 255;
+        // Get correct renderer and use it
+        rdr->renderAt(
+            obj,
+            _camera.getOrientation(), 
+            itr.first._x, itr.first._y,
+            _worldView, color);
+        _colors.emplace(color, obj);
+        cptr += 1;
       }
     }
-    SDL_Color color;
-    color.r = (cptr & 0x000000FF) >> 0;
-    color.g = (cptr & 0x0000FF00) >> 8;
-    color.b = (cptr & 0x00FF0000) >> 16;
-    color.a = 255;
-    // Get correct renderer and use it
-    try {
-      getrdr(obj)->renderAt(
-          obj,
-          _camera.getOrientation(), 
-          itr.first._x, itr.first._y,
-          _worldView, color);
-    } catch (const std::exception & e) {
-      LOG_ERROR("Failed draw object : %s\n", e.what());
-      throw;
-    }
-    _colors.emplace(color, obj);
-    cptr += 1;
+  } catch (const std::exception & e) {
+    LOG_ERROR("Failed draw object : %s\n", e.what());
+    throw;
   }
 }
 

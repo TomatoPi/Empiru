@@ -27,7 +27,7 @@
 
 #include <memory>
 #include <vector>
-#include "utils/engine/Observer.h"
+#include "utils/core/Observer.h"
 #include "utils/sound/SoundAsset.h"
 
 class SoundEngine : public Observer {

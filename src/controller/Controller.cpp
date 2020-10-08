@@ -34,7 +34,7 @@
 #include "entity/buildings/site/ConstructSite.h"
 
 /// \brief Constructor
-Controller::Controller(WorldInterface& w, GameEngine& engine) noexcept :
+Controller::Controller(MapInterface& w, GameEngine& engine) noexcept :
   Subject(), Observer(),
   _world(w), _engine(engine), 
   _selection(nullptr),

@@ -27,10 +27,10 @@
 #define GAMEENGINE_H
 
 #include "utils/core/Allocator.h"
-#include "utils/world/WorldPtr.h"
-#include "utils/world/WorldInterface.h"
+#include "utils/world/core/WorldPtr.h"
+#include "utils/world/map/MapInterface.h"
 #include "utils/engine/Behaviourer.h"
-#include "utils/engine/Observer.h"
+#include "utils/core/Observer.h"
 #include "events/GameEvents.h"
 
 #include "entity/functionals/TribeInfos.h"
@@ -61,7 +61,7 @@ private:
   DyingObjectsList _dyings;  ///< List of objects beeing destroyed
   
   TribeInfos   _playerTribe; ///< Object that store player's tribe infos
-  WorldInterface & _world;   ///< THA WO... oh wait ... joke already used
+  MapInterface & _world;   ///< THA WO... oh wait ... joke already used
   
   static GameEngine * _Engine;
   
@@ -72,7 +72,7 @@ public:
   }
   
   /// \brief Contructor
-  GameEngine(WorldInterface & w);
+  GameEngine(MapInterface & w);
   
   /// \brief Add an object to the game
   template <typename Builder>

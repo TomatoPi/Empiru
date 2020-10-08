@@ -36,8 +36,8 @@
 #include "utils/gui/view/AbstractCamera.h"
 #include "utils/gui/view/PixelPerfectClicker.h"
 #include "utils/gui/renderer/AbstractRenderer.h"
-#include "utils/world/WorldInterface.h"
-#include "utils/engine/Observer.h"
+#include "utils/world/map/MapInterface.h"
+#include "utils/core/Observer.h"
 
 /// \brief Object responsible of Game rendering
 class RenderingEngine : public PixelPerfectClicker, public Observer {
@@ -78,7 +78,7 @@ private:
   Window &                _window;    ///< Obvious
   const hex::Viewport &   _worldView; ///< Bridge between game and user
   const AbstractCamera &  _camera;    ///< View controller
-  const WorldInterface &  _world;     ///< Obvious too
+  const MapInterface &  _world;     ///< Obvious too
   
   RendererTable _renderers; ///< Table of {ObjectType, Associated renderer}
   DrawStack     _drawstack; ///< Ascending Y sorted list of objects beeing drawn during this frame
@@ -91,7 +91,7 @@ public:
       Window &               win,
       const hex::Viewport &  vp,
       const AbstractCamera & cam,
-      const WorldInterface & wo);
+      const MapInterface & wo);
   virtual ~RenderingEngine() noexcept = default;
   
   /// \brief Add a new renderer associated with given WorldObject type

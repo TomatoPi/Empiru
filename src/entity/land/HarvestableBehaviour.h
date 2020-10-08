@@ -25,8 +25,8 @@
 #ifndef HARVESTABLEBEHAVIOUR_H
 #define HARVESTABLEBEHAVIOUR_H
 
-#include "utils/world/WorldObject.h"
-#include "utils/world/WorldInterface.h"
+#include "utils/world/core/WorldObject.h"
+#include "utils/world/map/MapInterface.h"
 #include "utils/engine/Behaviourer.h"
 #include "utils/world/Harvestable.h"
 #include "engine/GameEngine.h"
@@ -36,7 +36,7 @@ class HarvestableBehaviour : public Behaviourer {
 public:
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject& obj, WorldPtr& ptr, WorldInterface & world) {
+  virtual void tick(WorldObject& obj, WorldPtr& ptr, MapInterface & world) {
     Harvestable & harvest(dynamic_cast<Harvestable &>(obj));
     if (harvest.empty()) {
       GameEngine::Get().removeObject(ptr);

@@ -26,13 +26,17 @@
 #define WORLD_WORLDOBJECT_H
 
 #include "utils/hex/Axial.h"
-#include <cassert>
 
 /// \brief Base polymorphic object for things on the map
 /// Each object is caracterized by a position and a pseudo hitbox
 /// Hitbox is the space on floor occupied by the object
 class WorldObject {
 public:
+  
+  /// \brief Define the position type of an object
+  typedef hex::Axial Position;
+  
+protected:
   
   /// \brief Specify object's size on the map
   enum class Size {
@@ -41,29 +45,14 @@ public:
     Hollow, ///< Utility objects that don't occupy space
   };
   
-  typedef hex::Axial Position;
+  /// \brief change object's size class
+  inline void setSizeClass(Size s) {_size = s;}
+  /// \brief return object's size class
+  inline Size sizeClass() const noexcept {return _size;}
   
-private:
+  /// \brief Construct an object
+  WorldObject(Size size, float radius=0.5f, Position pos=Position()) noexcept;
   
-  Position _pos;     ///< Object's position
-  float    _radius;  ///< Hitbox radius for small objects
-  Size     _size;    ///< Object's size
-  
-protected:
-  
-  void setSizeClass(Size s) {
-    _size = s;
-  }
-  
-public:
-  
-  /// \brief Construct a Tile Sized Object
-  WorldObject(Size size, float radius=0.5f, Position pos=Position()) noexcept :
-    _pos(pos),
-    _radius(radius),
-    _size(size)
-  {
-  }
   /// \brief Copy constructor
   WorldObject(const WorldObject &) noexcept = default;
   /// \brief Copy assignement
@@ -71,53 +60,26 @@ public:
   /// \brief Destructor
   virtual ~WorldObject() noexcept = default;
   
-  /// \brief return object's position
-  const Position & pos() const noexcept {
-    return _pos;
-  }
-  /// \brief set object's position
-  void pos(const Position & pos) noexcept {
-    _pos = pos;
-  }
+private:
   
-  /// \brief return object's size class
-  Size sizeClass() const noexcept {
-    return _size;
-  }
+  Position _pos;     ///< Object's position
+  float    _radius;  ///< Hitbox radius for small objects
+  Size     _size;    ///< Object's size
+  
+public:
+  
+  /// \brief return object's position
+  const Position & pos() const noexcept {return _pos;}
+  /// \brief set object's position
+  void pos(const Position & pos) noexcept {_pos = pos;}
+  
   /// \brief return object's radius or 1 if tile sized
-  float radius() const noexcept {
-    return _radius;
-  }
+  float radius() const noexcept {return _radius;}
   
   /// \brief Method that must return true obj collides this object
-  bool collide(const WorldObject & obj) const noexcept {
-    if (_size == Size::Hollow || obj._size == Size::Hollow)
-      return false;
-    if (_size == Size::Small) {
-      if (obj._size == Size::Small)
-        return smallCollide(*this, obj);
-      return stCollide(*this, obj);
-    }
-    if (_size == Size::Tile) {
-      if (obj._size == Size::Small)
-        return stCollide(obj, *this);
-      return tileCollide(*this, obj);
-    }
-    assert(0);
-    return false;
-  }
+  bool collide(const WorldObject & obj) const noexcept;
   /// \brief Method that return true if pos is in this object
-  bool collide(const Position & pos) const noexcept {
-    if (_size == Size::Hollow) return false;
-    if (_size == Size::Small) {
-      return Position::distance(pos, _pos) < _radius;
-    }
-    if (_size == Size::Tile) {
-      return _pos.tile() == pos.tile();
-    }
-    assert(0);
-    return false;
-  }
+  bool collide(const Position & pos) const noexcept;
   
 public:
   

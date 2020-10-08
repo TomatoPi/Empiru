@@ -16,18 +16,10 @@
  */
 
 /// 
-/// \file   WorldRef.h
+/// \file   MonoObject.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 06:14
+/// \date 8 octobre 2020, 22:32
 ///
 
-#ifndef WORLDREF_H
-#define WORLDREF_H
-
-#include "utils/core/IndexPtr.h"
-#include "utils/world/WorldObject.h"
-
-using WorldPtr = core::IndexPtr<WorldObject>;
-
-#endif /* WORLDREF_H */
+#include "MonoObject.h"

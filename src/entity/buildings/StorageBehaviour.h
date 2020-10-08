@@ -26,8 +26,8 @@
 #define STORAGEBEHAVIOUR_H
 
 #include "entity/functionals/TribeInfos.h"
-#include "utils/world/WorldObject.h"
-#include "utils/world/WorldInterface.h"
+#include "utils/world/core/WorldObject.h"
+#include "utils/world/map/MapInterface.h"
 #include "utils/engine/Behaviourer.h"
 #include "utils/world/Storage.h"
 
@@ -44,7 +44,7 @@ public:
   }
   
   /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject & obj, WorldPtr& ptr, WorldInterface & world) {
+  virtual void tick(WorldObject & obj, WorldPtr& ptr, MapInterface & world) {
     Storage & storage(dynamic_cast<Storage &>(obj));
     for (auto & stack : storage.stock()) {
       _infos.addStack(stack);

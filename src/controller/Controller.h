@@ -26,9 +26,9 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "utils/engine/Observer.h"
-#include "utils/world/WorldInterface.h"
-#include "utils/world/WorldPtr.h"
+#include "utils/core/Observer.h"
+#include "utils/world/map/MapInterface.h"
+#include "utils/world/core/WorldPtr.h"
 #include "engine/GameEngine.h"
 
 /// \brief Main handler for user control
@@ -41,7 +41,7 @@ private:
     BuildGhost,
   };
   
-  WorldInterface&       _world;     ///< THA WORLDOOOOO
+  MapInterface&       _world;     ///< THA WORLDOOOOO
   GameEngine&           _engine;    ///< The Core of the GAMEUUH
   
   WorldPtr              _selection; ///< The selected Object
@@ -59,7 +59,7 @@ private:
 public:
   
   /// \brief Constructor
-  Controller(WorldInterface& w, GameEngine& engine) noexcept;
+  Controller(MapInterface& w, GameEngine& engine) noexcept;
   
   /// \brief Called when a left click is performed at given position
   void leftClickOn(const WorldObject::Position& click, WorldPtr& obj);

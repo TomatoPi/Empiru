@@ -26,7 +26,7 @@
 #define CONSTRUCTIONGHOST_H
 
 #include <typeinfo>
-#include "utils/world/WorldObject.h"
+#include "utils/world/core/WorldObject.h"
 
 class ConstructionGhost : public WorldObject {
 private:

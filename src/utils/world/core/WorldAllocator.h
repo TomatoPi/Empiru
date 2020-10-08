@@ -16,23 +16,19 @@
  */
 
 /// 
-/// \file   Warehouse.h
+/// \file   GenericAllocator.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 7 octobre 2020, 00:56
+/// \date 19 septembre 2020, 06:18
 ///
 
-#ifndef WAREHOUSE_H
-#define WAREHOUSE_H
+#ifndef GENERICALLOCATOR_H
+#define GENERICALLOCATOR_H
 
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/Storage.h"
+#include "utils/core/IndexAllocator.h"
 
-class Warehouse : public WorldObject, public Storage {
-public:
-  Warehouse();
-  Warehouse(const Warehouse &) = default;
-  Warehouse& operator= (const Warehouse&) = default;
-};
+class WorldObject;
+template <class T>
+using WorldAllocator = core::IndexAllocator<T,WorldObject>;
 
-#endif /* WAREHOUSE_H */
+#endif /* GENERICALLOCATOR_H */

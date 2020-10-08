@@ -30,7 +30,7 @@
 class SiteBehaviour : public Behaviourer {
 public:
   
-  virtual void tick(WorldObject & obj, WorldPtr& ptr, WorldInterface & world);
+  virtual void tick(WorldObject & obj, WorldPtr& ptr, MapInterface & world);
 };
 
 #endif /* SITEBEHAVIOUR_H */

@@ -27,12 +27,12 @@
 
 #include <unordered_map>
 
-#include "utils/world/WorldInterface.h"
-#include "utils/world/Tile.h"
+#include "utils/world/map/MapInterface.h"
+#include "utils/world/map/Tile.h"
 #include "utils/log.h"
 
 /// \brief Object that handle Map and Objects
-class WorldMap : public WorldInterface {
+class WorldMap : public MapInterface {
 private :
   
   /// \brief Hollow Matrix

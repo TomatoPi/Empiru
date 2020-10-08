@@ -35,7 +35,7 @@
 #include "entity/buildings/site/ConstructSite.h"
 
 /// \brief Must compute one behaviour tick of obj
-void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world) {
+void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, MapInterface& world) {
   Peon & peon(static_cast<Peon &>(obj));
   // Pass if nothing to do
   if (!peon.hasOrders()) return;
@@ -64,7 +64,7 @@ void PeonBehaviour::tick(WorldObject& obj, WorldPtr& ptr, WorldInterface& world)
 }
 
 /// \brief compute harvest order
-void PeonBehaviour::build(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+void PeonBehaviour::build(Peon& peon, WorldPtr& ptr, MapInterface& world) {
   const OrderBuild& order(static_cast<const OrderBuild&>(peon.currentOrder()));
   WorldPtr obj(order.target());
   // check if target always exists
@@ -88,7 +88,7 @@ void PeonBehaviour::build(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
 }
 
 /// \brief compute harvest order
-void PeonBehaviour::supply(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+void PeonBehaviour::supply(Peon& peon, WorldPtr& ptr, MapInterface& world) {
   const OrderSupply& order(static_cast<const OrderSupply&>(peon.currentOrder()));
   WorldPtr obj(order.target());
   // check if target always exists
@@ -113,7 +113,7 @@ void PeonBehaviour::supply(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
 }
 
 /// \brief compute harvest order
-void PeonBehaviour::store(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+void PeonBehaviour::store(Peon& peon, WorldPtr& ptr, MapInterface& world) {
   const OrderStore& order(static_cast<const OrderStore&>(peon.currentOrder()));
   WorldPtr obj(order.target());
   // check if target always exists
@@ -140,7 +140,7 @@ void PeonBehaviour::store(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
 }
 
 /// \brief compute harvest order
-void PeonBehaviour::harvest(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+void PeonBehaviour::harvest(Peon& peon, WorldPtr& ptr, MapInterface& world) {
   const OrderHarvest& order(static_cast<const OrderHarvest&>(peon.currentOrder()));
   WorldPtr obj(order.target());
   // check if target always exists
@@ -176,7 +176,7 @@ void PeonBehaviour::harvest(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
 }
 
 /// \brief compute path order for the peon
-void PeonBehaviour::moveTo(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
+void PeonBehaviour::moveTo(Peon& peon, WorldPtr& ptr, MapInterface& world) {
   // Let's get it started
   const WorldObject::Position oldpos(peon.pos());
   const OrderMoveTo& order(static_cast<const OrderMoveTo&>(peon.currentOrder()));
@@ -242,7 +242,7 @@ bool PeonBehaviour::tryPosition(
         Peon& peon, 
         WorldPtr& ptr, 
         WorldObject** obstacle, 
-        WorldInterface& world)
+        MapInterface& world)
 const {
   // Check validity
   if (!world.isOnMap(peon.pos())) {
