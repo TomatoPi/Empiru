@@ -47,11 +47,11 @@
 #include "entity/buildings/site/ConstructSite.h"
 #include "entity/buildings/site/GhostRenderer.h"
 
-#include "buildings/House.h"
+#include "entity/buildings/house/House.h"
 #include "entity/buildings/StorageBehaviour.h"
 
 #include "world/World.h"
-#include "world/WorldAllocator.h"
+#include "utils/world/WorldAllocator.h"
 
 #include "controller/SDLHandler.h"
 #include "controller/Controller.h"
@@ -92,6 +92,7 @@ namespace {
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
   
+  LOG_DEBUG("%lu %lu\n", sizeof(std::unordered_map<int,int>), sizeof(std::unordered_map<long int,long int>))
   LOG_DEBUG("%lu %lu\n", sizeof(WorldPtr), sizeof(void*));
   
   /* Create the World and main engine */
@@ -127,6 +128,7 @@ int main(int argc, char** argv) {
   _gameController.attachObserver(&_controlPanel);
   
   _gameEngine.attachObserver(&_rdrEngine);
+  _gameEngine.attachObserver(&_gameController);
   
   /* Register basic kinds */
   

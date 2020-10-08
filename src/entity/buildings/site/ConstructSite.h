@@ -33,13 +33,13 @@
 #include "utils/log.h"
 
 #include "entity/buildings/warehouse/Warehouse.h"
-#include "buildings/House.h"
+#include "entity/buildings/house/House.h"
 #include "ConstructionGhost.h"
 
 class ConstructionSite : public WorldObject, public Recipe {
 public:
   
-  typedef std::unordered_set<WorldPtr,WorldPtrHash,WorldPtrEquals> WorkersList;
+  typedef std::unordered_set<WorldPtr,core::PtrHash,core::PtrEquals> WorkersList;
   
 private:
 
@@ -74,8 +74,8 @@ public:
       site._progress = 0;
       site._type = &_ghost.type();
       if (typeid(House) == _ghost.type()) {
-        site.setRecipe({Stack(Stack::Wood, 50), Stack(Stack::Rock, 10)});
-        site._difficulty = 30;
+        //site.setRecipe({Stack(Stack::Wood, 50), Stack(Stack::Rock, 10)});
+        site._difficulty = 1;
       }
       else if (typeid(Warehouse) == _ghost.type()) {
         site.setRecipe({Stack(Stack::Wood, 100), Stack(Stack::Rock, 10)});

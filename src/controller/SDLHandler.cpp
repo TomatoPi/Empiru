@@ -27,7 +27,7 @@
 #include "utils/hex/Conversion.h"
 #include "utils/log.h"
 #include "utils/hex/Viewport.h"
-#include "buildings/House.h"
+#include "entity/buildings/house/House.h"
 #include "entity/buildings/warehouse/Warehouse.h"
 
 /// \brief Size of border (in pixels) used to scroll view

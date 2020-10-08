@@ -32,7 +32,7 @@
 #include "engine/GameEngine.h"
 
 /// \brief Main handler for user control
-class Controller : public Subject {
+class Controller : public Subject, public Observer {
 private:
   
   enum class StateFlag {

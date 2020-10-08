@@ -44,7 +44,7 @@ GameEngine::GameEngine(WorldInterface & w) :
 }
 
 /// \brief Remove an object from the game
-void GameEngine::removeObject(const WorldPtr& ptr) {
+void GameEngine::removeObject(WorldPtr ptr) {
   this->sendNotification(EventObjectDestroyed(ptr));
   _dyings.push_back(ptr);
 }

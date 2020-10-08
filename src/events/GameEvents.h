@@ -29,17 +29,17 @@
 #include "utils/engine/Observer.h"
 
 struct EventObjectCreated : public Event {
-  const WorldPtr& _ptr;
+  WorldPtr _ptr;
   EventObjectCreated(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectDestroyed : public Event {
-  const WorldPtr& _ptr;
+  WorldPtr _ptr;
   EventObjectDestroyed(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventEntityDied : public Event {
-  const WorldPtr& _ptr;
+  WorldPtr _ptr;
   EventEntityDied(const WorldPtr& ptr) noexcept : _ptr(ptr) {};
 };
 

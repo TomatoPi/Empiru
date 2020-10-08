@@ -67,14 +67,14 @@ public:
   /// \brief Copy constructor
   WorldObject(const WorldObject &) noexcept = default;
   /// \brief Copy assignement
-  WorldObject & operator= (const WorldObject &) noexcept = default;
+  WorldObject& operator= (const WorldObject &) noexcept = default;
   /// \brief Destructor
   virtual ~WorldObject() noexcept = default;
   
   /// \brief return object's position
   const Position & pos() const noexcept {
     return _pos;
-  } 
+  }
   /// \brief set object's position
   void pos(const Position & pos) noexcept {
     _pos = pos;
@@ -90,7 +90,7 @@ public:
   }
   
   /// \brief Method that must return true obj collides this object
-  virtual bool collide(const WorldObject & obj) const noexcept {
+  bool collide(const WorldObject & obj) const noexcept {
     if (_size == Size::Hollow || obj._size == Size::Hollow)
       return false;
     if (_size == Size::Small) {
@@ -107,7 +107,7 @@ public:
     return false;
   }
   /// \brief Method that return true if pos is in this object
-  virtual bool collide(const Position & pos) const noexcept {
+  bool collide(const Position & pos) const noexcept {
     if (_size == Size::Hollow) return false;
     if (_size == Size::Small) {
       return Position::distance(pos, _pos) < _radius;
@@ -123,7 +123,7 @@ public:
   
   /// \brief Collision between two small objects
   static bool smallCollide(const WorldObject &a, const WorldObject &b) 
-    noexcept 
+    noexcept
   {
     return Position::distance(a._pos, b._pos) < (a._radius + b._radius);
   }
@@ -145,4 +145,3 @@ public:
 };
 
 #endif /* WORLD_WORLDOBJECT_H */
-

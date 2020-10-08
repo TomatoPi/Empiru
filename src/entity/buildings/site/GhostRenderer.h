@@ -32,7 +32,7 @@
 class GhostRenderer : public AbstractRenderer {
 private:
   
-  typedef std::unordered_map<WorldPtr,bool,WorldPtrHash,WorldPtrEquals> 
+  typedef std::unordered_map<WorldPtr,bool,core::PtrHash,core::PtrEquals> 
     Targets;
   
   Targets       _targets;

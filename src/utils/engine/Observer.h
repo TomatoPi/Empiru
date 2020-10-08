@@ -41,6 +41,9 @@
 #include <type_traits>
 #include <unordered_map>
 #include <cassert>
+#include <ctime>
+#include <iomanip>
+#include <iostream>
 
 #include "utils/log.h"
 
@@ -129,10 +132,10 @@ public:
   void handleEvent(const Event & event) const {
     auto itr(_table.find(std::type_index(typeid(event))));
     if (itr != _table.end()) {
-      //LOG_DEBUG("Handle known Event : %s<-%s\n", typeid(*this).name(), typeid(event).name());
+      LOG_DEBUG("Handle known Event : %20s <- %20s\n", typeid(*this).name(), typeid(event).name());
       itr->second->operator()(event);
     } else {
-      //LOG_DEBUG("Unkown event Kind : %s<-%s\n", typeid(*this).name(), typeid(event).name());
+      LOG_DEBUG("Unkown event Kind  : %20s <- %20s\n", typeid(*this).name(), typeid(event).name());
     }
   }
 };
@@ -149,6 +152,8 @@ private:
   
 public:
   
+  virtual ~Subject() noexcept = default;
+  
   /// \brief Attach an observer to this subject
   /// This observer will be notified on each subject update
   void attachObserver(Observer * obs) noexcept {
@@ -160,13 +165,16 @@ protected:
   
   /// \brief Called to send event to attached observers
   void sendNotification(const Event & event) const {
-    //LOG_DEBUG("Send Event : %s->%s\n", typeid(*this).name(), typeid(event).name());
+    std::time_t time(std::time(nullptr));
+    std::tm tm = *std::localtime(&time);
+    std::cout << "\n" << std::put_time(&tm, "%H %M %S") << std::endl;
+    LOG_DEBUG("Send Event : %20s -> %20s\n", typeid(*this).name(), typeid(event).name());
     int i(0);
     for (auto & observer : _watchers) {
       observer->handleEvent(event);
       ++i;
     }
-    //LOG_DEBUG("%d Notifications have been sent\n", i);
+    LOG_DEBUG("%d Notifications have been sent\n\n", i);
   }
 };
 

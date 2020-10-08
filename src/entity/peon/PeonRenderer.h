@@ -47,7 +47,7 @@ private:
   };
     
   /// \brief Animation datas are stored for each attached peon
-  typedef std::unordered_map<WorldPtr,Datas,WorldPtrHash,WorldPtrEquals> 
+  typedef std::unordered_map<WorldPtr,Datas,core::PtrHash,core::PtrEquals>
     Targets;
   
   std::shared_ptr<SpriteSheet> _sheet;    ///< Basic asset

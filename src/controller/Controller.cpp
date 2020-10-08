@@ -35,11 +35,32 @@
 
 /// \brief Constructor
 Controller::Controller(WorldInterface& w, GameEngine& engine) noexcept :
+  Subject(), Observer(),
   _world(w), _engine(engine), 
   _selection(nullptr),
   _cursor(),
   _status(StateFlag::NoSelection)
 {
+    this->registerEvent<EventObjectDestroyed>(
+        [this](const EventObjectDestroyed& event) -> void {
+          if (event._ptr == _selection) {
+            switch (_status) {
+            case StateFlag::NoSelection :
+              assert(0 && "Invalid State");
+              break;
+            case StateFlag::ObjectSelected :
+              _selection = nullptr;
+              _status = StateFlag::NoSelection;
+              break;
+            case StateFlag::BuildGhost :
+              _selection = nullptr;
+              _status = StateFlag::NoSelection;
+              break;
+            default:
+              assert(0 && "Invalid State");
+            }
+          }
+        });
 }
 
 void Controller::selectObject(WorldPtr& ptr) noexcept {

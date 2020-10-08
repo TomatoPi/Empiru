@@ -29,25 +29,25 @@
 #include "utils/engine/Observer.h"
 
 struct EventObjectSelected : public Event {
-  const WorldPtr& _ptr;
+  WorldPtr _ptr;
   EventObjectSelected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectDeselected : public Event {
-  const WorldPtr& _ptr;
+  WorldPtr _ptr;
   EventObjectDeselected(const WorldPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectAction : public Event {
-  const WorldPtr& _obj;
-  const WorldPtr& _target;
+  WorldPtr _obj;
+  WorldPtr _target;
   EventObjectAction(const WorldPtr& obj, const WorldPtr& target) noexcept :
     _obj(obj), _target(target)
   {}
 };
 
 struct EventCursorMoved : public Event {
-  const WorldObject::Position& _click;
+  WorldObject::Position _click;
   int _x;
   int _y;
   EventCursorMoved(const WorldObject::Position& click, int x, int y) noexcept :

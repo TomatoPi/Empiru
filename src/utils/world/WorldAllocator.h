@@ -16,18 +16,19 @@
  */
 
 /// 
-/// \file   WorldRef.h
+/// \file   GenericAllocator.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 06:14
+/// \date 19 septembre 2020, 06:18
 ///
 
-#ifndef WORLDREF_H
-#define WORLDREF_H
+#ifndef GENERICALLOCATOR_H
+#define GENERICALLOCATOR_H
 
-#include "utils/core/IndexPtr.h"
+#include "utils/core/IndexAllocator.h"
 #include "utils/world/WorldObject.h"
 
-using WorldPtr = core::IndexPtr<WorldObject>;
+template <class T>
+using WorldAllocator = core::IndexAllocator<T,WorldObject>;
 
-#endif /* WORLDREF_H */
+#endif /* GENERICALLOCATOR_H */

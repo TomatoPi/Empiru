@@ -26,9 +26,9 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
-#include "utils/world/WorldInterface.h"
+#include "utils/core/Allocator.h"
 #include "utils/world/WorldPtr.h"
-#include "utils/world/Allocator.h"
+#include "utils/world/WorldInterface.h"
 #include "utils/engine/Behaviourer.h"
 #include "utils/engine/Observer.h"
 #include "events/GameEvents.h"
@@ -44,7 +44,7 @@
 class GameEngine : public Subject, public Observer {
 private:
   
-  typedef Allocator<WorldObject,WorldPtr> _Allocator;
+  typedef core::Allocator<WorldObject,WorldPtr,std::size_t> _Allocator;
 
   /// \brief Table of storage by objects type
   typedef std::unordered_map<std::type_index, _Allocator*>   ObjectsTable;
@@ -86,7 +86,7 @@ public:
   /// \brief Remove an object from the game
   /// The object is marked for destruction, and removed when we are sure that
   /// it will not break the game
-  void removeObject(const WorldPtr& ptr);
+  void removeObject(WorldPtr ptr);
   
   /// \brief Add an object kind to the gameEngine
   void registerObjectKind(const std::type_info & type, _Allocator * alloc);
