@@ -16,26 +16,32 @@
  */
 
 /// 
-/// \file   Rock.h
+/// \file   DepositEntity.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 14:18
+/// \date 9 octobre 2020, 20:31
 ///
 
-#ifndef ROCK_H
-#define ROCK_H
+#include "DepositEntity.h"
 
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/Harvestable.h"
+const DepositDecorator& DepositEntity::deposit() const noexcept {
+  return static_cast<const DepositDecorator&>(*getDecorator<DepositDecorator>());
+}
 
-/// \brief Rocks are minerals sets forming shapes and things
-class Rock : public WorldObject, public Harvestable {
-public:
-  
-  /// \brief Constructor
-  Rock();
-  Rock(const Rock &) = default;
-  Rock & operator= (const Rock &) = default;
-};
+DepositEntity::Builder::Builder(
+  GameEngineInterface& engine, 
+  const WorldObject::Position& pos,
+  Stack::Ressource type, int qty) 
+noexcept :
+  Entity::Builder(WorldObject(WorldObject::Size::Small, 0.1, pos)), 
+  _engine(engine), 
+  _type(type), 
+  _qty(qty)
+{
+}
 
-#endif /* ROCK_H */
+void DepositEntity::Builder::operator() (EntityPtr& ptr) const noexcept {
+  this->Entity::Builder::operator ()(ptr);
+  DepositDecorator::Builder depbuilder(ptr, _type, _qty);
+  _engine.createDecorator(typeid(DepositDecorator), depbuilder);
+}

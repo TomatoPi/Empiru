@@ -16,16 +16,27 @@
  */
 
 /// 
-/// \file   House.cpp
+/// \file   Deposit.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 09:18
+/// \date 9 octobre 2020, 19:02
 ///
 
-#if 0
-#include "House.h"
+#include "Deposit.h"
 
-House::House() : WorldObject(WorldObject::Size::Tile), Storage() {
-  
+DepositDecorator::Builder::Builder(
+  const EntityPtr& entity, 
+  Stack::Ressource type, 
+  int size)
+noexcept :
+  Decorator::Builder(entity),
+  _size(size),
+  _type(type)
+{  
 }
-#endif
+
+void DepositDecorator::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+  this->Decorator::Builder::operator()(ptr);
+  DepositDecorator& deposit(static_cast<DepositDecorator&>(*ptr));
+  deposit._stack = Stack(_type, _size);
+}

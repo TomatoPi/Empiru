@@ -26,7 +26,7 @@
 #include <cassert>
 
 #include "PeonRenderer.h"
-#include "entity/peon/Peon.h"
+#include "entity/peon/PeonEntity.h"
 
 /// \brief Constructor
 /// \throw runtime_error on failure
@@ -49,7 +49,7 @@ void PeonRenderer::renderAt(
     int ori, int x, int y,
     const hex::Viewport & view)
 {
-  const Peon& peon(static_cast<const Peon&>(*obj));
+  const PeonEntity& peon(static_cast<const PeonEntity&>(*obj));
   Datas & datas(_targets.at(obj));
   int frame = peon.mover().status() == MoverDecorator::Status::Walking ?
     datas._anim.tick() : 
@@ -92,7 +92,7 @@ void PeonRenderer::renderAt(
     const hex::Viewport & view,
     const SDL_Color & c)
 {
-  const Peon & peon(static_cast<const Peon &>(*obj));
+  const PeonEntity & peon(static_cast<const PeonEntity &>(*obj));
   Datas & datas(_targets.at(obj));
   int frame = 0;//peon.hasOrders() ? datas._anim.value() : 0;
   //ori = (ori + 6 - peon.direction().orientation()) % 6;

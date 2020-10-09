@@ -34,7 +34,7 @@
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
-class Peon : public Entity {
+class PeonEntity : public Entity {
 public:
   
   const MoverDecorator& mover() const noexcept;

@@ -16,16 +16,41 @@
  */
 
 /// 
-/// \file   House.cpp
+/// \file   DepositBeh.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 09:18
+/// \date 9 octobre 2020, 19:01
 ///
 
-#if 0
-#include "House.h"
+#ifndef DEPOSITBEH_H
+#define DEPOSITBEH_H
 
-House::House() : WorldObject(WorldObject::Size::Tile), Storage() {
+#include "entity/decorators/deposit/Deposit.h"
+#include "engine/core/entity/EntityBehaviour.h"
+#include "engine/core/EngineInterface.h"
+
+class DepositEntityBeh : public EntityBeh {
+private:
   
-}
-#endif
+  GameEngineInterface& _engine;
+  
+public:
+  
+  explicit DepositEntityBeh(GameEngineInterface& engine) noexcept : 
+    _engine(engine) 
+  {
+  }
+  virtual ~DepositEntityBeh() noexcept = default;
+  
+  virtual void 
+  operator() (Entity& entity, EntityPtr ptr) noexcept override {
+    const DepositDecorator& deposit(static_cast<DepositDecorator&>(
+      *entity.getDecorator<DepositDecorator>()));
+    if (deposit.empty()) {
+      _engine.discardEntity(ptr);
+    }
+  }
+};
+
+#endif /* DEPOSITBEH_H */
+

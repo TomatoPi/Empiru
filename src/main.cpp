@@ -39,17 +39,26 @@
 
 #include "controller/impl/Controller.h"
 #include "controller/impl/SDLHandler.h"
+#include "controller/utils/GenericSelectorController.h"
 
 #include "gui/impl/Camera.h"
 #include "gui/impl/RenderingEngine.h"
 
 #include "sound/SoundEngine.h"
 
-#include "entity/peon/Peon.h"
+#include "entity/peon/PeonEntity.h"
 #include "entity/peon/PeonRenderer.h"
 #include "entity/peon/PeonController.h"
+
+#include "entity/land/tree/Tree.h"
+#include "entity/land/rock/Rock.h"
+
+#include "entity/utils/deposit/DepositEntityBeh.h"
+
 #include "entity/decorators/mover/Mover.h"
 #include "entity/decorators/mover/MoverBeh.h"
+
+#include "entity/decorators/deposit/Deposit.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -74,7 +83,8 @@ int main(int argc, char** argv) {
   GameEngine _gameEngine(_worldMap);
   
   /* Create the UI */
-  std::shared_ptr<Window> _window = Window::createWindow(1920/FACTOR, 1080/FACTOR, FACTOR);
+  std::shared_ptr<Window> _window = 
+    Window::createWindow(1920/FACTOR, 1080/FACTOR, FACTOR);
   ControlPannel _controlPanel(
     409/FACTOR, 1080/FACTOR, 
     *_window.get(), 
@@ -109,6 +119,9 @@ int main(int argc, char** argv) {
     _gameEngine.registerDecorator(typeid(MoverDecorator), 
         new DecoratorAllocator<MoverDecorator>(), 
         new MoverDecoratorBeh(_worldMap));
+    _gameEngine.registerDecorator(typeid(DepositDecorator),
+        new DecoratorAllocator<DepositDecorator>(),
+        nullptr);
   }
   
   { /* tile */
@@ -126,7 +139,7 @@ int main(int argc, char** argv) {
     paths.whareh_sheet = "medias/sprites/entity/peon/attached_warehouse.png";
     paths.notify_sheet = "medias/sprites/entity/peon/notify.png";
     
-    auto asset(_spritesRegister.registerAsset(typeid(Peon),
+    auto asset(_spritesRegister.registerAsset(typeid(PeonEntity),
         "medias/sprites/entity/peon/peon", 
         gui::ObjectAsset::ReqSheet
           | gui::ObjectAsset::ReqMask
@@ -134,15 +147,14 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerEntity(typeid(Peon), new EntityAllocator<Peon>(), nullptr);
-    _rdrEngine.attachRenderer(typeid(Peon), 
+    _gameEngine.registerEntity(typeid(PeonEntity), new EntityAllocator<PeonEntity>(), nullptr);
+    _rdrEngine.attachRenderer(typeid(PeonEntity), 
         new PeonRenderer(asset, paths, _window->renderer));
     _soundEngine->registerSound(SoundAsset::loadFromFiles(
         "medias/sounds/peons/peon-", ".ogg", 3));
-    _gameController.registerController(typeid(Peon), 
+    _gameController.registerController(typeid(PeonEntity), 
         new PeonController(_gameController));
   }
-#if 0
   { /* Tree */
     auto asset(_spritesRegister.registerAsset(typeid(Tree),
         "medias/sprites/land/toufu", 
@@ -150,10 +162,13 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerObjectKind(typeid(Tree), new WorldAllocator<Tree>());
-    _gameEngine.attachBehaviour(typeid(Tree), new HarvestableBehaviour());
+    _gameEngine.registerEntity(typeid(Tree), 
+        new EntityAllocator<Tree>(), 
+        new DepositEntityBeh(_gameEngine));
     _rdrEngine.attachRenderer(typeid(Tree), 
         new GenericRenderer<OnFootBlitter>(asset));
+    _gameController.registerController(typeid(Tree), 
+        new GenericSelectorController(_gameController));
   }
   { /* Rocks */
     auto asset(_spritesRegister.registerAsset(typeid(Rock),
@@ -162,11 +177,15 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerObjectKind(typeid(Rock), new WorldAllocator<Rock>());
-    _gameEngine.attachBehaviour(typeid(Rock), new HarvestableBehaviour());
+    _gameEngine.registerEntity(typeid(Rock), 
+        new EntityAllocator<Rock>(), 
+        new DepositEntityBeh(_gameEngine));
     _rdrEngine.attachRenderer(typeid(Rock), 
         new GenericRenderer<OnFootBlitter>(asset));
+    _gameController.registerController(typeid(Rock), 
+        new GenericSelectorController(_gameController));
   }
+#if 0
   { /* House */
     auto asset(_spritesRegister.registerAsset(typeid(House),
         "medias/sprites/buildings/house_peon/house_peon", 
@@ -220,15 +239,22 @@ int main(int argc, char** argv) {
   
   /* Manualy populate world */
   
-  _gameEngine.createEntity(typeid(Peon), Peon::Builder(_gameEngine, WorldObject::Position(0,0)));
-  _gameEngine.createEntity(typeid(Peon), Peon::Builder(_gameEngine, WorldObject::Position(2,2)));
+  _gameEngine.createEntity(typeid(PeonEntity), 
+      PeonEntity::Builder(_gameEngine, WorldObject::Position(0,0)));
+  _gameEngine.createEntity(typeid(PeonEntity), 
+      PeonEntity::Builder(_gameEngine, WorldObject::Position(2,2)));
   
-//  _gameEngine.createObject(typeid(Tree), MoverTo(1,1));
-//  _gameEngine.createObject(typeid(Tree), MoverTo(1.6,1));
-//  _gameEngine.createObject(typeid(Tree), MoverTo(2.6,1));
-//  _gameEngine.createObject(typeid(Tree), MoverTo(1.3,1.5));
-//  
-//  _gameEngine.createObject(typeid(Rock), MoverTo(0,2));
+  _gameEngine.createEntity(typeid(Tree), 
+      Tree::Builder(_gameEngine, WorldObject::Position(1,1)));
+  _gameEngine.createEntity(typeid(Tree), 
+      Tree::Builder(_gameEngine, WorldObject::Position(1.6,1)));
+  _gameEngine.createEntity(typeid(Tree), 
+      Tree::Builder(_gameEngine, WorldObject::Position(2.6,1)));
+  _gameEngine.createEntity(typeid(Tree), 
+      Tree::Builder(_gameEngine, WorldObject::Position(1.3,1.5)));
+  
+  _gameEngine.createEntity(typeid(Rock), 
+      Rock::Builder(_gameEngine, WorldObject::Position(0,2)));
 //  
 //  _gameEngine.createObject(typeid(House), MoverTo(3,2));
  

@@ -27,19 +27,19 @@
 #include "SoundEngine.h"
 #include "utils/log.h"
 #include "controller/events/ControllerEvents.h"
-#include "entity/peon/Peon.h"
+#include "entity/peon/PeonEntity.h"
 
 /// \brief Don't do great things
 SoundEngine::SoundEngine() : _table() {
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
-        if (typeid(Peon) != typeid(*event._ptr))
+        if (typeid(PeonEntity) != typeid(*event._ptr))
           return;
         this->playRandomSound(0);
       });
   this->registerEvent<EventObjectAction>(
       [this](const EventObjectAction & event) -> void {
-        if (typeid(Peon) != typeid(*event._obj))
+        if (typeid(PeonEntity) != typeid(*event._obj))
           return;
         this->playRandomSound(0);
       });

@@ -60,22 +60,22 @@
         </logicalFolder>
         <logicalFolder name="f1" displayName="land" projectFiles="true">
           <logicalFolder name="f3" displayName="rock" projectFiles="true">
-            <itemPath>src/entity/rock/Rock.cpp</itemPath>
-            <itemPath>src/entity/rock/Rock.h</itemPath>
+            <itemPath>src/entity/land/rock/Rock.cpp</itemPath>
+            <itemPath>src/entity/land/rock/Rock.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="tree" projectFiles="true">
-            <itemPath>src/entity/tree/Tree.cpp</itemPath>
-            <itemPath>src/entity/tree/Tree.h</itemPath>
+            <itemPath>src/entity/land/tree/Tree.cpp</itemPath>
+            <itemPath>src/entity/land/tree/Tree.h</itemPath>
           </logicalFolder>
           <itemPath>src/entity/land/HarvestableBehaviour.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f4" displayName="units" projectFiles="true">
           <logicalFolder name="f1" displayName="peon" projectFiles="true">
             <itemPath>src/entity/peon/Order.h</itemPath>
-            <itemPath>src/entity/peon/Peon.cpp</itemPath>
-            <itemPath>src/entity/peon/Peon.h</itemPath>
             <itemPath>src/entity/peon/PeonBehaviour.cpp</itemPath>
             <itemPath>src/entity/peon/PeonBehaviour.h</itemPath>
+            <itemPath>src/entity/peon/PeonEntity.cpp</itemPath>
+            <itemPath>src/entity/peon/PeonEntity.h</itemPath>
             <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
             <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
           </logicalFolder>
@@ -178,7 +178,7 @@
           </logicalFolder>
           <itemPath>src/utils/world/Harvestable.h</itemPath>
           <itemPath>src/utils/world/Recipe.h</itemPath>
-          <itemPath>src/utils/world/Ressource.h</itemPath>
+          <itemPath>src/ressources/core/Stack.h</itemPath>
           <itemPath>src/utils/world/Storage.h</itemPath>
         </logicalFolder>
         <itemPath>src/utils/misc/chrono.hpp</itemPath>
@@ -190,6 +190,8 @@
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
+      <itemPath>src/entity/decorators/deposit/Deposit.cpp</itemPath>
+      <itemPath>src/entity/utils/deposit/DepositEntity.cpp</itemPath>
       <itemPath>src/entity/decorators/mover/Mover.cpp</itemPath>
       <itemPath>src/entity/peon/PeonController.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
@@ -229,11 +231,15 @@
     <itemPath>src/engine/utils/AbstractEntityBehaviour.h</itemPath>
     <itemPath>src/controller/utils/AbstractEntityController.h</itemPath>
     <itemPath>src/engine/core/decorator/DecoratorBehaviour.h</itemPath>
+    <itemPath>src/entity/decorators/deposit/Deposit.h</itemPath>
+    <itemPath>src/entity/utils/deposit/DepositEntity.h</itemPath>
+    <itemPath>src/entity/utils/deposit/DepositEntityBeh.h</itemPath>
     <itemPath>src/engine/core/EngineInterface.h</itemPath>
     <itemPath>src/engine/core/entity/EntityAllocator.h</itemPath>
     <itemPath>src/engine/core/entity/EntityBehaviour.h</itemPath>
     <itemPath>src/controller/core/EntityControllerInterface.h</itemPath>
     <itemPath>src/controller/core/GameControllerInterface.h</itemPath>
+    <itemPath>src/controller/utils/GenericSelectorController.h</itemPath>
     <itemPath>src/entity/decorators/Mover/Mover.h</itemPath>
     <itemPath>src/entity/decorators/mover/MoverBeh.h</itemPath>
     <itemPath>src/entity/peon/PeonController.h</itemPath>
@@ -368,6 +374,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/controller/utils/GenericSelectorController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
@@ -498,6 +509,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -518,11 +539,15 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -532,17 +557,28 @@
       </item>
       <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -569,6 +605,8 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -647,8 +685,6 @@
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -807,6 +843,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/controller/utils/GenericSelectorController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
@@ -937,6 +978,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -957,11 +1008,15 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -971,17 +1026,28 @@
       </item>
       <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1008,6 +1074,8 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1086,8 +1154,6 @@
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1241,6 +1307,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/controller/utils/GenericSelectorController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
@@ -1371,6 +1442,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -1391,11 +1472,15 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1405,17 +1490,28 @@
       </item>
       <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1442,6 +1538,8 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1520,8 +1618,6 @@
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1682,6 +1778,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/controller/utils/GenericSelectorController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
@@ -1812,6 +1913,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -1832,11 +1943,15 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Peon.cpp" ex="false" tool="1" flavor2="11">
-      </item>
-      <item path="src/entity/peon/Peon.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1846,17 +1961,28 @@
       </item>
       <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/entity/rock/Rock.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/entity/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/tree/Tree.h" ex="false" tool="3" flavor2="0">
+      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1883,6 +2009,8 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1961,8 +2089,6 @@
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Recipe.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/Ressource.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>

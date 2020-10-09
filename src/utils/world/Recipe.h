@@ -28,7 +28,7 @@
 #include <initializer_list>
 #include <map>
 #include <cassert>
-#include "Ressource.h"
+#include "Stack.h"
 
 class Recipe {
 public:

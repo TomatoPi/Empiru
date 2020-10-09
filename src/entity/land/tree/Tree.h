@@ -16,16 +16,34 @@
  */
 
 /// 
-/// \file   House.cpp
+/// \file   Tree.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 09:18
+/// \date 17 septembre 2020, 08:45
+/// \brief Tree WorldObject declaration
 ///
 
-#if 0
-#include "House.h"
+#ifndef TREE_H
+#define TREE_H
 
-House::House() : WorldObject(WorldObject::Size::Tile), Storage() {
+#include "entity/utils/deposit/DepositEntity.h"
+
+/// \brief Trees are beautiful things which don't do special things at this moment
+class Tree : public DepositEntity {
+public:
   
-}
-#endif
+  class Builder : public DepositEntity::Builder {
+    public:
+      Builder(GameEngineInterface& engine, const WorldObject::Position& pos)
+      noexcept : 
+        DepositEntity::Builder(engine, pos, Stack::Ressource::Wood, 100)
+      {
+      }
+        
+      virtual void operator() (EntityPtr& ptr) const noexcept override {
+        this->DepositEntity::Builder::operator ()(ptr);
+      }
+  };
+};
+
+#endif /* TREE_H */

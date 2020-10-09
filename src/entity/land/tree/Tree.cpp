@@ -16,28 +16,11 @@
  */
 
 /// 
-/// \file   Tree.h
+/// \file   Tree.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 17 septembre 2020, 08:45
 /// \brief Tree WorldObject declaration
 ///
 
-#ifndef TREE_H
-#define TREE_H
-
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/Harvestable.h"
-
-/// \brief Trees are beautiful things which don't do special things at this moment
-class Tree : public WorldObject, public Harvestable {
-  
-public:
-  
-  /// \brief Constructor
-  Tree();
-  Tree(const Tree &) = default;
-  Tree & operator= (const Tree &) = default;
-};
-
-#endif /* TREE_H */
+#include "Tree.h"

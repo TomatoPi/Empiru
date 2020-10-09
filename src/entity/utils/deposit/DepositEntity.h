@@ -16,48 +16,45 @@
  */
 
 /// 
-/// \file   Decorator.h
+/// \file   DepositEntity.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 8 octobre 2020, 23:13
+/// \date 9 octobre 2020, 20:02
 ///
 
-#ifndef DECORATOR_H
-#define DECORATOR_H
+#ifndef DEPOSITENTITY_H
+#define DEPOSITENTITY_H
 
-#include "DecoratorPtr.h"
-#include "engine/core/entity/EntityPtr.h"
 #include "engine/core/entity/Entity.h"
+#include "engine/core/EngineInterface.h"
 
-class Decorator {
-protected:
-  
-  EntityPtr _entity;
-  
+#include "entity/decorators/deposit/Deposit.h"
+
+/// \brief The ultimate worker, useful to make anything you can think of
+/// \todo revise the path system
+class DepositEntity : public Entity {
 public:
   
-  Decorator() noexcept : _entity(nullptr) {}
-  virtual ~Decorator() noexcept = default;
+  const DepositDecorator& deposit() const noexcept;
   
-  virtual void setActive(bool status) noexcept = 0;
-  virtual bool isActive() const noexcept = 0;
-  
-  class Builder {
+  class Builder : public Entity::Builder {
   private:
     
-    EntityPtr _entity;
+    GameEngineInterface& _engine;
+    Stack::Ressource     _type;
+    int                  _qty;
     
   public:
     
-    explicit Builder(const EntityPtr& entity) noexcept : 
-      _entity(entity) {}
+    Builder(
+      GameEngineInterface& engine, 
+      const WorldObject::Position& pos,
+      Stack::Ressource type, int qty) 
+    noexcept;
     
-    virtual void operator() (DecoratorPtr& ptr) const noexcept {
-      ptr->_entity = _entity;
-      ptr->_entity->attachDecorator(typeid(*ptr), ptr);
-    }
+    virtual void operator() (EntityPtr& ptr) const noexcept override;
   };
 };
 
-#endif /* DECORATOR_H */
+#endif /* DEPOSITENTITY_H */
 

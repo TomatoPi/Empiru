@@ -16,19 +16,32 @@
  */
 
 /// 
-/// \file   Tree.cpp
+/// \file   Rock.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 17 septembre 2020, 08:45
-/// \brief Tree WorldObject declaration
+/// \date 19 septembre 2020, 14:18
 ///
-#if 0
-#include "Tree.h"
 
-/// \brief Constructor
-Tree::Tree() : 
-  WorldObject(WorldObject::Size::Small, 0.1), 
-  Harvestable(Stack::Wood, 100) 
-{
-}
-#endif
+#ifndef ROCK_H
+#define ROCK_H
+
+#include "entity/utils/deposit/DepositEntity.h"
+
+/// \brief Trees are beautiful things which don't do special things at this moment
+class Rock : public DepositEntity {
+public:
+  
+  class Builder : public DepositEntity::Builder {
+    public:
+      Builder(GameEngineInterface& engine, const WorldObject::Position& pos)
+      noexcept : 
+        DepositEntity::Builder(engine, pos, Stack::Ressource::Rock, 50)
+      {
+      }
+        
+      virtual void operator() (EntityPtr& ptr) const noexcept override {
+        this->DepositEntity::Builder::operator ()(ptr);
+      }
+  };
+};
+#endif /* ROCK_H */

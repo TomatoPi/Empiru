@@ -25,7 +25,7 @@
 #ifndef HARVESTABLE_H
 #define HARVESTABLE_H
 
-#include "Ressource.h"
+#include "Stack.h"
 
 /// \brief Component for WorldObjects that are ressources deposits
 /// \todo this class is very ugly, make it clean

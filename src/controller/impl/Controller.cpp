@@ -151,7 +151,7 @@ EntityControllerInterface& Controller::get(const EntityPtr& ptr) noexcept {
 
 #if 0
 void Controller::objectAction(EntityPtr& ptr) noexcept {
-  if (Peon * peon = dynamic_cast<Peon *>(&*_selection)) {
+  if (PeonEntity * peon = dynamic_cast<PeonEntity *>(&*_selection)) {
     if (ptr) {
       if (Harvestable* harvest = dynamic_cast<Harvestable*>(&*ptr)) {
         if (peon->canHarvest(harvest->type())) {

@@ -32,14 +32,16 @@ class Stack {
 public:
   
   /// \brief Enum of all ressources kind
-  enum Ressource {
+  enum class Ressource {
     Invalid,
     Wood,
     Rock,
     Count
   };
   
-  static constexpr int RessourceBegin = static_cast<int>(Wood);
+  static constexpr std::size_t RessourceCount = static_cast<std::size_t>(Ressource::Count);
+  static constexpr std::size_t RessourceBegin = static_cast<std::size_t>(Ressource::Wood);
+  static constexpr std::size_t RessourceEnd   = static_cast<std::size_t>(Ressource::Rock);
   
 private:
   
@@ -50,7 +52,7 @@ public:
   
   /// \brief Default Constructor, build invalid ressource
   Stack() noexcept :
-    Stack(Invalid, 0)
+    Stack(Ressource::Invalid, 0)
   {    
   }
   /// \brief Create a ressource of given type and size
@@ -58,10 +60,11 @@ public:
     _size(size), _type(type)
   {
   }
+  
   /// \brief Default members
-  Stack(const Stack &) = default;
-  Stack & operator= (const Stack &) = default;
-  ~Stack() = default;
+  Stack(const Stack &) noexcept = default;
+  Stack & operator= (const Stack &) noexcept = default;
+  ~Stack() noexcept = default;
   
   /// \brief return quantity of ressources inside the stack
   int size() const noexcept {
@@ -77,7 +80,7 @@ public:
   /// \brief empty the stack
   void clear() noexcept {
     _size = 0;
-    _type = Invalid;
+    _type = Ressource::Invalid;
   }
   
   /// \brief return stack type
@@ -101,7 +104,7 @@ public:
 class StackTypeHash {
 public:
   std::size_t operator() (const Stack & a) const noexcept {
-    return a.type();
+    return static_cast<std::size_t>(a.type());
   }
 };
 

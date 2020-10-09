@@ -26,12 +26,12 @@
 #define TRIBEINFOS_H
 
 #include <array>
-#include "utils/world/Ressource.h"
+#include "ressources/core/Stack.h"
 
 class TribeInfos {
 public:
   
-  typedef std::array<int,Stack::Ressource::Count> TribeStocks;
+  typedef std::array<int,Stack::RessourceCount> TribeStocks;
   
 private:
   
@@ -51,7 +51,7 @@ public:
   }
   
   void addStack(const Stack & stack) noexcept {
-    _stocks[stack.type()] += stack.size();
+    _stocks[static_cast<std::size_t>(stack.type())] += stack.size();
   }
   
   const TribeStocks & stocks() const noexcept {

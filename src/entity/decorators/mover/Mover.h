@@ -64,6 +64,13 @@ public:
   void clearPath() noexcept;
   void setTarget(const WorldObject::Position& target, float tolerance) noexcept;
   
+private:
+  
+  void stackTarget(const WorldObject::Position& target) noexcept;
+  void unstackTarget() noexcept;
+  
+public:
+  
   class Builder : public Decorator::Builder {
   private:
     
@@ -73,13 +80,8 @@ public:
     
     explicit Builder(const EntityPtr& entity, float speed=0.01) noexcept;
     
-    void operator() (DecoratorPtr& ptr) const noexcept;
+    virtual void operator() (DecoratorPtr& ptr) const noexcept override;
   };
-  
-private:
-  
-  void stackTarget(const WorldObject::Position& target) noexcept;
-  void unstackTarget() noexcept;
 };
 
 #endif /* MOVER_H */

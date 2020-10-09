@@ -25,13 +25,13 @@
 
 #include <cassert>
 
-#include "Peon.h"
+#include "PeonEntity.h"
 
-const MoverDecorator& Peon::mover() const noexcept {
+const MoverDecorator& PeonEntity::mover() const noexcept {
   return static_cast<const MoverDecorator&>(*getDecorator<MoverDecorator>());
 }
 
-Peon::Builder::Builder(
+PeonEntity::Builder::Builder(
   GameEngineInterface& engine, 
   const WorldObject::Position& pos) 
 noexcept :
@@ -39,7 +39,7 @@ noexcept :
 {
 }
 
-void Peon::Builder::operator() (EntityPtr& ptr) const noexcept {
+void PeonEntity::Builder::operator() (EntityPtr& ptr) const noexcept {
   this->Entity::Builder::operator ()(ptr);
   MoverDecorator::Builder movbuilder(ptr, 0.01);
   _engine.createDecorator(typeid(MoverDecorator), movbuilder);
@@ -47,7 +47,7 @@ void Peon::Builder::operator() (EntityPtr& ptr) const noexcept {
 
 #if 0
 /// \brief Constructor
-Peon::Peon() :
+PeonEntity::PeonEntity() :
   WorldObject(WorldObject::Size::Small, 0.05), 
   _todo(),
   _dir(),
@@ -61,21 +61,21 @@ Peon::Peon() :
 
 /// \brief Return current peon's target
 /// \pre peon has a target (path not empty)
-const Order & Peon::currentOrder() const {
+const Order & PeonEntity::currentOrder() const {
   assert(hasOrders());
   return *_todo.front();
 }
   
 /// \brief ressources qty in peon's inventory
-const Stack & Peon::inventory() const {
+const Stack & PeonEntity::inventory() const {
   return _invetory;
 }
 /// \brief remove everythings from the inventory
-void Peon::clearInventory() {
+void PeonEntity::clearInventory() {
   _invetory.clear();
 }
 /// \brief add ressources to peon's inventory
-void Peon::addToInventory(Stack::Ressource type, int qty) {
+void PeonEntity::addToInventory(Stack::Ressource type, int qty) {
   assert(canHarvest(type));
   if (_invetory.empty()) {
     _invetory = Stack(type, qty);
@@ -85,26 +85,26 @@ void Peon::addToInventory(Stack::Ressource type, int qty) {
 }
 
 /// \brief return true if type is harvestable
-bool Peon::canHarvest(Stack::Ressource type) const {
+bool PeonEntity::canHarvest(Stack::Ressource type) const {
   return _invetory.empty() || _invetory.type() == type;
 }
 
 /// \brief Return current peon's orientation
-const hex::Axial & Peon::direction() const {
+const hex::Axial & PeonEntity::direction() const {
   return _dir;
 }
 
 /// \brief true if path is not empty
-bool Peon::hasOrders() const {
+bool PeonEntity::hasOrders() const {
   return !_todo.empty();
 }
 /// \brief true if peon is paused
-bool Peon::isPaused() const {
+bool PeonEntity::isPaused() const {
   return _paused;
 }
 
 /// \brief remove all path's steps
-void Peon::clearOrders() {
+void PeonEntity::clearOrders() {
   //_dir._x = _dir._y = _dir._z = 0;
   for (auto& order : _todo) {
     delete order;
@@ -112,11 +112,11 @@ void Peon::clearOrders() {
   _todo.clear();
 }
 /// \brief add pos on top of path
-void Peon::addOrder(Order* order) {
+void PeonEntity::addOrder(Order* order) {
   _todo.emplace_front(order);
 }
 /// \brief set dir according to top step
-void Peon::beginOrder() {
+void PeonEntity::beginOrder() {
   assert(hasOrders());
   if (!_todo.front()->isValid()) {
     this->endOrder();
@@ -147,11 +147,11 @@ void Peon::beginOrder() {
   _paused = false;
 }
 /// \brief Halt current order excecution
-void Peon::pauseOrder() {
+void PeonEntity::pauseOrder() {
   _paused = true;
 }
 /// \brief remove top step
-void Peon::endOrder() {
+void PeonEntity::endOrder() {
   assert(hasOrders());
   delete _todo.front();
   _todo.pop_front();
@@ -159,24 +159,24 @@ void Peon::endOrder() {
 }
 
 /// \brief Attach this peon to a warehouse
-void Peon::attachWarehouse(const WorldPtr& ptr) {
+void PeonEntity::attachWarehouse(const WorldPtr& ptr) {
   assert(ptr);
   _warehouse = ptr;
 }
 /// \brief Detach this peon to it's warehouse
-void Peon::detachWarehouse() {
+void PeonEntity::detachWarehouse() {
   _warehouse = nullptr;
 }
-const WorldPtr& Peon::attachtedWharehouse() const {
+const WorldPtr& PeonEntity::attachtedWharehouse() const {
   return _warehouse;
 }
 /// \brief return current peon's warehouse
-WorldPtr Peon::attachtedWharehouse() {
+WorldPtr PeonEntity::attachtedWharehouse() {
   return _warehouse;
 }
 
 /// \brief Increment peon's order counter and return true if order is ready
-bool Peon::tickCptr() {
+bool PeonEntity::tickCptr() {
   if (_paused) return false;
   return 0 == (_cptr = (_cptr+1) % _delay);
 }

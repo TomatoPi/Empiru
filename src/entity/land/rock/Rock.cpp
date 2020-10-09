@@ -21,13 +21,5 @@
 ///
 /// \date 19 septembre 2020, 14:18
 ///
-#if 0
-#include "Rock.h"
 
-/// \brief Constructor
-Rock::Rock() : 
-  WorldObject(WorldObject::Size::Small, 0.1), 
-  Harvestable(Stack::Rock, 50)
-{  
-}
-#endif
+#include "Rock.h"
