@@ -28,9 +28,8 @@
 #include <cassert>
 #include <unordered_set>
 
-#include "utils/hex/Axial.h"
-#include "utils/engine/core/entity/EntityPtr.h"
-#include "utils/world/core/WorldObject.h"
+#include "WorldObject.h"
+#include "engine/core/entity/EntityPtr.h"
 
 /// \brief Tiles are world's container
 class Tile {

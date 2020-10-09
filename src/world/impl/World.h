@@ -27,8 +27,8 @@
 
 #include <unordered_map>
 
-#include "utils/world/map/MapInterface.h"
-#include "utils/world/map/Tile.h"
+#include "world/core/MapInterface.h"
+#include "world/core/Tile.h"
 #include "utils/log.h"
 
 /// \brief Object that handle Map and Objects
@@ -55,15 +55,23 @@ public :
   WorldMap(int mapWidth, int mapHeight);
   
   /// \brief Must add given object to the world
-  virtual void addObject(const WorldPtr& ptr);
+  virtual void addObject(const EntityPtr& ptr) override;
   /// \brief Must remove given object fro the world
-  virtual void removeObject(const WorldPtr& ptr);
+  virtual void removeObject(const EntityPtr& ptr) override;
   
   /// \brief Must return tile content at given pos, or null if empty
-  virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const;
+  virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const override;
   
   /// \brief Must return true if given pos is on the map
-  virtual bool isOnMap(const WorldObject::Position & pos) const;
+  virtual bool isOnMap(const WorldObject::Position & pos) const override;
+  
+  /// \brief Return true if given position is valid
+  ///   if position is invalid, return false and return pointer to the obstacle
+  ///   in 'obstacle' if relevant
+  virtual bool tryPosition(
+    const WorldObject& obj, 
+    const EntityPtr& entity, 
+    EntityPtr* obstacle) const noexcept override;
 };
 
 #endif /* WORLD_H*/

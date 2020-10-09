@@ -16,10 +16,19 @@
  */
 
 /// 
-/// \file   MonoObject.cpp
+/// \file   DecoratorPtr.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 8 octobre 2020, 22:32
+/// \date 8 octobre 2020, 23:34
 ///
 
-#include "MonoObject.h"
+#ifndef DECORATORPTR_H
+#define DECORATORPTR_H
+
+#include "utils/core/Pointer.h"
+
+class Decorator;
+using DecoratorPtr = core::Pointer<Decorator>;
+
+#endif /* DECORATORPTR_H */
+

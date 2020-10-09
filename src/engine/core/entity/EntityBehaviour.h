@@ -25,11 +25,11 @@
 #ifndef ENTITYBEHAVIOUR_H
 #define ENTITYBEHAVIOUR_H
 
-#include "utils/engine/core/entity/Entity.h"
-#include "utils/engine/core/entity/EntityPtr.h"
-#include "utils/engine/core/EngineInterface.h"
+#include "Entity.h"
+#include "EntityPtr.h"
 
-class EntityBehaviour {
+class GameEngineInterface;
+class EntityBeh {
 public:
   virtual void 
   operator() (Entity&, EntityPtr, GameEngineInterface&) noexcept = 0;

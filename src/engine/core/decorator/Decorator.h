@@ -16,14 +16,45 @@
  */
 
 /// 
-/// \file   MonoObject.h
+/// \file   Decorator.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 8 octobre 2020, 22:32
+/// \date 8 octobre 2020, 23:13
 ///
 
-#ifndef WORLD_MONOOBJECT_H
-#define WORLD_MONOOBJECT_H
+#ifndef DECORATOR_H
+#define DECORATOR_H
 
+#include "DecoratorPtr.h"
+#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Entity.h"
 
-#endif /* WORLD_MONOOBJECT_H */
+class Decorator {
+private:
+  
+  EntityPtr _entity;
+  
+public:
+  
+  Decorator() noexcept : _entity(nullptr) {}
+  virtual ~Decorator() noexcept = default;
+  
+  class Builder {
+  private:
+    
+    EntityPtr _entity;
+    
+  public:
+    
+    explicit Builder(const EntityPtr& entity) noexcept : 
+      _entity(entity) {}
+    
+    void operator() (DecoratorPtr& ptr) const noexcept {
+      ptr->_entity = _entity;
+      ptr->_entity->attachDecorator(typeid(*ptr), ptr);
+    }
+  };
+};
+
+#endif /* DECORATOR_H */
+

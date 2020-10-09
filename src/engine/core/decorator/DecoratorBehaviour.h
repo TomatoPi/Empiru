@@ -16,34 +16,24 @@
  */
 
 /// 
-/// \file   EngineInterface.h
+/// \file   DecoratorBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 02:11
+/// \date 9 octobre 2020, 02:24
 ///
 
-#ifndef ENGINEINTERFACE_H
-#define ENGINEINTERFACE_H
+#ifndef DECORATORBEHAVIOUR_H
+#define DECORATORBEHAVIOUR_H
 
-#include <typeinfo>
-#include "utils/engine/core/entity/EntityPtr.h"
-#include "utils/engine/core/entity/Entity.h"
-#include "utils/engine/core/decorator/DecoratorPtr.h"
-#include "utils/engine/core/decorator/Decorator.h"
+#include "Decorator.h"
+#include "DecoratorPtr.h"
 
-class GameEngineInterface {
+class GameEngineInterface;
+class DecoratorBeh {
 public:
-  
-  virtual EntityPtr 
-  createEntity(const std::type_info& type, const Entity::Builder& builder) 
-  noexcept = 0;
-  virtual void discardEntity(EntityPtr ptr) noexcept = 0;
-  
-  virtual DecoratorPtr
-  createDecorator(const std::type_info& type, const Decorator::Builder& builder)
-  noexcept = 0;
-  virtual void dirscardDecorator(DecoratorPtr ptr) noexcept = 0;
+  virtual void 
+  operator() (Decorator&, DecoratorPtr, GameEngineInterface&) noexcept = 0;
 };
 
-#endif /* ENGINEINTERFACE_H */
+#endif /* DECORATORBEHAVIOUR_H */
 

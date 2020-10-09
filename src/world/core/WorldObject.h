@@ -53,6 +53,9 @@ public:
   
   /// \brief Construct an object
   explicit WorldObject(Size s, float r=0.5f, Position p=Position()) noexcept;
+  
+  /// \brief Default constructor
+  WorldObject() noexcept = default;
   /// \brief Copy constructor
   WorldObject(const WorldObject &) noexcept = default;
   /// \brief Copy assignement

@@ -244,28 +244,4 @@ bool PeonBehaviour::tryPosition(
         WorldObject** obstacle, 
         MapInterface& world)
 const {
-  // Check validity
-  if (!world.isOnMap(peon.pos())) {
-    return false;
-  }
-  // Check collisions
-  bool valid(true);
-  peon.pos().mapNeightbours(
-    [&]
-    (const WorldObject::Position & pos) -> bool {
-      auto content = world.getContentAt(pos);
-      if (content != nullptr){
-        for (auto obj : *content){
-          if (obj == ptr) 
-            continue;
-          if (obj->collide(peon)) {
-            *obstacle = &*obj;
-            valid = false;
-            return true;
-          }
-        }
-      }
-      return false;
-    });
-  return valid;
 }

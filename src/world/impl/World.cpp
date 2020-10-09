@@ -24,9 +24,10 @@
 
 #include <cassert>
 
-#include "world/World.h"
+#include "World.h"
 #include "utils/hex/OddQ.h"
 #include "utils/hex/Conversion.h"
+#include "engine/core/entity/Entity.h"
 
 /// \brief Constructor
 /// \param mapHeight : Height of the map (number of hexs)
@@ -41,8 +42,8 @@ WorldMap::WorldMap(int mapWidth, int mapHeight) :
 }
 
 /// \brief Must add given object to the world
-void WorldMap::addObject(const WorldPtr& ptr){
-  const WorldObject::Position & pos(ptr->pos());
+void WorldMap::addObject(const EntityPtr& ptr){
+  const WorldObject::Position & pos(ptr->position().pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
@@ -51,8 +52,8 @@ void WorldMap::addObject(const WorldPtr& ptr){
 }
 
 /// \brief Must remove given object fro the world
-void WorldMap::removeObject(const WorldPtr& ptr) {
-  auto itr(_map.find(ptr->pos()));
+void WorldMap::removeObject(const EntityPtr& ptr) {
+  auto itr(_map.find(ptr->position().pos()));
   assert(itr != _map.end());
   itr->second.erase(ptr);
   if (itr->second.isEmpty()) {
@@ -81,4 +82,39 @@ bool WorldMap::isOnMap(const WorldObject::Position & pos) const {
   return 0 <= off._x && 0 <= off._y 
       && off._x < _mapWidth
       && off._y < _mapHeight;
+}
+
+/// \brief Return true if given position is valid
+///   if position is invalid, return false and return pointer to the obstacle
+///   in 'obstacle' if relevant
+bool WorldMap::tryPosition(
+  const WorldObject& object, 
+  const EntityPtr& entity, 
+  EntityPtr* obstacle) 
+const noexcept
+{
+  // Check validity
+  if (!isOnMap(object.pos())) {
+    return false;
+  }
+  // Check collisions
+  bool valid(true);
+  object.pos().mapNeightbours(
+    [&]
+    (const WorldObject::Position & pos) -> bool {
+      auto content = getContentAt(pos);
+      if (content != nullptr){
+        for (auto obj : *content){
+          if (obj == entity) 
+            continue;
+          if (obj->position().collide(object)) {
+            *obstacle = obj;
+            valid = false;
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+  return valid;
 }

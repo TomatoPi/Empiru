@@ -25,8 +25,8 @@
 #ifndef WORLDINTERFACE_H
 #define WORLDINTERFACE_H
 
-#include "utils/engine/core/entity/EntityPtr.h"
-#include "utils/world/map/Tile.h"
+#include "Tile.h"
+#include "engine/core/entity/EntityPtr.h"
 
 /// \brief Interface that must be used to comunicate with the World
 class MapInterface {
@@ -42,6 +42,14 @@ public:
   
   /// \brief Must return true if given pos is on the map
   virtual bool isOnMap(const WorldObject::Position & pos) const = 0;
+  
+  /// \brief Return true if given position is valid
+  ///   if position is invalid, return false and return pointer to the obstacle
+  ///   in 'obstacle' if relevant
+  virtual bool tryPosition(
+    const WorldObject& obj, 
+    const EntityPtr& entity, 
+    EntityPtr* obstacle) const noexcept = 0;
 };
 
 #endif /* WORLDINTERFACE_H */

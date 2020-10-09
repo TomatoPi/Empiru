@@ -16,45 +16,28 @@
  */
 
 /// 
-/// \file   Decorator.h
+/// \file   GameEvents.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 8 octobre 2020, 23:13
+/// \date 27 septembre 2020, 16:54
 ///
 
-#ifndef DECORATOR_H
-#define DECORATOR_H
+#ifndef GAMEEVENTS_H
+#define GAMEEVENTS_H
 
-#include "utils/engine/core/decorator/DecoratorPtr.h"
-#include "utils/engine/core/entity/EntityPtr.h"
-#include "utils/engine/core/entity/Entity.h"
+#include "engine/core/decorator/DecoratorPtr.h"
+#include "engine/core/entity/EntityPtr.h"
+#include "utils/core/Observer.h"
 
-class Decorator {
-private:
-  
-  EntityPtr _entity;
-  
-public:
-  
-  Decorator() noexcept : _entity(nullptr) {}
-  virtual ~Decorator() noexcept = default;
-  
-  class Builder {
-  private:
-    
-    EntityPtr _entity;
-    
-  public:
-    
-    explicit Builder(const EntityPtr& entity) noexcept : 
-      _entity(entity) {}
-    
-    void operator() (DecoratorPtr& ptr) const noexcept {
-      ptr->_entity = _entity;
-      ptr->_entity->attachDecorator(typeid(*ptr), ptr);
-    }
-  };
+struct EventObjectCreated : public Event {
+  EntityPtr _ptr;
+  EventObjectCreated(const EntityPtr& ptr) noexcept : _ptr(ptr) {}
 };
 
-#endif /* DECORATOR_H */
+struct EventObjectDestroyed : public Event {
+  EntityPtr _ptr;
+  EventObjectDestroyed(const EntityPtr& ptr) noexcept : _ptr(ptr) {}
+};
+
+#endif /* GAMEEVENTS_H */
 

@@ -29,7 +29,7 @@
         <itemPath>src/core/GameCore.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="engine" projectFiles="true">
-        <itemPath>src/engine/GameEngine.cpp</itemPath>
+        <itemPath>src/engine/impl/GameEngine.cpp</itemPath>
         <itemPath>src/engine/GameEngine.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
@@ -83,7 +83,7 @@
       </logicalFolder>
       <logicalFolder name="f6" displayName="events" projectFiles="true">
         <itemPath>src/events/ControllerEvents.h</itemPath>
-        <itemPath>src/events/GameEvents.h</itemPath>
+        <itemPath>src/engine/events/GameEvents.h</itemPath>
       </logicalFolder>
       <logicalFolder name="gui" displayName="gui" projectFiles="true">
         <logicalFolder name="f4" displayName="controller" projectFiles="true">
@@ -162,17 +162,17 @@
         </logicalFolder>
         <logicalFolder name="f2" displayName="world" projectFiles="true">
           <logicalFolder name="f1" displayName="core" projectFiles="true">
-            <itemPath>src/utils/engine/core/decorator/Decorator.h</itemPath>
-            <itemPath>src/utils/engine/core/decorator/DecoratorAllocator.h</itemPath>
-            <itemPath>src/utils/engine/core/decorator/DecoratorPtr.h</itemPath>
-            <itemPath>src/utils/engine/core/entity/Entity.h</itemPath>
-            <itemPath>src/utils/engine/core/entity/EntityPtr.h</itemPath>
-            <itemPath>src/utils/world/core/WorldObject.cpp</itemPath>
-            <itemPath>src/utils/world/core/WorldObject.h</itemPath>
+            <itemPath>src/engine/core/decorator/Decorator.h</itemPath>
+            <itemPath>src/engine/core/decorator/DecoratorAllocator.h</itemPath>
+            <itemPath>src/engine/core/decorator/DecoratorPtr.h</itemPath>
+            <itemPath>src/engine/core/entity/Entity.h</itemPath>
+            <itemPath>src/engine/core/entity/EntityPtr.h</itemPath>
+            <itemPath>src/world/core/WorldObject.cpp</itemPath>
+            <itemPath>src/world/core/WorldObject.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="map" projectFiles="true">
-            <itemPath>src/utils/world/map/MapInterface.h</itemPath>
-            <itemPath>src/utils/world/map/Tile.h</itemPath>
+            <itemPath>src/world/core/MapInterface.h</itemPath>
+            <itemPath>src/world/core/Tile.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="objects" projectFiles="true">
             <itemPath>src/world/objects/MonoObject.cpp</itemPath>
@@ -187,8 +187,8 @@
         <itemPath>src/utils/log.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="world" projectFiles="true">
-        <itemPath>src/world/World.cpp</itemPath>
-        <itemPath>src/world/World.h</itemPath>
+        <itemPath>src/world/impl/World.cpp</itemPath>
+        <itemPath>src/world/impl/World.h</itemPath>
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
@@ -225,9 +225,11 @@
       <itemPath>Makefile</itemPath>
       <itemPath>doxyconfig</itemPath>
     </logicalFolder>
-    <itemPath>src/utils/engine/core/decorator/DecoratorBehaviour.h</itemPath>
-    <itemPath>src/utils/engine/core/EngineInterface.h</itemPath>
-    <itemPath>src/utils/engine/core/entity/EntityBehaviour.h</itemPath>
+    <itemPath>src/engine/core/decorator/DecoratorBehaviour.h</itemPath>
+    <itemPath>src/engine/core/EngineInterface.h</itemPath>
+    <itemPath>src/engine/core/entity/EntityAllocator.h</itemPath>
+    <itemPath>src/engine/core/entity/EntityBehaviour.h</itemPath>
+    <itemPath>src/engine/core/Register.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -342,9 +344,49 @@
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
@@ -447,8 +489,6 @@
       </item>
       <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -486,46 +526,6 @@
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/EngineInterface.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/Entity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -609,20 +609,17 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/world/impl/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/impl/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -755,9 +752,49 @@
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
@@ -860,8 +897,6 @@
       </item>
       <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -899,46 +934,6 @@
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/EngineInterface.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/Entity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1022,20 +1017,17 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/world/impl/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/impl/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1163,9 +1155,49 @@
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
@@ -1268,8 +1300,6 @@
       </item>
       <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -1307,46 +1337,6 @@
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/EngineInterface.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/Entity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1430,20 +1420,17 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/World.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/world/impl/World.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/impl/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1572,9 +1559,49 @@
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/GameEngine.cpp" ex="false" tool="1" flavor2="11">
-      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/entity/buildings/StorageBehaviour.h"
             ex="false"
@@ -1677,8 +1704,6 @@
       </item>
       <item path="src/events/ControllerEvents.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/events/GameEvents.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/generator/ZoneGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/generator/ZoneGenerator.h" ex="false" tool="3" flavor2="0">
@@ -1716,46 +1741,6 @@
       <item path="src/utils/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/EngineInterface.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/Entity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/utils/engine/core/entity/EntityPtr.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1839,20 +1824,17 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/world/map/Tile.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/World.cpp" ex="false" tool="1" flavor2="11">
+      <item path="src/world/impl/World.cpp" ex="false" tool="1" flavor2="11">
       </item>
-      <item path="src/world/World.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/impl/World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/objects/MonoObject.cpp" ex="false" tool="1" flavor2="0">
       </item>

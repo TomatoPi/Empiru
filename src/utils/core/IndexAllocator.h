@@ -87,17 +87,17 @@ namespace core {
       assert(_objects.size() == _rtable.size());
     }
 
-    virtual WorldObject& operator[] (const std::size_t& idx) override {
+    virtual U& operator[] (const std::size_t& idx) override {
       return _objects[idx];
     }
-    virtual const WorldObject& operator[] (const std::size_t& idx) const override {
+    virtual const U& operator[] (const std::size_t& idx) const override {
       return _objects[idx];
     }
 
     /// \brief Must call given callback on each object
     ///   Callback parameters are the object and the associated reference
     /// \warning Delete objects inside the callback may cause miss
-    virtual void foreach(std::function<void(WorldObject&, _Pointer)> func) override
+    virtual void foreach(std::function<void(U&, _Pointer)> func) override
     {
       assert(_objects.size() == _rtable.size());
       for (std::size_t i(0) ; i<_objects.size() ; ++i) {

@@ -16,19 +16,18 @@
  */
 
 /// 
-/// \file   DecoratorPtr.h
+/// \file   WorldRef.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 8 octobre 2020, 23:34
+/// \date 19 septembre 2020, 06:14
 ///
 
-#ifndef DECORATORPTR_H
-#define DECORATORPTR_H
+#ifndef WORLDREF_H
+#define WORLDREF_H
 
-#include "utils/core/IndexPtr.h"
+#include "utils/core/Pointer.h"
 
-class Decorator;
-using DecoratorPtr = core::IndexPtr<Decorator>;
+class Entity;
+using EntityPtr = core::Pointer<Entity>;
 
-#endif /* DECORATORPTR_H */
-
+#endif /* WORLDREF_H */

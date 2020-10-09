@@ -86,7 +86,11 @@ namespace {
     void operator() (WorldPtr &ptr) const noexcept {
       ptr->pos(hex::Axial(x,y));
     }
-  };
+  }
+  template <class T>
+  using EntityAllocator = core::IndexAllocator<T,Entity>;
+  template <class T>
+  using DecoratorAllocator = core::IndexAllocator<T,Decorator>;
 }
 
 /// \brief Too complex to explain what is this thing

@@ -30,9 +30,9 @@
 #include <typeindex>
 #include <unordered_map>
 
-#include "utils/engine/core/entity/EntityPtr.h"
-#include "utils/engine/core/decorator/DecoratorPtr.h"
-#include "utils/world/core/WorldObject.h"
+#include "EntityPtr.h"
+#include "engine/core/decorator/DecoratorPtr.h"
+#include "world/core/WorldObject.h"
 
 class Entity {  
 private:
@@ -90,7 +90,7 @@ public:
   template <typename Func>
   void forEachDecorator(const Func& callback) noexcept {
     for (auto& dec : _decorators) {
-      callback(dec);
+      callback(dec.second);
     }
   }
   
@@ -98,6 +98,8 @@ public:
   private:
   
     WorldObject _obj;
+    
+  public:
     
     Builder(const WorldObject& obj) noexcept : _obj(obj) {}
     
