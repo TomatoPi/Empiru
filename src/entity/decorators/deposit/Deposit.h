@@ -40,6 +40,7 @@ public:
   
   int reduce(int qty) noexcept {return _stack.reduce(qty);}
   Stack::Ressource type() const noexcept {return _stack.type();}
+  int size() const noexcept {return _stack.size();}
   bool empty() const noexcept {return _stack.empty();}
   
   virtual void setActive(bool status) noexcept override {/*nth*/}

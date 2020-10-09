@@ -26,25 +26,39 @@
 #define TRIBEINFOS_H
 
 #include <array>
+#include <unordered_set>
 #include "ressources/core/Stack.h"
+#include "utils/pattern/Observer.h"
+#include "utils/misc/Counter.h"
+#include "engine/core/decorator/DecoratorPtr.h"
 
-class TribeInfos {
+class TribeInfos : public Observer {
 public:
   
   typedef std::array<int,Stack::RessourceCount> TribeStocks;
   
 private:
   
+  typedef std::unordered_set<DecoratorPtr,alloc::PtrHash,alloc::PtrEquals>
+  ObjectsList;
+  
+  ObjectsList _objects;
   TribeStocks _stocks;
+  Counter     _cptr;
   
 public:
   
-  TribeInfos() noexcept :
-    _stocks()
-  {    
-  }
+  TribeInfos() noexcept;
   TribeInfos(const TribeInfos &) noexcept = default;
   TribeInfos & operator= (const TribeInfos &) noexcept = default;
+  
+  void update() noexcept;
+  
+  const TribeStocks & stocks() const noexcept {
+    return _stocks;
+  }
+  
+private:
   
   void init() noexcept {
     _stocks.fill(0);
@@ -52,10 +66,6 @@ public:
   
   void addStack(const Stack & stack) noexcept {
     _stocks[static_cast<std::size_t>(stack.type())] += stack.size();
-  }
-  
-  const TribeStocks & stocks() const noexcept {
-    return _stocks;
   }
 };
 

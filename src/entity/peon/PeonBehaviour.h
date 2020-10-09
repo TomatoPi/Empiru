@@ -39,25 +39,25 @@ public:
 private:
   
   /// \brief compute harvest order
-  void store(PeonEntity& peon, WorldPtr& ptr, MapInterface& world);
+  void store(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute harvest order
-  void harvest(PeonEntity& peon, WorldPtr& ptr, MapInterface& world);
+  void harvest(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute path order for the peon
-  void moveTo(PeonEntity& peon, WorldPtr& ptr, MapInterface& world);
+  void moveTo(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute supply peon
-  void supply(PeonEntity& peon, WorldPtr& ptr, MapInterface& world);
+  void supply(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief compute supply peon
-  void build(PeonEntity& peon, WorldPtr& ptr, MapInterface& world);
+  void build(Peon& peon, WorldPtr& ptr, MapInterface& world);
   
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant
   bool tryPosition(
-        PeonEntity& peon, 
+        Peon& peon, 
         WorldPtr& ptr, 
         WorldObject** obstacle, 
         MapInterface& world)  

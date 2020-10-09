@@ -25,6 +25,8 @@
 #include "ControlPannel.h"
 #include "utils/gui/Window.h"
 #include "controller/events/ControllerEvents.h"
+#include "entity/decorators/deposit/Deposit.h"
+#include "entity/decorators/storage/Storage.h"
 //#include "entity/peon/Peon.h"
 //#include "utils/world/Storage.h"
 //#include "utils/world/Harvestable.h"
@@ -33,7 +35,7 @@
 namespace {
   /// \brief Array of indexes of ressources icons indexes on icon sheet
   ///   initialized in the ControlPannel constructor
-  static std::array<int,Stack::Ressource::Count> iconframes;
+  static std::array<int,Stack::RessourceCount> iconframes;
 }
 
 ControlPannel::ControlPannel(
@@ -60,8 +62,8 @@ ControlPannel::ControlPannel(
     int(137 * _window.scale), 0}
 {
   /* register icons indexes */
-  iconframes[Stack::Rock] = 2;
-  iconframes[Stack::Wood] = 3;
+  iconframes[static_cast<std::size_t>(Stack::Ressource::Rock)] = 2;
+  iconframes[static_cast<std::size_t>(Stack::Ressource::Wood)] = 3;
   /* register callbacks */
   this->registerEvent<EventObjectSelected>(
       [this](const EventObjectSelected & event) -> void {
@@ -101,8 +103,8 @@ void ControlPannel::drawGlobalRessources(const SDL_Rect& pannel) {
   rect.y = pannel.y;
   const TribeInfos::TribeStocks & stocks(_playerTribe.stocks());
   for (
-      int type(Stack::RessourceBegin) ; 
-      type != Stack::Ressource::Count ; 
+      std::size_t type(Stack::RessourceBegin) ; 
+      type <= Stack::RessourceEnd ; 
       ++type, rect.y += rect.h + 2)
   {
     _icons->renderFrame(0, iconframes[type], &rect);
@@ -111,25 +113,30 @@ void ControlPannel::drawGlobalRessources(const SDL_Rect& pannel) {
   }
 }
 void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
-//  SDL_Rect rect;
-//  std::vector<std::pair<int,std::string>> inventory;
+  SDL_Rect rect;
+  std::vector<std::pair<int,std::string>> inventory;
+  const Entity& entity(*_selectedObject);
 //  if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
 //    if (!peon->inventory().empty())
 //      inventory.emplace_back(
 //        iconframes[peon->inventory().type()], 
 //        std::to_string(peon->inventory().size()));
 //  }
-//  else if (Storage *store = dynamic_cast<Storage*>(&*_selectedObject)) {
-//    for (auto & stack : store->stock()) {
-//      inventory.emplace_back(
-//        iconframes[stack.type()], 
-//        std::to_string(stack.size()));
-//    }
-//  }
+  if (DecoratorPtr ptr = entity.getDecorator<DepositDecorator>()) {
+    const DepositDecorator& deposit(static_cast<const DepositDecorator&>(*ptr));
+    inventory.emplace_back(
+      iconframes[static_cast<std::size_t>(deposit.type())], 
+      std::to_string(deposit.size()));
+  }
+  else if (DecoratorPtr ptr = entity.getDecorator<StorageDecorator>()) {
+    const StorageDecorator& store(static_cast<const StorageDecorator&>(*ptr));
+    for (auto & stack : store.stock()) {
+      inventory.emplace_back(
+        iconframes[static_cast<std::size_t>(stack.type())], 
+        std::to_string(stack.size()));
+    }
+  }
 //  else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {
-//    inventory.emplace_back(
-//      iconframes[harv->type()], 
-//      std::to_string(harv->size()));
 //  } 
 //  else if (
 //    ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*_selectedObject))
@@ -148,18 +155,18 @@ void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
 //      inventory.emplace_back(1, std::to_string(site->progress()));
 //    }
 //  }
-//  rect.w = _icons->width();
-//  rect.h = _icons->height();
-//  rect.x = pannel.x;
-//  rect.y = pannel.y;
-//  for (auto & stack : inventory) {
-//    _icons->renderFrame(0, stack.first, &rect);
-//    _printer.drawStringAt(
-//      rect.x + pannel.w, rect.y + rect.h/2, 
-//      FontPrinter::CenterRight, 
-//      stack.second);
-//    rect.y += rect.h + 2;
-//  }
+  rect.w = _icons->width();
+  rect.h = _icons->height();
+  rect.x = pannel.x;
+  rect.y = pannel.y;
+  for (auto & stack : inventory) {
+    _icons->renderFrame(0, stack.first, &rect);
+    _printer.drawStringAt(
+      rect.x + pannel.w, rect.y + rect.h/2, 
+      FontPrinter::CenterRight, 
+      stack.second);
+    rect.y += rect.h + 2;
+  }
 }
 void ControlPannel::drawControls() {
   

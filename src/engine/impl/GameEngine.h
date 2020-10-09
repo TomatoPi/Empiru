@@ -36,8 +36,6 @@
 #include "engine/core/entity/EntityBehaviour.h"
 #include "engine/core/decorator/DecoratorBehaviour.h"
 
-#include "entity/functionals/TribeInfos.h"
-
 /// \brief Core object for in-game mechanics
 class GameEngine : 
   public GameEngineInterface, 
@@ -54,16 +52,12 @@ private:
   
   EntitiesReg   _entities;
   DecoratorsReg _decorators;
-  TribeInfos    _playerTribe; ///< Object that store player's tribe infos
   MapInterface& _world;       ///< THA WO... oh wait ... joke already used
   
 public:
   
   /// \brief Contructor
   GameEngine(MapInterface & w);
-  
-  TribeInfos & playerTribe();
-  const TribeInfos & playerTribe() const;
   
   /// \brief Called on each Main-loop iteration
   ///   Call behaviour of each object

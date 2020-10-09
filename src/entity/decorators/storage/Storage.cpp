@@ -16,28 +16,32 @@
  */
 
 /// 
-/// \file   House.cpp
+/// \file   Storage.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 09:18
+/// \date 9 octobre 2020, 22:22
 ///
 
-#include "House.h"
+#include "Storage.h"
 
-const StorageDecorator& House::storage() const noexcept {
-  return static_cast<const StorageDecorator&>(*getDecorator<StorageDecorator>());
+Stack StorageDecorator::addToStorage(const Stack & stack) noexcept {
+  StackList::iterator itr(_storage.find(stack));
+  if (itr == _storage.end()) {
+    _storage.emplace_hint(itr, stack);
+  } else {
+    Stack old(*itr);
+    old.reduce(-stack.size());
+    _storage.erase(itr);
+    _storage.emplace(old);
+  }
+  return Stack();
 }
 
-House::Builder::Builder(
-  GameEngineInterface& engine, 
-  const WorldObject::Position& pos) 
-noexcept :
-  Entity::Builder(WorldObject(WorldObject::Size::Tile, 0.5, pos)), _engine(engine)
-{
+    
+StorageDecorator::Builder::Builder(const EntityPtr& entity) noexcept :
+  Decorator::Builder(entity)
+{  
 }
-
-void House::Builder::operator() (EntityPtr& ptr) const noexcept {
-  this->Entity::Builder::operator() (ptr);
-  StorageDecorator::Builder builder(ptr);
-  _engine.createDecorator(typeid(StorageDecorator), builder);
+void StorageDecorator::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+  this->Decorator::Builder::operator() (ptr);
 }

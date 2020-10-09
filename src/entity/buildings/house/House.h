@@ -25,14 +25,28 @@
 #ifndef HOUSE_H
 #define HOUSE_H
 
-#include "world/core/WorldObject.h"
-#include "utils/world/Storage.h"
+#include "engine/core/entity/Entity.h"
+#include "engine/core/EngineInterface.h"
 
-class House : public WorldObject, public Storage {
+#include "entity/decorators/storage/Storage.h"
+
+/// \brief The ultimate worker, useful to make anything you can think of
+/// \todo revise the path system
+class House : public Entity {
 public:
-  House();
-  House(const House &) = default;
-  House & operator= (const House &) = default;
+  
+  const StorageDecorator& storage() const noexcept;
+  
+  class Builder : public Entity::Builder {
+  private:
+    
+    GameEngineInterface& _engine;
+    
+  public:
+    
+    Builder(GameEngineInterface& engine, const WorldObject::Position& pos) noexcept;
+    virtual void operator() (EntityPtr& ptr) const noexcept override;
+  };
 };
 
 #endif /* HOUSE_H */

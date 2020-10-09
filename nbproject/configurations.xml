@@ -56,7 +56,7 @@
           <itemPath>src/entity/buildings/StorageBehaviour.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="functionals" projectFiles="true">
-          <itemPath>src/entity/functionals/TribeInfos.h</itemPath>
+          <itemPath>src/engine/tribe/TribeInfos.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="land" projectFiles="true">
           <logicalFolder name="f3" displayName="rock" projectFiles="true">
@@ -190,10 +190,13 @@
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
+      <itemPath>src/entity/decorators/collector/Collector.cpp</itemPath>
       <itemPath>src/entity/decorators/deposit/Deposit.cpp</itemPath>
       <itemPath>src/entity/utils/deposit/DepositEntity.cpp</itemPath>
       <itemPath>src/entity/decorators/mover/Mover.cpp</itemPath>
       <itemPath>src/entity/peon/PeonController.cpp</itemPath>
+      <itemPath>src/entity/decorators/storage/Storage.cpp</itemPath>
+      <itemPath>src/engine/tribe/TribeInfos.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -230,6 +233,7 @@
     <itemPath>src/engine/utils/AbstractDecoratorBehaviour.h</itemPath>
     <itemPath>src/engine/utils/AbstractEntityBehaviour.h</itemPath>
     <itemPath>src/controller/utils/AbstractEntityController.h</itemPath>
+    <itemPath>src/entity/decorators/collector/Collector.h</itemPath>
     <itemPath>src/engine/core/decorator/DecoratorBehaviour.h</itemPath>
     <itemPath>src/entity/decorators/deposit/Deposit.h</itemPath>
     <itemPath>src/entity/utils/deposit/DepositEntity.h</itemPath>
@@ -244,6 +248,7 @@
     <itemPath>src/entity/decorators/mover/MoverBeh.h</itemPath>
     <itemPath>src/entity/peon/PeonController.h</itemPath>
     <itemPath>src/engine/core/Register.h</itemPath>
+    <itemPath>src/entity/decorators/storage/Storage.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -427,6 +432,10 @@
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/tribe/TribeInfos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/utils/AbstractDecoratorBehaviour.h"
             ex="false"
             tool="3"
@@ -509,6 +518,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/deposit/Deposit.cpp"
             ex="false"
             tool="1"
@@ -529,7 +548,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/functionals/TribeInfos.h"
+      <item path="src/entity/decorators/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -896,6 +920,10 @@
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/tribe/TribeInfos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/utils/AbstractDecoratorBehaviour.h"
             ex="false"
             tool="3"
@@ -978,6 +1006,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/deposit/Deposit.cpp"
             ex="false"
             tool="1"
@@ -998,7 +1036,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/functionals/TribeInfos.h"
+      <item path="src/entity/decorators/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1360,6 +1403,10 @@
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/tribe/TribeInfos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/utils/AbstractDecoratorBehaviour.h"
             ex="false"
             tool="3"
@@ -1442,6 +1489,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/deposit/Deposit.cpp"
             ex="false"
             tool="1"
@@ -1462,7 +1519,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/functionals/TribeInfos.h"
+      <item path="src/entity/decorators/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1831,6 +1893,10 @@
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="11">
       </item>
+      <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/tribe/TribeInfos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/utils/AbstractDecoratorBehaviour.h"
             ex="false"
             tool="3"
@@ -1913,6 +1979,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/deposit/Deposit.cpp"
             ex="false"
             tool="1"
@@ -1933,7 +2009,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/functionals/TribeInfos.h"
+      <item path="src/entity/decorators/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">

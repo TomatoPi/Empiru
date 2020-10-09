@@ -16,28 +16,10 @@
  */
 
 /// 
-/// \file   House.cpp
+/// \file   Collector.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 09:18
+/// \date 9 octobre 2020, 22:18
 ///
 
-#include "House.h"
-
-const StorageDecorator& House::storage() const noexcept {
-  return static_cast<const StorageDecorator&>(*getDecorator<StorageDecorator>());
-}
-
-House::Builder::Builder(
-  GameEngineInterface& engine, 
-  const WorldObject::Position& pos) 
-noexcept :
-  Entity::Builder(WorldObject(WorldObject::Size::Tile, 0.5, pos)), _engine(engine)
-{
-}
-
-void House::Builder::operator() (EntityPtr& ptr) const noexcept {
-  this->Entity::Builder::operator() (ptr);
-  StorageDecorator::Builder builder(ptr);
-  _engine.createDecorator(typeid(StorageDecorator), builder);
-}
+#include "Collector.h"

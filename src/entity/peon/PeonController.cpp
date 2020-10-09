@@ -45,7 +45,7 @@ void PeonController::RightClickOut(EntityPtr ptr) noexcept {
     mover.setTarget(_controller.cursor(), 0.01);
     _controller.objectAction(peon, EntityPtr(nullptr));
   } else {
-    LOG_TODO("Do complex things\n");
+    
   }
 }
 void PeonController::cursorMoved() noexcept {

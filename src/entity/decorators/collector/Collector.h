@@ -16,33 +16,46 @@
  */
 
 /// 
-/// \file   HarvestableBehaviour.h
+/// \file   Collector.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 29 septembre 2020, 16:20
+/// \date 9 octobre 2020, 22:18
 ///
 
-#ifndef HARVESTABLEBEHAVIOUR_H
-#define HARVESTABLEBEHAVIOUR_H
+#ifndef COLLECTOR_H
+#define COLLECTOR_H
 
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/map/MapInterface.h"
-#include "utils/engine/Behaviourer.h"
-#include "utils/world/Harvestable.h"
-#include "engine/GameEngine.h"
-#include "events/GameEvents.h"
+#include "engine/core/decorator/Decorator.h"
+#include "ressources/core/Stack.h"
 
-class HarvestableBehaviour : public Behaviourer {
+class CollectorDecorator : public Decorator {
+private:
+  
+  Stack _inventory;
+  
+  
+public:
+
+  CollectorDecorator() noexcept : _inventory() {}
+  virtual ~CollectorDecorator() noexcept = default;
+  
+  virtual void setActive(bool status) noexcept override {/*nth*/}
+  virtual bool isActive() const noexcept override {return true;}
+  
 public:
   
-  /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject& obj, WorldPtr& ptr, MapInterface & world) {
-    Harvestable & harvest(dynamic_cast<Harvestable &>(obj));
-    if (harvest.empty()) {
-      GameEngine::Get().removeObject(ptr);
-    }
-  }
+  class Builder : public Decorator::Builder {
+  private:
+    
+    int              _size;
+    Stack::Ressource _type;
+    
+  public :
+    
+    explicit Builder(const EntityPtr& entity) noexcept;
+    
+    virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+  };
 };
 
-#endif /* HARVESTABLEBEHAVIOUR_H */
-
+#endif /* COLLECTOR_H */

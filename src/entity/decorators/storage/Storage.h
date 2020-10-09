@@ -19,71 +19,52 @@
 /// \file   Storage.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 09:25
+/// \date 9 octobre 2020, 22:22
 ///
 
 #ifndef STORAGE_H
 #define STORAGE_H
 
-#include "Stack.h"
 #include <unordered_set>
-#include <string>
+#include "engine/core/decorator/Decorator.h"
+#include "ressources/core/Stack.h"
 
-/// \brief Component for WorldObjects that store ressources
-class Storage {
+class StorageDecorator : public Decorator {
+private:
   
   /// \brief Table of Stack hashed by type
   typedef std::unordered_set<Stack, StackTypeHash, StackTypeEqual> StackList;
-  
-private:
-  
   StackList _storage; ///< Current storage
   
 public:
+
+  StorageDecorator() noexcept = default;
+  virtual ~StorageDecorator() noexcept = default;
   
-  /// \brief Construct a storage
-  Storage() noexcept : 
-    _storage()
-  {   
-  }
-  Storage(const Storage &) = default;
-  Storage & operator= (const Storage &) = default;
-  /// \brief Make class polymorphic
-  virtual ~Storage() = default;
-  
-  /// \brief add given stack to the storage
-  void addToStorage(const Stack & stack) noexcept {
-    StackList::iterator itr(_storage.find(stack));
-    if (itr == _storage.end()) {
-      _storage.emplace_hint(itr, stack);
-    } else {
-      Stack old(*itr);
-      old.reduce(-stack.size());
-      _storage.erase(itr);
-      _storage.emplace(old);
-    }
-  }
+  /// \brief add given stack to the storage and return garbage
+  Stack addToStorage(const Stack & stack) noexcept;
   
   const StackList & stock() const noexcept {
     return _storage;
   }
   
   bool canStore(Stack::Ressource type) const noexcept {
-    return type != Stack::Invalid;
+    return type != Stack::Ressource::Invalid
+        && type != Stack::Ressource::Count;
   }
   
-  /// \brief Debug method
-  std::string content_str() const noexcept {
-    std::string res;
-    for (auto & stack : _storage) {
-      res.append("[");
-      res.append(std::to_string(stack.type()));
-      res.append(":");
-      res.append(std::to_string(stack.size()));
-      res.append("]");
-    }
-    return res;
-  }
+  virtual void setActive(bool status) noexcept override {/*nth*/}
+  virtual bool isActive() const noexcept override {return true;}
+  
+public:
+  
+  class Builder : public Decorator::Builder {
+  public :
+    
+    explicit Builder(const EntityPtr& entity) noexcept;
+    
+    virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+  };
 };
 
 #endif /* STORAGE_H */

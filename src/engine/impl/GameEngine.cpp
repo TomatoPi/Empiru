@@ -34,23 +34,13 @@ GameEngine::GameEngine(MapInterface & w) :
   Subject(), Observer(),
   _entities(),
   _decorators(),
-  _playerTribe(),
   _world(w)
 {
-}
-
-TribeInfos & GameEngine::playerTribe() {
-  return _playerTribe;
-}
-const TribeInfos & GameEngine::playerTribe() const {
-  return _playerTribe;
 }
 
 /// \brief Called on each Main-loop iteration
 ///   Call behaviour of each object
 void GameEngine::update() {
-  /* first init the tribe */
-  _playerTribe.init();
   /* compute entitites masters behaviours */
   _entities.behave(
       [this](Entity& entity, EntityPtr& ptr, EntityBeh* beh) -> void {

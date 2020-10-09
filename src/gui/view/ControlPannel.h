@@ -34,7 +34,7 @@
 
 #include "gui/utils/GenericRenderer.h"
 
-#include "entity/functionals/TribeInfos.h"
+#include "engine/tribe/TribeInfos.h"
 
 class ControlPannel : public gui::View, public Observer {
 private:
