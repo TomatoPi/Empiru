@@ -24,7 +24,7 @@
 
 #include <cassert>
 
-#include "World.h"
+#include "WorldMap.h"
 #include "utils/hex/OddQ.h"
 #include "utils/hex/Conversion.h"
 #include "engine/core/entity/Entity.h"
