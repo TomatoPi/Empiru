@@ -16,24 +16,18 @@
  */
 
 /// 
-/// \file   PixelPerfectClicker.h
+/// \file   WorldRef.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 septembre 2020, 11:13
+/// \date 19 septembre 2020, 06:14
 ///
 
-#ifndef PIXELPERFECTCLICKER_H
-#define PIXELPERFECTCLICKER_H
+#ifndef WORLDREF_H
+#define WORLDREF_H
 
-#include "utils/world/core/EntityPtr.h"
+#include "utils/core/IndexPtr.h"
 
-class PixelPerfectClicker {
-public:
-  virtual ~PixelPerfectClicker() noexcept = default;
-  
-  virtual void updateClickZones() = 0;
-  
-  virtual WorldPtr objectAt(int x, int y) const noexcept = 0;
-};
+class Entity;
+using EntityPtr = core::IndexPtr<Entity>;
 
-#endif /* PIXELPERFECTCLICKER_H */
+#endif /* WORLDREF_H */

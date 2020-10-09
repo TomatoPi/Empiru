@@ -92,7 +92,7 @@ namespace {
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
   
-  LOG_DEBUG("%lu %lu\n", sizeof(std::unordered_map<int,int>), sizeof(std::unordered_map<long int,long int>))
+  LOG_DEBUG("%lu %lu %lu\n", sizeof(std::vector<int>), sizeof(std::unordered_map<long int,long int>), sizeof(std::map<int,int>))
   LOG_DEBUG("%lu %lu\n", sizeof(WorldPtr), sizeof(void*));
   
   /* Create the World and main engine */

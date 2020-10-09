@@ -25,7 +25,7 @@
 #ifndef WORLDINTERFACE_H
 #define WORLDINTERFACE_H
 
-#include "utils/world/core/WorldPtr.h"
+#include "utils/engine/core/entity/EntityPtr.h"
 #include "utils/world/map/Tile.h"
 
 /// \brief Interface that must be used to comunicate with the World
@@ -33,9 +33,9 @@ class MapInterface {
 public:
   
   /// \brief Must add given object to the world
-  virtual void addObject(const WorldPtr& ptr) = 0;
+  virtual void addObject(const EntityPtr& ptr) = 0;
   /// \brief Must remove given object fro the world
-  virtual void removeObject(const WorldPtr& ptr) = 0;
+  virtual void removeObject(const EntityPtr& ptr) = 0;
   
   /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const = 0;

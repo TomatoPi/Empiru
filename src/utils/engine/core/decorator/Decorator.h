@@ -16,27 +16,45 @@
  */
 
 /// 
-/// \file   Behaviourer.h
+/// \file   Decorator.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 18 septembre 2020, 17:06
-/// \brief Interface for WorldObjects mechanics' handlers
+/// \date 8 octobre 2020, 23:13
 ///
 
-#ifndef BEHAVIOUR_H
-#define BEHAVIOUR_H
+#ifndef DECORATOR_H
+#define DECORATOR_H
 
-#include "utils/world/map/MapInterface.h"
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/engine/core/decorator/DecoratorPtr.h"
+#include "utils/engine/core/entity/EntityPtr.h"
+#include "utils/engine/core/entity/Entity.h"
 
-/// \brief Interface for WorldObjects mechanics' handlers
-class Behaviourer {
+class Decorator {
+private:
+  
+  EntityPtr _entity;
+  
 public:
   
-  /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject& obj, WorldPtr& ptr, MapInterface& world) = 0;
+  Decorator() noexcept : _entity(nullptr) {}
+  virtual ~Decorator() noexcept = default;
+  
+  class Builder {
+  private:
+    
+    EntityPtr _entity;
+    
+  public:
+    
+    explicit Builder(const EntityPtr& entity) noexcept : 
+      _entity(entity) {}
+    
+    void operator() (DecoratorPtr& ptr) const noexcept {
+      ptr->_entity = _entity;
+      ptr->_entity->attachDecorator(typeid(*ptr), ptr);
+    }
+  };
 };
 
-#endif /* BEHAVIOUR_H */
+#endif /* DECORATOR_H */
 

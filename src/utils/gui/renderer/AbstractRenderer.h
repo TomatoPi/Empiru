@@ -27,7 +27,7 @@
 #define GUI_RDR_ABSTRACTRENDERER_H
 
 #include "utils/hex/Viewport.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/world/core/EntityPtr.h"
 #include "utils/world/core/WorldObject.h"
 #include <SDL2/SDL_render.h>
 

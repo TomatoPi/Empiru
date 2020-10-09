@@ -36,29 +36,12 @@ public:
   /// \brief Define the position type of an object
   typedef hex::Axial Position;
   
-protected:
-  
   /// \brief Specify object's size on the map
   enum class Size {
     Small,  ///< Objects that can coexist on the same tile with circular hitbox
     Tile,   ///< Objects that occupy the whole tile
     Hollow, ///< Utility objects that don't occupy space
   };
-  
-  /// \brief change object's size class
-  inline void setSizeClass(Size s) {_size = s;}
-  /// \brief return object's size class
-  inline Size sizeClass() const noexcept {return _size;}
-  
-  /// \brief Construct an object
-  WorldObject(Size size, float radius=0.5f, Position pos=Position()) noexcept;
-  
-  /// \brief Copy constructor
-  WorldObject(const WorldObject &) noexcept = default;
-  /// \brief Copy assignement
-  WorldObject& operator= (const WorldObject &) noexcept = default;
-  /// \brief Destructor
-  virtual ~WorldObject() noexcept = default;
   
 private:
   
@@ -67,6 +50,20 @@ private:
   Size     _size;    ///< Object's size
   
 public:
+  
+  /// \brief Construct an object
+  explicit WorldObject(Size s, float r=0.5f, Position p=Position()) noexcept;
+  /// \brief Copy constructor
+  WorldObject(const WorldObject &) noexcept = default;
+  /// \brief Copy assignement
+  WorldObject& operator= (const WorldObject &) noexcept = default;
+  /// \brief Destructor
+  ~WorldObject() noexcept = default;
+  
+  /// \brief change object's size class
+  inline void setSizeClass(Size s) {_size = s;}
+  /// \brief return object's size class
+  inline Size sizeClass() const noexcept {return _size;}
   
   /// \brief return object's position
   const Position & pos() const noexcept {return _pos;}
@@ -80,8 +77,6 @@ public:
   bool collide(const WorldObject & obj) const noexcept;
   /// \brief Method that return true if pos is in this object
   bool collide(const Position & pos) const noexcept;
-  
-public:
   
   /// \brief Collision between two small objects
   static bool smallCollide(const WorldObject &a, const WorldObject &b) 

@@ -26,7 +26,7 @@
 #define CONTROLLEREVENTS_H
 
 #include "utils/world/core/WorldObject.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/world/core/EntityPtr.h"
 #include "utils/core/Observer.h"
 
 struct EventObjectSelected : public Event {

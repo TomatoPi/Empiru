@@ -30,7 +30,7 @@
 #include "utils/hex/Axial.h"
 #include "entity/peon/Order.h"
 #include "utils/world/core/WorldObject.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/world/core/EntityPtr.h"
 #include "utils/world/Ressource.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of

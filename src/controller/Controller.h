@@ -28,7 +28,7 @@
 
 #include "utils/core/Observer.h"
 #include "utils/world/map/MapInterface.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/world/core/EntityPtr.h"
 #include "engine/GameEngine.h"
 
 /// \brief Main handler for user control

@@ -16,19 +16,24 @@
  */
 
 /// 
-/// \file   GenericAllocator.h
+/// \file   Behaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 06:18
+/// \date 9 octobre 2020, 02:07
 ///
 
-#ifndef GENERICALLOCATOR_H
-#define GENERICALLOCATOR_H
+#ifndef ENTITYBEHAVIOUR_H
+#define ENTITYBEHAVIOUR_H
 
-#include "utils/core/IndexAllocator.h"
+#include "utils/engine/core/entity/Entity.h"
+#include "utils/engine/core/entity/EntityPtr.h"
+#include "utils/engine/core/EngineInterface.h"
 
-class WorldObject;
-template <class T>
-using WorldAllocator = core::IndexAllocator<T,WorldObject>;
+class EntityBehaviour {
+public:
+  virtual void 
+  operator() (Entity&, EntityPtr, GameEngineInterface&) noexcept = 0;
+};
 
-#endif /* GENERICALLOCATOR_H */
+#endif /* ENTITYBEHAVIOUR_H */
+

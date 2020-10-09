@@ -162,10 +162,13 @@
         </logicalFolder>
         <logicalFolder name="f2" displayName="world" projectFiles="true">
           <logicalFolder name="f1" displayName="core" projectFiles="true">
-            <itemPath>src/utils/world/core/WorldAllocator.h</itemPath>
+            <itemPath>src/utils/engine/core/decorator/Decorator.h</itemPath>
+            <itemPath>src/utils/engine/core/decorator/DecoratorAllocator.h</itemPath>
+            <itemPath>src/utils/engine/core/decorator/DecoratorPtr.h</itemPath>
+            <itemPath>src/utils/engine/core/entity/Entity.h</itemPath>
+            <itemPath>src/utils/engine/core/entity/EntityPtr.h</itemPath>
             <itemPath>src/utils/world/core/WorldObject.cpp</itemPath>
             <itemPath>src/utils/world/core/WorldObject.h</itemPath>
-            <itemPath>src/utils/world/core/WorldPtr.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="map" projectFiles="true">
             <itemPath>src/utils/world/map/MapInterface.h</itemPath>
@@ -222,6 +225,9 @@
       <itemPath>Makefile</itemPath>
       <itemPath>doxyconfig</itemPath>
     </logicalFolder>
+    <itemPath>src/utils/engine/core/decorator/DecoratorBehaviour.h</itemPath>
+    <itemPath>src/utils/engine/core/EngineInterface.h</itemPath>
+    <itemPath>src/utils/engine/core/entity/EntityBehaviour.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -481,6 +487,46 @@
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/engine/core/EngineInterface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/Entity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
@@ -563,19 +609,12 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/utils/world/core/WorldObject.cpp"
             ex="false"
-            tool="3"
+            tool="1"
             flavor2="0">
       </item>
       <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -861,6 +900,46 @@
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/engine/core/EngineInterface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/Entity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
@@ -943,19 +1022,12 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/utils/world/core/WorldObject.cpp"
             ex="false"
-            tool="3"
+            tool="1"
             flavor2="0">
       </item>
       <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1236,6 +1308,46 @@
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/engine/core/EngineInterface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/Entity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
@@ -1318,19 +1430,12 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/utils/world/core/WorldObject.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1612,6 +1717,46 @@
       </item>
       <item path="src/utils/engine/Behaviourer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/engine/core/EngineInterface.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorAllocator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/decorator/DecoratorPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/Entity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/utils/engine/core/entity/EntityPtr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/utils/gui/assets/Animation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/gui/assets/GraphicAssetsRegister.cpp"
@@ -1694,19 +1839,12 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/world/core/WorldAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/utils/world/core/WorldObject.cpp"
             ex="false"
-            tool="3"
+            tool="1"
             flavor2="0">
       </item>
       <item path="src/utils/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/utils/world/core/WorldPtr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/map/MapInterface.h" ex="false" tool="3" flavor2="0">
       </item>

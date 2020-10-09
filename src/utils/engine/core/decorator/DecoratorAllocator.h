@@ -16,24 +16,19 @@
  */
 
 /// 
-/// \file   PixelPerfectClicker.h
+/// \file   GenericAllocator.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 septembre 2020, 11:13
+/// \date 19 septembre 2020, 06:18
 ///
 
-#ifndef PIXELPERFECTCLICKER_H
-#define PIXELPERFECTCLICKER_H
+#ifndef DECORATORALLOCATOR_H
+#define DECORATORALLOCATOR_H
 
-#include "utils/world/core/EntityPtr.h"
+#include "utils/core/IndexAllocator.h"
 
-class PixelPerfectClicker {
-public:
-  virtual ~PixelPerfectClicker() noexcept = default;
-  
-  virtual void updateClickZones() = 0;
-  
-  virtual WorldPtr objectAt(int x, int y) const noexcept = 0;
-};
+class Decorator;
+template <class T>
+using DecoratorAllocator = core::IndexAllocator<T,Decorator>;
 
-#endif /* PIXELPERFECTCLICKER_H */
+#endif /* DECORATORALLOCATOR_H */

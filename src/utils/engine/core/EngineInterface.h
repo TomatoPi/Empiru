@@ -16,18 +16,34 @@
  */
 
 /// 
-/// \file   WorldRef.h
+/// \file   EngineInterface.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 19 septembre 2020, 06:14
+/// \date 9 octobre 2020, 02:11
 ///
 
-#ifndef WORLDREF_H
-#define WORLDREF_H
+#ifndef ENGINEINTERFACE_H
+#define ENGINEINTERFACE_H
 
-#include "utils/core/IndexPtr.h"
+#include <typeinfo>
+#include "utils/engine/core/entity/EntityPtr.h"
+#include "utils/engine/core/entity/Entity.h"
+#include "utils/engine/core/decorator/DecoratorPtr.h"
+#include "utils/engine/core/decorator/Decorator.h"
 
-class WorldObject;
-using WorldPtr = core::IndexPtr<WorldObject>;
+class GameEngineInterface {
+public:
+  
+  virtual EntityPtr 
+  createEntity(const std::type_info& type, const Entity::Builder& builder) 
+  noexcept = 0;
+  virtual void discardEntity(EntityPtr ptr) noexcept = 0;
+  
+  virtual DecoratorPtr
+  createDecorator(const std::type_info& type, const Decorator::Builder& builder)
+  noexcept = 0;
+  virtual void dirscardDecorator(DecoratorPtr ptr) noexcept = 0;
+};
 
-#endif /* WORLDREF_H */
+#endif /* ENGINEINTERFACE_H */
+

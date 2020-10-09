@@ -27,7 +27,7 @@
 #define GAMEENGINE_H
 
 #include "utils/core/Allocator.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/world/core/EntityPtr.h"
 #include "utils/world/map/MapInterface.h"
 #include "utils/engine/Behaviourer.h"
 #include "utils/core/Observer.h"
@@ -63,13 +63,7 @@ private:
   TribeInfos   _playerTribe; ///< Object that store player's tribe infos
   MapInterface & _world;   ///< THA WO... oh wait ... joke already used
   
-  static GameEngine * _Engine;
-  
 public:
-  
-  static GameEngine & Get() noexcept {
-    return *_Engine;
-  }
   
   /// \brief Contructor
   GameEngine(MapInterface & w);

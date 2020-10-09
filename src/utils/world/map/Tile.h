@@ -29,7 +29,7 @@
 #include <unordered_set>
 
 #include "utils/hex/Axial.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/engine/core/entity/EntityPtr.h"
 #include "utils/world/core/WorldObject.h"
 
 /// \brief Tiles are world's container
@@ -37,7 +37,7 @@ class Tile {
 public:
   
   /// \brief Tile's sub container
-  typedef std::unordered_set<WorldPtr,core::PtrHash,core::PtrEquals> Content;
+  typedef std::unordered_set<EntityPtr,core::PtrHash,core::PtrEquals> Content;
   
 private :
   
@@ -58,12 +58,12 @@ public:
   ~Tile() = default;
   
   /// \brief Add given object to the tile
-  void insert(const WorldPtr& ptr) noexcept {
+  void insert(const EntityPtr& ptr) noexcept {
     bool success(_content.insert(ptr).second);
     assert(success);
   }
   /// \brief Remove given object from the tile
-  void erase(const WorldPtr& ptr) noexcept {
+  void erase(const EntityPtr& ptr) noexcept {
     bool success(_content.erase(ptr));
     assert(success);
   }

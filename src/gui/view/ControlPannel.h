@@ -30,7 +30,7 @@
 #include "utils/gui/view/Window.h"
 #include "utils/gui/assets/SpriteSheet.h"
 #include "utils/gui/ui/FontPrinter.h"
-#include "utils/world/core/WorldPtr.h"
+#include "utils/world/core/EntityPtr.h"
 
 #include "gui/GenericRenderer.h"
 

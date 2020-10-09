@@ -16,24 +16,24 @@
  */
 
 /// 
-/// \file   PixelPerfectClicker.h
+/// \file   DecoratorBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 septembre 2020, 11:13
+/// \date 9 octobre 2020, 02:24
 ///
 
-#ifndef PIXELPERFECTCLICKER_H
-#define PIXELPERFECTCLICKER_H
+#ifndef DECORATORBEHAVIOUR_H
+#define DECORATORBEHAVIOUR_H
 
-#include "utils/world/core/EntityPtr.h"
+#include "utils/engine/core/decorator/Decorator.h"
+#include "utils/engine/core/decorator/DecoratorPtr.h"
+#include "utils/engine/core/EngineInterface.h"
 
-class PixelPerfectClicker {
+class EntityBehaviour {
 public:
-  virtual ~PixelPerfectClicker() noexcept = default;
-  
-  virtual void updateClickZones() = 0;
-  
-  virtual WorldPtr objectAt(int x, int y) const noexcept = 0;
+  virtual void 
+  operator() (Decorator&, DecoratorPtr, GameEngineInterface&) noexcept = 0;
 };
 
-#endif /* PIXELPERFECTCLICKER_H */
+#endif /* DECORATORBEHAVIOUR_H */
+
