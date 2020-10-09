@@ -25,14 +25,14 @@
 #ifndef CONTROLPANNEL_H
 #define CONTROLPANNEL_H
 
-#include "utils/core/Observer.h"
-#include "utils/gui/view/View.h"
-#include "utils/gui/view/Window.h"
-#include "utils/gui/assets/SpriteSheet.h"
-#include "utils/gui/ui/FontPrinter.h"
-#include "utils/world/core/EntityPtr.h"
+#include "utils/pattern/Observer.h"
+#include "utils/gui/View.h"
+#include "utils/gui/Window.h"
+#include "utils/assets/SpriteSheet.h"
+#include "utils/gui/FontPrinter.h"
+#include "engine/core/entity/EntityPtr.h"
 
-#include "gui/GenericRenderer.h"
+#include "gui/utils/GenericRenderer.h"
 
 #include "entity/functionals/TribeInfos.h"
 
@@ -41,7 +41,7 @@ private:
   
   Window &           _window;
   const TribeInfos & _playerTribe;
-  WorldPtr           _selectedObject;
+  EntityPtr          _selectedObject;
   
   std::shared_ptr<SpriteSheet> _background; ///< Pannel's background sprite
   std::shared_ptr<SpriteSheet> _icons;      ///< Pannel's icons sprites

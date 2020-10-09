@@ -21,7 +21,7 @@
 ///
 /// \date 6 octobre 2020, 12:03
 ///
-
+#if 0
 #include "SiteRenderer.h"
 #include "ConstructSite.h"
 
@@ -64,3 +64,4 @@ void SiteRenderer::renderAt(
   _mask->setColorMod(c);
   _mask->renderFrame(frame, ori, &r);
 }
+#endif

@@ -28,11 +28,10 @@
 #include "Entity.h"
 #include "EntityPtr.h"
 
-class GameEngineInterface;
 class EntityBeh {
 public:
   virtual void 
-  operator() (Entity&, EntityPtr, GameEngineInterface&) noexcept = 0;
+  operator() (Entity&, EntityPtr) noexcept = 0;
 };
 
 #endif /* ENTITYBEHAVIOUR_H */

@@ -23,19 +23,33 @@
 /// \brief The ultimate worker, useful to make anything you can think of
 ///
 
-#ifndef PEON_H
-#define PEON_H
+#ifndef PEON_ENTITY_H
+#define PEON_ENTITY_H
 
 #include <deque>
-#include "utils/hex/Axial.h"
-#include "entity/peon/Order.h"
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/core/EntityPtr.h"
-#include "utils/world/Ressource.h"
+#include "engine/core/entity/Entity.h"
+#include "engine/core/EngineInterface.h"
+
+#include "entity/decorators/mover/Mover.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
-class Peon : public WorldObject {
+class Peon : public Entity {
+public:
+  
+  const MoverDecorator& mover() const noexcept;
+  
+  class Builder : public Entity::Builder {
+  private:
+    
+    GameEngineInterface& _engine;
+    
+  public:
+    
+    Builder(GameEngineInterface& engine, const WorldObject::Position& pos) noexcept;
+    virtual void operator() (EntityPtr& ptr) const noexcept override;
+  };
+/*
 private:
 
   /// \brief Store the list of targets positions, used as a stack
@@ -88,6 +102,7 @@ public:
   
   /// \brief Increment peon's order counter and return true if order is ready
   bool tickCptr();
+*/
 };
 
-#endif /* PEON_H */
+#endif /* PEON_ENTITY_H */

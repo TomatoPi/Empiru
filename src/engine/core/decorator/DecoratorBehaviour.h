@@ -27,12 +27,12 @@
 
 #include "Decorator.h"
 #include "DecoratorPtr.h"
+#include "engine/core/EngineInterface.h"
 
-class GameEngineInterface;
 class DecoratorBeh {
 public:
   virtual void 
-  operator() (Decorator&, DecoratorPtr, GameEngineInterface&) noexcept = 0;
+  operator() (Decorator&, DecoratorPtr) noexcept = 0;
 };
 
 #endif /* DECORATORBEHAVIOUR_H */

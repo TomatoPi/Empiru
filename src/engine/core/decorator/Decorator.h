@@ -30,7 +30,7 @@
 #include "engine/core/entity/Entity.h"
 
 class Decorator {
-private:
+protected:
   
   EntityPtr _entity;
   
@@ -38,6 +38,9 @@ public:
   
   Decorator() noexcept : _entity(nullptr) {}
   virtual ~Decorator() noexcept = default;
+  
+  virtual void setActive(bool status) noexcept = 0;
+  virtual bool isActive() const noexcept = 0;
   
   class Builder {
   private:

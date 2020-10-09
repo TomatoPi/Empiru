@@ -45,16 +45,16 @@ PeonRenderer::PeonRenderer(
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
 void PeonRenderer::renderAt(
-    const WorldPtr& obj, 
+    const EntityPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view)
 {
-  const Peon & peon(static_cast<const Peon &>(*obj));
+  const Peon& peon(static_cast<const Peon&>(*obj));
   Datas & datas(_targets.at(obj));
-  int frame = peon.hasOrders() && !peon.isPaused() ? 
-    datas._anim.update() : 
+  int frame = peon.mover().status() == MoverDecorator::Status::Walking ?
+    datas._anim.tick() : 
     datas._anim.restart();
-  ori = (ori + 6 - peon.direction().orientation()) % 6;
+  ori = (ori + 6 - peon.position().orientation()) % 6;
   SDL_Rect r;
   r.w = _sheet->width();
   r.h = _sheet->height();
@@ -62,40 +62,40 @@ void PeonRenderer::renderAt(
   r.y = y - r.h;
   if (datas._select) {
     _select->renderFrame(frame, ori, &r);
-    if (const WorldPtr& ref = peon.attachtedWharehouse()) {
-      const WorldObject & obj(*ref);
-      int x, y;
-      view.toPixel(obj.pos(), &x, &y);
-      SDL_Rect r;
-      r.w = _whareh->width();
-      r.h = _whareh->height();
-      r.x = x - r.w / 2;
-      r.y = y - r.h - 70;
-      _whareh->renderFrame(0, datas._wanim.update(), &r);
-    }
+//    if (const WorldPtr& ref = peon.attachtedWharehouse()) {
+//      const WorldObject & obj(*ref);
+//      int x, y;
+//      view.toPixel(obj.pos(), &x, &y);
+//      SDL_Rect r;
+//      r.w = _whareh->width();
+//      r.h = _whareh->height();
+//      r.x = x - r.w / 2;
+//      r.y = y - r.h - 70;
+//      _whareh->renderFrame(0, datas._wanim.tick(), &r);
+//    }
   }
-  if (peon.isPaused()) {
-    SDL_Rect r;
-    r.w = _notify->width();
-    r.h = _notify->height();
-    r.x = x - r.w / 2 - 1;
-    r.y = y - r.h - _sheet->height() + 9;
-    _notify->renderFrame(0, datas._notanim.update(), &r);
-  }
+//  if (peon.isPaused()) {
+//    SDL_Rect r;
+//    r.w = _notify->width();
+//    r.h = _notify->height();
+//    r.x = x - r.w / 2 - 1;
+//    r.y = y - r.h - _sheet->height() + 9;
+//    _notify->renderFrame(0, datas._notanim.tick(), &r);
+//  }
   _sheet->renderFrame(frame, ori, &r);
 }
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
 void PeonRenderer::renderAt(
-    const WorldPtr& obj, 
+    const EntityPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     const SDL_Color & c)
 {
   const Peon & peon(static_cast<const Peon &>(*obj));
   Datas & datas(_targets.at(obj));
-  int frame = peon.hasOrders() ? datas._anim.frame() : 0;
-  ori = (ori + 6 - peon.direction().orientation()) % 6;
+  int frame = 0;//peon.hasOrders() ? datas._anim.value() : 0;
+  //ori = (ori + 6 - peon.direction().orientation()) % 6;
   SDL_Rect r;
   r.w = _mask->width();
   r.h = _mask->height();
@@ -107,25 +107,25 @@ void PeonRenderer::renderAt(
 
 /// \brief Called when a new object associated with this renderer is created
 ///  may instanciate fine scope datas, like animation state
-void PeonRenderer::addTarget(const WorldPtr& obj) noexcept {
+void PeonRenderer::addTarget(const EntityPtr& obj) noexcept {
   auto insert(_targets.emplace(obj, Datas()));
   assert(insert.second);
 }
 /// \brief Called when an object associated with this renderer is destroyed
 ///  may dealocate corresponding datas
-void PeonRenderer::removeTarget(const WorldPtr& obj) noexcept {
+void PeonRenderer::removeTarget(const EntityPtr& obj) noexcept {
   auto itr(_targets.find(obj));
   assert(itr != _targets.end());
   _targets.erase(itr);
 }
 /// \brief Called when an object associated with this renderer is selected
 ///  may remember draw a special overlay around it
-void PeonRenderer::targetSelected(const WorldPtr& obj) {
+void PeonRenderer::targetSelected(const EntityPtr& obj) {
   _targets.at(obj)._select = true;
   _targets.at(obj)._wanim.restart();
 }
 /// \brief Called when an object associated with this renderer is deselected
 ///  may remember to stop draw special overlay
-void PeonRenderer::targetDeselected(const WorldPtr& obj) {
+void PeonRenderer::targetDeselected(const EntityPtr& obj) {
   _targets.at(obj)._select = false;
 }

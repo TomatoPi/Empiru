@@ -29,7 +29,7 @@
 #include "Axial.h"
 #include "Consts.h"
 
-#include "utils/gui/view/View.h"
+#include "utils/gui/View.h"
 
 namespace hex {
 
@@ -38,7 +38,7 @@ namespace hex {
   public:
 
     static constexpr int HEXAGON_WIDTH  = 254; ///< Tile's on screen width
-    static constexpr int HEXAGON_HEIGHT = 88;  ///< Tile's on screen height
+    static constexpr int HEXAGON_HEIGHT = 87;  ///< Tile's on screen height
 
     static const Axial VIEW_VX;  ///< Horizontal Axis
     static const Axial VIEW_VY;  ///< Vertical Axis

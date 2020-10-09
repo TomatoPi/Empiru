@@ -25,10 +25,10 @@
 #ifndef DECORATORPTR_H
 #define DECORATORPTR_H
 
-#include "utils/core/Pointer.h"
+#include "utils/alloc/IndexPtr.h"
 
 class Decorator;
-using DecoratorPtr = core::Pointer<Decorator>;
+using DecoratorPtr = alloc::IndexPtr<Decorator>;
 
 #endif /* DECORATORPTR_H */
 

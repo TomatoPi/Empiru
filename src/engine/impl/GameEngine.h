@@ -26,12 +26,15 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
-#include "utils/core/IndexAllocator.h"
-#include "utils/core/Observer.h"
+#include "utils/alloc/IndexAllocator.h"
+#include "utils/pattern/Observer.h"
 
 #include "engine/core/EngineInterface.h"
 #include "engine/core/Register.h"
 #include "world/core/MapInterface.h"
+
+#include "engine/core/entity/EntityBehaviour.h"
+#include "engine/core/decorator/DecoratorBehaviour.h"
 
 #include "entity/functionals/TribeInfos.h"
 
@@ -42,6 +45,9 @@ class GameEngine :
   public Observer 
 {
 private:
+  
+  typedef alloc::Allocator<Entity,EntityPtr,std::size_t> EAllocator;
+  typedef alloc::Allocator<Decorator,DecoratorPtr,std::size_t> DAllocator;
   
   typedef Register<Entity,EntityPtr,EntityBeh> EntitiesReg;
   typedef Register<Decorator,DecoratorPtr,DecoratorBeh> DecoratorsReg;
@@ -72,9 +78,9 @@ public:
   discardEntity(EntityPtr ptr) 
   noexcept override;
   
-  virtual void 
+  void 
   registerEntity(const std::type_info& type, EAllocator*, EntityBeh*) 
-  noexcept override;
+  noexcept;
   
   
   virtual DecoratorPtr
@@ -85,9 +91,9 @@ public:
   dirscardDecorator(DecoratorPtr ptr) 
   noexcept override;
   
-  virtual void
+  void
   registerDecorator(const std::type_info& type, DAllocator*, DecoratorBeh*) 
-  noexcept override;
+  noexcept;
 };
 
 #endif /* GAMEENGINE_H */

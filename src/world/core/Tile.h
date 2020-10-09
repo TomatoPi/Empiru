@@ -36,7 +36,7 @@ class Tile {
 public:
   
   /// \brief Tile's sub container
-  typedef std::unordered_set<EntityPtr,core::PtrHash,core::PtrEquals> Content;
+  typedef std::unordered_set<EntityPtr,alloc::PtrHash,alloc::PtrEquals> Content;
   
 private :
   

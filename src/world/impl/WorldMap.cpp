@@ -87,19 +87,16 @@ bool WorldMap::isOnMap(const WorldObject::Position & pos) const {
 /// \brief Return true if given position is valid
 ///   if position is invalid, return false and return pointer to the obstacle
 ///   in 'obstacle' if relevant
-bool WorldMap::tryPosition(
-  const WorldObject& object, 
-  const EntityPtr& entity, 
-  EntityPtr* obstacle) 
+bool WorldMap::tryPosition(const EntityPtr& entity, EntityPtr* obstacle) 
 const noexcept
 {
   // Check validity
-  if (!isOnMap(object.pos())) {
+  if (!isOnMap(entity->position().pos())) {
     return false;
   }
   // Check collisions
   bool valid(true);
-  object.pos().mapNeightbours(
+  entity->position().pos().mapNeightbours(
     [&]
     (const WorldObject::Position & pos) -> bool {
       auto content = getContentAt(pos);
@@ -107,7 +104,7 @@ const noexcept
         for (auto obj : *content){
           if (obj == entity) 
             continue;
-          if (obj->position().collide(object)) {
+          if (obj->position().collide(entity->position())) {
             *obstacle = obj;
             valid = false;
             return true;

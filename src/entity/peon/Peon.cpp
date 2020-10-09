@@ -27,6 +27,25 @@
 
 #include "Peon.h"
 
+const MoverDecorator& Peon::mover() const noexcept {
+  return static_cast<const MoverDecorator&>(*getDecorator<MoverDecorator>());
+}
+
+Peon::Builder::Builder(
+  GameEngineInterface& engine, 
+  const WorldObject::Position& pos) 
+noexcept :
+  Entity::Builder(WorldObject(WorldObject::Size::Small, 0.05, pos)), _engine(engine)
+{
+}
+
+void Peon::Builder::operator() (EntityPtr& ptr) const noexcept {
+  this->Entity::Builder::operator ()(ptr);
+  MoverDecorator::Builder movbuilder(ptr, 0.01);
+  _engine.createDecorator(typeid(MoverDecorator), movbuilder);
+}
+
+#if 0
 /// \brief Constructor
 Peon::Peon() :
   WorldObject(WorldObject::Size::Small, 0.05), 
@@ -161,3 +180,4 @@ bool Peon::tickCptr() {
   if (_paused) return false;
   return 0 == (_cptr = (_cptr+1) % _delay);
 }
+#endif

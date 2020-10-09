@@ -25,7 +25,7 @@
 #ifndef HOUSE_H
 #define HOUSE_H
 
-#include "utils/world/core/WorldObject.h"
+#include "world/core/WorldObject.h"
 #include "utils/world/Storage.h"
 
 class House : public WorldObject, public Storage {

@@ -21,7 +21,7 @@
 ///
 /// \date 6 octobre 2020, 14:38
 ///
-
+#if 0
 #include "SiteBehaviour.h"
 #include "ConstructSite.h"
 #include "engine/GameEngine.h"
@@ -51,3 +51,4 @@ void SiteBehaviour::tick(WorldObject & obj, WorldPtr& ptr, MapInterface & world)
     site.progressTick(1);
   }
 }
+#endif

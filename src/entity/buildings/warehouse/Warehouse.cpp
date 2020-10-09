@@ -21,9 +21,10 @@
 ///
 /// \date 7 octobre 2020, 00:56
 ///
-
+#if 0
 #include "Warehouse.h"
 
 Warehouse::Warehouse() : WorldObject(WorldObject::Size::Tile), Storage() {
   
 }
+#endif

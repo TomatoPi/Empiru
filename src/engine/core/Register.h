@@ -25,8 +25,8 @@
 #ifndef REGISTER_H
 #define REGISTER_H
 
-#include "utils/core/IndexPtr.h"
-#include "utils/core/IndexAllocator.h"
+#include "utils/alloc/IndexPtr.h"
+#include "utils/alloc/IndexAllocator.h"
 
 #include <cassert>
 #include <typeinfo>
@@ -38,7 +38,7 @@ template <class Base, class Ptr, class Behav>
 class Register {
 private:
     
-  typedef core::Allocator<Base,Ptr,std::size_t> Allocator;
+  typedef alloc::Allocator<Base,Ptr,std::size_t> Allocator;
   /// \brief Table of storage by objects type
   typedef std::unordered_map<std::type_index, Allocator*> ObjectsTable;
   /// \brief Table of behaviours by objects type

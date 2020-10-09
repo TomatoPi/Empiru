@@ -23,12 +23,12 @@
 ///
 
 #include "ControlPannel.h"
-#include "utils/gui/view/Window.h"
-#include "events/ControllerEvents.h"
-#include "entity/peon/Peon.h"
-#include "utils/world/Storage.h"
-#include "utils/world/Harvestable.h"
-#include "entity/buildings/site/ConstructSite.h"
+#include "utils/gui/Window.h"
+#include "controller/events/ControllerEvents.h"
+//#include "entity/peon/Peon.h"
+//#include "utils/world/Storage.h"
+//#include "utils/world/Harvestable.h"
+//#include "entity/buildings/site/ConstructSite.h"
 
 namespace {
   /// \brief Array of indexes of ressources icons indexes on icon sheet
@@ -111,55 +111,55 @@ void ControlPannel::drawGlobalRessources(const SDL_Rect& pannel) {
   }
 }
 void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
-  SDL_Rect rect;
-  std::vector<std::pair<int,std::string>> inventory;
-  if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
-    if (!peon->inventory().empty())
-      inventory.emplace_back(
-        iconframes[peon->inventory().type()], 
-        std::to_string(peon->inventory().size()));
-  }
-  else if (Storage *store = dynamic_cast<Storage*>(&*_selectedObject)) {
-    for (auto & stack : store->stock()) {
-      inventory.emplace_back(
-        iconframes[stack.type()], 
-        std::to_string(stack.size()));
-    }
-  }
-  else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {
-    inventory.emplace_back(
-      iconframes[harv->type()], 
-      std::to_string(harv->size()));
-  } 
-  else if (
-    ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*_selectedObject))
-  {
-    if (!site->isFilled()) {
-      for (auto & stack : site->recipe()) {
-        inventory.emplace_back(
-            iconframes[stack.first], 
-            std::to_string(site->supplied().at(stack.first))
-              + " "
-              + std::to_string(stack.second));
-      }
-    }
-    else {
-      inventory.emplace_back(0, std::to_string(site->workers().size()));
-      inventory.emplace_back(1, std::to_string(site->progress()));
-    }
-  }
-  rect.w = _icons->width();
-  rect.h = _icons->height();
-  rect.x = pannel.x;
-  rect.y = pannel.y;
-  for (auto & stack : inventory) {
-    _icons->renderFrame(0, stack.first, &rect);
-    _printer.drawStringAt(
-      rect.x + pannel.w, rect.y + rect.h/2, 
-      FontPrinter::CenterRight, 
-      stack.second);
-    rect.y += rect.h + 2;
-  }
+//  SDL_Rect rect;
+//  std::vector<std::pair<int,std::string>> inventory;
+//  if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
+//    if (!peon->inventory().empty())
+//      inventory.emplace_back(
+//        iconframes[peon->inventory().type()], 
+//        std::to_string(peon->inventory().size()));
+//  }
+//  else if (Storage *store = dynamic_cast<Storage*>(&*_selectedObject)) {
+//    for (auto & stack : store->stock()) {
+//      inventory.emplace_back(
+//        iconframes[stack.type()], 
+//        std::to_string(stack.size()));
+//    }
+//  }
+//  else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {
+//    inventory.emplace_back(
+//      iconframes[harv->type()], 
+//      std::to_string(harv->size()));
+//  } 
+//  else if (
+//    ConstructionSite* site = dynamic_cast<ConstructionSite*>(&*_selectedObject))
+//  {
+//    if (!site->isFilled()) {
+//      for (auto & stack : site->recipe()) {
+//        inventory.emplace_back(
+//            iconframes[stack.first], 
+//            std::to_string(site->supplied().at(stack.first))
+//              + " "
+//              + std::to_string(stack.second));
+//      }
+//    }
+//    else {
+//      inventory.emplace_back(0, std::to_string(site->workers().size()));
+//      inventory.emplace_back(1, std::to_string(site->progress()));
+//    }
+//  }
+//  rect.w = _icons->width();
+//  rect.h = _icons->height();
+//  rect.x = pannel.x;
+//  rect.y = pannel.y;
+//  for (auto & stack : inventory) {
+//    _icons->renderFrame(0, stack.first, &rect);
+//    _printer.drawStringAt(
+//      rect.x + pannel.w, rect.y + rect.h/2, 
+//      FontPrinter::CenterRight, 
+//      stack.second);
+//    rect.y += rect.h + 2;
+//  }
 }
 void ControlPannel::drawControls() {
   

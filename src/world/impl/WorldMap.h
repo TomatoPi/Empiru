@@ -68,10 +68,8 @@ public :
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant
-  virtual bool tryPosition(
-    const WorldObject& obj, 
-    const EntityPtr& entity, 
-    EntityPtr* obstacle) const noexcept override;
+  virtual bool tryPosition(const EntityPtr& entity, EntityPtr* obstacle) 
+  const noexcept override;
 };
 
 #endif /* WORLD_H*/

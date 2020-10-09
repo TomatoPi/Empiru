@@ -22,6 +22,7 @@
 /// \date 30 septembre 2020, 11:20
 ///
 
+#if 0
 #include "ConstructSite.h"
 
 ConstructionSite::ConstructionSite() : 
@@ -59,3 +60,4 @@ const ConstructionSite::WorkersList& ConstructionSite::workers() const noexcept 
 const std::type_info& ConstructionSite::type() const noexcept {
   return *_type;
 }
+#endif

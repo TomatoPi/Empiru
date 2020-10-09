@@ -28,11 +28,11 @@
 
 #include <memory>
 #include <unordered_map>
-#include "utils/world/core/EntityPtr.h"
-#include "utils/gui/renderer/AbstractRenderer.h"
-#include "utils/gui/assets/SpriteSheet.h"
-#include "utils/gui/assets/Animation.h"
-#include "utils/gui/assets/GraphicAssetsRegister.h"
+#include "engine/core/entity/EntityPtr.h"
+#include "gui/core/AbstractRenderer.h"
+#include "utils/assets/SpriteSheet.h"
+#include "utils/assets/GraphicAssetsRegister.h"
+#include "utils/misc/Counter.h"
 
 /// \brief Renderer assoaciated with peons
 class PeonRenderer : public AbstractRenderer {
@@ -40,14 +40,14 @@ private:
   
   struct Datas {
     Datas() : _anim(7,6), _wanim(6,6), _notanim(2,6), _select(false) {}
-    Animation _anim;
-    Animation _wanim;
-    Animation _notanim;
+    SlowCounter _anim;
+    SlowCounter _wanim;
+    SlowCounter _notanim;
     bool      _select;
   };
     
   /// \brief Animation datas are stored for each attached peon
-  typedef std::unordered_map<WorldPtr,Datas,core::PtrHash,core::PtrEquals>
+  typedef std::unordered_map<EntityPtr,Datas,alloc::PtrHash,alloc::PtrEquals>
     Targets;
   
   std::shared_ptr<SpriteSheet> _sheet;    ///< Basic asset
@@ -74,30 +74,30 @@ public:
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual void renderAt(
-    const WorldPtr& obj, 
+    const EntityPtr& obj, 
     int ori, int x, int y,
     const hex::Viewport & view);
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
   virtual void renderAt(
-    const WorldPtr& obj,
+    const EntityPtr& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     const SDL_Color & color); 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const WorldPtr& obj) noexcept;
+  virtual void addTarget(const EntityPtr& obj) noexcept;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const WorldPtr& obj) noexcept;
+  virtual void removeTarget(const EntityPtr& obj) noexcept;
   /// \brief Called when an object associated with this renderer is selected
   ///  may remember draw a special overlay around it
-  virtual void targetSelected(const WorldPtr& obj);
+  virtual void targetSelected(const EntityPtr& obj);
   /// \brief Called when an object associated with this renderer is deselected
   ///  may remember to stop draw special overlay
-  virtual void targetDeselected(const WorldPtr& obj);
+  virtual void targetDeselected(const EntityPtr& obj);
 };
 
 #endif /* PEONRENDERER_H */

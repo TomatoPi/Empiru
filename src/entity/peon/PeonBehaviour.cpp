@@ -21,7 +21,7 @@
 ///
 /// \date 18 septembre 2020, 19:18
 ///
-
+#if 0
 #include <cassert>
 
 #include "PeonBehaviour.h"
@@ -245,3 +245,4 @@ bool PeonBehaviour::tryPosition(
         MapInterface& world)
 const {
 }
+#endif

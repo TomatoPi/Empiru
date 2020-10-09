@@ -25,8 +25,8 @@
 #include <cassert>
 #include "WorldObject.h"
 
-WorldObject::WorldObject(Size s, float r, Position p) noexcept :
-  _pos(p), _radius(r), _size(s)
+WorldObject::WorldObject(Size s, float r, Position p, int ori) noexcept :
+  _pos(p), _radius(r), _orientation(ori), _size(s)
 {
 }
 

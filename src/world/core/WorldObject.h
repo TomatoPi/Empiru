@@ -45,14 +45,16 @@ public:
   
 private:
   
-  Position _pos;     ///< Object's position
-  float    _radius;  ///< Hitbox radius for small objects
-  Size     _size;    ///< Object's size
+  Position _pos;          ///< Object's position
+  float    _radius;       ///< Hitbox radius for small objects
+  int      _orientation;  ///< Object's orientation
+  Size     _size;         ///< Object's size
   
 public:
   
   /// \brief Construct an object
-  explicit WorldObject(Size s, float r=0.5f, Position p=Position()) noexcept;
+  explicit WorldObject(Size s, float r=0.5f, Position p=Position(), int ori=0)
+    noexcept;
   
   /// \brief Default constructor
   WorldObject() noexcept = default;
@@ -72,6 +74,9 @@ public:
   const Position & pos() const noexcept {return _pos;}
   /// \brief set object's position
   void pos(const Position & pos) noexcept {_pos = pos;}
+  
+  int orientation() const noexcept {return _orientation;}
+  void orientation(int o) noexcept {_orientation = o;}
   
   /// \brief return object's radius or 1 if tile sized
   float radius() const noexcept {return _radius;}

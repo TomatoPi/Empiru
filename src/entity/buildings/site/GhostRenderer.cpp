@@ -21,7 +21,7 @@
 ///
 /// \date 5 octobre 2020, 23:52
 ///
-
+#if 0
 #include "GhostRenderer.h"
 #include "entity/buildings/site/ConstructionGhost.h"
 #include "utils/log.h"
@@ -71,3 +71,4 @@ void GhostRenderer::removeTarget(const WorldPtr& obj) noexcept {
   assert(itr != _targets.end());
   _targets.erase(itr);
 }
+#endif

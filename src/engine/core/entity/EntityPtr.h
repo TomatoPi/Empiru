@@ -25,9 +25,9 @@
 #ifndef WORLDREF_H
 #define WORLDREF_H
 
-#include "utils/core/Pointer.h"
+#include "utils/alloc/IndexPtr.h"
 
 class Entity;
-using EntityPtr = core::Pointer<Entity>;
+using EntityPtr = alloc::IndexPtr<Entity>;
 
 #endif /* WORLDREF_H */

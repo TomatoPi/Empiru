@@ -39,7 +39,7 @@
 class ConstructionSite : public WorldObject, public Recipe {
 public:
   
-  typedef std::unordered_set<WorldPtr,core::PtrHash,core::PtrEquals> WorkersList;
+  typedef std::unordered_set<WorldPtr,alloc::PtrHash,alloc::PtrEquals> WorkersList;
   
 private:
 

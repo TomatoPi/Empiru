@@ -29,17 +29,12 @@
 
 #include "engine/core/entity/EntityPtr.h"
 #include "engine/core/entity/Entity.h"
-#include "engine/core/entity/EntityBehaviour.h"
 
 #include "engine/core/decorator/DecoratorPtr.h"
 #include "engine/core/decorator/Decorator.h"
-#include "engine/core/decorator/DecoratorBehaviour.h"
 
 class GameEngineInterface {
 public:
-  
-  typedef core::Allocator<Entity,EntityPtr,std::size_t> EAllocator;
-  typedef core::Allocator<Decorator,DecoratorPtr,std::size_t> DAllocator;
   
   virtual EntityPtr 
   createEntity(const std::type_info& type, const Entity::Builder& builder) 
@@ -49,10 +44,6 @@ public:
   discardEntity(EntityPtr ptr) 
   noexcept = 0;
   
-  virtual void 
-  registerEntity(const std::type_info& type, EAllocator*, EntityBeh*) 
-  noexcept = 0;
-  
   
   virtual DecoratorPtr
   createDecorator(const std::type_info& type, const Decorator::Builder& builder)
@@ -60,10 +51,6 @@ public:
   
   virtual void 
   dirscardDecorator(DecoratorPtr ptr) 
-  noexcept = 0;
-  
-  virtual void
-  registerDecorator(const std::type_info& type, DAllocator*, DecoratorBeh*) 
   noexcept = 0;
 };
 

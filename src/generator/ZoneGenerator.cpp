@@ -23,7 +23,6 @@
  */
 
 #include "ZoneGenerator.h"
-#include "world/World.h"
 #include <random>
 #include <algorithm>
 

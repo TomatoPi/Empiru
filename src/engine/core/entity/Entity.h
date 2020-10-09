@@ -103,7 +103,7 @@ public:
     
     Builder(const WorldObject& obj) noexcept : _obj(obj) {}
     
-    void operator() (EntityPtr& ptr) const noexcept {
+    virtual void operator() (EntityPtr& ptr) const noexcept {
       ptr->_position = _obj;
     }
   };

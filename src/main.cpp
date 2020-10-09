@@ -27,50 +27,29 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_mixer.h>
 
-#include "utils/gui/assets/SpriteSheet.h"
-#include "utils/gui/view/Window.h"
-#include "gui/Camera.h"
-#include "gui/RenderingEngine.h"
-#include "gui/GenericRenderer.h"
+#include "utils/log.h"
+
+#include "utils/alloc/IndexAllocator.h"
+
+#include "engine/core/entity/Entity.h"
+#include "engine/core/decorator/Decorator.h"
+#include "engine/impl/GameEngine.h"
+
+#include "world/impl/WorldMap.h"
+
+#include "controller/impl/Controller.h"
+#include "controller/impl/SDLHandler.h"
+
+#include "gui/impl/Camera.h"
+#include "gui/impl/RenderingEngine.h"
+
+#include "sound/SoundEngine.h"
 
 #include "entity/peon/Peon.h"
 #include "entity/peon/PeonRenderer.h"
-#include "entity/peon/PeonBehaviour.h"
-
-#include "entity/tree/Tree.h"
-
-#include "entity/rock/Rock.h"
-
-#include "entity/land/HarvestableBehaviour.h"
-
-#include "entity/buildings/site/ConstructionGhost.h"
-#include "entity/buildings/site/ConstructSite.h"
-#include "entity/buildings/site/GhostRenderer.h"
-
-#include "entity/buildings/house/House.h"
-#include "entity/buildings/StorageBehaviour.h"
-
-#include "world/World.h"
-#include "utils/world/core/WorldAllocator.h"
-
-#include "controller/SDLHandler.h"
-#include "controller/Controller.h"
-
-#include "engine/GameEngine.h"
-
-#include "utils/sound/SoundAsset.h"
-#include "utils/sound/SoundEngine.h"
-
-#include "utils/log.h"
-
-#include "generator/ZoneGenerator.h"
-#include "gui/view/ControlPannel.h"
-
-#include "entity/functionals/TribeInfos.h"
-#include "utils/gui/assets/GraphicAssetsRegister.h"
-#include "entity/buildings/site/SiteRenderer.h"
-#include "entity/buildings/site/SiteBehaviour.h"
-#include "entity/buildings/warehouse/Warehouse.h"
+#include "entity/peon/PeonController.h"
+#include "entity/decorators/mover/Mover.h"
+#include "entity/decorators/mover/MoverBeh.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -80,29 +59,19 @@
 #define FACTOR 1.5  ///< Magic number scalling window size
 
 namespace {
-  struct MoverTo {
-    float x, y;
-    MoverTo(float x, float y) noexcept : x(x), y(y) {}
-    void operator() (WorldPtr &ptr) const noexcept {
-      ptr->pos(hex::Axial(x,y));
-    }
-  }
   template <class T>
-  using EntityAllocator = core::IndexAllocator<T,Entity>;
+  using EntityAllocator = alloc::IndexAllocator<T,Entity>;
   template <class T>
-  using DecoratorAllocator = core::IndexAllocator<T,Decorator>;
+  using DecoratorAllocator = alloc::IndexAllocator<T,Decorator>;
 }
 
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
   
-  LOG_DEBUG("%lu %lu %lu\n", sizeof(std::vector<int>), sizeof(std::unordered_map<long int,long int>), sizeof(std::map<int,int>))
-  LOG_DEBUG("%lu %lu\n", sizeof(WorldPtr), sizeof(void*));
-  
   /* Create the World and main engine */
+  Controller _gameController;
   WorldMap   _worldMap(SIZE,SIZE);
   GameEngine _gameEngine(_worldMap);
-  Controller _gameController(_worldMap, _gameEngine);
   
   /* Create the UI */
   std::shared_ptr<Window> _window = Window::createWindow(1920/FACTOR, 1080/FACTOR, FACTOR);
@@ -136,6 +105,12 @@ int main(int argc, char** argv) {
   
   /* Register basic kinds */
   
+  {
+    _gameEngine.registerDecorator(typeid(MoverDecorator), 
+        new DecoratorAllocator<MoverDecorator>(), 
+        new MoverDecoratorBeh(_worldMap));
+  }
+  
   { /* tile */
     auto asset(_spritesRegister.registerAsset(typeid(Tile),
         "medias/sprites/land/ground_super", 
@@ -159,13 +134,15 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerObjectKind(typeid(Peon), new WorldAllocator<Peon>());
-    _gameEngine.attachBehaviour(typeid(Peon), new PeonBehaviour());
+    _gameEngine.registerEntity(typeid(Peon), new EntityAllocator<Peon>(), nullptr);
     _rdrEngine.attachRenderer(typeid(Peon), 
         new PeonRenderer(asset, paths, _window->renderer));
     _soundEngine->registerSound(SoundAsset::loadFromFiles(
         "medias/sounds/peons/peon-", ".ogg", 3));
+    _gameController.registerController(typeid(Peon), 
+        new PeonController(_gameController));
   }
+#if 0
   { /* Tree */
     auto asset(_spritesRegister.registerAsset(typeid(Tree),
         "medias/sprites/land/toufu", 
@@ -239,36 +216,37 @@ int main(int argc, char** argv) {
     _rdrEngine.attachRenderer(typeid(ConstructionSite), 
         new SiteRenderer(asset));
   }
+#endif
   
   /* Manualy populate world */
   
-  _gameEngine.createObject(typeid(Peon), MoverTo(0,0));
-  _gameEngine.createObject(typeid(Peon), MoverTo(2,2));
+  _gameEngine.createEntity(typeid(Peon), Peon::Builder(_gameEngine, WorldObject::Position(0,0)));
+  _gameEngine.createEntity(typeid(Peon), Peon::Builder(_gameEngine, WorldObject::Position(2,2)));
   
-  _gameEngine.createObject(typeid(Tree), MoverTo(1,1));
-  _gameEngine.createObject(typeid(Tree), MoverTo(1.6,1));
-  _gameEngine.createObject(typeid(Tree), MoverTo(2.6,1));
-  _gameEngine.createObject(typeid(Tree), MoverTo(1.3,1.5));
-  
-  _gameEngine.createObject(typeid(Rock), MoverTo(0,2));
-  
-  _gameEngine.createObject(typeid(House), MoverTo(3,2));
+//  _gameEngine.createObject(typeid(Tree), MoverTo(1,1));
+//  _gameEngine.createObject(typeid(Tree), MoverTo(1.6,1));
+//  _gameEngine.createObject(typeid(Tree), MoverTo(2.6,1));
+//  _gameEngine.createObject(typeid(Tree), MoverTo(1.3,1.5));
+//  
+//  _gameEngine.createObject(typeid(Rock), MoverTo(0,2));
+//  
+//  _gameEngine.createObject(typeid(House), MoverTo(3,2));
  
   /* ------------------------------------------------- */
   
-  ZoneGenerator zone;
-  
-  zone.createZone(3);
-  zone.addObject();
-  
-  for (auto obj : zone.objects()) {
-    LOG_DEBUG("object : %f %f\n",obj._x,obj._y);
-    _gameEngine.createObject(typeid(Tree), MoverTo(obj._x, obj._y));
-  }
-  
-  for (auto vertex : zone.vertexs()) {
-    LOG_DEBUG("vertex : %f %f\n",vertex._x,vertex._y);
-  }
+//  ZoneGenerator zone;
+//  
+//  zone.createZone(3);
+//  zone.addObject();
+//  
+//  for (auto obj : zone.objects()) {
+//    LOG_DEBUG("object : %f %f\n",obj._x,obj._y);
+//    _gameEngine.createObject(typeid(Tree), MoverTo(obj._x, obj._y));
+//  }
+//  
+//  for (auto vertex : zone.vertexs()) {
+//    LOG_DEBUG("vertex : %f %f\n",vertex._x,vertex._y);
+//  }
    
   /* ------------------------------------------------- */
   

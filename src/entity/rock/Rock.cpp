@@ -21,7 +21,7 @@
 ///
 /// \date 19 septembre 2020, 14:18
 ///
-
+#if 0
 #include "Rock.h"
 
 /// \brief Constructor
@@ -30,3 +30,4 @@ Rock::Rock() :
   Harvestable(Stack::Rock, 50)
 {  
 }
+#endif

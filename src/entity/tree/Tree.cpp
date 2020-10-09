@@ -22,7 +22,7 @@
 /// \date 17 septembre 2020, 08:45
 /// \brief Tree WorldObject declaration
 ///
-
+#if 0
 #include "Tree.h"
 
 /// \brief Constructor
@@ -31,3 +31,4 @@ Tree::Tree() :
   Harvestable(Stack::Wood, 100) 
 {
 }
+#endif
