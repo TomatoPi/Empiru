@@ -25,36 +25,67 @@
 #ifndef COLLECTOR_H
 #define COLLECTOR_H
 
+#include <deque>
 #include "engine/core/decorator/Decorator.h"
 #include "ressources/core/Stack.h"
 
+/// \todo Défaire le bazard ici, et s'autoriser des liens plus forts 
+///   entre les décorateurs ?
 class CollectorDecorator : public Decorator {
+public:
+  
+  enum class Action {
+    None,
+    FillStorage,
+    DumpStorage,
+  };
+  
+  enum class Status {
+    Idle,
+    Acting,
+    TooFar,
+  };
+  
 private:
   
-  Stack _inventory;
-  
+  DecoratorPtr  _collectSite;
+  DecoratorPtr  _storageSite;
+  Stack         _inventory;
+  int           _invMax;
+  Action        _action;
+  Status        _status;
   
 public:
 
   CollectorDecorator() noexcept : _inventory() {}
   virtual ~CollectorDecorator() noexcept = default;
   
-  virtual void setActive(bool status) noexcept override {/*nth*/}
-  virtual bool isActive() const noexcept override {return true;}
+  void setCollectSite(const DecoratorPtr& ptr) noexcept;
+  void setStorageSite(const DecoratorPtr& ptr) noexcept;
+  
+  const Stack& inventory() const noexcept {return _inventory;}
+  void inventory(const Stack& s) noexcept {_inventory = s;}
+  bool inventoryFull() const noexcept {return _invMax <= _inventory.size();}
+  
+  Status status() const noexcept {return _status;}
+  DecoratorPtr target() const noexcept;
+  
+  void giveAction(Action action) noexcept;
+  void updateStatus() noexcept;
+  
+  void tick() noexcept;
   
 public:
   
   class Builder : public Decorator::Builder {
-  private:
-    
-    int              _size;
-    Stack::Ressource _type;
-    
   public :
     
-    explicit Builder(const EntityPtr& entity) noexcept;
+    explicit Builder(const EntityPtr& entity) noexcept :
+      Decorator::Builder(entity) {}
     
-    virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+    virtual void operator() (DecoratorPtr& ptr) const noexcept override {
+      this->Decorator::Builder::operator() (ptr);
+    }
   };
 };
 

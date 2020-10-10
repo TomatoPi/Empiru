@@ -23,3 +23,32 @@
 ///
 
 #include "Collector.h"
+
+void CollectorDecorator::setCollectSite(const DecoratorPtr& ptr) noexcept {
+  _collectSite = ptr;
+  updateStatus();
+}
+void CollectorDecorator::setStorageSite(const DecoratorPtr& ptr) noexcept {
+  _storageSite = ptr;
+  updateStatus();
+}
+
+DecoratorPtr CollectorDecorator::target() const noexcept {
+  switch (_action) {
+  case Action::None        : 
+    return DecoratorPtr(nullptr);
+  case Action::FillStorage :
+    if (_status == )
+  }
+}
+  
+void CollectorDecorator::giveAction(Action action) noexcept {
+  
+}
+void CollectorDecorator::updateStatus() noexcept {
+  
+}
+
+void CollectorDecorator::tick() noexcept {
+  
+}
