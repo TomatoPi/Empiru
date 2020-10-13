@@ -28,9 +28,8 @@
 #include <deque>
 #include "engine/core/decorator/Decorator.h"
 #include "ressources/core/Stack.h"
+#include "entity/decorators/mover/Mover.h"
 
-/// \todo Défaire le bazard ici, et s'autoriser des liens plus forts 
-///   entre les décorateurs ?
 class CollectorDecorator : public Decorator {
 public:
   

@@ -31,58 +31,60 @@
 #include "world/core/MapInterface.h"
 #include "utils/hex/Axial.h"
 
-class MoverDecorator : public Decorator {
-public:
-  
-  enum class Status {
-    TargetReached,
-    Walking,
-    ObstructedPath,
-  };
-  
-private:
-  
-  std::stack<WorldObject::Position> _target;
-  hex::Axial                        _dir;
-  float                             _tolerance;
-  float                             _speed;
-  Status                            _status;
-  
-public:
-  
-  MoverDecorator() noexcept;
-  
-  Status status() const noexcept {return _status;}
-  
-  virtual void setActive(bool status) noexcept override { /*nth*/ }
-  virtual bool isActive() const noexcept override {
-    return _status != Status::Walking;
-  }
-  
-  void walk(MapInterface& world) noexcept;
-  
-  void clearPath() noexcept;
-  void setTarget(const WorldObject::Position& target, float tolerance) noexcept;
-  
-private:
-  
-  void stackTarget(const WorldObject::Position& target) noexcept;
-  void unstackTarget() noexcept;
-  
-public:
-  
-  class Builder : public Decorator::Builder {
+namespace deco {
+  class Mover : public Decorator {
+  public:
+
+    enum class Status {
+      TargetReached,
+      Walking,
+      ObstructedPath,
+    };
+
   private:
-    
-    float _speed;
-    
-  public :
-    
-    explicit Builder(const EntityPtr& entity, float speed=0.01) noexcept;
-    
-    virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+
+    std::stack<WorldObject::Position> _target;
+    hex::Axial                        _dir;
+    float                             _tolerance;
+    float                             _speed;
+    Status                            _status;
+
+  public:
+
+    Mover() noexcept;
+
+    Status status() const noexcept {return _status;}
+
+    virtual void setActive(bool status) noexcept override { /*nth*/ }
+    virtual bool isActive() const noexcept override {
+      return _status != Status::Walking;
+    }
+
+    void walk(MapInterface& world) noexcept;
+
+    void clearPath() noexcept;
+    void setTarget(const WorldObject::Position& target, float tolerance) noexcept;
+
+  private:
+
+    void stackTarget(const WorldObject::Position& target) noexcept;
+    void unstackTarget() noexcept;
+
+  public:
+
+    class Builder : public Decorator::Builder {
+    private:
+
+      float _speed;
+
+    public :
+
+      explicit Builder(const EntityPtr& entity, float speed=0.01) noexcept;
+
+      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+    };
   };
-};
+}
 
 #endif /* MOVER_H */
 

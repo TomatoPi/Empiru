@@ -27,8 +27,10 @@
 
 #include "utils/alloc/IndexPtr.h"
 
-class Decorator;
-using DecoratorPtr = alloc::IndexPtr<Decorator>;
-
+namespace deco { 
+  class Decorator;
+  using DecoratorPtr = alloc::IndexPtr<Decorator>;
+}
+  
 #endif /* DECORATORPTR_H */
 

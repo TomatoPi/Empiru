@@ -27,8 +27,8 @@
 
 #include "PeonEntity.h"
 
-const MoverDecorator& Peon::mover() const noexcept {
-  return static_cast<const MoverDecorator&>(*getDecorator<MoverDecorator>());
+const Mover& Peon::mover() const noexcept {
+  return static_cast<const Mover&>(*getDecorator<Mover>());
 }
 
 Peon::Builder::Builder(
@@ -41,8 +41,8 @@ noexcept :
 
 void Peon::Builder::operator() (EntityPtr& ptr) const noexcept {
   this->Entity::Builder::operator ()(ptr);
-  MoverDecorator::Builder movbuilder(ptr, 0.01);
-  _engine.createDecorator(typeid(MoverDecorator), movbuilder);
+  Mover::Builder movbuilder(ptr, 0.01);
+  _engine.createDecorator(typeid(Mover), movbuilder);
 }
 
 #if 0

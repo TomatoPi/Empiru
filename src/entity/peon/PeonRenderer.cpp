@@ -51,7 +51,7 @@ void PeonRenderer::renderAt(
 {
   const Peon& peon(static_cast<const Peon&>(*obj));
   Datas & datas(_targets.at(obj));
-  int frame = peon.mover().status() == MoverDecorator::Status::Walking ?
+  int frame = peon.mover().status() == Mover::Status::Walking ?
     datas._anim.tick() : 
     datas._anim.restart();
   ori = (ori + 6 - peon.position().orientation()) % 6;

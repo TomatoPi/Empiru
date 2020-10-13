@@ -37,7 +37,7 @@
 class Entity {  
 private:
   
-  typedef std::unordered_map<std::type_index,DecoratorPtr> DecoratorsTable;
+  typedef std::unordered_map<std::type_index,deco::DecoratorPtr> DecoratorsTable;
   DecoratorsTable _decorators;
   
 protected:
@@ -56,7 +56,7 @@ public:
     return _position;
   }
   
-  void attachDecorator(const std::type_info& type, const DecoratorPtr& ptr) noexcept {
+  void attachDecorator(const std::type_info& type, const deco::DecoratorPtr& ptr) noexcept {
     bool success(_decorators.emplace(std::type_index(type), ptr).second);
     assert(success && "Duplicated Decorators kind");
   }
@@ -68,21 +68,21 @@ public:
   }
   
   template <class T>
-  DecoratorPtr getDecorator() noexcept {
+  deco::DecoratorPtr getDecorator() noexcept {
     DecoratorsTable::iterator 
     itr(_decorators.find(std::type_index(typeid(T))));
     if (itr == _decorators.end()) {
-      return DecoratorPtr(nullptr);
+      return deco::DecoratorPtr(nullptr);
     }
     return itr->second;
   }
   
   template <class T>
-  const DecoratorPtr getDecorator() const noexcept {
+  const deco::DecoratorPtr getDecorator() const noexcept {
     DecoratorsTable::const_iterator 
     itr(_decorators.find(std::type_index(typeid(T))));
     if (itr == _decorators.end()) {
-      return DecoratorPtr(nullptr);
+      return deco::DecoratorPtr(nullptr);
     }
     return itr->second;
   }

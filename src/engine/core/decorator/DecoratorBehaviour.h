@@ -29,11 +29,14 @@
 #include "DecoratorPtr.h"
 #include "engine/core/EngineInterface.h"
 
-class DecoratorBeh {
-public:
-  virtual void 
-  operator() (Decorator&, DecoratorPtr) noexcept = 0;
-};
-
+namespace deco {
+  
+  class DecoratorBeh {
+  public:
+    virtual void 
+    operator() (Decorator&, DecoratorPtr) noexcept = 0;
+  };
+}
+  
 #endif /* DECORATORBEHAVIOUR_H */
 

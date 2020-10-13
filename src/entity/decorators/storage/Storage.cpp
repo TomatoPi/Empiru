@@ -22,26 +22,64 @@
 /// \date 9 octobre 2020, 22:22
 ///
 
+#include <vector>
+
 #include "Storage.h"
 
-Stack StorageDecorator::addToStorage(const Stack & stack) noexcept {
-  StackList::iterator itr(_storage.find(stack));
-  if (itr == _storage.end()) {
-    _storage.emplace_hint(itr, stack);
-  } else {
-    Stack old(*itr);
-    old.reduce(-stack.size());
-    _storage.erase(itr);
-    _storage.emplace(old);
+namespace deco {
+  
+  Stack Storage::add(const Stack& stack) noexcept {
+    assert(canStore(stack.type()));
+    return _storage[static_cast<std::size_t>(stack.type())].add(stack);
   }
-  return Stack();
-}
+  Stack Storage::reduce(Stack::Ressource type, int qty) noexcept {
+    assert(canStore(type));
+    return _storage[static_cast<std::size_t>(type)].reduce(qty);
+  }
+  void Storage::clear() noexcept {
+    for (auto& stack : _storage) {
+      stack.clear();
+    }
+  }
 
-    
-StorageDecorator::Builder::Builder(const EntityPtr& entity) noexcept :
-  Decorator::Builder(entity)
-{  
-}
-void StorageDecorator::Builder::operator() (DecoratorPtr& ptr) const noexcept {
-  this->Decorator::Builder::operator() (ptr);
+  bool Storage::canStore(Stack::Ressource type) const noexcept {
+    return 0 < _storage[static_cast<std::size_t>(type)].max();
+  }
+  bool Storage::isEmpty() const noexcept {
+    for (const auto& stack : _storage) {
+      if (!stack.empty()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  Storage::Content Storage::content() const noexcept {
+    Content res;
+    for (const auto& stack : _storage) {
+      if (0 < stack.max()) {
+        res.push_back(stack);
+      }
+    }
+    return res;
+  }
+
+  Storage::Builder::Builder(
+        const EntityPtr& entity, 
+        const std::initializer_list<Stack>& maximums) 
+  noexcept :
+    Inventory::Builder(entity),
+    _maximums()
+  {  
+    for (const auto& stack : maximums) {
+      std::size_t idx(static_cast<std::size_t>(stack.type()));
+      _maximums[idx] = Stack(stack.type(), 0, stack.max());
+    }
+  }
+  void Storage::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+    this->Inventory::Builder::operator() (ptr);
+    Storage& store(static_cast<Storage&>(*ptr));
+    store._storage = _maximums;
+  }
+
 }

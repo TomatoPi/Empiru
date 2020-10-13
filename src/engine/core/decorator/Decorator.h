@@ -29,32 +29,47 @@
 #include "engine/core/entity/EntityPtr.h"
 #include "engine/core/entity/Entity.h"
 
-class Decorator {
-protected:
-  
-  EntityPtr _entity;
-  
-public:
-  
-  Decorator() noexcept : _entity(nullptr) {}
-  virtual ~Decorator() noexcept = default;
-  
-  class Builder {
-  private:
-    
+/// \brief namespace containing all decorator related stuff
+namespace deco {
+
+  class Decorator {
+  protected:
+
     EntityPtr _entity;
-    
+
   public:
-    
-    explicit Builder(const EntityPtr& entity) noexcept : 
-      _entity(entity) {}
-    
-    virtual void operator() (DecoratorPtr& ptr) const noexcept {
-      ptr->_entity = _entity;
-      ptr->_entity->attachDecorator(typeid(*ptr), ptr);
-    }
+
+    Decorator() noexcept : _entity(nullptr) {}
+    virtual ~Decorator() noexcept = default;
+
+    class Builder {
+    private:
+
+      EntityPtr _entity;
+      
+    protected:
+      
+      void addMarkers(DecoratorPtr& ptr) const noexcept {}
+      
+      template <typename T, typename ...Ts>
+      void addMarkers(DecoratorPtr& ptr, const T& type, const Ts& ...types) 
+      const noexcept {
+        ptr->_entity->attachDecorator(type, ptr);
+        addMarkers(ptr, types...);
+      }
+
+    public:
+
+      explicit Builder(const EntityPtr& entity) noexcept : 
+        _entity(entity) {}
+
+      virtual void operator() (DecoratorPtr& ptr) const noexcept {
+        ptr->_entity = _entity;
+        ptr->_entity->attachDecorator(typeid(*ptr), ptr);
+      }
+    };
   };
-};
+}
 
 #endif /* DECORATOR_H */
 

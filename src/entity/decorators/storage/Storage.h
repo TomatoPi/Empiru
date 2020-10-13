@@ -27,44 +27,46 @@
 
 #include <unordered_set>
 #include "engine/core/decorator/Decorator.h"
+#include "entity/decorators/inventory/Inventory.h"
 #include "ressources/core/Stack.h"
 
-class StorageDecorator : public Decorator {
-private:
-  
-  /// \brief Table of Stack hashed by type
-  typedef std::unordered_set<Stack, StackTypeHash, StackTypeEqual> StackList;
-  StackList _storage; ///< Current storage
-  
-public:
+namespace deco {
+  class Storage : public Inventory {
+  private:
 
-  StorageDecorator() noexcept = default;
-  virtual ~StorageDecorator() noexcept = default;
-  
-  /// \brief add given stack to the storage and return garbage
-  Stack addToStorage(const Stack & stack) noexcept;
-  
-  const StackList & stock() const noexcept {
-    return _storage;
-  }
-  
-  bool canStore(Stack::Ressource type) const noexcept {
-    return type != Stack::Ressource::Invalid
-        && type != Stack::Ressource::Count;
-  }
-  
-  virtual void setActive(bool status) noexcept override {/*nth*/}
-  virtual bool isActive() const noexcept override {return true;}
-  
-public:
-  
-  class Builder : public Decorator::Builder {
-  public :
+    /// \brief Table of Stack hashed by type
+    typedef std::array<Stack, Stack::RessourceCount> StackList;
+    StackList _storage; ///< Current storage
+
+  public:
+
+    Storage() noexcept = default;
+    virtual ~Storage() noexcept = default;
     
-    explicit Builder(const EntityPtr& entity) noexcept;
+    virtual Stack add(const Stack& stack) noexcept override;
+    virtual Stack reduce(Stack::Ressource type, int qty) noexcept override;
+    virtual void clear() noexcept override;
     
-    virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+    virtual bool canStore(Stack::Ressource type) const noexcept override;
+    virtual bool isEmpty() const noexcept override;
+    
+    virtual Content content() const noexcept override;
+
+  public:
+
+    class Builder : public Inventory::Builder {
+    private:
+      
+      StackList _maximums;
+      
+    public :
+
+      explicit Builder(
+        const EntityPtr& entity, 
+        const std::initializer_list<Stack>& maximums) noexcept;
+
+      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+    };
   };
-};
-
+}
 #endif /* STORAGE_H */

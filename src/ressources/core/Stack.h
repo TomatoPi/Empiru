@@ -26,6 +26,8 @@
 #define RESSOURCE_H
 
 #include <cstddef>
+#include <limits>
+#include <cassert>
 
 /// \brief Represents a ressource stack
 class Stack {
@@ -46,18 +48,21 @@ public:
 private:
   
   int       _size;
+  int       _max;
   Ressource _type;
   
 public:
   
   /// \brief Default Constructor, build invalid ressource
   Stack() noexcept :
-    Stack(Ressource::Invalid, 0)
+    Stack(Ressource::Invalid, 0, 0)
   {    
   }
   /// \brief Create a ressource of given type and size
-  Stack(Ressource type, int size) noexcept :
-    _size(size), _type(type)
+  Stack(Ressource type, int size, int max=std::numeric_limits<int>::max()) noexcept :
+    _size(size), 
+    _max(type == Ressource::Count ? 0 : type == Ressource::Invalid ? 0 : max),
+    _type(type)
   {
   }
   
@@ -70,27 +75,39 @@ public:
   int size() const noexcept {
     return _size;
   }
-  /// \brief try to remove 'qty' of ressource from the stack
-  /// \return quantity removed : min(size, qty)
-  int reduce(int qty) noexcept {
-    qty = std::min(_size, qty);
-    _size -= qty;
-    return qty;
+  int max() const noexcept {
+    return _max;
   }
-  /// \brief empty the stack
-  void clear() noexcept {
-    _size = 0;
-    _type = Ressource::Invalid;
-  }
-  
   /// \brief return stack type
   Ressource type() const noexcept {
     return _type;
   }
   
+  Stack add(const Stack& stack) noexcept {
+    assert(_type != Ressource::Invalid);
+    assert(_type != Ressource::Count);
+    assert(stack._type == _type);
+    int qty(std::min(_max - _size, stack._size));
+    _size += qty;
+    return Stack(_type, stack._size - qty);
+  }
+  Stack reduce(int qty) noexcept {
+    assert(_type != Ressource::Invalid);
+    assert(_type != Ressource::Count);
+    qty = std::min(_size, qty);
+    _size -= qty;
+    return Stack(_type, qty);
+  }
+  
+  void clear() noexcept {
+    _size = 0;
+  }
+  
   /// \brief return true if the stack is empty
   bool empty() const noexcept {
-    return _size <= 0;
+    return _size <= 0 
+        || _type == Ressource::Invalid
+        || _type == Ressource::Count;
   }
 };
 

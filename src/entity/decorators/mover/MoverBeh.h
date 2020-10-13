@@ -29,20 +29,21 @@
 #include "engine/core/decorator/DecoratorBehaviour.h"
 #include "world/core/MapInterface.h"
 
-class MoverDecoratorBeh : public DecoratorBeh {
-private:
-  
-  MapInterface& _map;
-  
-public:
-  
-  MoverDecoratorBeh(MapInterface& m) noexcept : _map(m) {}
-  
-  virtual void 
-  operator() (Decorator& decorator, DecoratorPtr) noexcept override {
-    static_cast<MoverDecorator&>(decorator).walk(_map);
-  }
-};
+namespace deco {
+  class MoverBeh : public DecoratorBeh {
+  private:
 
+    MapInterface& _map;
+
+  public:
+
+    MoverBeh(MapInterface& m) noexcept : _map(m) {}
+
+    virtual void 
+    operator() (Decorator& decorator, DecoratorPtr) noexcept override {
+      static_cast<Mover&>(decorator).walk(_map);
+    }
+  };
+}
 #endif /* MOVERBEH_H */
 

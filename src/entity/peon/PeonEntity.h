@@ -37,7 +37,7 @@
 class Peon : public Entity {
 public:
   
-  const MoverDecorator& mover() const noexcept;
+  const Mover& mover() const noexcept;
   
   class Builder : public Entity::Builder {
   private:

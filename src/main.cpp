@@ -122,8 +122,8 @@ int main(int argc, char** argv) {
   /* Register basic kinds */
   
   {
-    _gameEngine.registerDecorator(typeid(MoverDecorator), 
-        new DecoratorAllocator<MoverDecorator>(), 
+    _gameEngine.registerDecorator(typeid(Mover), 
+        new DecoratorAllocator<Mover>(), 
         new MoverDecoratorBeh(_worldMap));
     _gameEngine.registerDecorator(typeid(DepositDecorator),
         new DecoratorAllocator<DepositDecorator>(),

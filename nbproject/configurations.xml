@@ -244,6 +244,7 @@
     <itemPath>src/controller/core/EntityControllerInterface.h</itemPath>
     <itemPath>src/controller/core/GameControllerInterface.h</itemPath>
     <itemPath>src/controller/utils/GenericSelectorController.h</itemPath>
+    <itemPath>src/entity/decorators/inventory/Inventory.h</itemPath>
     <itemPath>src/entity/decorators/Mover/Mover.h</itemPath>
     <itemPath>src/entity/decorators/mover/MoverBeh.h</itemPath>
     <itemPath>src/entity/peon/PeonController.h</itemPath>
@@ -534,6 +535,11 @@
             flavor2="0">
       </item>
       <item path="src/entity/decorators/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/inventory/Inventory.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1026,6 +1032,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/inventory/Inventory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -1505,6 +1516,11 @@
             flavor2="0">
       </item>
       <item path="src/entity/decorators/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/inventory/Inventory.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1995,6 +2011,11 @@
             flavor2="0">
       </item>
       <item path="src/entity/decorators/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/inventory/Inventory.h"
             ex="false"
             tool="3"
             flavor2="0">

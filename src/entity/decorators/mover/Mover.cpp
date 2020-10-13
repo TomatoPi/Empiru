@@ -26,7 +26,9 @@
 #include "utils/log.h"
 #include "utils/hex/Consts.h"
 
-MoverDecorator::MoverDecorator() noexcept :
+namespace deco {
+  
+Mover::Mover() noexcept :
   Decorator(),
   _target(),
   _dir(),
@@ -36,7 +38,7 @@ MoverDecorator::MoverDecorator() noexcept :
   
 }
 
-void MoverDecorator::walk(MapInterface& map) noexcept {
+void Mover::walk(MapInterface& map) noexcept {
   /* Trivial exit */
   if (_target.empty()) {
     _status = Status::TargetReached;
@@ -91,14 +93,14 @@ void MoverDecorator::walk(MapInterface& map) noexcept {
   _status = Status::Walking;
 }
   
-void MoverDecorator::clearPath() noexcept {
+void Mover::clearPath() noexcept {
   while (!_target.empty()) {
     _target.pop();
   }
 }
 
 void 
-MoverDecorator::setTarget(const WorldObject::Position& target, float tolerance) 
+Mover::setTarget(const WorldObject::Position& target, float tolerance) 
 noexcept 
 {
   clearPath();
@@ -106,12 +108,12 @@ noexcept
   _tolerance = tolerance;
 }
   
-void MoverDecorator::stackTarget(const WorldObject::Position& target) noexcept {
+void Mover::stackTarget(const WorldObject::Position& target) noexcept {
   _target.push(target);
   _dir = (target - _entity->position().pos()).unit();
   _entity->position().orientation(_dir.orientation());
 }
-void MoverDecorator::unstackTarget() noexcept {
+void Mover::unstackTarget() noexcept {
   _target.pop();
   if (!_target.empty()) {
     _dir = (_target.top() - _entity->position().pos()).unit();
@@ -119,7 +121,7 @@ void MoverDecorator::unstackTarget() noexcept {
   }
 }
 
-MoverDecorator::Builder::Builder(
+Mover::Builder::Builder(
   const EntityPtr& entity, float speed) 
 noexcept : 
   Decorator::Builder(entity),
@@ -127,8 +129,10 @@ noexcept :
 {
 }
 
-void MoverDecorator::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+void Mover::Builder::operator() (DecoratorPtr& ptr) const noexcept {
   this->Decorator::Builder::operator() (ptr);
-  MoverDecorator& mover(static_cast<MoverDecorator&>(*ptr));
+  Mover& mover(static_cast<Mover&>(*ptr));
   mover._speed = _speed;
+}
+
 }
