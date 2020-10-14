@@ -47,7 +47,7 @@ namespace deco {
     virtual Stack reduce(Stack::Ressource type, int qty) noexcept override;
     virtual void clear() noexcept override;
     
-    virtual bool canStore(Stack::Ressource type) const noexcept override;
+    virtual int storableQtyOf(Stack::Ressource type) const noexcept override;
     virtual bool isEmpty() const noexcept override;
     
     virtual Content content() const noexcept override;

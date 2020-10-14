@@ -41,6 +41,9 @@ public:
   
   /// \brief Update animation's counter and return current frame index
   int tick() noexcept {
+    if (_length == 0) {
+      return 0;
+    }
     if (++_cptr >= _length) {
       _cptr = 0;
     }

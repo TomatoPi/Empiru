@@ -39,7 +39,7 @@ public:
   
 private:
   
-  typedef std::unordered_set<DecoratorPtr,alloc::PtrHash,alloc::PtrEquals>
+  typedef std::unordered_set<deco::DecoratorPtr,alloc::PtrHash,alloc::PtrEquals>
   ObjectsList;
   
   ObjectsList _objects;

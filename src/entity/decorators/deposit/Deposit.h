@@ -25,42 +25,79 @@
 #ifndef DEPOSIT_H
 #define DEPOSIT_H
 
-#include "engine/core/decorator/Decorator.h"
+#include "entity/decorators/inventory/Inventory.h"
 #include "ressources/core/Stack.h"
 
-class DepositDecorator : public Decorator {
-private:
-  
-  Stack _stack;
-  
-public:
+#include <cassert>
 
-  DepositDecorator() noexcept : _stack() {}
-  virtual ~DepositDecorator() noexcept = default;
-  
-  int reduce(int qty) noexcept {return _stack.reduce(qty);}
-  Stack::Ressource type() const noexcept {return _stack.type();}
-  int size() const noexcept {return _stack.size();}
-  bool empty() const noexcept {return _stack.empty();}
-  
-  virtual void setActive(bool status) noexcept override {/*nth*/}
-  virtual bool isActive() const noexcept override {return !empty();}
-  
-public:
-  
-  class Builder : public Decorator::Builder {
+namespace deco {
+
+  class Deposit : public Inventory {
   private:
-    
-    int              _size;
-    Stack::Ressource _type;
-    
-  public :
-    
-    explicit Builder(const EntityPtr& entity, Stack::Ressource type, int size)
-    noexcept;
-    
-    virtual void operator() (DecoratorPtr& ptr) const noexcept override;
-  };
-};
 
+    Stack _stack;
+    int   _difficulty;
+
+  public:
+
+    Deposit() noexcept : _stack() {}
+    virtual ~Deposit() noexcept = default;
+    
+    int difficulty() const noexcept {
+      return _difficulty;
+    }
+    
+    /// \brief Must Add given stack to the inventory 
+    /// \return garbage if full stack cannot be added
+    virtual Stack add(const Stack& stack) noexcept override {
+      assert(0);
+      return Stack();
+    }
+    /// \brief Must try to get given stack from the inventory
+    /// \brief type : Ressource type to take
+    /// \brief qty  : Quantity to get, 0 for the maximum available
+    /// \return a smaller one if request is bigger than inventory content
+    virtual Stack reduce(Stack::Ressource type, int qty) noexcept override {
+      assert(type == _stack.type());
+      return _stack.reduce(qty);
+    }
+    /// \brief Must erase inventory content
+    virtual void clear() noexcept override {
+      _stack.clear();
+    }
+    
+    /// \brief Must return true if given type can be added to the inventory
+    virtual int storableQtyOf(Stack::Ressource type) const noexcept override {
+      return 0;
+    }
+    /// \brief Must return true if inventory is empty
+    virtual bool isEmpty() const noexcept override {
+      return _stack.empty();
+    }
+    
+    /// \brief Must return inventory content
+    virtual Content content() const noexcept override {
+      return Content{_stack};
+    }
+
+  public:
+
+    class Builder : public Inventory::Builder {
+    private:
+
+      int              _difficulty;
+      int              _size;
+      Stack::Ressource _type;
+
+    public :
+
+      explicit Builder(
+        const EntityPtr& entity, 
+        Stack::Ressource type, int size, int difficulty)
+      noexcept;
+
+      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+    };
+  };
+}
 #endif /* DEPOSIT_H */

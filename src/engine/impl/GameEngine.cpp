@@ -48,19 +48,19 @@ void GameEngine::update() {
       });
   /* then compute sub-behaviour for each components */
   _decorators.behave(
-      [this](Decorator& dec, DecoratorPtr& ptr, DecoratorBeh* beh) -> void {
+      [this](deco::Decorator& dec, deco::DecoratorPtr& ptr, deco::DecoratorBeh* beh) -> void {
         (*beh)(dec, ptr);
       });
   /* destroy entites that died this tick */
   _entities.destroyGarbage(
       [this](EntityPtr ptr) -> void {
         ptr->forEachDecorator(
-            [this](DecoratorPtr& ptr) -> void {
+            [this](deco::DecoratorPtr& ptr) -> void {
               _decorators.destroyObject(ptr);
             });
         _world.removeObject(ptr);
       });
-  _decorators.destroyGarbage([](const DecoratorPtr&)->void{});
+  _decorators.destroyGarbage([](const deco::DecoratorPtr&)->void{});
 }
 
 
@@ -96,15 +96,15 @@ noexcept
 }
 
 
-DecoratorPtr
-GameEngine::createDecorator(const std::type_info& type, const Decorator::Builder& builder)
+deco::DecoratorPtr
+GameEngine::createDecorator(const std::type_info& type, const deco::Decorator::Builder& builder)
 noexcept
 {
   return _decorators.createObject(type, builder);
 }
 
 void 
-GameEngine::dirscardDecorator(DecoratorPtr ptr) 
+GameEngine::dirscardDecorator(deco::DecoratorPtr ptr) 
 noexcept
 {
   _decorators.destroyObject(ptr);
@@ -114,7 +114,7 @@ void
 GameEngine::registerDecorator(
   const std::type_info& type, 
   DAllocator* alloc, 
-  DecoratorBeh* beh) 
+  deco::DecoratorBeh* beh) 
 noexcept
 {
   _decorators.registerKind(type, alloc);

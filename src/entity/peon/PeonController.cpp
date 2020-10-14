@@ -40,7 +40,7 @@ void PeonController::RightClickOn(EntityPtr ptr) noexcept {
 void PeonController::RightClickOut(EntityPtr ptr) noexcept {
   if (!ptr) {
     EntityPtr peon(_controller.selection());
-    Mover& mover(static_cast<Mover&>(*peon->getDecorator<Mover>()));
+    deco::Mover& mover(static_cast<deco::Mover&>(*peon->getDecorator<deco::Mover>()));
     mover.clearPath();
     mover.setTarget(_controller.cursor(), 0.01);
     _controller.objectAction(peon, EntityPtr(nullptr));

@@ -45,10 +45,10 @@ class GameEngine :
 private:
   
   typedef alloc::Allocator<Entity,EntityPtr,std::size_t> EAllocator;
-  typedef alloc::Allocator<Decorator,DecoratorPtr,std::size_t> DAllocator;
+  typedef alloc::Allocator<deco::Decorator,deco::DecoratorPtr,std::size_t> DAllocator;
   
   typedef Register<Entity,EntityPtr,EntityBeh> EntitiesReg;
-  typedef Register<Decorator,DecoratorPtr,DecoratorBeh> DecoratorsReg;
+  typedef Register<deco::Decorator,deco::DecoratorPtr,deco::DecoratorBeh> DecoratorsReg;
   
   EntitiesReg   _entities;
   DecoratorsReg _decorators;
@@ -77,16 +77,16 @@ public:
   noexcept;
   
   
-  virtual DecoratorPtr
-  createDecorator(const std::type_info& type, const Decorator::Builder& builder)
+  virtual deco::DecoratorPtr
+  createDecorator(const std::type_info& type, const deco::Decorator::Builder& builder)
   noexcept override;
   
   virtual void 
-  dirscardDecorator(DecoratorPtr ptr) 
+  dirscardDecorator(deco::DecoratorPtr ptr) 
   noexcept override;
   
   void
-  registerDecorator(const std::type_info& type, DAllocator*, DecoratorBeh*) 
+  registerDecorator(const std::type_info& type, DAllocator*, deco::DecoratorBeh*) 
   noexcept;
 };
 

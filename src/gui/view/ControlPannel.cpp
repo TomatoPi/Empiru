@@ -122,18 +122,14 @@ void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
 //        iconframes[peon->inventory().type()], 
 //        std::to_string(peon->inventory().size()));
 //  }
-  if (DecoratorPtr ptr = entity.getDecorator<DepositDecorator>()) {
-    const DepositDecorator& deposit(static_cast<const DepositDecorator&>(*ptr));
-    inventory.emplace_back(
-      iconframes[static_cast<std::size_t>(deposit.type())], 
-      std::to_string(deposit.size()));
-  }
-  else if (DecoratorPtr ptr = entity.getDecorator<StorageDecorator>()) {
-    const StorageDecorator& store(static_cast<const StorageDecorator&>(*ptr));
-    for (auto & stack : store.stock()) {
+  if (deco::DecoratorPtr ptr = entity.getDecorator<deco::Inventory>()) {
+    const deco::Inventory& store(static_cast<const deco::Inventory&>(*ptr));
+    bool depo(nullptr != dynamic_cast<const deco::Deposit*>(&*ptr));
+    for (auto & stack : store.content()) {
       inventory.emplace_back(
         iconframes[static_cast<std::size_t>(stack.type())], 
-        std::to_string(stack.size()));
+        std::to_string(stack.size())
+          + (depo ? "" : "/" + std::to_string(stack.max())));
     }
   }
 //  else if (Harvestable *harv = dynamic_cast<Harvestable*>(&*_selectedObject)) {

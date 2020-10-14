@@ -24,19 +24,24 @@
 
 #include "Deposit.h"
 
-DepositDecorator::Builder::Builder(
-  const EntityPtr& entity, 
-  Stack::Ressource type, 
-  int size)
-noexcept :
-  Decorator::Builder(entity),
-  _size(size),
-  _type(type)
-{  
-}
+namespace deco {
+ 
+  Deposit::Builder::Builder(
+    const EntityPtr& entity, 
+    Stack::Ressource type, 
+    int size, int difficulty)
+  noexcept :
+    Inventory::Builder(entity),
+    _difficulty(difficulty),
+    _size(size),
+    _type(type)
+  {  
+  }
 
-void DepositDecorator::Builder::operator() (DecoratorPtr& ptr) const noexcept {
-  this->Decorator::Builder::operator()(ptr);
-  DepositDecorator& deposit(static_cast<DepositDecorator&>(*ptr));
-  deposit._stack = Stack(_type, _size);
+  void Deposit::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+    this->Inventory::Builder::operator()(ptr);
+    Deposit& deposit(static_cast<Deposit&>(*ptr));
+    deposit._stack = Stack(_type, _size);
+    deposit._difficulty = _difficulty;
+  }
 }

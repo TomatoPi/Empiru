@@ -118,7 +118,7 @@ void RenderingEngine::render() {
         auto vec(_world.getContentAt(pos));
         if (vec) {
           for (auto& obj : *vec) {
-            _worldView.toPixel(obj->position().pos(), &x, &y);
+            _worldView.toPixel(obj->pos().pos(), &x, &y);
             _drawstack.emplace(Pixel(x, y), obj);
           }
         }

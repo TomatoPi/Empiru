@@ -61,6 +61,7 @@ private:
     LowerCase,
     UpperCase,
     Space,
+    Special
   };
   
   struct DrawStep {

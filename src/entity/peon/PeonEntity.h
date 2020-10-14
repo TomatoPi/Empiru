@@ -37,7 +37,7 @@
 class Peon : public Entity {
 public:
   
-  const Mover& mover() const noexcept;
+  const deco::Mover& mover() const noexcept;
   
   class Builder : public Entity::Builder {
   private:
@@ -49,6 +49,7 @@ public:
     Builder(GameEngineInterface& engine, const WorldObject::Position& pos) noexcept;
     virtual void operator() (EntityPtr& ptr) const noexcept override;
   };
+};
 /*
 private:
 
@@ -103,6 +104,5 @@ public:
   /// \brief Increment peon's order counter and return true if order is ready
   bool tickCptr();
 */
-};
 
 #endif /* PEON_ENTITY_H */

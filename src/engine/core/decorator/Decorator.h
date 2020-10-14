@@ -41,6 +41,8 @@ namespace deco {
 
     Decorator() noexcept : _entity(nullptr) {}
     virtual ~Decorator() noexcept = default;
+    
+    EntityPtr entity() const noexcept {return _entity;}
 
     class Builder {
     private:

@@ -211,13 +211,17 @@ namespace alloc {
       return _ref->asRef();
     }
 
-    /// \brief Must return true while the associated object exist
-    ///   false otherwise
+    /// \brief Must return true if the pointer can be safely dereferenced
     bool isValid() const noexcept {
       return _ref && _ref->_valid;
     }
-    /// \brief Must return true while the associated object exist
-    ///   false otherwise
+    /// \brief Must return true if the pointer used to reference a valid object
+    ///   but the object has been destroyed
+    bool isDeprecated() const noexcept {
+      return _ref && !_ref->_valid;
+    }
+    
+    /// \brief Must return true if the pointer can be dereferenced
     explicit operator bool() const noexcept {
       return isValid();
     }

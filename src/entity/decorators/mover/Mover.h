@@ -55,11 +55,6 @@ namespace deco {
 
     Status status() const noexcept {return _status;}
 
-    virtual void setActive(bool status) noexcept override { /*nth*/ }
-    virtual bool isActive() const noexcept override {
-      return _status != Status::Walking;
-    }
-
     void walk(MapInterface& world) noexcept;
 
     void clearPath() noexcept;

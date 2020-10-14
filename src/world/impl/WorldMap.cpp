@@ -43,7 +43,7 @@ WorldMap::WorldMap(int mapWidth, int mapHeight) :
 
 /// \brief Must add given object to the world
 void WorldMap::addObject(const EntityPtr& ptr){
-  const WorldObject::Position & pos(ptr->position().pos());
+  const WorldObject::Position & pos(ptr->pos().pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
@@ -53,7 +53,7 @@ void WorldMap::addObject(const EntityPtr& ptr){
 
 /// \brief Must remove given object fro the world
 void WorldMap::removeObject(const EntityPtr& ptr) {
-  auto itr(_map.find(ptr->position().pos()));
+  auto itr(_map.find(ptr->pos().pos()));
   assert(itr != _map.end());
   itr->second.erase(ptr);
   if (itr->second.isEmpty()) {
@@ -91,12 +91,12 @@ bool WorldMap::tryPosition(const EntityPtr& entity, EntityPtr* obstacle)
 const noexcept
 {
   // Check validity
-  if (!isOnMap(entity->position().pos())) {
+  if (!isOnMap(entity->pos().pos())) {
     return false;
   }
   // Check collisions
   bool valid(true);
-  entity->position().pos().mapNeightbours(
+  entity->pos().pos().mapNeightbours(
     [&]
     (const WorldObject::Position & pos) -> bool {
       auto content = getContentAt(pos);
@@ -104,7 +104,7 @@ const noexcept
         for (auto obj : *content){
           if (obj == entity) 
             continue;
-          if (obj->position().collide(entity->position())) {
+          if (obj->pos().collide(entity->pos())) {
             *obstacle = obj;
             valid = false;
             return true;

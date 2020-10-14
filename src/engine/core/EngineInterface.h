@@ -45,12 +45,12 @@ public:
   noexcept = 0;
   
   
-  virtual DecoratorPtr
-  createDecorator(const std::type_info& type, const Decorator::Builder& builder)
+  virtual deco::DecoratorPtr
+  createDecorator(const std::type_info& type, const deco::Decorator::Builder& builder)
   noexcept = 0;
   
   virtual void 
-  dirscardDecorator(DecoratorPtr ptr) 
+  dirscardDecorator(deco::DecoratorPtr ptr) 
   noexcept = 0;
 };
 

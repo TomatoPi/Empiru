@@ -51,10 +51,10 @@ void PeonRenderer::renderAt(
 {
   const Peon& peon(static_cast<const Peon&>(*obj));
   Datas & datas(_targets.at(obj));
-  int frame = peon.mover().status() == Mover::Status::Walking ?
+  int frame = peon.mover().status() == deco::Mover::Status::Walking ?
     datas._anim.tick() : 
     datas._anim.restart();
-  ori = (ori + 6 - peon.position().orientation()) % 6;
+  ori = (ori + 6 - peon.pos().orientation()) % 6;
   SDL_Rect r;
   r.w = _sheet->width();
   r.h = _sheet->height();

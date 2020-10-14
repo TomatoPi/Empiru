@@ -24,8 +24,8 @@
 
 #include "House.h"
 
-const StorageDecorator& House::storage() const noexcept {
-  return static_cast<const StorageDecorator&>(*getDecorator<StorageDecorator>());
+const deco::Storage& House::storage() const noexcept {
+  return static_cast<const deco::Storage&>(*getDecorator<deco::Storage>());
 }
 
 House::Builder::Builder(
@@ -38,6 +38,9 @@ noexcept :
 
 void House::Builder::operator() (EntityPtr& ptr) const noexcept {
   this->Entity::Builder::operator() (ptr);
-  StorageDecorator::Builder builder(ptr);
-  _engine.createDecorator(typeid(StorageDecorator), builder);
+  deco::Storage::Builder builder(ptr, {
+    Stack(Stack::Ressource::Wood, 0, 100),
+    Stack(Stack::Ressource::Rock, 0, 50)
+  });
+  _engine.createDecorator(typeid(deco::Storage), builder);
 }

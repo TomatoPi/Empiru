@@ -25,6 +25,7 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
+#include <vector>
 #include "engine/core/decorator/Decorator.h"
 #include "ressources/core/Stack.h"
 
@@ -49,8 +50,8 @@ namespace deco {
     /// \brief Must erase inventory content
     virtual void clear() noexcept = 0;
     
-    /// \brief Must return true if given type can be added to the inventory
-    virtual bool canStore(Stack::Ressource type) const noexcept = 0;
+    /// \brief Must return quantity of given ressource that can be stored
+    virtual int storableQtyOf(Stack::Ressource type) const noexcept = 0;
     /// \brief Must return true if inventory is empty
     virtual bool isEmpty() const noexcept = 0;
     

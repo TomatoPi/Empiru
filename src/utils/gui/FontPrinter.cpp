@@ -22,6 +22,7 @@
 /// \date 28 septembre 2020, 20:32
 ///
 #include <vector>
+#include <unordered_map>
 
 #include "FontPrinter.h"
 #include "utils/log.h"
@@ -91,6 +92,8 @@ void FontPrinter::drawStep(
     _chars->renderFrame(1, step.index, &rect);
   case Space:
     break;
+  case Special:
+    _numbers->renderFrame(1, step.index, &rect);
   }
 }
   
@@ -111,6 +114,10 @@ const
 FontPrinter::DrawStep FontPrinter::processChar(char c) 
 const 
 {
+  static std::unordered_map<char,int> specialChars = {
+    {'?', 0}, {'!', 1}, {'-', 2}, {'+', 3}, {'*', 4},
+    {'/', 5}, {'%', 6}, {'=', 7}
+  };
   if ('0' <= c && c <= '9') {
     return DrawStep{
       math::Vector<int>(_numbers->width(), _numbers->height()),
@@ -131,6 +138,13 @@ const
   }
   if (' ' == c) {
     return DrawStep{math::Vector<int>(_numbers->width(), 0), 0, Space};
+  }
+  auto itr(specialChars.find(c));
+  if (itr != specialChars.end()) {
+    return DrawStep{
+      math::Vector<int>(_numbers->width(), _numbers->height()),
+      itr->second,
+      Special};
   }
   assert(0 && "Invalid string content");
   LOG_WRN("Invalid String content : %c\n", c);

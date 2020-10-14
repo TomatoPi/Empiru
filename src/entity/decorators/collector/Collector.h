@@ -19,73 +19,54 @@
 /// \file   Collector.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 22:18
+/// \date 14 octobre 2020, 11:36
 ///
 
 #ifndef COLLECTOR_H
 #define COLLECTOR_H
 
-#include <deque>
-#include "engine/core/decorator/Decorator.h"
-#include "ressources/core/Stack.h"
-#include "entity/decorators/mover/Mover.h"
+#include "utils/misc/Counter.h"
+#include "entity/decorators/worker/Worker.h"
 
-class CollectorDecorator : public Decorator {
-public:
+namespace deco {
   
-  enum class Action {
-    None,
-    FillStorage,
-    DumpStorage,
-  };
-  
-  enum class Status {
-    Idle,
-    Acting,
-    TooFar,
-  };
-  
-private:
-  
-  DecoratorPtr  _collectSite;
-  DecoratorPtr  _storageSite;
-  Stack         _inventory;
-  int           _invMax;
-  Action        _action;
-  Status        _status;
-  
-public:
+  class Collector : public Worker {
+  private:
+    
+    enum class Action {
+      Store,
+      Collect
+    };
+    
+    DecoratorPtr      _inventory;
+    Counter           _cptr;
+    Stack::Ressource  _target;
+    Action            _action;
+    
+  public:
+    
+    Collector() noexcept = default;
+    virtual ~Collector() noexcept = default;
+    
+    void collectAt(const DecoratorPtr& ptr, Stack::Ressource type) noexcept;
+    void storeAt(const DecoratorPtr& ptr, Stack::Ressource type) noexcept;
+    
+  protected:
+    
+    virtual void workChanged() noexcept override;
+    virtual void doWork() noexcept override;
+    virtual bool isWorkDone() const noexcept override;
+    
+  public:
+    
+    class Builder : public Worker::Builder {
+    public :
 
-  CollectorDecorator() noexcept : _inventory() {}
-  virtual ~CollectorDecorator() noexcept = default;
-  
-  void setCollectSite(const DecoratorPtr& ptr) noexcept;
-  void setStorageSite(const DecoratorPtr& ptr) noexcept;
-  
-  const Stack& inventory() const noexcept {return _inventory;}
-  void inventory(const Stack& s) noexcept {_inventory = s;}
-  bool inventoryFull() const noexcept {return _invMax <= _inventory.size();}
-  
-  Status status() const noexcept {return _status;}
-  DecoratorPtr target() const noexcept;
-  
-  void giveAction(Action action) noexcept;
-  void updateStatus() noexcept;
-  
-  void tick() noexcept;
-  
-public:
-  
-  class Builder : public Decorator::Builder {
-  public :
-    
-    explicit Builder(const EntityPtr& entity) noexcept :
-      Decorator::Builder(entity) {}
-    
-    virtual void operator() (DecoratorPtr& ptr) const noexcept override {
-      this->Decorator::Builder::operator() (ptr);
-    }
+      explicit Builder(const EntityPtr& entity) noexcept;
+
+      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+    };
   };
-};
+}
 
 #endif /* COLLECTOR_H */

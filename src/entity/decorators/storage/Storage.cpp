@@ -29,11 +29,11 @@
 namespace deco {
   
   Stack Storage::add(const Stack& stack) noexcept {
-    assert(canStore(stack.type()));
+    assert(storableQtyOf(stack.type()));
     return _storage[static_cast<std::size_t>(stack.type())].add(stack);
   }
   Stack Storage::reduce(Stack::Ressource type, int qty) noexcept {
-    assert(canStore(type));
+    assert(storableQtyOf(type));
     return _storage[static_cast<std::size_t>(type)].reduce(qty);
   }
   void Storage::clear() noexcept {
@@ -42,8 +42,9 @@ namespace deco {
     }
   }
 
-  bool Storage::canStore(Stack::Ressource type) const noexcept {
-    return 0 < _storage[static_cast<std::size_t>(type)].max();
+  int Storage::storableQtyOf(Stack::Ressource type) const noexcept {
+    const Stack& stack(_storage[static_cast<std::size_t>(type)]);
+    return stack.max() - stack.size();
   }
   bool Storage::isEmpty() const noexcept {
     for (const auto& stack : _storage) {

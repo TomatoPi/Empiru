@@ -49,10 +49,10 @@ public:
   Entity() noexcept : _decorators(), _position() {};
   virtual ~Entity() noexcept = default;
   
-  WorldObject& position() noexcept {
+  WorldObject& pos() noexcept {
     return _position;
   }
-  const WorldObject& position() const noexcept {
+  const WorldObject& pos() const noexcept {
     return _position;
   }
   
