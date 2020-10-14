@@ -26,9 +26,27 @@
 #include <cassert>
 
 #include "PeonEntity.h"
+#include "entity/decorators/slot/Slot.h"
 
 const deco::Mover& Peon::mover() const noexcept {
   return static_cast<const deco::Mover&>(*getDecorator<deco::Mover>());
+}
+deco::Mover& Peon::mover() noexcept {
+  return static_cast<deco::Mover&>(*getDecorator<deco::Mover>());
+}
+
+const deco::Inventory& Peon::inventory() const noexcept {
+  return static_cast<const deco::Inventory&>(*getDecorator<deco::Inventory>());
+}
+deco::Inventory& Peon::inventory() noexcept {
+  return static_cast<deco::Inventory&>(*getDecorator<deco::Inventory>());
+}
+
+const deco::Collector& Peon::collector() const noexcept {
+  return static_cast<const deco::Collector&>(*getDecorator<deco::Collector>());
+}
+deco::Collector& Peon::collector() noexcept {
+  return static_cast<deco::Collector&>(*getDecorator<deco::Collector>());
 }
 
 Peon::Builder::Builder(
@@ -43,6 +61,10 @@ void Peon::Builder::operator() (EntityPtr& ptr) const noexcept {
   this->Entity::Builder::operator ()(ptr);
   deco::Mover::Builder movbuilder(ptr, 0.01);
   _engine.createDecorator(typeid(deco::Mover), movbuilder);
+  deco::Slot::Builder invbuilder(ptr, 10);
+  _engine.createDecorator(typeid(deco::Slot), invbuilder);
+  deco::Collector::Builder colbuilder(ptr);
+  _engine.createDecorator(typeid(deco::Collector), colbuilder);
 }
 
 #if 0

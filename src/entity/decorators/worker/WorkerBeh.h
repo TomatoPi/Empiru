@@ -16,23 +16,32 @@
  */
 
 /// 
-/// \file   PeonBehaviour.h
+/// \file   WorkerBeh.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 18 septembre 2020, 19:18
+/// \date 14 octobre 2020, 15:38
 ///
 
-#ifndef PEONBEHAVIOUR_H
-#define PEONBEHAVIOUR_H
+#ifndef WORKERBEH_H
+#define WORKERBEH_H
 
-#include "entity/peon/PeonEntity.h"
-#include "engine/core/entity/EntityBehaviour.h"
+#include "Worker.h"
+#include "engine/core/decorator/DecoratorBehaviour.h"
 
-class PeonBehaviour : public EntityBeh {  
-public:
+namespace deco {
   
-  virtual void 
-  operator() (Entity& peon, EntityPtr ptr) noexcept override;
-};
+  class WorkerBeh : public DecoratorBeh {
+  public:
 
-#endif /* PEONBEHAVIOUR_H */
+    WorkerBeh() noexcept = default;
+    virtual ~WorkerBeh() noexcept = default;
+
+    virtual void 
+    operator() (Decorator& decorator, DecoratorPtr) noexcept override {
+      static_cast<Worker&>(decorator).work();
+    }
+  };
+}
+
+#endif /* WORKERBEH_H */
+

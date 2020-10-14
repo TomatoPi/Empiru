@@ -31,6 +31,8 @@
 #include "engine/core/EngineInterface.h"
 
 #include "entity/decorators/mover/Mover.h"
+#include "entity/decorators/inventory/Inventory.h"
+#include "entity/decorators/collector/Collector.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
@@ -38,6 +40,13 @@ class Peon : public Entity {
 public:
   
   const deco::Mover& mover() const noexcept;
+  deco::Mover& mover() noexcept;
+  
+  const deco::Inventory& inventory() const noexcept;
+  deco::Inventory& inventory() noexcept;
+  
+  const deco::Collector& collector() const noexcept;
+  deco::Collector& collector() noexcept;
   
   class Builder : public Entity::Builder {
   private:

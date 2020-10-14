@@ -25,6 +25,8 @@
 #include "PeonController.h"
 #include "entity/decorators/mover/Mover.h"
 #include "utils/log.h"
+#include "entity/decorators/deposit/Deposit.h"
+#include "PeonEntity.h"
 
 void PeonController::leftClickOn(EntityPtr ptr) noexcept {
   if (_controller.selection() != ptr) {
@@ -38,14 +40,22 @@ void PeonController::RightClickOn(EntityPtr ptr) noexcept {
   /* nth */
 }
 void PeonController::RightClickOut(EntityPtr ptr) noexcept {
+  EntityPtr pptr(_controller.selection());
   if (!ptr) {
-    EntityPtr peon(_controller.selection());
-    deco::Mover& mover(static_cast<deco::Mover&>(*peon->getDecorator<deco::Mover>()));
+    deco::Mover& mover(static_cast<deco::Mover&>(*pptr->getDecorator<deco::Mover>()));
     mover.clearPath();
     mover.setTarget(_controller.cursor(), 0.01);
-    _controller.objectAction(peon, EntityPtr(nullptr));
+    _controller.objectAction(pptr, EntityPtr(nullptr));
   } else {
-    
+    Peon& peon(static_cast<Peon&>(*pptr));
+    if (deco::DecoratorPtr dptr = ptr->getDecorator<deco::Deposit>()) {
+      deco::Deposit& deposit(static_cast<deco::Deposit&>(*dptr));
+      if (!deposit.content().empty()) {
+        if (0 < peon.inventory().storableQtyOf(deposit.content().front().type())) {
+          peon.collector().collectAt(dptr, deposit.content().front().type());
+        } 
+      }
+    }
   }
 }
 void PeonController::cursorMoved() noexcept {

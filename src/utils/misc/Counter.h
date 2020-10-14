@@ -33,6 +33,8 @@ private:
   int _cptr;    ///< Current frame counter
 public:
   
+  Counter() noexcept : Counter(0) {}
+  
   /// \brief Create an animation
   /// \param length : frames count
   Counter(int length) noexcept :

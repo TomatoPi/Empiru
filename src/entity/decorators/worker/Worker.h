@@ -54,6 +54,7 @@ namespace deco {
 
     /// \brief Change the collect site of this collector
     void setWorkSite(const DecoratorPtr& ptr) noexcept;
+    DecoratorPtr worksite() const noexcept;
     
     /// \brief Return the collector's status
     Status status() const noexcept;

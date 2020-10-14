@@ -104,6 +104,8 @@ namespace alloc {
   public:
 
     /// \brief Create a nullptr
+    IndexPtr() noexcept : Pointer<Object>(nullptr) {}
+    /// \brief Create a nullptr
     explicit IndexPtr(std::nullptr_t) noexcept : Pointer<Object>(nullptr) {}
     /// \brief Useful to release an object
     IndexPtr& operator= (std::nullptr_t) noexcept {

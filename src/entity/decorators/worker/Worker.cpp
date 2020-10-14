@@ -33,6 +33,9 @@ namespace deco {
     updateStatus();
     workChanged();
   }
+  DecoratorPtr Worker::worksite() const noexcept {
+    return _worksite;
+  }
 
   /// \brief Return the collector's status
   Worker::Status Worker::status() const noexcept {

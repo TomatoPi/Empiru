@@ -196,7 +196,6 @@
       <itemPath>src/entity/decorators/mover/Mover.cpp</itemPath>
       <itemPath>src/entity/peon/PeonController.cpp</itemPath>
       <itemPath>src/entity/decorators/storage/Storage.cpp</itemPath>
-      <itemPath>src/entity/decorators/supplier/Supplier.cpp</itemPath>
       <itemPath>src/engine/tribe/TribeInfos.cpp</itemPath>
       <itemPath>src/entity/decorators/worker/Worker.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
@@ -251,9 +250,11 @@
     <itemPath>src/entity/decorators/mover/MoverBeh.h</itemPath>
     <itemPath>src/entity/peon/PeonController.h</itemPath>
     <itemPath>src/engine/core/Register.h</itemPath>
+    <itemPath>src/entity/decorators/slot/Slot.h</itemPath>
     <itemPath>src/entity/decorators/storage/Storage.h</itemPath>
     <itemPath>src/entity/decorators/supplier/Supplier.h</itemPath>
     <itemPath>src/entity/decorators/collector/Worker.h</itemPath>
+    <itemPath>src/entity/decorators/worker/WorkerBeh.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -563,6 +564,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
             ex="false"
             tool="1"
@@ -573,11 +576,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/supplier/Supplier.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/supplier/Supplier.h"
             ex="false"
             tool="3"
@@ -586,6 +584,11 @@
       <item path="src/entity/decorators/worker/Worker.cpp"
             ex="false"
             tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
             flavor2="0">
       </item>
       <item path="src/entity/land/HarvestableBehaviour.h"
@@ -1076,6 +1079,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
             ex="false"
             tool="1"
@@ -1086,11 +1091,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/supplier/Supplier.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/supplier/Supplier.h"
             ex="false"
             tool="3"
@@ -1099,6 +1099,11 @@
       <item path="src/entity/decorators/worker/Worker.cpp"
             ex="false"
             tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
             flavor2="0">
       </item>
       <item path="src/entity/land/HarvestableBehaviour.h"
@@ -1584,6 +1589,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
             ex="false"
             tool="1"
@@ -1594,11 +1601,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/supplier/Supplier.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/supplier/Supplier.h"
             ex="false"
             tool="3"
@@ -1607,6 +1609,11 @@
       <item path="src/entity/decorators/worker/Worker.cpp"
             ex="false"
             tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
             flavor2="0">
       </item>
       <item path="src/entity/land/HarvestableBehaviour.h"
@@ -2099,6 +2106,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
             ex="false"
             tool="1"
@@ -2109,11 +2118,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/supplier/Supplier.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/supplier/Supplier.h"
             ex="false"
             tool="3"
@@ -2122,6 +2126,11 @@
       <item path="src/entity/decorators/worker/Worker.cpp"
             ex="false"
             tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
             flavor2="0">
       </item>
       <item path="src/entity/land/HarvestableBehaviour.h"

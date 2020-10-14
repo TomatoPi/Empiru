@@ -21,6 +21,18 @@
 ///
 /// \date 18 septembre 2020, 19:18
 ///
+
+#include "PeonBehaviour.h"
+
+void PeonBehaviour::operator() (Entity& entity, EntityPtr ptr) noexcept {
+  Peon& peon(static_cast<Peon&>(entity));
+  if (peon.collector().status() == deco::Collector::Status::TooFar) {
+    peon.mover().setTarget(peon.collector().worksite()->entity()->pos().pos(), 0.1);
+  }
+  peon.collector().updateStatus();
+}
+
+
 #if 0
 #include <cassert>
 

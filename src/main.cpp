@@ -63,6 +63,9 @@
 #include "entity/decorators/deposit/Deposit.h"
 #include "entity/decorators/storage/Storage.h"
 #include "engine/tribe/TribeInfos.h"
+#include "entity/decorators/slot/Slot.h"
+#include "entity/decorators/collector/Collector.h"
+#include "entity/decorators/worker/WorkerBeh.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -131,6 +134,12 @@ int main(int argc, char** argv) {
     _gameEngine.registerDecorator(typeid(deco::Storage),
         new DecoratorAllocator<deco::Storage>(),
         nullptr);
+    _gameEngine.registerDecorator(typeid(deco::Slot),
+        new DecoratorAllocator<deco::Slot>(),
+        nullptr);
+    _gameEngine.registerDecorator(typeid(deco::Collector),
+        new DecoratorAllocator<deco::Collector>(),
+        new deco::WorkerBeh());
   }
   
   { /* tile */
