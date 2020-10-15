@@ -190,7 +190,7 @@ void PeonBehaviour::moveTo(Peon& peon, WorldPtr& ptr, WorldInterface& world) {
   // Else compute one step
   else {
     // Compute default new position
-    peon.pos(oldpos + peon.direction() * 0.01);
+    peon.pos(WorldObject::Position(oldpos + peon.direction() * 0.01));
     // Check validity
     WorldObject *obstacle(nullptr);
     bool validMove(tryPosition(peon, ptr, &obstacle, world));

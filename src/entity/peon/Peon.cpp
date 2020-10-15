@@ -101,7 +101,7 @@ void Peon::beginOrder() {
     this->endOrder();
     return;
   }
-  _dir = hex::Axial(_todo.front()->targetPos() - this->pos()).toUnit();
+  _dir = Position((_todo.front()->targetPos() - this->pos()).toUnit());
   Order::Type type(_todo.front()->type());
   switch (type) {
   case Order::MoveTo :

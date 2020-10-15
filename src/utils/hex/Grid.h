@@ -30,18 +30,18 @@
 
 namespace hex {
   
-  struct Grid : public math::Vector<float> {
+  struct Grid : public math::_Vector<float,Grid> {
     
     Grid() noexcept : 
-      math::Vector<float>() 
+      math::_Vector<float,Grid>() 
     {
     }
     Grid(float x, float y) noexcept : 
-      math::Vector<float>(x,y) 
+      math::_Vector<float,Grid>(x,y) 
     {
     }
-    Grid(const math::Vector<float> & v) noexcept : 
-      math::Vector<float>(v) 
+    explicit Grid(const math::_Vector<float,Grid>& v) noexcept : 
+      math::_Vector<float,Grid>(v) 
     {
     }
     

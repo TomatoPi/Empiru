@@ -16,35 +16,23 @@
  */
 
 /// 
-/// \file   OddQ.h
+/// \file   Warehouse.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 22:33
+/// \date 7 octobre 2020, 00:56
 ///
 
-#ifndef HEX_ODDQ_COORDS_H
-#define HEX_ODDQ_COORDS_H
+#ifndef WAREHOUSE_H
+#define WAREHOUSE_H
 
-#include "utils/math/Vector.h"
+#include "utils/world/WorldObject.h"
+#include "utils/world/Storage.h"
 
-namespace hex {
- 
-  struct OddQ : public math::_Vector<float,OddQ> {
-    
-    OddQ() noexcept : 
-      math::_Vector<float,OddQ>() 
-    {
-    }
-    OddQ(float x, float y) noexcept : 
-      math::_Vector<float,OddQ>(x,y) 
-    {
-    }
-    explicit OddQ(const math::_Vector<float,OddQ>& v) noexcept : 
-      math::_Vector<float,OddQ>(v) 
-    {
-    }
-  };
-}
+class Warehouse : public WorldObject, public Storage {
+public:
+  Warehouse();
+  Warehouse(const Warehouse &) = default;
+  Warehouse& operator= (const Warehouse&) = default;
+};
 
-#endif /* HEX_ODDQ_COORDS_H */
-
+#endif /* WAREHOUSE_H */

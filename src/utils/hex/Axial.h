@@ -31,19 +31,23 @@
 
 namespace hex {
   
-  struct Axial : public math::Vector<float> {
+  struct Axial : public math::_Vector<float,Axial> {
     
     Axial() noexcept : 
-      math::Vector<float>() 
+      math::_Vector<float,Axial>() 
     {
     }
     Axial(float x, float y) noexcept : 
-      math::Vector<float>(x,y) 
+      math::_Vector<float,Axial>(x,y) 
     {
     }
-    Axial(const math::Vector<float> & v) noexcept :
-      math::Vector<float>(v)
+    explicit Axial(const math::_Vector<float,Axial>& v) noexcept :
+      math::_Vector<float,Axial>(v)
     {    
+    }
+    
+    float norm() const noexcept {
+      return std::sqrt(_x*_x + _y*_y + _x*_y);
     }
     
     /// \brief Call given function on this tile and each adjacent ones

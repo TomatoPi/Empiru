@@ -70,6 +70,7 @@
 #include "utils/gui/assets/GraphicAssetsRegister.h"
 #include "entity/buildings/site/SiteRenderer.h"
 #include "entity/buildings/site/SiteBehaviour.h"
+#include "entity/buildings/warehouse/Warehouse.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -79,7 +80,6 @@
 #define FACTOR 1.5  ///< Magic number scalling window size
 
 namespace {
-  
   struct MoverTo {
     float x, y;
     MoverTo(float x, float y) noexcept : x(x), y(y) {}
@@ -196,6 +196,20 @@ int main(int argc, char** argv) {
     _gameEngine.registerObjectKind(typeid(House), new WorldAllocator<House>());
     _gameEngine.attachBehaviour(typeid(House), new StorageBehaviour(_gameEngine.playerTribe()));
     _rdrEngine.attachRenderer(typeid(House), 
+        new GenericRenderer<OnTileBlitter>(asset));
+  }
+  { /* Warehouse */
+    auto asset(_spritesRegister.registerAsset(typeid(Warehouse),
+        "medias/sprites/buildings/house_tower/house", 
+        gui::ObjectAsset::ReqSheet 
+          | gui::ObjectAsset::ReqMask 
+          | gui::ObjectAsset::ReqGhost, 
+        _window->renderer,
+        _window->vrenderer));
+    
+    _gameEngine.registerObjectKind(typeid(Warehouse), new WorldAllocator<Warehouse>());
+    _gameEngine.attachBehaviour(typeid(Warehouse), new StorageBehaviour(_gameEngine.playerTribe()));
+    _rdrEngine.attachRenderer(typeid(Warehouse), 
         new GenericRenderer<OnTileBlitter>(asset));
   }
   { /* ghost */

@@ -33,14 +33,14 @@ void SiteBehaviour::tick(WorldObject & obj, WorldPtr& ptr, WorldInterface & worl
   }
   if (site.isFinished()) {
     GameEngine& engine(GameEngine::Get());
-    WorldPtr building(engine.createObject(typeid(House), 
+    WorldPtr building(engine.createObject(site.type(), 
         [&] (WorldPtr& ptr) -> void {
           ptr->pos(obj.pos());
         }));
     float theta(0);
     for (WorldPtr worker : site.workers()) {
       float ro(building->radius() + worker->radius() + 0.1);
-      worker->pos(building->pos() + math::Vector<float>::polar(ro, theta));
+      worker->pos(building->pos() + WorldObject::Position::polar(ro, theta));
       world.addObject(worker);
       theta += 0.6;
     }

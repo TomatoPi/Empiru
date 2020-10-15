@@ -28,6 +28,7 @@
 #include "utils/log.h"
 #include "utils/hex/Viewport.h"
 #include "buildings/House.h"
+#include "entity/buildings/warehouse/Warehouse.h"
 
 /// \brief Size of border (in pixels) used to scroll view
 #define MERGE 50
@@ -119,6 +120,9 @@ bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent & key) {
     break;
   case SDLK_h:
     _controller.selectConstructionGhost(typeid(House));
+    break;
+  case SDLK_j:
+    _controller.selectConstructionGhost(typeid(Warehouse));
     break;
   }
   return true;

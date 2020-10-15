@@ -27,6 +27,7 @@
 ConstructionSite::ConstructionSite() : 
   WorldObject(WorldObject::SHollow),
   _workers(),
+  _type(nullptr),
   _progress(0), _cptr(0), _difficulty(0)
 {  
 }
@@ -53,4 +54,8 @@ void ConstructionSite::removeWorker(const WorldPtr& ptr) {
 }
 const ConstructionSite::WorkersList& ConstructionSite::workers() const noexcept {
   return _workers;
+}
+
+const std::type_info& ConstructionSite::type() const noexcept {
+  return *_type;
 }

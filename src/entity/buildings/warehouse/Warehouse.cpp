@@ -16,35 +16,14 @@
  */
 
 /// 
-/// \file   OddQ.h
+/// \file   Warehouse.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 22:33
+/// \date 7 octobre 2020, 00:56
 ///
 
-#ifndef HEX_ODDQ_COORDS_H
-#define HEX_ODDQ_COORDS_H
+#include "Warehouse.h"
 
-#include "utils/math/Vector.h"
-
-namespace hex {
- 
-  struct OddQ : public math::_Vector<float,OddQ> {
-    
-    OddQ() noexcept : 
-      math::_Vector<float,OddQ>() 
-    {
-    }
-    OddQ(float x, float y) noexcept : 
-      math::_Vector<float,OddQ>(x,y) 
-    {
-    }
-    explicit OddQ(const math::_Vector<float,OddQ>& v) noexcept : 
-      math::_Vector<float,OddQ>(v) 
-    {
-    }
-  };
+Warehouse::Warehouse() : WorldObject(WorldObject::STile), Storage() {
+  
 }
-
-#endif /* HEX_ODDQ_COORDS_H */
-

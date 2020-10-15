@@ -117,7 +117,8 @@ void Controller::peonRightClick(
         sendNotification(EventObjectAction(_selection, ptr));
       }
     }
-  } else {
+  } 
+  else {
     peon->clearOrders();
     peon->addOrder(new OrderMoveTo(click, 0.01));
     peon->beginOrder();
