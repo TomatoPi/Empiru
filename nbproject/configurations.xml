@@ -109,9 +109,9 @@
           <itemPath>src/utils/core/Allocator.h</itemPath>
           <itemPath>src/utils/assets/AssetManager.h</itemPath>
           <itemPath>src/utils/misc/Automaton.h</itemPath>
+          <itemPath>src/utils/pattern/BigObserver.h</itemPath>
           <itemPath>src/utils/core/IndexAllocator.h</itemPath>
           <itemPath>src/utils/core/IndexPtr.h</itemPath>
-          <itemPath>src/utils/pattern/Observer.h</itemPath>
           <itemPath>src/utils/core/Pointer.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="engine" projectFiles="true">
@@ -749,7 +749,7 @@
       </item>
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/pattern/Observer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1274,7 +1274,7 @@
       </item>
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/pattern/Observer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1794,7 +1794,7 @@
       </item>
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/pattern/Observer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2321,7 +2321,7 @@
       </item>
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/pattern/Observer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>

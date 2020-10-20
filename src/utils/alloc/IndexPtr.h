@@ -32,18 +32,18 @@
 namespace alloc {
 
   template <class Object>
-  class IndexPtr : public Pointer<Object> {
+  class IndexPtr : public SmartPointer<Object> {
   private:
 
     typedef Allocator<Object,IndexPtr<Object>,std::size_t> _Allocator;
     template <class T,class U> friend class IndexAllocator;
 
-    class IndexHandle : public Pointer<Object>::Handle {
+    class IndexHandle : public SmartPointer<Object>::Handle {
     public:
       
       /// \brief Construct a smart ref on given allocator cell
       IndexHandle(_Allocator& alloc, std::size_t idx) noexcept :
-        Pointer<Object>::Handle(),
+        SmartPointer<Object>::Handle(),
         _alloc(alloc), _idx(idx)
       {
       }
@@ -82,7 +82,7 @@ namespace alloc {
     /// \brief Change the referenced object's index inside the container
     void update(std::size_t idx) noexcept {
       IndexHandle* ref(
-        static_cast<IndexHandle*>(Pointer<Object>::getRef()));
+        static_cast<IndexHandle*>(SmartPointer<Object>::getRef()));
       assert(ref);
       ref->_idx = idx;
     }
@@ -90,26 +90,26 @@ namespace alloc {
     /// \brief Return the current storage index
     std::size_t index() const noexcept {
       const IndexHandle* ref(
-        static_cast<const IndexHandle*>(Pointer<Object>::getRef()));
+        static_cast<const IndexHandle*>(SmartPointer<Object>::getRef()));
       assert(ref);
       return ref->_idx;
     }
 
     /// \brief Construct a valid pointer
     IndexPtr(_Allocator& alloc, std::size_t idx) noexcept :
-      Pointer<Object>(new IndexHandle(alloc, idx))
+      SmartPointer<Object>(new IndexHandle(alloc, idx))
     {
     }
 
   public:
 
     /// \brief Create a nullptr
-    IndexPtr() noexcept : Pointer<Object>(nullptr) {}
+    IndexPtr() noexcept : SmartPointer<Object>(nullptr) {}
     /// \brief Create a nullptr
-    explicit IndexPtr(std::nullptr_t) noexcept : Pointer<Object>(nullptr) {}
+    explicit IndexPtr(std::nullptr_t) noexcept : SmartPointer<Object>(nullptr) {}
     /// \brief Useful to release an object
     IndexPtr& operator= (std::nullptr_t) noexcept {
-      this->Pointer<Object>::operator= (nullptr);
+      this->SmartPointer<Object>::operator= (nullptr);
       return *this;
     }
   };

@@ -28,7 +28,7 @@
 #include <functional>
 #include <cfenv>
 
-#include "utils/chrono.hpp"
+#include "utils/misc/chrono.hpp"
 #include "utils/log.h"
 #include "utils/math/Math.h"
 

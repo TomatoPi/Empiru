@@ -40,7 +40,7 @@ namespace alloc {
   ///   would be tracked
   ///
   template <class Object>
-  class Pointer {
+  class SmartPointer {
   protected:
     
     /* ******************************************************************** */
@@ -48,7 +48,6 @@ namespace alloc {
     /* ******************************************************************** */
 
     /// \brief Internal struct used to track an object in the allocator
-    ///   A WorldPtr is a smart shared pointer to a WorldRef
     class Handle {
     public:
       
@@ -73,7 +72,7 @@ namespace alloc {
       
     private:
       
-      friend class Pointer;
+      friend class SmartPointer;
       
       std::size_t _count; ///< Number of pointers that reference this handle
       bool        _valid; ///< True if the handle is valid
@@ -87,7 +86,7 @@ namespace alloc {
     }
     
     /// \brief Create a Pointer from a constructed reference
-    explicit Pointer(Handle* ref) noexcept : _ref(ref) {}
+    explicit SmartPointer(Handle* ref) noexcept : _ref(ref) {}
     
     /// \brief Used by the derived classes to retrieve the object's handle
     ///   but prevent free modification on stored handle
@@ -144,46 +143,46 @@ namespace alloc {
     /* ******************************************************************** */
     
     /// \brief Create a nullptr
-    explicit Pointer(std::nullptr_t) :
+    explicit SmartPointer(std::nullptr_t) :
         _ref(nullptr)
     {
     }
     /// \brief Create a nullptr
-    Pointer() noexcept : 
+    SmartPointer() noexcept : 
         _ref(nullptr) 
     {
     }
     /// \brief Copy a ptr and increase references count
-    Pointer(const Pointer& ptr) noexcept : 
+    SmartPointer(const SmartPointer& ptr) noexcept : 
       _ref(ptr._ref)
     {
       acquire(ptr._ref);
     }
     /// \brief Copy assign a ptr and increase references count
-    Pointer& operator= (const Pointer& ptr) noexcept {
+    SmartPointer& operator= (const SmartPointer& ptr) noexcept {
       releaseRef();
       acquire(ptr._ref);
       return *this;
     }
     /// \brief Move construct a ptr, don't increase references count
-    Pointer(Pointer&& ptr) noexcept :
+    SmartPointer(SmartPointer&& ptr) noexcept :
       _ref(ptr._ref)
     {
       ptr._ref = nullptr;
     }
     /// \brief Move assing a ptr, relase current, don't increase newest
-    Pointer& operator= (Pointer&& ptr) noexcept {
+    SmartPointer& operator= (SmartPointer&& ptr) noexcept {
       releaseRef();
       _ref = ptr._ref;
       ptr._ref = nullptr;
       return *this;
     }
     /// \brief Release the handle
-    ~Pointer() noexcept {
+    ~SmartPointer() noexcept {
       releaseRef();
     }
     /// \brief Useful to release an object
-    Pointer& operator= (std::nullptr_t) noexcept {
+    SmartPointer& operator= (std::nullptr_t) noexcept {
       releaseRef();
       _ref = nullptr;
       return *this;
@@ -191,23 +190,23 @@ namespace alloc {
 
     /// \brief Must return a reference to the associated object
     Object* operator-> () {
-      assert(isValid() && "Dereferenced invalid WorldPtr");
+      assert(isValid() && "Dereferenced invalid Pointer");
       return _ref->asPtr();
     }
     /// \brief Must return a reference to the associated object
     const Object* operator-> () const {
-      assert(isValid() && "Dereferenced invalid WorldPtr");
+      assert(isValid() && "Dereferenced invalid Pointer");
       return _ref->asPtr();
     }
 
     /// \brief Must return a reference to the associated object
     Object& operator* () {
-      assert(isValid() && "Dereferenced invalid WorldPtr");
+      assert(isValid() && "Dereferenced invalid Pointer");
       return _ref->asRef();
     }
     /// \brief Must return a reference to the associated object
     const Object& operator* () const {
-      assert(isValid() && "Dereferenced invalid WorldPtr");
+      assert(isValid() && "Dereferenced invalid Pointer");
       return _ref->asRef();
     }
 
@@ -227,11 +226,11 @@ namespace alloc {
     }
 
     /// \brief Return true if referenced objects are the same
-    bool operator== (const Pointer& b) const noexcept {
+    bool operator== (const SmartPointer& b) const noexcept {
       return _ref == b._ref;
     }
     
-    bool operator!= (const Pointer& b) const noexcept {
+    bool operator!= (const SmartPointer& b) const noexcept {
       return _ref != b._ref;
     }
   };
@@ -239,7 +238,7 @@ namespace alloc {
   /// \brief Functor that hash a ptr according to it's referenced adress
   struct PtrHash {
     template <class Object>
-    std::size_t operator() (const Pointer<Object>& ptr) 
+    std::size_t operator() (const SmartPointer<Object>& ptr) 
       const noexcept
     {
       return reinterpret_cast<std::size_t>(ptr._ref);
@@ -249,7 +248,7 @@ namespace alloc {
   /// \brief Functor that compare referenced objects adresses
   struct PtrComp {
     template <class Object>
-    bool operator() (const Pointer<Object>& a, const Pointer<Object>& b) 
+    bool operator() (const SmartPointer<Object>& a, const SmartPointer<Object>& b) 
       const noexcept 
     {
       return a._ref < b._ref;
@@ -259,7 +258,7 @@ namespace alloc {
   /// \brief Functor that return true if referenced objects are the same
   struct PtrEquals {
     template <class Object>
-    bool operator() (const Pointer<Object>& a, const Pointer<Object>& b) 
+    bool operator() (const SmartPointer<Object>& a, const SmartPointer<Object>& b) 
       const noexcept
     {
       return a._ref == b._ref;

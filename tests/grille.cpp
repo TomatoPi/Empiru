@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
     return 0;
   }
   
-  hex::Viewport camera(
+  hex::Viewport camera(0,0,
     hex::Viewport::HEXAGON_WIDTH, hex::Viewport::HEXAGON_HEIGHT,
     WIDTH, HEIGHT);
   
