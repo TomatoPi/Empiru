@@ -33,8 +33,8 @@
 ///   Or using more polymorphism on the observer
 ///
 
-#ifndef OBSERVER_H
-#define OBSERVER_H
+#ifndef BIG_OBSERVER_H
+#define BIG_OBSERVER_H
 
 #include <vector>
 #include <typeindex>
@@ -58,7 +58,7 @@ public:
 ///   handling mechanism in the Observer pattern
 /// So, the observer can also be used as a simple event handler by direct
 ///  call of the handleEvent() method (with associated event registering ahead)
-class Observer {
+class BigObserver {
 private:
 
   /// \brief Base class used for storage
@@ -99,12 +99,12 @@ private:
 public:
   
   /// \brief Constructor
-  Observer() noexcept : 
+  BigObserver() noexcept : 
     _table() 
   {
   }
   /// \brief delete all allocated handlers
-  virtual ~Observer() noexcept {
+  virtual ~BigObserver() noexcept {
     for (auto & itr : _table) {
       delete itr.second;
     }
@@ -143,20 +143,20 @@ public:
 /// \brief The Subject class for Observer design pattern
 /// Simply store list of atatched Observers and call their handleEvent() method
 ///   when an event is launched
-class Subject {
+class BigSubject {
 private:
   
   /// \brief A List of Observers
-  typedef std::vector<Observer*> Watchers;
+  typedef std::vector<BigObserver*> Watchers;
   Watchers _watchers; ///< List of attached watchers
   
 public:
   
-  virtual ~Subject() noexcept = default;
+  virtual ~BigSubject() noexcept = default;
   
   /// \brief Attach an observer to this subject
   /// This observer will be notified on each subject update
-  void attachObserver(Observer * obs) noexcept {
+  void attachObserver(BigObserver * obs) noexcept {
     assert(obs != nullptr && "Observer cannot be null");
     _watchers.push_back(obs);
   }
@@ -178,4 +178,4 @@ protected:
   }
 };
 
-#endif /* OBSERVER_H */
+#endif /* BIG_OBSERVER_H */

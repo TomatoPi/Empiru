@@ -31,7 +31,7 @@
 
 /// \brief Contructor
 GameEngine::GameEngine() noexcept : 
-  Subject(), Observer(),
+  BigSubject(), BigObserver(),
   _entities(),
   _decorators()
 {

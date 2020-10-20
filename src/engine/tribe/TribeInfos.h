@@ -28,11 +28,11 @@
 #include <array>
 #include <unordered_set>
 #include "ressources/core/Stack.h"
-#include "utils/pattern/Observer.h"
+#include "utils/pattern/BigObserver.h"
 #include "utils/misc/Counter.h"
 #include "engine/core/decorator/DecoratorPtr.h"
 
-class TribeInfos : public Observer {
+class TribeInfos : public BigObserver {
 public:
   
   typedef std::array<int,Stack::RessourceCount> TribeStocks;

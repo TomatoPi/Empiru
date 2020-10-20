@@ -27,7 +27,7 @@
 
 #include "engine/core/entity/EntityPtr.h"
 #include "world/core/WorldObject.h"
-#include "utils/pattern/Observer.h"
+#include "utils/pattern/BigObserver.h"
 
 struct EventObjectSelected : public Event {
   EntityPtr _ptr;

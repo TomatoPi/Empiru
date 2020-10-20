@@ -30,7 +30,7 @@
 #include <typeindex>
 #include <unordered_map>
 
-#include "utils/pattern/Observer.h"
+#include "utils/pattern/BigObserver.h"
 #include "controller/core/GameControllerInterface.h"
 #include "controller/core/EntityControllerInterface.h"
 #include "engine/core/entity/EntityPtr.h"
@@ -38,8 +38,8 @@
 /// \brief Main handler for user control
 class Controller : 
   public GameControllerInterface, 
-  public Subject, 
-  public Observer 
+  public BigSubject, 
+  public BigObserver 
 {
 private:
   

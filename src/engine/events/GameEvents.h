@@ -27,7 +27,7 @@
 
 #include "engine/core/decorator/DecoratorPtr.h"
 #include "engine/core/entity/EntityPtr.h"
-#include "utils/pattern/Observer.h"
+#include "utils/pattern/BigObserver.h"
 
 struct EventObjectCreated : public Event {
   EntityPtr _ptr;

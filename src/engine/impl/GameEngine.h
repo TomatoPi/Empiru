@@ -27,7 +27,7 @@
 #define GAMEENGINE_H
 
 #include "utils/alloc/IndexAllocator.h"
-#include "utils/pattern/Observer.h"
+#include "utils/pattern/BigObserver.h"
 
 #include "engine/core/EngineInterface.h"
 #include "engine/core/Register.h"
@@ -38,8 +38,8 @@
 /// \brief Core object for in-game mechanics
 class GameEngine : 
   public GameEngineInterface, 
-  public Subject, 
-  public Observer 
+  public BigSubject, 
+  public BigObserver 
 {
 private:
   

@@ -65,7 +65,7 @@ namespace {
 
 /// \brief Constructor
 Controller::Controller() noexcept :
-  GameControllerInterface(), Subject(), Observer(),
+  GameControllerInterface(), BigSubject(), BigObserver(),
   _controllers(),
   _selection(nullptr),
   _cursor()

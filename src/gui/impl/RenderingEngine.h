@@ -37,10 +37,10 @@
 #include "gui/core/PixelPerfectClicker.h"
 #include "gui/core/AbstractRenderer.h"
 #include "world/core/MapInterface.h"
-#include "utils/pattern/Observer.h"
+#include "utils/pattern/BigObserver.h"
 
 /// \brief Object responsible of Game rendering
-class RenderingEngine : public PixelPerfectClicker, public Observer {
+class RenderingEngine : public PixelPerfectClicker, public BigObserver {
 public:
   
   /// \brief Hash an SDL_Color according to its compenents

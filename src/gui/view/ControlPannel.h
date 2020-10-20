@@ -25,7 +25,7 @@
 #ifndef CONTROLPANNEL_H
 #define CONTROLPANNEL_H
 
-#include "utils/pattern/Observer.h"
+#include "utils/pattern/BigObserver.h"
 #include "utils/gui/View.h"
 #include "utils/gui/Window.h"
 #include "utils/assets/SpriteSheet.h"
@@ -36,7 +36,7 @@
 
 #include "engine/tribe/TribeInfos.h"
 
-class ControlPannel : public gui::View, public Observer {
+class ControlPannel : public gui::View, public BigObserver {
 private:
   
   Window &           _window;
