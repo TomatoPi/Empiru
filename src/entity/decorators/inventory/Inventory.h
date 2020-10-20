@@ -25,15 +25,49 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
-#include <vector>
 #include "engine/core/decorator/Decorator.h"
 #include "ressources/core/Stack.h"
+#include <vector>
+#include <set>
 
 namespace decorator {
   
   /// \brief Interface decorator for things that store other things
   class Inventory : public Decorator {
   public:
+    
+    enum class Event {
+      Modified,
+      Full,
+      Empty
+    };
+    
+    class Observer {
+    public:
+      virtual void onNotify(const DecoratorPtr& ptr, Event event) noexcept = 0;
+    };
+    
+  private:
+    
+    std::set<DecoratorPtr, alloc::PtrComp> _observers;
+    
+  protected:
+    
+    void notify(const DecoratorPtr& ptr, Event event) noexcept {
+      for (auto observer : _observers) {
+        dynamic_cast<Observer&>(*observer).onNotify(ptr, event);
+      }
+    }
+    
+  public:
+    
+    void attach(const DecoratorPtr& ptr) noexcept {
+      _observers.emplace(ptr);
+    }
+    
+    void detach(const DecoratorPtr& ptr) noexcept {
+      _observers.erase(ptr);
+    }
     
     /// \brief Unified object to return inventory content
     /// \todo turn it to a polymorphic object with iterator

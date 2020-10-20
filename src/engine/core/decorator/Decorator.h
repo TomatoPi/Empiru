@@ -28,6 +28,7 @@
 #include "DecoratorPtr.h"
 #include "engine/core/entity/EntityPtr.h"
 #include "engine/core/entity/Entity.h"
+#include <vector>
 
 /// \brief namespace containing all decorator related stuff
 namespace decorator {
@@ -35,15 +36,16 @@ namespace decorator {
   class Decorator {
   protected:
 
-    EntityPtr _entity;
+    DecoratorPtr _this;
+    EntityPtr    _entity;
 
   public:
 
     Decorator() noexcept : _entity(nullptr) {}
     virtual ~Decorator() noexcept = default;
     
-    EntityPtr entity() const noexcept {return _entity;}
-
+    const EntityPtr& entity() const noexcept {return _entity;}
+    
     class Builder {
     private:
 
@@ -66,6 +68,7 @@ namespace decorator {
         _entity(entity) {}
 
       virtual void operator() (DecoratorPtr& ptr) const noexcept {
+        ptr->_this = ptr;
         ptr->_entity = _entity;
         ptr->_entity->attachDecorator(typeid(*ptr), ptr);
       }

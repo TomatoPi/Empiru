@@ -30,7 +30,7 @@
 
 namespace decorator {
   
-  class WorkerBeh : public Updator {
+  class WorkerBeh : public Operator {
   public:
 
     WorkerBeh() noexcept = default;

@@ -25,6 +25,7 @@
 #ifndef INDEXPTR_H
 #define INDEXPTR_H
 
+#include <list>
 #include <cassert>
 #include "utils/alloc/Allocator.h"
 #include "utils/alloc/Pointer.h"
@@ -34,7 +35,7 @@ namespace alloc {
   template <class Object>
   class IndexPtr : public SmartPointer<Object> {
   private:
-
+    
     typedef Allocator<Object,IndexPtr<Object>,std::size_t> _Allocator;
     template <class T,class U> friend class IndexAllocator;
 
@@ -77,7 +78,6 @@ namespace alloc {
       _Allocator& _alloc; ///< The associated container
       std::size_t _idx;   ///< Index of the object in the container
     };
-
 
     /// \brief Change the referenced object's index inside the container
     void update(std::size_t idx) noexcept {

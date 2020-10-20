@@ -109,6 +109,12 @@ public:
         || _type == Ressource::Invalid
         || _type == Ressource::Count;
   }
+  /// \brief return true if the stack is empty
+  bool full() const noexcept {
+    return _max <= _size 
+        || _type == Ressource::Invalid
+        || _type == Ressource::Count;
+  }
 };
 
 class StackTypeComp {

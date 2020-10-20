@@ -137,3 +137,68 @@ Problèmes :
   -> Transformation des décorateurs tels que Collector et Mover en behaviour
   -> Création d'un supertype behaviour qui soit un décorator
   -> pourquoi .... en quoi ça résoud  les problèmes....
+
+Vrais problèmes :
+  Quantité improbable d'indirection dans de nombreuses opérations (cf peon controller issou)
+  Souplesse beaucoup trop faible des comportement et des décorateurs :
+    Par exemple, le collecteur est à la fois trop spécifique et générique
+
+  Début de solution :
+    Retrait des behaviours de décorateur
+    Retrait des décorateurs comportementaux
+    Ajout d'un objet Operateur : 
+      S'ajoute à une liste de trucs à calculer
+
+  Le système d'allocateurs est extrêmement chiant et au final pas forcément   
+    pertinant (pour les décorateurs par exemple)... :
+      -> Dans presque tout les cas, les données actives ont peu de chances 
+          d'être contigües en mémoire
+      -> Sauf cas particuliers, comme les opérations unaires :
+          ~ Déplacement (et encore ...)
+          ~ Travail sur chantier (et encore ...)
+          Transfert : jamais cache friendly (est-ce améliorable ??)
+      -> Les objets à packer sont donc les opérateurs, le reste n'est pas   
+          très utile
+      -> Cependant, la présence des allocateurs uniformise et sécurise    
+          l'allocation et désalocation des objets
+      
+  L'unordered_map dans toutes les entités est complètement overkill :
+    -> Retrait de la spécification du tockage des décorateurs de la classe de 
+        base
+      
+  Qu'est ce qui fait une entité ??? A quoi sert l'objet entité ???
+    -> Fournir une interface commune à tout les objets pour l'accès
+
+  A quoi sert l'objet Decorator ???
+    -> Fournir un mecanisme de sous typage dynamique, utile pour ajouter des
+        features sans taper le moteur
+    -> Changer en allant les operations accessibles sur une entitée :
+        exemple : le chantier, d'habord à remplir (inventaire) puis à travailler
+    -> Fournir des interfaces génériques sur les opérations faisables sur
+        une entitée : prendre dans un inventaire et dans un gisement sont   
+        relativement équivalents (ou pas ???)
+    -> Eviter des dynamic_cast de partout (remplacés par un get)
+
+  A quoi sert l'objet EntityBehaviour ???
+    -> À la base, servirais à gérer les relations entre les décorateurs d'une
+        même entitée
+    -> Sa présence est moins justifiée, même si elle reste cohérente par exemple
+        pour le péon, ou pour le chantier
+    -> Dans les fait, via implémentation d'un mecanisme d'evenements,
+        peut et doit etre remplacé par un simple ensemble de callback et d'etats
+        très possiblement un genre d'automate, qui traquerais un certain set de
+        décorateurs, et changerais d'état à certaines notifications
+
+  A quoi sert l'objet DecoratorBehaviour ???
+    -> À la base, à effectuer les opérations relatives à des décorateurs,
+        par exemple le mover et son behaviour, le collector et son behaviour
+    -> Dans les faits, le behaviour ne sert à rien, et est redondant avec la
+        methode update des decorateurs
+    -> D'autre part, les décorateurs avec une methode updates sont ambigüs
+        quant au rôle d'un décorateur, ils représentent et contiennent plus de
+        comportement que de données
+
+  Un bon argument pour rendre les WorldObject au moins des subjects (Observer) si ce n'est des Décorateurs :
+    -> Le tracking via des events de si un objet bouge
+    -> On pourra alors en notifier la worldMap qui traitera d'elle meme le  
+      changement de case, et les cases (c'est pas à nous d'y reflechir)

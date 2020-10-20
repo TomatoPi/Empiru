@@ -47,7 +47,7 @@ private:
   typedef alloc::Allocator<decorator::Decorator,decorator::DecoratorPtr,std::size_t> DAllocator;
   
   typedef Register<Entity,EntityPtr,EntityBeh> EntitiesReg;
-  typedef Register<decorator::Decorator,decorator::DecoratorPtr,decorator::Updator> DecoratorsReg;
+  typedef Register<decorator::Decorator,decorator::DecoratorPtr,decorator::Operator> DecoratorsReg;
   
   EntitiesReg   _entities;
   DecoratorsReg _decorators;
@@ -85,7 +85,7 @@ public:
   noexcept override;
   
   void
-  registerDecorator(const std::type_info& type, DAllocator*, decorator::Updator*) 
+  registerDecorator(const std::type_info& type, DAllocator*, decorator::Operator*) 
   noexcept;
 };
 

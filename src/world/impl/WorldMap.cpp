@@ -106,8 +106,7 @@ const noexcept
   // Check collisions
   bool valid(true);
   entity->obj().pos().mapNeightbours(
-    [&]
-    (const WorldObject::Position & pos) -> bool {
+    [&] (const WorldObject::Position & pos) -> bool {
       auto content = getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){

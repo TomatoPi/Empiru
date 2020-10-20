@@ -47,7 +47,7 @@ void GameEngine::update() {
       });
   /* then compute sub-behaviour for each components */
   _decorators.behave(
-      [this](decorator::Decorator& dec, decorator::DecoratorPtr& ptr, decorator::Updator* beh) -> void {
+      [this](decorator::Decorator& dec, decorator::DecoratorPtr& ptr, decorator::Operator* beh) -> void {
         (*beh)(dec, ptr);
       });
   /* destroy entites that died this tick */
@@ -111,7 +111,7 @@ void
 GameEngine::registerDecorator(
   const std::type_info& type, 
   DAllocator* alloc, 
-  decorator::Updator* beh) 
+  decorator::Operator* beh) 
 noexcept
 {
   _decorators.registerKind(type, alloc);

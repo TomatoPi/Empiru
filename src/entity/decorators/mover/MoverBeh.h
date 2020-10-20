@@ -30,7 +30,7 @@
 #include "world/core/MapInterface.h"
 
 namespace decorator {
-  class MoverBeh : public Updator {
+  class MoverBeh : public Operator {
   private:
 
     MapInterface& _map;

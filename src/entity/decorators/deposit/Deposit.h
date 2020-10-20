@@ -50,7 +50,7 @@ namespace decorator {
     /// \brief Must Add given stack to the inventory 
     /// \return garbage if full stack cannot be added
     virtual Stack add(const Stack& stack) noexcept override {
-      assert(0);
+      assert(0 && "invalid operation");
       return Stack();
     }
     /// \brief Must try to get given stack from the inventory
@@ -59,11 +59,18 @@ namespace decorator {
     /// \return a smaller one if request is bigger than inventory content
     virtual Stack reduce(Stack::Ressource type, int qty) noexcept override {
       assert(type == _stack.type());
-      return _stack.reduce(qty);
+      Stack result(_stack.reduce(qty));
+      if (!result.empty()) {
+        notify(_this, Event::Modified);
+        if (_stack.empty()) {
+          notify(_this, Event::Empty);
+        }
+      }
+      return result;
     }
     /// \brief Must erase inventory content
     virtual void clear() noexcept override {
-      _stack.clear();
+      assert(0 && "invalid operation");
     }
     
     /// \brief Must return true if given type can be added to the inventory

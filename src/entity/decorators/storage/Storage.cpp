@@ -30,16 +30,39 @@ namespace decorator {
   
   Stack Storage::add(const Stack& stack) noexcept {
     assert(storableQtyOf(stack.type()));
-    return _storage[static_cast<std::size_t>(stack.type())].add(stack);
+    Stack garbage(_storage[static_cast<std::size_t>(stack.type())].add(stack));
+    if (garbage.size() != stack.size()) {
+      notify(_this, Event::Modified);
+      bool full(true);
+      for (const auto& s : _storage) {
+        if (!s.full()) {
+          full = false;
+          break;
+        }
+      }
+      if (full) {
+        notify(_this, Event::Full);
+      }
+    }
+    return garbage;
   }
   Stack Storage::reduce(Stack::Ressource type, int qty) noexcept {
     assert(storableQtyOf(type));
-    return _storage[static_cast<std::size_t>(type)].reduce(qty);
+    Stack result(_storage[static_cast<std::size_t>(type)].reduce(qty));
+    if (!result.empty()) {
+      notify(_this, Event::Modified);
+      if (isEmpty()) {
+        notify(_this, Event::Empty);
+      }
+    }
+    return result;
   }
   void Storage::clear() noexcept {
     for (auto& stack : _storage) {
       stack.clear();
     }
+    notify(_this, Event::Modified);
+    notify(_this, Event::Empty);
   }
 
   int Storage::storableQtyOf(Stack::Ressource type) const noexcept {

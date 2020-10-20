@@ -30,10 +30,9 @@
 
 namespace decorator {
   
-  class Updator {
+  class Operator {
   public:
-    virtual void 
-    operator() (Decorator&, DecoratorPtr) noexcept = 0;
+    virtual void perform() noexcept = 0;
   };
 }
   

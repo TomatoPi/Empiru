@@ -48,7 +48,14 @@ namespace decorator {
         _stack = Stack(stack.type(), 0, _max);
       }
       assert(_stack.type() == stack.type());
-      return _stack.add(stack);
+      Stack garbage(_stack.add(stack));
+      if (garbage.size() != stack.size()) {
+        notify(_this, Event::Modified);
+        if (_stack.full()) {
+          notify(_this, Event::Full);
+        }
+      }
+      return garbage;
     }
     /// \brief Must try to get given stack from the inventory
     /// \brief type : Ressource type to take
@@ -56,11 +63,20 @@ namespace decorator {
     /// \return a smaller one if request is bigger than inventory content
     virtual Stack reduce(Stack::Ressource type, int qty) noexcept override {
       assert(_stack.type() == type);
-      return _stack.reduce(qty);
+      Stack result(_stack.reduce(qty));
+      if (!result.empty()) {
+        notify(_this, Event::Modified);
+        if (_stack.empty()) {
+          notify(_this, Event::Empty);
+        }
+      }
+      return result;
     }
     /// \brief Must erase inventory content
     virtual void clear() noexcept override {
       _stack.clear();
+      notify(_this, Event::Modified);
+      notify(_this, Event::Empty);
     }
     
     /// \brief Must return quantity of given ressource that can be stored

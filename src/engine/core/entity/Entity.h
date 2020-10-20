@@ -87,6 +87,7 @@ public:
     return itr->second;
   }
   
+  /// \todo Replace this with DestroyDecorators
   template <typename Func>
   void forEachDecorator(const Func& callback) noexcept {
     for (auto& dec : _decorators) {
