@@ -29,7 +29,7 @@
 #include "engine/core/decorator/Decorator.h"
 #include "ressources/core/Stack.h"
 
-namespace deco {
+namespace decorator {
   
   /// \brief Interface decorator for things that store other things
   class Inventory : public Decorator {

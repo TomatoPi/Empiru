@@ -26,11 +26,11 @@
 #define MOVERBEH_H
 
 #include "Mover.h"
-#include "engine/core/decorator/DecoratorBehaviour.h"
+#include "engine/core/decorator/DecoratorUpdator.h"
 #include "world/core/MapInterface.h"
 
-namespace deco {
-  class MoverBeh : public DecoratorBeh {
+namespace decorator {
+  class MoverBeh : public Updator {
   private:
 
     MapInterface& _map;

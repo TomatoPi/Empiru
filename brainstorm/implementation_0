@@ -128,3 +128,12 @@ Interface graphique :
         - Destination
         - Surbrillance de selection
         - ...
+
+================================================================================
+
+Problèmes :
+  confusion entre behaviour et données : le collecteur est à mi chemin entre les
+    deux... les behaviours devraient peut être etre plus spécifiques aux objets
+  -> Transformation des décorateurs tels que Collector et Mover en behaviour
+  -> Création d'un supertype behaviour qui soit un décorator
+  -> pourquoi .... en quoi ça résoud  les problèmes....

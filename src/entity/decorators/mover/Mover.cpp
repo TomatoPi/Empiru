@@ -26,7 +26,7 @@
 #include "utils/log.h"
 #include "utils/hex/Consts.h"
 
-namespace deco {
+namespace decorator {
   
 Mover::Mover() noexcept :
   Decorator(),
@@ -44,7 +44,7 @@ void Mover::walk(MapInterface& map) noexcept {
     _status = Status::TargetReached;
     return;
   }
-  const WorldObject::Position oldpos(_entity->pos().pos());
+  const WorldObject::Position oldpos(_entity->obj().pos());
   const WorldObject::Position target(_target.top());
   /* Check if target is reached */
   if (WorldObject::Position::distance(oldpos, target) < _tolerance) {
@@ -55,7 +55,7 @@ void Mover::walk(MapInterface& map) noexcept {
     }
   }
   /* compute a walk step */
-  _entity->pos().pos(oldpos + _dir * _speed);
+  _entity->obj().pos(oldpos + _dir * _speed);
   EntityPtr obstacle(nullptr);
   bool validMove(map.tryPosition(_entity, &obstacle));
   /* search for an alternative path */
@@ -67,7 +67,7 @@ void Mover::walk(MapInterface& map) noexcept {
     }
     /* compute the alternatives */
     WorldObject::Position collide(
-      (_entity->pos().pos() - obstacle->pos().pos()).unit());
+      (_entity->obj().pos() - obstacle->obj().pos()).unit());
     WorldObject::Position esc1(collide * hex::RMatrix_C60A);
     WorldObject::Position esc2(collide * hex::RMatrix_CC60A);
     WorldObject::Position& esc = esc1;
@@ -78,15 +78,15 @@ void Mover::walk(MapInterface& map) noexcept {
       esc = esc2;
     }
     /* stack a circumvention of obstacle */
-    _entity->pos().pos(oldpos + collide * _speed);
-    stackTarget(oldpos + esc * obstacle->pos().radius());
+    _entity->obj().pos(oldpos + collide * _speed);
+    stackTarget(oldpos + esc * obstacle->obj().radius());
   }
   /* update object's position if required */
-  if (oldpos.tile() != _entity->pos().pos().tile()) {
-    const WorldObject::Position newpos(_entity->pos().pos());
-    _entity->pos().pos(oldpos);
+  if (oldpos.tile() != _entity->obj().pos().tile()) {
+    const WorldObject::Position newpos(_entity->obj().pos());
+    _entity->obj().pos(oldpos);
     map.removeObject(_entity);
-    _entity->pos().pos(newpos);
+    _entity->obj().pos(newpos);
     map.addObject(_entity);
   }
   /* done */
@@ -110,14 +110,14 @@ noexcept
   
 void Mover::stackTarget(const WorldObject::Position& target) noexcept {
   _target.push(target);
-  _dir = (target - _entity->pos().pos()).unit();
-  _entity->pos().orientation(_dir.orientation());
+  _dir = (target - _entity->obj().pos()).unit();
+  _entity->obj().orientation(_dir.orientation());
 }
 void Mover::unstackTarget() noexcept {
   _target.pop();
   if (!_target.empty()) {
-    _dir = (_target.top() - _entity->pos().pos()).unit();
-    _entity->pos().orientation(_dir.orientation());
+    _dir = (_target.top() - _entity->obj().pos()).unit();
+    _entity->obj().orientation(_dir.orientation());
   }
 }
 

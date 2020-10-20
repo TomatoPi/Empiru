@@ -30,7 +30,7 @@
 #include "engine/core/entity/Entity.h"
 
 /// \brief namespace containing all decorator related stuff
-namespace deco {
+namespace decorator {
 
   class Decorator {
   protected:

@@ -24,8 +24,8 @@
 
 #include "DepositEntity.h"
 
-const deco::Deposit& DepositEntity::deposit() const noexcept {
-  return static_cast<const deco::Deposit&>(*getDecorator<deco::Deposit>());
+const decorator::Deposit& DepositEntity::deposit() const noexcept {
+  return static_cast<const decorator::Deposit&>(*getDecorator<decorator::Deposit>());
 }
 
 DepositEntity::Builder::Builder(
@@ -42,6 +42,6 @@ noexcept :
 
 void DepositEntity::Builder::operator() (EntityPtr& ptr) const noexcept {
   this->Entity::Builder::operator ()(ptr);
-  deco::Deposit::Builder depbuilder(ptr, _type, _qty, 5);
-  _engine.createDecorator(typeid(deco::Deposit), depbuilder);
+  decorator::Deposit::Builder depbuilder(ptr, _type, _qty, 5);
+  _engine.createDecorator(typeid(decorator::Deposit), depbuilder);
 }

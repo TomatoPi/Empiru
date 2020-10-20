@@ -30,7 +30,7 @@
 
 #include <cassert>
 
-namespace deco {
+namespace decorator {
 
   class Deposit : public Inventory {
   private:

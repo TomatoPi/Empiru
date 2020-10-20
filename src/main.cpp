@@ -66,6 +66,7 @@
 #include "entity/decorators/slot/Slot.h"
 #include "entity/decorators/collector/Collector.h"
 #include "entity/decorators/worker/WorkerBeh.h"
+#include "entity/peon/PeonBehaviour.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -78,7 +79,7 @@ namespace {
   template <class T>
   using EntityAllocator = alloc::IndexAllocator<T,Entity>;
   template <class T>
-  using DecoratorAllocator = alloc::IndexAllocator<T,deco::Decorator>;
+  using DecoratorAllocator = alloc::IndexAllocator<T,decorator::Decorator>;
 }
 
 /// \brief Too complex to explain what is this thing
@@ -87,7 +88,7 @@ int main(int argc, char** argv) {
   /* Create the World and main engine */
   Controller _gameController;
   WorldMap   _worldMap(SIZE,SIZE);
-  GameEngine _gameEngine(_worldMap);
+  GameEngine _gameEngine;
   TribeInfos _playerTribe;
   
   /* Create the UI */
@@ -121,25 +122,26 @@ int main(int argc, char** argv) {
   _gameEngine.attachObserver(&_rdrEngine);
   _gameEngine.attachObserver(&_gameController);
   _gameEngine.attachObserver(&_playerTribe);
+  _gameEngine.attachObserver(&_worldMap);
   
   /* Register basic kinds */
   
   {
-    _gameEngine.registerDecorator(typeid(deco::Mover), 
-        new DecoratorAllocator<deco::Mover>(), 
-        new deco::MoverBeh(_worldMap));
-    _gameEngine.registerDecorator(typeid(deco::Deposit),
-        new DecoratorAllocator<deco::Deposit>(),
+    _gameEngine.registerDecorator(typeid(decorator::Mover), 
+        new DecoratorAllocator<decorator::Mover>(), 
+        new decorator::MoverBeh(_worldMap));
+    _gameEngine.registerDecorator(typeid(decorator::Deposit),
+        new DecoratorAllocator<decorator::Deposit>(),
         nullptr);
-    _gameEngine.registerDecorator(typeid(deco::Storage),
-        new DecoratorAllocator<deco::Storage>(),
+    _gameEngine.registerDecorator(typeid(decorator::Storage),
+        new DecoratorAllocator<decorator::Storage>(),
         nullptr);
-    _gameEngine.registerDecorator(typeid(deco::Slot),
-        new DecoratorAllocator<deco::Slot>(),
+    _gameEngine.registerDecorator(typeid(decorator::Slot),
+        new DecoratorAllocator<decorator::Slot>(),
         nullptr);
-    _gameEngine.registerDecorator(typeid(deco::Collector),
-        new DecoratorAllocator<deco::Collector>(),
-        new deco::WorkerBeh());
+    _gameEngine.registerDecorator(typeid(decorator::Collector),
+        new DecoratorAllocator<decorator::Collector>(),
+        new decorator::WorkerBeh());
   }
   
   { /* tile */
@@ -165,7 +167,7 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerEntity(typeid(Peon), new EntityAllocator<Peon>(), nullptr);
+    _gameEngine.registerEntity(typeid(Peon), new EntityAllocator<Peon>(), new PeonBehaviour());
     _rdrEngine.attachRenderer(typeid(Peon), 
         new PeonRenderer(asset, paths, _window->renderer));
     _soundEngine->registerSound(SoundAsset::loadFromFiles(

@@ -35,7 +35,7 @@
 class House : public Entity {
 public:
   
-  const deco::Storage& storage() const noexcept;
+  const decorator::Storage& storage() const noexcept;
   
   class Builder : public Entity::Builder {
   private:

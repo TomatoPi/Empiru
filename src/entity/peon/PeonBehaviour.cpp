@@ -26,10 +26,12 @@
 
 void PeonBehaviour::operator() (Entity& entity, EntityPtr ptr) noexcept {
   Peon& peon(static_cast<Peon&>(entity));
-  if (peon.collector().status() == deco::Collector::Status::TooFar) {
-    peon.mover().setTarget(peon.collector().worksite()->entity()->pos().pos(), 0.1);
+  if (peon.collector().status() == decorator::Collector::Status::TooFar) {
+    peon.mover().setTarget(peon.collector().worksite()->entity()->obj().pos(), peon.collector().worksite()->entity()->obj().radius() + peon.obj().radius() + 0.1);
   }
-  peon.collector().updateStatus();
+  if (peon.mover().status() == decorator::Mover::Status::TargetReached) {
+    peon.collector().updateStatus();
+  }
 }
 
 

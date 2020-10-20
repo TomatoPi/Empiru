@@ -26,7 +26,7 @@
 
 #include "Storage.h"
 
-namespace deco {
+namespace decorator {
   
   Stack Storage::add(const Stack& stack) noexcept {
     assert(storableQtyOf(stack.type()));

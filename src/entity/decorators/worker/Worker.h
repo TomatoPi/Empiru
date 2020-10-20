@@ -29,7 +29,7 @@
 #include "engine/core/decorator/DecoratorPtr.h"
 #include "ressources/core/Stack.h"
 
-namespace deco {
+namespace decorator {
   
   class Worker : public Decorator {
   public:

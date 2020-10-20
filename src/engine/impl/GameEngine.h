@@ -31,10 +31,9 @@
 
 #include "engine/core/EngineInterface.h"
 #include "engine/core/Register.h"
-#include "world/core/MapInterface.h"
 
 #include "engine/core/entity/EntityBehaviour.h"
-#include "engine/core/decorator/DecoratorBehaviour.h"
+#include "engine/core/decorator/DecoratorUpdator.h"
 
 /// \brief Core object for in-game mechanics
 class GameEngine : 
@@ -45,19 +44,19 @@ class GameEngine :
 private:
   
   typedef alloc::Allocator<Entity,EntityPtr,std::size_t> EAllocator;
-  typedef alloc::Allocator<deco::Decorator,deco::DecoratorPtr,std::size_t> DAllocator;
+  typedef alloc::Allocator<decorator::Decorator,decorator::DecoratorPtr,std::size_t> DAllocator;
   
   typedef Register<Entity,EntityPtr,EntityBeh> EntitiesReg;
-  typedef Register<deco::Decorator,deco::DecoratorPtr,deco::DecoratorBeh> DecoratorsReg;
+  typedef Register<decorator::Decorator,decorator::DecoratorPtr,decorator::Updator> DecoratorsReg;
   
   EntitiesReg   _entities;
   DecoratorsReg _decorators;
-  MapInterface& _world;       ///< THA WO... oh wait ... joke already used
   
 public:
   
   /// \brief Contructor
-  GameEngine(MapInterface & w);
+  GameEngine() noexcept;
+  virtual ~GameEngine() noexcept = default;
   
   /// \brief Called on each Main-loop iteration
   ///   Call behaviour of each object
@@ -77,16 +76,16 @@ public:
   noexcept;
   
   
-  virtual deco::DecoratorPtr
-  createDecorator(const std::type_info& type, const deco::Decorator::Builder& builder)
+  virtual decorator::DecoratorPtr
+  createDecorator(const std::type_info& type, const decorator::Decorator::Builder& builder)
   noexcept override;
   
   virtual void 
-  dirscardDecorator(deco::DecoratorPtr ptr) 
+  dirscardDecorator(decorator::DecoratorPtr ptr) 
   noexcept override;
   
   void
-  registerDecorator(const std::type_info& type, DAllocator*, deco::DecoratorBeh*) 
+  registerDecorator(const std::type_info& type, DAllocator*, decorator::Updator*) 
   noexcept;
 };
 

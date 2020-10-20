@@ -26,11 +26,11 @@
 #define WORKERBEH_H
 
 #include "Worker.h"
-#include "engine/core/decorator/DecoratorBehaviour.h"
+#include "engine/core/decorator/DecoratorUpdator.h"
 
-namespace deco {
+namespace decorator {
   
-  class WorkerBeh : public DecoratorBeh {
+  class WorkerBeh : public Updator {
   public:
 
     WorkerBeh() noexcept = default;

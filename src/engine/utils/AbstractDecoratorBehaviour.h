@@ -26,7 +26,7 @@
 #define ABSTRACTDECORATORBEHAVIOUR_H
 
 #include "engine/core/EngineInterface.h"
-#include "engine/core/decorator/DecoratorBehaviour.h"
+#include "engine/core/decorator/DecoratorUpdator.h"
 #include "world/core/MapInterface.h"
 
 class AbstractDecoratorBeh : public DecoratorBeh {

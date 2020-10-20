@@ -24,7 +24,7 @@
 
 #include "Deposit.h"
 
-namespace deco {
+namespace decorator {
  
   Deposit::Builder::Builder(
     const EntityPtr& entity, 

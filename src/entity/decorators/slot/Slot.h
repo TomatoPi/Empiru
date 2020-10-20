@@ -27,7 +27,7 @@
 
 #include "entity/decorators/inventory/Inventory.h"
 
-namespace deco {
+namespace decorator {
   
   /// \brief Interface decorator for things that store other things
   class Slot : public Inventory {

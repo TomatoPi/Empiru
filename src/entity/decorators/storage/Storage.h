@@ -30,7 +30,7 @@
 #include "entity/decorators/inventory/Inventory.h"
 #include "ressources/core/Stack.h"
 
-namespace deco {
+namespace decorator {
   class Storage : public Inventory {
   private:
 

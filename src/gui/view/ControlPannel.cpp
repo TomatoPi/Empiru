@@ -122,9 +122,9 @@ void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
 //        iconframes[peon->inventory().type()], 
 //        std::to_string(peon->inventory().size()));
 //  }
-  if (deco::DecoratorPtr ptr = entity.getDecorator<deco::Inventory>()) {
-    const deco::Inventory& store(static_cast<const deco::Inventory&>(*ptr));
-    bool depo(nullptr != dynamic_cast<const deco::Deposit*>(&*ptr));
+  if (decorator::DecoratorPtr ptr = entity.getDecorator<decorator::Inventory>()) {
+    const decorator::Inventory& store(static_cast<const decorator::Inventory&>(*ptr));
+    bool depo(nullptr != dynamic_cast<const decorator::Deposit*>(&*ptr));
     for (auto & stack : store.content()) {
       inventory.emplace_back(
         iconframes[static_cast<std::size_t>(stack.type())], 

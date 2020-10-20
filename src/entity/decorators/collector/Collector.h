@@ -28,7 +28,7 @@
 #include "utils/misc/Counter.h"
 #include "entity/decorators/worker/Worker.h"
 
-namespace deco {
+namespace decorator {
   
   class Collector : public Worker {
   private:

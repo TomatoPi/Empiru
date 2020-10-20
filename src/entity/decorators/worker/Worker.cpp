@@ -25,7 +25,7 @@
 #include "Worker.h"
 #include "entity/decorators/deposit/Deposit.h"
 
-namespace deco { 
+namespace decorator { 
 
   /// \brief Change the collect site of this collector
   void Worker::setWorkSite(const DecoratorPtr& ptr) noexcept {
@@ -52,9 +52,9 @@ namespace deco {
     }
     else {
       const Entity& entity = *_worksite->entity();
-      if (entity.pos().radius() + _entity->pos().radius() + 0.1
+      if (entity.obj().radius() + _entity->obj().radius() + 0.1
         < WorldObject::Position::distance(
-            entity.pos().pos(), _entity->pos().pos()))
+            entity.obj().pos(), _entity->obj().pos()))
       {
         return _status = Status::TooFar;
       }

@@ -16,31 +16,28 @@
  */
 
 /// 
-/// \file   House.cpp
+/// \file   Updator.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 22 septembre 2020, 09:18
+/// \date 20 octobre 2020, 09:20
 ///
 
-#include "House.h"
+#ifndef DECORATOR_BEHAVIOUR_UPDATOR_H
+#define DECORATOR_BEHAVIOUR_UPDATOR_H
 
-const decorator::Storage& House::storage() const noexcept {
-  return static_cast<const decorator::Storage&>(*getDecorator<decorator::Storage>());
+#include "engine/core/decorator/DecoratorUpdator.h"
+#include "Behaviour.h"
+
+namespace decorator {
+  
+  class BehaviourUpdator {
+  public:
+    virtual void 
+    operator() (Decorator& deco, DecoratorPtr ptr) noexcept {
+      static_cast<Behaviour&>(deco).update();
+    }
+  };
 }
 
-House::Builder::Builder(
-  GameEngineInterface& engine, 
-  const WorldObject::Position& pos) 
-noexcept :
-  Entity::Builder(WorldObject(WorldObject::Size::Tile, 0.5, pos)), _engine(engine)
-{
-}
+#endif /* DECORATOR_BEHAVIOUR_UPDATOR_H */
 
-void House::Builder::operator() (EntityPtr& ptr) const noexcept {
-  this->Entity::Builder::operator() (ptr);
-  decorator::Storage::Builder builder(ptr, {
-    Stack(Stack::Ressource::Wood, 0, 100),
-    Stack(Stack::Ressource::Rock, 0, 50)
-  });
-  _engine.createDecorator(typeid(decorator::Storage), builder);
-}

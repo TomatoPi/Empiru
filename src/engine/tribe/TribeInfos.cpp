@@ -34,14 +34,14 @@ TribeInfos::TribeInfos() noexcept :
 {    
   this->registerEvent<EventObjectCreated>(
     [this](const EventObjectCreated& event) -> void {
-      if (deco::DecoratorPtr ptr = event._ptr->getDecorator<deco::Storage>()) {
+      if (decorator::DecoratorPtr ptr = event._ptr->getDecorator<decorator::Storage>()) {
         bool res(_objects.emplace(ptr).second);
         assert(res);
       }
     });
   this->registerEvent<EventObjectDestroyed>(
     [this](const EventObjectDestroyed& event) -> void {
-      if (deco::DecoratorPtr ptr = event._ptr->getDecorator<deco::Storage>()) {
+      if (decorator::DecoratorPtr ptr = event._ptr->getDecorator<decorator::Storage>()) {
         auto itr(_objects.find(ptr));
         assert(itr != _objects.end());
         _objects.erase(itr);
@@ -54,7 +54,7 @@ void TribeInfos::update() noexcept {
   }
   init();
   for (auto& ptr : _objects) {
-    for (auto& stack : static_cast<const deco::Storage&>(*ptr).content()) {
+    for (auto& stack : static_cast<const decorator::Storage&>(*ptr).content()) {
       addStack(stack);
     }
   }

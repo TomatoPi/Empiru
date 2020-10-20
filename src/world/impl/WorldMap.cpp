@@ -28,6 +28,7 @@
 #include "utils/hex/OddQ.h"
 #include "utils/hex/Conversion.h"
 #include "engine/core/entity/Entity.h"
+#include "engine/events/GameEvents.h"
 
 /// \brief Constructor
 /// \param mapHeight : Height of the map (number of hexs)
@@ -39,11 +40,19 @@ WorldMap::WorldMap(int mapWidth, int mapHeight) :
 {
   assert(0 < mapWidth);
   assert(0 < mapHeight);
+  this->registerEvent<EventObjectCreated>(
+      [this](const EventObjectCreated& event) -> void {
+        this->addObject(event._ptr);
+      });
+  this->registerEvent<EventObjectDestroyed>(
+      [this](const EventObjectDestroyed& event) ->void {
+        this->removeObject(event._ptr);
+      });
 }
 
 /// \brief Must add given object to the world
 void WorldMap::addObject(const EntityPtr& ptr){
-  const WorldObject::Position & pos(ptr->pos().pos());
+  const WorldObject::Position & pos(ptr->obj().pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
@@ -53,7 +62,7 @@ void WorldMap::addObject(const EntityPtr& ptr){
 
 /// \brief Must remove given object fro the world
 void WorldMap::removeObject(const EntityPtr& ptr) {
-  auto itr(_map.find(ptr->pos().pos()));
+  auto itr(_map.find(ptr->obj().pos()));
   assert(itr != _map.end());
   itr->second.erase(ptr);
   if (itr->second.isEmpty()) {
@@ -91,12 +100,12 @@ bool WorldMap::tryPosition(const EntityPtr& entity, EntityPtr* obstacle)
 const noexcept
 {
   // Check validity
-  if (!isOnMap(entity->pos().pos())) {
+  if (!isOnMap(entity->obj().pos())) {
     return false;
   }
   // Check collisions
   bool valid(true);
-  entity->pos().pos().mapNeightbours(
+  entity->obj().pos().mapNeightbours(
     [&]
     (const WorldObject::Position & pos) -> bool {
       auto content = getContentAt(pos);
@@ -104,7 +113,7 @@ const noexcept
         for (auto obj : *content){
           if (obj == entity) 
             continue;
-          if (obj->pos().collide(entity->pos())) {
+          if (obj->obj().collide(entity->obj())) {
             *obstacle = obj;
             valid = false;
             return true;

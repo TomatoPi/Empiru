@@ -39,14 +39,14 @@
 class Peon : public Entity {
 public:
   
-  const deco::Mover& mover() const noexcept;
-  deco::Mover& mover() noexcept;
+  const decorator::Mover& mover() const noexcept;
+  decorator::Mover& mover() noexcept;
   
-  const deco::Inventory& inventory() const noexcept;
-  deco::Inventory& inventory() noexcept;
+  const decorator::Inventory& inventory() const noexcept;
+  decorator::Inventory& inventory() noexcept;
   
-  const deco::Collector& collector() const noexcept;
-  deco::Collector& collector() noexcept;
+  const decorator::Collector& collector() const noexcept;
+  decorator::Collector& collector() noexcept;
   
   class Builder : public Entity::Builder {
   private:

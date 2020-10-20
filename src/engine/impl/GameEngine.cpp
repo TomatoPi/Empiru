@@ -30,11 +30,10 @@
 #include "engine/events/GameEvents.h"
 
 /// \brief Contructor
-GameEngine::GameEngine(MapInterface & w) : 
+GameEngine::GameEngine() noexcept : 
   Subject(), Observer(),
   _entities(),
-  _decorators(),
-  _world(w)
+  _decorators()
 {
 }
 
@@ -48,19 +47,18 @@ void GameEngine::update() {
       });
   /* then compute sub-behaviour for each components */
   _decorators.behave(
-      [this](deco::Decorator& dec, deco::DecoratorPtr& ptr, deco::DecoratorBeh* beh) -> void {
+      [this](decorator::Decorator& dec, decorator::DecoratorPtr& ptr, decorator::Updator* beh) -> void {
         (*beh)(dec, ptr);
       });
   /* destroy entites that died this tick */
   _entities.destroyGarbage(
       [this](EntityPtr ptr) -> void {
         ptr->forEachDecorator(
-            [this](deco::DecoratorPtr& ptr) -> void {
+            [this](decorator::DecoratorPtr& ptr) -> void {
               _decorators.destroyObject(ptr);
             });
-        _world.removeObject(ptr);
       });
-  _decorators.destroyGarbage([](const deco::DecoratorPtr&)->void{});
+  _decorators.destroyGarbage([](const decorator::DecoratorPtr&)->void{});
 }
 
 
@@ -69,7 +67,6 @@ GameEngine::createEntity(const std::type_info& type, const Entity::Builder& buil
 noexcept
 {
   EntityPtr entity(_entities.createObject(type, builder));
-  _world.addObject(entity);
   sendNotification(EventObjectCreated(entity));
   return entity;
 }
@@ -96,15 +93,15 @@ noexcept
 }
 
 
-deco::DecoratorPtr
-GameEngine::createDecorator(const std::type_info& type, const deco::Decorator::Builder& builder)
+decorator::DecoratorPtr
+GameEngine::createDecorator(const std::type_info& type, const decorator::Decorator::Builder& builder)
 noexcept
 {
   return _decorators.createObject(type, builder);
 }
 
 void 
-GameEngine::dirscardDecorator(deco::DecoratorPtr ptr) 
+GameEngine::dirscardDecorator(decorator::DecoratorPtr ptr) 
 noexcept
 {
   _decorators.destroyObject(ptr);
@@ -114,7 +111,7 @@ void
 GameEngine::registerDecorator(
   const std::type_info& type, 
   DAllocator* alloc, 
-  deco::DecoratorBeh* beh) 
+  decorator::Updator* beh) 
 noexcept
 {
   _decorators.registerKind(type, alloc);

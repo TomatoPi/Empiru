@@ -16,27 +16,39 @@
  */
 
 /// 
-/// \file   DecoratorBehaviour.h
+/// \file   Behaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 02:24
+/// \date 20 octobre 2020, 09:07
 ///
 
-#ifndef DECORATORBEHAVIOUR_H
-#define DECORATORBEHAVIOUR_H
+#ifndef BEHAVIOUR_H
+#define BEHAVIOUR_H
 
-#include "Decorator.h"
-#include "DecoratorPtr.h"
-#include "engine/core/EngineInterface.h"
+#include "engine/core/decorator/Decorator.h"
 
-namespace deco {
+namespace decorator {
   
-  class DecoratorBeh {
+  class Behaviour : public Decorator {
   public:
-    virtual void 
-    operator() (Decorator&, DecoratorPtr) noexcept = 0;
+    
+    Behaviour() noexcept = default;
+    virtual ~Behaviour() noexcept = default;
+    
+    virtual void update() noexcept = 0;
+    
+    class Builder : public Decorator::Builder {
+    public:
+      
+      explicit Builder(const EntityPtr& entity) noexcept : 
+        Decorator::Builder(entity) {}
+      
+      virtual void operator() (DecoratorPtr& ptr) const noexcept {
+        this->Decorator::Builder::operator ()(ptr);
+        this->addMarkers(ptr, typeid(Behaviour));
+      }
+    };
   };
 }
-  
-#endif /* DECORATORBEHAVIOUR_H */
 
+#endif /* BEHAVIOUR_H */

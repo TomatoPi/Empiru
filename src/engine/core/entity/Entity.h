@@ -37,26 +37,26 @@
 class Entity {  
 private:
   
-  typedef std::unordered_map<std::type_index,deco::DecoratorPtr> DecoratorsTable;
+  typedef std::unordered_map<std::type_index,decorator::DecoratorPtr> DecoratorsTable;
   DecoratorsTable _decorators;
   
 protected:
   
-  WorldObject _position;
+  WorldObject _object;
   
 public:
   
-  Entity() noexcept : _decorators(), _position() {};
+  Entity() noexcept : _decorators(), _object() {};
   virtual ~Entity() noexcept = default;
   
-  WorldObject& pos() noexcept {
-    return _position;
+  WorldObject& obj() noexcept {
+    return _object;
   }
-  const WorldObject& pos() const noexcept {
-    return _position;
+  const WorldObject& obj() const noexcept {
+    return _object;
   }
   
-  void attachDecorator(const std::type_info& type, const deco::DecoratorPtr& ptr) noexcept {
+  void attachDecorator(const std::type_info& type, const decorator::DecoratorPtr& ptr) noexcept {
     bool success(_decorators.emplace(std::type_index(type), ptr).second);
     assert(success && "Duplicated Decorators kind");
   }
@@ -68,21 +68,21 @@ public:
   }
   
   template <class T>
-  deco::DecoratorPtr getDecorator() noexcept {
+  decorator::DecoratorPtr getDecorator() noexcept {
     DecoratorsTable::iterator 
     itr(_decorators.find(std::type_index(typeid(T))));
     if (itr == _decorators.end()) {
-      return deco::DecoratorPtr(nullptr);
+      return decorator::DecoratorPtr(nullptr);
     }
     return itr->second;
   }
   
   template <class T>
-  const deco::DecoratorPtr getDecorator() const noexcept {
+  const decorator::DecoratorPtr getDecorator() const noexcept {
     DecoratorsTable::const_iterator 
     itr(_decorators.find(std::type_index(typeid(T))));
     if (itr == _decorators.end()) {
-      return deco::DecoratorPtr(nullptr);
+      return decorator::DecoratorPtr(nullptr);
     }
     return itr->second;
   }
@@ -104,7 +104,7 @@ public:
     Builder(const WorldObject& obj) noexcept : _obj(obj) {}
     
     virtual void operator() (EntityPtr& ptr) const noexcept {
-      ptr->_position = _obj;
+      ptr->_object = _obj;
     }
   };
 };
