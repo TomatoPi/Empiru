@@ -47,17 +47,12 @@
 
 #include "utils/log.h"
 
-/// \brief Base class for all events launched by a Subject
-class Event {
-public:
-  virtual ~Event() noexcept = default; ///< Make class polymorphic
-};
-
 /// \brief Amalgam of an Observer and an EventHandler.
 /// These two components aren't splited because of the heavy need of event
 ///   handling mechanism in the Observer pattern
 /// So, the observer can also be used as a simple event handler by direct
 ///  call of the handleEvent() method (with associated event registering ahead)
+template <class Event>
 class BigObserver {
 private:
 
@@ -143,11 +138,14 @@ public:
 /// \brief The Subject class for Observer design pattern
 /// Simply store list of atatched Observers and call their handleEvent() method
 ///   when an event is launched
+template <class Event>
 class BigSubject {
 private:
   
+  using _Observer = BigObserver<Event>;
+  
   /// \brief A List of Observers
-  typedef std::vector<BigObserver*> Watchers;
+  typedef std::vector<_Observer*> Watchers;
   Watchers _watchers; ///< List of attached watchers
   
 public:
@@ -156,7 +154,7 @@ public:
   
   /// \brief Attach an observer to this subject
   /// This observer will be notified on each subject update
-  void attachObserver(BigObserver * obs) noexcept {
+  void attachObserver(_Observer* obs) noexcept {
     assert(obs != nullptr && "Observer cannot be null");
     _watchers.push_back(obs);
   }

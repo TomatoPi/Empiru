@@ -16,22 +16,41 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   StorageBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 29 septembre 2020, 00:44
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef STORAGEBEHAVIOUR_H
+#define STORAGEBEHAVIOUR_H
 
-#include "utils/hex/Axial.h"
+#include "entity/functionals/TribeInfos.h"
+#include "utils/world/core/WorldObject.h"
+#include "utils/world/map/MapInterface.h"
+#include "utils/engine/Behaviourer.h"
+#include "utils/world/Storage.h"
 
-namespace world {
+class StorageBehaviour : public Behaviourer {
+private:
   
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
+  TribeInfos & _infos;
+  
+public:
+  
+  StorageBehaviour(TribeInfos & infos) : 
+    _infos(infos)
+  {      
+  }
+  
+  /// \brief Must compute one behaviour tick of obj
+  virtual void tick(WorldObject & obj, WorldPtr& ptr, IWorldMap & world) {
+    Storage & storage(dynamic_cast<Storage &>(obj));
+    for (auto & stack : storage.stock()) {
+      _infos.addStack(stack);
+    }
+  }
+};
 
-#endif /* WORLD_TYPES_H */
+#endif /* STORAGEBEHAVIOUR_H */
 

@@ -36,7 +36,7 @@
 #include "gui/core/AbstractCamera.h"
 #include "gui/core/PixelPerfectClicker.h"
 #include "gui/core/AbstractRenderer.h"
-#include "world/core/MapInterface.h"
+#include "world/core/IWorldMap.h"
 #include "utils/pattern/BigObserver.h"
 
 /// \brief Object responsible of Game rendering
@@ -78,7 +78,7 @@ private:
   Window &                _window;    ///< Obvious
   const hex::Viewport &   _worldView; ///< Bridge between game and user
   const AbstractCamera &  _camera;    ///< View controller
-  const MapInterface &  _world;     ///< Obvious too
+  const IWorldMap &  _world;     ///< Obvious too
   
   RendererTable _renderers; ///< Table of {ObjectType, Associated renderer}
   DrawStack     _drawstack; ///< Ascending Y sorted list of objects beeing drawn during this frame
@@ -91,7 +91,7 @@ public:
       Window&               win,
       const hex::Viewport&  vp,
       const AbstractCamera& cam,
-      const MapInterface& wo);
+      const IWorldMap& wo);
   virtual ~RenderingEngine() noexcept = default;
   
   /// \brief Add a new renderer associated with given WorldObject type

@@ -29,7 +29,7 @@
 #include "utils/alloc/IndexAllocator.h"
 #include "utils/pattern/BigObserver.h"
 
-#include "engine/core/EngineInterface.h"
+#include "engine/core/IGameAllocator.h"
 #include "engine/core/Register.h"
 
 #include "engine/core/entity/EntityBehaviour.h"
@@ -37,7 +37,7 @@
 
 /// \brief Core object for in-game mechanics
 class GameEngine : 
-  public GameEngineInterface, 
+  public IGameAllocator, 
   public BigSubject, 
   public BigObserver 
 {

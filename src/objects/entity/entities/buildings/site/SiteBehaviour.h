@@ -16,22 +16,21 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   SiteBehaviour.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 6 octobre 2020, 14:38
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef SITEBEHAVIOUR_H
+#define SITEBEHAVIOUR_H
 
-#include "utils/hex/Axial.h"
+#include "utils/engine/Behaviourer.h"
 
-namespace world {
+class SiteBehaviour : public Behaviourer {
+public:
   
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
+  virtual void tick(WorldObject & obj, WorldPtr& ptr, IWorldMap & world);
+};
 
-#endif /* WORLD_TYPES_H */
-
+#endif /* SITEBEHAVIOUR_H */

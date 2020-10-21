@@ -16,22 +16,37 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   House.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 22 septembre 2020, 09:18
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef HOUSE_H
+#define HOUSE_H
 
-#include "utils/hex/Axial.h"
+#include "engine/core/entity/Entity.h"
+#include "engine/core/IGameAllocator.h"
 
-namespace world {
+#include "entity/decorators/storage/Storage.h"
+
+/// \brief The ultimate worker, useful to make anything you can think of
+/// \todo revise the path system
+class House : public Entity {
+public:
   
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
+  const decorator::Storage& storage() const noexcept;
+  
+  class Builder : public Entity::Builder {
+  private:
+    
+    IGameAllocator& _engine;
+    
+  public:
+    
+    Builder(IGameAllocator& engine, const WorldObject::Position& pos) noexcept;
+    virtual void operator() (Pointer& ptr) const noexcept override;
+  };
+};
 
-#endif /* WORLD_TYPES_H */
-
+#endif /* HOUSE_H */

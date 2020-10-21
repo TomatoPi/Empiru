@@ -27,8 +27,8 @@
 #include "WorldMap.h"
 #include "utils/hex/OddQ.h"
 #include "utils/hex/Conversion.h"
-#include "engine/core/entity/Entity.h"
 #include "engine/events/GameEvents.h"
+#include "objects/decorator/decorators/worldobj/WorldObject.h"
 
 /// \brief Constructor
 /// \param mapHeight : Height of the map (number of hexs)
@@ -40,19 +40,21 @@ WorldMap::WorldMap(int mapWidth, int mapHeight) :
 {
   assert(0 < mapWidth);
   assert(0 < mapHeight);
-  this->registerEvent<EventObjectCreated>(
-      [this](const EventObjectCreated& event) -> void {
-        this->addObject(event._ptr);
+  this->registerEvent<GameEvents::ObjectCreated>(
+      [this](const GameEvents::ObjectCreated& event) -> void {
+        if (typeid(*event._ptr) == typeid(WorldObject))
+          this->addObject(event._ptr);
       });
-  this->registerEvent<EventObjectDestroyed>(
-      [this](const EventObjectDestroyed& event) ->void {
-        this->removeObject(event._ptr);
+  this->registerEvent<GameEvents::ObjectDestroyed>(
+      [this](const GameEvents::ObjectDestroyed& event) ->void {
+        if (typeid(*event._ptr) == typeid(WorldObject))
+          this->removeObject(event._ptr);
       });
 }
 
 /// \brief Must add given object to the world
-void WorldMap::addObject(const Pointer& ptr){
-  const WorldObject::Position & pos(ptr->obj().pos());
+void WorldMap::addObject(const core::Pointer& ptr) noexcept {
+  const world::Position & pos(static_cast<const WorldObject&>(*ptr).pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
@@ -61,8 +63,8 @@ void WorldMap::addObject(const Pointer& ptr){
 }
 
 /// \brief Must remove given object fro the world
-void WorldMap::removeObject(const Pointer& ptr) {
-  auto itr(_map.find(ptr->obj().pos()));
+void WorldMap::removeObject(const core::Pointer& ptr) noexcept {
+  auto itr(_map.find(static_cast<const WorldObject&>(*ptr).pos()));
   assert(itr != _map.end());
   itr->second.erase(ptr);
   if (itr->second.isEmpty()) {
@@ -71,7 +73,7 @@ void WorldMap::removeObject(const Pointer& ptr) {
 }
 
 /// \brief Must return tile content at given pos, or null if empty
-const Tile::Content * WorldMap::getContentAt(const WorldObject::Position & pos) const {
+const Tile::Content * WorldMap::getContentAt(const world::Position & pos) const {
   auto itr(_map.find(pos));
   if (itr != _map.end()){
     return &itr->second.getContent();
@@ -80,7 +82,7 @@ const Tile::Content * WorldMap::getContentAt(const WorldObject::Position & pos) 
 }
 
 /// \brief Must return true if given pos is on the map
-bool WorldMap::isOnMap(const WorldObject::Position & pos) const {
+bool WorldMap::isOnMap(const world::Position & pos) const {
   hex::Grid grd(hex::toGrid(pos));
   // Easy case
   if (0 < grd._x && 0 < grd._y 
@@ -96,23 +98,28 @@ bool WorldMap::isOnMap(const WorldObject::Position & pos) const {
 /// \brief Return true if given position is valid
 ///   if position is invalid, return false and return pointer to the obstacle
 ///   in 'obstacle' if relevant
-bool WorldMap::tryPosition(const Pointer& entity, Pointer* obstacle) 
+bool WorldMap::tryPosition(
+  const world::Position& newpos, 
+  const core::Pointer& ptr, 
+  core::Pointer* obstacle) 
 const noexcept
 {
   // Check validity
-  if (!isOnMap(entity->obj().pos())) {
+  const WorldObject& object(static_cast<const WorldObject&>(*ptr));
+  if (!isOnMap(object.pos())) {
     return false;
   }
   // Check collisions
   bool valid(true);
-  entity->obj().pos().mapNeightbours(
-    [&] (const WorldObject::Position & pos) -> bool {
+  newpos.mapNeightbours(
+    [&] (const world::Position & pos) -> bool {
       auto content = getContentAt(pos);
       if (content != nullptr){
         for (auto obj : *content){
-          if (obj == entity) 
+          if (obj == ptr) 
             continue;
-          if (obj->obj().collide(entity->obj())) {
+          const WorldObject& tmp(static_cast<const WorldObject&>(*obj));
+          if (tmp.collide(object, newpos)) {
             *obstacle = obj;
             valid = false;
             return true;

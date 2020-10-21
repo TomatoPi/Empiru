@@ -16,22 +16,19 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   Event.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 21 octobre 2020, 17:45
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef EVENT_H
+#define EVENT_H
 
-#include "utils/hex/Axial.h"
+class Event {
+public:
+  virtual ~Event() noexcept = 0;
+};
 
-namespace world {
-  
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
-
-#endif /* WORLD_TYPES_H */
+#endif /* EVENT_H */
 

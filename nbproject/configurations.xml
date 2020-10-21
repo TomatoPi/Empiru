@@ -35,49 +35,49 @@
       <logicalFolder name="f3" displayName="entity" projectFiles="true">
         <logicalFolder name="f5" displayName="buildings" projectFiles="true">
           <logicalFolder name="f1" displayName="house" projectFiles="true">
-            <itemPath>src/entity/buildings/house/House.cpp</itemPath>
-            <itemPath>src/entity/buildings/house/House.h</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/house/House.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/house/House.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="site" projectFiles="true">
-            <itemPath>src/entity/buildings/site/ConstructSite.cpp</itemPath>
-            <itemPath>src/entity/buildings/site/ConstructSite.h</itemPath>
-            <itemPath>src/entity/buildings/site/ConstructionGhost.h</itemPath>
-            <itemPath>src/entity/buildings/site/GhostRenderer.cpp</itemPath>
-            <itemPath>src/entity/buildings/site/GhostRenderer.h</itemPath>
-            <itemPath>src/entity/buildings/site/SiteBehaviour.cpp</itemPath>
-            <itemPath>src/entity/buildings/site/SiteBehaviour.h</itemPath>
-            <itemPath>src/entity/buildings/site/SiteRenderer.cpp</itemPath>
-            <itemPath>src/entity/buildings/site/SiteRenderer.h</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/ConstructSite.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/ConstructSite.h</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/ConstructionGhost.h</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/GhostRenderer.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/GhostRenderer.h</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/SiteBehaviour.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/SiteBehaviour.h</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/SiteRenderer.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/site/SiteRenderer.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="warehouse" projectFiles="true">
-            <itemPath>src/entity/buildings/warehouse/Warehouse.cpp</itemPath>
-            <itemPath>src/entity/buildings/warehouse/Warehouse.h</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/warehouse/Warehouse.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/buildings/warehouse/Warehouse.h</itemPath>
           </logicalFolder>
-          <itemPath>src/entity/buildings/StorageBehaviour.h</itemPath>
+          <itemPath>src/objects/entity/entities/buildings/StorageBehaviour.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="functionals" projectFiles="true">
           <itemPath>src/engine/tribe/TribeInfos.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="land" projectFiles="true">
           <logicalFolder name="f3" displayName="rock" projectFiles="true">
-            <itemPath>src/entity/land/rock/Rock.cpp</itemPath>
-            <itemPath>src/entity/land/rock/Rock.h</itemPath>
+            <itemPath>src/objects/entity/entities/land/rock/Rock.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/land/rock/Rock.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="tree" projectFiles="true">
-            <itemPath>src/entity/land/tree/Tree.cpp</itemPath>
-            <itemPath>src/entity/land/tree/Tree.h</itemPath>
+            <itemPath>src/objects/entity/entities/land/tree/Tree.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/land/tree/Tree.h</itemPath>
           </logicalFolder>
           <itemPath>src/entity/land/HarvestableBehaviour.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f4" displayName="units" projectFiles="true">
           <logicalFolder name="f1" displayName="peon" projectFiles="true">
-            <itemPath>src/entity/peon/Order.h</itemPath>
-            <itemPath>src/entity/peon/PeonBehaviour.cpp</itemPath>
-            <itemPath>src/entity/peon/PeonBehaviour.h</itemPath>
-            <itemPath>src/entity/peon/PeonEntity.cpp</itemPath>
-            <itemPath>src/entity/peon/PeonEntity.h</itemPath>
-            <itemPath>src/entity/peon/PeonRenderer.cpp</itemPath>
-            <itemPath>src/entity/peon/PeonRenderer.h</itemPath>
+            <itemPath>src/objects/entity/entities/peon/Order.h</itemPath>
+            <itemPath>src/objects/entity/entities/peon/PeonBehaviour.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/peon/PeonBehaviour.h</itemPath>
+            <itemPath>src/objects/entity/entities/peon/PeonEntity.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/peon/PeonEntity.h</itemPath>
+            <itemPath>src/objects/entity/entities/peon/PeonRenderer.cpp</itemPath>
+            <itemPath>src/objects/entity/entities/peon/PeonRenderer.h</itemPath>
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
@@ -162,15 +162,15 @@
         </logicalFolder>
         <logicalFolder name="f2" displayName="world" projectFiles="true">
           <logicalFolder name="f1" displayName="core" projectFiles="true">
-            <itemPath>src/engine/core/decorator/Decorator.h</itemPath>
+            <itemPath>src/objects/decorator/core/Decorator.h</itemPath>
             <itemPath>src/engine/core/decorator/DecoratorAllocator.h</itemPath>
-            <itemPath>src/engine/core/decorator/DecoratorPtr.h</itemPath>
-            <itemPath>src/engine/core/entity/Entity.h</itemPath>
-            <itemPath>src/engine/core/entity/EntityPtr.h</itemPath>
+            <itemPath>src/objects/entity/core/Entity.h</itemPath>
+            <itemPath>src/engine/core/decorator/Pointer.h</itemPath>
+            <itemPath>src/engine/core/entity/Pointer.h</itemPath>
             <itemPath>src/entity/decorators/position/WorldObject.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="map" projectFiles="true">
-            <itemPath>src/world/core/MapInterface.h</itemPath>
+            <itemPath>src/world/core/IWorldMap.h</itemPath>
             <itemPath>src/world/core/Tile.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="objects" projectFiles="true">
@@ -189,15 +189,15 @@
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
-      <itemPath>src/entity/decorators/collector/Collector.cpp</itemPath>
-      <itemPath>src/entity/decorators/deposit/Deposit.cpp</itemPath>
-      <itemPath>src/entity/utils/deposit/DepositEntity.cpp</itemPath>
-      <itemPath>src/entity/decorators/mover/Mover.cpp</itemPath>
-      <itemPath>src/entity/peon/PeonController.cpp</itemPath>
-      <itemPath>src/entity/decorators/storage/Storage.cpp</itemPath>
+      <itemPath>src/objects/decorator/decorators/collector/Collector.cpp</itemPath>
+      <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.cpp</itemPath>
+      <itemPath>src/objects/entity/utils/deposit/DepositEntity.cpp</itemPath>
+      <itemPath>src/objects/decorator/decorators/mover/Mover.cpp</itemPath>
+      <itemPath>src/objects/entity/entities/peon/PeonController.cpp</itemPath>
+      <itemPath>src/objects/decorator/decorators/inventory/storage/Storage.cpp</itemPath>
       <itemPath>src/engine/tribe/TribeInfos.cpp</itemPath>
-      <itemPath>src/entity/decorators/worker/Worker.cpp</itemPath>
-      <itemPath>src/entity/decorators/worldobj/WorldObject.cpp</itemPath>
+      <itemPath>src/objects/decorator/decorators/worker/Worker.cpp</itemPath>
+      <itemPath>src/objects/decorator/decorators/worldobj/WorldObject.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -234,31 +234,36 @@
     <itemPath>src/engine/utils/AbstractDecoratorBehaviour.h</itemPath>
     <itemPath>src/engine/utils/AbstractEntityBehaviour.h</itemPath>
     <itemPath>src/controller/utils/AbstractEntityController.h</itemPath>
-    <itemPath>src/entity/decorators/behaviour/Behaviour.h</itemPath>
-    <itemPath>src/entity/decorators/collector/Collector.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/behaviour/Behaviour.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/collector/Collector.h</itemPath>
     <itemPath>src/engine/core/decorator/DecoratorUpdator.h</itemPath>
-    <itemPath>src/entity/decorators/deposit/Deposit.h</itemPath>
-    <itemPath>src/entity/utils/deposit/DepositEntity.h</itemPath>
-    <itemPath>src/entity/utils/deposit/DepositEntityBeh.h</itemPath>
-    <itemPath>src/engine/core/EngineInterface.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.h</itemPath>
+    <itemPath>src/objects/entity/utils/deposit/DepositEntity.h</itemPath>
+    <itemPath>src/objects/entity/utils/deposit/DepositEntityBeh.h</itemPath>
     <itemPath>src/engine/core/entity/EntityAllocator.h</itemPath>
     <itemPath>src/engine/core/entity/EntityBehaviour.h</itemPath>
     <itemPath>src/controller/core/EntityControllerInterface.h</itemPath>
+    <itemPath>src/engine/core/Event.h</itemPath>
     <itemPath>src/controller/core/GameControllerInterface.h</itemPath>
     <itemPath>src/controller/utils/GenericSelectorController.h</itemPath>
-    <itemPath>src/entity/decorators/inventory/Inventory.h</itemPath>
+    <itemPath>src/engine/core/IGameAllocator.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/inventory/Inventory.h</itemPath>
     <itemPath>src/entity/decorators/Mover/Mover.h</itemPath>
-    <itemPath>src/entity/decorators/mover/MoverBeh.h</itemPath>
-    <itemPath>src/entity/peon/PeonController.h</itemPath>
-    <itemPath>src/engine/core/Register.h</itemPath>
-    <itemPath>src/entity/decorators/slot/Slot.h</itemPath>
-    <itemPath>src/entity/decorators/storage/Storage.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/mover/MoverBeh.h</itemPath>
+    <itemPath>src/engine/core/Object.h</itemPath>
+    <itemPath>src/engine/core/Observer.h</itemPath>
+    <itemPath>src/objects/operator/core/Operator.h</itemPath>
+    <itemPath>src/objects/entity/entities/peon/PeonController.h</itemPath>
+    <itemPath>src/engine/core/Pointer.h</itemPath>
+    <itemPath>src/engine/utils/Register.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/inventory/slot/Slot.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/inventory/storage/Storage.h</itemPath>
     <itemPath>src/entity/decorators/supplier/Supplier.h</itemPath>
     <itemPath>src/world/core/Types.h</itemPath>
-    <itemPath>src/entity/decorators/behaviour/Updator.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/behaviour/Updator.h</itemPath>
     <itemPath>src/entity/decorators/collector/Worker.h</itemPath>
-    <itemPath>src/entity/decorators/worker/WorkerBeh.h</itemPath>
-    <itemPath>src/entity/decorators/worldobj/WorldObject.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/worker/WorkerBeh.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/worldobj/WorldObject.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -400,21 +405,17 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/engine/core/decorator/DecoratorPtr.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -424,7 +425,10 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/decorator/Pointer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/engine/core/entity/EntityAllocator.h"
             ex="false"
@@ -436,7 +440,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/entity/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -456,94 +460,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/buildings/StorageBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructionGhost.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/utils/Register.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/Mover/Mover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Behaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Updator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -553,44 +472,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/deposit/Deposit.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/deposit/Deposit.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/inventory/Inventory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/Mover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/MoverBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/position/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -600,68 +482,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/worker/Worker.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worker/WorkerBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/land/HarvestableBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -691,6 +512,248 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/objects/decorator/core/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Behaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Updator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/Inventory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/slot/Slot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/MoverBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/Worker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/Order.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -774,7 +837,7 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/IWorldMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -938,21 +1001,17 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/engine/core/decorator/DecoratorPtr.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -962,7 +1021,10 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/decorator/Pointer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/engine/core/entity/EntityAllocator.h"
             ex="false"
@@ -974,7 +1036,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/entity/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -994,94 +1056,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/buildings/StorageBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructionGhost.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/utils/Register.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/Mover/Mover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Behaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Updator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1091,44 +1068,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/deposit/Deposit.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/deposit/Deposit.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/inventory/Inventory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/Mover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/MoverBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/position/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1138,68 +1078,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/worker/Worker.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worker/WorkerBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/land/HarvestableBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1229,6 +1108,248 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/objects/decorator/core/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Behaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Updator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/Inventory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/slot/Slot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/MoverBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/Worker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/Order.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1312,7 +1433,7 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/IWorldMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1471,21 +1592,17 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/engine/core/decorator/DecoratorPtr.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1495,7 +1612,10 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/decorator/Pointer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/engine/core/entity/EntityAllocator.h"
             ex="false"
@@ -1507,7 +1627,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/entity/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1527,94 +1647,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/buildings/StorageBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructionGhost.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/utils/Register.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/Mover/Mover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Behaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Updator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1624,44 +1659,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/deposit/Deposit.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/deposit/Deposit.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/inventory/Inventory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/Mover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/MoverBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/position/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1671,68 +1669,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/worker/Worker.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worker/WorkerBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/land/HarvestableBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1762,6 +1699,248 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/objects/decorator/core/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Behaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Updator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/Inventory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/slot/Slot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/MoverBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/Worker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/Order.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1845,7 +2024,7 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/IWorldMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2011,21 +2190,17 @@
       </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/EngineInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/Register.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/engine/core/decorator/Decorator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/engine/core/decorator/DecoratorPtr.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2035,7 +2210,10 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/Entity.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/decorator/Pointer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/engine/core/entity/EntityAllocator.h"
             ex="false"
@@ -2047,7 +2225,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/engine/core/entity/EntityPtr.h" ex="false" tool="3" flavor2="0">
+      <item path="src/engine/core/entity/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2067,94 +2245,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/buildings/StorageBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/house/House.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructSite.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/ConstructionGhost.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/GhostRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/site/SiteRenderer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/buildings/warehouse/Warehouse.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/engine/utils/Register.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/Mover/Mover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Behaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/behaviour/Updator.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/collector/Collector.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2164,44 +2257,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/deposit/Deposit.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/deposit/Deposit.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/inventory/Inventory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/Mover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/mover/MoverBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/decorators/position/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/storage/Storage.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2211,68 +2267,7 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/entity/decorators/worker/Worker.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worker/WorkerBeh.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/decorators/worldobj/WorldObject.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/entity/land/HarvestableBehaviour.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/rock/Rock.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/land/tree/Tree.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/Order.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonBehaviour.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonController.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonEntity.cpp" ex="false" tool="1" flavor2="11">
-      </item>
-      <item path="src/entity/peon/PeonEntity.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/entity/peon/PeonRenderer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntity.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/entity/utils/deposit/DepositEntityBeh.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2302,6 +2297,248 @@
       <item path="src/gui/view/ControlPannel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/objects/decorator/core/Decorator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Behaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/behaviour/Updator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/Inventory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/deposit/Deposit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/slot/Slot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/inventory/storage/Storage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/mover/MoverBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/Worker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/StorageBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/house/House.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructSite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/ConstructionGhost.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/GhostRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/site/SiteRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/buildings/warehouse/Warehouse.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/rock/Rock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/land/tree/Tree.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/Order.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonController.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/entities/peon/PeonRenderer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/ressources/core/Stack.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2385,7 +2622,7 @@
       </item>
       <item path="src/utils/world/Storage.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/MapInterface.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/IWorldMap.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>

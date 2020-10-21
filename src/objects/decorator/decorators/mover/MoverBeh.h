@@ -16,22 +16,34 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   MoverBeh.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 9 octobre 2020, 09:33
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef MOVERBEH_H
+#define MOVERBEH_H
 
-#include "utils/hex/Axial.h"
+#include "Mover.h"
+#include "engine/core/decorator/DecoratorUpdator.h"
+#include "world/core/IWorldMap.h"
 
-namespace world {
-  
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
+namespace decorator {
+  class MoverBeh : public Operator {
+  private:
+
+    IWorldMap& _map;
+
+  public:
+
+    MoverBeh(IWorldMap& m) noexcept : _map(m) {}
+
+    virtual void 
+    operator() (Decorator& decorator, Pointer) noexcept override {
+      static_cast<Mover&>(decorator).walk(_map);
+    }
+  };
 }
-
-#endif /* WORLD_TYPES_H */
+#endif /* MOVERBEH_H */
 

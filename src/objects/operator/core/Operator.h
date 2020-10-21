@@ -16,22 +16,34 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   Operator.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 21 octobre 2020, 15:27
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef OPERATOR_H
+#define OPERATOR_H
 
-#include "utils/hex/Axial.h"
+#include "engine/core/Object.h"
 
-namespace world {
+/// \brief Operators are special objects which are callables
+class Operator : public core::Object {
+  public:
+
+  Operator() noexcept = default;
+  virtual ~Operator() noexcept = default;
   
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
+  virtual void operator() () noexcept = 0;
 
-#endif /* WORLD_TYPES_H */
+  class Builder : public core::Object::Builder {
+  public:
+    Builder() noexcept : core::Object::Builder() {}
+    virtual void operator() (core::Pointer& ptr) const noexcept override {
+      this->core::Object::Builder::operator() (ptr);
+    }
+  };
+};
+
+#endif /* OPERATOR_H */
 

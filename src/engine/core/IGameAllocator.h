@@ -16,22 +16,31 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   EngineInterface.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 9 octobre 2020, 02:11
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef ENGINEINTERFACE_H
+#define ENGINEINTERFACE_H
 
-#include "utils/hex/Axial.h"
+#include <typeinfo>
 
-namespace world {
+#include "engine/core/Pointer.h"
+#include "engine/core/Object.h"
+
+class IGameAllocator {
+public:
   
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
+  virtual core::Pointer 
+  createObject(const std::type_info&, const core::Object::Builder&) 
+  noexcept = 0;
+  
+  virtual void 
+  discardObject(core::Pointer ptr) 
+  noexcept = 0;
+};
 
-#endif /* WORLD_TYPES_H */
+#endif /* ENGINEINTERFACE_H */
 

@@ -16,22 +16,22 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   Observer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 21 octobre 2020, 17:50
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef OBSERVER_H
+#define OBSERVER_H
 
-#include "utils/hex/Axial.h"
+#include "Event.h"
+#include "utils/pattern/BigObserver.h"
 
-namespace world {
-  
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
+namespace core {
+  using Observer = BigObserver<Event>;
+  using Subject = BigSubject<Event>;
 }
 
-#endif /* WORLD_TYPES_H */
+#endif /* OBSERVER_H */
 

@@ -16,22 +16,32 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   DepositEntity.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 9 octobre 2020, 20:31
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#include "DepositEntity.h"
 
-#include "utils/hex/Axial.h"
-
-namespace world {
-  
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
+const decorator::Deposit& DepositEntity::deposit() const noexcept {
+  return static_cast<const decorator::Deposit&>(*getDecorator<decorator::Deposit>());
 }
 
-#endif /* WORLD_TYPES_H */
+DepositEntity::Builder::Builder(
+  IGameAllocator& engine, 
+  const WorldObject::Position& pos,
+  Stack::Ressource type, int qty) 
+noexcept :
+  Entity::Builder(WorldObject(WorldObject::Size::Small, 0.1, pos)), 
+  _engine(engine), 
+  _type(type), 
+  _qty(qty)
+{
+}
 
+void DepositEntity::Builder::operator() (Pointer& ptr) const noexcept {
+  this->Entity::Builder::operator ()(ptr);
+  decorator::Deposit::Builder depbuilder(ptr, _type, _qty, 5);
+  _engine.createDecorator(typeid(decorator::Deposit), depbuilder);
+}

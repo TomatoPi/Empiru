@@ -16,22 +16,29 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   Deposit.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 9 octobre 2020, 19:02
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#include "Deposit.h"
 
-#include "utils/hex/Axial.h"
+namespace decorator {
+ 
+  Deposit::Builder::Builder(Stack::Ressource type, int size, int difficulty)
+  noexcept :
+    Inventory::Builder(),
+    _difficulty(difficulty),
+    _size(size),
+    _type(type)
+  {  
+  }
 
-namespace world {
-  
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
+  void Deposit::Builder::operator() (core::Pointer& ptr) const noexcept {
+    this->Inventory::Builder::operator()(ptr);
+    Deposit& deposit(static_cast<Deposit&>(*ptr));
+    deposit._stack = Stack(_type, _size);
+    deposit._difficulty = _difficulty;
+  }
 }
-
-#endif /* WORLD_TYPES_H */
-

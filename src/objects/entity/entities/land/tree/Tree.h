@@ -16,22 +16,34 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   Tree.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 17 septembre 2020, 08:45
+/// \brief Tree WorldObject declaration
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef TREE_H
+#define TREE_H
 
-#include "utils/hex/Axial.h"
+#include "entity/utils/deposit/DepositEntity.h"
 
-namespace world {
+/// \brief Trees are beautiful things which don't do special things at this moment
+class Tree : public DepositEntity {
+public:
   
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
+  class Builder : public DepositEntity::Builder {
+    public:
+      Builder(IGameAllocator& engine, const WorldObject::Position& pos)
+      noexcept : 
+        DepositEntity::Builder(engine, pos, Stack::Ressource::Wood, 100)
+      {
+      }
+        
+      virtual void operator() (Pointer& ptr) const noexcept override {
+        this->DepositEntity::Builder::operator ()(ptr);
+      }
+  };
+};
 
-#endif /* WORLD_TYPES_H */
-
+#endif /* TREE_H */

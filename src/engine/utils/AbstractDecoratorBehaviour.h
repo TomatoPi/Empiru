@@ -25,16 +25,16 @@
 #ifndef ABSTRACTDECORATORBEHAVIOUR_H
 #define ABSTRACTDECORATORBEHAVIOUR_H
 
-#include "engine/core/EngineInterface.h"
+#include "engine/core/IGameAllocator.h"
 #include "engine/core/decorator/DecoratorUpdator.h"
-#include "world/core/MapInterface.h"
+#include "world/core/IWorldMap.h"
 
 class AbstractDecoratorBeh : public DecoratorBeh {
 protected:
-  GameEngineInterface&  _engine;
-  MapInterface&         _map;
+  IGameAllocator&  _engine;
+  IWorldMap&         _map;
   
-  AbstractEntityBeh(GameEngineInterface& engine, MapInterface& map) noexcept :
+  AbstractEntityBeh(IGameAllocator& engine, IWorldMap& map) noexcept :
     _engine(engine), _map(map)
   {
   }

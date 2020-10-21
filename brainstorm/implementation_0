@@ -253,3 +253,8 @@ Vrais problèmes :
         -> Pourrais lever l'ambiguïté au niveau des Operator
             Pourrais permettre à une entitée de tracker des Decorateur
             Semble très interressant...
+    Comment gérer la destruction des objets et le tracking correct des références
+      De façon générale, nimporte quel objet pourrait être lié à un autre,
+        et ils se structurent entre eux sous forme d'un graphe, et peuvent se
+        référencer de façon erratique.
+      Ainsi, le système de signaux doit être intégré au core des objets

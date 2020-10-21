@@ -16,22 +16,31 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   House.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 22 septembre 2020, 09:18
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#include "House.h"
 
-#include "utils/hex/Axial.h"
-
-namespace world {
-  
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
+const decorator::Storage& House::storage() const noexcept {
+  return static_cast<const decorator::Storage&>(*getDecorator<decorator::Storage>());
 }
 
-#endif /* WORLD_TYPES_H */
+House::Builder::Builder(
+  IGameAllocator& engine, 
+  const WorldObject::Position& pos) 
+noexcept :
+  Entity::Builder(WorldObject(WorldObject::Size::Tile, 0.5, pos)), _engine(engine)
+{
+}
 
+void House::Builder::operator() (Pointer& ptr) const noexcept {
+  this->Entity::Builder::operator() (ptr);
+  decorator::Storage::Builder builder(ptr, {
+    Stack(Stack::Ressource::Wood, 0, 100),
+    Stack(Stack::Ressource::Rock, 0, 50)
+  });
+  _engine.createDecorator(typeid(decorator::Storage), builder);
+}

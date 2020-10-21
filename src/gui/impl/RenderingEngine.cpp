@@ -36,7 +36,7 @@ RenderingEngine::RenderingEngine(
     Window&               win,
     const hex::Viewport&  vp,
     const AbstractCamera& cam,
-    const MapInterface& wo) : 
+    const IWorldMap& wo) : 
   _window(win),
   _worldView(vp),
   _camera(cam),

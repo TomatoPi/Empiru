@@ -16,30 +16,36 @@
  */
 
 /// 
-/// \file   GameEvents.h
+/// \file   WorldInterface.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 septembre 2020, 16:54
+/// \date 16 septembre 2020, 10:47
 ///
 
-#ifndef GAMEEVENTS_H
-#define GAMEEVENTS_H
+#ifndef WORLDINTERFACE_H
+#define WORLDINTERFACE_H
 
+#include "Tile.h"
+#include "Types.h"
 #include "engine/core/Pointer.h"
-#include "engine/core/Event.h"
 
-namespace GameEvents {
+/// \brief Interface that must be used to comunicate with the World
+class IWorldMap {
+public:
+
+  /// \brief Must return tile content at given pos, or null if empty
+  virtual const Tile::Content* getContentAt(const world::Position&) const = 0;
   
-  struct ObjectCreated : public Event {
-    core::Pointer _ptr;
-    ObjectCreated(const core::Pointer& ptr) noexcept : _ptr(ptr) {}
-  };
+  /// \brief Must return true if given pos is on the map
+  virtual bool isOnMap(const world::Position&) const = 0;
+  
+  /// \brief Return true if given position is valid
+  ///   if position is invalid, return false and return pointer to the obstacle
+  ///   in 'obstacle' if relevant
+  virtual bool 
+  tryPosition(const world::Position&, const core::Pointer&, core::Pointer*)
+  const noexcept = 0;
+};
 
-  struct ObjectDestroyed : public Event {
-    core::Pointer _ptr;
-    ObjectDestroyed(const core::Pointer& ptr) noexcept : _ptr(ptr) {}
-  };
-}
-
-#endif /* GAMEEVENTS_H */
+#endif /* WORLDINTERFACE_H */
 

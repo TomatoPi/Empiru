@@ -16,22 +16,41 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   DepositBeh.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 9 octobre 2020, 19:01
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef DEPOSITBEH_H
+#define DEPOSITBEH_H
 
-#include "utils/hex/Axial.h"
+#include "entity/decorators/deposit/Deposit.h"
+#include "engine/core/entity/EntityBehaviour.h"
+#include "engine/core/IGameAllocator.h"
 
-namespace world {
+class DepositEntityBeh : public EntityBeh {
+private:
   
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
-}
+  IGameAllocator& _engine;
+  
+public:
+  
+  explicit DepositEntityBeh(IGameAllocator& engine) noexcept : 
+    _engine(engine) 
+  {
+  }
+  virtual ~DepositEntityBeh() noexcept = default;
+  
+  virtual void 
+  operator() (Entity& entity, Pointer ptr) noexcept override {
+    const decorator::Deposit& deposit(static_cast<decorator::Deposit&>(
+      *entity.getDecorator<decorator::Deposit>()));
+    if (deposit.isEmpty()) {
+      _engine.discardEntity(ptr);
+    }
+  }
+};
 
-#endif /* WORLD_TYPES_H */
+#endif /* DEPOSITBEH_H */
 

@@ -16,22 +16,20 @@
  */
 
 /// 
-/// \file   Types.h
+/// \file   Pointer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 11:52
+/// \date 21 octobre 2020, 13:35
 ///
 
-#ifndef WORLD_TYPES_H
-#define WORLD_TYPES_H
+#ifndef GAME_ENGINE_POINTER_H
+#define GAME_ENGINE_POINTER_H
 
-#include "utils/hex/Axial.h"
-
-namespace world {
-  
-  /// \brief Describe a position on the map
-  typedef hex::Axial Position;
+#include "utils/alloc/IndexPtr.h"
+namespace core {
+  class Object;
+  using Pointer = alloc::IndexPtr<Object>;
 }
 
-#endif /* WORLD_TYPES_H */
+#endif /* GAME_ENGINE_POINTER_H */
 

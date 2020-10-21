@@ -30,13 +30,13 @@
 class AbstractEntityController {
 protected:
   
-  MapInterface&            _world;     ///< THA WORLDOOOOO
-  GameEngineInterface&     _engine;    ///< The Core of the GAMEUUH
+  IWorldMap&            _world;     ///< THA WORLDOOOOO
+  IGameAllocator&     _engine;    ///< The Core of the GAMEUUH
   GameControllerInterface& _controller;
   
   AbstractEntityController(
-    MapInterface&            world,
-    GameEngineInterface&     engine,
+    IWorldMap&            world,
+    IGameAllocator&     engine,
     GameControllerInterface& controller)
   noexcept :
     _world(world), _engine(engine), _controller(controller)

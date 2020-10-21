@@ -16,29 +16,45 @@
  */
 
 /// 
-/// \file   AbstractEntityBehaviour.h
+/// \file   DepositEntity.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 06:14
+/// \date 9 octobre 2020, 20:02
 ///
 
-#ifndef ABSTRACTENTITYBEHAVIOUR_H
-#define ABSTRACTENTITYBEHAVIOUR_H
+#ifndef DEPOSITENTITY_H
+#define DEPOSITENTITY_H
 
+#include "engine/core/entity/Entity.h"
 #include "engine/core/IGameAllocator.h"
-#include "engine/core/entity/EntityBehaviour.h"
-#include "world/core/IWorldMap.h"
 
-class AbstractEntityBeh : public EntityBeh {
-protected:
-  IGameAllocator&  _engine;
-  IWorldMap&         _map;
+#include "entity/decorators/deposit/Deposit.h"
+
+/// \brief The ultimate worker, useful to make anything you can think of
+/// \todo revise the path system
+class DepositEntity : public Entity {
+public:
   
-  AbstractEntityBeh(IGameAllocator& engine, IWorldMap& map) noexcept :
-    _engine(engine), _map(map)
-  {
-  }
+  const decorator::Deposit& deposit() const noexcept;
+  
+  class Builder : public Entity::Builder {
+  private:
+    
+    IGameAllocator& _engine;
+    Stack::Ressource     _type;
+    int                  _qty;
+    
+  public:
+    
+    Builder(
+      IGameAllocator& engine, 
+      const WorldObject::Position& pos,
+      Stack::Ressource type, int qty) 
+    noexcept;
+    
+    virtual void operator() (Pointer& ptr) const noexcept override;
+  };
 };
 
-#endif /* ABSTRACTENTITYBEHAVIOUR_H */
+#endif /* DEPOSITENTITY_H */
 

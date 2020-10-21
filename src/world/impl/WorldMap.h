@@ -27,18 +27,18 @@
 
 #include <unordered_map>
 
-#include "utils/pattern/BigObserver.h"
-#include "world/core/MapInterface.h"
+#include "engine/core/Observer.h"
+#include "world/core/IWorldMap.h"
 #include "world/core/Tile.h"
 #include "utils/log.h"
 
 /// \brief Object that handle Map and Objects
-class WorldMap : public MapInterface, public BigObserver {
+class WorldMap : public IWorldMap, public core::Observer {
 private :
   
   /// \brief Hollow Matrix
   typedef std::unordered_map<
-      WorldObject::Position,
+      world::Position,
       Tile,
       hex::Axial::TileHasher,
       hex::Axial::TileEquals> 
@@ -55,22 +55,24 @@ public :
   /// \param mapWidth : Width of the map (number of hexs)
   WorldMap(int mapWidth, int mapHeight);
   
-  /// \brief Must add given object to the world
-  virtual void addObject(const Pointer& ptr) override;
-  /// \brief Must remove given object fro the world
-  virtual void removeObject(const Pointer& ptr) override;
-  
   /// \brief Must return tile content at given pos, or null if empty
-  virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const override;
+  virtual const 
+  Tile::Content* getContentAt(const world::Position& pos) const override;
   
   /// \brief Must return true if given pos is on the map
-  virtual bool isOnMap(const WorldObject::Position & pos) const override;
+  virtual bool isOnMap(const world::Position & pos) const override;
   
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant
-  virtual bool tryPosition(const Pointer& entity, Pointer* obstacle) 
+  virtual bool 
+  tryPosition(const world::Position& pos, const core::Pointer& entity, core::Pointer* obstacle) 
   const noexcept override;
+  
+private:
+  
+  void addObject(const core::Pointer& ptr) noexcept;
+  void removeObject(const core::Pointer& ptr);
 };
 
 #endif /* WORLD_H*/
