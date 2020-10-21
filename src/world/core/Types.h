@@ -16,25 +16,20 @@
  */
 
 /// 
-/// \file   DecoratorBehaviour.h
+/// \file   Types.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 02:24
+/// \date 21 octobre 2020, 11:52
 ///
 
-#ifndef DECORATORUPDATOR_H
-#define DECORATORUPDATOR_H
+#ifndef WORLD_TYPES_H
+#define WORLD_TYPES_H
 
-#include "Decorator.h"
-#include "Pointer.h"
-
-namespace decorator {
+namespace world {
   
-  class Operator {
-  public:
-    virtual void perform() noexcept = 0;
-  };
+  /// \brief Describe a position on the map
+  typedef hex::Axial Position;
 }
-  
-#endif /* DECORATORBEHAVIOUR_H */
+
+#endif /* WORLD_TYPES_H */
 

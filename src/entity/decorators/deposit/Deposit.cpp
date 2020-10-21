@@ -38,7 +38,7 @@ namespace decorator {
   {  
   }
 
-  void Deposit::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+  void Deposit::Builder::operator() (Pointer& ptr) const noexcept {
     this->Inventory::Builder::operator()(ptr);
     Deposit& deposit(static_cast<Deposit&>(*ptr));
     deposit._stack = Stack(_type, _size);

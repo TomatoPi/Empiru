@@ -167,8 +167,7 @@
             <itemPath>src/engine/core/decorator/DecoratorPtr.h</itemPath>
             <itemPath>src/engine/core/entity/Entity.h</itemPath>
             <itemPath>src/engine/core/entity/EntityPtr.h</itemPath>
-            <itemPath>src/world/core/WorldObject.cpp</itemPath>
-            <itemPath>src/world/core/WorldObject.h</itemPath>
+            <itemPath>src/entity/decorators/position/WorldObject.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="map" projectFiles="true">
             <itemPath>src/world/core/MapInterface.h</itemPath>
@@ -198,6 +197,7 @@
       <itemPath>src/entity/decorators/storage/Storage.cpp</itemPath>
       <itemPath>src/engine/tribe/TribeInfos.cpp</itemPath>
       <itemPath>src/entity/decorators/worker/Worker.cpp</itemPath>
+      <itemPath>src/entity/decorators/worldobj/WorldObject.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -254,9 +254,11 @@
     <itemPath>src/entity/decorators/slot/Slot.h</itemPath>
     <itemPath>src/entity/decorators/storage/Storage.h</itemPath>
     <itemPath>src/entity/decorators/supplier/Supplier.h</itemPath>
+    <itemPath>src/world/core/Types.h</itemPath>
     <itemPath>src/entity/decorators/behaviour/Updator.h</itemPath>
     <itemPath>src/entity/decorators/collector/Worker.h</itemPath>
     <itemPath>src/entity/decorators/worker/WorkerBeh.h</itemPath>
+    <itemPath>src/entity/decorators/worldobj/WorldObject.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -576,6 +578,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/position/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
@@ -599,6 +606,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -761,9 +778,7 @@
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Types.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/impl/WorldMap.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1101,6 +1116,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/position/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
@@ -1124,6 +1144,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1286,9 +1316,7 @@
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Types.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/impl/WorldMap.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1621,6 +1649,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/position/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
@@ -1644,6 +1677,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1806,9 +1849,7 @@
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Types.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/impl/WorldMap.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2148,6 +2189,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/entity/decorators/position/WorldObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/entity/decorators/slot/Slot.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/entity/decorators/storage/Storage.cpp"
@@ -2171,6 +2217,16 @@
             flavor2="0">
       </item>
       <item path="src/entity/decorators/worker/WorkerBeh.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/entity/decorators/worldobj/WorldObject.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2333,9 +2389,7 @@
       </item>
       <item path="src/world/core/Tile.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/world/core/WorldObject.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/world/core/WorldObject.h" ex="false" tool="3" flavor2="0">
+      <item path="src/world/core/Types.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/world/impl/WorldMap.cpp" ex="false" tool="1" flavor2="11">
       </item>

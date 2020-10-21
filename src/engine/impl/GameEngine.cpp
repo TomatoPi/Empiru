@@ -47,18 +47,18 @@ void GameEngine::update() {
       });
   /* then compute sub-behaviour for each components */
   _decorators.behave(
-      [this](decorator::Decorator& dec, decorator::DecoratorPtr& ptr, decorator::Operator* beh) -> void {
+      [this](decorator::Decorator& dec, decorator::Pointer& ptr, decorator::Operator* beh) -> void {
         (*beh)(dec, ptr);
       });
   /* destroy entites that died this tick */
   _entities.destroyGarbage(
       [this](EntityPtr ptr) -> void {
         ptr->forEachDecorator(
-            [this](decorator::DecoratorPtr& ptr) -> void {
+            [this](decorator::Pointer& ptr) -> void {
               _decorators.destroyObject(ptr);
             });
       });
-  _decorators.destroyGarbage([](const decorator::DecoratorPtr&)->void{});
+  _decorators.destroyGarbage([](const decorator::Pointer&)->void{});
 }
 
 
@@ -93,7 +93,7 @@ noexcept
 }
 
 
-decorator::DecoratorPtr
+decorator::Pointer
 GameEngine::createDecorator(const std::type_info& type, const decorator::Decorator::Builder& builder)
 noexcept
 {
@@ -101,7 +101,7 @@ noexcept
 }
 
 void 
-GameEngine::dirscardDecorator(decorator::DecoratorPtr ptr) 
+GameEngine::dirscardDecorator(decorator::Pointer ptr) 
 noexcept
 {
   _decorators.destroyObject(ptr);

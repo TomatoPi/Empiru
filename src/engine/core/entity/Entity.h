@@ -25,87 +25,50 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <cassert>
-#include <typeinfo>
-#include <typeindex>
-#include <unordered_map>
-
 #include "EntityPtr.h"
-#include "engine/core/decorator/DecoratorPtr.h"
-#include "world/core/WorldObject.h"
+#include "engine/core/decorator/Pointer.h"
+#include <typeinfo>
 
+/// \brief Base class used to represent objects in the world (and a bit more)
 class Entity {  
-private:
-  
-  typedef std::unordered_map<std::type_index,decorator::DecoratorPtr> DecoratorsTable;
-  DecoratorsTable _decorators;
-  
 protected:
   
-  WorldObject _object;
+  EntityPtr _this; ///< Sometimes very useful
   
 public:
   
-  Entity() noexcept : _decorators(), _object() {};
+  Entity() noexcept = default;
   virtual ~Entity() noexcept = default;
   
-  WorldObject& obj() noexcept {
-    return _object;
-  }
-  const WorldObject& obj() const noexcept {
-    return _object;
-  }
+  /// \brief Must return a pointer to given decorator if such exist
+  ///   nullptr otherwise
+  virtual decorator::Pointer 
+  findDecorator(const std::type_info& type) noexcept = 0;
   
-  void attachDecorator(const std::type_info& type, const decorator::DecoratorPtr& ptr) noexcept {
-    bool success(_decorators.emplace(std::type_index(type), ptr).second);
-    assert(success && "Duplicated Decorators kind");
-  }
+  /// \brief Must return given decorator, undefined behaviour if none
+  virtual decorator::Decorator& 
+  getDecorator(const std::type_info& type) noexcept = 0;
+  /// \brief Must return given decorator, undefined behaviour if none
+  virtual const decorator::Decorator& 
+  getDecorator(const std::type_info& type) const noexcept = 0;
   
-  void detachDecorator(const std::type_info& type) noexcept {
-    auto itr(_decorators.find(std::type_index(type)));
-    assert(itr != _decorators.end());
-    _decorators.erase(itr);
-  }
-  
+  /// \brief Useful to get and cast a decorator to a subtype
   template <class T>
-  decorator::DecoratorPtr getDecorator() noexcept {
-    DecoratorsTable::iterator 
-    itr(_decorators.find(std::type_index(typeid(T))));
-    if (itr == _decorators.end()) {
-      return decorator::DecoratorPtr(nullptr);
-    }
-    return itr->second;
+  T& get() noexcept {
+    return static_cast<T&>(getDecorator(typeid(T)));
   }
-  
+  /// \brief Useful to get and cast a decorator to a subtype
   template <class T>
-  const decorator::DecoratorPtr getDecorator() const noexcept {
-    DecoratorsTable::const_iterator 
-    itr(_decorators.find(std::type_index(typeid(T))));
-    if (itr == _decorators.end()) {
-      return decorator::DecoratorPtr(nullptr);
-    }
-    return itr->second;
+  const T& get() const noexcept {
+    return static_cast<const T&>(getDecorator(typeid(T)));
   }
   
-  /// \todo Replace this with DestroyDecorators
-  template <typename Func>
-  void forEachDecorator(const Func& callback) noexcept {
-    for (auto& dec : _decorators) {
-      callback(dec.second);
-    }
-  }
-  
+  /// \brief The builder of an entity
   class Builder {
-  private:
-  
-    WorldObject _obj;
-    
   public:
-    
-    Builder(const WorldObject& obj) noexcept : _obj(obj) {}
-    
+    Builder() noexcept = default;
     virtual void operator() (EntityPtr& ptr) const noexcept {
-      ptr->_object = _obj;
+      ptr->_this = ptr;
     }
   };
 };

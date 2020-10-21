@@ -27,13 +27,13 @@
 
 namespace decorator {
 
-  void Collector::collectAt(const DecoratorPtr& ptr, Stack::Ressource type)   
+  void Collector::collectAt(const Pointer& ptr, Stack::Ressource type)   
   noexcept {
     _target = type;
     _action = Action::Collect;
     setWorkSite(ptr);
   }
-  void Collector::storeAt(const DecoratorPtr& ptr, Stack::Ressource type)   
+  void Collector::storeAt(const Pointer& ptr, Stack::Ressource type)   
   noexcept {
     _target = type;
     _action = Action::Store;
@@ -61,12 +61,12 @@ namespace decorator {
         _status = Status::WorkDone;
         return;
       }
-      Stack res = site.reduce(_target, qty);
+      Stack res = site.doReduce(_target, qty);
       if (res.empty()) {
         _status = Status::WorkDone;
         return;
       }
-      res = inventory.add(res);
+      res = inventory.doAdd(res);
       assert(res.empty());
     }
     else {
@@ -75,12 +75,12 @@ namespace decorator {
         _status = Status::WorkDone;
         return;
       }
-      Stack res = inventory.reduce(_target, qty);
+      Stack res = inventory.doReduce(_target, qty);
       if (res.empty()) {
         _status = Status::WorkDone;
         return;
       }
-      res = site.add(res);
+      res = site.doAdd(res);
       assert(res.empty());
     }
   }
@@ -96,7 +96,7 @@ namespace decorator {
   Collector::Builder::Builder(const EntityPtr& entity) noexcept :
     Worker::Builder(entity) {}
 
-  void Collector::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+  void Collector::Builder::operator() (Pointer& ptr) const noexcept {
     this->Worker::Builder::operator() (ptr);
     Collector& collector(static_cast<Collector&>(*ptr));
     collector._inventory = collector._entity->getDecorator<Inventory>();

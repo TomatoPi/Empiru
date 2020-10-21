@@ -16,25 +16,21 @@
  */
 
 /// 
-/// \file   DecoratorBehaviour.h
+/// \file   DecoratorPtr.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 02:24
+/// \date 8 octobre 2020, 23:34
 ///
 
-#ifndef DECORATORUPDATOR_H
-#define DECORATORUPDATOR_H
+#ifndef DECORATORPTR_H
+#define DECORATORPTR_H
 
-#include "Decorator.h"
-#include "Pointer.h"
+#include "utils/alloc/IndexPtr.h"
 
-namespace decorator {
-  
-  class Operator {
-  public:
-    virtual void perform() noexcept = 0;
-  };
+namespace decorator { 
+  class Decorator;
+  using Pointer = alloc::IndexPtr<Decorator>;
 }
   
-#endif /* DECORATORBEHAVIOUR_H */
+#endif /* DECORATORPTR_H */
 

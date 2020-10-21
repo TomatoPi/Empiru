@@ -34,14 +34,14 @@ TribeInfos::TribeInfos() noexcept :
 {    
   this->registerEvent<EventObjectCreated>(
     [this](const EventObjectCreated& event) -> void {
-      if (decorator::DecoratorPtr ptr = event._ptr->getDecorator<decorator::Storage>()) {
+      if (decorator::Pointer ptr = event._ptr->getDecorator<decorator::Storage>()) {
         bool res(_objects.emplace(ptr).second);
         assert(res);
       }
     });
   this->registerEvent<EventObjectDestroyed>(
     [this](const EventObjectDestroyed& event) -> void {
-      if (decorator::DecoratorPtr ptr = event._ptr->getDecorator<decorator::Storage>()) {
+      if (decorator::Pointer ptr = event._ptr->getDecorator<decorator::Storage>()) {
         auto itr(_objects.find(ptr));
         assert(itr != _objects.end());
         _objects.erase(itr);

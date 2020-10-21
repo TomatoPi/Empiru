@@ -22,46 +22,47 @@
 /// \date 9 octobre 2020, 08:27
 ///
 
-#ifndef MOVER_H
-#define MOVER_H
+#ifndef DECORATOR_PATH_H
+#define DECORATOR_PATH_H
 
-#include <stack>
+#include <vector>
 #include "engine/core/decorator/Decorator.h"
 #include "world/core/WorldObject.h"
 #include "world/core/MapInterface.h"
 #include "utils/hex/Axial.h"
 
 namespace decorator {
-  class Mover : public Decorator {
+  class Path : public Decorator {
   public:
 
-    enum class Status {
+    enum class Event {
+      TargetChanged,
       TargetReached,
-      Walking,
-      ObstructedPath,
+      PathObstructed,
+    };
+    
+    class Observer {
+    public:
+      virtual void onNotify(const DecoratorPtr&, Event) noexcept = 0;
     };
 
   private:
 
-    std::stack<WorldObject::Position> _target;
-    hex::Axial                        _dir;
-    float                             _tolerance;
-    float                             _speed;
-    Status                            _status;
+    std::vector<WorldObject::Position> _target;
+    hex::Axial                         _dir;
+    float                              _tolerance;
+    float                              _speed;
+    Status                             _status;
 
   public:
 
-    Mover() noexcept;
-
-    Status status() const noexcept {return _status;}
-
-    void walk(MapInterface& world) noexcept;
-
-    void clearPath() noexcept;
+    Path() noexcept = default;
+    virtual ~Path() noexcept = default;
     void setTarget(const WorldObject::Position& target, float tolerance) noexcept;
 
   private:
 
+    void clearPath() noexcept;
     void stackTarget(const WorldObject::Position& target) noexcept;
     void unstackTarget() noexcept;
 
@@ -76,10 +77,10 @@ namespace decorator {
 
       explicit Builder(const EntityPtr& entity, float speed=0.01) noexcept;
 
-      virtual void operator() (Pointer& ptr) const noexcept override;
+      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
     };
   };
 }
 
-#endif /* MOVER_H */
+#endif /* DECORATOR_PATH_H */
 

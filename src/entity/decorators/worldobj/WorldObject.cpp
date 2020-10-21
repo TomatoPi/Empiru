@@ -16,21 +16,31 @@
  */
 
 /// 
-/// \file   DecoratorPtr.h
+/// \file   WorldObject.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 8 octobre 2020, 23:34
+/// \date 21 octobre 2020, 12:08
 ///
 
-#ifndef DECORATORPTR_H
-#define DECORATORPTR_H
+#include "WorldObject.h"
 
-#include "utils/alloc/IndexPtr.h"
-
-namespace decorator { 
-  class Decorator;
-  using DecoratorPtr = alloc::IndexPtr<Decorator>;
+namespace decorator {
+  bool 
+  WorldObject::collide(const WorldObject& obj, const world::Position& pos) 
+  const noexcept {
+    if (_size == Size::Hollow || obj._size == Size::Hollow)
+      return false;
+    if (_size == Size::Small) {
+      if (obj._size == Size::Small)
+        return smallCollide(*this, _pos, obj, pos);
+      return stCollide(*this, _pos, obj, pos);
+    }
+    if (_size == Size::Tile) {
+      if (obj._size == Size::Small)
+        return stCollide(obj, pos, *this, _pos);
+      return tileCollide(*this, _pos, obj, pos);
+    }
+    assert(0);
+    return false;
+  }
 }
-  
-#endif /* DECORATORPTR_H */
-

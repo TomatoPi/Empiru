@@ -40,7 +40,7 @@ namespace decorator {
     MoverBeh(MapInterface& m) noexcept : _map(m) {}
 
     virtual void 
-    operator() (Decorator& decorator, DecoratorPtr) noexcept override {
+    operator() (Decorator& decorator, Pointer) noexcept override {
       static_cast<Mover&>(decorator).walk(_map);
     }
   };

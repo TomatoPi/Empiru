@@ -28,41 +28,13 @@
 
 namespace decorator {
   
-  Stack Storage::add(const Stack& stack) noexcept {
+  Stack Storage::doAdd(const Stack& stack) noexcept {
     assert(storableQtyOf(stack.type()));
-    Stack garbage(_storage[static_cast<std::size_t>(stack.type())].add(stack));
-    if (garbage.size() != stack.size()) {
-      notify(_this, Event::Modified);
-      bool full(true);
-      for (const auto& s : _storage) {
-        if (!s.full()) {
-          full = false;
-          break;
-        }
-      }
-      if (full) {
-        notify(_this, Event::Full);
-      }
-    }
-    return garbage;
+    return _storage[static_cast<std::size_t>(stack.type())].add(stack);
   }
-  Stack Storage::reduce(Stack::Ressource type, int qty) noexcept {
+  Stack Storage::doReduce(Stack::Ressource type, int qty) noexcept {
     assert(storableQtyOf(type));
-    Stack result(_storage[static_cast<std::size_t>(type)].reduce(qty));
-    if (!result.empty()) {
-      notify(_this, Event::Modified);
-      if (isEmpty()) {
-        notify(_this, Event::Empty);
-      }
-    }
-    return result;
-  }
-  void Storage::clear() noexcept {
-    for (auto& stack : _storage) {
-      stack.clear();
-    }
-    notify(_this, Event::Modified);
-    notify(_this, Event::Empty);
+    return _storage[static_cast<std::size_t>(type)].reduce(qty);
   }
 
   int Storage::storableQtyOf(Stack::Ressource type) const noexcept {
@@ -72,6 +44,15 @@ namespace decorator {
   bool Storage::isEmpty() const noexcept {
     for (const auto& stack : _storage) {
       if (!stack.empty()) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  bool Storage::isFull() const noexcept {
+    for (const auto& s : _storage) {
+      if (!s.full()) {
         return false;
       }
     }
@@ -100,7 +81,7 @@ namespace decorator {
       _maximums[idx] = Stack(stack.type(), 0, stack.max());
     }
   }
-  void Storage::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+  void Storage::Builder::operator() (Pointer& ptr) const noexcept {
     this->Inventory::Builder::operator() (ptr);
     Storage& store(static_cast<Storage&>(*ptr));
     store._storage = _maximums;

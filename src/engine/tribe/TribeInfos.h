@@ -30,7 +30,7 @@
 #include "ressources/core/Stack.h"
 #include "utils/pattern/BigObserver.h"
 #include "utils/misc/Counter.h"
-#include "engine/core/decorator/DecoratorPtr.h"
+#include "engine/core/decorator/Pointer.h"
 
 class TribeInfos : public BigObserver {
 public:
@@ -39,7 +39,7 @@ public:
   
 private:
   
-  typedef std::unordered_set<decorator::DecoratorPtr,alloc::PtrHash,alloc::PtrEquals>
+  typedef std::unordered_set<decorator::Pointer,alloc::PtrHash,alloc::PtrEquals>
   ObjectsList;
   
   ObjectsList _objects;

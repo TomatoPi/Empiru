@@ -47,32 +47,6 @@ namespace decorator {
       return _difficulty;
     }
     
-    /// \brief Must Add given stack to the inventory 
-    /// \return garbage if full stack cannot be added
-    virtual Stack add(const Stack& stack) noexcept override {
-      assert(0 && "invalid operation");
-      return Stack();
-    }
-    /// \brief Must try to get given stack from the inventory
-    /// \brief type : Ressource type to take
-    /// \brief qty  : Quantity to get, 0 for the maximum available
-    /// \return a smaller one if request is bigger than inventory content
-    virtual Stack reduce(Stack::Ressource type, int qty) noexcept override {
-      assert(type == _stack.type());
-      Stack result(_stack.reduce(qty));
-      if (!result.empty()) {
-        notify(_this, Event::Modified);
-        if (_stack.empty()) {
-          notify(_this, Event::Empty);
-        }
-      }
-      return result;
-    }
-    /// \brief Must erase inventory content
-    virtual void clear() noexcept override {
-      assert(0 && "invalid operation");
-    }
-    
     /// \brief Must return true if given type can be added to the inventory
     virtual int storableQtyOf(Stack::Ressource type) const noexcept override {
       return 0;
@@ -81,10 +55,30 @@ namespace decorator {
     virtual bool isEmpty() const noexcept override {
       return _stack.empty();
     }
+    virtual bool isFull() const noexcept override {
+      return _stack.full();
+    }
     
     /// \brief Must return inventory content
     virtual Content content() const noexcept override {
       return Content{_stack};
+    }
+    
+  protected:
+    
+    /// \brief Must Add given stack to the inventory 
+    /// \return garbage if full stack cannot be added
+    virtual Stack doAdd(const Stack& stack) noexcept override {
+      assert(0 && "invalid operation");
+      return Stack();
+    }
+    /// \brief Must try to get given stack from the inventory
+    /// \brief type : Ressource type to take
+    /// \brief qty  : Quantity to get, 0 for the maximum available
+    /// \return a smaller one if request is bigger than inventory content
+    virtual Stack doReduce(Stack::Ressource type, int qty) noexcept override {
+      assert(type == _stack.type());
+      return _stack.reduce(qty);
     }
 
   public:
@@ -103,7 +97,7 @@ namespace decorator {
         Stack::Ressource type, int size, int difficulty)
       noexcept;
 
-      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+      virtual void operator() (Pointer& ptr) const noexcept override;
     };
   };
 }

@@ -49,7 +49,7 @@ void PeonController::RightClickOut(EntityPtr ptr) noexcept {
     _controller.objectAction(pptr, EntityPtr(nullptr));
   } else {
     Peon& peon(static_cast<Peon&>(*pptr));
-    if (decorator::DecoratorPtr dptr = ptr->getDecorator<decorator::Deposit>()) {
+    if (decorator::Pointer dptr = ptr->getDecorator<decorator::Deposit>()) {
       decorator::Deposit& deposit(static_cast<decorator::Deposit&>(*dptr));
       if (!deposit.isEmpty()) {
         if (0 < peon.inventory().storableQtyOf(deposit.content().front().type())) {
@@ -57,7 +57,7 @@ void PeonController::RightClickOut(EntityPtr ptr) noexcept {
         } 
       }
     }
-    else if (decorator::DecoratorPtr sptr = ptr->getDecorator<decorator::Storage>()) {
+    else if (decorator::Pointer sptr = ptr->getDecorator<decorator::Storage>()) {
       decorator::Storage& store(static_cast<decorator::Storage&>(*sptr));
       if (!peon.inventory().isEmpty()) {
         if (0 < store.storableQtyOf(peon.inventory().content().front().type())) {

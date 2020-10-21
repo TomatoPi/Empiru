@@ -43,7 +43,7 @@ namespace decorator {
       explicit Builder(const EntityPtr& entity) noexcept : 
         Decorator::Builder(entity) {}
       
-      virtual void operator() (DecoratorPtr& ptr) const noexcept {
+      virtual void operator() (Pointer& ptr) const noexcept {
         this->Decorator::Builder::operator ()(ptr);
         this->addMarkers(ptr, typeid(Behaviour));
       }

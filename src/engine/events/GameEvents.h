@@ -25,7 +25,7 @@
 #ifndef GAMEEVENTS_H
 #define GAMEEVENTS_H
 
-#include "engine/core/decorator/DecoratorPtr.h"
+#include "engine/core/decorator/Pointer.h"
 #include "engine/core/entity/EntityPtr.h"
 #include "utils/pattern/BigObserver.h"
 

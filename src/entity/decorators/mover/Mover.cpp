@@ -129,7 +129,7 @@ noexcept :
 {
 }
 
-void Mover::Builder::operator() (DecoratorPtr& ptr) const noexcept {
+void Mover::Builder::operator() (Pointer& ptr) const noexcept {
   this->Decorator::Builder::operator() (ptr);
   Mover& mover(static_cast<Mover&>(*ptr));
   mover._speed = _speed;

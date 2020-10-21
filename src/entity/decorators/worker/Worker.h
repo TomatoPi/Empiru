@@ -26,7 +26,7 @@
 #define WORKER_H
 
 #include "engine/core/decorator/Decorator.h"
-#include "engine/core/decorator/DecoratorPtr.h"
+#include "engine/core/decorator/Pointer.h"
 #include "ressources/core/Stack.h"
 
 namespace decorator {
@@ -44,7 +44,7 @@ namespace decorator {
 
   protected:
 
-    DecoratorPtr  _worksite;
+    Pointer  _worksite;
     Status        _status;
 
   public:
@@ -53,8 +53,8 @@ namespace decorator {
     virtual ~Worker() noexcept = default;
 
     /// \brief Change the collect site of this collector
-    void setWorkSite(const DecoratorPtr& ptr) noexcept;
-    DecoratorPtr worksite() const noexcept;
+    void setWorkSite(const Pointer& ptr) noexcept;
+    Pointer worksite() const noexcept;
     
     /// \brief Return the collector's status
     Status status() const noexcept;
@@ -78,7 +78,7 @@ namespace decorator {
       explicit Builder(const EntityPtr& entity) noexcept :
         Decorator::Builder(entity) {}
 
-      virtual void operator() (DecoratorPtr& ptr) const noexcept override {
+      virtual void operator() (Pointer& ptr) const noexcept override {
         this->Decorator::Builder::operator() (ptr);
         this->addMarkers(ptr, typeid(Worker));
       }

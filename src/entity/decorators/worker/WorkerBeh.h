@@ -37,7 +37,7 @@ namespace decorator {
     virtual ~WorkerBeh() noexcept = default;
 
     virtual void 
-    operator() (Decorator& decorator, DecoratorPtr) noexcept override {
+    operator() (Decorator& decorator, Pointer) noexcept override {
       static_cast<Worker&>(decorator).work();
     }
   };

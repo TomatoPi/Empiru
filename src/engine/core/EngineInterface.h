@@ -30,7 +30,7 @@
 #include "engine/core/entity/EntityPtr.h"
 #include "engine/core/entity/Entity.h"
 
-#include "engine/core/decorator/DecoratorPtr.h"
+#include "engine/core/decorator/Pointer.h"
 #include "engine/core/decorator/Decorator.h"
 
 class GameEngineInterface {
@@ -45,12 +45,12 @@ public:
   noexcept = 0;
   
   
-  virtual decorator::DecoratorPtr
+  virtual decorator::Pointer
   createDecorator(const std::type_info& type, const decorator::Decorator::Builder& builder)
   noexcept = 0;
   
   virtual void 
-  dirscardDecorator(decorator::DecoratorPtr ptr) 
+  dirscardDecorator(decorator::Pointer ptr) 
   noexcept = 0;
 };
 

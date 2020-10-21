@@ -28,12 +28,12 @@
 namespace decorator { 
 
   /// \brief Change the collect site of this collector
-  void Worker::setWorkSite(const DecoratorPtr& ptr) noexcept {
+  void Worker::setWorkSite(const Pointer& ptr) noexcept {
     _worksite = ptr;
     updateStatus();
     workChanged();
   }
-  DecoratorPtr Worker::worksite() const noexcept {
+  Pointer Worker::worksite() const noexcept {
     return _worksite;
   }
 

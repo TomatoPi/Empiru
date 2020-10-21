@@ -38,7 +38,7 @@ namespace decorator {
       Collect
     };
     
-    DecoratorPtr      _inventory;
+    Pointer      _inventory;
     Counter           _cptr;
     Stack::Ressource  _target;
     Action            _action;
@@ -48,8 +48,8 @@ namespace decorator {
     Collector() noexcept = default;
     virtual ~Collector() noexcept = default;
     
-    void collectAt(const DecoratorPtr& ptr, Stack::Ressource type) noexcept;
-    void storeAt(const DecoratorPtr& ptr, Stack::Ressource type) noexcept;
+    void collectAt(const Pointer& ptr, Stack::Ressource type) noexcept;
+    void storeAt(const Pointer& ptr, Stack::Ressource type) noexcept;
     
   protected:
     
@@ -64,7 +64,7 @@ namespace decorator {
 
       explicit Builder(const EntityPtr& entity) noexcept;
 
-      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+      virtual void operator() (Pointer& ptr) const noexcept override;
     };
   };
 }

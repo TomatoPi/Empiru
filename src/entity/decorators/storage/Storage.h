@@ -43,14 +43,16 @@ namespace decorator {
     Storage() noexcept = default;
     virtual ~Storage() noexcept = default;
     
-    virtual Stack add(const Stack& stack) noexcept override;
-    virtual Stack reduce(Stack::Ressource type, int qty) noexcept override;
-    virtual void clear() noexcept override;
-    
     virtual int storableQtyOf(Stack::Ressource type) const noexcept override;
     virtual bool isEmpty() const noexcept override;
+    virtual bool isFull() const noexcept override;
     
     virtual Content content() const noexcept override;
+    
+  protected:
+    
+    virtual Stack doAdd(const Stack& stack) noexcept override;
+    virtual Stack doReduce(Stack::Ressource type, int qty) noexcept override;
 
   public:
 
@@ -65,7 +67,7 @@ namespace decorator {
         const EntityPtr& entity, 
         const std::initializer_list<Stack>& maximums) noexcept;
 
-      virtual void operator() (DecoratorPtr& ptr) const noexcept override;
+      virtual void operator() (Pointer& ptr) const noexcept override;
     };
   };
 }

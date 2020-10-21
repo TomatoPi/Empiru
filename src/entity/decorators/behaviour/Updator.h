@@ -33,7 +33,7 @@ namespace decorator {
   class BehaviourUpdator {
   public:
     virtual void 
-    operator() (Decorator& deco, DecoratorPtr ptr) noexcept {
+    operator() (Decorator& deco, Pointer ptr) noexcept {
       static_cast<Behaviour&>(deco).update();
     }
   };

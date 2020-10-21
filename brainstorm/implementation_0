@@ -168,6 +168,7 @@ Vrais problèmes :
       
   Qu'est ce qui fait une entité ??? A quoi sert l'objet entité ???
     -> Fournir une interface commune à tout les objets pour l'accès
+    -> Transformer l'entitée en un décorateur ?? -> non
 
   A quoi sert l'objet Decorator ???
     -> Fournir un mecanisme de sous typage dynamique, utile pour ajouter des
@@ -188,6 +189,7 @@ Vrais problèmes :
         peut et doit etre remplacé par un simple ensemble de callback et d'etats
         très possiblement un genre d'automate, qui traquerais un certain set de
         décorateurs, et changerais d'état à certaines notifications
+    -> Par compatibilité, sera implémentée sous forme d'un décorateur
 
   A quoi sert l'objet DecoratorBehaviour ???
     -> À la base, à effectuer les opérations relatives à des décorateurs,
@@ -202,3 +204,46 @@ Vrais problèmes :
     -> Le tracking via des events de si un objet bouge
     -> On pourra alors en notifier la worldMap qui traitera d'elle meme le  
       changement de case, et les cases (c'est pas à nous d'y reflechir)
+    XXX 
+    -> De même lorsqu'un objet bouge, il notifie de son mouvement, 
+        le Mover réagi alors à l'evènement. 
+    XXX
+
+  Dans le Renderer : 
+    -> débordement du controller : Target(de)Selected
+      Soltion en associant les datas plus intimement avec l'entitée
+      On peut mettre les datas en décorateur
+    -> Allégement du rendu en passant à un système plus event driven
+
+  Mover : 
+    -> Séparer la partie données de la partie comportements : 
+      Il y a d'un coté le path, et les évènements associés :
+        - TargetChanged   (setTarget(...))
+        - TargetReached   (unstack() -> path.empty == True)
+        - PathObstructed  (invalidate())
+      De l'autre le Mover, aka l'algo de pathfinding
+
+  Collector / Worker :
+    -> Pareil séparer données du comportement :
+        l'abstraction de Worker est inutile
+        Pour le collecteur quelles sont les données à stoquer ???
+        Dans l'absolu il faut garder trace du site de collecte
+        Mais une si petite donnée n'as pas vocation à être dans un décorateur
+        D'autre part elle existe plus dans le behaviour peut etre ??
+    -> Solution possible :
+        Pas de décorateur pour l'instant, on stoque les données en brut dans le
+          péon ou le behaviour, à priori dans le péon, car le behaviour est 
+          innaccessible depuis le peon ?
+          +> Complètement con de mettre le behaviour innacessible...
+        On stoque trois données dans le péon, le site de collecte, le site de
+          dépôt, et la ressource cible
+  
+  Remarque ou reflexion générale :
+    Doivent être dans des décorateurs, les données concernant les "services" ou
+      les opérations qu'un objet propose.
+    Par exemple l'inventaire est une interface d'accès au contenu d'un objet
+    Le path est sucesptible d'être query par d'autres objets (la transmission de
+      chemins entre les péons)
+      Mais dans l'absolu, le path n'est pas un service fourni par une entitée
+    Pour des raisons de compatibilité, les opérations seront probablement aussi
+      des décorateurs (pour n'utiliser que des DecoratorPtr)

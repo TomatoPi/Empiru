@@ -41,44 +41,6 @@ namespace decorator {
     Slot() noexcept = default;
     virtual ~Slot() noexcept = default;
     
-    /// \brief Must Add given stack to the inventory 
-    /// \return garbage if full stack cannot be added
-    virtual Stack add(const Stack& stack) noexcept override {
-      if (_stack.empty()) {
-        _stack = Stack(stack.type(), 0, _max);
-      }
-      assert(_stack.type() == stack.type());
-      Stack garbage(_stack.add(stack));
-      if (garbage.size() != stack.size()) {
-        notify(_this, Event::Modified);
-        if (_stack.full()) {
-          notify(_this, Event::Full);
-        }
-      }
-      return garbage;
-    }
-    /// \brief Must try to get given stack from the inventory
-    /// \brief type : Ressource type to take
-    /// \brief qty  : Quantity to get, 0 for the maximum available
-    /// \return a smaller one if request is bigger than inventory content
-    virtual Stack reduce(Stack::Ressource type, int qty) noexcept override {
-      assert(_stack.type() == type);
-      Stack result(_stack.reduce(qty));
-      if (!result.empty()) {
-        notify(_this, Event::Modified);
-        if (_stack.empty()) {
-          notify(_this, Event::Empty);
-        }
-      }
-      return result;
-    }
-    /// \brief Must erase inventory content
-    virtual void clear() noexcept override {
-      _stack.clear();
-      notify(_this, Event::Modified);
-      notify(_this, Event::Empty);
-    }
-    
     /// \brief Must return quantity of given ressource that can be stored
     virtual int storableQtyOf(Stack::Ressource type) const noexcept override {
       if (_stack.empty()) {
@@ -89,10 +51,6 @@ namespace decorator {
       }
       return _stack.max() - _stack.size();
     }
-    /// \brief Must return true if inventory is empty
-    virtual bool isEmpty() const noexcept override {
-      return _stack.empty();
-    }
     
     /// \brief Must return inventory content
     virtual Content content() const noexcept override {
@@ -102,6 +60,36 @@ namespace decorator {
       return Content{_stack};
     }
     
+    /// \brief Must return true if inventory is empty
+    virtual bool isEmpty() const noexcept override {
+      return _stack.empty();
+    }
+    virtual bool isFull() const noexcept override {
+      return _stack.full();
+    }
+    
+  protected:
+    
+    /// \brief Must Add given stack to the inventory 
+    /// \return garbage if full stack cannot be added
+    virtual Stack doAdd(const Stack& stack) noexcept override {
+      if (_stack.empty()) {
+        _stack = Stack(stack.type(), 0, _max);
+      }
+      assert(_stack.type() == stack.type());
+      return _stack.add(stack);
+    }
+    /// \brief Must try to get given stack from the inventory
+    /// \brief type : Ressource type to take
+    /// \brief qty  : Quantity to get, 0 for the maximum available
+    /// \return a smaller one if request is bigger than inventory content
+    virtual Stack doReduce(Stack::Ressource type, int qty) noexcept override {
+      assert(_stack.type() == type);
+      return _stack.reduce(qty);
+    }
+    
+  public:
+    
     class Builder : public Inventory::Builder {
     private:
       int _max;
@@ -109,7 +97,7 @@ namespace decorator {
       explicit Builder(const EntityPtr& entity, int max) noexcept :
         Inventory::Builder(entity), _max(max) {}
       
-      virtual void operator() (DecoratorPtr& ptr) const noexcept override {
+      virtual void operator() (Pointer& ptr) const noexcept override {
         /// Make the concrete decorator accessible via the Inventory Decorator
         this->Inventory::Builder::operator() (ptr);
         Slot& slot(static_cast<Slot&>(*ptr));
