@@ -25,15 +25,15 @@
 #ifndef PIXELPERFECTCLICKER_H
 #define PIXELPERFECTCLICKER_H
 
-#include "engine/core/entity/Pointer.h"
+#include "core/Pointer.h"
 
-class PixelPerfectClicker {
+class IPixelPerfectClicker {
 public:
-  virtual ~PixelPerfectClicker() noexcept = default;
+  virtual ~IPixelPerfectClicker() noexcept = default;
   
   virtual void updateClickZones() = 0;
   
-  virtual Pointer objectAt(int x, int y) const noexcept = 0;
+  virtual core::Pointer entityAt(int x, int y) const noexcept = 0;
 };
 
 #endif /* PIXELPERFECTCLICKER_H */

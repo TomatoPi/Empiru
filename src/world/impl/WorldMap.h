@@ -72,7 +72,7 @@ public :
 private:
   
   void addObject(const core::Pointer& ptr) noexcept;
-  void removeObject(const core::Pointer& ptr);
+  void removeObject(const core::Pointer& ptr) noexcept;
 };
 
 #endif /* WORLD_H*/

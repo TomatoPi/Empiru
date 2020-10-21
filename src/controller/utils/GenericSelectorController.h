@@ -25,14 +25,14 @@
 #ifndef GENERICSELECTORCONTROLLER_H
 #define GENERICSELECTORCONTROLLER_H
 
-#include "controller/core/EntityControllerInterface.h"
-#include "controller/core/GameControllerInterface.h"
+#include "controller/core/IEntityController.h"
+#include "controller/core/IGameController.h"
 
-class GenericSelectorController : public EntityControllerInterface {
+class GenericSelectorController : public IEntityController {
 private:
-  GameControllerInterface& _controller;
+  IGameController& _controller;
 public:
-  GenericSelectorController(GameControllerInterface& c) noexcept : 
+  GenericSelectorController(IGameController& c) noexcept : 
     _controller(c) {}
 
   virtual void leftClickOn(Pointer ptr) noexcept override {

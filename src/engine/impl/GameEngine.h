@@ -26,31 +26,36 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
-#include "utils/alloc/IndexAllocator.h"
-#include "utils/pattern/BigObserver.h"
+#include "core/Observer.h"
+#include "core/IGameAllocator.h"
+#include "utils/alloc/impl/IndexAllocator.h"
 
-#include "engine/core/IGameAllocator.h"
-#include "engine/core/Register.h"
-
-#include "engine/core/entity/EntityBehaviour.h"
-#include "engine/core/decorator/DecoratorUpdator.h"
+#include <cassert>
+#include <typeinfo>
+#include <typeindex>
+#include <unordered_map>
+#include <vector>
 
 /// \brief Core object for in-game mechanics
 class GameEngine : 
   public IGameAllocator, 
-  public BigSubject, 
-  public BigObserver 
+  public core::Subject,
+  public core::Observer
 {
 private:
   
-  typedef alloc::Allocator<Entity,Pointer,std::size_t> EAllocator;
-  typedef alloc::Allocator<decorator::Decorator,decorator::Pointer,std::size_t> DAllocator;
+  /// \brief Typedef for GameAllocators
+  typedef alloc::IAllocator<core::Object,core::Pointer> Allocator;
+  /// \brief Table of storage by objects type
+  typedef std::unordered_map<std::type_index, Allocator*> ObjectsTable;
+  /// \brief List of callable types
+  typedef std::vector<std::type_index> CallablesList;
+  /// \brief Store list of objects beeing created
+  typedef std::vector<core::Pointer> DyingEntitiesList;
   
-  typedef Register<Entity,Pointer,EntityBeh> EntitiesReg;
-  typedef Register<decorator::Decorator,decorator::Pointer,decorator::Operator> DecoratorsReg;
-  
-  EntitiesReg   _entities;
-  DecoratorsReg _decorators;
+  ObjectsTable      _objects;
+  CallablesList     _callables;
+  DyingEntitiesList _dyings;
   
 public:
   
@@ -62,30 +67,17 @@ public:
   ///   Call behaviour of each object
   void update();
   
-  
-  virtual Pointer 
-  createEntity(const std::type_info& type, const Entity::Builder& builder) 
+  /// \brief Called to create a new object
+  virtual core::Pointer 
+  createObject(const std::type_info&, const core::Object::Builder&) 
   noexcept override;
   
-  virtual void 
-  discardEntity(Pointer ptr) 
-  noexcept override;
+  /// \brief Called to destroy an object
+  virtual void discardObject(core::Pointer ptr) noexcept override;
   
+  /// \brief Called to register a new object type
   void 
-  registerEntity(const std::type_info& type, EAllocator*, EntityBeh*) 
-  noexcept;
-  
-  
-  virtual decorator::Pointer
-  createDecorator(const std::type_info& type, const decorator::Decorator::Builder& builder)
-  noexcept override;
-  
-  virtual void 
-  dirscardDecorator(decorator::Pointer ptr) 
-  noexcept override;
-  
-  void
-  registerDecorator(const std::type_info& type, DAllocator*, decorator::Operator*) 
+  registerObject(const std::type_info& type, Allocator* alloc, bool callable=false) 
   noexcept;
 };
 

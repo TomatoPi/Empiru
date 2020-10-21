@@ -24,7 +24,7 @@
 
 #include "Deposit.h"
 
-namespace decorator {
+namespace decorators {
  
   Deposit::Builder::Builder(Stack::Ressource type, int size, int difficulty)
   noexcept :
@@ -35,7 +35,7 @@ namespace decorator {
   {  
   }
 
-  void Deposit::Builder::operator() (core::Pointer& ptr) const noexcept {
+  void Deposit::Builder::operator() (core::Pointer& ptr) noexcept {
     this->Inventory::Builder::operator()(ptr);
     Deposit& deposit(static_cast<Deposit&>(*ptr));
     deposit._stack = Stack(_type, _size);

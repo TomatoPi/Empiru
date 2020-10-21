@@ -29,7 +29,7 @@
 #include "../Inventory.h"
 #include "ressources/core/Stack.h"
 
-namespace decorator {
+namespace decorators {
   class Storage : public Inventory {
   private:
 
@@ -63,7 +63,7 @@ namespace decorator {
     public :
 
       explicit Builder(const std::initializer_list<Stack>& maximums) noexcept;
-      virtual void operator() (core::Pointer& ptr) const noexcept override;
+      virtual void operator() (core::Pointer& ptr) noexcept override;
     };
   };
 }

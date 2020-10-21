@@ -25,12 +25,9 @@
 #include "ControlPannel.h"
 #include "utils/gui/Window.h"
 #include "controller/events/ControllerEvents.h"
-#include "entity/decorators/deposit/Deposit.h"
-#include "entity/decorators/storage/Storage.h"
-//#include "entity/peon/Peon.h"
-//#include "utils/world/Storage.h"
-//#include "utils/world/Harvestable.h"
-//#include "entity/buildings/site/ConstructSite.h"
+#include "objects/entity/core/Entity.h"
+#include "objects/decorator/decorators/inventory/deposit/Deposit.h"
+#include "objects/decorator/decorators/inventory/storage/Storage.h"
 
 namespace {
   /// \brief Array of indexes of ressources icons indexes on icon sheet
@@ -65,12 +62,12 @@ ControlPannel::ControlPannel(
   iconframes[static_cast<std::size_t>(Stack::Ressource::Rock)] = 2;
   iconframes[static_cast<std::size_t>(Stack::Ressource::Wood)] = 3;
   /* register callbacks */
-  this->registerEvent<EventObjectSelected>(
-      [this](const EventObjectSelected & event) -> void {
+  this->registerEvent<ControllerEvents::ObjectSelected>(
+      [this](const ControllerEvents::ObjectSelected & event) -> void {
         _selectedObject = event._ptr;
       });
-  this->registerEvent<EventObjectDeselected>(
-      [this](const EventObjectDeselected & event) -> void {
+  this->registerEvent<ControllerEvents::ObjectDeselected>(
+      [this](const ControllerEvents::ObjectDeselected & event) -> void {
         _selectedObject = nullptr;
       });
 }
@@ -115,17 +112,17 @@ void ControlPannel::drawGlobalRessources(const SDL_Rect& pannel) {
 void ControlPannel::drawObjectInventory(const SDL_Rect& pannel) {
   SDL_Rect rect;
   std::vector<std::pair<int,std::string>> inventory;
-  const Entity& entity(*_selectedObject);
+  const Entity& entity(static_cast<const Entity&>(*_selectedObject));
 //  if (Peon *peon = dynamic_cast<Peon*>(&*_selectedObject)) {
 //    if (!peon->inventory().empty())
 //      inventory.emplace_back(
 //        iconframes[peon->inventory().type()], 
 //        std::to_string(peon->inventory().size()));
 //  }
-  if (decorator::Pointer ptr = entity.getDecorator<decorator::Inventory>()) {
-    const decorator::Inventory& store(static_cast<const decorator::Inventory&>(*ptr));
-    bool depo(nullptr != dynamic_cast<const decorator::Deposit*>(&*ptr));
-    for (auto & stack : store.content()) {
+  if (core::Pointer ptr = entity.findDecorator(typeid(decorators::Inventory))) {
+    const decorators::Inventory& inv(static_cast<const decorators::Inventory&>(*ptr));
+    bool depo(nullptr != dynamic_cast<const decorators::Deposit*>(&*ptr));
+    for (auto & stack : inv.content()) {
       inventory.emplace_back(
         iconframes[static_cast<std::size_t>(stack.type())], 
         std::to_string(stack.size())

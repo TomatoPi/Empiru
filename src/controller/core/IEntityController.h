@@ -16,29 +16,27 @@
  */
 
 /// 
-/// \file   AbstractEntityBehaviour.h
+/// \file   EntityController.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 06:14
+/// \date 9 octobre 2020, 05:43
 ///
 
-#ifndef ABSTRACTENTITYBEHAVIOUR_H
-#define ABSTRACTENTITYBEHAVIOUR_H
+#ifndef ENTITYCONTROLLER_H
+#define ENTITYCONTROLLER_H
 
-#include "engine/core/IGameAllocator.h"
-#include "engine/core/entity/EntityBehaviour.h"
-#include "world/core/IWorldMap.h"
+#include "core/Pointer.h"
 
-class AbstractEntityBeh : public EntityBeh {
-protected:
-  IGameAllocator&  _engine;
-  IWorldMap&         _map;
+class IEntityController {
+public:
   
-  AbstractEntityBeh(IGameAllocator& engine, IWorldMap& map) noexcept :
-    _engine(engine), _map(map)
-  {
-  }
+  virtual void leftClickOn(core::Pointer ptr) noexcept = 0;
+  virtual void leftClickOut(core::Pointer ptr) noexcept = 0;
+  virtual void RightClickOn(core::Pointer ptr) noexcept = 0;
+  virtual void RightClickOut(core::Pointer ptr) noexcept = 0;
+  virtual void cursorMoved() noexcept = 0;
+  virtual void deselected(core::Pointer ptr) noexcept = 0;
 };
 
-#endif /* ABSTRACTENTITYBEHAVIOUR_H */
+#endif /* ENTITYCONTROLLER_H */
 

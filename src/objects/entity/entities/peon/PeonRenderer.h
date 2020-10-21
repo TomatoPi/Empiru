@@ -35,7 +35,7 @@
 #include "utils/misc/Counter.h"
 
 /// \brief Renderer assoaciated with peons
-class PeonRenderer : public AbstractRenderer {
+class PeonRenderer : public ARenderer {
 private:
   
   struct Datas {

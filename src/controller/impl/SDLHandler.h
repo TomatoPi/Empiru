@@ -43,7 +43,7 @@ private:
   const hex::Viewport &_viewport; 
   Controller          &_controller;///< The thing that do things on other things
   ControlPannel       &_controlPannel; ///< The beautiful pannel on the left
-  PixelPerfectClicker &_clicker;
+  IPixelPerfectClicker &_clicker;
   
   bool _mouseMoved;
   int _mouseX, _mouseY;
@@ -56,7 +56,7 @@ public:
           const hex::Viewport & v,
           Controller & e,
           ControlPannel & pan,
-          PixelPerfectClicker & click) noexcept;
+          IPixelPerfectClicker & click) noexcept;
   
   /// \brief Core SDLHandler's function, process all events availables
   bool handleSDLEvents();

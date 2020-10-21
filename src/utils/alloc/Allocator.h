@@ -33,8 +33,8 @@ namespace alloc {
   /// \brief Interface for worldobjects allocator/container
   ///   All objects of the same kind are sweeped on each game tick
   ///   So allocator should be aware of cache issues and data continuity
-  template <class Base, class Ptr, typename Key>
-  class Allocator {
+  template <class Base, class Ptr>
+  class IAllocator {
   public:
 
     /// \brief Must create one instance of associated object and return it.
@@ -47,13 +47,10 @@ namespace alloc {
     /// Must be the only way used to destroy objects
     virtual void deleteObject(const Ptr& ptr) = 0;
 
-    virtual Base& operator[] (const Key&) = 0;
-    virtual const Base& operator[] (const Key&) const = 0;
-
     /// \brief Must call given callback on each object
     ///   Callback parameters are the object and the associated reference
     /// \warning Delete objects inside the callback may cause undefined behaviour
-    virtual void foreach(std::function<void(Base& obj, Ptr)> func) = 0;
+    virtual void foreach(std::function<void(Base& obj)> func) = 0;
   };
 }
 #endif /* ALLOCATOR_H */

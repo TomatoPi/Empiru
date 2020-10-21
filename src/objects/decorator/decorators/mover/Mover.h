@@ -31,7 +31,7 @@
 #include "world/core/IWorldMap.h"
 #include "utils/hex/Axial.h"
 
-namespace decorator {
+namespace decorators {
   class Mover : public Decorator {
   public:
 

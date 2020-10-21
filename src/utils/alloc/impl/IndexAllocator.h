@@ -25,10 +25,13 @@
 #ifndef INDEXALLOCATOR_H
 #define INDEXALLOCATOR_H
 
+#include "../Handle.h"
+#include "../Pointer.h"
+#include "../Allocator.h"
+
+#include <list>
 #include <vector>
 #include <cassert>
-#include "IndexPtr.h"
-#include "Allocator.h"
 
 namespace alloc {
 
@@ -36,12 +39,52 @@ namespace alloc {
   /// T is the concrete type of stored objects
   /// U is the superclass used to handle stored objects
   template <class T, class U>
-  class IndexAllocator : public Allocator<U,IndexPtr<U>,std::size_t> {
+  class IndexAllocator : public IAllocator<U,SmartPointer<U>> {
   private:
 
-    typedef IndexPtr<U>           _Pointer;   ///< Associated Smart pointer
-    typedef std::vector<T>        _Container; ///< Array of objects
-    typedef std::vector<_Pointer> _RefTable;  ///< Array of references
+    using _Container = std::vector<T>; ///< Array of objects
+    
+    class IndexHandle : public AHandle<U> {
+    public:
+      
+      /// \brief Construct a smart ref on given allocator cell
+      IndexHandle(_Container& array, std::size_t idx) noexcept :
+        AHandle<U>(), _array(array), _idx(idx)
+      {
+      }
+      /// \brief Default destructor is enougth
+      virtual ~IndexHandle() noexcept = default;
+
+      /// \brief Prevent missuse
+      IndexHandle() = delete;
+      /// \brief Prevent missuse
+      IndexHandle(const IndexHandle&) = delete;
+      /// \brief Prevent missuse
+      IndexHandle& operator= (const IndexHandle&) = delete;
+      /// \brief Prevent missuse
+      IndexHandle(IndexHandle&&) = delete;
+      /// \brief Prevent missuse
+      IndexHandle& operator =(IndexHandle&&) = delete;
+
+      virtual U* asPtr() noexcept override {
+        return &_array[_idx];
+      }
+      virtual const U* asPtr() const noexcept override {
+        return &_array[_idx];
+      }
+      virtual U& asRef() noexcept override {
+        return _array[_idx];
+      }
+      virtual const U& asRef() const noexcept override {
+        return _array[_idx];
+      }
+
+      _Container& _array; ///< The associated container
+      std::size_t _idx;   ///< Index of the object in the container
+    };
+    
+    using _Pointer     = SmartPointer<U>;       ///< Associated Smart pointer
+    using _RefTable    = std::vector<_Pointer>; ///< References
 
     _Container _objects; ///< Array of objects
     _RefTable  _rtable;  ///< Array of references
@@ -59,7 +102,7 @@ namespace alloc {
     virtual _Pointer createObject() override {
       assert(_objects.size() == _rtable.size());
       std::size_t idx(_objects.size());
-      _Pointer ptr(*this, idx);
+      _Pointer ptr(new IndexHandle(_objects, idx));
       _objects.emplace_back();
       _rtable.emplace_back(ptr);
       assert(_objects.size() == _rtable.size());
@@ -70,34 +113,28 @@ namespace alloc {
     /// Must be the only way used to destroy objects.
     /// The strategy used for dealocation is swap ersaed obj and last obj,
     ///   reducing reference update count to one or zero
-    virtual void deleteObject(const _Pointer& ref) override {
-      assert(ref.isValid());
+    virtual void deleteObject(const _Pointer& ptr) override {
+      assert(ptr.isValid());
       assert(_objects.size() == _rtable.size());
-      std::size_t erased(ref.index()), swapped(_objects.size() -1);
+      std::size_t erased(ptr.handle()._idx);
+      std::size_t swapped(_objects.size() -1);
       // Swap last and erased elements then update associated reference
       if (1 < _objects.size() && erased != swapped) {
-        _rtable[swapped].update(erased);
+        _rtable[swapped].handl()._idx = erased;
         std::swap(_objects[erased], _objects[swapped]);
         std::swap(_rtable[erased], _rtable[swapped]);
       }
       // destroy last object and associated reference
-      _rtable.back().deprecate();
+      _rtable.back().handle().deprecate();
       _objects.pop_back();
       _rtable.pop_back();
       assert(_objects.size() == _rtable.size());
     }
 
-    virtual U& operator[] (const std::size_t& idx) override {
-      return _objects[idx];
-    }
-    virtual const U& operator[] (const std::size_t& idx) const override {
-      return _objects[idx];
-    }
-
     /// \brief Must call given callback on each object
     ///   Callback parameters are the object and the associated reference
     /// \warning Delete objects inside the callback may cause miss
-    virtual void foreach(std::function<void(U&, _Pointer)> func) override
+    virtual void foreach(std::function<void(U&)> func) override
     {
       assert(_objects.size() == _rtable.size());
       for (std::size_t i(0) ; i<_objects.size() ; ++i) {

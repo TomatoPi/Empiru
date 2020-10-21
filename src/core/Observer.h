@@ -16,25 +16,22 @@
  */
 
 /// 
-/// \file   DecoratorBehaviour.h
+/// \file   Observer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 02:24
+/// \date 21 octobre 2020, 17:50
 ///
 
-#ifndef DECORATORUPDATOR_H
-#define DECORATORUPDATOR_H
+#ifndef GAME_CORE_BIG_OBSERVER
+#define GAME_CORE_BIG_OBSERVER
 
-#include "Decorator.h"
-#include "Pointer.h"
+#include "Event.h"
+#include "utils/pattern/BigObserver.h"
 
-namespace decorator {
-  
-  class Operator {
-  public:
-    virtual void perform() noexcept = 0;
-  };
+namespace core {
+  using Observer = BigObserver<Event>;
+  using Subject = BigSubject<Event>;
 }
-  
-#endif /* DECORATORBEHAVIOUR_H */
+
+#endif /* GAME_CORE_BIG_OBSERVER */
 

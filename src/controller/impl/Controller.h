@@ -30,53 +30,53 @@
 #include <typeindex>
 #include <unordered_map>
 
-#include "utils/pattern/BigObserver.h"
-#include "controller/core/GameControllerInterface.h"
-#include "controller/core/EntityControllerInterface.h"
-#include "engine/core/entity/Pointer.h"
+#include "controller/core/IGameController.h"
+#include "controller/core/IEntityController.h"
+#include "core/Pointer.h"
+#include "core/Observer.h"
 
 /// \brief Main handler for user control
 class Controller : 
-  public GameControllerInterface, 
-  public BigSubject, 
-  public BigObserver 
+  public IGameController, 
+  public core::Subject, 
+  public core::Observer 
 {
 private:
   
-  typedef std::unordered_map<std::type_index,EntityControllerInterface*> 
+  typedef std::unordered_map<std::type_index,IEntityController*> 
     ControlTable;
   
   ControlTable          _controllers; ///< Table of objects specific controllers
-  Pointer             _selection;   ///< The selected Object
-  WorldObject::Position _cursor;      ///< Cursor position
+  core::Pointer             _selection;   ///< The selected Object
+  world::Position _cursor;      ///< Cursor position
   
 public:
   
   /// \brief Constructor
   Controller() noexcept;
   
-  virtual void selectObject(Pointer ptr) noexcept override;
-  virtual void deselectObject(Pointer ptr) noexcept override;
-  virtual void objectAction(Pointer ptr, Pointer target) noexcept override;
-  virtual const Pointer& selection() const noexcept override;
+  virtual void selectObject(core::Pointer ptr) noexcept override;
+  virtual void deselectObject(core::Pointer ptr) noexcept override;
+  virtual void objectAction(core::Pointer ptr, core::Pointer target) noexcept override;
+  virtual const core::Pointer& selection() const noexcept override;
   /// \brief Return the current position of the cursor
-  virtual const WorldObject::Position& cursor() const noexcept override;
+  virtual const world::Position& cursor() const noexcept override;
   
   /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position& click, const Pointer& ptr);
+  void leftClickOn(const world::Position& click, const core::Pointer& ptr) noexcept;
   /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position& click, const Pointer& ptr);
+  void rightClickOn(const world::Position& click, const core::Pointer& ptr) noexcept;
   /// \brief Called when the mouse has moved, maximum one time at each frame
   ///   Only the last position is passed to this function
-  void cursorMoved(const WorldObject::Position& click, int x, int y);
+  void cursorMoved(const world::Position& click, int x, int y) noexcept;
   
   void registerController(
     const std::type_info& type, 
-    EntityControllerInterface*&& controller) noexcept;
+    IEntityController*&& controller) noexcept;
   
 private:
   
-  EntityControllerInterface& get(const Pointer& ptr) noexcept;
+  IEntityController& get(const core::Pointer& ptr) noexcept;
 };
 
 #endif /* CONTROLLER_H */

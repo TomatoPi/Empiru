@@ -25,19 +25,19 @@
 #ifndef ABSTRACTENTITYCONTROLLER_H
 #define ABSTRACTENTITYCONTROLLER_H
 
-#include "EntityControllerInterface.h"
+#include "IEntityController.h"
 
 class AbstractEntityController {
 protected:
   
   IWorldMap&            _world;     ///< THA WORLDOOOOO
   IGameAllocator&     _engine;    ///< The Core of the GAMEUUH
-  GameControllerInterface& _controller;
+  IGameController& _controller;
   
   AbstractEntityController(
     IWorldMap&            world,
     IGameAllocator&     engine,
-    GameControllerInterface& controller)
+    IGameController& controller)
   noexcept :
     _world(world), _engine(engine), _controller(controller)
   {

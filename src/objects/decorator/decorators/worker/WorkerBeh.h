@@ -28,7 +28,7 @@
 #include "Worker.h"
 #include "engine/core/decorator/DecoratorUpdator.h"
 
-namespace decorator {
+namespace decorators {
   
   class WorkerBeh : public Operator {
   public:

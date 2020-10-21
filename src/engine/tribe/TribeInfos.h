@@ -25,21 +25,22 @@
 #ifndef TRIBEINFOS_H
 #define TRIBEINFOS_H
 
+#include "ressources/core/Stack.h"
+#include "utils/misc/Counter.h"
+#include "core/Pointer.h"
+#include "core/Observer.h"
+
 #include <array>
 #include <unordered_set>
-#include "ressources/core/Stack.h"
-#include "utils/pattern/BigObserver.h"
-#include "utils/misc/Counter.h"
-#include "engine/core/decorator/Pointer.h"
 
-class TribeInfos : public BigObserver {
+class TribeInfos : public core::Observer {
 public:
   
   typedef std::array<int,Stack::RessourceCount> TribeStocks;
   
 private:
   
-  typedef std::unordered_set<decorator::Pointer,alloc::PtrHash,alloc::PtrEquals>
+  typedef std::unordered_set<core::Pointer,alloc::PtrHash,alloc::PtrEquals>
   ObjectsList;
   
   ObjectsList _objects;

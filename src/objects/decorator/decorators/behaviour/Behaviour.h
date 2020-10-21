@@ -27,7 +27,7 @@
 
 #include "engine/core/decorator/Decorator.h"
 
-namespace decorator {
+namespace decorators {
   
   class Behaviour : public Decorator {
   public:

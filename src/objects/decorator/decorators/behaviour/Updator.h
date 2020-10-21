@@ -28,7 +28,7 @@
 #include "engine/core/decorator/DecoratorUpdator.h"
 #include "Behaviour.h"
 
-namespace decorator {
+namespace decorators {
   
   class BehaviourUpdator {
   public:

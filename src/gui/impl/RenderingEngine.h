@@ -37,10 +37,10 @@
 #include "gui/core/PixelPerfectClicker.h"
 #include "gui/core/AbstractRenderer.h"
 #include "world/core/IWorldMap.h"
-#include "utils/pattern/BigObserver.h"
+#include "core/Observer.h"
 
 /// \brief Object responsible of Game rendering
-class RenderingEngine : public PixelPerfectClicker, public BigObserver {
+class RenderingEngine : public IPixelPerfectClicker, public core::Observer {
 public:
   
   /// \brief Hash an SDL_Color according to its compenents
@@ -61,24 +61,24 @@ public:
   
 private:
   
-  typedef std::unordered_map<SDL_Color,Pointer,ColorHasher,ColorEquals>
+  typedef std::unordered_map<SDL_Color,core::Pointer,ColorHasher,ColorEquals>
   ColorTable;
   
   /// \brief Table used to make the rendering engine blind on what is in the world
   ///   One must register each kind of object with it associated renderer
-  typedef std::unordered_map<std::type_index,AbstractRenderer*> RendererTable;
+  typedef std::unordered_map<std::type_index,ARenderer*> RendererTable;
   /// \brief Represent a pixel on the screen
   typedef math::Vector<int> Pixel;
   /// \brief List used to store the sorted list of objects beeing drawn 
   ///   during this frame
   /// Sorting is done on ascending y to ensure that objects away from camera
   ///   are drawn behind
-  typedef std::multimap<Pixel,Pointer,Pixel::AscYCompare> DrawStack;
+  typedef std::multimap<Pixel,core::Pointer,Pixel::AscYCompare> DrawStack;
   
   Window &                _window;    ///< Obvious
   const hex::Viewport &   _worldView; ///< Bridge between game and user
   const AbstractCamera &  _camera;    ///< View controller
-  const IWorldMap &  _world;     ///< Obvious too
+  const IWorldMap &       _world;     ///< Obvious too
   
   RendererTable _renderers; ///< Table of {ObjectType, Associated renderer}
   DrawStack     _drawstack; ///< Ascending Y sorted list of objects beeing drawn during this frame
@@ -95,7 +95,7 @@ public:
   virtual ~RenderingEngine() noexcept = default;
   
   /// \brief Add a new renderer associated with given WorldObject type
-  void attachRenderer(const std::type_info& info, AbstractRenderer* rdr);
+  void attachRenderer(const std::type_info& info, ARenderer* rdr);
   
   /// \brief Draw EVERYTHINGS (in the world)
   void render();
@@ -104,13 +104,13 @@ public:
   /// \brief Draw every sized object 
   virtual void updateClickZones();
   /// \brief Return object at x,y or nullptr if none
-  virtual Pointer objectAt(int x, int y) const noexcept;
+  virtual core::Pointer entityAt(int x, int y) const noexcept;
   
 private:
 
   /// \brief renturn the renderer for specified type 
   ///   or throw if type not registered
-  AbstractRenderer* getrdr(const Pointer& obj);
+  ARenderer* getrdr(const core::Pointer& obj);
 };
 
 #endif /* RENDERENGINE_H */

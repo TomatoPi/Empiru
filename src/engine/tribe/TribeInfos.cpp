@@ -25,24 +25,23 @@
 
 #include "TribeInfos.h"
 #include "engine/events/GameEvents.h"
-#include "engine/core/entity/Entity.h"
-#include "entity/decorators/storage/Storage.h"
+#include "objects/decorator/decorators/inventory/storage/Storage.h"
 
 
 TribeInfos::TribeInfos() noexcept :
   _objects(), _stocks(), _cptr(30)
 {    
-  this->registerEvent<EventObjectCreated>(
-    [this](const EventObjectCreated& event) -> void {
-      if (decorator::Pointer ptr = event._ptr->getDecorator<decorator::Storage>()) {
-        bool res(_objects.emplace(ptr).second);
+  this->registerEvent<GameEvents::ObjectCreated>(
+    [this](const GameEvents::ObjectCreated& event) -> void {
+      if (auto store = dynamic_cast<const decorators::Storage *>(&*event._ptr)) {
+        bool res(_objects.emplace(event._ptr).second);
         assert(res);
       }
     });
-  this->registerEvent<EventObjectDestroyed>(
-    [this](const EventObjectDestroyed& event) -> void {
-      if (decorator::Pointer ptr = event._ptr->getDecorator<decorator::Storage>()) {
-        auto itr(_objects.find(ptr));
+  this->registerEvent<GameEvents::ObjectDestroyed>(
+    [this](const GameEvents::ObjectDestroyed& event) -> void {
+      if (auto store = dynamic_cast<const decorators::Storage *>(&*event._ptr)) {
+        auto itr(_objects.find(event._ptr));
         assert(itr != _objects.end());
         _objects.erase(itr);
       }
@@ -54,7 +53,7 @@ void TribeInfos::update() noexcept {
   }
   init();
   for (auto& ptr : _objects) {
-    for (auto& stack : static_cast<const decorator::Storage&>(*ptr).content()) {
+    for (auto& stack : static_cast<const decorators::Storage&>(*ptr).content()) {
       addStack(stack);
     }
   }

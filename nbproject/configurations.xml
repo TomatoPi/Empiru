@@ -25,7 +25,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f7" displayName="core" projectFiles="true">
-        <itemPath>src/core/GameCore.cpp</itemPath>
         <itemPath>src/core/GameCore.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="engine" projectFiles="true">
@@ -242,28 +241,31 @@
     <itemPath>src/objects/entity/utils/deposit/DepositEntityBeh.h</itemPath>
     <itemPath>src/engine/core/entity/EntityAllocator.h</itemPath>
     <itemPath>src/engine/core/entity/EntityBehaviour.h</itemPath>
-    <itemPath>src/controller/core/EntityControllerInterface.h</itemPath>
-    <itemPath>src/engine/core/Event.h</itemPath>
-    <itemPath>src/controller/core/GameControllerInterface.h</itemPath>
+    <itemPath>src/core/Event.h</itemPath>
     <itemPath>src/controller/utils/GenericSelectorController.h</itemPath>
-    <itemPath>src/engine/core/IGameAllocator.h</itemPath>
+    <itemPath>src/utils/alloc/Handle.h</itemPath>
+    <itemPath>src/controller/core/IEntityController.h</itemPath>
+    <itemPath>src/core/IGameAllocator.h</itemPath>
+    <itemPath>src/controller/core/IGameController.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/Inventory.h</itemPath>
     <itemPath>src/entity/decorators/Mover/Mover.h</itemPath>
     <itemPath>src/objects/decorator/decorators/mover/MoverBeh.h</itemPath>
-    <itemPath>src/engine/core/Object.h</itemPath>
-    <itemPath>src/engine/core/Observer.h</itemPath>
+    <itemPath>src/core/Object.h</itemPath>
+    <itemPath>src/core/Observer.h</itemPath>
     <itemPath>src/objects/operator/core/Operator.h</itemPath>
     <itemPath>src/objects/entity/entities/peon/PeonController.h</itemPath>
-    <itemPath>src/engine/core/Pointer.h</itemPath>
+    <itemPath>src/core/Pointer.h</itemPath>
     <itemPath>src/engine/utils/Register.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/slot/Slot.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/storage/Storage.h</itemPath>
+    <itemPath>src/engine/tribe/StorageWatch.h</itemPath>
     <itemPath>src/entity/decorators/supplier/Supplier.h</itemPath>
     <itemPath>src/world/core/Types.h</itemPath>
     <itemPath>src/objects/decorator/decorators/behaviour/Updator.h</itemPath>
     <itemPath>src/entity/decorators/collector/Worker.h</itemPath>
     <itemPath>src/objects/decorator/decorators/worker/WorkerBeh.h</itemPath>
     <itemPath>src/objects/decorator/decorators/worldobj/WorldObject.h</itemPath>
+    <itemPath>src/utils/alloc/allocators/WrapHandle.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -366,12 +368,12 @@
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/core/EntityControllerInterface.h"
+      <item path="src/controller/core/IEntityController.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/controller/core/GameControllerInterface.h"
+      <item path="src/controller/core/IGameController.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -399,21 +401,19 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Pointer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
             ex="false"
@@ -445,6 +445,8 @@
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/tribe/StorageWatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -760,6 +762,13 @@
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/Handle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/allocators/WrapHandle.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/assets/AssetManager.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -962,12 +971,12 @@
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/core/EntityControllerInterface.h"
+      <item path="src/controller/core/IEntityController.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/controller/core/GameControllerInterface.h"
+      <item path="src/controller/core/IGameController.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -995,21 +1004,19 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Pointer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
             ex="false"
@@ -1041,6 +1048,8 @@
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/tribe/StorageWatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1356,6 +1365,13 @@
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/Handle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/allocators/WrapHandle.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/assets/AssetManager.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1553,12 +1569,12 @@
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/core/EntityControllerInterface.h"
+      <item path="src/controller/core/IEntityController.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/controller/core/GameControllerInterface.h"
+      <item path="src/controller/core/IGameController.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1586,21 +1602,19 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Pointer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
             ex="false"
@@ -1632,6 +1646,8 @@
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/engine/tribe/StorageWatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1947,6 +1963,13 @@
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/Handle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/allocators/WrapHandle.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/assets/AssetManager.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2145,12 +2168,12 @@
       </item>
       <item path="perf/perf-2020-09-17" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/controller/core/EntityControllerInterface.h"
+      <item path="src/controller/core/IEntityController.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/controller/core/GameControllerInterface.h"
+      <item path="src/controller/core/IGameController.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2184,21 +2207,19 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/core/GameCore.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/core/Pointer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/engine/GameEngine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Event.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Object.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Observer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/engine/core/Pointer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/core/decorator/DecoratorAllocator.h"
             ex="false"
@@ -2230,6 +2251,8 @@
       <item path="src/engine/events/GameEvents.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/impl/GameEngine.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/engine/tribe/StorageWatch.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/engine/tribe/TribeInfos.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2545,6 +2568,13 @@
       <item path="src/sound/SoundEngine.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sound/SoundEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/Handle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/alloc/allocators/WrapHandle.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/assets/AssetManager.h" ex="false" tool="3" flavor2="0">
       </item>

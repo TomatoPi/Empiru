@@ -25,17 +25,17 @@
 #ifndef PEONCONTROLLER_H
 #define PEONCONTROLLER_H
 
-#include "controller/core/EntityControllerInterface.h"
-#include "controller/core/GameControllerInterface.h"
+#include "controller/core/IEntityController.h"
+#include "controller/core/IGameController.h"
 
-class PeonController : public EntityControllerInterface {
+class PeonController : public IEntityController {
 private:
   
-  GameControllerInterface& _controller;
+  IGameController& _controller;
   
 public:
   
-  PeonController(GameControllerInterface& controller) noexcept :
+  PeonController(IGameController& controller) noexcept :
     _controller(controller)
   {
   }

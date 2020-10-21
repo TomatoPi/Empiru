@@ -34,6 +34,7 @@ class Operator : public core::Object {
   Operator() noexcept = default;
   virtual ~Operator() noexcept = default;
   
+  /// Make sure that operators override this method
   virtual void operator() () noexcept = 0;
 
   class Builder : public core::Object::Builder {

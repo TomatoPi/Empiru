@@ -29,7 +29,7 @@
 #include "engine/core/decorator/Pointer.h"
 #include "ressources/core/Stack.h"
 
-namespace decorator {
+namespace decorators {
   
   class Worker : public Decorator {
   public:

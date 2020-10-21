@@ -26,7 +26,7 @@
 #include "utils/log.h"
 #include "utils/hex/Consts.h"
 
-namespace decorator {
+namespace decorators {
   
 Mover::Mover() noexcept :
   Decorator(),

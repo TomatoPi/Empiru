@@ -16,31 +16,16 @@
  */
 
 /// 
-/// \file   EngineInterface.h
+/// \file   StorageWatch.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 02:11
+/// \date 22 octobre 2020, 00:06
 ///
 
-#ifndef ENGINEINTERFACE_H
-#define ENGINEINTERFACE_H
+#ifndef STORAGEWATCH_H
+#define STORAGEWATCH_H
 
-#include <typeinfo>
 
-#include "engine/core/Pointer.h"
-#include "engine/core/Object.h"
 
-class IGameAllocator {
-public:
-  
-  virtual core::Pointer 
-  createObject(const std::type_info&, const core::Object::Builder&) 
-  noexcept = 0;
-  
-  virtual void 
-  discardObject(core::Pointer ptr) 
-  noexcept = 0;
-};
-
-#endif /* ENGINEINTERFACE_H */
+#endif /* STORAGEWATCH_H */
 

@@ -26,14 +26,13 @@
 #ifndef GUI_RDR_ABSTRACTRENDERER_H
 #define GUI_RDR_ABSTRACTRENDERER_H
 
+#include "core/Pointer.h"
 #include "utils/hex/Viewport.h"
-#include "engine/core/entity/Pointer.h"
+
 #include <SDL2/SDL_render.h>
 
 /// \brief Renderers are classes that know how to draw world objects
-class AbstractRenderer {
-private:
-  
+class ARenderer {
 public:
   
   /// \brief Render the object at given position
@@ -45,7 +44,7 @@ public:
   /// \param rdr : renderer
   /// \throw runtime_error on failure
   virtual void renderAt(
-    const Pointer& obj, 
+    const core::Pointer& obj, 
     int ori, int x, int y,
     const hex::Viewport & view) = 0;
   
@@ -60,23 +59,10 @@ public:
   /// \param color : color that must be used to draw
   /// \throw runtime_error on failure
   virtual void renderAt(
-    const Pointer& obj,
+    const core::Pointer& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     const SDL_Color & color) = 0; 
-  
-  /// \brief Called when a new object associated with this renderer is created
-  ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const Pointer& obj) = 0;
-  /// \brief Called when an object associated with this renderer is destroyed
-  ///  may dealocate corresponding datas
-  virtual void removeTarget(const Pointer& obj) = 0;
-  /// \brief Called when an object associated with this renderer is selected
-  ///  may remember draw a special overlay around it
-  virtual void targetSelected(const Pointer& obj) = 0;
-  /// \brief Called when an object associated with this renderer is deselected
-  ///  may remember to stop draw special overlay
-  virtual void targetDeselected(const Pointer& obj) = 0;
 };
 
 #endif /* GUI_RDR_ABSTRACTRENDERER_H */

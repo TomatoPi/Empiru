@@ -79,7 +79,7 @@ namespace {
   template <class T>
   using EntityAllocator = alloc::IndexAllocator<T,Entity>;
   template <class T>
-  using DecoratorAllocator = alloc::IndexAllocator<T,decorator::Decorator>;
+  using DecoratorAllocator = alloc::IndexAllocator<T,decorators::Decorator>;
 }
 
 /// \brief Too complex to explain what is this thing
@@ -127,21 +127,21 @@ int main(int argc, char** argv) {
   /* Register basic kinds */
   
   {
-    _gameEngine.registerDecorator(typeid(decorator::Mover), 
-        new DecoratorAllocator<decorator::Mover>(), 
-        new decorator::MoverBeh(_worldMap));
-    _gameEngine.registerDecorator(typeid(decorator::Deposit),
-        new DecoratorAllocator<decorator::Deposit>(),
+    _gameEngine.registerDecorator(typeid(decorators::Mover), 
+        new DecoratorAllocator<decorators::Mover>(), 
+        new decorators::MoverBeh(_worldMap));
+    _gameEngine.registerDecorator(typeid(decorators::Deposit),
+        new DecoratorAllocator<decorators::Deposit>(),
         nullptr);
-    _gameEngine.registerDecorator(typeid(decorator::Storage),
-        new DecoratorAllocator<decorator::Storage>(),
+    _gameEngine.registerDecorator(typeid(decorators::Storage),
+        new DecoratorAllocator<decorators::Storage>(),
         nullptr);
-    _gameEngine.registerDecorator(typeid(decorator::Slot),
-        new DecoratorAllocator<decorator::Slot>(),
+    _gameEngine.registerDecorator(typeid(decorators::Slot),
+        new DecoratorAllocator<decorators::Slot>(),
         nullptr);
-    _gameEngine.registerDecorator(typeid(decorator::Collector),
-        new DecoratorAllocator<decorator::Collector>(),
-        new decorator::WorkerBeh());
+    _gameEngine.registerDecorator(typeid(decorators::Collector),
+        new DecoratorAllocator<decorators::Collector>(),
+        new decorators::WorkerBeh());
   }
   
   { /* tile */

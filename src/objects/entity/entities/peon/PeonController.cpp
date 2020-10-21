@@ -43,22 +43,22 @@ void PeonController::RightClickOn(Pointer ptr) noexcept {
 void PeonController::RightClickOut(Pointer ptr) noexcept {
   Pointer pptr(_controller.selection());
   if (!ptr) {
-    decorator::Mover& mover(static_cast<decorator::Mover&>(*pptr->getDecorator<decorator::Mover>()));
+    decorators::Mover& mover(static_cast<decorators::Mover&>(*pptr->getDecorator<decorators::Mover>()));
     mover.clearPath();
     mover.setTarget(_controller.cursor(), 0.01);
     _controller.objectAction(pptr, Pointer(nullptr));
   } else {
     Peon& peon(static_cast<Peon&>(*pptr));
-    if (decorator::Pointer dptr = ptr->getDecorator<decorator::Deposit>()) {
-      decorator::Deposit& deposit(static_cast<decorator::Deposit&>(*dptr));
+    if (decorators::Pointer dptr = ptr->getDecorator<decorators::Deposit>()) {
+      decorators::Deposit& deposit(static_cast<decorators::Deposit&>(*dptr));
       if (!deposit.isEmpty()) {
         if (0 < peon.inventory().storableQtyOf(deposit.content().front().type())) {
           peon.collector().collectAt(dptr, deposit.content().front().type());
         } 
       }
     }
-    else if (decorator::Pointer sptr = ptr->getDecorator<decorator::Storage>()) {
-      decorator::Storage& store(static_cast<decorator::Storage&>(*sptr));
+    else if (decorators::Pointer sptr = ptr->getDecorator<decorators::Storage>()) {
+      decorators::Storage& store(static_cast<decorators::Storage&>(*sptr));
       if (!peon.inventory().isEmpty()) {
         if (0 < store.storableQtyOf(peon.inventory().content().front().type())) {
           peon.collector().storeAt(sptr, peon.inventory().content().front().type());

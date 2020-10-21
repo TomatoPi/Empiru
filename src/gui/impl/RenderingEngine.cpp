@@ -28,7 +28,7 @@
 #include "RenderingEngine.h"
 #include "controller/events/ControllerEvents.h"
 #include "engine/events/GameEvents.h"
-#include "engine/core/entity/Entity.h"
+#include "objects/entity/core/Entity.h"
 
 #include "utils/log.h"
 
@@ -44,28 +44,12 @@ RenderingEngine::RenderingEngine(
   _renderers(),
   _drawstack()
 {
-  this->registerEvent<EventObjectSelected>(
-      [this](const EventObjectSelected & event) -> void {
-        getrdr(event._ptr)->targetSelected(event._ptr);
-      });
-  this->registerEvent<EventObjectDeselected>(
-      [this](const EventObjectDeselected & event) -> void {
-        getrdr(event._ptr)->targetDeselected(event._ptr);
-      });
-  this->registerEvent<EventObjectCreated>(
-      [this](const EventObjectCreated & event) -> void{
-        getrdr(event._ptr)->addTarget(event._ptr);
-      });
-  this->registerEvent<EventObjectDestroyed>(
-      [this](const EventObjectDestroyed & event) -> void{
-        getrdr(event._ptr)->removeTarget(event._ptr);
-      });
 }
 
 /// \brief Add a new renderer associated with given WorldObject type
 void RenderingEngine::attachRenderer(
   const std::type_info & info, 
-  AbstractRenderer * rdr) 
+  ARenderer * rdr) 
 {
   bool success(_renderers.emplace(std::type_index(info), rdr).second);
   assert(success);
@@ -73,7 +57,7 @@ void RenderingEngine::attachRenderer(
 
 /// \brief renturn the renderer for specified type 
 ///   or throw if type not registered
-AbstractRenderer * RenderingEngine::getrdr(const Pointer& obj) {
+ARenderer * RenderingEngine::getrdr(const core::Pointer& obj) {
   return _renderers.at(std::type_index(typeid(*obj)));
 }
 
@@ -89,7 +73,7 @@ void RenderingEngine::render() {
       dx(_worldView.tileWidth() * 0.75), 
       dy(_worldView.tileHeight());
   // Get tile renderer
-  AbstractRenderer* tilerdr(_renderers.at(std::type_index(typeid(Tile))));
+  ARenderer* tilerdr(_renderers.at(std::type_index(typeid(Tile))));
   _drawstack.clear();
   // Get initial position and start
   for (
@@ -108,7 +92,7 @@ void RenderingEngine::render() {
       if (_world.isOnMap(pos)) {
         _worldView.toPixel(pos.tile(), &x, &y);
         try {
-          tilerdr->renderAt(Pointer(nullptr), _camera.getOrientation(), 
+          tilerdr->renderAt(core::Pointer(nullptr), _camera.getOrientation(), 
             x, y, _worldView);
         } catch (const std::exception & e) {
           LOG_ERROR("Failed draw tile : %s\n", SDL_GetError());
@@ -118,7 +102,7 @@ void RenderingEngine::render() {
         auto vec(_world.getContentAt(pos));
         if (vec) {
           for (auto& obj : *vec) {
-            _worldView.toPixel(obj->obj().pos(), &x, &y);
+            _worldView.toPixel(static_cast<const WorldObject&>(*obj).pos(), &x, &y);
             _drawstack.emplace(Pixel(x, y), obj);
           }
         }
@@ -128,10 +112,10 @@ void RenderingEngine::render() {
   
   // Draw all entities
   for (auto & itr : _drawstack) {
-    const Pointer& obj(itr.second);
+    const core::Pointer& entity(static_cast<const WorldObject&>(*itr.second).entity());
     // Get correct renderer and use it
-    getrdr(obj)->renderAt(
-          obj,
+    getrdr(entity)->renderAt(
+          itr.second,
           _camera.getOrientation(), 
           itr.first._x, itr.first._y,
           _worldView);
@@ -148,24 +132,24 @@ void RenderingEngine::updateClickZones() {
   uint32_t cptr(1);
   // Draw is made according to last drawstack
   for (auto & itr : _drawstack) {
-  const Pointer& obj(itr.second);
+    const core::Pointer& entity(static_cast<const WorldObject&>(*itr.second).entity());
     SDL_Color color;
     color.r = (cptr & 0x000000FF) >> 0;
     color.g = (cptr & 0x0000FF00) >> 8;
     color.b = (cptr & 0x00FF0000) >> 16;
     color.a = 255;
     // Get correct renderer and use it
-    getrdr(obj)->renderAt(
-        obj,
+    getrdr(entity)->renderAt(
+        itr.second,
         _camera.getOrientation(), 
         itr.first._x, itr.first._y,
         _worldView, color);
-    _colors.emplace(color, obj);
+    _colors.emplace(color, entity);
     cptr += 1;
   }
 }
 
-Pointer RenderingEngine::objectAt(int x, int y) const noexcept {
+core::Pointer RenderingEngine::entityAt(int x, int y) const noexcept {
   SDL_LockSurface(_window.vsurface);
   SDL_Color color{255, 255, 255, 255};
   SDL_GetRGB(
@@ -181,5 +165,5 @@ Pointer RenderingEngine::objectAt(int x, int y) const noexcept {
     return itr->second;
   }
   //LOG_DEBUG("NOTHING\n");
-  return Pointer(nullptr);
+  return core::Pointer(nullptr);
 }

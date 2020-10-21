@@ -31,9 +31,11 @@
 
 /// \brief Contructor
 GameEngine::GameEngine() noexcept : 
-  BigSubject(), BigObserver(),
-  _entities(),
-  _decorators()
+  core::Subject(), 
+  core::Observer(),
+  _objects(),
+  _callables(),
+  _dyings()
 {
 }
 
@@ -41,81 +43,46 @@ GameEngine::GameEngine() noexcept :
 ///   Call behaviour of each object
 void GameEngine::update() {
   /* compute entitites masters behaviours */
-  _entities.behave(
-      [this](Entity& entity, Pointer& ptr, EntityBeh* beh) -> void {
-        (*beh)(entity, ptr);
+  for (auto& type : _callables) {
+    _objects.at(type)->foreach(
+      [this](core::Object& obj) -> void {
+        obj();
       });
-  /* then compute sub-behaviour for each components */
-  _decorators.behave(
-      [this](decorator::Decorator& dec, decorator::Pointer& ptr, decorator::Operator* beh) -> void {
-        (*beh)(dec, ptr);
-      });
-  /* destroy entites that died this tick */
-  _entities.destroyGarbage(
-      [this](Pointer ptr) -> void {
-        ptr->forEachDecorator(
-            [this](decorator::Pointer& ptr) -> void {
-              _decorators.destroyObject(ptr);
-            });
-      });
-  _decorators.destroyGarbage([](const decorator::Pointer&)->void{});
-}
-
-
-Pointer 
-GameEngine::createEntity(const std::type_info& type, const Entity::Builder& builder)
-noexcept
-{
-  Pointer entity(_entities.createObject(type, builder));
-  sendNotification(EventObjectCreated(entity));
-  return entity;
-}
-
-void 
-GameEngine::discardEntity(Pointer ptr) 
-noexcept
-{
-  sendNotification(EventObjectDestroyed(ptr));
-  _entities.destroyObject(ptr);
-}
-
-void 
-GameEngine::registerEntity(
-  const std::type_info& type, 
-  EAllocator* alloc, 
-  EntityBeh* beh) 
-noexcept
-{
-  _entities.registerKind(type, alloc);
-  if (beh) {
-    _entities.registerBehav(type, beh);
+  }
+  for (auto& ptr : _dyings) {
+    _objects.at(std::type_index(typeid(*ptr)))->deleteObject(ptr);
   }
 }
 
 
-decorator::Pointer
-GameEngine::createDecorator(const std::type_info& type, const decorator::Decorator::Builder& builder)
+core::Pointer 
+GameEngine::createObject(
+  const std::type_info& type, 
+  const core::Object::Builder& builder)
 noexcept
 {
-  return _decorators.createObject(type, builder);
+  core::Pointer object(_objects.at(std::type_index(type))->createObject());
+  builder(object);
+  sendNotification(GameEvents::ObjectCreated(object));
+  return object;
+}
+
+void GameEngine::discardObject(core::Pointer ptr) noexcept {
+  sendNotification(GameEvents::ObjectDestroyed(ptr));
+  _dyings.push_back(ptr);
 }
 
 void 
-GameEngine::dirscardDecorator(decorator::Pointer ptr) 
-noexcept
-{
-  _decorators.destroyObject(ptr);
-}
-
-void
-GameEngine::registerDecorator(
+GameEngine::registerObject(
   const std::type_info& type, 
-  DAllocator* alloc, 
-  decorator::Operator* beh) 
+  Allocator* alloc, 
+  bool callable) 
 noexcept
 {
-  _decorators.registerKind(type, alloc);
-  if (beh) {
-    _decorators.registerBehav(type, beh);
+  assert(alloc);
+  auto res(_objects.emplace(std::type_index(type), alloc));
+  assert(res.second);
+  if (callable) {
+    _callables.push_back(std::type_index(type));
   }
 }

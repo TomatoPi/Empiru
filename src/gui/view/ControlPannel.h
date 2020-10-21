@@ -25,23 +25,23 @@
 #ifndef CONTROLPANNEL_H
 #define CONTROLPANNEL_H
 
-#include "utils/pattern/BigObserver.h"
 #include "utils/gui/View.h"
 #include "utils/gui/Window.h"
 #include "utils/assets/SpriteSheet.h"
 #include "utils/gui/FontPrinter.h"
-#include "engine/core/entity/Pointer.h"
+#include "core/Pointer.h"
+#include "core/Observer.h"
 
 #include "gui/utils/GenericRenderer.h"
 
 #include "engine/tribe/TribeInfos.h"
 
-class ControlPannel : public gui::View, public BigObserver {
+class ControlPannel : public gui::View, public core::Observer {
 private:
   
-  Window &           _window;
-  const TribeInfos & _playerTribe;
-  Pointer          _selectedObject;
+  Window &          _window;
+  const TribeInfos& _playerTribe;
+  core::Pointer     _selectedObject;
   
   std::shared_ptr<SpriteSheet> _background; ///< Pannel's background sprite
   std::shared_ptr<SpriteSheet> _icons;      ///< Pannel's icons sprites

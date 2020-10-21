@@ -25,10 +25,11 @@
 #ifndef FONTPRINTER_H
 #define FONTPRINTER_H
 
-#include <memory>
-#include <string>
 #include "utils/math/Vector.h"
 #include "utils/assets/SpriteSheet.h"
+
+#include <vector>
+#include <string>
 
 class FontPrinter {
 public:

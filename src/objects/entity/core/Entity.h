@@ -25,8 +25,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "engine/core/Object.h"
-#include "engine/core/IGameAllocator.h"
+#include "core/Object.h"
+#include "core/IGameAllocator.h"
 #include "objects/decorator/core/Decorator.h"
 #include "objects/decorator/decorators/worldobj/WorldObject.h"
 #include <typeinfo>
@@ -41,11 +41,18 @@ public:
 
   Entity() noexcept = default;
   virtual ~Entity() noexcept = default;
+  
+  /// \brief By default entities are not callables
+  virtual void operator() () noexcept {assert(0);}
 
   /// \brief Must return a pointer to given decorator if such exist
   ///   nullptr otherwise
   virtual core::Pointer 
   findDecorator(const std::type_info& type) noexcept = 0;
+  /// \brief Must return a pointer to given decorator if such exist
+  ///   nullptr otherwise
+  virtual const core::Pointer 
+  findDecorator(const std::type_info& type) const noexcept = 0;
 
   /// \brief Must return given decorator, undefined behaviour if none
   virtual Decorator& 
@@ -73,7 +80,7 @@ public:
   public:
     Builder(IGameAllocator& a, const WorldObject::Builder& b) noexcept :
       core::Object::Builder(), _allocator(a), _posbuilder(b) {}
-    virtual void operator() (core::Pointer& ptr) const noexcept override {
+    virtual void operator() (core::Pointer& ptr) noexcept override {
       this->core::Object::Builder::operator() (ptr);
       Entity& entity(static_cast<Entity&>(*ptr));
       _posbuilder._entity = ptr;

@@ -27,7 +27,7 @@
 
 #include "Tile.h"
 #include "Types.h"
-#include "engine/core/Pointer.h"
+#include "core/Pointer.h"
 
 /// \brief Interface that must be used to comunicate with the World
 class IWorldMap {

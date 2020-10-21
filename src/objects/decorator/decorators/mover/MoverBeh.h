@@ -29,7 +29,7 @@
 #include "engine/core/decorator/DecoratorUpdator.h"
 #include "world/core/IWorldMap.h"
 
-namespace decorator {
+namespace decorators {
   class MoverBeh : public Operator {
   private:
 

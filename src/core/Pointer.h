@@ -16,27 +16,20 @@
  */
 
 /// 
-/// \file   EntityController.h
+/// \file   Pointer.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 05:43
+/// \date 21 octobre 2020, 13:35
 ///
 
-#ifndef ENTITYCONTROLLER_H
-#define ENTITYCONTROLLER_H
+#ifndef GAME_ENGINE_POINTER_H
+#define GAME_ENGINE_POINTER_H
 
-#include "engine/core/entity/Pointer.h"
+#include "utils/alloc/Pointer.h"
+namespace core {
+  class Object;
+  using Pointer = alloc::SmartPointer<Object>;
+}
 
-class EntityControllerInterface {
-public:
-  
-  virtual void leftClickOn(Pointer ptr) noexcept = 0;
-  virtual void leftClickOut(Pointer ptr) noexcept = 0;
-  virtual void RightClickOn(Pointer ptr) noexcept = 0;
-  virtual void RightClickOut(Pointer ptr) noexcept = 0;
-  virtual void cursorMoved() noexcept = 0;
-  virtual void deselected(Pointer ptr) noexcept = 0;
-};
-
-#endif /* ENTITYCONTROLLER_H */
+#endif /* GAME_ENGINE_POINTER_H */
 

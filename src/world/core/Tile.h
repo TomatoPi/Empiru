@@ -25,7 +25,7 @@
 #ifndef WORLD_TILE_H
 #define WORLD_TILE_H
 
-#include "engine/core/Pointer.h"
+#include "core/Pointer.h"
 #include <cassert>
 #include <unordered_set>
 

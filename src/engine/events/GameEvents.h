@@ -25,8 +25,8 @@
 #ifndef GAMEEVENTS_H
 #define GAMEEVENTS_H
 
-#include "engine/core/Pointer.h"
-#include "engine/core/Event.h"
+#include "core/Pointer.h"
+#include "core/Event.h"
 
 namespace GameEvents {
   

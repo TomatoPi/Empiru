@@ -28,7 +28,7 @@
 #include "../Inventory.h"
 #include <cassert>
 
-namespace decorator {
+namespace decorators {
 
   class Deposit : public Inventory {
   private:
@@ -93,7 +93,7 @@ namespace decorator {
       explicit Builder(Stack::Ressource type, int size, int difficulty)
       noexcept;
 
-      virtual void operator() (core::Pointer& ptr) const noexcept override;
+      virtual void operator() (core::Pointer& ptr) noexcept override;
     };
   };
 }

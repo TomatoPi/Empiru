@@ -44,8 +44,8 @@ public:
   
   virtual void 
   operator() (Entity& entity, Pointer ptr) noexcept override {
-    const decorator::Deposit& deposit(static_cast<decorator::Deposit&>(
-      *entity.getDecorator<decorator::Deposit>()));
+    const decorators::Deposit& deposit(static_cast<decorators::Deposit&>(
+      *entity.getDecorator<decorators::Deposit>()));
     if (deposit.isEmpty()) {
       _engine.discardEntity(ptr);
     }

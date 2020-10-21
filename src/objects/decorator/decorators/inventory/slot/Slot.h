@@ -28,7 +28,7 @@
 #include "../Inventory.h"
 #include <cassert>
 
-namespace decorator {
+namespace decorators {
   
   /// \brief Interface decorator for things that store other things
   class Slot : public Inventory {

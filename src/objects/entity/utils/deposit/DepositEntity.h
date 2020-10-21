@@ -35,7 +35,7 @@
 class DepositEntity : public Entity {
 public:
   
-  const decorator::Deposit& deposit() const noexcept;
+  const decorators::Deposit& deposit() const noexcept;
   
   class Builder : public Entity::Builder {
   private:

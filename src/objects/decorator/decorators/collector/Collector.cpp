@@ -25,7 +25,7 @@
 #include "Collector.h"
 #include "entity/decorators/deposit/Deposit.h"
 
-namespace decorator {
+namespace decorators {
 
   void Collector::collectAt(const Pointer& ptr, Stack::Ressource type)   
   noexcept {

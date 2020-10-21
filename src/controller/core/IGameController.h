@@ -16,21 +16,28 @@
  */
 
 /// 
-/// \file   DecoratorPtr.h
+/// \file   GameControllerInterface.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 8 octobre 2020, 23:34
+/// \date 9 octobre 2020, 06:10
 ///
 
-#ifndef DECORATORPTR_H
-#define DECORATORPTR_H
+#ifndef GAMECONTROLLERINTERFACE_H
+#define GAMECONTROLLERINTERFACE_H
 
-#include "utils/alloc/IndexPtr.h"
+#include "core/Pointer.h"
+#include "world/core/Types.h"
 
-namespace decorator { 
-  class Decorator;
-  using Pointer = alloc::IndexPtr<Decorator>;
-}
+class IGameController {
+public:
   
-#endif /* DECORATORPTR_H */
+  virtual void selectObject(core::Pointer ptr) noexcept = 0;
+  virtual void deselectObject(core::Pointer ptr) noexcept = 0;
+  virtual void objectAction(core::Pointer ptr, core::Pointer target) noexcept = 0;
+  
+  virtual const core::Pointer& selection() const noexcept = 0;
+  virtual const world::Position& cursor() const noexcept = 0;
+};
+
+#endif /* GAMECONTROLLERINTERFACE_H */
 

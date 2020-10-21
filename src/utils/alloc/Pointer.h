@@ -25,7 +25,10 @@
 #ifndef POINTER_H
 #define POINTER_H
 
+#include "Handle.h"
+
 #include <cassert>
+#include <type_traits>
 
 namespace alloc {
   ///
@@ -35,104 +38,48 @@ namespace alloc {
   ///   due to data reordering.
   /// This handler must answer this problem by insure proper tracking of 
   ///   referenced objects.
+  /// Theremore, this pointer is always safe, and can allow to detect the case
+  ///   where referenced object has been deleted, contrary to raw pointers
   ///
   /// Thus, this handler must be used every time a singular object 
   ///   would be tracked
   ///
   template <class Object>
   class SmartPointer {
-  protected:
-    
-    /* ******************************************************************** */
-    /*                      Potentialy Harmfull methods                     */
-    /* ******************************************************************** */
-
-    /// \brief Internal struct used to track an object in the allocator
-    class Handle {
-    public:
-      
-      /// \brief Construct a smart ref on given allocator cell
-      Handle() noexcept : _count(1), _valid(true) {}
-      /// \brief Default destructor is enougth
-      virtual ~Handle() noexcept = default;
-
-      /// \brief Prevent missuse
-      Handle(const Handle&) = delete;
-      /// \brief Prevent missuse
-      Handle& operator= (const Handle&) = delete;
-      /// \brief Prevent missuse
-      Handle(Handle&&) = delete;
-      /// \brief Prevent missuse
-      Handle& operator =(Handle&&) = delete;
-      
-      virtual Object* asPtr() noexcept = 0;
-      virtual const Object* asPtr() const noexcept = 0;
-      virtual Object& asRef() noexcept = 0;
-      virtual const Object& asRef() const noexcept = 0;
-      
-    private:
-      
-      friend class SmartPointer;
-      
-      std::size_t _count; ///< Number of pointers that reference this handle
-      bool        _valid; ///< True if the handle is valid
-    };
-    
-    /// \brief Mark the associated object as no longer existing
-    ///   After calling this function dereferencing this ptr is not allowed
-    void deprecate() noexcept {
-      assert(_ref && "Deprecating an invalid pointer");
-      _ref->_valid = false;
-    }
-    
-    /// \brief Create a Pointer from a constructed reference
-    explicit SmartPointer(Handle* ref) noexcept : _ref(ref) {}
-    
-    /// \brief Used by the derived classes to retrieve the object's handle
-    ///   but prevent free modification on stored handle
-    Handle* getRef() noexcept {
-      return _ref;
-    }
-    
-    /// \brief Used by the derived classes to retrieve the object's handle
-    ///   but prevent free modification on stored handle
-    const Handle* getRef() const noexcept {
-      return _ref;
-    }
-    
   private:
     
     /* ******************************************************************** */
     /*                       Reference count tracking                       */
     /* ******************************************************************** */
-
+    
+    using _Handle = AHandle<Object>;
     friend struct PtrHash;   ///< Hasher on anchor's adress
     friend struct PtrComp;   ///< Comparaison on anchors adresses
     friend struct PtrEquals; ///< True if referenced objects are the same
 
-    Handle* _ref; ///< Pointer to the associated object's smart ref
+    _Handle* _ref; ///< Pointer to the associated object's smart ref
 
     /// \brief Called to eventualy decrease and release owning on ref
     ///   if ref was not null and refcount drop to zero
     ///   ref is dealocated
     void releaseRef() noexcept {
       if (_ref) {
-        _ref->_count -= 1;
-        if (_ref->_count == 0) {
+        _ref->release();
+        if (_ref->hasNoMoreHolders()) {
           /* if the pointer was the last ref, but the object is always valid */
           /* it means that we're losing reference to an allocator's object */
           /* and the we're discarding ptr without explicit release of memory */
-          assert(!_ref->_valid && "Memory Leaked !!");
+          assert(!_ref->isDeprecated() && "Memory Leaked !!");
           delete _ref;
         }
       }
     }
     /// \brief Called to eventualy increase and take own on ref
     ///   if ref is not null, it's owner count is incremented
-    void acquire(Handle *ref) noexcept {
+    void acquire(_Handle *ref) noexcept {
       _ref = ref;
       if (_ref) {
-        _ref->_count += 1;
+        _ref->aquire();
       }
     }
 
@@ -142,8 +89,14 @@ namespace alloc {
     /*                              General Methods                         */
     /* ******************************************************************** */
     
+    
+    /// \brief Create a Pointer from a constructed Hanle
+    explicit SmartPointer(_Handle* ref) noexcept : 
+        _ref(ref) 
+    {
+    }
     /// \brief Create a nullptr
-    explicit SmartPointer(std::nullptr_t) :
+    explicit SmartPointer(std::nullptr_t) noexcept :
         _ref(nullptr)
     {
     }
@@ -212,12 +165,24 @@ namespace alloc {
 
     /// \brief Must return true if the pointer can be safely dereferenced
     bool isValid() const noexcept {
-      return _ref && _ref->_valid;
+      return _ref && !_ref->isDeprecated();
     }
     /// \brief Must return true if the pointer used to reference a valid object
     ///   but the object has been destroyed
     bool isDeprecated() const noexcept {
-      return _ref && !_ref->_valid;
+      return _ref && _ref->isDeprecated;
+    }
+    
+    /// \brief MUST NEVER BE USED UNLESS YOU ARE AN ALLOCATOR
+    /// \warning DO NOT USE
+    template <class H>
+    H& handle() noexcept {
+      assert(_ref && "Getting handle of Invalid Ptr");
+      static_assert(!std::is_same<H,_Handle>::value, 
+              "YOU MUST NOT DO THAT");
+      static_assert(!std::is_same<H,const _Handle>::value, 
+              "YOU MUST NOT DO THAT");
+      return static_cast<H&>(*_ref);
     }
     
     /// \brief Must return true if the pointer can be dereferenced
@@ -226,14 +191,23 @@ namespace alloc {
     }
 
     /// \brief Return true if referenced objects are the same
-    bool operator== (const SmartPointer& b) const noexcept {
-      return _ref == b._ref;
-    }
-    
-    bool operator!= (const SmartPointer& b) const noexcept {
-      return _ref != b._ref;
-    }
+    template <class U> friend bool 
+    operator== (const SmartPointer<U>& a, const SmartPointer<U>& b) noexcept;
+    /// \brief Return true if referenced objects are not the same
+    template <class U> friend bool 
+    operator!= (const SmartPointer<U>& a, const SmartPointer<U>& b) noexcept;
   };
+  
+  /// \brief Return true if referenced objects are the same
+  template <class U> bool 
+  operator== (const SmartPointer<U>& a, const SmartPointer<U>& b) noexcept {
+    return a._ref == b._ref;
+  }
+  /// \brief Return true if referenced objects are not the same
+  template <class U> bool 
+  operator!= (const SmartPointer<U>& a, const SmartPointer<U>& b) noexcept {
+    return a._ref != b._ref;
+  }
 
   /// \brief Functor that hash a ptr according to it's referenced adress
   struct PtrHash {

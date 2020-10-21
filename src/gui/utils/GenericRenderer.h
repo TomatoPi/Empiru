@@ -27,7 +27,7 @@
 #define GENERICRENDERER_H
 
 #include <memory>
-#include "engine/core/entity/Pointer.h"
+#include "core/Pointer.h"
 #include "gui/core/AbstractRenderer.h"
 #include "utils/assets/SpriteSheet.h"
 #include "utils/assets/GraphicAssetsRegister.h"
@@ -51,7 +51,7 @@
 ///   y    : tile's center y
 ///
 template <typename Blitter>
-class GenericRenderer : public AbstractRenderer {  
+class GenericRenderer : public ARenderer {  
 protected:
   
   std::shared_ptr<SpriteSheet> _sheet;    ///< The sprite sheet
@@ -79,10 +79,10 @@ public:
   
   /// \brief Draw the object at given position
   virtual void renderAt(
-    const Pointer& obj, 
+    const core::Pointer& obj, 
     int ori, int x, int y,
     const hex::Viewport & view)
-  {
+  override {
     SDL_Rect r;
     _blitter(&r, 
       _sheet->width(), _sheet->height(), 
@@ -94,11 +94,11 @@ public:
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
   virtual void renderAt(
-    const Pointer& obj,
+    const core::Pointer& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     const SDL_Color & c)
-  {
+  override {
     SDL_Rect r;
     _blitter(&r, 
       _mask->width(), _mask->height(), 
@@ -107,12 +107,6 @@ public:
     _mask->setColorMod(c);
     _mask->renderFrame(0, ori, &r);
   }
-  
-  virtual void addTarget(const Pointer& obj) noexcept {}
-  virtual void removeTarget(const Pointer& obj) noexcept {}
-  virtual void targetSelected(const Pointer& obj) noexcept {}
-  virtual void targetDeselected(const Pointer& obj) noexcept {}
-  
 };
 
 /// \brief Put the rectangle 'r' as if (x,y) was tile's center coordinate

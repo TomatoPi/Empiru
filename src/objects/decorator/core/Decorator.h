@@ -25,7 +25,7 @@
 #ifndef DECORATOR_H
 #define DECORATOR_H
 
-#include "engine/core/Object.h"
+#include "core/Object.h"
 
 /// \brief namespace containing all decorator related stuff
 class Decorator : public core::Object {
@@ -38,6 +38,9 @@ public:
   Decorator() noexcept = default;
   virtual ~Decorator() noexcept = default;
   
+  /// \brief By default decorators are not callables
+  virtual void operator() () noexcept {assert(0);}
+  
   const core::Pointer& entity() const noexcept {return _entity;}
   
   /// \brief Generally decorators are passive objects that do not react events
@@ -47,7 +50,7 @@ public:
   struct Builder : public core::Object::Builder {
     core::Pointer _entity;
     Builder() noexcept : core::Object::Builder(), _entity(nullptr) {}
-    virtual void operator() (core::Pointer& ptr) const noexcept override {
+    virtual void operator() (core::Pointer& ptr) noexcept override {
       this->core::Object::Builder::operator() (ptr);
       Decorator& deco(static_cast<Decorator&>(*ptr));
       deco._entity = _entity;

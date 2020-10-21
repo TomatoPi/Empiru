@@ -59,7 +59,7 @@ public:
     Builder(const world::Position& p, Size s, float r=0.5, int o=0) noexcept :
       Decorator::Builder(),
       _pos(p), _radius(r), _orientation(o), _size(s) {}
-    virtual void operator() (core::Pointer& ptr) const noexcept override;
+    virtual void operator() (core::Pointer& ptr) noexcept override;
   };
 
 private:

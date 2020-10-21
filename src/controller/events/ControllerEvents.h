@@ -25,27 +25,27 @@
 #ifndef CONTROLLEREVENTS_H
 #define CONTROLLEREVENTS_H
 
-#include "engine/core/entity/Pointer.h"
-#include "world/core/WorldObject.h"
-#include "utils/pattern/BigObserver.h"
+#include "core/Event.h"
+#include "core/Pointer.h"
 
-struct EventObjectSelected : public Event {
-  Pointer _ptr;
-  EventObjectSelected(const Pointer& ptr) noexcept : _ptr(ptr) {}
-};
+namespace ControllerEvents {
+  struct ObjectSelected : public Event {
+    core::Pointer _ptr;
+    ObjectSelected(const core::Pointer& ptr) noexcept : _ptr(ptr) {}
+  };
 
-struct EventObjectDeselected : public Event {
-  Pointer _ptr;
-  EventObjectDeselected(const Pointer& ptr) noexcept : _ptr(ptr) {}
-};
+  struct ObjectDeselected : public Event {
+    core::Pointer _ptr;
+    ObjectDeselected(const core::Pointer& ptr) noexcept : _ptr(ptr) {}
+  };
 
-struct EventObjectAction : public Event {
-  Pointer _obj;
-  Pointer _target;
-  EventObjectAction(const Pointer& obj, const Pointer& target) noexcept :
-    _obj(obj), _target(target)
-  {}
-};
+  struct ObjectAction : public Event {
+    core::Pointer _obj;
+    core::Pointer _target;
+    ObjectAction(const core::Pointer& obj, const core::Pointer& target) 
+    noexcept : _obj(obj), _target(target) {}
+  };
+}
 
 #endif /* CONTROLLEREVENTS_H */
 

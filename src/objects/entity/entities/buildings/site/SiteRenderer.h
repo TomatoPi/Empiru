@@ -29,7 +29,7 @@
 #include "utils/gui/assets/GraphicAssetsRegister.h"
 #include "gui/GenericRenderer.h"
 
-class SiteRenderer : public AbstractRenderer {
+class SiteRenderer : public ARenderer {
 private:
   
   std::shared_ptr<SpriteSheet> _sheet;

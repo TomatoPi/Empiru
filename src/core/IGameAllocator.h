@@ -16,10 +16,29 @@
  */
 
 /// 
-/// \file   GameCore.cpp
+/// \file   EngineInterface.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 septembre 2020, 16:37
+/// \date 9 octobre 2020, 02:11
 ///
 
-#include "GameCore.h"
+#ifndef ENGINEINTERFACE_H
+#define ENGINEINTERFACE_H
+
+#include <typeinfo>
+
+#include "core/Pointer.h"
+#include "core/Object.h"
+
+class IGameAllocator {
+public:
+  
+  virtual core::Pointer 
+  createObject(const std::type_info&, const core::Object::Builder&) 
+  noexcept = 0;
+  
+  virtual void discardObject(core::Pointer ptr) noexcept = 0;
+};
+
+#endif /* ENGINEINTERFACE_H */
+

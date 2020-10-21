@@ -50,7 +50,7 @@ namespace core {
     class Builder {
     public:
       Builder() noexcept = default;
-      virtual void operator() (Pointer& ptr) const noexcept {
+      virtual void operator() (Pointer& ptr) noexcept {
         ptr->_this = ptr;
       }
     };
@@ -69,6 +69,11 @@ namespace core {
 
     Object() noexcept = default;
     virtual ~Object() noexcept = default;
+    
+    Pointer ptr() noexcept { return _this; }
+    
+    /// \brief Some objects are callables
+    virtual void operator() () noexcept = 0;
     
     /// \brief Method to call when an object is beeing destroyed
     void discard() noexcept {

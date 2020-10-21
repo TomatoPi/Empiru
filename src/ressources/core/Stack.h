@@ -28,6 +28,7 @@
 #include <cstddef>
 #include <limits>
 #include <cassert>
+#include <algorithm>
 
 /// \brief Represents a ressource stack
 class Stack {

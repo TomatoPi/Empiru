@@ -24,7 +24,7 @@
 
 #include "WorldObject.h"
 
-void WorldObject::Builder::operator() (core::Pointer& ptr) const noexcept {
+void WorldObject::Builder::operator() (core::Pointer& ptr) noexcept {
   this->Decorator::Builder::operator() (ptr);
   WorldObject& obj(static_cast<WorldObject&>(*ptr));
   obj._pos = _pos;

@@ -25,37 +25,38 @@
 
 #include "Controller.h"
 
-#include "engine/core/entity/Entity.h"
+#include "core/Pointer.h"
+#include "core/Object.h"
 #include "engine/events/GameEvents.h"
 #include "controller/events/ControllerEvents.h"
 
 #include <cassert>
 
 namespace {
-  class NullEntityController : public EntityControllerInterface {
+  class NullEntityController : public IEntityController {
   private:
     Controller& _controller;
   public:
     NullEntityController(Controller& c) noexcept : _controller(c) {}
     
-    virtual void leftClickOn(Pointer ptr) noexcept override {
+    virtual void leftClickOn(core::Pointer ptr) noexcept override {
       /* nothing */
     }
-    virtual void leftClickOut(Pointer ptr) noexcept override {
+    virtual void leftClickOut(core::Pointer ptr) noexcept override {
       if (ptr) {
         _controller.selectObject(ptr);
       }
     }
-    virtual void RightClickOn(Pointer ptr) noexcept override {
+    virtual void RightClickOn(core::Pointer ptr) noexcept override {
       /* nothing */
     }
-    virtual void RightClickOut(Pointer ptr) noexcept override {
+    virtual void RightClickOut(core::Pointer ptr) noexcept override {
       /* nothing */
     }
     virtual void cursorMoved() noexcept override {
       /* nothing */
     }
-    virtual void deselected(Pointer ptr) noexcept override {
+    virtual void deselected(core::Pointer ptr) noexcept override {
       /* nothing */
     }
   };
@@ -65,46 +66,45 @@ namespace {
 
 /// \brief Constructor
 Controller::Controller() noexcept :
-  GameControllerInterface(), BigSubject(), BigObserver(),
+  IGameController(), BigSubject(), BigObserver(),
   _controllers(),
   _selection(nullptr),
   _cursor()
 {
   this->registerController(NullType, new NullEntityController(*this));
-  this->registerEvent<EventObjectDestroyed>(
-      [this](const EventObjectDestroyed& event) -> void {
+  this->registerEvent<GameEvents::ObjectDestroyed>(
+      [this](const GameEvents::ObjectDestroyed& event) -> void {
         if (event._ptr == _selection) {
           _selection = nullptr;
         }
       });
 }
 
-void Controller::selectObject(Pointer ptr) noexcept {
+void Controller::selectObject(core::Pointer ptr) noexcept {
   get(_selection).deselected(_selection);
   _selection = ptr;
-  sendNotification(EventObjectSelected(_selection));
+  sendNotification(ControllerEvents::ObjectSelected(_selection));
 }
-void Controller::deselectObject(Pointer ptr) noexcept {
+void Controller::deselectObject(core::Pointer ptr) noexcept {
   assert(ptr == _selection);
-  sendNotification(EventObjectDeselected(_selection));
+  sendNotification(ControllerEvents::ObjectDeselected(_selection));
   get(_selection).deselected(_selection);
   _selection = nullptr;
 }
-void Controller::objectAction(Pointer ptr, Pointer target) noexcept {
-  sendNotification(EventObjectAction(ptr, target));
+void Controller::objectAction(core::Pointer ptr, core::Pointer target) noexcept {
+  sendNotification(ControllerEvents::ObjectAction(ptr, target));
 }
-const Pointer& Controller::selection() const noexcept {
+const core::Pointer& Controller::selection() const noexcept {
   return _selection;
 }
 /// \brief Return the current position of the cursor
-const WorldObject::Position& Controller::cursor() const noexcept {
+const world::Position& Controller::cursor() const noexcept {
   return _cursor;
 }
 
 /// \brief Called when a left click is performed at given position
-void Controller::leftClickOn(
-  const WorldObject::Position& click, const Pointer& ptr) 
-{
+void 
+Controller::leftClickOn(const world::Position& click, const core::Pointer& ptr) noexcept {
   _cursor = click;
   if (ptr == _selection) {
     get(_selection).leftClickOn(_selection);
@@ -116,8 +116,7 @@ void Controller::leftClickOn(
 }
 /// \brief Called when a right click is performed at given position
 void Controller::rightClickOn(
-  const WorldObject::Position& click, const Pointer& ptr) 
-{
+  const world::Position& click, const core::Pointer& ptr) noexcept {
   _cursor = click;
   if (ptr == _selection) {
     get(_selection).RightClickOn(_selection);
@@ -130,7 +129,7 @@ void Controller::rightClickOn(
 
 /// \brief Called when the mouse has moved, maximum one time at each frame
 ///   Only the last position is passed to this function
-void Controller::cursorMoved(const WorldObject::Position& click, int x, int y) {
+void Controller::cursorMoved(const world::Position& click, int x, int y) noexcept{
   _cursor = click;
   get(_selection).cursorMoved();
 }
@@ -138,14 +137,14 @@ void Controller::cursorMoved(const WorldObject::Position& click, int x, int y) {
   
 void Controller::registerController(
   const std::type_info& type, 
-  EntityControllerInterface*&& controller) 
+  IEntityController*&& controller) 
 noexcept
 {
   bool success(_controllers.emplace(type, controller).second);
   assert(success);
 }
 
-EntityControllerInterface& Controller::get(const Pointer& ptr) noexcept {
+IEntityController& Controller::get(const core::Pointer& ptr) noexcept {
   return *_controllers.at(ptr.isValid() ? typeid(*ptr) : NullType);
 }
 

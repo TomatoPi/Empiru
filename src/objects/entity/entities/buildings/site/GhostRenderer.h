@@ -29,7 +29,7 @@
 #include "gui/GenericRenderer.h"
 
 /// \brief Renderers are classes that know how to draw world objects
-class GhostRenderer : public AbstractRenderer {
+class GhostRenderer : public ARenderer {
 private:
   
   typedef std::unordered_map<WorldPtr,bool,alloc::PtrHash,alloc::PtrEquals> 

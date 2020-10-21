@@ -25,13 +25,13 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
-#include "engine/core/Object.h"
+#include "core/Object.h"
 #include "objects/decorator/core/Decorator.h"
 #include "ressources/core/Stack.h"
 #include <vector>
 #include <set>
 
-namespace decorator {
+namespace decorators {
   
   /// \brief Interface decorator for things that store other things
   class Inventory : public Decorator {
@@ -108,7 +108,7 @@ namespace decorator {
     class Builder : public Decorator::Builder {
     public:
       Builder() noexcept : Decorator::Builder() {}
-      virtual void operator() (core::Pointer& ptr) const noexcept override {
+      virtual void operator() (core::Pointer& ptr) noexcept override {
         /// Make the concrete decorator accessible via the Inventory Decorator
         this->Decorator::Builder::operator() (ptr);
       }

@@ -25,7 +25,7 @@
 #include "Worker.h"
 #include "entity/decorators/deposit/Deposit.h"
 
-namespace decorator { 
+namespace decorators { 
 
   /// \brief Change the collect site of this collector
   void Worker::setWorkSite(const Pointer& ptr) noexcept {

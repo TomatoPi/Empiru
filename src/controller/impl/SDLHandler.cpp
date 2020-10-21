@@ -39,7 +39,7 @@ SDLHandler::SDLHandler(
           const hex::Viewport & v,
           Controller & e,
           ControlPannel & pan,
-          PixelPerfectClicker & click) 
+          IPixelPerfectClicker & click) 
 noexcept :
   _camera(c),
   _viewport(v),
@@ -181,7 +181,7 @@ bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent & event) {
   hex::Axial pos;
   _viewport.fromPixel(event.x, event.y, &pos);
   _clicker.updateClickZones();
-  Pointer obj(_clicker.objectAt(event.x, event.y));
+  core::Pointer obj(_clicker.entityAt(event.x, event.y));
   
   switch(event.button){
     case SDL_BUTTON_LEFT:
