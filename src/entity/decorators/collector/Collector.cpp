@@ -93,7 +93,7 @@ namespace decorator {
     }
   }
 
-  Collector::Builder::Builder(const EntityPtr& entity) noexcept :
+  Collector::Builder::Builder(const Pointer& entity) noexcept :
     Worker::Builder(entity) {}
 
   void Collector::Builder::operator() (Pointer& ptr) const noexcept {

@@ -26,16 +26,16 @@
 #define WORLDINTERFACE_H
 
 #include "Tile.h"
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 
 /// \brief Interface that must be used to comunicate with the World
 class MapInterface {
 public:
   
   /// \brief Must add given object to the world
-  virtual void addObject(const EntityPtr& ptr) = 0;
+  virtual void addObject(const Pointer& ptr) = 0;
   /// \brief Must remove given object fro the world
-  virtual void removeObject(const EntityPtr& ptr) = 0;
+  virtual void removeObject(const Pointer& ptr) = 0;
   
   /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const = 0;
@@ -46,7 +46,7 @@ public:
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant
-  virtual bool tryPosition(const EntityPtr& entity, EntityPtr* obstacle) 
+  virtual bool tryPosition(const Pointer& entity, Pointer* obstacle) 
   const noexcept = 0;
 };
 

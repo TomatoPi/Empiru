@@ -45,7 +45,7 @@ public:
   public:
     
     Builder(GameEngineInterface& engine, const WorldObject::Position& pos) noexcept;
-    virtual void operator() (EntityPtr& ptr) const noexcept override;
+    virtual void operator() (Pointer& ptr) const noexcept override;
   };
 };
 

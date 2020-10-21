@@ -93,7 +93,7 @@ namespace decorator {
     public :
 
       explicit Builder(
-        const EntityPtr& entity, 
+        const Pointer& entity, 
         Stack::Ressource type, int size, int difficulty)
       noexcept;
 

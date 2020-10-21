@@ -43,7 +43,7 @@ public:
   virtual ~DepositEntityBeh() noexcept = default;
   
   virtual void 
-  operator() (Entity& entity, EntityPtr ptr) noexcept override {
+  operator() (Entity& entity, Pointer ptr) noexcept override {
     const decorator::Deposit& deposit(static_cast<decorator::Deposit&>(
       *entity.getDecorator<decorator::Deposit>()));
     if (deposit.isEmpty()) {

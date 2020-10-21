@@ -57,7 +57,7 @@ noexcept :
 {
 }
 
-void Peon::Builder::operator() (EntityPtr& ptr) const noexcept {
+void Peon::Builder::operator() (Pointer& ptr) const noexcept {
   this->Entity::Builder::operator ()(ptr);
   decorator::Mover::Builder movbuilder(ptr, 0.01);
   _engine.createDecorator(typeid(decorator::Mover), movbuilder);

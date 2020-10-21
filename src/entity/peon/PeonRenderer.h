@@ -28,7 +28,7 @@
 
 #include <memory>
 #include <unordered_map>
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 #include "gui/core/AbstractRenderer.h"
 #include "utils/assets/SpriteSheet.h"
 #include "utils/assets/GraphicAssetsRegister.h"
@@ -47,7 +47,7 @@ private:
   };
     
   /// \brief Animation datas are stored for each attached peon
-  typedef std::unordered_map<EntityPtr,Datas,alloc::PtrHash,alloc::PtrEquals>
+  typedef std::unordered_map<Pointer,Datas,alloc::PtrHash,alloc::PtrEquals>
     Targets;
   
   std::shared_ptr<SpriteSheet> _sheet;    ///< Basic asset
@@ -74,30 +74,30 @@ public:
   
   /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
   virtual void renderAt(
-    const EntityPtr& obj, 
+    const Pointer& obj, 
     int ori, int x, int y,
     const hex::Viewport & view);
   
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
   virtual void renderAt(
-    const EntityPtr& obj,
+    const Pointer& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     const SDL_Color & color); 
   
   /// \brief Called when a new object associated with this renderer is created
   ///  may instanciate fine scope datas, like animation state
-  virtual void addTarget(const EntityPtr& obj) noexcept;
+  virtual void addTarget(const Pointer& obj) noexcept;
   /// \brief Called when an object associated with this renderer is destroyed
   ///  may dealocate corresponding datas
-  virtual void removeTarget(const EntityPtr& obj) noexcept;
+  virtual void removeTarget(const Pointer& obj) noexcept;
   /// \brief Called when an object associated with this renderer is selected
   ///  may remember draw a special overlay around it
-  virtual void targetSelected(const EntityPtr& obj);
+  virtual void targetSelected(const Pointer& obj);
   /// \brief Called when an object associated with this renderer is deselected
   ///  may remember to stop draw special overlay
-  virtual void targetDeselected(const EntityPtr& obj);
+  virtual void targetDeselected(const Pointer& obj);
 };
 
 #endif /* PEONRENDERER_H */

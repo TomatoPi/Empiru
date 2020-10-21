@@ -27,7 +27,7 @@
 
 #include <typeinfo>
 
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 #include "engine/core/entity/Entity.h"
 
 #include "engine/core/decorator/Pointer.h"
@@ -36,17 +36,17 @@
 class GameEngineInterface {
 public:
   
-  virtual EntityPtr 
-  createEntity(const std::type_info& type, const Entity::Builder& builder) 
+  virtual entity::Pointer 
+  createEntity(const std::type_info&, const entity::Entity::Builder&) 
   noexcept = 0;
   
   virtual void 
-  discardEntity(EntityPtr ptr) 
+  discardEntity(entity::Pointer ptr) 
   noexcept = 0;
   
   
   virtual decorator::Pointer
-  createDecorator(const std::type_info& type, const decorator::Decorator::Builder& builder)
+  createDecorator(const std::type_info&, const decorator::Decorator::Builder&)
   noexcept = 0;
   
   virtual void 

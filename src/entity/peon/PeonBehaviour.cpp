@@ -24,7 +24,7 @@
 
 #include "PeonBehaviour.h"
 
-void PeonBehaviour::operator() (Entity& entity, EntityPtr ptr) noexcept {
+void PeonBehaviour::operator() (Entity& entity, Pointer ptr) noexcept {
   Peon& peon(static_cast<Peon&>(entity));
   if (peon.collector().status() == decorator::Collector::Status::TooFar) {
     peon.mover().setTarget(peon.collector().worksite()->entity()->obj().pos(), peon.collector().worksite()->entity()->obj().radius() + peon.obj().radius() + 0.1);

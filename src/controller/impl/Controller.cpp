@@ -38,24 +38,24 @@ namespace {
   public:
     NullEntityController(Controller& c) noexcept : _controller(c) {}
     
-    virtual void leftClickOn(EntityPtr ptr) noexcept override {
+    virtual void leftClickOn(Pointer ptr) noexcept override {
       /* nothing */
     }
-    virtual void leftClickOut(EntityPtr ptr) noexcept override {
+    virtual void leftClickOut(Pointer ptr) noexcept override {
       if (ptr) {
         _controller.selectObject(ptr);
       }
     }
-    virtual void RightClickOn(EntityPtr ptr) noexcept override {
+    virtual void RightClickOn(Pointer ptr) noexcept override {
       /* nothing */
     }
-    virtual void RightClickOut(EntityPtr ptr) noexcept override {
+    virtual void RightClickOut(Pointer ptr) noexcept override {
       /* nothing */
     }
     virtual void cursorMoved() noexcept override {
       /* nothing */
     }
-    virtual void deselected(EntityPtr ptr) noexcept override {
+    virtual void deselected(Pointer ptr) noexcept override {
       /* nothing */
     }
   };
@@ -79,21 +79,21 @@ Controller::Controller() noexcept :
       });
 }
 
-void Controller::selectObject(EntityPtr ptr) noexcept {
+void Controller::selectObject(Pointer ptr) noexcept {
   get(_selection).deselected(_selection);
   _selection = ptr;
   sendNotification(EventObjectSelected(_selection));
 }
-void Controller::deselectObject(EntityPtr ptr) noexcept {
+void Controller::deselectObject(Pointer ptr) noexcept {
   assert(ptr == _selection);
   sendNotification(EventObjectDeselected(_selection));
   get(_selection).deselected(_selection);
   _selection = nullptr;
 }
-void Controller::objectAction(EntityPtr ptr, EntityPtr target) noexcept {
+void Controller::objectAction(Pointer ptr, Pointer target) noexcept {
   sendNotification(EventObjectAction(ptr, target));
 }
-const EntityPtr& Controller::selection() const noexcept {
+const Pointer& Controller::selection() const noexcept {
   return _selection;
 }
 /// \brief Return the current position of the cursor
@@ -103,7 +103,7 @@ const WorldObject::Position& Controller::cursor() const noexcept {
 
 /// \brief Called when a left click is performed at given position
 void Controller::leftClickOn(
-  const WorldObject::Position& click, const EntityPtr& ptr) 
+  const WorldObject::Position& click, const Pointer& ptr) 
 {
   _cursor = click;
   if (ptr == _selection) {
@@ -116,7 +116,7 @@ void Controller::leftClickOn(
 }
 /// \brief Called when a right click is performed at given position
 void Controller::rightClickOn(
-  const WorldObject::Position& click, const EntityPtr& ptr) 
+  const WorldObject::Position& click, const Pointer& ptr) 
 {
   _cursor = click;
   if (ptr == _selection) {
@@ -145,12 +145,12 @@ noexcept
   assert(success);
 }
 
-EntityControllerInterface& Controller::get(const EntityPtr& ptr) noexcept {
+EntityControllerInterface& Controller::get(const Pointer& ptr) noexcept {
   return *_controllers.at(ptr.isValid() ? typeid(*ptr) : NullType);
 }
 
 #if 0
-void Controller::objectAction(EntityPtr& ptr) noexcept {
+void Controller::objectAction(Pointer& ptr) noexcept {
   if (Peon * peon = dynamic_cast<Peon *>(&*_selection)) {
     if (ptr) {
       if (Harvestable* harvest = dynamic_cast<Harvestable*>(&*ptr)) {
@@ -194,7 +194,7 @@ void Controller::objectAction(EntityPtr& ptr) noexcept {
       peon->clearOrders();
       peon->addOrder(new OrderMoveTo(_cursor, 0.01));
       peon->beginOrder();
-      sendNotification(EventObjectAction(_selection, EntityPtr(nullptr)));
+      sendNotification(EventObjectAction(_selection, Pointer(nullptr)));
     } 
   }
 }
@@ -213,7 +213,7 @@ void Controller::createBuildSite() noexcept {
   ConstructionGhost& ghost = static_cast<ConstructionGhost&>(*_selection);
   sendNotification(EventObjectDeselected(_selection));
   ConstructionSite::Builder builder(ghost);
-  EntityPtr site(_engine.createEntity(typeid(ConstructionSite), builder));
+  Pointer site(_engine.createEntity(typeid(ConstructionSite), builder));
   _engine.discardEntity(_selection);
   _selection = site;
   sendNotification(EventObjectSelected(_selection));

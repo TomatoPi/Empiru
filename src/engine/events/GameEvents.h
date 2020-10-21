@@ -26,17 +26,17 @@
 #define GAMEEVENTS_H
 
 #include "engine/core/decorator/Pointer.h"
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 #include "utils/pattern/BigObserver.h"
 
 struct EventObjectCreated : public Event {
-  EntityPtr _ptr;
-  EventObjectCreated(const EntityPtr& ptr) noexcept : _ptr(ptr) {}
+  Pointer _ptr;
+  EventObjectCreated(const Pointer& ptr) noexcept : _ptr(ptr) {}
 };
 
 struct EventObjectDestroyed : public Event {
-  EntityPtr _ptr;
-  EventObjectDestroyed(const EntityPtr& ptr) noexcept : _ptr(ptr) {}
+  Pointer _ptr;
+  EventObjectDestroyed(const Pointer& ptr) noexcept : _ptr(ptr) {}
 };
 
 #endif /* GAMEEVENTS_H */

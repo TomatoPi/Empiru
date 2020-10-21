@@ -32,7 +32,7 @@ class PeonBehaviour : public EntityBeh {
 public:
   
   virtual void 
-  operator() (Entity& peon, EntityPtr ptr) noexcept override;
+  operator() (Entity& peon, Pointer ptr) noexcept override;
 };
 
 #endif /* PEONBEHAVIOUR_H */

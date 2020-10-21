@@ -27,7 +27,7 @@
 #define GENERICRENDERER_H
 
 #include <memory>
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 #include "gui/core/AbstractRenderer.h"
 #include "utils/assets/SpriteSheet.h"
 #include "utils/assets/GraphicAssetsRegister.h"
@@ -79,7 +79,7 @@ public:
   
   /// \brief Draw the object at given position
   virtual void renderAt(
-    const EntityPtr& obj, 
+    const Pointer& obj, 
     int ori, int x, int y,
     const hex::Viewport & view)
   {
@@ -94,7 +94,7 @@ public:
   /// \brief Render the object at given position, replacing the texture with
   ///   'color'
   virtual void renderAt(
-    const EntityPtr& obj,
+    const Pointer& obj,
     int ori, int x, int y,
     const hex::Viewport & view,
     const SDL_Color & c)
@@ -108,10 +108,10 @@ public:
     _mask->renderFrame(0, ori, &r);
   }
   
-  virtual void addTarget(const EntityPtr& obj) noexcept {}
-  virtual void removeTarget(const EntityPtr& obj) noexcept {}
-  virtual void targetSelected(const EntityPtr& obj) noexcept {}
-  virtual void targetDeselected(const EntityPtr& obj) noexcept {}
+  virtual void addTarget(const Pointer& obj) noexcept {}
+  virtual void removeTarget(const Pointer& obj) noexcept {}
+  virtual void targetSelected(const Pointer& obj) noexcept {}
+  virtual void targetDeselected(const Pointer& obj) noexcept {}
   
 };
 

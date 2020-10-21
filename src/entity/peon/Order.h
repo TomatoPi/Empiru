@@ -26,7 +26,7 @@
 #define ORDER_H
 
 #include "utils/hex/Axial.h"
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 #include "utils/world/core/WorldObject.h"
 
 /// \brief Base class for orders

@@ -56,7 +56,7 @@ void Mover::walk(MapInterface& map) noexcept {
   }
   /* compute a walk step */
   _entity->obj().pos(oldpos + _dir * _speed);
-  EntityPtr obstacle(nullptr);
+  Pointer obstacle(nullptr);
   bool validMove(map.tryPosition(_entity, &obstacle));
   /* search for an alternative path */
   if (!validMove) {
@@ -122,7 +122,7 @@ void Mover::unstackTarget() noexcept {
 }
 
 Mover::Builder::Builder(
-  const EntityPtr& entity, float speed) 
+  const Pointer& entity, float speed) 
 noexcept : 
   Decorator::Builder(entity),
   _speed(speed)

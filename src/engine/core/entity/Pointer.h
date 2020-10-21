@@ -27,7 +27,9 @@
 
 #include "utils/alloc/IndexPtr.h"
 
-class Entity;
-using EntityPtr = alloc::IndexPtr<Entity>;
+namespace entity {
+  class Entity;
+  using Pointer = alloc::IndexPtr<Entity>;
+}
 
 #endif /* WORLDREF_H */

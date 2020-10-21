@@ -94,7 +94,7 @@ namespace decorator {
     private:
       int _max;
     public:
-      explicit Builder(const EntityPtr& entity, int max) noexcept :
+      explicit Builder(const Pointer& entity, int max) noexcept :
         Inventory::Builder(entity), _max(max) {}
       
       virtual void operator() (Pointer& ptr) const noexcept override {

@@ -30,7 +30,7 @@
 #include "utils/gui/Window.h"
 #include "utils/assets/SpriteSheet.h"
 #include "utils/gui/FontPrinter.h"
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 
 #include "gui/utils/GenericRenderer.h"
 
@@ -41,7 +41,7 @@ private:
   
   Window &           _window;
   const TribeInfos & _playerTribe;
-  EntityPtr          _selectedObject;
+  Pointer          _selectedObject;
   
   std::shared_ptr<SpriteSheet> _background; ///< Pannel's background sprite
   std::shared_ptr<SpriteSheet> _icons;      ///< Pannel's icons sprites

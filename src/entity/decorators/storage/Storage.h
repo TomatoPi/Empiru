@@ -64,7 +64,7 @@ namespace decorator {
     public :
 
       explicit Builder(
-        const EntityPtr& entity, 
+        const Pointer& entity, 
         const std::initializer_list<Stack>& maximums) noexcept;
 
       virtual void operator() (Pointer& ptr) const noexcept override;

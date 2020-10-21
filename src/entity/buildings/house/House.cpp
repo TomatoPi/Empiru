@@ -36,7 +36,7 @@ noexcept :
 {
 }
 
-void House::Builder::operator() (EntityPtr& ptr) const noexcept {
+void House::Builder::operator() (Pointer& ptr) const noexcept {
   this->Entity::Builder::operator() (ptr);
   decorator::Storage::Builder builder(ptr, {
     Stack(Stack::Ressource::Wood, 0, 100),

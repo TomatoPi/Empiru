@@ -33,7 +33,7 @@
 #include "utils/pattern/BigObserver.h"
 #include "controller/core/GameControllerInterface.h"
 #include "controller/core/EntityControllerInterface.h"
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 
 /// \brief Main handler for user control
 class Controller : 
@@ -47,7 +47,7 @@ private:
     ControlTable;
   
   ControlTable          _controllers; ///< Table of objects specific controllers
-  EntityPtr             _selection;   ///< The selected Object
+  Pointer             _selection;   ///< The selected Object
   WorldObject::Position _cursor;      ///< Cursor position
   
 public:
@@ -55,17 +55,17 @@ public:
   /// \brief Constructor
   Controller() noexcept;
   
-  virtual void selectObject(EntityPtr ptr) noexcept override;
-  virtual void deselectObject(EntityPtr ptr) noexcept override;
-  virtual void objectAction(EntityPtr ptr, EntityPtr target) noexcept override;
-  virtual const EntityPtr& selection() const noexcept override;
+  virtual void selectObject(Pointer ptr) noexcept override;
+  virtual void deselectObject(Pointer ptr) noexcept override;
+  virtual void objectAction(Pointer ptr, Pointer target) noexcept override;
+  virtual const Pointer& selection() const noexcept override;
   /// \brief Return the current position of the cursor
   virtual const WorldObject::Position& cursor() const noexcept override;
   
   /// \brief Called when a left click is performed at given position
-  void leftClickOn(const WorldObject::Position& click, const EntityPtr& ptr);
+  void leftClickOn(const WorldObject::Position& click, const Pointer& ptr);
   /// \brief Called when a right click is performed at given position
-  void rightClickOn(const WorldObject::Position& click, const EntityPtr& ptr);
+  void rightClickOn(const WorldObject::Position& click, const Pointer& ptr);
   /// \brief Called when the mouse has moved, maximum one time at each frame
   ///   Only the last position is passed to this function
   void cursorMoved(const WorldObject::Position& click, int x, int y);
@@ -76,7 +76,7 @@ public:
   
 private:
   
-  EntityControllerInterface& get(const EntityPtr& ptr) noexcept;
+  EntityControllerInterface& get(const Pointer& ptr) noexcept;
 };
 
 #endif /* CONTROLLER_H */

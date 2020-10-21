@@ -29,24 +29,24 @@
 #include "PeonEntity.h"
 #include "entity/decorators/storage/Storage.h"
 
-void PeonController::leftClickOn(EntityPtr ptr) noexcept {
+void PeonController::leftClickOn(Pointer ptr) noexcept {
   if (_controller.selection() != ptr) {
     _controller.selectObject(ptr);
   }
 }
-void PeonController::leftClickOut(EntityPtr ptr) noexcept {
+void PeonController::leftClickOut(Pointer ptr) noexcept {
   _controller.deselectObject(_controller.selection());
 }
-void PeonController::RightClickOn(EntityPtr ptr) noexcept {
+void PeonController::RightClickOn(Pointer ptr) noexcept {
   /* nth */
 }
-void PeonController::RightClickOut(EntityPtr ptr) noexcept {
-  EntityPtr pptr(_controller.selection());
+void PeonController::RightClickOut(Pointer ptr) noexcept {
+  Pointer pptr(_controller.selection());
   if (!ptr) {
     decorator::Mover& mover(static_cast<decorator::Mover&>(*pptr->getDecorator<decorator::Mover>()));
     mover.clearPath();
     mover.setTarget(_controller.cursor(), 0.01);
-    _controller.objectAction(pptr, EntityPtr(nullptr));
+    _controller.objectAction(pptr, Pointer(nullptr));
   } else {
     Peon& peon(static_cast<Peon&>(*pptr));
     if (decorator::Pointer dptr = ptr->getDecorator<decorator::Deposit>()) {
@@ -70,6 +70,6 @@ void PeonController::RightClickOut(EntityPtr ptr) noexcept {
 void PeonController::cursorMoved() noexcept {
   /* nth */
 }
-void PeonController::deselected(EntityPtr ptr) noexcept {
+void PeonController::deselected(Pointer ptr) noexcept {
   /* nth */
 }

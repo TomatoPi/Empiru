@@ -40,12 +40,12 @@ public:
   {
   }
   
-  virtual void leftClickOn(EntityPtr ptr) noexcept override;
-  virtual void leftClickOut(EntityPtr ptr) noexcept override;
-  virtual void RightClickOn(EntityPtr ptr) noexcept override;
-  virtual void RightClickOut(EntityPtr ptr) noexcept override;
+  virtual void leftClickOn(Pointer ptr) noexcept override;
+  virtual void leftClickOut(Pointer ptr) noexcept override;
+  virtual void RightClickOn(Pointer ptr) noexcept override;
+  virtual void RightClickOut(Pointer ptr) noexcept override;
   virtual void cursorMoved() noexcept override;
-  virtual void deselected(EntityPtr ptr) noexcept override;
+  virtual void deselected(Pointer ptr) noexcept override;
 };
 
 #endif /* PEONCONTROLLER_H */

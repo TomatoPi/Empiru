@@ -25,17 +25,17 @@
 #ifndef ENTITYCONTROLLER_H
 #define ENTITYCONTROLLER_H
 
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 
 class EntityControllerInterface {
 public:
   
-  virtual void leftClickOn(EntityPtr ptr) noexcept = 0;
-  virtual void leftClickOut(EntityPtr ptr) noexcept = 0;
-  virtual void RightClickOn(EntityPtr ptr) noexcept = 0;
-  virtual void RightClickOut(EntityPtr ptr) noexcept = 0;
+  virtual void leftClickOn(Pointer ptr) noexcept = 0;
+  virtual void leftClickOut(Pointer ptr) noexcept = 0;
+  virtual void RightClickOn(Pointer ptr) noexcept = 0;
+  virtual void RightClickOut(Pointer ptr) noexcept = 0;
   virtual void cursorMoved() noexcept = 0;
-  virtual void deselected(EntityPtr ptr) noexcept = 0;
+  virtual void deselected(Pointer ptr) noexcept = 0;
 };
 
 #endif /* ENTITYCONTROLLER_H */

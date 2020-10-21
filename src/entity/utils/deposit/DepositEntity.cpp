@@ -40,7 +40,7 @@ noexcept :
 {
 }
 
-void DepositEntity::Builder::operator() (EntityPtr& ptr) const noexcept {
+void DepositEntity::Builder::operator() (Pointer& ptr) const noexcept {
   this->Entity::Builder::operator ()(ptr);
   decorator::Deposit::Builder depbuilder(ptr, _type, _qty, 5);
   _engine.createDecorator(typeid(decorator::Deposit), depbuilder);

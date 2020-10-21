@@ -247,3 +247,9 @@ Vrais problèmes :
       Mais dans l'absolu, le path n'est pas un service fourni par une entitée
     Pour des raisons de compatibilité, les opérations seront probablement aussi
       des décorateurs (pour n'utiliser que des DecoratorPtr)
+    Redondance manifeste entre les décorateurs, et les entitées : par la gestion
+      tout particulièrement
+      -> Remplacement par un SuperType EngineObject ?
+        -> Pourrais lever l'ambiguïté au niveau des Operator
+            Pourrais permettre à une entitée de tracker des Decorateur
+            Semble très interressant...

@@ -127,7 +127,7 @@ namespace decorator {
     /// \brief Inventory super builder
     class Builder : public Decorator::Builder {
     public:
-      explicit Builder(const EntityPtr& entity) noexcept :
+      explicit Builder(const Pointer& entity) noexcept :
         Decorator::Builder(entity) {}
       
       virtual void operator() (Pointer& ptr) const noexcept override {

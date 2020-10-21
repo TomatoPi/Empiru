@@ -51,7 +51,7 @@ WorldMap::WorldMap(int mapWidth, int mapHeight) :
 }
 
 /// \brief Must add given object to the world
-void WorldMap::addObject(const EntityPtr& ptr){
+void WorldMap::addObject(const Pointer& ptr){
   const WorldObject::Position & pos(ptr->obj().pos());
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
@@ -61,7 +61,7 @@ void WorldMap::addObject(const EntityPtr& ptr){
 }
 
 /// \brief Must remove given object fro the world
-void WorldMap::removeObject(const EntityPtr& ptr) {
+void WorldMap::removeObject(const Pointer& ptr) {
   auto itr(_map.find(ptr->obj().pos()));
   assert(itr != _map.end());
   itr->second.erase(ptr);
@@ -96,7 +96,7 @@ bool WorldMap::isOnMap(const WorldObject::Position & pos) const {
 /// \brief Return true if given position is valid
 ///   if position is invalid, return false and return pointer to the obstacle
 ///   in 'obstacle' if relevant
-bool WorldMap::tryPosition(const EntityPtr& entity, EntityPtr* obstacle) 
+bool WorldMap::tryPosition(const Pointer& entity, Pointer* obstacle) 
 const noexcept
 {
   // Check validity

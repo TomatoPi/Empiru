@@ -70,7 +70,7 @@ namespace decorator {
   }
 
   Storage::Builder::Builder(
-        const EntityPtr& entity, 
+        const Pointer& entity, 
         const std::initializer_list<Stack>& maximums) 
   noexcept :
     Inventory::Builder(entity),

@@ -52,7 +52,7 @@ public:
       Stack::Ressource type, int qty) 
     noexcept;
     
-    virtual void operator() (EntityPtr& ptr) const noexcept override;
+    virtual void operator() (Pointer& ptr) const noexcept override;
   };
 };
 

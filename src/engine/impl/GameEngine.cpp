@@ -42,7 +42,7 @@ GameEngine::GameEngine() noexcept :
 void GameEngine::update() {
   /* compute entitites masters behaviours */
   _entities.behave(
-      [this](Entity& entity, EntityPtr& ptr, EntityBeh* beh) -> void {
+      [this](Entity& entity, Pointer& ptr, EntityBeh* beh) -> void {
         (*beh)(entity, ptr);
       });
   /* then compute sub-behaviour for each components */
@@ -52,7 +52,7 @@ void GameEngine::update() {
       });
   /* destroy entites that died this tick */
   _entities.destroyGarbage(
-      [this](EntityPtr ptr) -> void {
+      [this](Pointer ptr) -> void {
         ptr->forEachDecorator(
             [this](decorator::Pointer& ptr) -> void {
               _decorators.destroyObject(ptr);
@@ -62,17 +62,17 @@ void GameEngine::update() {
 }
 
 
-EntityPtr 
+Pointer 
 GameEngine::createEntity(const std::type_info& type, const Entity::Builder& builder)
 noexcept
 {
-  EntityPtr entity(_entities.createObject(type, builder));
+  Pointer entity(_entities.createObject(type, builder));
   sendNotification(EventObjectCreated(entity));
   return entity;
 }
 
 void 
-GameEngine::discardEntity(EntityPtr ptr) 
+GameEngine::discardEntity(Pointer ptr) 
 noexcept
 {
   sendNotification(EventObjectDestroyed(ptr));

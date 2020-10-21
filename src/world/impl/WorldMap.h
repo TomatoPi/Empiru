@@ -56,9 +56,9 @@ public :
   WorldMap(int mapWidth, int mapHeight);
   
   /// \brief Must add given object to the world
-  virtual void addObject(const EntityPtr& ptr) override;
+  virtual void addObject(const Pointer& ptr) override;
   /// \brief Must remove given object fro the world
-  virtual void removeObject(const EntityPtr& ptr) override;
+  virtual void removeObject(const Pointer& ptr) override;
   
   /// \brief Must return tile content at given pos, or null if empty
   virtual const Tile::Content * getContentAt(const WorldObject::Position & pos) const override;
@@ -69,7 +69,7 @@ public :
   /// \brief Return true if given position is valid
   ///   if position is invalid, return false and return pointer to the obstacle
   ///   in 'obstacle' if relevant
-  virtual bool tryPosition(const EntityPtr& entity, EntityPtr* obstacle) 
+  virtual bool tryPosition(const Pointer& entity, Pointer* obstacle) 
   const noexcept override;
 };
 

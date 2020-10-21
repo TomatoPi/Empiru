@@ -39,7 +39,7 @@ public:
       {
       }
         
-      virtual void operator() (EntityPtr& ptr) const noexcept override {
+      virtual void operator() (Pointer& ptr) const noexcept override {
         this->DepositEntity::Builder::operator ()(ptr);
       }
   };

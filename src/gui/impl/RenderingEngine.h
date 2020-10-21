@@ -61,7 +61,7 @@ public:
   
 private:
   
-  typedef std::unordered_map<SDL_Color,EntityPtr,ColorHasher,ColorEquals>
+  typedef std::unordered_map<SDL_Color,Pointer,ColorHasher,ColorEquals>
   ColorTable;
   
   /// \brief Table used to make the rendering engine blind on what is in the world
@@ -73,7 +73,7 @@ private:
   ///   during this frame
   /// Sorting is done on ascending y to ensure that objects away from camera
   ///   are drawn behind
-  typedef std::multimap<Pixel,EntityPtr,Pixel::AscYCompare> DrawStack;
+  typedef std::multimap<Pixel,Pointer,Pixel::AscYCompare> DrawStack;
   
   Window &                _window;    ///< Obvious
   const hex::Viewport &   _worldView; ///< Bridge between game and user
@@ -104,13 +104,13 @@ public:
   /// \brief Draw every sized object 
   virtual void updateClickZones();
   /// \brief Return object at x,y or nullptr if none
-  virtual EntityPtr objectAt(int x, int y) const noexcept;
+  virtual Pointer objectAt(int x, int y) const noexcept;
   
 private:
 
   /// \brief renturn the renderer for specified type 
   ///   or throw if type not registered
-  AbstractRenderer* getrdr(const EntityPtr& obj);
+  AbstractRenderer* getrdr(const Pointer& obj);
 };
 
 #endif /* RENDERENGINE_H */

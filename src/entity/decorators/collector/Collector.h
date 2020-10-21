@@ -62,7 +62,7 @@ namespace decorator {
     class Builder : public Worker::Builder {
     public :
 
-      explicit Builder(const EntityPtr& entity) noexcept;
+      explicit Builder(const Pointer& entity) noexcept;
 
       virtual void operator() (Pointer& ptr) const noexcept override;
     };

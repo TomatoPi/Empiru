@@ -25,17 +25,17 @@
 #ifndef GAMECONTROLLERINTERFACE_H
 #define GAMECONTROLLERINTERFACE_H
 
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 #include "world/core/WorldObject.h"
 
 class GameControllerInterface {
 public:
   
-  virtual void selectObject(EntityPtr ptr) noexcept = 0;
-  virtual void deselectObject(EntityPtr ptr) noexcept = 0;
-  virtual void objectAction(EntityPtr ptr, EntityPtr target) noexcept = 0;
+  virtual void selectObject(Pointer ptr) noexcept = 0;
+  virtual void deselectObject(Pointer ptr) noexcept = 0;
+  virtual void objectAction(Pointer ptr, Pointer target) noexcept = 0;
   
-  virtual const EntityPtr& selection() const noexcept = 0;
+  virtual const Pointer& selection() const noexcept = 0;
   virtual const WorldObject::Position& cursor() const noexcept = 0;
 };
 

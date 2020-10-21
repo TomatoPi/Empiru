@@ -43,10 +43,10 @@ class GameEngine :
 {
 private:
   
-  typedef alloc::Allocator<Entity,EntityPtr,std::size_t> EAllocator;
+  typedef alloc::Allocator<Entity,Pointer,std::size_t> EAllocator;
   typedef alloc::Allocator<decorator::Decorator,decorator::Pointer,std::size_t> DAllocator;
   
-  typedef Register<Entity,EntityPtr,EntityBeh> EntitiesReg;
+  typedef Register<Entity,Pointer,EntityBeh> EntitiesReg;
   typedef Register<decorator::Decorator,decorator::Pointer,decorator::Operator> DecoratorsReg;
   
   EntitiesReg   _entities;
@@ -63,12 +63,12 @@ public:
   void update();
   
   
-  virtual EntityPtr 
+  virtual Pointer 
   createEntity(const std::type_info& type, const Entity::Builder& builder) 
   noexcept override;
   
   virtual void 
-  discardEntity(EntityPtr ptr) 
+  discardEntity(Pointer ptr) 
   noexcept override;
   
   void 

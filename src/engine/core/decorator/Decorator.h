@@ -26,7 +26,7 @@
 #define DECORATOR_H
 
 #include "Pointer.h"
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 #include "engine/core/entity/Entity.h"
 #include <vector>
 
@@ -37,40 +37,17 @@ namespace decorator {
   protected:
 
     Pointer _this;
-    EntityPtr    _entity;
 
   public:
 
-    Decorator() noexcept : _entity(nullptr) {}
+    Decorator() noexcept = default;
     virtual ~Decorator() noexcept = default;
     
-    const EntityPtr& entity() const noexcept {return _entity;}
-    
     class Builder {
-    private:
-
-      EntityPtr _entity;
-      
-    protected:
-      
-      void addMarkers(Pointer& ptr) const noexcept {}
-      
-      template <typename T, typename ...Ts>
-      void addMarkers(Pointer& ptr, const T& type, const Ts& ...types) 
-      const noexcept {
-        ptr->_entity->attachDecorator(type, ptr);
-        addMarkers(ptr, types...);
-      }
-
     public:
-
-      explicit Builder(const EntityPtr& entity) noexcept : 
-        _entity(entity) {}
-
+      Builder() noexcept = default;
       virtual void operator() (Pointer& ptr) const noexcept {
         ptr->_this = ptr;
-        ptr->_entity = _entity;
-        ptr->_entity->attachDecorator(typeid(*ptr), ptr);
       }
     };
   };

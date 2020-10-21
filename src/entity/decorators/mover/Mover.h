@@ -74,7 +74,7 @@ namespace decorator {
 
     public :
 
-      explicit Builder(const EntityPtr& entity, float speed=0.01) noexcept;
+      explicit Builder(const Pointer& entity, float speed=0.01) noexcept;
 
       virtual void operator() (Pointer& ptr) const noexcept override;
     };

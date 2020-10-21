@@ -45,7 +45,7 @@ PeonRenderer::PeonRenderer(
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
 void PeonRenderer::renderAt(
-    const EntityPtr& obj, 
+    const Pointer& obj, 
     int ori, int x, int y,
     const hex::Viewport & view)
 {
@@ -87,7 +87,7 @@ void PeonRenderer::renderAt(
 
 /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
 void PeonRenderer::renderAt(
-    const EntityPtr& obj, 
+    const Pointer& obj, 
     int ori, int x, int y,
     const hex::Viewport & view,
     const SDL_Color & c)
@@ -107,25 +107,25 @@ void PeonRenderer::renderAt(
 
 /// \brief Called when a new object associated with this renderer is created
 ///  may instanciate fine scope datas, like animation state
-void PeonRenderer::addTarget(const EntityPtr& obj) noexcept {
+void PeonRenderer::addTarget(const Pointer& obj) noexcept {
   auto insert(_targets.emplace(obj, Datas()));
   assert(insert.second);
 }
 /// \brief Called when an object associated with this renderer is destroyed
 ///  may dealocate corresponding datas
-void PeonRenderer::removeTarget(const EntityPtr& obj) noexcept {
+void PeonRenderer::removeTarget(const Pointer& obj) noexcept {
   auto itr(_targets.find(obj));
   assert(itr != _targets.end());
   _targets.erase(itr);
 }
 /// \brief Called when an object associated with this renderer is selected
 ///  may remember draw a special overlay around it
-void PeonRenderer::targetSelected(const EntityPtr& obj) {
+void PeonRenderer::targetSelected(const Pointer& obj) {
   _targets.at(obj)._select = true;
   _targets.at(obj)._wanim.restart();
 }
 /// \brief Called when an object associated with this renderer is deselected
 ///  may remember to stop draw special overlay
-void PeonRenderer::targetDeselected(const EntityPtr& obj) {
+void PeonRenderer::targetDeselected(const Pointer& obj) {
   _targets.at(obj)._select = false;
 }

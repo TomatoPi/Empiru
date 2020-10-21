@@ -73,7 +73,7 @@ void RenderingEngine::attachRenderer(
 
 /// \brief renturn the renderer for specified type 
 ///   or throw if type not registered
-AbstractRenderer * RenderingEngine::getrdr(const EntityPtr& obj) {
+AbstractRenderer * RenderingEngine::getrdr(const Pointer& obj) {
   return _renderers.at(std::type_index(typeid(*obj)));
 }
 
@@ -108,7 +108,7 @@ void RenderingEngine::render() {
       if (_world.isOnMap(pos)) {
         _worldView.toPixel(pos.tile(), &x, &y);
         try {
-          tilerdr->renderAt(EntityPtr(nullptr), _camera.getOrientation(), 
+          tilerdr->renderAt(Pointer(nullptr), _camera.getOrientation(), 
             x, y, _worldView);
         } catch (const std::exception & e) {
           LOG_ERROR("Failed draw tile : %s\n", SDL_GetError());
@@ -128,7 +128,7 @@ void RenderingEngine::render() {
   
   // Draw all entities
   for (auto & itr : _drawstack) {
-    const EntityPtr& obj(itr.second);
+    const Pointer& obj(itr.second);
     // Get correct renderer and use it
     getrdr(obj)->renderAt(
           obj,
@@ -148,7 +148,7 @@ void RenderingEngine::updateClickZones() {
   uint32_t cptr(1);
   // Draw is made according to last drawstack
   for (auto & itr : _drawstack) {
-  const EntityPtr& obj(itr.second);
+  const Pointer& obj(itr.second);
     SDL_Color color;
     color.r = (cptr & 0x000000FF) >> 0;
     color.g = (cptr & 0x0000FF00) >> 8;
@@ -165,7 +165,7 @@ void RenderingEngine::updateClickZones() {
   }
 }
 
-EntityPtr RenderingEngine::objectAt(int x, int y) const noexcept {
+Pointer RenderingEngine::objectAt(int x, int y) const noexcept {
   SDL_LockSurface(_window.vsurface);
   SDL_Color color{255, 255, 255, 255};
   SDL_GetRGB(
@@ -181,5 +181,5 @@ EntityPtr RenderingEngine::objectAt(int x, int y) const noexcept {
     return itr->second;
   }
   //LOG_DEBUG("NOTHING\n");
-  return EntityPtr(nullptr);
+  return Pointer(nullptr);
 }

@@ -35,22 +35,22 @@ public:
   GenericSelectorController(GameControllerInterface& c) noexcept : 
     _controller(c) {}
 
-  virtual void leftClickOn(EntityPtr ptr) noexcept override {
+  virtual void leftClickOn(Pointer ptr) noexcept override {
     _controller.selectObject(ptr);
   }
-  virtual void leftClickOut(EntityPtr ptr) noexcept override {
+  virtual void leftClickOut(Pointer ptr) noexcept override {
     _controller.deselectObject(_controller.selection());
   }
-  virtual void RightClickOn(EntityPtr ptr) noexcept override {
+  virtual void RightClickOn(Pointer ptr) noexcept override {
     /* nothing */
   }
-  virtual void RightClickOut(EntityPtr ptr) noexcept override {
+  virtual void RightClickOut(Pointer ptr) noexcept override {
     /* nothing */
   }
   virtual void cursorMoved() noexcept override {
     /* nothing */
   }
-  virtual void deselected(EntityPtr ptr) noexcept override {
+  virtual void deselected(Pointer ptr) noexcept override {
     /* nothing */
   }
 };

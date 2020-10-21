@@ -29,14 +29,14 @@
 #include <unordered_set>
 
 #include "WorldObject.h"
-#include "engine/core/entity/EntityPtr.h"
+#include "engine/core/entity/Pointer.h"
 
 /// \brief Tiles are world's container
 class Tile {
 public:
   
   /// \brief Tile's sub container
-  typedef std::unordered_set<EntityPtr,alloc::PtrHash,alloc::PtrEquals> Content;
+  typedef std::unordered_set<Pointer,alloc::PtrHash,alloc::PtrEquals> Content;
   
 private :
   
@@ -57,12 +57,12 @@ public:
   ~Tile() = default;
   
   /// \brief Add given object to the tile
-  void insert(const EntityPtr& ptr) noexcept {
+  void insert(const Pointer& ptr) noexcept {
     bool success(_content.insert(ptr).second);
     assert(success);
   }
   /// \brief Remove given object from the tile
-  void erase(const EntityPtr& ptr) noexcept {
+  void erase(const Pointer& ptr) noexcept {
     bool success(_content.erase(ptr));
     assert(success);
   }
