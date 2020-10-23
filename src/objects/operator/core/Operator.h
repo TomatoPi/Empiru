@@ -25,7 +25,7 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
 
-#include "engine/core/Object.h"
+#include "core/Object.h"
 
 /// \brief Operators are special objects which are callables
 class Operator : public core::Object {
@@ -35,12 +35,12 @@ class Operator : public core::Object {
   virtual ~Operator() noexcept = default;
   
   /// Make sure that operators override this method
-  virtual void operator() () noexcept = 0;
+  virtual bool operator() () noexcept override = 0;
 
   class Builder : public core::Object::Builder {
   public:
     Builder() noexcept : core::Object::Builder() {}
-    virtual void operator() (core::Pointer& ptr) const noexcept override {
+    virtual void operator() (core::Pointer& ptr) noexcept override {
       this->core::Object::Builder::operator() (ptr);
     }
   };

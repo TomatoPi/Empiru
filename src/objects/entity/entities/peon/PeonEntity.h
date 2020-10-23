@@ -26,27 +26,72 @@
 #ifndef PEON_ENTITY_H
 #define PEON_ENTITY_H
 
-#include <deque>
+#include "PeonSprite.h"
+
+#include "core/IGameAllocator.h"
 #include "objects/entity/core/Entity.h"
-#include "engine/core/IGameAllocator.h"
+#include "objects/operator/operators/mover/Mover.h"
 
 namespace peon {
   class PEntity : public Entity {
   private:
     
-    core::Pointer _pos;
+    friend class PeonController;
+    core::Pointer _mover;
+    core::Pointer _sprite;
     
   public:
     
     PEntity() noexcept = default;
     virtual ~PEntity() noexcept = default;
     
+    virtual core::Pointer 
+    doFindDecorator(const std::type_info& type) noexcept override;
+    virtual const core::Pointer 
+    doFindDecorator(const std::type_info& type) const noexcept override;
+    virtual Decorator& 
+    doGetDecorator(const std::type_info& type) noexcept override;
+    virtual const Decorator& 
+    doGetDecorator(const std::type_info& type) const noexcept override;
+    
+
+    /// \brief Useful to get and cast a decorator to a subtype
+    template <class T>
+    T& get() noexcept {
+      return Entity::get<T>();
+    }
+    /// \brief Useful to get and cast a decorator to a subtype
+    template <class T>
+    const T& get() const {
+      return Entity::get<T>();
+    }
+    
     class Builder : public Entity::Builder {
     public:
       Builder(IGameAllocator& alloc, const world::Position& pos) noexcept;
-      virtual void operator() (core::Pointer& ptr) const noexcept override;
+      virtual void operator() (core::Pointer& ptr) noexcept override;
     };
   };
+
+  template <>
+  Mover& PEntity::get() noexcept {
+    return static_cast<Mover&>(*_mover);
+  }
+
+  template <>
+  const Mover& PEntity::get() noexcept {
+    return static_cast<const Mover&>(*_mover);
+  }
+  
+  template <>
+  PeonSprite& PEntity::get() noexcept {
+    return static_cast<PeonSprite&>(*_sprite);
+  }
+
+  template <>
+  const PeonSprite& PEntity::get() noexcept {
+    return static_cast<const PeonSprite&>(*_sprite);
+  }
 }
 
 /*

@@ -28,14 +28,35 @@
 #include "PeonEntity.h"
 
 namespace peon {
+  
+  core::Pointer 
+  PEntity::doFindDecorator(const std::type_info& type) noexcept {
+    return core::Pointer(nullptr);
+  }
+  const core::Pointer 
+  PEntity::doFindDecorator(const std::type_info& type) const noexcept {
+    return core::Pointer(nullptr);
+  }
+  Decorator& 
+  PEntity::doGetDecorator(const std::type_info& type) noexcept {
+    assert(0);
+  }
+  const Decorator& 
+  PEntity::doGetDecorator(const std::type_info& type) const noexcept {
+    assert(0);
+  }
+  
   PEntity::Builder::Builder(IGameAllocator& alloc, const world::Position& pos)
   noexcept :
     Entity::Builder(
       alloc, 
       WorldObject::Builder(pos, WorldObject::Size::Small, 0.05))
   {}
-  void PEntity::Builder::operator() (core::Pointer& ptr) const noexcept {
+  void PEntity::Builder::operator() (core::Pointer& ptr) noexcept {
     this->Entity::Builder::operator() (ptr);
+    PEntity& peon(static_cast<PEntity&>(*ptr));
+    PeonSprite spriteBuilder;
+    peon._sprite = _allocator.createObject(typeid(PeonSprite), spriteBuilder);
   }
 }
 

@@ -25,15 +25,22 @@
 #ifndef  WORLD_H
 #define WORLD_H
 
-#include <unordered_map>
-
-#include "engine/core/Observer.h"
+#include "core/Observer.h"
+#include "core/Object.h"
 #include "world/core/IWorldMap.h"
 #include "world/core/Tile.h"
 #include "utils/log.h"
 
+#include <unordered_map>
+
 /// \brief Object that handle Map and Objects
-class WorldMap : public IWorldMap, public core::Observer {
+class WorldMap : 
+  public IWorldMap, 
+  public core::Observer,
+  public core::Object
+{
+public :
+  
 private :
   
   /// \brief Hollow Matrix
@@ -69,10 +76,21 @@ public :
   tryPosition(const world::Position& pos, const core::Pointer& entity, core::Pointer* obstacle) 
   const noexcept override;
   
+  virtual bool operator() () noexcept override {assert(0);};
+  
+protected:
+    
+  /// \brief Must be called on events
+  virtual void 
+  doOnNotify(const core::Pointer& p, const core::Object::Event& e) 
+  noexcept override;
+  
 private:
   
   void addObject(const core::Pointer& ptr) noexcept;
+  void addObject(const core::Pointer& ptr, const world::Position& pos) noexcept;
   void removeObject(const core::Pointer& ptr) noexcept;
+  void removeObject(const core::Pointer& ptr, const world::Position& pos) noexcept;
 };
 
 #endif /* WORLD_H*/

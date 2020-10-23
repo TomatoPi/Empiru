@@ -69,7 +69,7 @@ public:
   
   /// \brief Called to create a new object
   virtual core::Pointer 
-  createObject(const std::type_info&, const core::Object::Builder&) 
+  createObject(const std::type_info&, core::Object::Builder&) 
   noexcept override;
   
   /// \brief Called to destroy an object

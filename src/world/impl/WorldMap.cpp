@@ -42,19 +42,25 @@ WorldMap::WorldMap(int mapWidth, int mapHeight) :
   assert(0 < mapHeight);
   this->registerEvent<GameEvents::ObjectCreated>(
       [this](const GameEvents::ObjectCreated& event) -> void {
-        if (typeid(*event._ptr) == typeid(WorldObject))
+        if (typeid(*event._ptr) == typeid(WorldObject)) {
           this->addObject(event._ptr);
+          event._ptr->subscribe(this->_this);
+        }
       });
   this->registerEvent<GameEvents::ObjectDestroyed>(
       [this](const GameEvents::ObjectDestroyed& event) ->void {
-        if (typeid(*event._ptr) == typeid(WorldObject))
+        if (typeid(*event._ptr) == typeid(WorldObject)) {
           this->removeObject(event._ptr);
+        }
       });
 }
 
 /// \brief Must add given object to the world
 void WorldMap::addObject(const core::Pointer& ptr) noexcept {
-  const world::Position & pos(static_cast<const WorldObject&>(*ptr).pos());
+  addObject(ptr, static_cast<const WorldObject&>(*ptr).pos());
+}
+void WorldMap::addObject(const core::Pointer& ptr, const world::Position& pos)
+noexcept {
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos,Tile()).first;
@@ -64,7 +70,12 @@ void WorldMap::addObject(const core::Pointer& ptr) noexcept {
 
 /// \brief Must remove given object fro the world
 void WorldMap::removeObject(const core::Pointer& ptr) noexcept {
-  auto itr(_map.find(static_cast<const WorldObject&>(*ptr).pos()));
+  removeObject(ptr, static_cast<const WorldObject&>(*ptr).pos());
+}
+void 
+WorldMap::removeObject(const core::Pointer& ptr, const world::Position& pos) 
+noexcept {
+  auto itr(_map.find(pos));
   assert(itr != _map.end());
   itr->second.erase(ptr);
   if (itr->second.isEmpty()) {
@@ -129,4 +140,19 @@ const noexcept
       return false;
     });
   return valid;
+}
+
+/// \brief Must be called on events
+void doOnNotify(const core::Pointer& p, const core::Object::Event& e) noexcept {
+  if (typeid(e) == typeid(WorldObject::Event)) {
+    const WorldObject& obj(static_cast<const WorldObject&>(*p));
+    const WorldObject::Event& event(static_cast<const WorldObject::Event&>(e));
+    if (event.type == WorldObject::Event::Type::Moved) {
+      /* if object's tile has changed move it */
+      if (event.old.tile() != obj.pos().tile()) {
+        map.removeObject(p, event.old);
+        map.addObject(p);
+      }
+    }
+  }
 }

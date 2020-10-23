@@ -39,12 +39,13 @@ public:
   virtual ~Decorator() noexcept = default;
   
   /// \brief By default decorators are not callables
-  virtual void operator() () noexcept {assert(0);}
+  virtual bool operator() () noexcept override {assert(0);}
   
   const core::Pointer& entity() const noexcept {return _entity;}
   
   /// \brief Generally decorators are passive objects that do not react events
-  virtual void doOnNotify(const core::Pointer&, const Event&) noexcept override
+  virtual void doOnNotify(const core::Pointer&, const core::Object::Event&) 
+  noexcept override
   {}
 
   struct Builder : public core::Object::Builder {

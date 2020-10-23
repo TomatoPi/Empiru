@@ -25,36 +25,64 @@
 #ifndef DEPOSITENTITY_H
 #define DEPOSITENTITY_H
 
-#include "engine/core/entity/Entity.h"
-#include "engine/core/IGameAllocator.h"
-
-#include "entity/decorators/deposit/Deposit.h"
+#include "objects/entity/core/Entity.h"
+#include "core/IGameAllocator.h"
+#include "objects/decorator/decorators/inventory/deposit/Deposit.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
 class DepositEntity : public Entity {
+private:
+  core::Pointer _deposit;
 public:
-  
-  const decorators::Deposit& deposit() const noexcept;
+    
+    virtual core::Pointer 
+    doFindDecorator(const std::type_info& type) noexcept override;
+    virtual const core::Pointer 
+    doFindDecorator(const std::type_info& type) const noexcept override;
+    virtual Decorator& 
+    doGetDecorator(const std::type_info& type) noexcept override;
+    virtual const Decorator& 
+    doGetDecorator(const std::type_info& type) const noexcept override;
+    
+
+    /// \brief Useful to get and cast a decorator to a subtype
+    template <class T>
+    T& get() noexcept {
+      return Entity::get<T>();
+    }
+    /// \brief Useful to get and cast a decorator to a subtype
+    template <class T>
+    const T& get() const {
+      return Entity::get<T>();
+    }
   
   class Builder : public Entity::Builder {
   private:
     
-    IGameAllocator& _engine;
     Stack::Ressource     _type;
     int                  _qty;
     
   public:
     
     Builder(
-      IGameAllocator& engine, 
-      const WorldObject::Position& pos,
+      IGameAllocator& alloc, const world::Position& pos,
       Stack::Ressource type, int qty) 
     noexcept;
     
-    virtual void operator() (Pointer& ptr) const noexcept override;
+    virtual void operator() (core::Pointer& ptr) noexcept override;
   };
 };
+
+template <>
+decorators::Deposit& DepositEntity::get() noexcept {
+  return static_cast<Mover&>(*_deposit);
+}
+
+template <>
+const decorators::Deposit& DepositEntity::get() noexcept {
+  return static_cast<const Mover&>(*_deposit);
+}
 
 #endif /* DEPOSITENTITY_H */
 

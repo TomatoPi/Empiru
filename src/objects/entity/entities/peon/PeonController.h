@@ -27,25 +27,35 @@
 
 #include "controller/core/IEntityController.h"
 #include "controller/core/IGameController.h"
+#include "world/core/IWorldMap.h"
+#include "core/IGameAllocator.h"
 
-class PeonController : public IEntityController {
-private:
-  
-  IGameController& _controller;
-  
-public:
-  
-  PeonController(IGameController& controller) noexcept :
-    _controller(controller)
-  {
-  }
-  
-  virtual void leftClickOn(Pointer ptr) noexcept override;
-  virtual void leftClickOut(Pointer ptr) noexcept override;
-  virtual void RightClickOn(Pointer ptr) noexcept override;
-  virtual void RightClickOut(Pointer ptr) noexcept override;
-  virtual void cursorMoved() noexcept override;
-  virtual void deselected(Pointer ptr) noexcept override;
-};
+namespace peon {
+  class PeonController : public IEntityController {
+  private:
+
+    IGameController& _controller;
+    IGameAllocator&  _allocator;
+    IWorldMap&       _worldmap;
+
+  public:
+
+    PeonController(
+      IGameController& controller, 
+      IGameAllocator& alloc,
+      IWorldMap& map) 
+    noexcept :
+      _controller(controller), _allocator(alloc), _worldmap(map)
+    {
+    }
+
+    virtual void leftClickOn(core::Pointer ptr) noexcept override;
+    virtual void leftClickOut(core::Pointer ptr) noexcept override;
+    virtual void RightClickOn(core::Pointer ptr) noexcept override;
+    virtual void RightClickOut(core::Pointer ptr) noexcept override;
+    virtual void cursorMoved() noexcept override;
+    virtual void deselected(core::Pointer ptr) noexcept override;
+  };
+}
 
 #endif /* PEONCONTROLLER_H */

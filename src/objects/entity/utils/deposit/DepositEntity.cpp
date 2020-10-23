@@ -24,24 +24,46 @@
 
 #include "DepositEntity.h"
 
-const decorators::Deposit& DepositEntity::deposit() const noexcept {
-  return static_cast<const decorators::Deposit&>(*getDecorator<decorators::Deposit>());
+
+core::Pointer 
+DepositEntity::doFindDecorator(const std::type_info& type) noexcept {
+  if (typeid(decorators::Deposit) == type) 
+    return _deposit;
+  return core::Pointer(nullptr);
+}
+const core::Pointer 
+DepositEntity::doFindDecorator(const std::type_info& type) const noexcept {
+  if (typeid(decorators::Deposit) == type) 
+    return _deposit;
+  return core::Pointer(nullptr);
+}
+Decorator& 
+DepositEntity::doGetDecorator(const std::type_info& type) noexcept {
+  if (typeid(decorators::Deposit) == type) 
+    return static_cast<Decorator&>(*_deposit);
+  assert(0);
+}
+const Decorator& 
+DepositEntity::doGetDecorator(const std::type_info& type) const noexcept {
+  if (typeid(decorators::Deposit) == type) 
+    return static_cast<const Decorator&>(*_deposit);
+  assert(0);
 }
 
 DepositEntity::Builder::Builder(
-  IGameAllocator& engine, 
-  const WorldObject::Position& pos,
-  Stack::Ressource type, int qty) 
+      IGameAllocator& alloc, const world::Position& pos,
+      Stack::Ressource type, int qty)
 noexcept :
-  Entity::Builder(WorldObject(WorldObject::Size::Small, 0.1, pos)), 
-  _engine(engine), 
+  Entity::Builder(
+    alloc, 
+    WorldObject::Builder(pos, WorldObject::Size::Small, 0.1)),
   _type(type), 
   _qty(qty)
 {
 }
 
-void DepositEntity::Builder::operator() (Pointer& ptr) const noexcept {
-  this->Entity::Builder::operator ()(ptr);
+void DepositEntity::Builder::operator() (core::Pointer& ptr) noexcept {
+  this->Entity::Builder::operator() (ptr);
   decorators::Deposit::Builder depbuilder(ptr, _type, _qty, 5);
-  _engine.createDecorator(typeid(decorators::Deposit), depbuilder);
+  _allocator.createObject(typeid(decorators::Deposit), depbuilder);
 }

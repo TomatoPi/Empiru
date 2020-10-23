@@ -71,7 +71,6 @@
         <logicalFolder name="f4" displayName="units" projectFiles="true">
           <logicalFolder name="f1" displayName="peon" projectFiles="true">
             <itemPath>src/objects/entity/entities/peon/Order.h</itemPath>
-            <itemPath>src/objects/entity/entities/peon/PeonBehaviour.cpp</itemPath>
             <itemPath>src/objects/entity/entities/peon/PeonBehaviour.h</itemPath>
             <itemPath>src/objects/entity/entities/peon/PeonEntity.cpp</itemPath>
             <itemPath>src/objects/entity/entities/peon/PeonEntity.h</itemPath>
@@ -192,6 +191,7 @@
       <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.cpp</itemPath>
       <itemPath>src/objects/entity/utils/deposit/DepositEntity.cpp</itemPath>
       <itemPath>src/objects/decorator/decorators/mover/Mover.cpp</itemPath>
+      <itemPath>src/objects/operator/operators/mover/Mover.cpp</itemPath>
       <itemPath>src/objects/entity/entities/peon/PeonController.cpp</itemPath>
       <itemPath>src/objects/decorator/decorators/inventory/storage/Storage.cpp</itemPath>
       <itemPath>src/engine/tribe/TribeInfos.cpp</itemPath>
@@ -238,7 +238,7 @@
     <itemPath>src/engine/core/decorator/DecoratorUpdator.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.h</itemPath>
     <itemPath>src/objects/entity/utils/deposit/DepositEntity.h</itemPath>
-    <itemPath>src/objects/entity/utils/deposit/DepositEntityBeh.h</itemPath>
+    <itemPath>src/objects/entity/utils/deposit/DepositTracker.h</itemPath>
     <itemPath>src/engine/core/entity/EntityAllocator.h</itemPath>
     <itemPath>src/engine/core/entity/EntityBehaviour.h</itemPath>
     <itemPath>src/core/Event.h</itemPath>
@@ -249,11 +249,13 @@
     <itemPath>src/controller/core/IGameController.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/Inventory.h</itemPath>
     <itemPath>src/entity/decorators/Mover/Mover.h</itemPath>
+    <itemPath>src/objects/operator/operators/mover/Mover.h</itemPath>
     <itemPath>src/objects/decorator/decorators/mover/MoverBeh.h</itemPath>
     <itemPath>src/core/Object.h</itemPath>
     <itemPath>src/core/Observer.h</itemPath>
     <itemPath>src/objects/operator/core/Operator.h</itemPath>
     <itemPath>src/objects/entity/entities/peon/PeonController.h</itemPath>
+    <itemPath>src/objects/entity/entities/peon/PeonSprite.h</itemPath>
     <itemPath>src/core/Pointer.h</itemPath>
     <itemPath>src/engine/utils/Register.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/slot/Slot.h</itemPath>
@@ -697,11 +699,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
             ex="false"
             tool="3"
@@ -737,6 +734,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/entity/entities/peon/PeonSprite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
             ex="false"
             tool="1"
@@ -747,12 +749,22 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+      <item path="src/objects/entity/utils/deposit/DepositTracker.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1300,11 +1312,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
             ex="false"
             tool="3"
@@ -1340,6 +1347,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/entity/entities/peon/PeonSprite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
             ex="false"
             tool="1"
@@ -1350,12 +1362,22 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+      <item path="src/objects/entity/utils/deposit/DepositTracker.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1898,11 +1920,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
             ex="false"
             tool="3"
@@ -1938,6 +1955,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/entity/entities/peon/PeonSprite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
             ex="false"
             tool="1"
@@ -1948,12 +1970,22 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+      <item path="src/objects/entity/utils/deposit/DepositTracker.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2503,11 +2535,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/entities/peon/PeonBehaviour.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="src/objects/entity/entities/peon/PeonBehaviour.h"
             ex="false"
             tool="3"
@@ -2543,6 +2570,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/entity/entities/peon/PeonSprite.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/entity/utils/deposit/DepositEntity.cpp"
             ex="false"
             tool="1"
@@ -2553,12 +2585,22 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/objects/entity/utils/deposit/DepositEntityBeh.h"
+      <item path="src/objects/entity/utils/deposit/DepositTracker.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="src/objects/operator/core/Operator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Mover.h"
             ex="false"
             tool="3"
             flavor2="0">

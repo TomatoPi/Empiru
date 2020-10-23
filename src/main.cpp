@@ -29,10 +29,9 @@
 
 #include "utils/log.h"
 
-#include "utils/alloc/IndexAllocator.h"
+#include "utils/alloc/impl/WrapHandle.h"
+#include "utils/alloc/impl/IndexAllocator.h"
 
-#include "engine/core/entity/Entity.h"
-#include "engine/core/decorator/Decorator.h"
 #include "engine/impl/GameEngine.h"
 
 #include "world/impl/WorldMap.h"
@@ -46,16 +45,16 @@
 
 #include "sound/SoundEngine.h"
 
-#include "entity/peon/PeonEntity.h"
-#include "entity/peon/PeonRenderer.h"
-#include "entity/peon/PeonController.h"
+#include "objects/entity/entities/peon/PeonEntity.h"
+#include "objects/entity/entities/peon/PeonRenderer.h"
+#include "objects/entity/entities/peon/PeonController.h"
 
-#include "entity/land/tree/Tree.h"
-#include "entity/land/rock/Rock.h"
+#include "objects/entity/entities/land/tree/Tree.h"
+#include "objects/entity/entities/land/rock/Rock.h"
 
 #include "entity/buildings/house/House.h"
 
-#include "entity/utils/deposit/DepositEntityBeh.h"
+#include "entity/utils/deposit/DepositTracker.h"
 
 #include "entity/decorators/mover/Mover.h"
 #include "entity/decorators/mover/MoverBeh.h"
@@ -67,6 +66,7 @@
 #include "entity/decorators/collector/Collector.h"
 #include "entity/decorators/worker/WorkerBeh.h"
 #include "entity/peon/PeonBehaviour.h"
+#include "objects/entity/entities/peon/PeonEntity.h"
 
 #define FRAMERATE 60                ///< Target FPS
 #define FRAMETIME (1000/FRAMERATE)  ///< Duration of a frame (ms)
@@ -77,17 +77,24 @@
 
 namespace {
   template <class T>
-  using EntityAllocator = alloc::IndexAllocator<T,Entity>;
-  template <class T>
-  using DecoratorAllocator = alloc::IndexAllocator<T,decorators::Decorator>;
+  using ObjectAllocator = alloc::IndexAllocator<T,core::Object>;
+  
+  template <class T, typename ...Args>
+  static T& createWrapped(Args&& ...args) noexcept {
+    using Handle = alloc::WrapHandle<T,core::Object>;
+    core::Pointer ptr(new Handle(std::forward<Args>(args)...));
+    core::Object::Builder builder;
+    builder(ptr);
+    return static_cast<T&>(*ptr);
+  }
 }
 
 /// \brief Too complex to explain what is this thing
 int main(int argc, char** argv) {
   
   /* Create the World and main engine */
+  WorldMap&  _worldMap(createWrapped<WorldMap>(SIZE,SIZE));
   Controller _gameController;
-  WorldMap   _worldMap(SIZE,SIZE);
   GameEngine _gameEngine;
   TribeInfos _playerTribe;
   
@@ -127,21 +134,18 @@ int main(int argc, char** argv) {
   /* Register basic kinds */
   
   {
-    _gameEngine.registerDecorator(typeid(decorators::Mover), 
-        new DecoratorAllocator<decorators::Mover>(), 
-        new decorators::MoverBeh(_worldMap));
-    _gameEngine.registerDecorator(typeid(decorators::Deposit),
-        new DecoratorAllocator<decorators::Deposit>(),
-        nullptr);
-    _gameEngine.registerDecorator(typeid(decorators::Storage),
-        new DecoratorAllocator<decorators::Storage>(),
-        nullptr);
-    _gameEngine.registerDecorator(typeid(decorators::Slot),
-        new DecoratorAllocator<decorators::Slot>(),
-        nullptr);
-    _gameEngine.registerDecorator(typeid(decorators::Collector),
-        new DecoratorAllocator<decorators::Collector>(),
-        new decorators::WorkerBeh());
+    _gameEngine.registerObject(typeid(decorators::Mover), 
+        new ObjectAllocator<decorators::Mover>(), 
+        true);
+    _gameEngine.registerObject(typeid(decorators::Deposit),
+        new ObjectAllocator<decorators::Deposit>(),
+        false);
+    _gameEngine.registerObject(typeid(decorators::Storage),
+        new ObjectAllocator<decorators::Storage>(),
+        false);
+    _gameEngine.registerObject(typeid(decorators::Slot),
+        new ObjectAllocator<decorators::Slot>(),
+        false);
   }
   
   { /* tile */
@@ -159,7 +163,7 @@ int main(int argc, char** argv) {
     paths.whareh_sheet = "medias/sprites/entity/peon/attached_warehouse.png";
     paths.notify_sheet = "medias/sprites/entity/peon/notify.png";
     
-    auto asset(_spritesRegister.registerAsset(typeid(Peon),
+    auto asset(_spritesRegister.registerAsset(typeid(peon::PEntity),
         "medias/sprites/entity/peon/peon", 
         gui::ObjectAsset::ReqSheet
           | gui::ObjectAsset::ReqMask
@@ -167,13 +171,14 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerEntity(typeid(Peon), new EntityAllocator<Peon>(), new PeonBehaviour());
-    _rdrEngine.attachRenderer(typeid(Peon), 
+    _gameEngine.registerObject(typeid(peon::PEntity), 
+        new ObjectAllocator<peon::PEntity>(), false);
+    _rdrEngine.attachRenderer(typeid(peon::PEntity), 
         new PeonRenderer(asset, paths, _window->renderer));
     _soundEngine->registerSound(SoundAsset::loadFromFiles(
         "medias/sounds/peons/peon-", ".ogg", 3));
-    _gameController.registerController(typeid(Peon), 
-        new PeonController(_gameController));
+    _gameController.registerController(typeid(peon::PEntity), 
+        new peon::PeonController(_gameController));
   }
   { /* Tree */
     auto asset(_spritesRegister.registerAsset(typeid(Tree),
@@ -182,9 +187,9 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerEntity(typeid(Tree), 
-        new EntityAllocator<Tree>(), 
-        new DepositEntityBeh(_gameEngine));
+    _gameEngine.registerObject(typeid(Tree), 
+        new ObjectAllocator<Tree>(), 
+        false);
     _rdrEngine.attachRenderer(typeid(Tree), 
         new GenericRenderer<OnFootBlitter>(asset));
     _gameController.registerController(typeid(Tree), 
@@ -197,9 +202,9 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerEntity(typeid(Rock), 
-        new EntityAllocator<Rock>(), 
-        new DepositEntityBeh(_gameEngine));
+    _gameEngine.registerObject(typeid(Rock), 
+        new ObjectAllocator<Rock>(), 
+        false);
     _rdrEngine.attachRenderer(typeid(Rock), 
         new GenericRenderer<OnFootBlitter>(asset));
     _gameController.registerController(typeid(Rock), 
@@ -214,9 +219,9 @@ int main(int argc, char** argv) {
         _window->renderer,
         _window->vrenderer));
     
-    _gameEngine.registerEntity(typeid(House), 
-        new EntityAllocator<House>(),
-        nullptr);
+    _gameEngine.registerObject(typeid(House), 
+        new ObjectAllocator<House>(),
+        false);
     _rdrEngine.attachRenderer(typeid(House), 
         new GenericRenderer<OnTileBlitter>(asset));
     _gameController.registerController(typeid(House), 
@@ -261,25 +266,25 @@ int main(int argc, char** argv) {
   
   /* Manualy populate world */
   
-  _gameEngine.createEntity(typeid(Peon), 
-      Peon::Builder(_gameEngine, WorldObject::Position(0,0)));
-  _gameEngine.createEntity(typeid(Peon), 
-      Peon::Builder(_gameEngine, WorldObject::Position(2,2)));
+  _gameEngine.createObject(typeid(peon::PEntity), 
+      peon::PEntity::Builder(_gameEngine, world::Position(0,0)));
+  _gameEngine.createObject(typeid(peon::PEntity), 
+      peon::PEntity::Builder(_gameEngine, world::Position(2,2)));
   
-  _gameEngine.createEntity(typeid(Tree), 
-      Tree::Builder(_gameEngine, WorldObject::Position(1,1)));
-  _gameEngine.createEntity(typeid(Tree), 
-      Tree::Builder(_gameEngine, WorldObject::Position(1.6,1)));
-  _gameEngine.createEntity(typeid(Tree), 
-      Tree::Builder(_gameEngine, WorldObject::Position(2.6,1)));
-  _gameEngine.createEntity(typeid(Tree), 
-      Tree::Builder(_gameEngine, WorldObject::Position(1.3,1.5)));
+  _gameEngine.createObject(typeid(Tree), 
+      Tree::Builder(_gameEngine, world::Position(1,1)));
+  _gameEngine.createObject(typeid(Tree), 
+      Tree::Builder(_gameEngine, world::Position(1.6,1)));
+  _gameEngine.createObject(typeid(Tree), 
+      Tree::Builder(_gameEngine, world::Position(2.6,1)));
+  _gameEngine.createObject(typeid(Tree), 
+      Tree::Builder(_gameEngine, world::Position(1.3,1.5)));
   
-  _gameEngine.createEntity(typeid(Rock), 
-      Rock::Builder(_gameEngine, WorldObject::Position(0,2)));
+  _gameEngine.createObject(typeid(Rock), 
+      Rock::Builder(_gameEngine, world::Position(0,2)));
   
-  _gameEngine.createEntity(typeid(House), 
-      House::Builder(_gameEngine, WorldObject::Position(3,2)));
+  _gameEngine.createObject(typeid(House), 
+      House::Builder(_gameEngine, world::Position(3,2)));
  
   /* ------------------------------------------------- */
   

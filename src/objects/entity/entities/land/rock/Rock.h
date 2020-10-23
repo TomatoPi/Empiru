@@ -33,13 +33,13 @@ public:
   
   class Builder : public DepositEntity::Builder {
     public:
-      Builder(IGameAllocator& engine, const WorldObject::Position& pos)
+      Builder(IGameAllocator& engine, const world::Position& pos)
       noexcept : 
         DepositEntity::Builder(engine, pos, Stack::Ressource::Rock, 50)
       {
       }
         
-      virtual void operator() (Pointer& ptr) const noexcept override {
+      virtual void operator() (core::Pointer& ptr) const noexcept override {
         this->DepositEntity::Builder::operator ()(ptr);
       }
   };

@@ -33,6 +33,26 @@
 
 /// \brief Base class used to represent objects in the world (and a bit more)
 class Entity : public core::Object {
+public:
+  
+  /// \brief The builder of an entity
+  class Builder : public core::Object::Builder {
+  private:
+    WorldObject::Builder  _posbuilder;
+  protected:
+    IGameAllocator&       _allocator;
+  public:
+    Builder(IGameAllocator& a, const WorldObject::Builder& b) noexcept :
+      core::Object::Builder(), _posbuilder(b), _allocator(a) {}
+    virtual void operator() (core::Pointer& ptr) noexcept override {
+      this->core::Object::Builder::operator() (ptr);
+      Entity& entity(static_cast<Entity&>(*ptr));
+      _posbuilder._entity = ptr;
+      entity._pos = _allocator.createObject(typeid(WorldObject), _posbuilder);
+      
+    }
+  };
+  
 protected:
   
   core::Pointer _pos;
@@ -43,23 +63,43 @@ public:
   virtual ~Entity() noexcept = default;
   
   /// \brief By default entities are not callables
-  virtual void operator() () noexcept {assert(0);}
+  virtual bool operator() () noexcept {assert(0);}
 
   /// \brief Must return a pointer to given decorator if such exist
   ///   nullptr otherwise
-  virtual core::Pointer 
-  findDecorator(const std::type_info& type) noexcept = 0;
+  core::Pointer findDecorator(const std::type_info& type) noexcept {
+    if (type == typeid(WorldObject)) {
+      return _pos;
+    } else {
+      return doFindDecorator(type);
+    }
+  }
   /// \brief Must return a pointer to given decorator if such exist
   ///   nullptr otherwise
-  virtual const core::Pointer 
-  findDecorator(const std::type_info& type) const noexcept = 0;
+  const core::Pointer findDecorator(const std::type_info& type) const noexcept {
+    if (type == typeid(WorldObject)) {
+      return _pos;
+    } else {
+      return doFindDecorator(type);
+    }
+  }
 
   /// \brief Must return given decorator, undefined behaviour if none
-  virtual Decorator& 
-  getDecorator(const std::type_info& type) noexcept = 0;
+  Decorator& getDecorator(const std::type_info& type) noexcept {
+    if (type == typeid(WorldObject)) {
+      return static_cast<Decorator&>(*_pos);
+    } else {
+      return doGetDecorator(type);
+    }
+  }
   /// \brief Must return given decorator, undefined behaviour if none
-  virtual const Decorator& 
-  getDecorator(const std::type_info& type) const noexcept = 0;
+  const Decorator& getDecorator(const std::type_info& type) const noexcept {
+    if (type == typeid(WorldObject)) {
+      return static_cast<const Decorator&>(*_pos);
+    } else {
+      return doGetDecorator(type);
+    }
+  }
 
   /// \brief Useful to get and cast a decorator to a subtype
   template <class T>
@@ -71,23 +111,24 @@ public:
   const T& get() const noexcept {
     return static_cast<const T&>(getDecorator(typeid(T)));
   }
+  
+protected:
 
-  /// \brief The builder of an entity
-  class Builder : public core::Object::Builder {
-  private:
-    IGameAllocator&       _allocator;
-    WorldObject::Builder  _posbuilder;
-  public:
-    Builder(IGameAllocator& a, const WorldObject::Builder& b) noexcept :
-      core::Object::Builder(), _allocator(a), _posbuilder(b) {}
-    virtual void operator() (core::Pointer& ptr) noexcept override {
-      this->core::Object::Builder::operator() (ptr);
-      Entity& entity(static_cast<Entity&>(*ptr));
-      _posbuilder._entity = ptr;
-      entity._pos = _allocator.createObject(typeid(WorldObject), _posbuilder);
-      
-    }
-  };
+  /// \brief Must return a pointer to given decorator if such exist
+  ///   nullptr otherwise
+  virtual core::Pointer 
+  doFindDecorator(const std::type_info& type) noexcept = 0;
+  /// \brief Must return a pointer to given decorator if such exist
+  ///   nullptr otherwise
+  virtual const core::Pointer 
+  doFindDecorator(const std::type_info& type) const noexcept = 0;
+
+  /// \brief Must return given decorator, undefined behaviour if none
+  virtual Decorator& 
+  doGetDecorator(const std::type_info& type) noexcept = 0;
+  /// \brief Must return given decorator, undefined behaviour if none
+  virtual const Decorator& 
+  doGetDecorator(const std::type_info& type) const noexcept = 0;
 }; 
 
 template <>

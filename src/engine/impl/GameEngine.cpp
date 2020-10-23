@@ -46,7 +46,9 @@ void GameEngine::update() {
   for (auto& type : _callables) {
     _objects.at(type)->foreach(
       [this](core::Object& obj) -> void {
-        obj();
+        if (obj()) {
+          discardObject(obj.ptr());
+        }
       });
   }
   for (auto& ptr : _dyings) {
@@ -58,7 +60,7 @@ void GameEngine::update() {
 core::Pointer 
 GameEngine::createObject(
   const std::type_info& type, 
-  const core::Object::Builder& builder)
+  core::Object::Builder& builder)
 noexcept
 {
   core::Pointer object(_objects.at(std::type_index(type))->createObject());
@@ -68,6 +70,7 @@ noexcept
 }
 
 void GameEngine::discardObject(core::Pointer ptr) noexcept {
+  ptr->discard();
   sendNotification(GameEvents::ObjectDestroyed(ptr));
   _dyings.push_back(ptr);
 }

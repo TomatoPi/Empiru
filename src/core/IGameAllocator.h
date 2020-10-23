@@ -34,7 +34,7 @@ class IGameAllocator {
 public:
   
   virtual core::Pointer 
-  createObject(const std::type_info&, const core::Object::Builder&) 
+  createObject(const std::type_info&, core::Object::Builder&) 
   noexcept = 0;
   
   virtual void discardObject(core::Pointer ptr) noexcept = 0;

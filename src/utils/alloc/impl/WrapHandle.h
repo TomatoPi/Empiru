@@ -43,7 +43,7 @@ namespace alloc {
     
     /// \brief Create the handle to instanciate associated object
     template <typename ...Args>
-    explicit WrapHandle(Args&& args ...) noexcept : 
+    explicit WrapHandle(Args&& ...args) noexcept : 
       AHandle(), _obj(std::forward<Args>(args)...) 
     {
       static_assert(std::is_base_of<U,T>::value, "T must be derived from U");

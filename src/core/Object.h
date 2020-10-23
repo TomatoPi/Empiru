@@ -72,8 +72,10 @@ namespace core {
     
     Pointer ptr() noexcept { return _this; }
     
-    /// \brief Some objects are callables
-    virtual void operator() () noexcept = 0;
+    /// \brief Some objects are callables, this callback must return true while
+    ///  the object is alive, when it return false, object will be destroyed
+    /// \return True while the object is alive
+    virtual bool operator() () noexcept = 0;
     
     /// \brief Method to call when an object is beeing destroyed
     void discard() noexcept {

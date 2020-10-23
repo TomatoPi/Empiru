@@ -24,6 +24,14 @@
 
 #include "PeonBehaviour.h"
 
+namespace peon {
+  
+  void PeonBehaviour::operator() () noexcept {
+    
+  }
+}
+
+#if 0
 void PeonBehaviour::operator() (Entity& entity, Pointer ptr) noexcept {
   Peon& peon(static_cast<Peon&>(entity));
   if (peon.collector().status() == decorators::Collector::Status::TooFar) {
@@ -35,7 +43,6 @@ void PeonBehaviour::operator() (Entity& entity, Pointer ptr) noexcept {
 }
 
 
-#if 0
 #include <cassert>
 
 #include "PeonBehaviour.h"

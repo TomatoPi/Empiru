@@ -120,7 +120,7 @@ namespace alloc {
       std::size_t swapped(_objects.size() -1);
       // Swap last and erased elements then update associated reference
       if (1 < _objects.size() && erased != swapped) {
-        _rtable[swapped].handl()._idx = erased;
+        _rtable[swapped].handle()._idx = erased;
         std::swap(_objects[erased], _objects[swapped]);
         std::swap(_rtable[erased], _rtable[swapped]);
       }
@@ -137,8 +137,8 @@ namespace alloc {
     virtual void foreach(std::function<void(U&)> func) override
     {
       assert(_objects.size() == _rtable.size());
-      for (std::size_t i(0) ; i<_objects.size() ; ++i) {
-        func(_objects[i], _rtable[i]);
+      for (auto& obj : _objects) {
+        func(obj);
       }
       assert(_objects.size() == _rtable.size());
     }
