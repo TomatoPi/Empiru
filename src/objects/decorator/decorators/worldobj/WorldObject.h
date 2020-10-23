@@ -25,100 +25,103 @@
 #ifndef WORLDOBJECT_H
 #define WORLDOBJECT_H
 
-#include "objects/decorator/core/Decorator.h"
+#include "core/Object.h"
 #include "world/core/Types.h"
 
-class WorldObject : public Decorator {
-public:
-
-  /// \brief Specify object's size on the map
-  enum class Size {
-    Small,  ///< Objects that can coexist on the same tile with circular hitbox
-    Tile,   ///< Objects that occupy the whole tile
-    Hollow, ///< Utility objects that don't occupy space
-  };
+namespace decorators {
   
-  struct Event : public core::Object::Event {
-    enum class Type {
-      Moved,
-      Rotated
+  namespace WorldObjectEvents {
+    struct Moved {
+      world::Position old;
+      Moved(const world::Position& old) noexcept : old(old) {}
     };
-    Type type;
-    world::Position old;
-    Event(Type t, world::Position o=world::Position()) noexcept : 
-      type(t), old(o) {}
-  };
+    struct Rotated {
+      int old;
+      Rotated(int o) noexcept : old(o) {}
+    };
+  }
   
-  class Builder : public Decorator::Builder {
-  private:
-    world::Position           _pos;         ///< Object's position
-    float                     _radius;      ///< Hitbox radius for small objects
-    int                       _orientation; ///< Object's orientation
-    Size                      _size;        ///< Object's size
+  class WorldObject :
+    public core::Object,
+    public core::OSubject<
+      WorldObjectEvents::Moved,
+      WorldObjectEvents::Rotated
+    > 
+  {
   public:
-    Builder(const world::Position& p, Size s, float r=0.5, int o=0) noexcept :
-      Decorator::Builder(),
-      _pos(p), _radius(r), _orientation(o), _size(s) {}
-    virtual void operator() (core::Pointer& ptr) noexcept override;
+    
+    friend class Builder;
+    /// \brief Specify object's size on the map
+    enum class Size {
+      Small,  ///< Objects that coexist on the same tile with circular hitbox
+      Tile,   ///< Objects that occupy the whole tile
+      Hollow, ///< Utility objects that don't occupy space
+    };
+
+  private:
+
+    core::Pointer   _entity;
+    world::Position _pos;         ///< Object's position
+    float           _radius;      ///< Hitbox radius for smalls objects
+    int             _orientation; ///< Object's orientation
+    Size            _size;        ///< Object's size
+
+  public:
+
+    WorldObject() noexcept = default;
+    virtual ~WorldObject() noexcept = default;
+    
+    const world::Position& pos() const noexcept {
+      return _pos;
+    }
+    void pos(const world::Position& pos) noexcept {
+      world::Position old(_pos);
+      _pos = pos; 
+      core::OSubject<WorldObjectEvents::Moved>::notify(old);
+    }
+
+    int orientation() const noexcept {return _orientation;}
+    void orientation(int o) noexcept {
+      int old(_orientation);
+      _orientation = o; 
+      core::OSubject<WorldObjectEvents::Rotated>::notify(old);
+    }
+
+    /// \brief return object's radius or 1 if tile sized
+    float radius() const noexcept {
+      return _radius;
+    }
+
+    /// \brief Method that return true if this object collide with given object
+    ///   considering obj beeing at pos
+    bool 
+    collide(const WorldObject& obj, const world::Position& pos) const noexcept;
+
+  protected:
+
+    /// \brief Collision between two small objects
+    static bool smallCollide(
+      const WorldObject& a, const world::Position& pa, 
+      const WorldObject& b, const world::Position& pb) 
+    noexcept {
+      return world::Position::distance(pa, pb) < (a._radius + b._radius);
+    }
+    /// \brief Collision between two tile objects
+    static bool tileCollide(const world::Position& a, const world::Position& b)
+    noexcept {
+      return a.tile() == b.tile();
+    }
+    /// \brief Collision between a small object and a tile object
+    static bool stCollide(
+      const WorldObject &small, const world::Position& smallpos,
+      const WorldObject &tile, const world::Position& tilepos)
+    noexcept {
+      // Easier to understand with a drawing
+      return world::Position(
+          smallpos + (smallpos - tilepos).toUnit()
+            * small._radius).tile() == tilepos.tile();
+    }
   };
-
-private:
-
-  world::Position           _pos;         ///< Object's position
-  float                     _radius;      ///< Hitbox radius for small objects
-  int                       _orientation; ///< Object's orientation
-  Size                      _size;        ///< Object's size
-
-public:
-
-  WorldObject() noexcept = default;
-  virtual ~WorldObject() noexcept = default;
-
-  const world::Position& pos() const noexcept {return _pos;}
-  void pos(const world::Position& pos) noexcept {
-    world::Position old(_pos);
-    _pos = pos; 
-    notify(Event(Event::Type::Moved, old));
-  }
-
-  int orientation() const noexcept {return _orientation;}
-  void orientation(int o) noexcept {
-    _orientation = o; 
-    notify(Event(Event::Type::Rotated));
-  }
-
-  /// \brief return object's radius or 1 if tile sized
-  float radius() const noexcept {return _radius;}
-
-  /// \brief Method that return true if this object collide with given object
-  ///   considering obj beeing at pos
-  bool 
-  collide(const WorldObject& obj, const world::Position& pos) const noexcept;
-
-protected:
-
-  /// \brief Collision between two small objects
-  static bool smallCollide(
-    const WorldObject& a, const world::Position& pa, 
-    const WorldObject& b, const world::Position& pb) 
-  noexcept {
-    return world::Position::distance(pa, pb) < (a._radius + b._radius);
-  }
-  /// \brief Collision between two tile objects
-  static bool tileCollide(const world::Position& a, const world::Position& b)
-  noexcept {
-    return a.tile() == b.tile();
-  }
-  /// \brief Collision between a small object and a tile object
-  static bool stCollide(
-    const WorldObject &small, const world::Position& smallpos,
-    const WorldObject &tile, const world::Position& tilepos)
-  noexcept {
-    // Easier to understand with a drawing
-    return world::Position(
-        smallpos + (smallpos - tilepos).toUnit()
-          * small._radius).tile() == tilepos.tile();
-  }
-};
+}
 
 #endif /* WORLDOBJECT_H */

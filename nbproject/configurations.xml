@@ -187,6 +187,7 @@
         <itemPath>src/generator/ZoneGenerator.cpp</itemPath>
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
+      <itemPath>src/objects/decorator/decorators/worldobj/Builder.cpp</itemPath>
       <itemPath>src/objects/decorator/decorators/collector/Collector.cpp</itemPath>
       <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.cpp</itemPath>
       <itemPath>src/objects/entity/utils/deposit/DepositEntity.cpp</itemPath>
@@ -234,6 +235,10 @@
     <itemPath>src/engine/utils/AbstractEntityBehaviour.h</itemPath>
     <itemPath>src/controller/utils/AbstractEntityController.h</itemPath>
     <itemPath>src/objects/decorator/decorators/behaviour/Behaviour.h</itemPath>
+    <itemPath>src/core/Builder.h</itemPath>
+    <itemPath>src/objects/entity/core/Builder.h</itemPath>
+    <itemPath>src/objects/decorator/core/Builder.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/worldobj/Builder.h</itemPath>
     <itemPath>src/objects/decorator/decorators/collector/Collector.h</itemPath>
     <itemPath>src/engine/core/decorator/DecoratorUpdator.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.h</itemPath>
@@ -244,8 +249,8 @@
     <itemPath>src/core/Event.h</itemPath>
     <itemPath>src/controller/utils/GenericSelectorController.h</itemPath>
     <itemPath>src/utils/alloc/Handle.h</itemPath>
+    <itemPath>src/core/IAllocator.h</itemPath>
     <itemPath>src/controller/core/IEntityController.h</itemPath>
-    <itemPath>src/core/IGameAllocator.h</itemPath>
     <itemPath>src/controller/core/IGameController.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/Inventory.h</itemPath>
     <itemPath>src/entity/decorators/Mover/Mover.h</itemPath>
@@ -261,6 +266,7 @@
     <itemPath>src/objects/decorator/decorators/inventory/slot/Slot.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/storage/Storage.h</itemPath>
     <itemPath>src/engine/tribe/StorageWatch.h</itemPath>
+    <itemPath>src/utils/pattern/SuperObserver.h</itemPath>
     <itemPath>src/entity/decorators/supplier/Supplier.h</itemPath>
     <itemPath>src/world/core/Types.h</itemPath>
     <itemPath>src/objects/decorator/decorators/behaviour/Updator.h</itemPath>
@@ -403,11 +409,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/core/Builder.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/core/IAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -517,6 +525,11 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/objects/decorator/core/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/core/Decorator.h"
             ex="false"
             tool="3"
@@ -592,6 +605,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
             ex="false"
             tool="1"
@@ -601,6 +624,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Builder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -851,6 +876,8 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1016,11 +1043,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/core/Builder.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/core/IAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1130,6 +1159,11 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/objects/decorator/core/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/core/Decorator.h"
             ex="false"
             tool="3"
@@ -1205,6 +1239,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
             ex="false"
             tool="1"
@@ -1214,6 +1258,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Builder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1464,6 +1510,8 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1624,11 +1672,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/core/Builder.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/core/IAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1738,6 +1788,11 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/objects/decorator/core/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/core/Decorator.h"
             ex="false"
             tool="3"
@@ -1813,6 +1868,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
             ex="false"
             tool="1"
@@ -1822,6 +1887,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Builder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2072,6 +2139,8 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2239,11 +2308,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/core/Builder.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/core/Event.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/GameCore.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/core/IGameAllocator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/core/IAllocator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/core/Object.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2353,6 +2424,11 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="11">
       </item>
+      <item path="src/objects/decorator/core/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/core/Decorator.h"
             ex="false"
             tool="3"
@@ -2428,6 +2504,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/worldobj/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/decorator/decorators/worldobj/WorldObject.cpp"
             ex="false"
             tool="1"
@@ -2437,6 +2523,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/objects/entity/core/Builder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/objects/entity/core/Entity.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2687,6 +2775,8 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/world/Harvestable.h" ex="false" tool="3" flavor2="0">
       </item>

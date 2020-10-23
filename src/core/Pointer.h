@@ -26,6 +26,7 @@
 #define GAME_ENGINE_POINTER_H
 
 #include "utils/alloc/Pointer.h"
+
 namespace core {
   class Object;
   using Pointer = alloc::SmartPointer<Object>;

@@ -27,18 +27,39 @@
 
 #include <typeinfo>
 
-#include "core/Pointer.h"
-#include "core/Object.h"
+#include "Pointer.h"
+#include "Object.h"
+#include "Builder.h"
 
-class IGameAllocator {
-public:
-  
-  virtual core::Pointer 
-  createObject(const std::type_info&, core::Object::Builder&) 
-  noexcept = 0;
-  
-  virtual void discardObject(core::Pointer ptr) noexcept = 0;
-};
+namespace core {
+  /// \brief Game Main Allocator, this interface must be used to create and
+  ///   destroy dynamic game objects
+  class IAllocator {
+  private:
+
+    /// \brief Singleloton
+    static IAllocator *_instance = nullptr;
+
+  public:
+
+    /// \brief Can only be called once
+    static void RegisterInstance(IAllocator* i) noexcept {
+      assert(_instance == nullptr && "Instance Already Registered ...");
+      _instance = i;
+    }
+
+    /// \brief Return the allocator instance
+    static IAllocator& Get() noexcept {
+      return *_instance;
+    }
+
+    /// \brief Must be called to create a new game object
+    virtual Pointer createObject(const std::type_info&, const Builder&) noexcept = 0;
+
+    /// \brief Must be called to destroy an object
+    virtual void discardObject(core::Pointer ptr) noexcept = 0;
+  };
+}
 
 #endif /* ENGINEINTERFACE_H */
 

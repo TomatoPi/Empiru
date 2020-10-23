@@ -28,7 +28,7 @@
 #include "controller/core/IEntityController.h"
 #include "controller/core/IGameController.h"
 #include "world/core/IWorldMap.h"
-#include "core/IGameAllocator.h"
+#include "core/IAllocator.h"
 
 namespace peon {
   class PeonController : public IEntityController {

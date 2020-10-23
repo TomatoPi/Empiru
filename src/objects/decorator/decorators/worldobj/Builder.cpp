@@ -16,21 +16,22 @@
  */
 
 /// 
-/// \file   Observer.h
+/// \file   Builder.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 17:50
+/// \date 24 octobre 2020, 00:10
 ///
 
-#ifndef GAME_CORE_BIG_OBSERVER
-#define GAME_CORE_BIG_OBSERVER
+#include "Builder.h"
 
-#include "utils/pattern/SuperObserver.h"
-
-namespace core {
-  template <typename EventT, typename ...E>
-  using OSubject = SuperObserver::Subject<Pointer,EventT,E...>;
+namespace decorators {
+  void WorldObjectBuilder::operator() (core::Pointer& ptr) const noexcept {
+    this->core::Builder::operator() (ptr);
+    WorldObject& obj(static_cast<WorldObject&>(*ptr));
+    obj._entity = _entity;
+    obj._pos = _pos;
+    obj._radius = _radius;
+    obj._size = _size;
+    obj._orientation = _orientation;
+  }
 }
-
-#endif /* GAME_CORE_BIG_OBSERVER */
-

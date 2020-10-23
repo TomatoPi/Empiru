@@ -16,21 +16,26 @@
  */
 
 /// 
-/// \file   Observer.h
+/// \file   Builder.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 17:50
+/// \date 23 octobre 2020, 23:06
 ///
 
-#ifndef GAME_CORE_BIG_OBSERVER
-#define GAME_CORE_BIG_OBSERVER
+#ifndef BUILDER_H
+#define BUILDER_H
 
-#include "utils/pattern/SuperObserver.h"
+#include "Object.h"
+#include "Pointer.h"
 
 namespace core {
-  template <typename EventT, typename ...E>
-  using OSubject = SuperObserver::Subject<Pointer,EventT,E...>;
+  /// \brief Base class of GameObjects builders
+  class Builder {
+    virtual void operator() (Pointer& ptr) const noexcept {
+      ptr->_this = ptr;
+    }
+  };
 }
 
-#endif /* GAME_CORE_BIG_OBSERVER */
+#endif /* BUILDER_H */
 

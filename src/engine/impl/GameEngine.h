@@ -27,7 +27,7 @@
 #define GAMEENGINE_H
 
 #include "core/Observer.h"
-#include "core/IGameAllocator.h"
+#include "core/IAllocator.h"
 #include "utils/alloc/impl/IndexAllocator.h"
 
 #include <cassert>

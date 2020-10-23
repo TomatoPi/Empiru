@@ -26,7 +26,7 @@
 #define ENTITY_H
 
 #include "core/Object.h"
-#include "core/IGameAllocator.h"
+#include "core/IAllocator.h"
 #include "objects/decorator/core/Decorator.h"
 #include "objects/decorator/decorators/worldobj/WorldObject.h"
 #include <typeinfo>
@@ -49,7 +49,6 @@ public:
       Entity& entity(static_cast<Entity&>(*ptr));
       _posbuilder._entity = ptr;
       entity._pos = _allocator.createObject(typeid(WorldObject), _posbuilder);
-      
     }
   };
   

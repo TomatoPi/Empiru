@@ -24,30 +24,22 @@
 
 #include "WorldObject.h"
 
-void WorldObject::Builder::operator() (core::Pointer& ptr) noexcept {
-  this->Decorator::Builder::operator() (ptr);
-  WorldObject& obj(static_cast<WorldObject&>(*ptr));
-  obj._pos = _pos;
-  obj._radius = _radius;
-  obj._size = _size;
-  obj._orientation = _orientation;
-}
-
-bool 
-WorldObject::collide(const WorldObject& obj, const world::Position& pos) 
-const noexcept {
-  if (_size == Size::Hollow || obj._size == Size::Hollow)
+namespace decorators {
+  bool WorldObject::collide(const WorldObject& obj, const world::Position& pos) 
+  const noexcept {
+    if (_size == Size::Hollow || obj._size == Size::Hollow)
+      return false;
+    if (_size == Size::Small) {
+      if (obj._size == Size::Small)
+        return smallCollide(*this, _pos, obj, pos);
+      return stCollide(*this, _pos, obj, pos);
+    }
+    if (_size == Size::Tile) {
+      if (obj._size == Size::Small)
+        return stCollide(obj, pos, *this, _pos);
+      return tileCollide(_pos, pos);
+    }
+    assert(0);
     return false;
-  if (_size == Size::Small) {
-    if (obj._size == Size::Small)
-      return smallCollide(*this, _pos, obj, pos);
-    return stCollide(*this, _pos, obj, pos);
   }
-  if (_size == Size::Tile) {
-    if (obj._size == Size::Small)
-      return stCollide(obj, pos, *this, _pos);
-    return tileCollide(_pos, pos);
-  }
-  assert(0);
-  return false;
 }

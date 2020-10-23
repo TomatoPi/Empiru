@@ -16,19 +16,24 @@
  */
 
 /// 
-/// \file   Event.h
+/// \file   Builder.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 21 octobre 2020, 17:45
+/// \date 23 octobre 2020, 23:48
 ///
 
-#ifndef EVENT_H
-#define EVENT_H
+#ifndef BUILDER_H
+#define BUILDER_H
 
-class Event {
-public:
-  virtual ~Event() noexcept = 0;
-};
+#include "core/Builder.h"
+#include "Entity.h"
 
-#endif /* EVENT_H */
+namespace Entity {
+  class Builder : public core::Builder {
+  private:
+    Builder()
+  };
+}
+
+#endif /* BUILDER_H */
 

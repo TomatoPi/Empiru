@@ -26,7 +26,7 @@
 #define DEPOSITENTITY_H
 
 #include "objects/entity/core/Entity.h"
-#include "core/IGameAllocator.h"
+#include "core/IAllocator.h"
 #include "objects/decorator/decorators/inventory/deposit/Deposit.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of

@@ -28,7 +28,7 @@
 
 #include "PeonSprite.h"
 
-#include "core/IGameAllocator.h"
+#include "core/IAllocator.h"
 #include "objects/entity/core/Entity.h"
 #include "objects/operator/operators/mover/Mover.h"
 
