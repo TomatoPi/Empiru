@@ -26,6 +26,7 @@
 #define SLOT_H
 
 #include "../Inventory.h"
+#include "objects/decorator/Builder.h"
 #include <cassert>
 
 namespace decorators {
@@ -43,7 +44,7 @@ namespace decorators {
     virtual ~Slot() noexcept = default;
     
     /// \brief Must return quantity of given ressource that can be stored
-    virtual int storableQtyOf(Stack::Ressource type) const noexcept override {
+    int storableQtyOf(Stack::Ressource type) const noexcept override {
       if (_stack.empty()) {
         return _max;
       }
@@ -54,7 +55,7 @@ namespace decorators {
     }
     
     /// \brief Must return inventory content
-    virtual Content content() const noexcept override {
+    Content content() const noexcept override {
       if (_stack.empty()) {
         return Content();
       }
@@ -62,10 +63,10 @@ namespace decorators {
     }
     
     /// \brief Must return true if inventory is empty
-    virtual bool isEmpty() const noexcept override {
+    bool isEmpty() const noexcept override {
       return _stack.empty();
     }
-    virtual bool isFull() const noexcept override {
+    bool isFull() const noexcept override {
       return _stack.full();
     }
     
@@ -73,7 +74,7 @@ namespace decorators {
     
     /// \brief Must Add given stack to the inventory 
     /// \return garbage if full stack cannot be added
-    virtual Stack doAdd(const Stack& stack) noexcept override {
+    Stack doAdd(const Stack& stack) noexcept override {
       if (_stack.empty()) {
         _stack = Stack(stack.type(), 0, _max);
       }
@@ -84,23 +85,23 @@ namespace decorators {
     /// \brief type : Ressource type to take
     /// \brief qty  : Quantity to get, 0 for the maximum available
     /// \return a smaller one if request is bigger than inventory content
-    virtual Stack doReduce(Stack::Ressource type, int qty) noexcept override {
+    Stack doReduce(Stack::Ressource type, int qty) noexcept override {
       assert(_stack.type() == type);
       return _stack.reduce(qty);
     }
     
   public:
     
-    class Builder : public Inventory::Builder {
+    class Builder : public Decorator::Builder {
     private:
       int _max;
     public:
-      explicit Builder(int max) noexcept :
-        Inventory::Builder(), _max(max) {}
+      explicit Builder(const core::Pointer& entity, int max) noexcept :
+        Decorator::Builder(entity), _max(max) {}
       
-      virtual void operator() (core::Pointer& ptr) const noexcept override {
+      void operator() (core::Pointer& ptr) const noexcept override {
         /// Make the concrete decorator accessible via the Inventory Decorator
-        this->Inventory::Builder::operator() (ptr);
+        this->Decorator::Builder::operator() (ptr);
         Slot& slot(static_cast<Slot&>(*ptr));
         slot._max = _max;
       }

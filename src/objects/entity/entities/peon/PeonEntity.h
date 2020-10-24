@@ -33,7 +33,7 @@
 #include "objects/operator/operators/mover/Mover.h"
 
 namespace peon {
-  class PEntity : public Entity {
+  class PEntity : public Entity::Base {
   private:
     
     friend class PeonController;
@@ -45,30 +45,26 @@ namespace peon {
     PEntity() noexcept = default;
     virtual ~PEntity() noexcept = default;
     
-    virtual core::Pointer 
+    core::Pointer 
     doFindDecorator(const std::type_info& type) noexcept override;
-    virtual const core::Pointer 
+    const core::Pointer 
     doFindDecorator(const std::type_info& type) const noexcept override;
-    virtual Decorator& 
-    doGetDecorator(const std::type_info& type) noexcept override;
-    virtual const Decorator& 
-    doGetDecorator(const std::type_info& type) const noexcept override;
     
 
     /// \brief Useful to get and cast a decorator to a subtype
     template <class T>
     T& get() noexcept {
-      return Entity::get<T>();
+      return Entity::Base::get<T>();
     }
     /// \brief Useful to get and cast a decorator to a subtype
     template <class T>
     const T& get() const {
-      return Entity::get<T>();
+      return Entity::Base::get<T>();
     }
     
     class Builder : public Entity::Builder {
     public:
-      Builder(IGameAllocator& alloc, const world::Position& pos) noexcept;
+      Builder(const world::Position& pos) noexcept;
       virtual void operator() (core::Pointer& ptr) noexcept override;
     };
   };

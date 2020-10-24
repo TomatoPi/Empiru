@@ -27,116 +27,72 @@
 
 #include "core/Object.h"
 #include "core/IAllocator.h"
-#include "objects/decorator/core/Decorator.h"
 #include "objects/decorator/decorators/worldobj/WorldObject.h"
 #include <typeinfo>
 
-/// \brief Base class used to represent objects in the world (and a bit more)
-class Entity : public core::Object {
-public:
-  
-  /// \brief The builder of an entity
-  class Builder : public core::Object::Builder {
-  private:
-    WorldObject::Builder  _posbuilder;
-  protected:
-    IGameAllocator&       _allocator;
+namespace Entity {
+  class Base : public core::Object {
+  private :
+    friend class Builder;
+    core::Pointer _position;
   public:
-    Builder(IGameAllocator& a, const WorldObject::Builder& b) noexcept :
-      core::Object::Builder(), _posbuilder(b), _allocator(a) {}
-    virtual void operator() (core::Pointer& ptr) noexcept override {
-      this->core::Object::Builder::operator() (ptr);
-      Entity& entity(static_cast<Entity&>(*ptr));
-      _posbuilder._entity = ptr;
-      entity._pos = _allocator.createObject(typeid(WorldObject), _posbuilder);
+
+    Entity() noexcept = default;
+    virtual ~Entity() noexcept = default;
+
+    /// \brief By default entities are not callables
+    bool operator() () noexcept override {assert(0);}
+
+    /// \brief Must return a pointer to given decorator if such exist
+    ///   nullptr otherwise
+    core::Pointer findDecorator(const std::type_info& type) noexcept {
+      if (type == typeid(decorators::WorldObject)) {
+        return _position;
+      } else {
+        return doFindDecorator(type);
+      }
     }
+    /// \brief Must return a pointer to given decorator if such exist
+    ///   nullptr otherwise
+    const core::Pointer findDecorator(const std::type_info& type) const noexcept {
+      if (type == typeid(decorators::WorldObject)) {
+        return _position;
+      } else {
+        return doFindDecorator(type);
+      }
+    }
+
+    /// \brief Useful to get and cast a decorator to a subtype
+    template <class T>
+    T& get() noexcept {
+      return static_cast<T&>(*findDecorator(typeid(T)));
+    }
+    /// \brief Useful to get and cast a decorator to a subtype
+    template <class T>
+    const T& get() const noexcept {
+      return static_cast<const T&>(*findDecorator(typeid(T)));
+    }
+
+  protected:
+    
+    /// \brief Must return a pointer to given decorator if such exist
+    ///   nullptr otherwise
+    virtual core::Pointer 
+    doFindDecorator(const std::type_info& type) noexcept = 0;
+    /// \brief Must return a pointer to given decorator if such exist
+    ///   nullptr otherwise
+    virtual const core::Pointer 
+    doFindDecorator(const std::type_info& type) const noexcept = 0;
   };
   
-protected:
-  
-  core::Pointer _pos;
-  
-public:
-
-  Entity() noexcept = default;
-  virtual ~Entity() noexcept = default;
-  
-  /// \brief By default entities are not callables
-  virtual bool operator() () noexcept {assert(0);}
-
-  /// \brief Must return a pointer to given decorator if such exist
-  ///   nullptr otherwise
-  core::Pointer findDecorator(const std::type_info& type) noexcept {
-    if (type == typeid(WorldObject)) {
-      return _pos;
-    } else {
-      return doFindDecorator(type);
-    }
+  template <>
+  decorators::WorldObject& Base::get() noexcept {
+    return static_cast<decorators::WorldObject&>(*_position);
   }
-  /// \brief Must return a pointer to given decorator if such exist
-  ///   nullptr otherwise
-  const core::Pointer findDecorator(const std::type_info& type) const noexcept {
-    if (type == typeid(WorldObject)) {
-      return _pos;
-    } else {
-      return doFindDecorator(type);
-    }
+  template <>
+  const decorators::WorldObject& Base::get() const noexcept {
+    return static_cast<const decorators::WorldObject&>(*_position);
   }
-
-  /// \brief Must return given decorator, undefined behaviour if none
-  Decorator& getDecorator(const std::type_info& type) noexcept {
-    if (type == typeid(WorldObject)) {
-      return static_cast<Decorator&>(*_pos);
-    } else {
-      return doGetDecorator(type);
-    }
-  }
-  /// \brief Must return given decorator, undefined behaviour if none
-  const Decorator& getDecorator(const std::type_info& type) const noexcept {
-    if (type == typeid(WorldObject)) {
-      return static_cast<const Decorator&>(*_pos);
-    } else {
-      return doGetDecorator(type);
-    }
-  }
-
-  /// \brief Useful to get and cast a decorator to a subtype
-  template <class T>
-  T& get() noexcept {
-    return static_cast<T&>(getDecorator(typeid(T)));
-  }
-  /// \brief Useful to get and cast a decorator to a subtype
-  template <class T>
-  const T& get() const noexcept {
-    return static_cast<const T&>(getDecorator(typeid(T)));
-  }
-  
-protected:
-
-  /// \brief Must return a pointer to given decorator if such exist
-  ///   nullptr otherwise
-  virtual core::Pointer 
-  doFindDecorator(const std::type_info& type) noexcept = 0;
-  /// \brief Must return a pointer to given decorator if such exist
-  ///   nullptr otherwise
-  virtual const core::Pointer 
-  doFindDecorator(const std::type_info& type) const noexcept = 0;
-
-  /// \brief Must return given decorator, undefined behaviour if none
-  virtual Decorator& 
-  doGetDecorator(const std::type_info& type) noexcept = 0;
-  /// \brief Must return given decorator, undefined behaviour if none
-  virtual const Decorator& 
-  doGetDecorator(const std::type_info& type) const noexcept = 0;
-}; 
-
-template <>
-WorldObject& Entity::get() noexcept {
-  return static_cast<WorldObject&>(*_pos);
-}
-template <>
-const WorldObject& Entity::get() const noexcept {
-  return static_cast<const WorldObject&>(*_pos);
 }
 
 #endif /* ENTITY_H */

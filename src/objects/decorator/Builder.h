@@ -19,43 +19,40 @@
 /// \file   Builder.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 23 octobre 2020, 23:48
+/// \date 24 octobre 2020, 00:46
 ///
 
-#ifndef BUILDER_H
-#define BUILDER_H
+#ifndef DECORATOR_BUILDER_H
+#define DECORATOR_BUILDER_H
 
 #include "core/Builder.h"
-#include "Entity.h"
 
-namespace Entity {
-  class Builder : public core::Builder {
-  private:
+namespace {
+  static void ownerDied(
+    core::Pointer decorator, 
+    const core::OSubject<core::Events::ObjectDestroyed>&, 
+    const core::Events::ObjectDestroyed&)
+  {
+    decorator->discard();
+  }
+}
+
+namespace Decorator {
+  struct Builder : public core::Builder {
+    core::Pointer _owner;
     
-    world::Position _pos;         ///< Object's position
-    float           _radius;      ///< Hitbox radius for small objects
-    int             _orientation; ///< Object's orientation
-    decorators::WorldObject::Size _size; ///< Object's size
+    Builder(const core::Pointer& ptr) noexcept : 
+      core::Builder(), _owner(ptr) {}
     
-  public:
-    
-    Builder(
-      const world::Position& p, 
-      decorators::WorldObject::Size s, float r=0.5, int o=0)
-    noexcept :
-      core::Builder(), _pos(p), _radius(r), _orientation(o), _size(s) 
-    {
-    }
-      
     void operator() (core::Pointer& ptr) noexcept override {
       this->core::Builder::operator() (ptr);
-      Base& entity(static_cast<Base&>(*ptr));
-      entity._position = core::IAllocator::Get().createObject(
-        typeid(decorators::WorldObject),
-        decorators::WorldObjectBuilder(ptr, _pos, _size, _radius, _orientation));
+      using std::placeholders::_1;
+      using std::placeholders::_2;
+      _owner->core::OSubject<core::Events::ObjectDestroyed>::addSubscriber(
+        ptr, std::bind(ownerDied, ptr, _1, _2));
     }
   };
 }
 
-#endif /* BUILDER_H */
+#endif /* DECORATOR_BUILDER_H */
 

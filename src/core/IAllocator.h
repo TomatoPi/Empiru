@@ -54,7 +54,7 @@ namespace core {
     }
 
     /// \brief Must be called to create a new game object
-    virtual Pointer createObject(const std::type_info&, const Builder&) noexcept = 0;
+    virtual Pointer createObject(const std::type_info&, Builder&) noexcept = 0;
 
     /// \brief Must be called to destroy an object
     virtual void discardObject(core::Pointer ptr) noexcept = 0;

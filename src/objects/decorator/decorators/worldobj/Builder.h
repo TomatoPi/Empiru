@@ -22,37 +22,37 @@
 /// \date 23 octobre 2020, 23:59
 ///
 
-#ifndef BUILDER_H
-#define BUILDER_H
+#ifndef WORLD_OBJECT_BUILDER_H
+#define WORLD_OBJECT_BUILDER_H
 
-#include "core/Builder.h"
+#include "objects/decorator/Builder.h"
 #include "WorldObject.h"
 
 namespace decorators {
   /// \brief Build a beautiful worldObject
-  class WorldObjectBuilder : public core::Builder {
+  class WorldObjectBuilder : public Decorator::Builder {
   private:
     
     core::Pointer   _entity;
     world::Position _pos;         ///< Object's position
     float           _radius;      ///< Hitbox radius for small objects
     int             _orientation; ///< Object's orientation
-    Size            _size;        ///< Object's size
+    WorldObject::Size _size;      ///< Object's size
     
   public:
     
     WorldObjectBuilder(
             const core::Pointer& entity, 
             const world::Position& p, 
-            Size s, float r=0.5, int o=0)
+            WorldObject::Size s, float r=0.5, int o=0)
     noexcept :
-      Decorator::Builder(),
+      Decorator::Builder(entity),
       _entity(entity), _pos(p), _radius(r), _orientation(o), _size(s) 
     {}
       
-    void operator() (core::Pointer& ptr) const noexcept override;
+    void operator() (core::Pointer& ptr) noexcept override;
   };
 }
 
-#endif /* BUILDER_H */
+#endif /* WORLD_OBJECT_BUILDER_H */
 

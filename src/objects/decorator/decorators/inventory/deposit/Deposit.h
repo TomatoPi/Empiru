@@ -26,6 +26,7 @@
 #define DEPOSIT_H
 
 #include "../Inventory.h"
+#include "objects/decorator/Builder.h"
 #include <cassert>
 
 namespace decorators {
@@ -46,19 +47,19 @@ namespace decorators {
     }
     
     /// \brief Must return true if given type can be added to the inventory
-    virtual int storableQtyOf(Stack::Ressource type) const noexcept override {
+    int storableQtyOf(Stack::Ressource type) const noexcept override {
       return 0;
     }
     /// \brief Must return true if inventory is empty
-    virtual bool isEmpty() const noexcept override {
+    bool isEmpty() const noexcept override {
       return _stack.empty();
     }
-    virtual bool isFull() const noexcept override {
+    bool isFull() const noexcept override {
       return _stack.full();
     }
     
     /// \brief Must return inventory content
-    virtual Content content() const noexcept override {
+    Content content() const noexcept override {
       return Content{_stack};
     }
     
@@ -66,7 +67,7 @@ namespace decorators {
     
     /// \brief Must Add given stack to the inventory 
     /// \return garbage if full stack cannot be added
-    virtual Stack doAdd(const Stack& stack) noexcept override {
+    Stack doAdd(const Stack& stack) noexcept override {
       assert(0 && "invalid operation");
       return Stack();
     }
@@ -74,14 +75,14 @@ namespace decorators {
     /// \brief type : Ressource type to take
     /// \brief qty  : Quantity to get, 0 for the maximum available
     /// \return a smaller one if request is bigger than inventory content
-    virtual Stack doReduce(Stack::Ressource type, int qty) noexcept override {
+    Stack doReduce(Stack::Ressource type, int qty) noexcept override {
       assert(type == _stack.type());
       return _stack.reduce(qty);
     }
 
   public:
 
-    class Builder : public Inventory::Builder {
+    class Builder : public Decorator::Builder {
     private:
 
       int              _difficulty;
@@ -90,10 +91,12 @@ namespace decorators {
 
     public :
 
-      explicit Builder(Stack::Ressource type, int size, int difficulty)
+      explicit Builder(
+        const core::Pointer& entity, 
+        Stack::Ressource type, int size, int difficulty)
       noexcept;
 
-      virtual void operator() (core::Pointer& ptr) noexcept override;
+      void operator() (core::Pointer& ptr) const noexcept override;
     };
   };
 }

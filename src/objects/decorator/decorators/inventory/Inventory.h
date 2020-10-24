@@ -26,30 +26,26 @@
 #define INVENTORY_H
 
 #include "core/Object.h"
-#include "objects/decorator/core/Decorator.h"
 #include "ressources/core/Stack.h"
+
 #include <vector>
-#include <set>
 
 namespace decorators {
   
+  namespace InventoryEvents {
+    struct Modified {};
+    struct Full {};
+    struct Empty {};
+  }
+  
   /// \brief Interface decorator for things that store other things
-  class Inventory : public Decorator {
-  public:
-    
-    /// \brief EventClass for Inventories
-    struct Event : public core::Object::Event {
-    public:
-      /// \brief List of events launched by an inventory
-      enum class Type {
-        Modified,
-        Full,
-        Empty
-      };
-      Type type;
-      Event(Type t) noexcept : type(t) {}
-    };
-    
+  class Inventory : 
+    public core::Object,
+    public core::OSubject<
+      InventoryEvents::Modified, 
+      InventoryEvents::Full, 
+      InventoryEvents::Empty>
+  {    
   public:
     
     /// \brief Unified object to return inventory content
@@ -61,9 +57,9 @@ namespace decorators {
     Stack add(const Stack& stack) noexcept {
       Stack garbage(doAdd(stack));
       if (garbage.size() != stack.size()) {
-        notify(Event(Event::Type::Modified));
+        core::OSubject<InventoryEvents::Modified>::notify();
         if (isFull()) {
-          notify(Event(Event::Type::Full));
+          core::OSubject<InventoryEvents::Full>::notify();
         }
       }
       return garbage;
@@ -75,9 +71,9 @@ namespace decorators {
     Stack reduce(Stack::Ressource type, int qty) noexcept {
       Stack result(doReduce(type, qty));
       if (!result.empty()) {
-        notify(Event(Event::Type::Modified));
+        core::OSubject<InventoryEvents::Modified>::notify();
         if (isEmpty()) {
-          notify(Event(Event::Type::Empty));
+          core::OSubject<InventoryEvents::Empty>::notify();
         }
       }
       return result;
@@ -103,16 +99,6 @@ namespace decorators {
     /// \brief qty  : Quantity to get, 0 for the maximum available
     /// \return a smaller one if request is bigger than inventory content
     virtual Stack doReduce(Stack::Ressource type, int qty) noexcept = 0;
-    
-    /// \brief Inventory super builder
-    class Builder : public Decorator::Builder {
-    public:
-      Builder() noexcept : Decorator::Builder() {}
-      virtual void operator() (core::Pointer& ptr) noexcept override {
-        /// Make the concrete decorator accessible via the Inventory Decorator
-        this->Decorator::Builder::operator() (ptr);
-      }
-    };
   };
 }
 #endif /* INVENTORY_H */

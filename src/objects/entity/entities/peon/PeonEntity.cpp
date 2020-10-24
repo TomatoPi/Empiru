@@ -37,20 +37,10 @@ namespace peon {
   PEntity::doFindDecorator(const std::type_info& type) const noexcept {
     return core::Pointer(nullptr);
   }
-  Decorator& 
-  PEntity::doGetDecorator(const std::type_info& type) noexcept {
-    assert(0);
-  }
-  const Decorator& 
-  PEntity::doGetDecorator(const std::type_info& type) const noexcept {
-    assert(0);
-  }
   
-  PEntity::Builder::Builder(IGameAllocator& alloc, const world::Position& pos)
+  PEntity::Builder::Builder(const world::Position& pos)
   noexcept :
-    Entity::Builder(
-      alloc, 
-      WorldObject::Builder(pos, WorldObject::Size::Small, 0.05))
+    Entity::Builder(pos, decorators::WorldObject::Size::Small, 0.05)
   {}
   void PEntity::Builder::operator() (core::Pointer& ptr) noexcept {
     this->Entity::Builder::operator() (ptr);

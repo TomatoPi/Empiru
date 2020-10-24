@@ -26,7 +26,7 @@
 
 namespace decorators {
   void WorldObjectBuilder::operator() (core::Pointer& ptr) const noexcept {
-    this->core::Builder::operator() (ptr);
+    this->Decorator::Builder::operator() (ptr);
     WorldObject& obj(static_cast<WorldObject&>(*ptr));
     obj._entity = _entity;
     obj._pos = _pos;

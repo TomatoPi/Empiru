@@ -25,9 +25,10 @@
 #ifndef STORAGE_H
 #define STORAGE_H
 
-#include <unordered_set>
 #include "../Inventory.h"
-#include "ressources/core/Stack.h"
+#include "objects/decorator/Builder.h"
+
+#include <array>
 
 namespace decorators {
   class Storage : public Inventory {
@@ -42,28 +43,32 @@ namespace decorators {
     Storage() noexcept = default;
     virtual ~Storage() noexcept = default;
     
-    virtual int storableQtyOf(Stack::Ressource type) const noexcept override;
-    virtual bool isEmpty() const noexcept override;
-    virtual bool isFull() const noexcept override;
+    int storableQtyOf(Stack::Ressource type) const noexcept override;
+    bool isEmpty() const noexcept override;
+    bool isFull() const noexcept override;
     
-    virtual Content content() const noexcept override;
+    Content content() const noexcept override;
     
   protected:
     
-    virtual Stack doAdd(const Stack& stack) noexcept override;
-    virtual Stack doReduce(Stack::Ressource type, int qty) noexcept override;
+    Stack doAdd(const Stack& stack) noexcept override;
+    Stack doReduce(Stack::Ressource type, int qty) noexcept override;
 
   public:
 
-    class Builder : public Inventory::Builder {
+    class Builder : public Decorator::Builder {
     private:
       
       StackList _maximums;
       
     public :
 
-      explicit Builder(const std::initializer_list<Stack>& maximums) noexcept;
-      virtual void operator() (core::Pointer& ptr) noexcept override;
+      explicit Builder(
+        const core::Pointer& entity, 
+        const std::initializer_list<Stack>& maximums) 
+      noexcept;
+      
+      void operator() (core::Pointer& ptr) const noexcept override;
     };
   };
 }

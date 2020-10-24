@@ -69,9 +69,11 @@ namespace decorators {
     return res;
   }
 
-  Storage::Builder::Builder(const std::initializer_list<Stack>& maximums) 
+  Storage::Builder::Builder(
+    const core::Pointer& entity, 
+    const std::initializer_list<Stack>& maximums) 
   noexcept :
-    Inventory::Builder(),
+    Decorator::Builder(entity),
     _maximums()
   {  
     for (const auto& stack : maximums) {
@@ -80,7 +82,7 @@ namespace decorators {
     }
   }
   void Storage::Builder::operator() (core::Pointer& ptr) const noexcept {
-    this->Inventory::Builder::operator() (ptr);
+    this->Decorator::Builder::operator() (ptr);
     Storage& store(static_cast<Storage&>(*ptr));
     store._storage = _maximums;
   }

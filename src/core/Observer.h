@@ -29,7 +29,7 @@
 
 namespace core {
   template <typename EventT, typename ...E>
-  using OSubject = SuperObserver::Subject<Pointer,EventT,E...>;
+  using OSubject = SuperObserver::Subject<Pointer,alloc::PtrComp,EventT,E...>;
 }
 
 #endif /* GAME_CORE_BIG_OBSERVER */

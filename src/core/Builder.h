@@ -30,8 +30,8 @@
 
 namespace core {
   /// \brief Base class of GameObjects builders
-  class Builder {
-    virtual void operator() (Pointer& ptr) const noexcept {
+  struct Builder {
+    virtual void operator() (Pointer& ptr) noexcept {
       ptr->_this = ptr;
     }
   };

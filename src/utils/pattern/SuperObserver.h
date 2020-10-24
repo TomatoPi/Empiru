@@ -22,7 +22,7 @@
 /// \date 23 octobre 2020, 19:18
 ///
 /// \brief Small, Compact, (Fast ??), and Elegant implementation of Observer
-///   design pattern, providing Compile time (or Hard) Event Dispatch,
+///   design pattern, providing Compile time (or Hard-Coded) Event Dispatch,
 ///   at the cost of a bit memory overhead (24 bytes per event kind),
 ///   and an increased compile time
 ///
@@ -43,6 +43,9 @@
 ///   Subject superclass or interface, but maybe it's not critical
 /// Theremore, templates mean verbosity in type definitions...
 ///
+/// Event class must define a boolean value 'has_args' used to determine if
+///   event's callback need callargs, or not
+///
 
 #ifndef SUPEROBSERVER_H
 #define SUPEROBSERVER_H
@@ -53,33 +56,35 @@
 /// \brief Library's namespace
 namespace SuperObserver {
   
-  /// \brief Observer typedef
-  /// Subject : Class used to handle the subject
-  template <typename Subject, typename EventT>
-  using Observer = std::function<void(const Subject&, const EventT&)>;
-  
   /// \brief Main definition of a subject, that will inherit specialisation for
   ///   each event kind
   /// Key    : Type used to identify an Observer in the Observers Table
   /// EventT, E... : The event kinds launched by this subject
-  template <typename Key, typename EventT, typename ...E>
-  class Subject : public Subject<Key,EventT>, public Subject<Key,E...> {
+  template <typename Key, typename KeyComp, typename EventT, typename ...E>
+  class Subject : 
+    public Subject<Key,KeyComp,EventT>, 
+    public Subject<Key,KeyComp,E...> 
+  {
   };
   
-  /// \brief Specialisation of a subject for One event Kind (Recursive Closure)
+  /// \brief Recursive Closure, Specialisation of a subject for One event Kind
   /// This specialised class will be duplicated in the subject for each event kind
-  template <typename Key, typename EventT>
-  class Subject<Key,EventT> {
+  template <typename Key, typename KeyComp, typename EventT>
+  class Subject<Key,KeyComp,EventT>
+  {
   private:
     
-    /// More conveniant alias
-    using Me = Subject<Key,EventT>;
+    /// \brief Conveniant alias
+    using Me = Subject<Key,KeyComp,EventT>;
+    /// \brief Observer typedef
+    /// Subject : Class used to handle the subject
+    using Observer = std::function<void(const Me&, const EventT&)>;
     /// Observers table, we do not use an unordered map to save a bit of memory
     ///   considering that there would never be a great amount of observers
     /// It could be reduced to a simple vector if count is realy small and if
     ///   observers are not removed frequently...
     /// \todo benches and tests
-    using Observers = std::map<Key,Observer<Me,EventT>>;
+    using Observers = std::map<Key,Observer,KeyComp>;
     
     /// The observers table
     Observers _observers;
@@ -89,7 +94,7 @@ namespace SuperObserver {
     /// \brief The common notify method of the design pattern
     /// \param u : arguments used to construct required event
     template <typename ...U>
-    void notify(U&& ...u) const noexcept {
+    void notify(U&& ...u) noexcept {
       EventT event(std::forward<U>(u)...);
       for (auto& pair : _observers) {
         pair.second(*this, event);
@@ -99,7 +104,7 @@ namespace SuperObserver {
     /// \brief Add a subscriber to this event Kind
     /// \param key : subscriber's identifier
     /// \param obs : the subscriber
-    void addSubscriber(const Key& key, const Observer<Me,EventT>& obs) {
+    void addSubscriber(const Key& key, const Observer& obs) {
       _observers.emplace(key, obs);
     }
     

@@ -26,17 +26,19 @@
 
 namespace decorators {
  
-  Deposit::Builder::Builder(Stack::Ressource type, int size, int difficulty)
+  Deposit::Builder::Builder(
+    const core::Pointer& entity, 
+    Stack::Ressource type, int size, int difficulty)
   noexcept :
-    Inventory::Builder(),
+    Decorator::Builder(entity),
     _difficulty(difficulty),
     _size(size),
     _type(type)
   {  
   }
 
-  void Deposit::Builder::operator() (core::Pointer& ptr) noexcept {
-    this->Inventory::Builder::operator()(ptr);
+  void Deposit::Builder::operator() (core::Pointer& ptr) const noexcept {
+    this->Decorator::Builder::operator()(ptr);
     Deposit& deposit(static_cast<Deposit&>(*ptr));
     deposit._stack = Stack(_type, _size);
     deposit._difficulty = _difficulty;

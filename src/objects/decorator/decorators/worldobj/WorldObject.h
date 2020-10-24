@@ -50,7 +50,7 @@ namespace decorators {
   {
   public:
     
-    friend class Builder;
+    friend class WorldObjectBuilder;
     /// \brief Specify object's size on the map
     enum class Size {
       Small,  ///< Objects that coexist on the same tile with circular hitbox
