@@ -26,7 +26,8 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "entity/utils/deposit/DepositEntity.h"
+#include "objects/entity/utils/deposit/DepositEntity.h"
+#include "objects/decorator/decorators/drawable/Helpers.h"
 
 /// \brief Trees are beautiful things which don't do special things at this moment
 class Tree : public DepositEntity {
@@ -34,14 +35,20 @@ public:
   
   class Builder : public DepositEntity::Builder {
     public:
-      Builder(IGameAllocator& alloc, const world::Position& pos)
-      noexcept : 
-        DepositEntity::Builder(alloc, pos, Stack::Ressource::Wood, 100)
+      Builder(const world::Position& pos) noexcept : 
+        DepositEntity::Builder(pos, Stack::Ressource::Wood, 100)
       {
       }
         
       virtual void operator() (core::Pointer& ptr) noexcept override {
         this->DepositEntity::Builder::operator ()(ptr);
+        /* create the render target */
+        Tree& entity(static_cast<Tree&>(*ptr));
+        decorators::Drawable::Builder dwbuild(ptr);
+        entity._drawable = core::IAllocator::Get().createObject(
+          typeid(decorators::Drawable), dwbuild);
+        decorators::DrawableHelpers::bindDrawableToWorldObject(
+          entity._position, entity._drawable);
       }
   };
 };

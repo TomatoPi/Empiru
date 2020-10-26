@@ -22,11 +22,12 @@
 /// \date 23 octobre 2020, 23:48
 ///
 
-#ifndef BUILDER_H
-#define BUILDER_H
+#ifndef ENTITY_BUILDER_H
+#define ENTITY_BUILDER_H
 
 #include "core/Builder.h"
 #include "Entity.h"
+#include "objects/decorator/decorators/worldobj/Builder.h"
 
 namespace Entity {
   class Builder : public core::Builder {
@@ -50,12 +51,12 @@ namespace Entity {
     void operator() (core::Pointer& ptr) noexcept override {
       this->core::Builder::operator() (ptr);
       Base& entity(static_cast<Base&>(*ptr));
+      decorators::WorldObjectBuilder bld(ptr, _pos, _size, _radius, _orientation);
       entity._position = core::IAllocator::Get().createObject(
-        typeid(decorators::WorldObject),
-        decorators::WorldObjectBuilder(ptr, _pos, _size, _radius, _orientation));
+        typeid(decorators::WorldObject), bld);
     }
   };
 }
 
-#endif /* BUILDER_H */
+#endif /* ENTITY_BUILDER_H */
 

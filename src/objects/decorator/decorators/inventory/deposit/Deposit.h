@@ -96,7 +96,7 @@ namespace decorators {
         Stack::Ressource type, int size, int difficulty)
       noexcept;
 
-      void operator() (core::Pointer& ptr) const noexcept override;
+      void operator() (core::Pointer& ptr) noexcept override;
     };
   };
 }

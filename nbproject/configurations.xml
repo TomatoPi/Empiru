@@ -188,9 +188,11 @@
         <itemPath>src/generator/ZoneGenerator.h</itemPath>
       </logicalFolder>
       <itemPath>src/objects/decorator/decorators/worldobj/Builder.cpp</itemPath>
+      <itemPath>src/objects/operator/operators/mover/Builder.cpp</itemPath>
       <itemPath>src/objects/decorator/decorators/collector/Collector.cpp</itemPath>
       <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.cpp</itemPath>
       <itemPath>src/objects/entity/utils/deposit/DepositEntity.cpp</itemPath>
+      <itemPath>src/objects/decorator/decorators/drawable/Helpers.cpp</itemPath>
       <itemPath>src/objects/decorator/decorators/mover/Mover.cpp</itemPath>
       <itemPath>src/objects/operator/operators/mover/Mover.cpp</itemPath>
       <itemPath>src/objects/entity/entities/peon/PeonController.cpp</itemPath>
@@ -239,16 +241,20 @@
     <itemPath>src/objects/entity/core/Builder.h</itemPath>
     <itemPath>src/objects/decorator/decorators/worldobj/Builder.h</itemPath>
     <itemPath>src/objects/decorator/Builder.h</itemPath>
+    <itemPath>src/objects/operator/operators/mover/Builder.h</itemPath>
     <itemPath>src/objects/decorator/decorators/collector/Collector.h</itemPath>
     <itemPath>src/engine/core/decorator/DecoratorUpdator.h</itemPath>
     <itemPath>src/objects/decorator/decorators/inventory/deposit/Deposit.h</itemPath>
     <itemPath>src/objects/entity/utils/deposit/DepositEntity.h</itemPath>
     <itemPath>src/objects/entity/utils/deposit/DepositTracker.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/drawable/Drawable.h</itemPath>
+    <itemPath>src/utils/pattern/DynamicObserver.h</itemPath>
     <itemPath>src/engine/core/entity/EntityAllocator.h</itemPath>
     <itemPath>src/engine/core/entity/EntityBehaviour.h</itemPath>
     <itemPath>src/core/Event.h</itemPath>
     <itemPath>src/controller/utils/GenericSelectorController.h</itemPath>
     <itemPath>src/utils/alloc/Handle.h</itemPath>
+    <itemPath>src/objects/decorator/decorators/drawable/Helpers.h</itemPath>
     <itemPath>src/core/IAllocator.h</itemPath>
     <itemPath>src/controller/core/IEntityController.h</itemPath>
     <itemPath>src/controller/core/IGameController.h</itemPath>
@@ -269,6 +275,7 @@
     <itemPath>src/utils/pattern/SuperObserver.h</itemPath>
     <itemPath>src/entity/decorators/supplier/Supplier.h</itemPath>
     <itemPath>src/world/core/Types.h</itemPath>
+    <itemPath>src/gui/core/Types.h</itemPath>
     <itemPath>src/objects/decorator/decorators/behaviour/Updator.h</itemPath>
     <itemPath>src/entity/decorators/collector/Worker.h</itemPath>
     <itemPath>src/objects/decorator/decorators/worker/WorkerBeh.h</itemPath>
@@ -509,6 +516,8 @@
       </item>
       <item path="src/gui/core/PixelPerfectClicker.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/core/Types.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/impl/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/impl/Camera.h" ex="false" tool="3" flavor2="0">
@@ -548,6 +557,21 @@
             flavor2="0">
       </item>
       <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Drawable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -781,6 +805,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/operator/operators/mover/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/operator/operators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -873,6 +907,11 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/DynamicObserver.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1140,6 +1179,8 @@
       </item>
       <item path="src/gui/core/PixelPerfectClicker.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/core/Types.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/impl/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/impl/Camera.h" ex="false" tool="3" flavor2="0">
@@ -1179,6 +1220,21 @@
             flavor2="0">
       </item>
       <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Drawable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1412,6 +1468,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/operator/operators/mover/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/operator/operators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -1504,6 +1570,11 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/DynamicObserver.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1766,6 +1837,8 @@
       </item>
       <item path="src/gui/core/PixelPerfectClicker.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/core/Types.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/impl/Camera.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gui/impl/Camera.h" ex="false" tool="3" flavor2="0">
@@ -1805,6 +1878,21 @@
             flavor2="0">
       </item>
       <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Drawable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2038,6 +2126,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/operator/operators/mover/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/operator/operators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -2130,6 +2228,11 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/DynamicObserver.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2399,6 +2502,8 @@
       </item>
       <item path="src/gui/core/PixelPerfectClicker.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gui/core/Types.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gui/impl/Camera.cpp" ex="false" tool="1" flavor2="11">
       </item>
       <item path="src/gui/impl/Camera.h" ex="false" tool="3" flavor2="0">
@@ -2438,6 +2543,21 @@
             flavor2="0">
       </item>
       <item path="src/objects/decorator/decorators/collector/Collector.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Drawable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/decorator/decorators/drawable/Helpers.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2671,6 +2791,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/objects/operator/operators/mover/Builder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/objects/operator/operators/mover/Builder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/objects/operator/operators/mover/Mover.cpp"
             ex="false"
             tool="1"
@@ -2763,6 +2893,11 @@
       <item path="src/utils/misc/chrono.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/pattern/BigObserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/pattern/DynamicObserver.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/utils/pattern/SuperObserver.h" ex="false" tool="3" flavor2="0">
       </item>

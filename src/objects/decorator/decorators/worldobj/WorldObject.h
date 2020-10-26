@@ -32,12 +32,16 @@ namespace decorators {
   
   namespace WorldObjectEvents {
     struct Moved {
-      world::Position old;
-      Moved(const world::Position& old) noexcept : old(old) {}
+      world::Position oldp;
+      world::Position newp;
+      Moved(const world::Position& o, const world::Position& n) 
+        noexcept : oldp(o), newp(n) 
+      {}
     };
     struct Rotated {
-      int old;
-      Rotated(int o) noexcept : old(o) {}
+      int oldr;
+      int newr;
+      Rotated(int o, int n) noexcept : oldr(o), newr(n) {}
     };
   }
   
@@ -71,20 +75,22 @@ namespace decorators {
     WorldObject() noexcept = default;
     virtual ~WorldObject() noexcept = default;
     
+    bool update() noexcept override { assert(0); }
+    
     const world::Position& pos() const noexcept {
       return _pos;
     }
     void pos(const world::Position& pos) noexcept {
       world::Position old(_pos);
       _pos = pos; 
-      core::OSubject<WorldObjectEvents::Moved>::notify(old);
+      core::OSubject<WorldObjectEvents::Moved>::notify(old, _pos);
     }
 
     int orientation() const noexcept {return _orientation;}
     void orientation(int o) noexcept {
       int old(_orientation);
       _orientation = o; 
-      core::OSubject<WorldObjectEvents::Rotated>::notify(old);
+      core::OSubject<WorldObjectEvents::Rotated>::notify(old, _orientation);
     }
 
     /// \brief return object's radius or 1 if tile sized

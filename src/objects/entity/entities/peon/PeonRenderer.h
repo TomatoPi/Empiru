@@ -61,18 +61,18 @@ namespace peon {
             SDL_Renderer *rdr);
 
     /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
-    virtual void renderAt(
+    void renderAt(
       const core::Pointer& obj, 
       int ori, int x, int y,
-      const hex::Viewport & view);
+      const hex::Viewport & view) override;
 
     /// \brief Render the object at given position, replacing the texture with
     ///   'color'
-    virtual void renderAt(
+    void renderAt(
       const core::Pointer& obj,
       int ori, int x, int y,
       const hex::Viewport & view,
-      const SDL_Color & color); 
+      const SDL_Color & color) override; 
   };
 }
 

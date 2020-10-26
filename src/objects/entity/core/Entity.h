@@ -28,27 +28,33 @@
 #include "core/Object.h"
 #include "core/IAllocator.h"
 #include "objects/decorator/decorators/worldobj/WorldObject.h"
+#include "objects/decorator/decorators/drawable/Drawable.h"
 #include <typeinfo>
 
 namespace Entity {
   class Base : public core::Object {
-  private :
+  protected :
     friend class Builder;
     core::Pointer _position;
+    core::Pointer _drawable;
   public:
 
-    Entity() noexcept = default;
-    virtual ~Entity() noexcept = default;
+    Base() noexcept = default;
+    virtual ~Base() noexcept = default;
 
     /// \brief By default entities are not callables
-    bool operator() () noexcept override {assert(0);}
+    bool update() noexcept override {assert(0);}
 
     /// \brief Must return a pointer to given decorator if such exist
     ///   nullptr otherwise
     core::Pointer findDecorator(const std::type_info& type) noexcept {
       if (type == typeid(decorators::WorldObject)) {
         return _position;
-      } else {
+      } 
+      else if (type == typeid(decorators::Drawable)) {
+        return _drawable;
+      }
+      else {
         return doFindDecorator(type);
       }
     }
@@ -57,7 +63,11 @@ namespace Entity {
     const core::Pointer findDecorator(const std::type_info& type) const noexcept {
       if (type == typeid(decorators::WorldObject)) {
         return _position;
-      } else {
+      } 
+      else if (type == typeid(decorators::Drawable)) {
+        return _drawable;
+      }
+      else {
         return doFindDecorator(type);
       }
     }
@@ -92,6 +102,15 @@ namespace Entity {
   template <>
   const decorators::WorldObject& Base::get() const noexcept {
     return static_cast<const decorators::WorldObject&>(*_position);
+  }
+  
+  template <>
+  decorators::Drawable& Base::get() noexcept {
+    return static_cast<decorators::Drawable&>(*_drawable);
+  }
+  template <>
+  const decorators::Drawable& Base::get() const noexcept {
+    return static_cast<const decorators::Drawable&>(*_drawable);
   }
 }
 

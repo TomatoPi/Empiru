@@ -31,65 +31,46 @@
 
 #include <vector>
 
-class Mover : public Operator {
-public:
+namespace operators {
   
-  struct Event : public core::Object::Event {
-    enum class Type {
-      TargetReached,
-      ObstructedPath,
-    };
-    Type type;
-    explicit Event(Type t) noexcept : type(t) {}
-  };
+  namespace MoverEvents {
+    struct TargetReached {};
+    struct ObstructedPath {};
+  }
   
-  class Builder : public Operator::Builder {
+  class Mover : 
+    public Operator,
+    public core::OSubject<
+      MoverEvents::TargetReached,
+      MoverEvents::ObstructedPath>
+  {
+  private:
+    
+    friend class MoverBuilder;
+
+    IWorldMap*                    _worldMap;
+    core::Pointer                 _object;
+    std::vector<world::Position>  _target;
+    hex::Axial                    _dir;
+    float                         _tolerance;
+    float                         _speed;
+
+  public:
+
+    Mover() noexcept = default;
+    virtual ~Mover() noexcept = default;
+
+    bool update() noexcept override;
+
+    void clear() noexcept;
+    void setTarget(const world::Position& target, float tolerance) noexcept;
+
   private:
 
-    IWorldMap*      _worldMap;
-    core::Pointer   _object;
-    float           _speed;
-
-  public :
-
-    Builder(
-      IWorldMap* worldMap,
-      const core::Pointer& object, 
-      float speed) noexcept;
-
-    virtual void operator() (core::Pointer& ptr) noexcept override;
+    void stackTarget(const world::Position& target) noexcept;
+    void unstackTarget() noexcept;
   };
-  
-private:
-  
-  IWorldMap*                    _worldMap;
-  core::Pointer                 _object;
-  std::vector<world::Position>  _target;
-  hex::Axial                    _dir;
-  float                         _tolerance;
-  float                         _speed;
-  
-public:
-  
-  Mover() noexcept = default;
-  virtual ~Mover() noexcept = default;
-  
-  virtual bool operator() () noexcept override;
-  
-  void clear() noexcept;
-  void setTarget(const world::Position& target, float tolerance) noexcept;
-  
-protected:
+}
 
-  /// \brief Must be called on events
-  virtual void 
-  doOnNotify(const core::Pointer& p, const core::Object::Event& e) 
-  noexcept override;
-  
-private:
-  
-  void stackTarget(const world::Position& target) noexcept;
-  void unstackTarget() noexcept;
-};
 
 #endif /* MOVER_H */

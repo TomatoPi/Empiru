@@ -23,40 +23,33 @@
 ///
 
 #include "DepositEntity.h"
+#include "objects/decorator/decorators/drawable/Helpers.h"
 
+namespace {
+  bool isInventoryType(const std::type_info& type) noexcept {
+    return typeid(decorators::Deposit) == type 
+        || typeid(decorators::Inventory) == type;
+  }
+}
 
 core::Pointer 
 DepositEntity::doFindDecorator(const std::type_info& type) noexcept {
-  if (typeid(decorators::Deposit) == type) 
+  if (isInventoryType(type)) 
     return _deposit;
   return core::Pointer(nullptr);
 }
 const core::Pointer 
 DepositEntity::doFindDecorator(const std::type_info& type) const noexcept {
-  if (typeid(decorators::Deposit) == type) 
+  if (isInventoryType(type)) 
     return _deposit;
   return core::Pointer(nullptr);
 }
-Decorator& 
-DepositEntity::doGetDecorator(const std::type_info& type) noexcept {
-  if (typeid(decorators::Deposit) == type) 
-    return static_cast<Decorator&>(*_deposit);
-  assert(0);
-}
-const Decorator& 
-DepositEntity::doGetDecorator(const std::type_info& type) const noexcept {
-  if (typeid(decorators::Deposit) == type) 
-    return static_cast<const Decorator&>(*_deposit);
-  assert(0);
-}
 
 DepositEntity::Builder::Builder(
-      IGameAllocator& alloc, const world::Position& pos,
+      const world::Position& pos,
       Stack::Ressource type, int qty)
 noexcept :
-  Entity::Builder(
-    alloc, 
-    WorldObject::Builder(pos, WorldObject::Size::Small, 0.1)),
+  Entity::Builder(pos, decorators::WorldObject::Size::Small, 0.1),
   _type(type), 
   _qty(qty)
 {
@@ -64,6 +57,14 @@ noexcept :
 
 void DepositEntity::Builder::operator() (core::Pointer& ptr) noexcept {
   this->Entity::Builder::operator() (ptr);
-  decorators::Deposit::Builder depbuilder(ptr, _type, _qty, 5);
-  _allocator.createObject(typeid(decorators::Deposit), depbuilder);
+  DepositEntity& entity(static_cast<DepositEntity&>(*ptr));
+  /* create the corect inventory */
+  decorators::Deposit::Builder dbuild(ptr, _type, _qty, 5);
+  entity._deposit = core::IAllocator::Get().createObject(
+    typeid(decorators::Deposit), dbuild);
+  /* suicide the deposit if empty */
+  entity._deposit->as<decorators::Inventory>()
+    .core::OSubject<decorators::InventoryEvents::Empty>::addSubscriber(
+      ptr, core::sudoCommitSuicide<decorators::InventoryEvents::Empty>(ptr));
+  
 }

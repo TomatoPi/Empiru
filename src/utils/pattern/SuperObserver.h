@@ -56,6 +56,13 @@
 /// \brief Library's namespace
 namespace SuperObserver {
   
+  template <typename F, typename ...U>
+  auto bindCallback(F&& func, U&& ...u) noexcept {
+    using std::placeholders::_1;
+    using std::placeholders::_2;
+    return std::bind(std::forward<F>(func), std::forward<U>(u)..., _1, _2);
+  }
+  
   /// \brief Main definition of a subject, that will inherit specialisation for
   ///   each event kind
   /// Key    : Type used to identify an Observer in the Observers Table

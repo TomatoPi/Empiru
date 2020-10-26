@@ -25,10 +25,11 @@
 #ifndef PEONSPRITE_H
 #define PEONSPRITE_H
 
-#include "objects/decorator/core/Decorator.h"
+#include "utils/misc/Counter.h"
+#include "objects/decorator/decorators/drawable/Drawable.h"
 
 namespace peon {
-  struct PeonSprite : public Decorator {
+  struct PeonSprite : public decorators::Drawable {
     SlowCounter _anim;
     SlowCounter _wanim;
     SlowCounter _notanim;
@@ -39,23 +40,20 @@ namespace peon {
     {
     }
     
-    virtual bool operator() () noexcept override {
+    bool update() noexcept override {
       _anim.tick();
       _wanim.tick();
       _notanim.tick();
       return true;
     }
     
-    /// \brief Generally decorators are passive objects that do not react events
-    virtual void doOnNotify(const core::Pointer&, const core::Object::Event&) 
-    noexcept override {
-      
-    }
-    
-    struct Builder : public Decorator::Builder {
-      Builder() noexcept : Decorator::Builder() {}
+    struct Builder : public decorators::Drawable::Builder {
+      Builder(const core::Pointer& ptr) noexcept : 
+        decorators::Drawable::Builder(ptr) 
+      {
+      }
       virtual void operator() (core::Pointer& ptr) noexcept override {
-        this->Decorator::Builder::operator() (ptr);
+        this->decorators::Drawable::Builder::operator() (ptr);
       }
     };
   };

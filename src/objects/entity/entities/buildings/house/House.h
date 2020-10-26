@@ -25,28 +25,49 @@
 #ifndef HOUSE_H
 #define HOUSE_H
 
-#include "engine/core/entity/Entity.h"
-#include "engine/core/IGameAllocator.h"
-
-#include "entity/decorators/storage/Storage.h"
+#include "core/IAllocator.h"
+#include "objects/entity/core/Entity.h"
+#include "objects/entity/core/Builder.h"
+#include "objects/decorator/decorators/inventory/storage/Storage.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
-class House : public Entity {
+class House : public Entity::Base {
+private:
+  core::Pointer _storage;
 public:
-  
-  const decorators::Storage& storage() const noexcept;
+    
+  core::Pointer 
+  doFindDecorator(const std::type_info& type) noexcept override;
+  const core::Pointer 
+  doFindDecorator(const std::type_info& type) const noexcept override;
+
+  /// \brief Useful to get and cast a decorator to a subtype
+  template <class T>
+  T& get() noexcept {
+    return Entity::Base::get<T>();
+  }
+  /// \brief Useful to get and cast a decorator to a subtype
+  template <class T>
+  const T& get() const {
+    return Entity::Base::get<T>();
+  }
   
   class Builder : public Entity::Builder {
-  private:
-    
-    IGameAllocator& _engine;
-    
   public:
-    
-    Builder(IGameAllocator& engine, const WorldObject::Position& pos) noexcept;
-    virtual void operator() (Pointer& ptr) const noexcept override;
+    Builder(const world::Position& pos) noexcept;
+    void operator() (core::Pointer& ptr) noexcept override;
   };
 };
+
+template <>
+decorators::Storage& House::get() noexcept {
+  return static_cast<decorators::Storage&>(*_storage);
+}
+
+template <>
+const decorators::Storage& House::get() noexcept {
+  return static_cast<const decorators::Storage&>(*_storage);
+}
 
 #endif /* HOUSE_H */

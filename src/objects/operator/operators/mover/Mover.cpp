@@ -28,102 +28,77 @@
 #include "utils/hex/Consts.h"
 #include "utils/log.h"
 
-Mover::Builder::Builder(
-  IWorldMap* worldMap,
-  const core::Pointer& object, 
-  float speed) 
-noexcept :
-  _worldMap(worldMap),
-  _object(object),
-  _speed(speed)
-{  
-}
-
-void Mover::Builder::operator() (core::Pointer& ptr) noexcept {
-  this->Operator::Builder::operator() (ptr);
-  Mover& mover(static_cast<Mover&>(*ptr));
-  mover._worldMap = _worldMap;
-  mover._object = _object;
-  mover._speed = _speed;
-  /* Attach this mover to the object */
-  _object->subscribe(ptr);
-}
-
-void Mover::clear() noexcept {
-  _target.clear();
-}
-void Mover::setTarget(const world::Position& target, float tolerance) noexcept {
-  clear();
-  stackTarget(target);
-  _tolerance = tolerance;
-}
-void Mover::stackTarget(const world::Position& target) noexcept {
-  _target.emplace_back(target);
-  WorldObject& obj(static_cast<WorldObject&>(*_object));
-  _dir = (target - obj.pos()).unit();
-  obj.orientation(_dir.orientation());
-}
-void Mover::unstackTarget() noexcept {
-  _target.pop_back();
-  if (!_target.empty()) {
+namespace operators {
+  
+  using decorators::WorldObject;
+  
+  void Mover::clear() noexcept {
+    _target.clear();
+  }
+  void Mover::setTarget(const world::Position& target, float tolerance) noexcept {
+    clear();
+    stackTarget(target);
+    _tolerance = tolerance;
+  }
+  void Mover::stackTarget(const world::Position& target) noexcept {
+    _target.emplace_back(target);
     WorldObject& obj(static_cast<WorldObject&>(*_object));
-    _dir = (_target.back() - obj.pos()).unit();
-    obj.orientation(_dir.orientation());  
+    _dir = (target - obj.pos()).unit();
+    obj.orientation(_dir.orientation());
   }
-}
+  void Mover::unstackTarget() noexcept {
+    _target.pop_back();
+    if (!_target.empty()) {
+      WorldObject& obj(static_cast<WorldObject&>(*_object));
+      _dir = (_target.back() - obj.pos()).unit();
+      obj.orientation(_dir.orientation());  
+    }
+  }
 
-bool Mover::operator() () noexcept {
-  /* Trivial exit */
-  if (_target.empty()) {
-    return false;
-  }
-  /* Check if target is reached */
-  WorldObject& obj(static_cast<WorldObject&>(*_object));
-  if (world::Position::distance(obj.pos(), _target.back()) < _tolerance) {
-    unstackTarget();
+  bool Mover::update() noexcept {
+    /* Trivial exit */
     if (_target.empty()) {
-      notify(Event(Event::Type::TargetReached));
       return false;
     }
-  }
-  /* compute a walk step */
-  const world::Position oldpos(obj.pos());
-  world::Position newpos(oldpos + _dir * _speed);
-  core::Pointer obstacle_p(nullptr);
-  /* search for an alternative path */
-  if (!_worldMap->tryPosition(newpos, _object, &obstacle_p)) {
-    if (!obstacle_p) {
-      LOG_TODO("Implement dodge Borders\n");
-      notify(Event(Event::Type::ObstructedPath));
-      return true;
+    /* Check if target is reached */
+    WorldObject& obj(static_cast<WorldObject&>(*_object));
+    if (world::Position::distance(obj.pos(), _target.back()) < _tolerance) {
+      unstackTarget();
+      if (_target.empty()) {
+        core::OSubject<MoverEvents::TargetReached>::notify();
+        return false;
+      }
     }
-    const WorldObject& obstacle(static_cast<const WorldObject&>(*obstacle_p));
-    /* compute the alternatives */
-    const world::Position& target(_target.back());
-    world::Position collide((newpos - obstacle.pos()).unit());
-    world::Position esc1(collide * hex::RMatrix_C60A);
-    world::Position esc2(collide * hex::RMatrix_CC60A);
-    world::Position& esc = esc1;
-    /* get the most direct one */
-    if (world::Position::distance(oldpos + esc2 * _speed, target) 
-      < world::Position::distance(oldpos + esc1 * _speed, target)) 
-    {
-      esc = esc2;
+    /* compute a walk step */
+    const world::Position oldpos(obj.pos());
+    world::Position newpos(oldpos + _dir * _speed);
+    core::Pointer obstacle_p(nullptr);
+    /* search for an alternative path */
+    if (!_worldMap->tryPosition(newpos, _object, &obstacle_p)) {
+      if (!obstacle_p) {
+        LOG_TODO("Implement dodge Borders\n");
+        core::OSubject<MoverEvents::ObstructedPath>::notify();
+        return true;
+      }
+      const WorldObject& obstacle(static_cast<const WorldObject&>(*obstacle_p));
+      /* compute the alternatives */
+      const world::Position& target(_target.back());
+      world::Position collide((newpos - obstacle.pos()).unit());
+      world::Position esc1(collide * hex::RMatrix_C60A);
+      world::Position esc2(collide * hex::RMatrix_CC60A);
+      world::Position& esc = esc1;
+      /* get the most direct one */
+      if (world::Position::distance(oldpos + esc2 * _speed, target) 
+        < world::Position::distance(oldpos + esc1 * _speed, target)) 
+      {
+        esc = esc2;
+      }
+      /* stack a circumvention of obstacle */
+      newpos = oldpos;
+      stackTarget(oldpos + esc * obstacle.radius());
     }
-    /* stack a circumvention of obstacle */
-    newpos = oldpos;
-    stackTarget(oldpos + esc * obstacle.radius());
-  }
-  /* update object's position */
-  obj.pos(newpos);
-  return true;
-}
-
-/// \brief Must be called on events
-void Mover::doOnNotify(const core::Pointer& p, const core::Object::Event& e) 
-noexcept {
-  if (p == _object && typeid(e) == typeid(EventObjectDestroyed)) {
-    /* Make sure that callback will not cause fault */
-    _target.clear();
+    /* update object's position */
+    obj.pos(newpos);
+    return true;
   }
 }

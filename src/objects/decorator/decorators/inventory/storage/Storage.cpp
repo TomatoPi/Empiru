@@ -81,7 +81,7 @@ namespace decorators {
       _maximums[idx] = Stack(stack.type(), 0, stack.max());
     }
   }
-  void Storage::Builder::operator() (core::Pointer& ptr) const noexcept {
+  void Storage::Builder::operator() (core::Pointer& ptr) noexcept {
     this->Decorator::Builder::operator() (ptr);
     Storage& store(static_cast<Storage&>(*ptr));
     store._storage = _maximums;

@@ -27,16 +27,6 @@
 
 #include "core/Builder.h"
 
-namespace {
-  static void ownerDied(
-    core::Pointer decorator, 
-    const core::OSubject<core::Events::ObjectDestroyed>&, 
-    const core::Events::ObjectDestroyed&)
-  {
-    decorator->discard();
-  }
-}
-
 namespace Decorator {
   struct Builder : public core::Builder {
     core::Pointer _owner;
@@ -46,10 +36,8 @@ namespace Decorator {
     
     void operator() (core::Pointer& ptr) noexcept override {
       this->core::Builder::operator() (ptr);
-      using std::placeholders::_1;
-      using std::placeholders::_2;
       _owner->core::OSubject<core::Events::ObjectDestroyed>::addSubscriber(
-        ptr, std::bind(ownerDied, ptr, _1, _2));
+        ptr, core::sudoCommitSuicide<core::Events::ObjectDestroyed>(ptr));
     }
   };
 }

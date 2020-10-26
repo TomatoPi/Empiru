@@ -30,6 +30,7 @@
 
 #include "core/IAllocator.h"
 #include "objects/entity/core/Entity.h"
+#include "objects/entity/core/Builder.h"
 #include "objects/operator/operators/mover/Mover.h"
 
 namespace peon {
@@ -38,7 +39,6 @@ namespace peon {
     
     friend class PeonController;
     core::Pointer _mover;
-    core::Pointer _sprite;
     
   public:
     
@@ -49,7 +49,6 @@ namespace peon {
     doFindDecorator(const std::type_info& type) noexcept override;
     const core::Pointer 
     doFindDecorator(const std::type_info& type) const noexcept override;
-    
 
     /// \brief Useful to get and cast a decorator to a subtype
     template <class T>
@@ -70,23 +69,23 @@ namespace peon {
   };
 
   template <>
-  Mover& PEntity::get() noexcept {
-    return static_cast<Mover&>(*_mover);
+  operators::Mover& PEntity::get() noexcept {
+    return static_cast<operators::Mover&>(*_mover);
   }
 
   template <>
-  const Mover& PEntity::get() noexcept {
-    return static_cast<const Mover&>(*_mover);
+  const operators::Mover& PEntity::get() noexcept {
+    return static_cast<const operators::Mover&>(*_mover);
   }
   
   template <>
   PeonSprite& PEntity::get() noexcept {
-    return static_cast<PeonSprite&>(*_sprite);
+    return static_cast<PeonSprite&>(*_drawable);
   }
 
   template <>
   const PeonSprite& PEntity::get() noexcept {
-    return static_cast<const PeonSprite&>(*_sprite);
+    return static_cast<const PeonSprite&>(*_drawable);
   }
 }
 

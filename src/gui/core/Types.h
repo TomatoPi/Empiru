@@ -16,31 +16,20 @@
  */
 
 /// 
-/// \file   Deposit.cpp
+/// \file   Types.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 19:02
+/// \date 25 octobre 2020, 20:00
 ///
 
-#include "Deposit.h"
+#ifndef TYPES_H
+#define TYPES_H
 
-namespace decorators {
- 
-  Deposit::Builder::Builder(
-    const core::Pointer& entity, 
-    Stack::Ressource type, int size, int difficulty)
-  noexcept :
-    Decorator::Builder(entity),
-    _difficulty(difficulty),
-    _size(size),
-    _type(type)
-  {  
-  }
+#include "utils/math/Vector.h"
 
-  void Deposit::Builder::operator() (core::Pointer& ptr) noexcept {
-    this->Decorator::Builder::operator()(ptr);
-    Deposit& deposit(static_cast<Deposit&>(*ptr));
-    deposit._stack = Stack(_type, _size);
-    deposit._difficulty = _difficulty;
-  }
+namespace gui {
+  using Pixel = math::Vector<int>;
 }
+
+#endif /* TYPES_H */
+

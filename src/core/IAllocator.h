@@ -25,6 +25,7 @@
 #ifndef ENGINEINTERFACE_H
 #define ENGINEINTERFACE_H
 
+#include <functional>
 #include <typeinfo>
 
 #include "Pointer.h"
@@ -38,7 +39,7 @@ namespace core {
   private:
 
     /// \brief Singleloton
-    static IAllocator *_instance = nullptr;
+    static IAllocator *_instance;
 
   public:
 
@@ -58,6 +59,9 @@ namespace core {
 
     /// \brief Must be called to destroy an object
     virtual void discardObject(core::Pointer ptr) noexcept = 0;
+    
+    using CreationObserver = std::function<void(Pointer ptr)>;
+    using DestructionObserver = std::function<void(Pointer ptr)>;
   };
 }
 

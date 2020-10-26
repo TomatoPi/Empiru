@@ -23,24 +23,53 @@
 ///
 
 #include "House.h"
-
-const decorators::Storage& House::storage() const noexcept {
-  return static_cast<const decorators::Storage&>(*getDecorator<decorators::Storage>());
+#include "objects/decorator/decorators/drawable/Helpers.h"
+    
+namespace {
+  bool isStorageType(const std::type_info& type) noexcept {
+    return typeid(decorators::Inventory) == type
+        || typeid(decorators::Storage) == type;
+  }
 }
 
-House::Builder::Builder(
-  IGameAllocator& engine, 
-  const WorldObject::Position& pos) 
-noexcept :
-  Entity::Builder(WorldObject(WorldObject::Size::Tile, 0.5, pos)), _engine(engine)
+core::Pointer 
+House::doFindDecorator(const std::type_info& type) noexcept {
+  if (isStorageType(type)) {
+    return _storage;
+  }
+  else {
+    return core::Pointer(nullptr);
+  }
+}
+const core::Pointer 
+House::doFindDecorator(const std::type_info& type) const noexcept {
+  if (isStorageType(type)) {
+    return _storage;
+  }
+  else {
+    return core::Pointer(nullptr);
+  }
+}
+
+House::Builder::Builder(const world::Position& pos) noexcept :
+  Entity::Builder(pos, decorators::WorldObject::Size::Tile)
 {
 }
 
-void House::Builder::operator() (Pointer& ptr) const noexcept {
+void House::Builder::operator() (core::Pointer& ptr) noexcept {
   this->Entity::Builder::operator() (ptr);
+  House& house(static_cast<House&>(*ptr));
+  /* create the storage */
   decorators::Storage::Builder builder(ptr, {
     Stack(Stack::Ressource::Wood, 0, 100),
     Stack(Stack::Ressource::Rock, 0, 50)
   });
-  _engine.createDecorator(typeid(decorators::Storage), builder);
+  house._storage = core::IAllocator::Get().createObject(
+      typeid(decorators::Storage), builder);
+  /* create the render target */
+  decorators::Drawable::Builder dwbuild(ptr);
+  house._drawable = core::IAllocator::Get().createObject(
+    typeid(decorators::Drawable), dwbuild);
+  decorators::DrawableHelpers::bindDrawableToWorldObject(
+    house._position, house._drawable);
 }

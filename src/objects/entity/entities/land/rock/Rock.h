@@ -25,7 +25,8 @@
 #ifndef ROCK_H
 #define ROCK_H
 
-#include "entity/utils/deposit/DepositEntity.h"
+#include "objects/entity/utils/deposit/DepositEntity.h"
+#include "objects/decorator/decorators/drawable/Helpers.h"
 
 /// \brief Trees are beautiful things which don't do special things at this moment
 class Rock : public DepositEntity {
@@ -33,14 +34,20 @@ public:
   
   class Builder : public DepositEntity::Builder {
     public:
-      Builder(IGameAllocator& engine, const world::Position& pos)
-      noexcept : 
-        DepositEntity::Builder(engine, pos, Stack::Ressource::Rock, 50)
+      Builder(const world::Position& pos) noexcept : 
+        DepositEntity::Builder(pos, Stack::Ressource::Rock, 50)
       {
       }
         
-      virtual void operator() (core::Pointer& ptr) const noexcept override {
+      void operator() (core::Pointer& ptr) noexcept override {
         this->DepositEntity::Builder::operator ()(ptr);
+        /* create the render target */
+        Rock& entity(static_cast<Rock&>(*ptr));
+        decorators::Drawable::Builder dwbuild(ptr);
+        entity._drawable = core::IAllocator::Get().createObject(
+          typeid(decorators::Drawable), dwbuild);
+        decorators::DrawableHelpers::bindDrawableToWorldObject(
+          entity._position, entity._drawable);
       }
   };
 };

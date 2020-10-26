@@ -50,7 +50,9 @@ namespace decorators {
     
     /// \brief Unified object to return inventory content
     /// \todo turn it to a polymorphic object with iterator
-    typedef std::vector<Stack> Content;
+    using Content = std::vector<Stack>;
+    
+    bool update() noexcept override { assert(0); }
     
     /// \brief try to add given stack to the inventory
     /// \return garbage aka ressources that cannot be added

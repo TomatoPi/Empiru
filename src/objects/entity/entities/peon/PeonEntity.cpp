@@ -26,6 +26,7 @@
 #include <cassert>
 
 #include "PeonEntity.h"
+#include "objects/decorator/decorators/drawable/Helpers.h"
 
 namespace peon {
   
@@ -45,8 +46,11 @@ namespace peon {
   void PEntity::Builder::operator() (core::Pointer& ptr) noexcept {
     this->Entity::Builder::operator() (ptr);
     PEntity& peon(static_cast<PEntity&>(*ptr));
-    PeonSprite spriteBuilder;
-    peon._sprite = _allocator.createObject(typeid(PeonSprite), spriteBuilder);
+    PeonSprite::Builder spriteBuilder(ptr);
+    peon._drawable = core::IAllocator::Get().createObject(
+        typeid(PeonSprite), spriteBuilder);
+    decorators::DrawableHelpers::bindDrawableToWorldObject(
+        peon._position, peon._drawable);
   }
 }
 

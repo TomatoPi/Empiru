@@ -68,7 +68,7 @@ namespace decorators {
         const std::initializer_list<Stack>& maximums) 
       noexcept;
       
-      void operator() (core::Pointer& ptr) const noexcept override;
+      void operator() (core::Pointer& ptr) noexcept override;
     };
   };
 }

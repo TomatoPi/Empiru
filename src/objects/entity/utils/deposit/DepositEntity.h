@@ -25,36 +25,33 @@
 #ifndef DEPOSITENTITY_H
 #define DEPOSITENTITY_H
 
-#include "objects/entity/core/Entity.h"
 #include "core/IAllocator.h"
+#include "objects/entity/core/Entity.h"
+#include "objects/entity/core/Builder.h"
 #include "objects/decorator/decorators/inventory/deposit/Deposit.h"
+#include "objects/decorator/decorators/worldobj/Builder.h"
 
 /// \brief The ultimate worker, useful to make anything you can think of
 /// \todo revise the path system
-class DepositEntity : public Entity {
+class DepositEntity : public Entity::Base {
 private:
   core::Pointer _deposit;
 public:
     
-    virtual core::Pointer 
+    core::Pointer 
     doFindDecorator(const std::type_info& type) noexcept override;
-    virtual const core::Pointer 
+    const core::Pointer 
     doFindDecorator(const std::type_info& type) const noexcept override;
-    virtual Decorator& 
-    doGetDecorator(const std::type_info& type) noexcept override;
-    virtual const Decorator& 
-    doGetDecorator(const std::type_info& type) const noexcept override;
-    
 
     /// \brief Useful to get and cast a decorator to a subtype
     template <class T>
     T& get() noexcept {
-      return Entity::get<T>();
+      return Entity::Base::get<T>();
     }
     /// \brief Useful to get and cast a decorator to a subtype
     template <class T>
     const T& get() const {
-      return Entity::get<T>();
+      return Entity::Base::get<T>();
     }
   
   class Builder : public Entity::Builder {
@@ -66,22 +63,32 @@ public:
   public:
     
     Builder(
-      IGameAllocator& alloc, const world::Position& pos,
+      const world::Position& pos,
       Stack::Ressource type, int qty) 
     noexcept;
     
-    virtual void operator() (core::Pointer& ptr) noexcept override;
+    void operator() (core::Pointer& ptr) noexcept override;
   };
 };
 
 template <>
 decorators::Deposit& DepositEntity::get() noexcept {
-  return static_cast<Mover&>(*_deposit);
+  return static_cast<decorators::Deposit&>(*_deposit);
 }
 
 template <>
 const decorators::Deposit& DepositEntity::get() noexcept {
-  return static_cast<const Mover&>(*_deposit);
+  return static_cast<const decorators::Deposit&>(*_deposit);
+}
+
+template <>
+decorators::Inventory& DepositEntity::get() noexcept {
+  return static_cast<decorators::Inventory&>(*_deposit);
+}
+
+template <>
+const decorators::Inventory& DepositEntity::get() noexcept {
+  return static_cast<const decorators::Inventory&>(*_deposit);
 }
 
 #endif /* DEPOSITENTITY_H */

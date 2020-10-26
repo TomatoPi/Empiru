@@ -52,16 +52,37 @@ namespace core {
     
     Pointer ptr() noexcept { return _this; }
     
+    template <typename T>
+    T& as() noexcept {
+      return static_cast<T&>(*this);
+    }
+    
+    template <typename T>
+    const T& as() const noexcept {
+      return static_cast<const T&>(*this);
+    }
+    
     /// \brief Some objects are callables, this callback must return true while
     ///  the object is alive, when it return false, object will be destroyed
     /// \return True while the object is alive
-    virtual bool operator() () noexcept = 0;
+    virtual bool update() noexcept = 0;
     
     /// \brief Method to call to suicide an object
     void discard() noexcept {
       OSubject<Events::ObjectDestroyed>::notify();
     }
   };
+  
+  template <typename EventT>
+  auto sudoCommitSuicide(core::Pointer object) {
+    auto func = [](core::Pointer decorator, 
+      const core::OSubject<EventT>&, 
+      const EventT&)
+      -> void {
+        decorator->discard();
+      };
+    return SuperObserver::bindCallback(func, object);
+  }
 }
 
 #endif /* GAME_ENGINE_OBJECT_H */

@@ -16,31 +16,36 @@
  */
 
 /// 
-/// \file   Deposit.cpp
+/// \file   Builder.cpp
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 9 octobre 2020, 19:02
+/// \date 24 octobre 2020, 12:16
 ///
 
-#include "Deposit.h"
+#include "Builder.h"
+#include "Mover.h"
 
-namespace decorators {
- 
-  Deposit::Builder::Builder(
-    const core::Pointer& entity, 
-    Stack::Ressource type, int size, int difficulty)
+namespace operators {
+  
+  MoverBuilder::MoverBuilder(
+    IWorldMap* worldMap,
+    const core::Pointer& object, 
+    float speed) 
   noexcept :
-    Decorator::Builder(entity),
-    _difficulty(difficulty),
-    _size(size),
-    _type(type)
+    _worldMap(worldMap),
+    _object(object),
+    _speed(speed)
   {  
   }
 
-  void Deposit::Builder::operator() (core::Pointer& ptr) noexcept {
-    this->Decorator::Builder::operator()(ptr);
-    Deposit& deposit(static_cast<Deposit&>(*ptr));
-    deposit._stack = Stack(_type, _size);
-    deposit._difficulty = _difficulty;
+  void MoverBuilder::operator() (core::Pointer& ptr) noexcept {
+    this->Operator::Builder::operator() (ptr);
+    Mover& mover(static_cast<Mover&>(*ptr));
+    mover._worldMap = _worldMap;
+    mover._object = _object;
+    mover._speed = _speed;
+    /* Attach this mover to the object */
+    _object->core::OSubject<core::Events::ObjectDestroyed>::addSubscriber(
+      ptr, core::sudoCommitSuicide<core::Events::ObjectDestroyed>(ptr));
   }
 }

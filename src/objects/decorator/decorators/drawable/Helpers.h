@@ -16,41 +16,31 @@
  */
 
 /// 
-/// \file   StorageBehaviour.h
+/// \file   Helpers.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 29 septembre 2020, 00:44
+/// \date 25 octobre 2020, 20:56
 ///
 
-#ifndef STORAGEBEHAVIOUR_H
-#define STORAGEBEHAVIOUR_H
+#ifndef HELPERS_H
+#define HELPERS_H
 
-#include "entity/functionals/TribeInfos.h"
-#include "utils/world/core/WorldObject.h"
-#include "utils/world/map/MapInterface.h"
-#include "utils/engine/Behaviourer.h"
-#include "utils/world/Storage.h"
+#include "Drawable.h"
+#include "objects/decorator/decorators/worldobj/WorldObject.h"
 
-class StorageBehaviour : public Behaviourer {
-private:
-  
-  TribeInfos & _infos;
-  
-public:
-  
-  StorageBehaviour(TribeInfos & infos) : 
-    _infos(infos)
-  {      
+namespace decorators {
+  namespace DrawableHelpers {
+    
+    auto WorldPosMovedCallback(const core::Pointer& ptr) noexcept;
+    
+    auto WorldPosRotatedCallback(const core::Pointer& ptr) noexcept;
+    
+    void bindDrawableToWorldObject(
+      core::Pointer& optr, 
+      const core::Pointer& dptr) 
+    noexcept;
   }
-  
-  /// \brief Must compute one behaviour tick of obj
-  virtual void tick(WorldObject & obj, WorldPtr& ptr, IWorldMap & world) {
-    Storage & storage(dynamic_cast<Storage &>(obj));
-    for (auto & stack : storage.stock()) {
-      _infos.addStack(stack);
-    }
-  }
-};
+}
 
-#endif /* STORAGEBEHAVIOUR_H */
+#endif /* HELPERS_H */
 
