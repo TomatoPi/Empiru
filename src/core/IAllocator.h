@@ -60,8 +60,11 @@ namespace core {
     /// \brief Must be called to destroy an object
     virtual void discardObject(core::Pointer ptr) noexcept = 0;
     
-    using CreationObserver = std::function<void(Pointer ptr)>;
-    using DestructionObserver = std::function<void(Pointer ptr)>;
+    using CreationObs = std::function<void(Pointer ptr)>;
+    using DestructionObs = std::function<void(Pointer ptr)>;
+    
+    void addCreationSubscriber(const std::type_info&, const CreationObs&);
+    void addDestructionSubscriber(const std::type_info&, const DestructionObs&);
   };
 }
 

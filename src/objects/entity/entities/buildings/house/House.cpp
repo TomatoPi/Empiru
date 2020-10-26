@@ -67,9 +67,9 @@ void House::Builder::operator() (core::Pointer& ptr) noexcept {
   house._storage = core::IAllocator::Get().createObject(
       typeid(decorators::Storage), builder);
   /* create the render target */
-  decorators::Drawable::Builder dwbuild(ptr);
+  decorators::ADrawable::Builder dwbuild(ptr);
   house._drawable = core::IAllocator::Get().createObject(
-    typeid(decorators::Drawable), dwbuild);
+    typeid(decorators::CDrawable<House>), dwbuild);
   decorators::DrawableHelpers::bindDrawableToWorldObject(
     house._position, house._drawable);
 }

@@ -258,3 +258,33 @@ Vrais problèmes :
         et ils se structurent entre eux sous forme d'un graphe, et peuvent se
         référencer de façon erratique.
       Ainsi, le système de signaux doit être intégré au core des objets
+
+================================================================================
+
+Dans l'absolu, le système d'evènements et d'objets est beaucoup plus prommeteur.
+Le problème est dans la sur-abstraction et la verbosité de l'architecture.
+  - Trop d'appels et de bordel dans tout les sens pour la création des objets,
+  - Trop de répétition dans la définition des objets
+  - Forte ambiguité dans les relations et les responsabilités des objets
+    -> Chiant de devoir passer par un décorateur pour gérer la map
+    -> Chiant de devoir passer par un décorateur pour le sprite
+    -> Le sprite et la position sur la map sont des propriétés locales et internes
+      aux modules sus-nommés, on ne devrait pas avoir à passer par la structure
+      du moteur pour y accéder.
+  - Utilisation de typeid pour les type d'objets est limité...
+  - Dans sa forme actuelle le Renderer n'est plus q'un ensemble de fonctions ...
+  - Les évènements lancés par les objets sont statiques, et leur lancement ou
+      stoquage devrait être délégué ??
+  - Dans l'absolu, il n'y a pas de raison à ce que le WorldObject et le Drawable
+      soient des Objects
+  - Pas de réelle raison d'unifier les decorators et les operators, sauf pour eviter
+      la répétition dans le GameAllocator
+  - Le GameAllocator ne devrait peut être n'avoir qu'à créer les éléments de jeu
+      (les décorateur et les entitées AKA les objets accessibles in game)
+    L'EngineAllocator les éléments de l'engine (les operators)
+    Le WorldAllocator les éléments du World
+    Le GuiAllocator les éléments graphiques
+    La désunification de ces différents objets réduirait le nombre d'indirections
+    D'autre part l'entitée se révèle possiblement être un objet creux
+
+  -> Fusion de renderer et drawable ?? : Et mutation du renderer en Asset

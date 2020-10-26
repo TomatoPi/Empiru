@@ -29,7 +29,7 @@
 #include "objects/decorator/decorators/drawable/Drawable.h"
 
 namespace peon {
-  struct PeonSprite : public decorators::Drawable {
+  struct PeonSprite : public decorators::ADrawable {
     SlowCounter _anim;
     SlowCounter _wanim;
     SlowCounter _notanim;
@@ -47,9 +47,9 @@ namespace peon {
       return true;
     }
     
-    struct Builder : public decorators::Drawable::Builder {
+    struct Builder : public decorators::ADrawable::Builder {
       Builder(const core::Pointer& ptr) noexcept : 
-        decorators::Drawable::Builder(ptr) 
+        decorators::ADrawable::Builder(ptr) 
       {
       }
       virtual void operator() (core::Pointer& ptr) noexcept override {

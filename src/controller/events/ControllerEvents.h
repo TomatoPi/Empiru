@@ -25,7 +25,6 @@
 #ifndef CONTROLLEREVENTS_H
 #define CONTROLLEREVENTS_H
 
-#include "core/Event.h"
 #include "core/Pointer.h"
 
 namespace ControllerEvents {

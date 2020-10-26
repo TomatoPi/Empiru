@@ -43,9 +43,9 @@ public:
         this->DepositEntity::Builder::operator ()(ptr);
         /* create the render target */
         Rock& entity(static_cast<Rock&>(*ptr));
-        decorators::Drawable::Builder dwbuild(ptr);
+        decorators::ADrawable::Builder dwbuild(ptr);
         entity._drawable = core::IAllocator::Get().createObject(
-          typeid(decorators::Drawable), dwbuild);
+          typeid(decorators::CDrawable<Rock>), dwbuild);
         decorators::DrawableHelpers::bindDrawableToWorldObject(
           entity._position, entity._drawable);
       }

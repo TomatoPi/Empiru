@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="Empiru" Version="11000" InternalType="Console">
+  <Reconciliation>
+    <Regexes/>
+    <Excludepaths/>
+    <Ignorefiles/>
+    <Extensions>
+      <![CDATA[*.cpp;*.c;*.h;*.hpp;*.xrc;*.wxcp;*.fbp]]>
+    </Extensions>
+    <Topleveldir>/home/tomato/Documents/Empiru</Topleveldir>
+  </Reconciliation>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug_Linux" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="" Command="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output/$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CMake"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <Target Name="cmake">cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1</Target>
+        <RebuildCommand>make clean &amp;&amp; mingw32-make -j4</RebuildCommand>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make -j4</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)/build-debug</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Debug_Windows" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="" Command="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output/$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CMake"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <Target Name="cmake">cmake .. -G "MinGW Makefiles"  -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1</Target>
+        <RebuildCommand>mingw32-make clean &amp;&amp; mingw32-make -j4</RebuildCommand>
+        <CleanCommand>mingw32-make clean</CleanCommand>
+        <BuildCommand>mingw32-make -j4</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)/build-debug</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release_Linux" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="" Command="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output/$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CMake"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <Target Name="cmake">cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1</Target>
+        <RebuildCommand>make clean &amp;&amp; make -j4</RebuildCommand>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make -j4</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)/build-release</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release_Windows" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="" Command="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output/$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/cmake-build-$(WorkspaceConfiguration)/output" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CMake"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <Target Name="cmake">cmake .. -G "MinGW Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=1</Target>
+        <RebuildCommand>mingw32-make clean &amp;&amp; mingw32-make -j4</RebuildCommand>
+        <CleanCommand>mingw32-make clean</CleanCommand>
+        <BuildCommand>mingw32-make -j4</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)/build-release</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+  <VirtualDirectory Name="src">
+    <File Name="src/main.cpp"/>
+    <VirtualDirectory Name="objects">
+      <VirtualDirectory Name="operator">
+        <VirtualDirectory Name="operators">
+          <VirtualDirectory Name="mover">
+            <File Name="src/objects/operator/operators/mover/Builder.cpp"/>
+            <File Name="src/objects/operator/operators/mover/Builder.h"/>
+            <File Name="src/objects/operator/operators/mover/Mover.cpp"/>
+            <File Name="src/objects/operator/operators/mover/Mover.h"/>
+          </VirtualDirectory>
+        </VirtualDirectory>
+        <VirtualDirectory Name="core">
+          <File Name="src/objects/operator/core/Operator.h"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+      <VirtualDirectory Name="decorator">
+        <File Name="src/objects/decorator/Builder.h"/>
+        <VirtualDirectory Name="decorators">
+          <VirtualDirectory Name="worldobj">
+            <File Name="src/objects/decorator/decorators/worldobj/Builder.cpp"/>
+            <File Name="src/objects/decorator/decorators/worldobj/Builder.h"/>
+            <File Name="src/objects/decorator/decorators/worldobj/WorldObject.h"/>
+            <File Name="src/objects/decorator/decorators/worldobj/WorldObject.cpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="worker">
+            <File Name="src/objects/decorator/decorators/worker/WorkerBeh.h"/>
+            <File Name="src/objects/decorator/decorators/worker/Worker.h"/>
+            <File Name="src/objects/decorator/decorators/worker/Worker.cpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="mover">
+            <File Name="src/objects/decorator/decorators/mover/Path.h"/>
+            <File Name="src/objects/decorator/decorators/mover/MoverBeh.h"/>
+            <File Name="src/objects/decorator/decorators/mover/Mover.h"/>
+            <File Name="src/objects/decorator/decorators/mover/Mover.cpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="inventory">
+            <File Name="src/objects/decorator/decorators/inventory/Inventory.h"/>
+            <VirtualDirectory Name="storage">
+              <File Name="src/objects/decorator/decorators/inventory/storage/Storage.h"/>
+              <File Name="src/objects/decorator/decorators/inventory/storage/Storage.cpp"/>
+            </VirtualDirectory>
+            <VirtualDirectory Name="slot">
+              <File Name="src/objects/decorator/decorators/inventory/slot/Slot.h"/>
+            </VirtualDirectory>
+            <VirtualDirectory Name="deposit">
+              <File Name="src/objects/decorator/decorators/inventory/deposit/Deposit.h"/>
+              <File Name="src/objects/decorator/decorators/inventory/deposit/Deposit.cpp"/>
+            </VirtualDirectory>
+          </VirtualDirectory>
+          <VirtualDirectory Name="drawable">
+            <File Name="src/objects/decorator/decorators/drawable/Helpers.cpp"/>
+            <File Name="src/objects/decorator/decorators/drawable/Helpers.h"/>
+            <File Name="src/objects/decorator/decorators/drawable/Drawable.h"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="collector">
+            <File Name="src/objects/decorator/decorators/collector/Collector.h"/>
+            <File Name="src/objects/decorator/decorators/collector/Collector.cpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="behaviour">
+            <File Name="src/objects/decorator/decorators/behaviour/Updator.h"/>
+            <File Name="src/objects/decorator/decorators/behaviour/Behaviour.h"/>
+          </VirtualDirectory>
+        </VirtualDirectory>
+      </VirtualDirectory>
+      <VirtualDirectory Name="entity">
+        <VirtualDirectory Name="entities">
+          <VirtualDirectory Name="buildings">
+            <VirtualDirectory Name="warehouse">
+              <File Name="src/objects/entity/entities/buildings/warehouse/Warehouse.h"/>
+              <File Name="src/objects/entity/entities/buildings/warehouse/Warehouse.cpp"/>
+            </VirtualDirectory>
+            <VirtualDirectory Name="site">
+              <File Name="src/objects/entity/entities/buildings/site/SiteRenderer.h"/>
+              <File Name="src/objects/entity/entities/buildings/site/SiteRenderer.cpp"/>
+              <File Name="src/objects/entity/entities/buildings/site/SiteBehaviour.h"/>
+              <File Name="src/objects/entity/entities/buildings/site/SiteBehaviour.cpp"/>
+              <File Name="src/objects/entity/entities/buildings/site/GhostRenderer.h"/>
+              <File Name="src/objects/entity/entities/buildings/site/GhostRenderer.cpp"/>
+              <File Name="src/objects/entity/entities/buildings/site/ConstructionGhost.h"/>
+              <File Name="src/objects/entity/entities/buildings/site/ConstructSite.h"/>
+              <File Name="src/objects/entity/entities/buildings/site/ConstructSite.cpp"/>
+            </VirtualDirectory>
+            <VirtualDirectory Name="house">
+              <File Name="src/objects/entity/entities/buildings/house/House.h"/>
+              <File Name="src/objects/entity/entities/buildings/house/House.cpp"/>
+            </VirtualDirectory>
+          </VirtualDirectory>
+          <VirtualDirectory Name="peon">
+            <File Name="src/objects/entity/entities/peon/PeonRenderer.h"/>
+            <File Name="src/objects/entity/entities/peon/PeonRenderer.cpp"/>
+            <File Name="src/objects/entity/entities/peon/PeonEntity.h"/>
+            <File Name="src/objects/entity/entities/peon/PeonEntity.cpp"/>
+            <File Name="src/objects/entity/entities/peon/PeonController.h"/>
+            <File Name="src/objects/entity/entities/peon/PeonController.cpp"/>
+            <File Name="src/objects/entity/entities/peon/PeonSprite.h"/>
+            <File Name="src/objects/entity/entities/peon/PeonBehaviour.cpp"/>
+            <File Name="src/objects/entity/entities/peon/Order.h"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="land">
+            <VirtualDirectory Name="tree">
+              <File Name="src/objects/entity/entities/land/tree/Tree.h"/>
+              <File Name="src/objects/entity/entities/land/tree/Tree.cpp"/>
+            </VirtualDirectory>
+            <VirtualDirectory Name="rock">
+              <File Name="src/objects/entity/entities/land/rock/Rock.h"/>
+              <File Name="src/objects/entity/entities/land/rock/Rock.cpp"/>
+            </VirtualDirectory>
+          </VirtualDirectory>
+        </VirtualDirectory>
+        <VirtualDirectory Name="utils">
+          <VirtualDirectory Name="deposit">
+            <File Name="src/objects/entity/utils/deposit/DepositEntity.h"/>
+            <File Name="src/objects/entity/utils/deposit/DepositEntity.cpp"/>
+          </VirtualDirectory>
+        </VirtualDirectory>
+        <VirtualDirectory Name="core">
+          <File Name="src/objects/entity/core/Builder.h"/>
+          <File Name="src/objects/entity/core/Entity.h"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="core">
+      <File Name="src/core/IAllocator.h"/>
+      <File Name="src/core/Builder.h"/>
+      <File Name="src/core/Pointer.h"/>
+      <File Name="src/core/Observer.h"/>
+      <File Name="src/core/Object.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="ressources">
+      <VirtualDirectory Name="core">
+        <File Name="src/ressources/core/Stack.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="sound">
+      <File Name="src/sound/SoundEngine.h"/>
+      <File Name="src/sound/SoundEngine.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="generator">
+      <File Name="src/generator/ZoneGenerator.h"/>
+      <File Name="src/generator/ZoneGenerator.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="controller">
+      <VirtualDirectory Name="events">
+        <File Name="src/controller/events/ControllerEvents.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="impl">
+        <File Name="src/controller/impl/SDLHandler.h"/>
+        <File Name="src/controller/impl/SDLHandler.cpp"/>
+        <File Name="src/controller/impl/Controller.h"/>
+        <File Name="src/controller/impl/Controller.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="utils">
+        <File Name="src/controller/utils/GenericSelectorController.h"/>
+        <File Name="src/controller/utils/AbstractEntityController.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="core">
+        <File Name="src/controller/core/IEntityController.h"/>
+        <File Name="src/controller/core/IGameController.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="world">
+      <VirtualDirectory Name="impl">
+        <File Name="src/world/impl/WorldMap.cpp"/>
+        <File Name="src/world/impl/WorldMap.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="core">
+        <File Name="src/world/core/Tile.h"/>
+        <File Name="src/world/core/Types.h"/>
+        <File Name="src/world/core/IWorldMap.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="engine">
+      <VirtualDirectory Name="impl">
+        <File Name="src/engine/impl/GameEngine.h"/>
+        <File Name="src/engine/impl/GameEngine.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="tribe">
+        <File Name="src/engine/tribe/StorageWatch.h"/>
+        <File Name="src/engine/tribe/TribeInfos.cpp"/>
+        <File Name="src/engine/tribe/TribeInfos.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="events">
+        <File Name="src/engine/events/GameEvents.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="gui">
+      <VirtualDirectory Name="utils">
+        <File Name="src/gui/utils/GenericRenderer.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="impl">
+        <File Name="src/gui/impl/RenderingEngine.h"/>
+        <File Name="src/gui/impl/RenderingEngine.cpp"/>
+        <File Name="src/gui/impl/Camera.h"/>
+        <File Name="src/gui/impl/Camera.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="core">
+        <File Name="src/gui/core/Types.h"/>
+        <File Name="src/gui/core/AbstractCamera.h"/>
+        <File Name="src/gui/core/AbstractRenderer.h"/>
+        <File Name="src/gui/core/PixelPerfectClicker.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="view">
+        <File Name="src/gui/view/ControlPannel.cpp"/>
+        <File Name="src/gui/view/ControlPannel.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="utils">
+      <File Name="src/utils/log.h"/>
+      <VirtualDirectory Name="assets">
+        <File Name="src/utils/assets/SoundAsset.h"/>
+        <File Name="src/utils/assets/SoundAsset.cpp"/>
+        <File Name="src/utils/assets/AssetManager.h"/>
+        <File Name="src/utils/assets/SpriteSheet.h"/>
+        <File Name="src/utils/assets/SpriteSheet.cpp"/>
+        <File Name="src/utils/assets/GraphicAssetsRegister.h"/>
+        <File Name="src/utils/assets/GraphicAssetsRegister.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="alloc">
+        <File Name="src/utils/alloc/Pointer.h"/>
+        <File Name="src/utils/alloc/Allocator.h"/>
+        <File Name="src/utils/alloc/Handle.h"/>
+        <VirtualDirectory Name="impl">
+          <File Name="src/utils/alloc/impl/WrapHandle.h"/>
+          <File Name="src/utils/alloc/impl/IndexAllocator.h"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+      <VirtualDirectory Name="pattern">
+        <File Name="src/utils/pattern/BigObserver.h"/>
+        <File Name="src/utils/pattern/SuperObserver.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="misc">
+        <File Name="src/utils/misc/Automaton.h"/>
+        <File Name="src/utils/misc/chrono.hpp"/>
+        <File Name="src/utils/misc/Counter.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="world">
+        <File Name="src/utils/world/Harvestable.h"/>
+        <File Name="src/utils/world/Recipe.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="gui">
+        <File Name="src/utils/gui/Window.h"/>
+        <File Name="src/utils/gui/Window.cpp"/>
+        <File Name="src/utils/gui/FontPrinter.h"/>
+        <File Name="src/utils/gui/FontPrinter.cpp"/>
+        <File Name="src/utils/gui/View.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="math">
+        <File Name="src/utils/math/Vector.h"/>
+        <File Name="src/utils/math/Math.h"/>
+        <File Name="src/utils/math/Matrix.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="hex">
+        <File Name="src/utils/hex/Viewport.h"/>
+        <File Name="src/utils/hex/Consts.h"/>
+        <File Name="src/utils/hex/OddQ.h"/>
+        <File Name="src/utils/hex/Grid.h"/>
+        <File Name="src/utils/hex/Conversion.h"/>
+        <File Name="src/utils/hex/Viewport.cpp"/>
+        <File Name="src/utils/hex/Axial.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="resources">
+    <File Name="CMakeLists.txt"/>
+  </VirtualDirectory>
+</CodeLite_Project>

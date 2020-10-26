@@ -36,7 +36,7 @@ namespace decorators {
     struct WorldPosMoved {};
   }
   
-  class Drawable : 
+  class ADrawable : 
     public core::Object, 
     public core::OSubject<DrawableEvents::WorldPosMoved> 
   {
@@ -68,7 +68,7 @@ namespace decorators {
       core::OSubject<DrawableEvents::WorldPosMoved>::notify();
     }
     
-    bool update() noexcept override { assert(0); }
+    bool update() noexcept override = 0;
     
     struct Builder : public Decorator::Builder {
       Builder(const core::Pointer& ptr) noexcept : Decorator::Builder(ptr) {}
@@ -76,6 +76,12 @@ namespace decorators {
         this->core::Builder::operator() (ptr);
       }
     };
+  };
+  
+  template <typename T>
+  class CDrawable : public ADrawable {
+  public:
+    bool update() noexcept override { assert(0); }
   };
 }
 

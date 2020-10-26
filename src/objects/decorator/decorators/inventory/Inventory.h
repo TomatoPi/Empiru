@@ -45,7 +45,7 @@ namespace decorators {
       InventoryEvents::Modified, 
       InventoryEvents::Full, 
       InventoryEvents::Empty>
-  {    
+  {
   public:
     
     /// \brief Unified object to return inventory content
@@ -103,5 +103,5 @@ namespace decorators {
     virtual Stack doReduce(Stack::Ressource type, int qty) noexcept = 0;
   };
 }
-#endif /* INVENTORY_H */
 
+#endif /* INVENTORY_H */

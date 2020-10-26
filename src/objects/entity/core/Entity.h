@@ -51,7 +51,7 @@ namespace Entity {
       if (type == typeid(decorators::WorldObject)) {
         return _position;
       } 
-      else if (type == typeid(decorators::Drawable)) {
+      else if (type == typeid(decorators::ADrawable)) {
         return _drawable;
       }
       else {
@@ -64,7 +64,7 @@ namespace Entity {
       if (type == typeid(decorators::WorldObject)) {
         return _position;
       } 
-      else if (type == typeid(decorators::Drawable)) {
+      else if (type == typeid(decorators::ADrawable)) {
         return _drawable;
       }
       else {
@@ -105,12 +105,12 @@ namespace Entity {
   }
   
   template <>
-  decorators::Drawable& Base::get() noexcept {
-    return static_cast<decorators::Drawable&>(*_drawable);
+  decorators::ADrawable& Base::get() noexcept {
+    return static_cast<decorators::ADrawable&>(*_drawable);
   }
   template <>
-  const decorators::Drawable& Base::get() const noexcept {
-    return static_cast<const decorators::Drawable&>(*_drawable);
+  const decorators::ADrawable& Base::get() const noexcept {
+    return static_cast<const decorators::ADrawable&>(*_drawable);
   }
 }
 

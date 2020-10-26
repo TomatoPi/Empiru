@@ -51,6 +51,7 @@ namespace core {
     virtual ~Object() noexcept = default;
     
     Pointer ptr() noexcept { return _this; }
+    const Pointer& ptr() const noexcept { return _this; }
     
     template <typename T>
     T& as() noexcept {

@@ -77,6 +77,8 @@ namespace decorators {
     
     bool update() noexcept override { assert(0); }
     
+    const core::Pointer& entity() const noexcept { return _entity; }
+    
     const world::Position& pos() const noexcept {
       return _pos;
     }

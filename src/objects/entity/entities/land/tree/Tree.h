@@ -44,9 +44,9 @@ public:
         this->DepositEntity::Builder::operator ()(ptr);
         /* create the render target */
         Tree& entity(static_cast<Tree&>(*ptr));
-        decorators::Drawable::Builder dwbuild(ptr);
+        decorators::ADrawable::Builder dwbuild(ptr);
         entity._drawable = core::IAllocator::Get().createObject(
-          typeid(decorators::Drawable), dwbuild);
+          typeid(decorators::CDrawable<Tree>), dwbuild);
         decorators::DrawableHelpers::bindDrawableToWorldObject(
           entity._position, entity._drawable);
       }

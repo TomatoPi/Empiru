@@ -33,7 +33,7 @@ namespace decorators {
         const core::OSubject<decorators::WorldObjectEvents::Moved>&, 
         const decorators::WorldObjectEvents::Moved& event)
         -> void {
-          Drawable& draw(static_cast<Drawable&>(*drawptr));
+          ADrawable& draw(static_cast<ADrawable&>(*drawptr));
           draw.worldpos(event.newp);
           draw.core::OSubject<DrawableEvents::WorldPosMoved>::notify();
       };
@@ -46,7 +46,7 @@ namespace decorators {
         const core::OSubject<decorators::WorldObjectEvents::Rotated>&, 
         const decorators::WorldObjectEvents::Rotated& event)
         -> void {
-          Drawable& draw(static_cast<Drawable&>(*drawptr));
+          ADrawable& draw(static_cast<ADrawable&>(*drawptr));
           draw.orientation(event.newr);
       };
       return SuperObserver::bindCallback(func, ptr);
