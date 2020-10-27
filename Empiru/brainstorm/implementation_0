@@ -1,0 +1,290 @@
+=============================================================
+
+VOS AMIS SONT :
+
+  Doc C++     : https://en.cppreference.com/w/
+  Doc SDL2    : https://wiki.libsdl.org/APIByCategory
+  Doc Doxygen : https://franckh.developpez.com/tutoriels/outils/doxygen/
+  Récap GIT   : https://rogerdudler.github.io/git-guide/index.fr.html
+  Hexagones   : https://www.redblobgames.com/grids/hexagons/
+  Tuto SDL    : https://lazyfoo.net/tutorials/SDL/
+  Récap C++   : https://cpp.developpez.com/cours/polyCpp/
+
+VOS MANTRAS SONT :
+
+  YAGNI       : https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it
+  SOLID       : https://en.wikipedia.org/wiki/SOLID
+
+BONUS :
+  Culture G   : https://en.wikipedia.org/wiki/Software_design_pattern
+  Bis         : https://en.wikipedia.org/wiki/Anti-pattern
+
+=============================================================
+
+Gestion de la map et des objets :
+  - Unordered_Set des objets, hashés par coordonnées
+    Attention le hash doit se faire sur les coordonnées de la case 
+    et non pas de l'objet
+    -> Besoin d'un sous conteneur pour les petit objets qui peuvent
+      cohabiter sur une case
+  - L'implementation de la map doit être assez souple et transparente
+    pour pouvoir ajouter facilement des objets, sans devoir modifier
+    tout le programme
+  - Toutes les cases sont marchables ou non
+  - Pathfinding de base pour les péons
+  - Les arbres existent de façon singulière au lieu d'occuper une tuile en entier
+
+  Feuille de route :
+
+    -> Implementer le conteneur de base pour les batiments et les péons
+      - Implémenter l'objet générique, et le hashage sur position
+      - Créer les conteneurs de base pour les objets type batiments
+          et les objets type péons
+
+    -> Gestion des péons (0) :
+      - Ajouter les contrôles (0) du péon :
+        -> Sélection
+        -> Ordre de Déplacement
+      - Ajouter la logique de validation des mouvements et positions :
+        -> Test des collisions et sortie de terrain
+      - Ajouter la logique d'evitement des obstacles (crash and Turn 0)
+
+    -> Ajout de quelques ressources de base :
+      - Ajouter Roche et Bois, avec les conteneurs associés
+      - Ajouter l'inventaire des péons et des batiments
+      - Interaction entre le péon et les gisements de ressources
+
+    -> Automations de comportements (1) :
+      - Assignation du péon à un entrepot
+      - le péon remplis son inventaire, va à l'entrepot, et recommence
+        - Si le gisement est fini il en cherche un autre proche
+        - Si l'entrepot est plein, il en cherche un autre proche
+        - Si rien de proche il abandonne
+
+    -> Implémentation des chantiers :
+      Tout dans l'ordre
+
+    -> En parrallèle : Amelioration de la map et des péons :
+
+      -> Amélioration de la map :
+        - Ajout des autre ressources de base
+        - Ajout des reliefs
+        - Génération procédurale
+
+      -> Amélioration des péons :
+        - Ajout de liste d'ordres
+        - Amelioration de l'inventaire et du portage de ressources
+        - Amelioration du pathfinding :
+          - Mémorisation des trajets
+          - Précalcul des trajets dans la ligne de vue
+          - Transmission des connaissances entre péons
+
+=============================================================
+
+Interface graphique :
+
+  Besoins :
+    Utilitaires de gestion des coordonnées dans une carte Héxagonale :
+      - Disposition en "Odd-q"
+      - Gestion des changements de systèmes de coordonnées :
+        Pixel <-> Offset <-> Cube <-> Axial
+
+  Objectif :
+
+    -> Afficher la grille de tuiles et convertir les coordonnées écran <-> tuile
+      - Gérer les changements de coordonnée entre grille et affichage
+      - Gérer le chargement des ressources graphiques
+      - Gérer la fenêtre et le positionnement des sprites
+
+    -> Ajouter les mouvements de la caméra
+      - Modifier l'ancrage du rendu du monde :
+          (Plus simple en choisissant la position du bas de l'écran ??)
+          -> Ancrage par le centre de la vue (qui doit toujours être dans la grille)
+
+    -> Creer la base du module de rendu :
+      - Gestion des spriteSheets
+      - Boucle de rendu
+
+    -> Afficher les gros objets dans la grille centrés dans la tuile
+      - Normalement aussi simple que d'afficher les tuiles
+      - Première version avec position des objets hardcodée
+
+    -> Ajouter les petits objets, libres dans la grille
+      - Changement de coordonées plus complexes
+          On pourra en meme temps gérer les entrée du joueur 
+          pour tester les coordonées floatantes
+
+    -> Intégrer le changement d'angle de vue
+      - Ajout de rotation de la grille aux utilitaires de changement de coordonées
+      - Revoir le système d'ancrage de la caméra
+        -> Ancrer un coin de la caméra n'est pas idéal,
+           pour rendre la vue à peu près invariante par rotation, il faut
+           ancrer la caméra par le centre
+
+    -> Ajouter les premières Fenêtres :
+      - Inventaire des batiments et des péons
+      - Réfléchir à la mise en avant des actions des péons :
+        - Stock de ressource attaché
+        - Destination
+        - Surbrillance de selection
+        - ...
+
+================================================================================
+
+Problèmes :
+  confusion entre behaviour et données : le collecteur est à mi chemin entre les
+    deux... les behaviours devraient peut être etre plus spécifiques aux objets
+  -> Transformation des décorateurs tels que Collector et Mover en behaviour
+  -> Création d'un supertype behaviour qui soit un décorator
+  -> pourquoi .... en quoi ça résoud  les problèmes....
+
+Vrais problèmes :
+  Quantité improbable d'indirection dans de nombreuses opérations (cf peon controller issou)
+  Souplesse beaucoup trop faible des comportement et des décorateurs :
+    Par exemple, le collecteur est à la fois trop spécifique et générique
+
+  Début de solution :
+    Retrait des behaviours de décorateur
+    Retrait des décorateurs comportementaux
+    Ajout d'un objet Operateur : 
+      S'ajoute à une liste de trucs à calculer
+
+  Le système d'allocateurs est extrêmement chiant et au final pas forcément   
+    pertinant (pour les décorateurs par exemple)... :
+      -> Dans presque tout les cas, les données actives ont peu de chances 
+          d'être contigües en mémoire
+      -> Sauf cas particuliers, comme les opérations unaires :
+          ~ Déplacement (et encore ...)
+          ~ Travail sur chantier (et encore ...)
+          Transfert : jamais cache friendly (est-ce améliorable ??)
+      -> Les objets à packer sont donc les opérateurs, le reste n'est pas   
+          très utile
+      -> Cependant, la présence des allocateurs uniformise et sécurise    
+          l'allocation et désalocation des objets
+      
+  L'unordered_map dans toutes les entités est complètement overkill :
+    -> Retrait de la spécification du tockage des décorateurs de la classe de 
+        base
+      
+  Qu'est ce qui fait une entité ??? A quoi sert l'objet entité ???
+    -> Fournir une interface commune à tout les objets pour l'accès
+    -> Transformer l'entitée en un décorateur ?? -> non
+
+  A quoi sert l'objet Decorator ???
+    -> Fournir un mecanisme de sous typage dynamique, utile pour ajouter des
+        features sans taper le moteur
+    -> Changer en allant les operations accessibles sur une entitée :
+        exemple : le chantier, d'habord à remplir (inventaire) puis à travailler
+    -> Fournir des interfaces génériques sur les opérations faisables sur
+        une entitée : prendre dans un inventaire et dans un gisement sont   
+        relativement équivalents (ou pas ???)
+    -> Eviter des dynamic_cast de partout (remplacés par un get)
+
+  A quoi sert l'objet EntityBehaviour ???
+    -> À la base, servirais à gérer les relations entre les décorateurs d'une
+        même entitée
+    -> Sa présence est moins justifiée, même si elle reste cohérente par exemple
+        pour le péon, ou pour le chantier
+    -> Dans les fait, via implémentation d'un mecanisme d'evenements,
+        peut et doit etre remplacé par un simple ensemble de callback et d'etats
+        très possiblement un genre d'automate, qui traquerais un certain set de
+        décorateurs, et changerais d'état à certaines notifications
+    -> Par compatibilité, sera implémentée sous forme d'un décorateur
+
+  A quoi sert l'objet DecoratorBehaviour ???
+    -> À la base, à effectuer les opérations relatives à des décorateurs,
+        par exemple le mover et son behaviour, le collector et son behaviour
+    -> Dans les faits, le behaviour ne sert à rien, et est redondant avec la
+        methode update des decorateurs
+    -> D'autre part, les décorateurs avec une methode updates sont ambigüs
+        quant au rôle d'un décorateur, ils représentent et contiennent plus de
+        comportement que de données
+
+  Un bon argument pour rendre les WorldObject au moins des subjects (Observer) si ce n'est des Décorateurs :
+    -> Le tracking via des events de si un objet bouge
+    -> On pourra alors en notifier la worldMap qui traitera d'elle meme le  
+      changement de case, et les cases (c'est pas à nous d'y reflechir)
+    XXX 
+    -> De même lorsqu'un objet bouge, il notifie de son mouvement, 
+        le Mover réagi alors à l'evènement. 
+    XXX
+
+  Dans le Renderer : 
+    -> débordement du controller : Target(de)Selected
+      Soltion en associant les datas plus intimement avec l'entitée
+      On peut mettre les datas en décorateur
+    -> Allégement du rendu en passant à un système plus event driven
+
+  Mover : 
+    -> Séparer la partie données de la partie comportements : 
+      Il y a d'un coté le path, et les évènements associés :
+        - TargetChanged   (setTarget(...))
+        - TargetReached   (unstack() -> path.empty == True)
+        - PathObstructed  (invalidate())
+      De l'autre le Mover, aka l'algo de pathfinding
+
+  Collector / Worker :
+    -> Pareil séparer données du comportement :
+        l'abstraction de Worker est inutile
+        Pour le collecteur quelles sont les données à stoquer ???
+        Dans l'absolu il faut garder trace du site de collecte
+        Mais une si petite donnée n'as pas vocation à être dans un décorateur
+        D'autre part elle existe plus dans le behaviour peut etre ??
+    -> Solution possible :
+        Pas de décorateur pour l'instant, on stoque les données en brut dans le
+          péon ou le behaviour, à priori dans le péon, car le behaviour est 
+          innaccessible depuis le peon ?
+          +> Complètement con de mettre le behaviour innacessible...
+        On stoque trois données dans le péon, le site de collecte, le site de
+          dépôt, et la ressource cible
+  
+  Remarque ou reflexion générale :
+    Doivent être dans des décorateurs, les données concernant les "services" ou
+      les opérations qu'un objet propose.
+    Par exemple l'inventaire est une interface d'accès au contenu d'un objet
+    Le path est sucesptible d'être query par d'autres objets (la transmission de
+      chemins entre les péons)
+      Mais dans l'absolu, le path n'est pas un service fourni par une entitée
+    Pour des raisons de compatibilité, les opérations seront probablement aussi
+      des décorateurs (pour n'utiliser que des DecoratorPtr)
+    Redondance manifeste entre les décorateurs, et les entitées : par la gestion
+      tout particulièrement
+      -> Remplacement par un SuperType EngineObject ?
+        -> Pourrais lever l'ambiguïté au niveau des Operator
+            Pourrais permettre à une entitée de tracker des Decorateur
+            Semble très interressant...
+    Comment gérer la destruction des objets et le tracking correct des références
+      De façon générale, nimporte quel objet pourrait être lié à un autre,
+        et ils se structurent entre eux sous forme d'un graphe, et peuvent se
+        référencer de façon erratique.
+      Ainsi, le système de signaux doit être intégré au core des objets
+
+================================================================================
+
+Dans l'absolu, le système d'evènements et d'objets est beaucoup plus prommeteur.
+Le problème est dans la sur-abstraction et la verbosité de l'architecture.
+  - Trop d'appels et de bordel dans tout les sens pour la création des objets,
+  - Trop de répétition dans la définition des objets
+  - Forte ambiguité dans les relations et les responsabilités des objets
+    -> Chiant de devoir passer par un décorateur pour gérer la map
+    -> Chiant de devoir passer par un décorateur pour le sprite
+    -> Le sprite et la position sur la map sont des propriétés locales et internes
+      aux modules sus-nommés, on ne devrait pas avoir à passer par la structure
+      du moteur pour y accéder.
+  - Utilisation de typeid pour les type d'objets est limité...
+  - Dans sa forme actuelle le Renderer n'est plus q'un ensemble de fonctions ...
+  - Les évènements lancés par les objets sont statiques, et leur lancement ou
+      stoquage devrait être délégué ??
+  - Dans l'absolu, il n'y a pas de raison à ce que le WorldObject et le Drawable
+      soient des Objects
+  - Pas de réelle raison d'unifier les decorators et les operators, sauf pour eviter
+      la répétition dans le GameAllocator
+  - Le GameAllocator ne devrait peut être n'avoir qu'à créer les éléments de jeu
+      (les décorateur et les entitées AKA les objets accessibles in game)
+    L'EngineAllocator les éléments de l'engine (les operators)
+    Le WorldAllocator les éléments du World
+    Le GuiAllocator les éléments graphiques
+    La désunification de ces différents objets réduirait le nombre d'indirections
+    D'autre part l'entitée se révèle possiblement être un objet creux
+
+  -> Fusion de renderer et drawable ?? : Et mutation du renderer en Asset

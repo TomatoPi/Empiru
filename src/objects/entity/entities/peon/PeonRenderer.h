@@ -56,13 +56,13 @@ namespace peon {
     /// \brief Constructor
     /// \throw runtime_error on failure
     PeonRenderer(
-            const gui::ObjectAsset& assets, 
-            const SheetsPaths & args, 
+            const gui::ObjectAsset& assets,
+            const SheetsPaths & args,
             SDL_Renderer *rdr);
 
     /// \brief Draw a peon on screen, with (x,y) coordinate of bottom's middle
     void renderAt(
-      const core::Pointer& obj, 
+      const core::Pointer& obj,
       int ori, int x, int y,
       const hex::Viewport & view) override;
 
@@ -72,7 +72,7 @@ namespace peon {
       const core::Pointer& obj,
       int ori, int x, int y,
       const hex::Viewport & view,
-      const SDL_Color & color) override; 
+      const SDL_Color & color) override;
   };
 }
 

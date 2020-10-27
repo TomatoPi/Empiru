@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// 
+///
 /// \file   SuperObserver.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
@@ -55,51 +55,52 @@
 
 /// \brief Library's namespace
 namespace SuperObserver {
-  
+
   template <typename F, typename ...U>
   auto bindCallback(F&& func, U&& ...u) noexcept {
     using std::placeholders::_1;
     using std::placeholders::_2;
     return std::bind(std::forward<F>(func), std::forward<U>(u)..., _1, _2);
   }
-  
+
   /// \brief Main definition of a subject, that will inherit specialisation for
   ///   each event kind
   /// Key    : Type used to identify an Observer in the Observers Table
   /// EventT, E... : The event kinds launched by this subject
+
   template <typename Key, typename KeyComp, typename EventT, typename ...E>
-  class Subject : 
-    public Subject<Key,KeyComp,EventT>, 
-    public Subject<Key,KeyComp,E...> 
-  {
+  class Subject :
+  public Subject<Key, KeyComp, EventT>,
+  public Subject<Key, KeyComp, E...> {
   };
-  
+
   /// \brief Recursive Closure, Specialisation of a subject for One event Kind
   /// This specialised class will be duplicated in the subject for each event kind
+
   template <typename Key, typename KeyComp, typename EventT>
-  class Subject<Key,KeyComp,EventT>
-  {
+  class Subject<Key, KeyComp, EventT> {
   private:
-    
+
     /// \brief Conveniant alias
-    using Me = Subject<Key,KeyComp,EventT>;
+    using Me = Subject<Key, KeyComp, EventT>;
     /// \brief Observer typedef
     /// Subject : Class used to handle the subject
-    using Observer = std::function<void(const Me&, const EventT&)>;
+    using Observer = std::function<void(const Me&, const EventT&) >;
     /// Observers table, we do not use an unordered map to save a bit of memory
     ///   considering that there would never be a great amount of observers
     /// It could be reduced to a simple vector if count is realy small and if
     ///   observers are not removed frequently...
     /// \todo benches and tests
-    using Observers = std::map<Key,Observer,KeyComp>;
-    
+    using Observers = std::map<Key, Observer, KeyComp>;
+
     /// The observers table
     Observers _observers;
-    
+
   public:
-    
+
     /// \brief The common notify method of the design pattern
     /// \param u : arguments used to construct required event
+
     template <typename ...U>
     void notify(U&& ...u) noexcept {
       EventT event(std::forward<U>(u)...);
@@ -107,16 +108,18 @@ namespace SuperObserver {
         pair.second(*this, event);
       }
     }
-    
+
     /// \brief Add a subscriber to this event Kind
     /// \param key : subscriber's identifier
     /// \param obs : the subscriber
-    void addSubscriber(const Key& key, const Observer& obs) {
-      _observers.emplace(key, obs);
+
+    void addSubscriber(Key&& key, Observer&& obs) {
+      _observers.emplace(std::forward<Key>(key), std::forward<Observer>(obs));
     }
-    
+
     /// \brief Remove a subscriber from this kind
     /// \param key : subscriber's identifier
+
     void removeSubscriber(const Key& key) {
       _observers.erase(key);
     }

@@ -1,0 +1,220 @@
+Premier prototype
+  L’idée de se prototype est de pouvoir jouer des minomades chasseur cueilleur.
+  → Terrain libre
+
+Création de la carte
+  → Générer une carte de taille finis (0)
+  → Génération d’un unique super-biome composé des ressources principales. (1)
+
+Feuille de Route :
+  0 : Représenter le terrain et les objets dessus (plat)
+  1 : Générer les gisements de ressouses
+  2 : Réfléchir aux biomes et à la génération de la map dans son ensemble et ajouter le relief
+
+Implémentation Vague :
+  Les différents objets sont représentés pour la carte comme de simples polygones 
+    (du point de vue de la carte, ce sont des genre de zones)
+  On peut marcher dessus ou non
+  Plusieurs formes possibles, polygonales ou cercles
+
+Gestion de la récolte et des ressources
+  → Liste des ressources :
+    - Roche : gisement de roche situé un peu partout
+    - Bois : arbres situés dans des « forêts »
+    - Gibier : bestiaux avec déplacement aléatoire
+    - Cueillette : buisson de baie situé un peu partout
+  → Clic droit sur la ressource pour la récolter. (1)
+  → Ctrl + Clic droit pour donner une liste d'ordres (1)
+  (→ Les villageois peuvent passer en mode automatique en cas de besoin.)
+  → Le villageois doit amener les ressources au stock désigné par le joueur (1)
+  → ou au stock le plus proche. Si il n’y a pas de stock, il fait un tas. (2)
+  → Le villageois fait des aller-retour entre le stock et la ressource. (2)
+  → Il récolte tout les x temps. (1)
+  → Si il n’y a plus de ressource, il se dirige vers la ressource la plus proche. (2)
+  → Une fois que l’inventaire est remplis, le villageois retourne au stock le plus proche ou désigné. (2)
+  → L’inventaire se remplis progressivement. (1)
+
+Feuille de Route :
+  0 : Un péon, lui implementer les controles de base, déplacement, collisions
+  1 : Inventaire + récolte
+  2 : Plusieurs péons
+  2 : Comportement auto
+
+Implémentation :
+
+  Gisements :
+    Quantité et type de ressources présentes
+
+  Liste d'actions à faire, passe à la suivante quand finie, notification si impossible +
+    0 : Si action impossible il abandonne toute la chaine
+    1 : Comportement différent selon l'ordre
+
+  Inventaire :
+    0 : Comptage en nombre d'objets
+    1 : Rafinage et possibilité de transporter des trucs diversifiés
+
+  Pathfinding -> Crash and Turn :
+    0 : les péons marchent dans la direction cible, et tournent si ils rencontrent un obstacle
+    2 : Améliorations possibles :
+      - Mémorisation des points de choix (construction de la map en allant)
+      - Si un obstacle est dans la ligne de vue, on le contourne avant de le percuter
+      - Transmission des chemins connus entre péons
+
+Contrôle des villageois (0)
+  → Clic gauche pour sélectionner le villageois.
+  → Clic gauche pressé pdu territoire (à priori après que les péons aient un minimum d'automatismes dans leur comportement)
+  → On pose un fantôme de batiment :
+    - doit etre dans le champ de vision + terrain dégagé
+  → Contre coût le fantôme est transformé par un villageois en chantier
+  → Le chantier à une demande de ressource.
+  → Les villageois rassemblent les ressources nécessaire en faisant des aller-retour entre stock et chantier, si nécessaire.
+  → Une fois les ressources rassemblées, la construction peut commencer.
+  → La vitesse de construction dépend de la main-d'œuvre.
+  → Mécanique des chantiers :
+    - Le chantier a X tâches unitaires à faire
+    - Chaque Péon effectue Y tâches par unités de temps
+    - Il y a un nombre maximal de péon qui peuvent travailler en meme temps sur un chantier
+  → Liste des premiers bâtiments :
+    - Maison : faible capacité de stockage.
+    - Monolithe : pour faire jolie, ou convertit les villageois en soldats 				(optionnel ?)
+    - Puits de stock : forte capacité de stockage.
+    - Camp de bûcheron : forte capacité spécifique de stockage (optionnel ?)		
+  → Si les villageois ne trouvent pas de ressources, les villageois préviennent qu’ils 	n’ont rien.
+
+Feuille de Route :
+  Grosso merdo tout d'un coup X)
+
+Implémentation :
+
+  Fantôme :
+    Type de batiment en devenir, (dimensions inclu dans objet de la map)
+    Coût d'initiation
+our faire un carré de sélection (2).
+  → Ctrl + Clic droit pour donner une liste d'ordres (1)
+  → Clic droit sur une ressource pour la récolter. (0 : il s'y déplace, 1 : on affine)
+  → Clic droit sur le reste pour le déplacement.
+  → Gestion des collisions avec les entités.
+
+Construction du territoire (à priori après que les péons aient un minimum d'automatismes dans leur comportement)
+  → On pose un fantôme de batiment :
+    - doit etre dans le champ de vision + terrain dégagé
+  → Contre coût le fantôme est transformé par un villageois en chantier
+  → Le chantier à une demande de ressource.
+  → Les villageois rassemblent les ressources nécessaire en faisant des aller-retour entre stock et chantier, si nécessaire.
+  → Une fois les ressources rassemblées, la construction peut commencer.
+  → La vitesse de construction dépend de la main-d'œuvre.
+  → Mécanique des chantiers :
+    - Le chantier a X tâches unitaires à faire
+    - Chaque Péon effectue Y tâches par unités de temps
+    - Il y a un nombre maximal de péon qui peuvent travailler en meme temps sur un chantier
+  → Liste des premiers bâtiments :
+    - Maison : faible capacité de stockage.
+    - Monolithe : pour faire jolie, ou convertit les villageois en soldats 				(optionnel ?)
+    - Puits de stock : forte capacité de stockage.
+    - Camp de bûcheron : forte capacité spécifique de stockage (optionnel ?)		
+  → Si les villageois ne trouvent pas de ressources, les villageois préviennent qu’ils 	n’ont rien.
+
+Feuille de Route :
+  Grosso merdo tout d'un coup X)
+
+Implémentation :
+
+  Fantôme :
+    Type de batiment en devenir, (dimensions inclu dans objet de la map)
+    Coût d'initiation
+
+  Chantier :
+    Coût en ressources
+    Nombre de tâches à faire
+    Durée de chaque tache
+    Nombre max de travailleurs
+
+    Quand un péon travail sur un chantier il rentre dedans
+
+  Batiment :
+    ÇA DÉPEND, mais ils ont tous un inventaire
+    plus tard, ils auront des trucs genre pv ou resistance et des stats et des trucs
+
+Militaire (Après)
+  → Les villageois peuvent attaquer les bestiaux. (pour l'instant ils récoltent les bestiaux X) )
+  → Les villageois peuvent devenir des soldats. (probablement optionnelle)
+
+Interface
+  → Affichage du total des ressources disponible selon la capacité total de stockage.
+  → Choix des bâtiments à construire.
+  → Voir l’inventaire des villageois et bâtiments.
+  → Le villageois et les bâtiments ont un inventaire de ressource présenté sous forme de liste « ressource : nombre »
+  → Terrain en 3D, sprite en 2D ou sprite des non bâtiments en 2D et bâtiment en 3D (optionnel ?)
+  → Vue isométrique
+
+Feuille de Route :
+  0 : Rendu du terrain
+  1 : Rendu des objets sur le terrain
+  2 : Ajouter l'interface
+
+Implémentation :
+
+  RenduGraphique :
+    Dessin du terrain puis de tout les objets
+    Chaque objet a son sprite
+    Bibliothèque graphique SDL
+    -> Comment déterminer sur quoi on a cliqué ? :
+      Trix de la surface de clic et couleur du pixel
+
+  InterfaceGraphique :
+    Dessin des menus, contextuels et visibles selon si on a selectionné un batiment ou non
+    Menu d'inventaire : une seule implémentation modulable
+    Maths pour la projection isométrique
+    Gestion des 6 angles de caméra
+    Stockage des tuiles dans une grille avec coordonées Offset vertical
+    Les péons et les objets sont positionnés avec des coordonnées Axis
+    cf : https://www.redblobgames.com/grids/hexagons/
+
+Implémentation Réelle :
+
+  Besoins :
+    Utilitaires de gestion des coordonnées dans une carte Héxagonale :
+      - Disposition en "Odd-q"
+      - Gestion des changements de systèmes de coordonnées :
+          
+
+  Objectif :
+
+    -> Afficher la grille de tuiles et convertir les coordonnées écran <-> tuile
+      - Gérer les changements de coordonnée entre grille et affichage
+      - Gérer le chargement des ressources graphiques
+      - Gérer la fenêtre et le positionnement des sprites
+
+    -> Ajouter les mouvements de la caméra
+      - Modifier l'ancrage du rendu du monde :
+          (Plus simple en choisissant la position du bas de l'écran ??)
+          -> Ancrage par le centre de la vue (qui doit toujours être dans la grille)
+
+    -> Afficher les gros objets dans la grille centrés dans la tuile
+      - Normalement aussi simple que d'afficher les tuiles
+      - Première version avec position des objets hardcodée
+
+    -> Ajouter les petits objets, libres dans la grille
+      - Changement de coordonées plus complexes
+          On pourra en meme temps gérer les entrée du joueur 
+          pour tester les coordonées floatantes
+
+    -> Intégrer le changement d'angle de vue
+      - Ajout de rotation de la grille aux utilitaires de changement de coordonées
+      - Revoir le système d'ancrage de la caméra
+        -> Ancrer un coin de la caméra n'est pas idéal,
+           pour rendre la vue à peu près invariante par rotation, il faut
+           ancrer la caméra par le centre
+
+Remarques générales :
+  Penser de façon évolutive les mécaniques par lesquelles ont teste si une action est faisable
+    → Technologies
+
+...
+
+-> Possibilité que le toufier se cache dans les smoussus.
+-> Voir, qu'une entitée se "cache" dans une autre entitée.
+-> Les péons peuvent danser pour intimider/être joyeux ect...
+-> Lorsqu'un péon a déjà des ressources et qu'il doit récupérer un autre type de ressource,
+il les dépose dans le stock le plus proche ou attribué, puis récupère l'autre type de ressource.
+-> La croyance des péons pour obtenir des récompenses. Les péons pourraient avoir des croyances et donc obtenir certains type de récompense.
