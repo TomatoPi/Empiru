@@ -43,7 +43,7 @@ PixelPerfectBridge::PixelPerfectBridge(const gui::Viewport &view, int w, int h) 
 
 std::pair<world::Position, game::EUID> PixelPerfectBridge::at(
     const gui::Pixel &pix) noexcept {
-  Subject<Events::BridgeNeedUpdate>::notify();
+  Subject<Events::BridgeNeedUpdate>::notify(); // @suppress("Function cannot be resolved")
   SDL_LockSurface(_surface);
   SDL_Color color { 255, 255, 255, 255 };
   SDL_GetRGB(
@@ -55,6 +55,9 @@ std::pair<world::Position, game::EUID> PixelPerfectBridge::at(
     return {_view.fromPixel(pix), itr->second};
   }
   return {_view.fromPixel(pix), 0};
+}
+world::Position PixelPerfectBridge::fromPixel(const gui::Pixel& pix) noexcept {
+  return _view.fromPixel(pix);
 }
 
 void PixelPerfectBridge::clearTable() noexcept {

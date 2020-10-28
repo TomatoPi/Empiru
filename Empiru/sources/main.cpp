@@ -25,8 +25,10 @@
 #include <game/impl/GEngine.h>
 #include <render/impl/REngine.h>
 #include <render/impl/PixelPerfectBridge.h>
+#include <control/impl/CameraCtrl.h>
+#include <control/impl/SDLHandler.h>
 #include <window/Window.h>
-#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_timer.h>
 
 #include <iostream>
 #include <utility>
@@ -39,6 +41,9 @@ constexpr std::size_t SIZE = 8;
 constexpr float Factor = 1.5;
 constexpr int WWidth = 1920 / Factor;
 constexpr int WHeight = 1080 / Factor;
+constexpr int FrameRate = 60;
+constexpr int FrameTime = 1000 / FrameRate;
+constexpr int SampleTime = 2000;
 }
 
 int main(int argc, char **argv) {
@@ -59,14 +64,44 @@ int main(int argc, char **argv) {
   render::impl::REngine _rengine(_bridge, _view, _world);
   render::IAllocator::registerAllocator(&_rengine);
 
-  bool run(true);
-  while (run) {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_QUIT) {
-        run = false;
-        break;
-      }
+  ctrl::impl::CameraCtrl _camera(_window->width, _window->height, _view);
+  ctrl::impl::SDLHandler _input(_camera, _bridge);
+
+  _view.target(world::Position(0,0));
+
+  long tickStartTime(0), tickEllapsedTime(0);
+  double fpsStart(0), avgload(0), avgcount(0), avgfps(0);
+  while (true) {
+
+    tickStartTime = SDL_GetTicks();
+
+    if (!_input.handleSDLEvents())
+      break;
+
+    _camera.update();
+//    _gameEngine.update();
+//    _playerTribe.update();
+
+    _window->clear();
+
+    _rengine.render();
+//    _controlPanel.draw();
+    _window->update();
+
+    ++avgcount;
+    avgfps = SDL_GetTicks() - fpsStart;
+    if (avgfps >= SampleTime) {
+      std::cout << "AVG FPS  : " << avgcount * 1000 / avgfps << " : LOAD : "
+          << avgload / avgcount << "%%" << std::endl;
+      fpsStart = SDL_GetTicks();
+      avgcount = 0;
+      avgload = 0;
+    }
+
+    tickEllapsedTime = SDL_GetTicks() - tickStartTime;
+    avgload += tickEllapsedTime * 100. / FrameTime;
+    if (tickEllapsedTime < FrameTime) {
+      SDL_Delay(FrameTime - tickEllapsedTime);
     }
   }
 

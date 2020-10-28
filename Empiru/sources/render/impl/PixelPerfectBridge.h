@@ -42,11 +42,11 @@ struct BridgeNeedUpdate {
 }
 
 class PixelPerfectBridge final : public gui::Bridge,
-    public SuperObserver::Subject<PixelPerfectBridge, Events::BridgeNeedUpdate> {
+    public SuperObserver::Subject<PixelPerfectBridge, Events::BridgeNeedUpdate> { // @suppress("Invalid template argument")
 public:
 
   template<typename E>
-  using Subject = SuperObserver::Subject<PixelPerfectBridge, E>;
+  using Subject = SuperObserver::Subject<PixelPerfectBridge, E>; // @suppress("Invalid template argument")
 
   /// \brief Hash an SDL_Color according to its compenents
   struct ColorHasher {
@@ -80,6 +80,7 @@ public:
   virtual ~PixelPerfectBridge() noexcept = default;
 
   std::pair<world::Position, game::EUID> at(const gui::Pixel&) noexcept override;
+  world::Position fromPixel(const gui::Pixel&) noexcept override;
 
   void clearTable() noexcept;
   void addObject(ATarget &target, const gui::Viewport &view) noexcept;

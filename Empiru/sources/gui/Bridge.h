@@ -34,6 +34,7 @@ class Bridge {
 public:
   virtual ~Bridge() noexcept = default;
   virtual std::pair<world::Position, game::EUID> at(const Pixel&) noexcept = 0;
+  virtual world::Position fromPixel(const Pixel&) noexcept = 0;
 };
 
 }  // namespace gui
