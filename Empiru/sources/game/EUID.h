@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ * Copyright (C) 2020 tomato
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,27 +16,23 @@
  */
 
 /// 
-/// \file   main.cpp
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+/// \file   Types.h
+/// \author tomato
 ///
-/// \date 27 oct. 2020 01:15:20
+/// \date 27 oct. 2020 20:46:42
 ///
-#include <world/impl/World.h>
+#ifndef SOURCES_EMPIRU_EUID_H_
+#define SOURCES_EMPIRU_EUID_H_
 
-#include <iostream>
-#include <utility>
-#include <vector>
+#include <uid/uid.h>
+#include <cstddef>
 
-using namespace std;
+namespace game {
 
-namespace {
-constexpr std::size_t SIZE = 8;
-}
+  /// \brief Entity UID
+  using EUID = uid::UIDGenerator::UID;
 
-int main(int argc, char **argv) {
+} /* namespace Empiru */
 
-  world::impl::World _world(SIZE, SIZE);
-  world::IAllocator::registerAllocator(&_world);
 
-  return 0;
-}
+#endif /* SOURCES_EMPIRU_EUID_H_ */

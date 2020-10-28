@@ -25,35 +25,54 @@
 #ifndef HEX_VIEWPORT_H
 #define HEX_VIEWPORT_H
 
+#include "Pixel.h"
+
+#include <hex/Axial.h>
+#include <hex/Consts.h>
+#include <observer/SuperObserver.h>
 #include <world/Position.h>
-#include "hex/Axial.h"
-#include "hex/Consts.h"
-#include "../View.h"
 
 namespace gui {
 
+namespace Events {
+
+struct ViewportMoved {
+};
+struct ViewportRotated {
+};
+
+}  // namespace Events
+
 /// \brief Utility object containing position, orientation and zoom of the camera
-class Viewport: public gui::View {
+class Viewport: public SuperObserver::Subject<Viewport, Events::ViewportMoved,
+    Events::ViewportRotated> {
 public:
 
-  static constexpr int HEXAGON_WIDTH = 254; ///< Tile's on screen width
-  static constexpr int HEXAGON_HEIGHT = 87;  ///< Tile's on screen height
+  template<typename E>
+  using Subject = SuperObserver::Subject<Viewport, E>; // @suppress("Invalid template argument")
 
-  static const hex::Axial VIEW_VX;  ///< Horizontal Axis
-  static const hex::Axial VIEW_VY;  ///< Vertical Axis
+  static constexpr int HEXAGON_WIDTH = 254; ///< Tile's on screen width
+  static constexpr int HEXAGON_HEIGHT = 87; ///< Tile's on screen height
+
+  static const hex::Axial VIEW_VX; ///< Horizontal Axis
+  static const hex::Axial VIEW_VY; ///< Vertical Axis
 
 private:
 
-  int _tileWidth;   ///< Tile's width on viewport
-  int _tileHeight;  ///< Tile's height on viewport
+  int _tileWidth;  ///< Tile's width on viewport
+  int _tileHeight; ///< Tile's height on viewport
+  int _offsetX;
+  int _offsetY;
+  int _viewWidth;
+  int _viewHeight;
 
   hex::Axial _viewport; ///< Viewport's diagonal vector
-  hex::Axial _pos;      ///< Camera's target (position at center of viewport)
+  hex::Axial _pos; ///< Camera's target (position at center of viewport)
 
-  hex::Axial _vx;  ///< Viewport's Horizontal vector
-  hex::Axial _vy;  ///< Viewport's Vertical vector
+  hex::Axial _vx; ///< Viewport's Horizontal vector
+  hex::Axial _vy; ///< Viewport's Vertical vector
 
-  hex::Matrix _rotation;     ///< Camera's rotation matrix
+  hex::Matrix _rotation; ///< Camera's rotation matrix
   hex::Matrix _antirotation; ///< Camera's rotation matrix's inverse
 
 public:
@@ -77,6 +96,8 @@ public:
   int tileHeight() const noexcept;
   /// \brief return tile's height on viewport
   int tileWidth() const noexcept;
+  int viewHeight() const noexcept;
+  int viewWidth() const noexcept;
 
   /// \brief Compute the position of viewport's upLeftCorner
   /// \param res : result in Axial coordinate system
@@ -104,6 +125,6 @@ public:
   void rotation(const hex::Matrix &m) noexcept;
 };
 
-}
+} /* namespace gui */
 
 #endif /* HEX_VIEWPORT_H */

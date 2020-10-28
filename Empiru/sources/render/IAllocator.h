@@ -24,28 +24,27 @@
 #ifndef SOURCES_RENDER_IALLOCATOR_H_
 #define SOURCES_RENDER_IALLOCATOR_H_
 
-#include "Target.h"
+#include "ATarget.h"
 
 namespace render {
 
 namespace Events {
-struct ObjectCreated {
+struct TargetCreated {
   ATarget::Pointer ptr;
-  ObjectCreated(const ATarget::Pointer &ptr) noexcept :
+  TargetCreated(const ATarget::Pointer &ptr) noexcept :
       ptr(ptr) {
   }
 };
 } /* namespace Events */
 
 class IAllocator: public SuperObserver::Subject< // @suppress("Invalid template argument")
-    IAllocator, Events::ObjectCreated> {
+    IAllocator, Events::TargetCreated> {
 private:
   static IAllocator *_allocator;
 public:
 
   template<typename E>
   using Subject = SuperObserver::Subject<IAllocator, E>; // @suppress("Invalid template argument")
-  using SpriteKind = std::size_t;
 
   static void registerAllocator(IAllocator *a) noexcept {
     _allocator = a;
@@ -57,10 +56,10 @@ public:
 
   virtual ~IAllocator() noexcept = default;
 
-  virtual ATarget::Pointer createObject(SpriteKind kind,
-      ATarget::Builder &builder) = 0;
+  virtual ATarget::Pointer createObject(AssetUID,
+      ATarget::Builder&) = 0;
 
-  virtual void destroyObject(ATarget::Pointer ptr) = 0;
+  virtual void destroyGarbadge() = 0;
 };
 
 } /* namespace render */

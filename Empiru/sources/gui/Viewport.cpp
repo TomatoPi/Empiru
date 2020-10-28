@@ -41,9 +41,9 @@ const hex::Axial Viewport::VIEW_VY(0, 1);
 /// \param viewHeight : View's height in pixel
 Viewport::Viewport(int offsetX, int offsetY, int tileWidth, int tileHeight,
     int viewWidth, int viewHeight) noexcept :
-    gui::View(offsetX, offsetY, viewWidth, viewHeight),
 
-    _tileWidth(tileWidth), _tileHeight(tileHeight),
+    _tileWidth(tileWidth), _tileHeight(tileHeight), _offsetX(offsetX), _offsetY(
+        offsetY), _viewWidth(viewWidth), _viewHeight(viewHeight),
 
     _viewport(
         hex::toAxial(
@@ -83,6 +83,12 @@ int Viewport::tileHeight() const noexcept {
 int Viewport::tileWidth() const noexcept {
   return _tileWidth;
 }
+int Viewport::viewHeight() const noexcept {
+  return _viewHeight;
+}
+int Viewport::viewWidth() const noexcept {
+  return _viewWidth;
+}
 
 /// \brief Compute the position of viewport's upLeftCorner
 /// \param res : result in Axial coordinate system
@@ -92,7 +98,7 @@ hex::Axial Viewport::upLeftCorner() const noexcept {
 
 /// \brief Return Viewport's x and y vectors in Axis cs
 Viewport::ViewAxices Viewport::viewPortAxis() const noexcept {
-  return ViewAxices{.vx = _vx, .vy = _vy};
+  return ViewAxices { .vx = _vx, .vy = _vy };
 }
 
 /// \brief return camera's targeted position
@@ -102,6 +108,7 @@ const hex::Axial& Viewport::target() const noexcept {
 /// \brief set camera's targeted position
 void Viewport::target(const hex::Axial &pos) noexcept {
   _pos = pos;
+  Subject<Events::ViewportMoved>::notify(); // @suppress("Function cannot be resolved")
 }
 
 /// \brief return camera's rotation matrix
@@ -114,5 +121,7 @@ void Viewport::rotation(const hex::Matrix &m) noexcept {
   _antirotation = m.inverse();
   _vx = VIEW_VX * m;
   _vy = VIEW_VY * m;
+  Subject<Events::ViewportRotated>::notify(); // @suppress("Function cannot be resolved")
 }
-}
+
+} /* namespace gui */

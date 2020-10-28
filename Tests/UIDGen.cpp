@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+ * Copyright (C) 2020 tomato
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,27 +16,31 @@
  */
 
 /// 
-/// \file   main.cpp
-/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
+/// \file   UIDGen.cpp
+/// \author tomato
 ///
-/// \date 27 oct. 2020 01:15:20
+/// \date 27 oct. 2020 23:27:05
 ///
-#include <world/impl/World.h>
 
+#include <uid/uid.h>
 #include <iostream>
-#include <utility>
-#include <vector>
 
 using namespace std;
 
-namespace {
-constexpr std::size_t SIZE = 8;
-}
-
 int main(int argc, char **argv) {
 
-  world::impl::World _world(SIZE, SIZE);
-  world::IAllocator::registerAllocator(&_world);
+  uid::UIDGenerator<0> A;
+  cout << A.generateUID() << endl;
+  cout << A.generateUID() << endl;
+  cout << A.generateUID() << endl;
+  cout << A.generateUID() << endl;
+
+  uid::UIDGenerator<0> B;
+  cout << B.generateUID() << endl;
+  cout << B.generateUID() << endl;
+  cout << B.generateUID() << endl;
+  cout << B.generateUID() << endl;
 
   return 0;
 }
+

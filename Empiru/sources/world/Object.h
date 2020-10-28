@@ -24,6 +24,7 @@
 #ifndef SOURCES_WORLD_OBJECT_H_
 #define SOURCES_WORLD_OBJECT_H_
 
+#include <game/EUID.h>
 #include "Position.h"
 #include "observer/SuperObserver.h"
 #include "alloc/Pointer.h"
@@ -70,6 +71,7 @@ public:
 private:
 
   Pointer _this; ///< Object's UID
+  game::EUID _entity;
   Position _pos;    ///< Object's position
   float _radius;    ///< Hitbox radius for smalls objects
   int _orientation; ///< Object's orientation
@@ -81,10 +83,14 @@ public:
   virtual ~Object() noexcept = default;
   Object(const Pointer &ptr) noexcept;
 
-  void build(Size s, const Position &pos, float r = 0.5, int o = 0) noexcept;
+  void build(game::EUID entity, Size s, const Position &pos, float r = 0.5,
+      int o = 0) noexcept;
 
   const Pointer& ptr() const noexcept {
     return _this;
+  }
+  const game::EUID entity() const noexcept {
+    return _entity;
   }
 
   void discard() noexcept {

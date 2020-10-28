@@ -16,35 +16,25 @@
  */
 
 /// 
-/// \file   Allocator.h
+/// \file   Bridge.h
 /// \author tomato
 ///
-/// \date 27 oct. 2020 13:28:53
+/// \date 27 oct. 2020 20:37:01
 ///
-#ifndef SOURCES_WORLD_IMPL_ALLOCATOR_H_
-#define SOURCES_WORLD_IMPL_ALLOCATOR_H_
+#ifndef SOURCES_GUI_BRIDGE_H_
+#define SOURCES_GUI_BRIDGE_H_
 
-#include <alloc/impl/IndexAllocator.h>
-#include "world/IAllocator.h"
+#include <game/EUID.h>
+#include "Pixel.h"
 
-namespace world {
-namespace impl {
-class Allocator final : public IAllocator {
-private:
+namespace gui {
 
-  using _Allocator = alloc::IndexAllocator<Object, Object>;
-  _Allocator _alloc;
-
+class Bridge {
 public:
-  Allocator() noexcept = default;
-  virtual ~Allocator() noexcept = default;
-
-  Object::Pointer createObject(Object::Size s, const Position &p, float r,
-      int o) override;
-
-  void destroyObject(Object::Pointer ptr) override;
+  virtual ~Bridge() noexcept = default;
+  virtual game::EUID objectAt(const Pixel&) noexcept = 0;
 };
-} /* namespace impl */
-} /* namespace world */
 
-#endif /* SOURCES_WORLD_IMPL_ALLOCATOR_H_ */
+}  // namespace gui
+
+#endif /* SOURCES_GUI_BRIDGE_H_ */

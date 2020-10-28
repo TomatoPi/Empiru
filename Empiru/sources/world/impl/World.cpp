@@ -21,23 +21,28 @@
 ///
 /// \date 10 septembre 2020, 14:34
 ///
-#include "Map.h"
-
 #include "../IAllocator.h"
 
 #include <hex/OddQ.h>
 #include <hex/Conversion.h>
+#include <world/impl/World.h>
 
 #include <cassert>
 
 namespace world {
+
+IAllocator *IAllocator::_allocator = nullptr;
+
 namespace impl {
 
 /// \brief Constructor
 /// \param mapHeight : Height of the map (number of hexs)
 /// \param mapWidth : Width of the map (number of hexs)
-Map::Map(std::size_t mapWidth, std::size_t mapHeight) :
+World::World(std::size_t mapWidth, std::size_t mapHeight) :
     _mapWidth(mapWidth), _mapHeight(mapHeight), _map() {
+}
+
+void World::bindSignals() noexcept {
   /* subscribe to object created events */
   IAllocator::Get().Subject<Events::ObjectCreated>::addSubscriber( // @suppress("Method cannot be resolved")
       [this](IAllocator&, Events::ObjectCreated &event) -> void {
@@ -52,7 +57,7 @@ Map::Map(std::size_t mapWidth, std::size_t mapHeight) :
         /* subscribe to created object destruction */
         event.ptr->Object::Subject<Events::ObjectDiscarded>::addSubscriber( // @suppress("Method cannot be resolved")
             [this](Object &obj, Events::ObjectDiscarded&) -> void {
-              this->removeObject(obj.ptr());
+              this->destroyObject(obj.ptr());
             });
         /* add object to the map */
         this->addObject(event.ptr);
@@ -60,10 +65,10 @@ Map::Map(std::size_t mapWidth, std::size_t mapHeight) :
 }
 
 /// \brief Must add given object to the world
-void Map::addObject(const Object::Pointer &ptr) noexcept {
+void World::addObject(const Object::Pointer &ptr) noexcept {
   addObject(ptr, ptr->pos());
 }
-void Map::addObject(const Object::Pointer &ptr, const Position &pos) noexcept {
+void World::addObject(const Object::Pointer &ptr, const Position &pos) noexcept {
   auto itr(_map.find(pos));
   if (itr == _map.end()) {
     itr = _map.emplace(pos, Tile()).first;
@@ -72,10 +77,10 @@ void Map::addObject(const Object::Pointer &ptr, const Position &pos) noexcept {
 }
 
 /// \brief Must remove given object fro the world
-void Map::removeObject(const Object::Pointer &ptr) noexcept {
+void World::removeObject(const Object::Pointer &ptr) noexcept {
   removeObject(ptr, ptr->pos());
 }
-void Map::removeObject(const Object::Pointer &ptr, const Position &pos) noexcept {
+void World::removeObject(const Object::Pointer &ptr, const Position &pos) noexcept {
   auto itr(_map.find(pos));
   assert(itr != _map.end());
   itr->second.erase(ptr);
@@ -85,7 +90,7 @@ void Map::removeObject(const Object::Pointer &ptr, const Position &pos) noexcept
 }
 
 /// \brief Must return tile content at given pos, or null if empty
-const Tile::Content* Map::getContentAt(const Position &pos) const {
+const Tile::Content* World::getContentAt(const Position &pos) const {
   auto itr(_map.find(pos));
   if (itr != _map.end()) {
     return &itr->second.getContent();
@@ -94,7 +99,7 @@ const Tile::Content* Map::getContentAt(const Position &pos) const {
 }
 
 /// \brief Must return true if given pos is on the map
-bool Map::isOnMap(const Position &pos) const {
+bool World::isOnMap(const Position &pos) const {
   hex::Grid grd(hex::toGrid(pos));
   // Easy case
   if (0 < grd._x && 0 < grd._y && grd._x < _mapWidth * 3 - 1
@@ -108,7 +113,7 @@ bool Map::isOnMap(const Position &pos) const {
 /// \brief Return true if given position is valid
 ///   if position is invalid, return false and return pointer to the obstacle
 ///   in 'obstacle' if relevant
-bool Map::tryPosition(const Position &newpos, const Object::Pointer &ptr,
+bool World::tryPosition(const Position &newpos, const Object::Pointer &ptr,
     Object::Pointer *obstacle) const noexcept {
   const Object &object(*ptr);
   // Check validity
@@ -133,6 +138,26 @@ bool Map::tryPosition(const Position &newpos, const Object::Pointer &ptr,
     return false;
   });
   return valid;
+}
+
+Object::Pointer World::createObject(game::EUID entity, Object::Size s,
+    const Position &p, float r, int o) {
+  Object::Pointer ptr(_alloc.createObject());
+  ptr->build(entity, s, p, r, o);
+  Subject<Events::ObjectCreated>::notify(ptr); // @suppress("Function cannot be resolved")
+  return ptr;
+}
+
+void World::destroyGarbage() noexcept {
+  for (auto ptr : _garbage) {
+    _alloc.deleteObject(ptr); // @suppress("Invalid arguments")
+  }
+  _garbage.clear();
+}
+
+void World::destroyObject(Object::Pointer ptr) {
+  _garbage.emplace_back(ptr);
+  removeObject(ptr);
 }
 
 } /* namespace impl */

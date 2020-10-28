@@ -1,6 +1,6 @@
 CXXFLAGS = -I../Empiru/sources/ -I../Empiru/libs/ -O2 -g -Wall -fmessage-length=0 -std=c++2a
 
-TESTS = IteratorSafeness WorldObjectSignal
+TESTS = IteratorSafeness WorldObjectSignal UIDGen
 
 %: %.cpp
 	pwd

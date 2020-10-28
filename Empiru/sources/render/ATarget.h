@@ -21,17 +21,18 @@
 ///
 /// \date 27 oct. 2020 15:57:34
 ///
-#ifndef SOURCES_RENDER_TARGET_H_
-#define SOURCES_RENDER_TARGET_H_
+#ifndef SOURCES_RENDER_ATARGET_H_
+#define SOURCES_RENDER_ATARGET_H_
 
 #include "world/Position.h"
 #include "gui/Pixel.h"
 #include "Asset.h"
 /// \todo Replace this concrete include with an interface
-#include "gui/impl/Viewport.h"
+#include "gui/Viewport.h"
 
 #include <observer/SuperObserver.h>
 #include <alloc/Pointer.h>
+#include <game/EUID.h>
 
 namespace render {
 
@@ -40,10 +41,12 @@ struct TargetMoved {
 };
 struct TargetRotated {
 };
+struct TargetDiscarded {
+};
 }
 
-class ATarget: public SuperObserver::Subject<ATarget, Events::TargetMoved,
-    Events::TargetRotated> {
+class ATarget: public SuperObserver::Subject<ATarget, Events::TargetMoved, // @suppress("Invalid template argument")
+    Events::TargetRotated, Events::TargetDiscarded> {
 public:
 
   template<typename E>
@@ -52,6 +55,8 @@ public:
 
 private:
   Pointer _this;
+  game::EUID _entity;
+  AssetUID _kind;
   std::shared_ptr<Asset> _asset;
   world::Position _worldpos;
   gui::Pixel _viewpos;
@@ -60,12 +65,21 @@ public:
 
   ATarget() noexcept = delete;
   ATarget(const Pointer &ptr) noexcept :
-      _this(ptr), _worldpos(), _viewpos(), _orientation() {
+      _this(ptr), _entity(0), _kind(), _worldpos(), _viewpos(), _orientation() {
   }
   virtual ~ATarget() noexcept = default;
 
   const Pointer& ptr() const noexcept {
     return _this;
+  }
+  const game::EUID entity() const noexcept {
+    return _entity;
+  }
+  const AssetUID kind() const noexcept {
+    return _kind;
+  }
+  void discard() noexcept {
+    Subject<Events::TargetDiscarded>::notify(); // @suppress("Function cannot be resolved")
   }
 
   const gui::Pixel& viewpos() const noexcept {
@@ -95,11 +109,15 @@ public:
   virtual void drawMask(const gui::Viewport &view, const SDL_Color &color) = 0;
 
   struct Builder {
+    game::EUID entity;
+    AssetUID kind;
     std::shared_ptr<Asset> asset;
     world::Position pos;
     int ori;
     virtual ~Builder() noexcept = default;
     virtual void operator()(Pointer &ptr) noexcept {
+      ptr->_entity = entity;
+      ptr->_kind = kind;
       ptr->_asset = asset;
       ptr->_worldpos = pos;
       ptr->_orientation = ori;
@@ -108,4 +126,4 @@ public:
 };
 } /* render */
 
-#endif /* SOURCES_RENDER_TARGET_H_ */
+#endif /* SOURCES_RENDER_ATARGET_H_ */

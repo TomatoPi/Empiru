@@ -28,33 +28,48 @@
 #include "../Position.h"
 #include "../Tile.h"
 #include "../Object.h"
+#include "../IAllocator.h"
 
+#include <alloc/impl/IndexAllocator.h>
 #include <unordered_map>
+#include <vector>
 
 namespace world {
 namespace impl {
 
 /// \brief Object that handle Map and Objects
-class Map final : public IMap {
+class World final : public IMap, public IAllocator {
 public:
 
 private:
 
+  using _Allocator = alloc::IndexAllocator<Object, Object>;
+  _Allocator _alloc;
+
   /// \brief Hollow Matrix
-  typedef std::unordered_map<Position, Tile, Position::TileHasher,
-      Position::TileEquals> ObjList;
+  using ObjList = std::unordered_map<Position, Tile, Position::TileHasher,
+  Position::TileEquals>;
+  using Garbage = std::vector<Object::Pointer>;
 
   std::size_t _mapWidth;  ///< Horizontal tile count
   std::size_t _mapHeight; ///< Verical tile count
   ObjList _map;   ///< Hollow matrix of world content
+  Garbage _garbage;
 
 public:
 
   /// \brief Constructor
   /// \param mapHeight : Height of the map (number of hexs)
   /// \param mapWidth : Width of the map (number of hexs)
-  Map(std::size_t mapWidth, std::size_t mapHeight);
-  virtual ~Map() noexcept = default;
+  World(std::size_t mapWidth, std::size_t mapHeight);
+  virtual ~World() noexcept = default;
+
+  void bindSignals() noexcept;
+
+  Object::Pointer createObject(game::EUID entity, Object::Size s,
+      const Position &p, float r, int o) override;
+
+  void destroyGarbage() noexcept override;
 
   /// \brief Must return tile content at given pos, or null if empty
   const Tile::Content* getContentAt(const Position &pos) const override final;
@@ -74,6 +89,7 @@ private:
   void addObject(const Object::Pointer &ptr, const Position &pos) noexcept;
   void removeObject(const Object::Pointer &ptr) noexcept;
   void removeObject(const Object::Pointer &ptr, const Position &pos) noexcept;
+  void destroyObject(Object::Pointer ptr);
 };
 
 } /* namespace impl */

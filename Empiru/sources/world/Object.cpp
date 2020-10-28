@@ -26,12 +26,14 @@
 namespace world {
 
 Object::Object(const Pointer &ptr) noexcept :
-    _this(ptr), _pos(), _radius(), _orientation(), _size() {
+    _this(ptr), _entity(0), _pos(), _radius(), _orientation(), _size() {
 }
 
-void Object::build(Size s, const Position &pos, float r, int o) noexcept {
+void Object::build(game::EUID entity, Size s, const Position &pos, float r,
+    int o) noexcept {
   _size = s;
   _pos = pos;
+  _entity = entity;
   _radius = r;
   _orientation = o;
 }

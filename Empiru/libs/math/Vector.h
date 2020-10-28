@@ -145,7 +145,7 @@ struct _Vector {
   /// \brief Functor that define an order relation on vectors.
   /// sorting them by ascending Y
   struct AscYCompare {
-    bool operator()(const _Vect &u, const _Vect &v) noexcept {
+    bool operator()(const _Vect &u, const _Vect &v) const noexcept {
       return u._y < v._y || (u._y == v._y && u._x < v._x);
     }
   };

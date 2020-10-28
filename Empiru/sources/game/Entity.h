@@ -16,30 +16,20 @@
  */
 
 /// 
-/// \file   Allocator.cpp
+/// \file   Entity.h
 /// \author tomato
 ///
-/// \date 27 oct. 2020 13:28:53
+/// \date 27 oct. 2020 19:24:43
 ///
-#include "Allocator.h"
+#ifndef SOURCES_GAME_ENTITY_H_
+#define SOURCES_GAME_ENTITY_H_
 
-namespace world {
 
-IAllocator *IAllocator::_allocator = nullptr;
+namespace game {
 
-namespace impl {
 
-Object::Pointer Allocator::createObject(Object::Size s, const Position &p,
-    float r, int o) {
-  Object::Pointer ptr(_alloc.createObject());
-  ptr->build(s, p, r, o);
-  Subject<Events::ObjectCreated>::notify(ptr); // @suppress("Function cannot be resolved")
-  return ptr;
-}
 
-void Allocator::destroyObject(Object::Pointer ptr) {
-  _alloc.deleteObject(ptr);
-}
+}  // namespace game
 
-} /* namespace impl */
-} /* namespace world */
+
+#endif /* SOURCES_GAME_ENTITY_H_ */

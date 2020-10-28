@@ -24,7 +24,9 @@
 #ifndef SOURCES_RENDER_ASSET_H_
 #define SOURCES_RENDER_ASSET_H_
 
+#include <uid/uid.h>
 #include <sprite/SpriteSheet.h>
+#include <typeinfo>
 
 namespace render {
 
@@ -33,6 +35,9 @@ struct Asset {
   std::shared_ptr<SpriteSheet> mask;
   std::shared_ptr<SpriteSheet> select;
 };
+
+using AssetUIDGen = uid::UIDGenerator;
+using AssetUID = AssetUIDGen::UID;
 
 }  // namespace render
 
