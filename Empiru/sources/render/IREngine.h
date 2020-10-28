@@ -16,23 +16,23 @@
  */
 
 /// 
-/// \file   Entity.h
+/// \file   IREngine.h
 /// \author tomato
 ///
-/// \date 28 oct. 2020 15:37:30
+/// \date 28 oct. 2020 15:20:39
 ///
-#ifndef SOURCES_GAME_ENTITY_H_
-#define SOURCES_GAME_ENTITY_H_
+#ifndef SOURCES_RENDER_IRENGINE_H_
+#define SOURCES_RENDER_IRENGINE_H_
 
-#include "EUID.h"
+#include <game/EUID.h>
+#include "ATarget.h"
 
-namespace game {
-
-struct EntityBuilder {
-  virtual ~EntityBuilder() noexcept = default;
-  virtual void operator()(const EUID uid) noexcept = 0;
+namespace render {
+class IREngine {
+public:
+  virtual ~IREngine() noexcept = default;
+  virtual ATarget& getTarget(const game::EUID) noexcept = 0;
 };
+}
 
-}  // namespace game
-
-#endif /* SOURCES_GAME_ENTITY_H_ */
+#endif /* SOURCES_RENDER_IRENGINE_H_ */

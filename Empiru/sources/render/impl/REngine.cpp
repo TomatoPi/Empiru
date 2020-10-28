@@ -37,26 +37,6 @@ REngine::REngine(PixelPerfectBridge &bridge, gui::Viewport &view,
     world::IMap &world) noexcept :
     _bridge(bridge), _view(view), _world(world), _allocs(), _assets(), _objects(), _garbage(), _stack(), _tiles(), _updateList(), _tileTarget(), _dirtyStack(
         true) {
-}
-
-void REngine::bindSignals() noexcept {
-  /* subcribe to object creations */
-  IAllocator::Get().Subject<render::Events::TargetCreated>::addSubscriber(
-      [this](IAllocator&, render::Events::TargetCreated &event) -> void {
-        /* subscribe to created object movements */
-        event.ptr->ATarget::Subject<render::Events::TargetMoved>::addSubscriber(
-            [this](ATarget &obj, render::Events::TargetMoved &event) -> void {
-              _updateList.emplace_back(obj.ptr());
-            });
-        /* subscribe to created object destruction */
-        event.ptr->ATarget::Subject<render::Events::TargetDiscarded>::addSubscriber(
-            [this](ATarget &obj,
-                render::Events::TargetDiscarded &event) -> void {
-              removeObject(obj.ptr());
-            });
-        /* add object */
-        this->addObject(event.ptr);
-      });
   /* subscribe to viewport events */
   _view.gui::Viewport::Subject<gui::Events::ViewportMoved>::addSubscriber(
       [this](gui::Viewport&, gui::Events::ViewportMoved&) -> void {
@@ -95,10 +75,24 @@ void REngine::setTileTarget(ATarget *target) noexcept {
 
 ATarget::Pointer REngine::createObject(AssetUID kind,
     ATarget::Builder &builder) {
+  /* alloc and build object */
   builder.asset = _assets.at(kind);
   builder.kind = kind;
   ATarget::Pointer ptr(_allocs.at(kind)->createObject());
   builder(ptr);
+  /* subscribe to created object movements */
+  ptr->ATarget::Subject<render::Events::TargetMoved>::addSubscriber(
+      [this](ATarget &obj, render::Events::TargetMoved &event) -> void {
+        _updateList.emplace_back(obj.ptr());
+      });
+  /* subscribe to created object destruction */
+  ptr->ATarget::Subject<render::Events::TargetDiscarded>::addSubscriber(
+      [this](ATarget &obj, render::Events::TargetDiscarded &event) -> void {
+        removeObject(obj.ptr());
+      });
+  /* add object */
+  addObject(ptr);
+  /* notify the world */
   Subject<render::Events::TargetCreated>::notify(ptr);
   return ptr;
 }
@@ -107,6 +101,10 @@ void REngine::destroyGarbadge() {
   for (auto &ptr : _garbage) {
     _allocs.at(ptr->kind())->deleteObject(ptr);
   }
+}
+
+ATarget& REngine::getTarget(const game::EUID uid) noexcept {
+  return *_objects[uid];
 }
 
 void REngine::addObject(ATarget::Pointer ptr) noexcept {

@@ -25,7 +25,7 @@
 #ifndef CAMERA_CONTROLLER_H
 #define CAMERA_CONTROLLER_H
 
-#include <control/ACameraCtrlCtrl.h>
+#include <control/ACameraCtrl.h>
 #include "gui/Viewport.h"
 
 namespace ctrl {

@@ -107,13 +107,6 @@ public:
     return _observers.emplace(_observers.end(), std::forward<Observer>(obs));
   }
 
-  /// \brief Add a subscriber to this event Kind
-  /// \param key : subscriber's identifier
-  /// \param obs : the subscriber
-  const Key addSubscriber(const Observer &obs) {
-    return _observers.emplace(_observers.end(), obs);
-  }
-
   /// \brief Remove a subscriber from this kind
   /// \param key : subscriber's identifier
   void removeSubscriber(const Key& key) {

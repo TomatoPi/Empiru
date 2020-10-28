@@ -68,7 +68,7 @@ private:
 
   using ColorTable = std::unordered_map<SDL_Color,game::EUID,ColorHasher,ColorEquals>;
   ColorTable _table;
-
+  const gui::Viewport& _view;
   SDL_Surface *_surface;   ///< Virtual drawing surface (owned)
   SDL_Renderer *_renderer; ///< Renderer associated with vsurface (owned)
   uint32_t _cptr;
@@ -76,10 +76,10 @@ private:
 public:
 
   /// \throw runtime_error if failed create renderer or surface
-  PixelPerfectBridge(int w, int h);
+  PixelPerfectBridge(const gui::Viewport& view, int w, int h);
   virtual ~PixelPerfectBridge() noexcept = default;
 
-  game::EUID objectAt(const gui::Pixel&) noexcept override;
+  std::pair<world::Position, game::EUID> at(const gui::Pixel&) noexcept override;
 
   void clearTable() noexcept;
   void addObject(ATarget &target, const gui::Viewport &view) noexcept;

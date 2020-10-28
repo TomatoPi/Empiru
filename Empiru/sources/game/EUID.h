@@ -25,14 +25,12 @@
 #define SOURCES_EMPIRU_EUID_H_
 
 #include <uid/uid.h>
-#include <cstddef>
 
 namespace game {
 
-  /// \brief Entity UID
-  using EUID = uid::UIDGenerator::UID;
+/// \brief Entity UID
+using EUID = uid::UIDGenerator::UID;
 
 } /* namespace Empiru */
-
 
 #endif /* SOURCES_EMPIRU_EUID_H_ */

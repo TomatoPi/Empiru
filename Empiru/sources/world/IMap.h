@@ -46,6 +46,9 @@ public:
   ///   in 'obstacle' if relevant
   virtual bool tryPosition(const world::Position&, const Object::Pointer&,
       Object::Pointer*) const noexcept = 0;
+
+  /// \brief return object associated with given entity
+  virtual Object& getObject(const game::EUID) noexcept = 0;
 };
 
 } /* world */

@@ -122,8 +122,7 @@ public:
 
   /// \brief Method that return true if this object collide with given object
   ///   considering obj beeing at pos
-  bool
-  collide(const Object &obj, const Position &pos) const noexcept;
+  bool collide(const Object &obj, const Position &pos) const noexcept;
 
 protected:
 

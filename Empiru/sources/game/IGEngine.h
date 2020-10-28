@@ -16,23 +16,29 @@
  */
 
 /// 
-/// \file   Entity.h
+/// \file   IWorld.h
 /// \author tomato
 ///
-/// \date 28 oct. 2020 15:37:30
+/// \date 28 oct. 2020 14:38:41
 ///
-#ifndef SOURCES_GAME_ENTITY_H_
-#define SOURCES_GAME_ENTITY_H_
+#ifndef SOURCES_GAME_IGENGINE_H_
+#define SOURCES_GAME_IGENGINE_H_
 
 #include "EUID.h"
+#include "Entity.h"
+#include "Decorator.h"
+#include <map>
 
 namespace game {
 
-struct EntityBuilder {
-  virtual ~EntityBuilder() noexcept = default;
-  virtual void operator()(const EUID uid) noexcept = 0;
+class IGEngine {
+public:
+  using Entity = std::map<DUID,Decorator::Pointer>; // @suppress("Invalid template argument")
+  virtual ~IGEngine() noexcept = default;
+  virtual void createEntity(EntityBuilder&) noexcept = 0;
+  virtual Entity& getEntity(const EUID uid) noexcept = 0;
 };
 
 }  // namespace game
 
-#endif /* SOURCES_GAME_ENTITY_H_ */
+#endif /* SOURCES_GAME_IGENGINE_H_ */

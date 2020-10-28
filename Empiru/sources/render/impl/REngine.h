@@ -26,6 +26,7 @@
 #define RENDERENGINE_H
 
 #include "../IAllocator.h"
+#include "../IREngine.h"
 #include "gui/Viewport.h"
 #include "world/IMap.h"
 #include "PixelPerfectBridge.h"
@@ -36,7 +37,7 @@
 
 namespace render {
 namespace impl {
-class REngine: public IAllocator {
+class REngine: public IAllocator, public IREngine {
 private:
 
   static AssetUIDGen assetUIDGen;
@@ -72,8 +73,6 @@ public:
       world::IMap &world) noexcept;
   virtual ~REngine() noexcept = default;
 
-  void bindSignals() noexcept;
-
   void render();
 
   const AssetUID registerAsset(std::shared_ptr<Asset> asset,
@@ -82,9 +81,11 @@ public:
   void setTileTarget(ATarget* target) noexcept;
 
   ATarget::Pointer createObject(AssetUID kind, ATarget::Builder &builder)
-      override;
+      override final;
 
-  void destroyGarbadge() override;
+  void destroyGarbadge() override final;
+
+  ATarget& getTarget(const game::EUID) noexcept override final;
 
 private:
   void updateDrawStack() noexcept;

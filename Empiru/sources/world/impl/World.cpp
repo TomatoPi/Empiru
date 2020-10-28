@@ -39,29 +39,7 @@ namespace impl {
 /// \param mapHeight : Height of the map (number of hexs)
 /// \param mapWidth : Width of the map (number of hexs)
 World::World(std::size_t mapWidth, std::size_t mapHeight) :
-    _mapWidth(mapWidth), _mapHeight(mapHeight), _map() {
-}
-
-void World::bindSignals() noexcept {
-  /* subscribe to object created events */
-  IAllocator::Get().Subject<Events::ObjectCreated>::addSubscriber( // @suppress("Method cannot be resolved")
-      [this](IAllocator&, Events::ObjectCreated &event) -> void {
-        /* subscribe to created object movements */
-        event.ptr->Object::Subject<Events::ObjectMoved>::addSubscriber( // @suppress("Method cannot be resolved")
-            [this](Object &obj, Events::ObjectMoved &event) -> void {
-              if (event.oldp.tile() != event.newp.tile()) {
-                this->removeObject(obj.ptr(), event.oldp);
-                this->addObject(obj.ptr(), event.newp);
-              }
-            });
-        /* subscribe to created object destruction */
-        event.ptr->Object::Subject<Events::ObjectDiscarded>::addSubscriber( // @suppress("Method cannot be resolved")
-            [this](Object &obj, Events::ObjectDiscarded&) -> void {
-              this->destroyObject(obj.ptr());
-            });
-        /* add object to the map */
-        this->addObject(event.ptr);
-      });
+    _mapWidth(mapWidth), _mapHeight(mapHeight), _map(), _objects(), _garbage() {
 }
 
 /// \brief Must add given object to the world
@@ -80,7 +58,8 @@ void World::addObject(const Object::Pointer &ptr, const Position &pos) noexcept 
 void World::removeObject(const Object::Pointer &ptr) noexcept {
   removeObject(ptr, ptr->pos());
 }
-void World::removeObject(const Object::Pointer &ptr, const Position &pos) noexcept {
+void World::removeObject(const Object::Pointer &ptr,
+    const Position &pos) noexcept {
   auto itr(_map.find(pos));
   assert(itr != _map.end());
   itr->second.erase(ptr);
@@ -140,23 +119,47 @@ bool World::tryPosition(const Position &newpos, const Object::Pointer &ptr,
   return valid;
 }
 
+/// \brief return object associated with given entity
+Object& World::getObject(const game::EUID uid) noexcept {
+  return *_objects[uid];
+}
+
 Object::Pointer World::createObject(game::EUID entity, Object::Size s,
     const Position &p, float r, int o) {
+  /* alloc and build object */
   Object::Pointer ptr(_alloc.createObject());
   ptr->build(entity, s, p, r, o);
+  /* subscribe to created object movements */
+  ptr->Object::Subject<Events::ObjectMoved>::addSubscriber( // @suppress("Method cannot be resolved")
+      [this](Object &obj, Events::ObjectMoved &event) -> void {
+        if (event.oldp.tile() != event.newp.tile()) {
+          this->removeObject(obj.ptr(), event.oldp);
+          this->addObject(obj.ptr(), event.newp);
+        }
+      });
+  /* subscribe to created object destruction */
+  ptr->Object::Subject<Events::ObjectDiscarded>::addSubscriber( // @suppress("Method cannot be resolved")
+      [this](Object &obj, Events::ObjectDiscarded&) -> void {
+        this->destroyObject(obj.ptr());
+      });
+  /* add object to the map */
+  _objects[ptr->entity()] = ptr;
+  addObject(ptr);
+  /* notify the world */
   Subject<Events::ObjectCreated>::notify(ptr); // @suppress("Function cannot be resolved")
   return ptr;
 }
 
 void World::destroyGarbage() noexcept {
-  for (auto ptr : _garbage) {
-    _alloc.deleteObject(ptr); // @suppress("Invalid arguments")
+  for (Object::Pointer &ptr : _garbage) {
+    _alloc.deleteObject(ptr);
   }
   _garbage.clear();
 }
 
 void World::destroyObject(Object::Pointer ptr) {
   _garbage.emplace_back(ptr);
+  _objects.erase(ptr->entity()); // @suppress("Method cannot be resolved")
   removeObject(ptr);
 }
 

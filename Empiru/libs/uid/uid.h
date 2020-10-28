@@ -32,6 +32,8 @@ namespace uid {
 class UIDGenerator {
 public:
   using UID = std::size_t;
+  UIDGenerator() noexcept = default;
+  ~UIDGenerator() noexcept = default;
   const UID generateUID() noexcept {
     std::size_t val;
     do {

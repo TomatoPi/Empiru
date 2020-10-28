@@ -26,8 +26,8 @@
 namespace render {
 namespace impl {
 
-PixelPerfectBridge::PixelPerfectBridge(int w, int h) :
-    _table(), _surface(nullptr), _renderer(nullptr), _cptr(0) {
+PixelPerfectBridge::PixelPerfectBridge(const gui::Viewport &view, int w, int h) :
+    _table(), _view(view), _surface(nullptr), _renderer(nullptr), _cptr(0) {
   /* create virtual surface and software renderer */
   _surface = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0);
   if (!_surface) {
@@ -41,7 +41,8 @@ PixelPerfectBridge::PixelPerfectBridge(int w, int h) :
   }
 }
 
-game::EUID PixelPerfectBridge::objectAt(const gui::Pixel &pix) noexcept {
+std::pair<world::Position, game::EUID> PixelPerfectBridge::at(
+    const gui::Pixel &pix) noexcept {
   Subject<Events::BridgeNeedUpdate>::notify();
   SDL_LockSurface(_surface);
   SDL_Color color { 255, 255, 255, 255 };
@@ -51,9 +52,9 @@ game::EUID PixelPerfectBridge::objectAt(const gui::Pixel &pix) noexcept {
   SDL_UnlockSurface(_surface);
   auto itr(_table.find(color));
   if (itr != _table.end()) {
-    return itr->second;
+    return {_view.fromPixel(pix), itr->second};
   }
-  return 0;
+  return {_view.fromPixel(pix), 0};
 }
 
 void PixelPerfectBridge::clearTable() noexcept {

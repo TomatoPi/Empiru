@@ -49,11 +49,13 @@ private:
   /// \brief Hollow Matrix
   using ObjList = std::unordered_map<Position, Tile, Position::TileHasher,
   Position::TileEquals>;
+  using ObjTable = std::unordered_map<game::EUID, Object::Pointer>; // @suppress("Invalid template argument")
   using Garbage = std::vector<Object::Pointer>;
 
   std::size_t _mapWidth;  ///< Horizontal tile count
   std::size_t _mapHeight; ///< Verical tile count
   ObjList _map;   ///< Hollow matrix of world content
+  ObjTable _objects;
   Garbage _garbage;
 
 public:
@@ -63,8 +65,6 @@ public:
   /// \param mapWidth : Width of the map (number of hexs)
   World(std::size_t mapWidth, std::size_t mapHeight);
   virtual ~World() noexcept = default;
-
-  void bindSignals() noexcept;
 
   Object::Pointer createObject(game::EUID entity, Object::Size s,
       const Position &p, float r, int o) override;
@@ -82,6 +82,9 @@ public:
   ///   in 'obstacle' if relevant
   bool tryPosition(const Position &pos, const Object::Pointer &entity,
       Object::Pointer *obstacle) const noexcept override final;
+
+  /// \brief return object associated with given entity
+  Object& getObject(const game::EUID) noexcept override final;
 
 private:
 

@@ -25,6 +25,7 @@
 #define SOURCES_GUI_BRIDGE_H_
 
 #include <game/EUID.h>
+#include "world/Position.h"
 #include "Pixel.h"
 
 namespace gui {
@@ -32,7 +33,7 @@ namespace gui {
 class Bridge {
 public:
   virtual ~Bridge() noexcept = default;
-  virtual game::EUID objectAt(const Pixel&) noexcept = 0;
+  virtual std::pair<world::Position, game::EUID> at(const Pixel&) noexcept = 0;
 };
 
 }  // namespace gui

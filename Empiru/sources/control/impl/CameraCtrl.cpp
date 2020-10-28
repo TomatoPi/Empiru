@@ -22,7 +22,7 @@
 /// \date 11 septembre 2020, 17:13
 /// \brief Effective implementation of in-game camera
 ///
-#include <control/impl/CameraCtrlCtrl.h>
+#include <control/impl/CameraCtrl.h>
 #include <hex/Consts.h>
 #include <hex/Conversion.h>
 

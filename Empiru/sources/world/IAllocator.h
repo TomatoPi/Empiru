@@ -57,8 +57,8 @@ public:
 
   virtual ~IAllocator() noexcept = default;
 
-  virtual Object::Pointer createObject(game::EUID, Object::Size, const Position&, float,
-      int) = 0;
+  virtual Object::Pointer createObject(game::EUID, Object::Size,
+      const Position&, float, int) = 0;
 
   virtual void destroyGarbage() noexcept = 0;
 };
