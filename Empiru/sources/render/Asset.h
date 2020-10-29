@@ -34,6 +34,10 @@ struct Asset {
   std::shared_ptr<SpriteSheet> sheet;
   std::shared_ptr<SpriteSheet> mask;
   std::shared_ptr<SpriteSheet> select;
+  Asset(std::shared_ptr<SpriteSheet> sheet, std::shared_ptr<SpriteSheet> mask,
+      std::shared_ptr<SpriteSheet> select) noexcept :
+      sheet(sheet), mask(mask), select(select) {
+  }
 };
 
 using AssetUIDGen = uid::UIDGenerator;

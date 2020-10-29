@@ -56,7 +56,7 @@ std::pair<world::Position, game::EUID> PixelPerfectBridge::at(
   }
   return {_view.fromPixel(pix), 0};
 }
-world::Position PixelPerfectBridge::fromPixel(const gui::Pixel& pix) noexcept {
+world::Position PixelPerfectBridge::fromPixel(const gui::Pixel &pix) noexcept {
   return _view.fromPixel(pix);
 }
 
@@ -76,9 +76,12 @@ void PixelPerfectBridge::addObject(ATarget &target,
   color.b = (_cptr & 0x00FF0000) >> 16;
   color.a = 255;
   // Get correct renderer and use it
-  target.drawMask(view, color);
+  target.drawMask(color);
   _table.emplace(color, target.entity());
   _cptr += 1;
+}
+SDL_Renderer* PixelPerfectBridge::renderer() noexcept {
+  return _renderer;
 }
 
 }  // namespace impl

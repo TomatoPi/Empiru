@@ -79,7 +79,7 @@ ATarget::Pointer REngine::createObject(AssetUID kind,
   builder.asset = _assets.at(kind);
   builder.kind = kind;
   ATarget::Pointer ptr(_allocs.at(kind)->createObject());
-  builder(ptr);
+  builder(*ptr);
   /* subscribe to created object movements */
   ptr->ATarget::Subject<render::Events::TargetMoved>::addSubscriber(
       [this](ATarget &obj, render::Events::TargetMoved &event) -> void {
@@ -155,37 +155,46 @@ void REngine::updateDrawStack() noexcept {
       // Render tile pos at (x, y+offx[!!flip])
       if (_world.isOnMap(pos)) {
         _tiles.emplace_back(_view.toPixel(pos.tile()));
-
         auto vec(_world.getContentAt(pos));
         if (vec) {
           for (const world::Object::Pointer &obj : *vec) {
             ATarget::Pointer ptr(_objects.at(obj->entity()));
-            ptr->viewpos(_view.toPixel(ptr->worldpos()));
-            addToStack(ptr);
+            ptr->viewpos(_view.toPixel(ptr->worldpos()), _view.tileSize());
+            if (_view.doesIntersect(ptr->blitRect())) {
+              addToStack(ptr);
+            }
           }
         }
       }
     }
   } //< for each tile
+  _dirtyStack = false;
 }
 
 void REngine::render() {
+  // if stack is dirty recompute it
+  if (_dirtyStack) {
+    updateDrawStack();
+  }
   // Update neededs
   for (ATarget::Pointer &ptr : _updateList) {
     removeFromStack(ptr);
-    ptr->viewpos(_view.toPixel(ptr->worldpos()));
-    addToStack(ptr);
+    gui::Pixel pix(_view.toPixel(ptr->worldpos()));
+    ptr->viewpos(pix, _view.tileSize());
+    if (_view.doesIntersect(ptr->blitRect())) {
+      addToStack(ptr);
+    }
   }
   _updateList.clear();
   // Draw tiles
   for (auto &tile : _tiles) {
-    _tileTarget->viewpos(tile);
-    _tileTarget->draw(_view);
+    _tileTarget->viewpos(tile, _view.tileSize());
+    _tileTarget->draw();
   }
   // Draw all entities
   for (auto [pos, list] : _stack) {
     for (auto ptr : list) {
-      ptr->draw(_view);
+      ptr->draw();
     }
   }
 }

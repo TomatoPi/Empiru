@@ -24,6 +24,8 @@
 ///
 #include "SDLHandler.h"
 
+#include <log/log.h>
+
 namespace ctrl {
 
 namespace impl {
@@ -100,6 +102,12 @@ bool SDLHandler::handleKeyDown(const SDL_KeyboardEvent &key) {
     break;
   case SDLK_e:
     _camera.rotateLeft();
+    break;
+  case SDLK_PLUS:
+    LOG::IncreaseLog();
+    break;
+  case SDLK_MINUS:
+    LOG::DecreaseLog();
     break;
   case SDLK_h:
     //_controller.selectConstructionGhost(typeid(House));

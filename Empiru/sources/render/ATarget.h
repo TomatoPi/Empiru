@@ -27,11 +27,10 @@
 #include "world/Position.h"
 #include "gui/Pixel.h"
 #include "Asset.h"
-/// \todo Replace this concrete include with an interface
-#include "gui/Viewport.h"
 
 #include <observer/SuperObserver.h>
 #include <alloc/Pointer.h>
+#include <SDL2/SDL_rect.h>
 #include <game/EUID.h>
 
 namespace render {
@@ -53,13 +52,14 @@ public:
   using Subject = SuperObserver::Subject<ATarget, E>; // @suppress("Invalid template argument")
   using Pointer = alloc::SmartPointer<ATarget>;
 
-private:
+protected:
   Pointer _this;
   game::EUID _entity;
   AssetUID _kind;
   std::shared_ptr<Asset> _asset;
   world::Position _worldpos;
   gui::Pixel _viewpos;
+  SDL_Rect _blitrect;
   int _orientation;
 public:
 
@@ -82,11 +82,16 @@ public:
     Subject<Events::TargetDiscarded>::notify(); // @suppress("Function cannot be resolved")
   }
 
+  const SDL_Rect& blitRect() const noexcept {
+    return _blitrect;
+  }
+
   const gui::Pixel& viewpos() const noexcept {
     return _viewpos;
   }
-  void viewpos(const gui::Pixel &p) noexcept {
+  void viewpos(const gui::Pixel &p, const gui::Pixel& tile) noexcept {
     _viewpos = p;
+    updateBlitRect(tile);
   }
 
   int orientation() const noexcept {
@@ -105,8 +110,9 @@ public:
     Subject<Events::TargetMoved>::notify(); // @suppress("Function cannot be resolved")
   }
 
-  virtual void draw(const gui::Viewport &view) = 0;
-  virtual void drawMask(const gui::Viewport &view, const SDL_Color &color) = 0;
+  virtual void updateBlitRect(const gui::Pixel& tile) noexcept = 0;
+  virtual void draw() = 0;
+  virtual void drawMask(const SDL_Color &color) = 0;
 
   struct Builder {
     game::EUID entity;
@@ -115,12 +121,12 @@ public:
     world::Position pos;
     int ori;
     virtual ~Builder() noexcept = default;
-    virtual void operator()(Pointer &ptr) noexcept {
-      ptr->_entity = entity;
-      ptr->_kind = kind;
-      ptr->_asset = asset;
-      ptr->_worldpos = pos;
-      ptr->_orientation = ori;
+    virtual void operator()(ATarget &target) noexcept {
+      target._entity = entity;
+      target._kind = kind;
+      target._asset = asset;
+      target._worldpos = pos;
+      target._orientation = ori;
     }
   };
 };

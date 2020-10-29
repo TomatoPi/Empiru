@@ -25,10 +25,14 @@
 #include <game/impl/GEngine.h>
 #include <render/impl/REngine.h>
 #include <render/impl/PixelPerfectBridge.h>
+#include <render/helpers/GenericRTarget.h>
+#include <render/helpers/Blitter.h>
+#include <render/helpers/AssetLoader.h>
 #include <control/impl/CameraCtrl.h>
 #include <control/impl/SDLHandler.h>
 #include <window/Window.h>
 #include <SDL2/SDL_timer.h>
+#include <log/log.h>
 
 #include <iostream>
 #include <utility>
@@ -67,7 +71,23 @@ int main(int argc, char **argv) {
   ctrl::impl::CameraCtrl _camera(_window->width, _window->height, _view);
   ctrl::impl::SDLHandler _input(_camera, _bridge);
 
-  _view.target(world::Position(0,0));
+  {
+    using TileTarget = render::helpers::GenericRTarget<render::helpers::OnTileBlitter>;
+    TileTarget *tile(new TileTarget(render::ATarget::Pointer(nullptr)));
+    TileTarget::Builder builder;
+    builder.entity = 0;
+    builder.kind = 0;
+    builder.asset = render::helpers::loadAsset("medias/sprites/land/tile/tile",
+        render::helpers::Sheet::ReqSheet, _window->renderer,
+        _bridge.renderer());
+    builder.pos = world::Position();
+    builder.ori = 0;
+    builder.blitter = render::helpers::OnTileBlitter();
+    builder(*tile);
+    _rengine.setTileTarget(tile);
+  }
+
+  _view.target(world::Position(0, 0));
 
   long tickStartTime(0), tickEllapsedTime(0);
   double fpsStart(0), avgload(0), avgcount(0), avgfps(0);
@@ -91,8 +111,8 @@ int main(int argc, char **argv) {
     ++avgcount;
     avgfps = SDL_GetTicks() - fpsStart;
     if (avgfps >= SampleTime) {
-      std::cout << "AVG FPS  : " << avgcount * 1000 / avgfps << " : LOAD : "
-          << avgload / avgcount << "%%" << std::endl;
+      LOG::info("AVG FPS :", std::setprecision(3), std::setw(3),
+          avgcount * 1000 / avgfps, ": LOAD :", avgload / avgcount, "%");
       fpsStart = SDL_GetTicks();
       avgcount = 0;
       avgload = 0;

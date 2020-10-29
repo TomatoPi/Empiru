@@ -28,6 +28,7 @@
 #include "../ATarget.h"
 #include <observer/SuperObserver.h>
 #include <gui/Bridge.h>
+#include <gui/Viewport.h>
 #include <SDL2/SDL_shape.h>
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_render.h>
@@ -84,6 +85,8 @@ public:
 
   void clearTable() noexcept;
   void addObject(ATarget &target, const gui::Viewport &view) noexcept;
+
+  SDL_Renderer* renderer() noexcept;
 };
 
 }  // namespace impl

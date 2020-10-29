@@ -83,11 +83,19 @@ int Viewport::tileHeight() const noexcept {
 int Viewport::tileWidth() const noexcept {
   return _tileWidth;
 }
+Pixel Viewport::tileSize() const noexcept {
+  return Pixel(_tileWidth, _tileHeight);
+}
 int Viewport::viewHeight() const noexcept {
   return _viewHeight;
 }
 int Viewport::viewWidth() const noexcept {
   return _viewWidth;
+}
+
+bool Viewport::doesIntersect(const SDL_Rect &r) const noexcept {
+  SDL_Rect view { _offsetX, _offsetY, _viewWidth, _viewHeight };
+  return SDL_HasIntersection(&view, &r);
 }
 
 /// \brief Compute the position of viewport's upLeftCorner

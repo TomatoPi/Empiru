@@ -29,6 +29,7 @@
 
 #include <hex/Axial.h>
 #include <hex/Consts.h>
+#include <SDL2/SDL_rect.h>
 #include <observer/SuperObserver.h>
 #include <world/Position.h>
 
@@ -96,8 +97,11 @@ public:
   int tileHeight() const noexcept;
   /// \brief return tile's height on viewport
   int tileWidth() const noexcept;
+  Pixel tileSize() const noexcept;
   int viewHeight() const noexcept;
   int viewWidth() const noexcept;
+
+  bool doesIntersect(const SDL_Rect& r) const noexcept;
 
   /// \brief Compute the position of viewport's upLeftCorner
   /// \param res : result in Axial coordinate system
