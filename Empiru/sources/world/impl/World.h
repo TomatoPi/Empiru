@@ -30,9 +30,10 @@
 #include "../Object.h"
 #include "../IAllocator.h"
 
+#include <alloc/helpers/logger.h>
 #include <alloc/impl/IndexAllocator.h>
 #include <unordered_map>
-#include <vector>
+#include <set>
 
 namespace world {
 namespace impl {
@@ -43,14 +44,15 @@ public:
 
 private:
 
-  using _Allocator = alloc::IndexAllocator<Object, Object>;
+  using _Allocator = alloc::helpers::LoggerDecorator<Object, Object::Pointer>;
+  //using _Allocatpr = alloc::IndexAllocator<Object, Object>;
   _Allocator _alloc;
 
   /// \brief Hollow Matrix
   using ObjList = std::unordered_map<Position, Tile, Position::TileHasher,
   Position::TileEquals>;
   using ObjTable = std::unordered_map<game::EUID, Object::Pointer>; // @suppress("Invalid template argument")
-  using Garbage = std::vector<Object::Pointer>;
+  using Garbage = std::set<Object::Pointer>;
 
   std::size_t _mapWidth;  ///< Horizontal tile count
   std::size_t _mapHeight; ///< Verical tile count

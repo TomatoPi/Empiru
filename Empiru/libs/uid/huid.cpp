@@ -16,34 +16,23 @@
  */
 
 /// 
-/// \file   IREngine.h
+/// \file   huid.cpp
 /// \author tomato
 ///
-/// \date 28 oct. 2020 15:20:39
+/// \date 29 oct. 2020 20:44:58
 ///
-#ifndef SOURCES_RENDER_IRENGINE_H_
-#define SOURCES_RENDER_IRENGINE_H_
 
-#include <game/EUID.h>
-#include "ATarget.h"
+#include "huid.h"
 
-namespace render {
-class IREngine {
-private:
-  static IREngine *_instance;
-public:
+namespace uid {
 
-  static void registerREngine(IREngine* m) noexcept {
-    _instance = m;
-  }
-
-  static IREngine& Get() noexcept {
-    return *_instance;
-  }
-
-  virtual ~IREngine() noexcept = default;
-  virtual ATarget& getTarget(const game::EUID) noexcept = 0;
-};
+bool operator==(const HierarchicalUID::const_iterator &a,
+    const HierarchicalUID::const_iterator &b) noexcept {
+  return a.gen != nullptr && a.gen == b.gen && a.val == b.val;
+}
+bool operator!=(const HierarchicalUID::const_iterator &a,
+    const HierarchicalUID::const_iterator &b) noexcept {
+  return a.gen != b.gen || a.val != b.val;
 }
 
-#endif /* SOURCES_RENDER_IRENGINE_H_ */
+}  // namespace uid

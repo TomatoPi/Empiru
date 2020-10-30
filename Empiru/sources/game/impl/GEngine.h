@@ -25,42 +25,97 @@
 #define SOURCES_GAME_IMPL_GENGINE_H_
 
 #include "../IGEngine.h"
+#include "../IAllocator.h"
 #include "../IDecoAllocator.h"
 #include "../IOpeAllocator.h"
 
+#include <world/IMap.h>
+#include <render/IREngine.h>
+
 #include <alloc/Allocator.h>
+#include <functional>
 #include <unordered_map>
+#include <set>
+#include <cassert>
 
 namespace game {
 namespace impl {
 
+template<typename T, typename DiscardE>
+struct ConcreteAllocator: public game::IAllocator<T, DiscardE> {
 
-class GEngine final : public IGEngine,
-    public IDecoAllocator,
-    public IOpeAllocator {
+  template<typename E>
+  using TSub = typename T::Subject<E>;
+  using Allocator = alloc::IAllocator<T, typename T::Pointer>;
+  using AllocTable = std::unordered_map<typename T::Kind,Allocator*>; // @suppress("Invalid template argument")
+  using Callback = std::function<void(typename T::Pointer)>;
+  using CSTable = std::unordered_map<typename T::Kind,std::list<Callback>>; // @suppress("Invalid template argument")
+  using DSTable = std::unordered_map<typename T::Kind,std::list<Callback>>; // @suppress("Invalid template argument")
+  using Garbage = std::set<typename T::Pointer>;
+
+  AllocTable _allocs;
+  Garbage _garbage;
+  CSTable _constructCallbacks;
+  DSTable _destructCallbacks;
+
+  virtual ~ConcreteAllocator() noexcept = default;
+
+  void registerObject(const typename T::Kind kind, Allocator *alloc) {
+    _constructCallbacks.emplace(kind, std::list<Callback>()); // @suppress("Method cannot be resolved")
+    _destructCallbacks.emplace(kind, std::list<Callback>()); // @suppress("Method cannot be resolved")
+    /* create allocator for concrete types */
+    if (nullptr != alloc) {
+      bool success(_allocs.emplace(kind, alloc).second); // @suppress("Method cannot be resolved")
+      assert(success);
+    }
+  }
+
+  typename T::Pointer createObject(typename T::Builder &builder) override {
+    /* alloc and build */
+    typename T::Pointer ptr(_allocs.at(builder.kind)->createObject()); // @suppress("Method cannot be resolved")
+    builder(ptr);
+    /* subcribe to object discard */
+    ptr->TSub < DiscardE > ::addSubscriber([this](T &deco, DiscardE&) -> void { // @suppress("Type cannot be resolved") // @suppress("Function cannot be resolved")
+      _garbage.emplace(deco.ptr());
+    });
+    /* notify tha worldo */
+    auto kinds(T::Hierarchy().basesOf(builder.kind));
+    for (auto kind : kinds) {
+      auto callbacks(_constructCallbacks.at(kind)); // @suppress("Method cannot be resolved")
+      for (auto callback : callbacks) {
+        callback(ptr);
+      }
+    }
+    return ptr;
+  }
+
+  void destroyGarbadge() override {
+    for (auto ptr : _garbage) {
+      _allocs.at(ptr->kind())->deleteObject(ptr); // @suppress("Method cannot be resolved")
+    }
+    _garbage.clear();
+  }
+
+  void addCreationSubscriber(const typename T::Kind kind,
+      std::function<void(typename T::Pointer ptr)> &&callback) noexcept
+          override {
+    _constructCallbacks.at(kind).emplace_back(callback); // @suppress("Method cannot be resolved")
+  }
+  void addDestructionSubscriber(const typename T::Kind kind,
+      std::function<void(typename T::Pointer ptr)> &&callback) noexcept
+          override {
+    _destructCallbacks.at(kind).emplace_back(callback); // @suppress("Method cannot be resolved")
+  }
+};
+
+class GEngine final : public IGEngine, public ConcreteAllocator<Decorator,
+    Events::DecoratorDiscarded>, public ConcreteAllocator<Operator,
+    Events::OperatorDiscarded> {
 private:
 
-  template<typename ID, typename T>
-  struct Register {
-    using Allocator = alloc::IAllocator<T, typename T::Pointer>;
-    using AllocTable = std::unordered_map<ID,Allocator*>;
-    using Callback = std::function<void(typename T::Pointer)>;
-    using CSTable = std::unordered_map<ID,std::list<Callback>>;
-    using DSTable = std::unordered_map<ID,std::list<Callback>>;
-    using Garbage = std::vector<typename T::Pointer>;
-
-    AllocTable _allocs;
-    Garbage _garbage;
-    CSTable _constructCallbacks;
-    DSTable _destructCallbacks;
-  };
-
-  using DReg = Register<DUID, Decorator>;
-  using OReg = Register<OUID, Operator>;
-  using ETable = std::unordered_map<EUID, Entity>;
-
-  DReg _decorators;
-  OReg _operators;
+  using DecoAlloc = ConcreteAllocator<Decorator, Events::DecoratorDiscarded>;
+  using OpeAlloc = ConcreteAllocator<Operator, Events::OperatorDiscarded>;
+  using ETable = std::unordered_map<EUID, Entity>; // @suppress("Invalid template argument")
   uid::UIDGenerator _euidgen;
   ETable _entities;
 
@@ -69,29 +124,23 @@ public:
   GEngine() noexcept = default;
   virtual ~GEngine() noexcept = default;
 
-  void createEntity(EntityBuilder &builder) noexcept override final;
+  const EUID createEntity(EntityBuilder &builder) noexcept override final;
+  void discardEntity(const EUID uid) noexcept override final;
   Entity& getEntity(const EUID uid) noexcept override final;
+  void bindStrict(const EUID uid, Decorator::Pointer ptr) noexcept override final;
+  void bindWide(const EUID uid, Decorator::Pointer ptr) noexcept override final;
 
-  void registerDecorator(const DUID, DReg::Allocator*);
-
-  Decorator::Pointer createObject(const DUID, Decorator::Builder&)
-      override final;
+  void update() noexcept;
 
   void destroyGarbadge() override final;
 
-  void addCreationSubscriber(const DUID,
-      std::function<void(Decorator::Pointer ptr)>&&) noexcept override final;
-  void addDestructionSubscriber(const DUID,
-      std::function<void(Decorator::Pointer ptr)>&&) noexcept override final;
+  void registerDecorator(const Decorator::Kind kind,
+      DecoAlloc::Allocator *alloc);
+  void registerOperator(const Operator::Kind kind, OpeAlloc::Allocator *alloc);
 
-  void registerOperator(const OUID, OReg::Allocator*);
+private:
 
-  Operator::Pointer createObject(const OUID, Operator::Builder&) override final;
-
-  void addCreationSubscriber(const OUID,
-      std::function<void(Operator::Pointer ptr)>&&) noexcept override final;
-  void addDestructionSubscriber(const OUID,
-      std::function<void(Operator::Pointer ptr)>&&) noexcept override final;
+  void bindAs(const EUID uid, Decorator::Pointer ptr, Decorator::Kind as) noexcept;
 };
 
 }  // namespace impl

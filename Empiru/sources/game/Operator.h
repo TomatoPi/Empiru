@@ -27,30 +27,9 @@
 #include <alloc/Pointer.h>
 #include <game/EUID.h>
 #include <observer/SuperObserver.h>
-#include <vector>
+#include <uid/huid.h>
 
 namespace game {
-
-using OUID = std::size_t;
-
-class OKind final {
-public:
-  /// \brief Singleton
-  static OKind& Get() noexcept;
-  /// \brief Create a new root KUID
-  OUID newKind() noexcept;
-  /// \brief Create a new KUID, derived from 'father'
-  OUID newKind(OUID father) noexcept;
-  /// \brief Return true if 'kind' is derived from 'base'
-  /// O(n) complexity, with n the depth of derivation tree
-  bool isKindOf(OUID base, OUID kind) noexcept;
-  /// \brief Return list of types kind derives from
-  std::vector<OUID> basesOf(OUID kind) noexcept;
-private:
-  OKind() noexcept = default;
-  ~OKind() noexcept = default;
-  std::vector<OUID> _fathers;
-};
 
 namespace Events {
 struct OperatorDiscarded {
@@ -60,13 +39,14 @@ struct OperatorDiscarded {
 class Operator: public SuperObserver::Subject<Operator, // @suppress("Invalid template argument")
     Events::OperatorDiscarded> {
 public:
+  using Kind = uid::HierarchicalUID::HUID;
   using Pointer = alloc::SmartPointer<Operator>;
   template<typename E>
   using Subject = SuperObserver::Subject<Operator,E>; // @suppress("Invalid template argument")
 private:
   Pointer _this;
   EUID _entity;
-  OUID _kind;
+  Kind _kind;
 public:
   Operator() noexcept = delete;
   ~Operator() noexcept = default;
@@ -80,7 +60,7 @@ public:
   const EUID entity() const noexcept {
     return _entity;
   }
-  const OUID kind() const noexcept {
+  const Kind kind() const noexcept {
     return _kind;
   }
 
@@ -97,9 +77,16 @@ public:
     return static_cast<const T&>(*this);
   }
 
+  virtual void update() noexcept = 0;
+
+  static uid::HierarchicalUID& Hierarchy() noexcept {
+    static uid::HierarchicalUID _instance;
+    return _instance;
+  }
+
   struct Builder {
     EUID entity;
-    OUID kind;
+    Kind kind;
     virtual ~Builder() noexcept = default;
     virtual void operator()(Pointer &ptr) noexcept {
       ptr->_entity = entity;

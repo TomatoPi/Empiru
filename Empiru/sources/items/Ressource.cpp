@@ -16,34 +16,20 @@
  */
 
 /// 
-/// \file   IREngine.h
+/// \file   Ressource.cpp
 /// \author tomato
 ///
-/// \date 28 oct. 2020 15:20:39
+/// \date 29 oct. 2020 23:50:06
 ///
-#ifndef SOURCES_RENDER_IRENGINE_H_
-#define SOURCES_RENDER_IRENGINE_H_
+#include "Ressource.h"
 
-#include <game/EUID.h>
-#include "ATarget.h"
+namespace items {
 
-namespace render {
-class IREngine {
-private:
-  static IREngine *_instance;
-public:
-
-  static void registerREngine(IREngine* m) noexcept {
-    _instance = m;
-  }
-
-  static IREngine& Get() noexcept {
-    return *_instance;
-  }
-
-  virtual ~IREngine() noexcept = default;
-  virtual ATarget& getTarget(const game::EUID) noexcept = 0;
-};
+bool operator<(const Ressource &a, const Ressource &b) noexcept {
+  return a._kind < b._kind;
+}
+bool operator==(const Ressource &a, const Ressource &b) noexcept {
+  return a._kind == b._kind;
 }
 
-#endif /* SOURCES_RENDER_IRENGINE_H_ */
+}  // namespace items

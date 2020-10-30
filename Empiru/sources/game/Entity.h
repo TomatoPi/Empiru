@@ -25,12 +25,49 @@
 #define SOURCES_GAME_ENTITY_H_
 
 #include "EUID.h"
+#include "Decorator.h"
+#include <world/IAllocator.h>
+#include <render/IAllocator.h>
+#include <cassert>
+#include <map>
 
 namespace game {
 
 struct EntityBuilder {
+  /* world object */
+  world::Object::Size size;
+  world::Position pos;
+  float radius;
+  int orientation;
+  /* Renderable */
+  render::ATarget::Builder *tbuilder;
+  /* methods */
   virtual ~EntityBuilder() noexcept = default;
-  virtual void operator()(const EUID uid) noexcept = 0;
+  virtual void operator()(const EUID uid) noexcept {
+    /* create the world object and link it */
+    world::Object::Pointer object(
+        world::IAllocator::Get().createObject(uid, size, pos, radius,
+            orientation));
+    /* create renderable */
+    tbuilder->entity = uid;
+    tbuilder->pos = pos;
+    tbuilder->ori = orientation;
+    render::ATarget::Pointer target(
+        render::IAllocator::Get().createObject(*tbuilder));
+    /* bind things together */
+    object->world::Object::Subject<world::Events::ObjectMoved>::addSubscriber( // @suppress("Method cannot be resolved")
+        std::bind_front(
+            [](render::ATarget::Pointer ptr, world::Object &obj,
+                world::Events::ObjectMoved&) -> void {
+              ptr->worldpos(obj.pos());
+            }, target));
+    object->world::Object::Subject<world::Events::ObjectRotated>::addSubscriber( // @suppress("Method cannot be resolved")
+        std::bind_front(
+            [](render::ATarget::Pointer ptr, world::Object &obj,
+                world::Events::ObjectRotated&) -> void {
+              ptr->orientation(obj.orientation());
+            }, target));
+  }
 };
 
 }  // namespace game

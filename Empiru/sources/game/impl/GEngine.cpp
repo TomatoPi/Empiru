@@ -22,101 +22,71 @@
 /// \date 28 oct. 2020 16:36:38
 ///
 #include <game/impl/GEngine.h>
+#include <game/IDecoAllocator.h>
+#include <game/IOpeAllocator.h>
+#include <log/log.h>
 
 namespace game {
 
-IDecoAllocator *IDecoAllocator::_allocator = nullptr;
-IOpeAllocator *IOpeAllocator::_allocator = nullptr;
+IGEngine *IGEngine::_instance = nullptr;
 
 namespace impl {
 
-void GEngine::createEntity(EntityBuilder &builder) noexcept {
+const EUID GEngine::createEntity(EntityBuilder &builder) noexcept {
   EUID uid(_euidgen.generateUID());
-  bool success(_entities.emplace(uid, Entity()).second);
+  bool success(_entities.emplace(uid, Entity()).second); // @suppress("Field cannot be resolved") // @suppress("Method cannot be resolved")
   assert(success);
   builder(uid);
+  return uid;
 }
-IGEngine::Entity& GEngine::getEntity(const EUID uid) noexcept {
-  return _entities.at(uid);
+void GEngine::discardEntity(const EUID uid) noexcept {
+  LOG::debug("Discard entity :", uid);
+  Entity &entity(_entities.at(uid)); // @suppress("Method cannot be resolved")
+  for (auto& [kind, deco] : entity) { // @suppress("Symbol is not resolved")
+    deco->discard(); // @suppress("Method cannot be resolved")
+  }
+  world::IMap::Get().getObject(uid).discard();
+  render::IREngine::Get().getTarget(uid).discard();
+  _entities.erase(uid); // @suppress("Method cannot be resolved")
 }
-
-void GEngine::registerDecorator(const DUID kind, DReg::Allocator *alloc) {
-  bool success(_decorators._allocs.emplace(kind, alloc).second);
+IGEngine::Entity& GEngine::getEntity(const EUID uid) noexcept { // @suppress("Member declaration not found")
+  return _entities.at(uid); // @suppress("Method cannot be resolved")
+}
+void GEngine::bindStrict(const EUID uid, Decorator::Pointer ptr) noexcept {
+  bindAs(uid, ptr, ptr->kind());
+}
+void GEngine::bindWide(const EUID uid, Decorator::Pointer ptr) noexcept {
+  auto bases(Decorator::Hierarchy().basesOf(ptr->kind()));
+  for (Decorator::Kind kind : bases) {
+    bindAs(uid, ptr, kind);
+  }
+}
+void GEngine::bindAs(const EUID uid, Decorator::Pointer ptr,
+    Decorator::Kind as) noexcept {
+  bool success(_entities.at(uid).emplace(as, ptr).second); // @suppress("Method cannot be resolved") // @suppress("Field cannot be resolved")
   assert(success);
 }
 
-Decorator::Pointer GEngine::createObject(const DUID kind,
-    Decorator::Builder &builder) {
-  /* alloc and build */
-  Decorator::Pointer ptr(_decorators._allocs.at(kind)->createObject());
-  builder(ptr);
-  /* subcribe to object discard */
-  ptr->Subject<Events::DecoratorDiscarded>::addSubscriber(
-      [this](Decorator &deco, Events::DecoratorDiscarded&) -> void {
-        _decorators._garbage.emplace_back(deco.ptr());
-      });
-  /* notify tha worldo */
-  auto kinds(DKind::Get().basesOf(kind));
-  for (auto kind : kinds) {
-    auto callbacks(_decorators._constructCallbacks.at(kind));
-    for (auto callback : callbacks) {
-      callback(ptr);
-    }
+void GEngine::update() noexcept {
+  for (auto [kind, alloc] : OpeAlloc::_allocs) { // @suppress("Symbol is not resolved")
+    alloc->foreach([](Operator &op) -> void { // @suppress("Method cannot be resolved")
+      op.update();
+    });
   }
-  return ptr;
 }
 
 void GEngine::destroyGarbadge() {
-  for (auto ptr : _decorators._garbage) {
-    _decorators._allocs.at(ptr->kind())->deleteObject(ptr);
-  }
-  for (auto ptr : _operators._garbage) {
-    _operators._allocs.at(ptr->kind())->deleteObject(ptr);
-  }
+  DecoAlloc::destroyGarbadge(); // @suppress("Function cannot be resolved")
+  OpeAlloc::destroyGarbadge();
 }
 
-void GEngine::addCreationSubscriber(const DUID kind,
-    std::function<void(Decorator::Pointer ptr)> &&callback) noexcept {
-  _decorators._constructCallbacks.at(kind).emplace_back(callback);
+void GEngine::registerDecorator(const Decorator::Kind kind,
+    DecoAlloc::Allocator *alloc) {
+  DecoAlloc::registerObject(kind, alloc);
 }
-void GEngine::addDestructionSubscriber(const DUID kind,
-    std::function<void(Decorator::Pointer ptr)> &&callback) noexcept {
-  _decorators._destructCallbacks.at(kind).emplace_back(callback);
-}
-
-void GEngine::registerOperator(const OUID kind, OReg::Allocator *alloc) {
-  bool success(_operators._allocs.emplace(kind, alloc).second);
-  assert(success);
-}
-
-Operator::Pointer GEngine::createObject(const OUID kind,
-    Operator::Builder &builder) {
-  /* alloc and build */
-  Operator::Pointer ptr(_operators._allocs.at(kind)->createObject());
-  builder(ptr);
-  /* subcribe to object discard */
-  ptr->Subject<Events::OperatorDiscarded>::addSubscriber(
-      [this](Operator &deco, Events::OperatorDiscarded&) -> void {
-        _operators._garbage.emplace_back(deco.ptr());
-      });
-  /* notify tha worldo */
-  auto kinds(OKind::Get().basesOf(kind));
-  for (auto kind : kinds) {
-    auto callbacks(_operators._constructCallbacks.at(kind));
-    for (auto callback : callbacks) {
-      callback(ptr);
-    }
-  }
-  return ptr;
-}
-
-void GEngine::addCreationSubscriber(const OUID kind,
-    std::function<void(Operator::Pointer ptr)> &&callback) noexcept {
-  _operators._constructCallbacks.at(kind).emplace_back(callback);
-}
-void GEngine::addDestructionSubscriber(const OUID kind,
-    std::function<void(Operator::Pointer ptr)> &&callback) noexcept {
-  _operators._destructCallbacks.at(kind).emplace_back(callback);
+void GEngine::registerOperator(const Operator::Kind kind,
+    OpeAlloc::Allocator *alloc) {
+  OpeAlloc::registerObject(kind, alloc);
 }
 
 }  // namespace impl

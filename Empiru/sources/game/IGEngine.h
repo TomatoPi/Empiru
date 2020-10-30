@@ -32,11 +32,25 @@
 namespace game {
 
 class IGEngine {
+private:
+  static IGEngine *_instance;
 public:
-  using Entity = std::map<DUID,Decorator::Pointer>; // @suppress("Invalid template argument")
+
+  static void registerGEngine(IGEngine* m) noexcept {
+    _instance = m;
+  }
+
+  static IGEngine& Get() noexcept {
+    return *_instance;
+  }
+
+  using Entity = std::map<Decorator::Kind,Decorator::Pointer>; // @suppress("Invalid template argument")
   virtual ~IGEngine() noexcept = default;
-  virtual void createEntity(EntityBuilder&) noexcept = 0;
+  virtual const EUID createEntity(EntityBuilder&) noexcept = 0;
+  virtual void discardEntity(const EUID uid) noexcept = 0;
   virtual Entity& getEntity(const EUID uid) noexcept = 0;
+  virtual void bindStrict(const EUID uid, Decorator::Pointer) noexcept = 0;
+  virtual void bindWide(const EUID uid, Decorator::Pointer) noexcept = 0;
 };
 
 }  // namespace game

@@ -25,34 +25,11 @@
 #define SOURCES_GAME_IOPEALLOCATOR_H_
 
 #include "Operator.h"
-#include <functional>
+#include "IAllocator.h"
 
 namespace game {
 
-class IOpeAllocator {
-private:
-  static IOpeAllocator *_allocator;
-public:
-
-  static void registerAllocator(IOpeAllocator *a) noexcept {
-    _allocator = a;
-  }
-
-  static IOpeAllocator& Get() noexcept {
-    return *_allocator;
-  }
-
-  virtual ~IOpeAllocator() noexcept = default;
-
-  virtual Operator::Pointer createObject(const OUID, Operator::Builder&) = 0;
-
-  virtual void destroyGarbadge() = 0;
-
-  virtual void addCreationSubscriber(const OUID,
-      std::function<void(Operator::Pointer ptr)>&&) noexcept = 0;
-  virtual void addDestructionSubscriber(const OUID,
-      std::function<void(Operator::Pointer ptr)>&&) noexcept = 0;
-};
+using IOpeAllocator = IAllocator<Operator, Events::OperatorDiscarded>;
 
 }  // namespace game
 

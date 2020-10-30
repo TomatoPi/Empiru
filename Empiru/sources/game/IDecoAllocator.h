@@ -25,37 +25,11 @@
 #define SOURCES_GAME_IDECOALLOCATOR_H_
 
 #include "Decorator.h"
-#include <functional>
+#include "IAllocator.h"
 
 namespace game {
 
-class IDecoAllocator {
-private:
-  static IDecoAllocator *_allocator;
-public:
-
-  static void registerAllocator(IDecoAllocator *a) noexcept {
-    _allocator = a;
-  }
-
-  static IDecoAllocator& Get() noexcept {
-    return *_allocator;
-  }
-
-  using DCreationObs = std::function<void(Decorator::Pointer ptr)>;
-  using DDestructionObs = std::function<void(Decorator::Pointer ptr)>;
-
-  virtual ~IDecoAllocator() noexcept = default;
-
-  virtual Decorator::Pointer createObject(const DUID, Decorator::Builder&) = 0;
-
-  virtual void destroyGarbadge() = 0;
-
-  virtual void addCreationSubscriber(const DUID,
-      std::function<void(Decorator::Pointer ptr)>&&) noexcept = 0;
-  virtual void addDestructionSubscriber(const DUID,
-      std::function<void(Decorator::Pointer ptr)>&&) noexcept = 0;
-};
+using IDecoAllocator = IAllocator<Decorator, Events::DecoratorDiscarded>;
 
 }  // namespace game
 

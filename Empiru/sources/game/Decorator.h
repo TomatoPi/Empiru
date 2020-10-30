@@ -27,30 +27,9 @@
 #include <alloc/Pointer.h>
 #include <game/EUID.h>
 #include <observer/SuperObserver.h>
-#include <vector>
+#include <uid/huid.h>
 
 namespace game {
-
-using DUID = std::size_t;
-
-class DKind final {
-public:
-  /// \brief Singleton
-  static DKind& Get() noexcept;
-  /// \brief Create a new root KUID
-  DUID newKind() noexcept;
-  /// \brief Create a new KUID, derived from 'father'
-  DUID newKind(DUID father) noexcept;
-  /// \brief Return true if 'kind' is derived from 'base'
-  /// O(n) complexity, with n the depth of derivation tree
-  bool isKindOf(DUID base, DUID kind) noexcept;
-  /// \brief Return list of types kind derives from
-  std::vector<DUID> basesOf(DUID kind) noexcept;
-private:
-  DKind() noexcept = default;
-  ~DKind() noexcept = default;
-  std::vector<DUID> _fathers;
-};
 
 namespace Events {
 struct DecoratorDiscarded {
@@ -60,13 +39,14 @@ struct DecoratorDiscarded {
 class Decorator: public SuperObserver::Subject<Decorator, // @suppress("Invalid template argument")
     Events::DecoratorDiscarded> {
 public:
+  using Kind = uid::HierarchicalUID::HUID;
   using Pointer = alloc::SmartPointer<Decorator>;
   template<typename E>
   using Subject = SuperObserver::Subject<Decorator,E>; // @suppress("Invalid template argument")
 private:
   Pointer _this;
   EUID _entity;
-  DUID _kind;
+  Kind _kind;
 public:
   Decorator() noexcept = delete;
   ~Decorator() noexcept = default;
@@ -80,7 +60,7 @@ public:
   const EUID entity() const noexcept {
     return _entity;
   }
-  const DUID kind() const noexcept {
+  const Kind kind() const noexcept {
     return _kind;
   }
 
@@ -97,9 +77,14 @@ public:
     return static_cast<const T&>(*this);
   }
 
+  static uid::HierarchicalUID& Hierarchy() noexcept {
+    static uid::HierarchicalUID _instance;
+    return _instance;
+  }
+
   struct Builder {
     EUID entity;
-    DUID kind;
+    Kind kind;
     virtual ~Builder() noexcept = default;
     virtual void operator()(Pointer &ptr) noexcept {
       ptr->_entity = entity;

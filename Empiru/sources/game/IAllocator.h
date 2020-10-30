@@ -19,32 +19,25 @@
 /// \file   IAllocator.h
 /// \author tomato
 ///
-/// \date 27 oct. 2020 17:55:21
+/// \date 29 oct. 2020 16:23:18
 ///
-#ifndef SOURCES_RENDER_IALLOCATOR_H_
-#define SOURCES_RENDER_IALLOCATOR_H_
+#ifndef SOURCES_GAME_IALLOCATOR_H_
+#define SOURCES_GAME_IALLOCATOR_H_
 
-#include "ATarget.h"
+#include <observer/SuperObserver.h>
+#include <functional>
 
-namespace render {
+namespace game {
 
-namespace Events {
-struct TargetCreated {
-  ATarget::Pointer ptr;
-  TargetCreated(const ATarget::Pointer &ptr) noexcept :
-      ptr(ptr) {
-  }
-};
-} /* namespace Events */
-
-class IAllocator: public SuperObserver::Subject< // @suppress("Invalid template argument")
-    IAllocator, Events::TargetCreated> {
+template<typename T, typename DiscardE>
+class IAllocator: public SuperObserver::Subject<IAllocator<T, DiscardE>, // @suppress("Invalid template argument")
+    DiscardE> {
 private:
   static IAllocator *_allocator;
 public:
 
   template<typename E>
-  using Subject = SuperObserver::Subject<IAllocator, E>; // @suppress("Invalid template argument")
+  using Subject = SuperObserver::Subject<IAllocator<T,DiscardE>, E>; // @suppress("Invalid template argument")
 
   static void registerAllocator(IAllocator *a) noexcept {
     _allocator = a;
@@ -56,11 +49,19 @@ public:
 
   virtual ~IAllocator() noexcept = default;
 
-  virtual ATarget::Pointer createObject(ATarget::Builder&) = 0;
+  virtual typename T::Pointer createObject(typename T::Builder&) = 0;
 
   virtual void destroyGarbadge() = 0;
+
+  virtual void addCreationSubscriber(const typename T::Kind,
+      std::function<void(typename T::Pointer ptr)>&&) noexcept = 0;
+  virtual void addDestructionSubscriber(const typename T::Kind,
+      std::function<void(typename T::Pointer ptr)>&&) noexcept = 0;
 };
 
-} /* namespace render */
+template<typename T, typename E>
+IAllocator<T, E> *IAllocator<T, E>::_allocator = nullptr;
 
-#endif /* SOURCES_RENDER_IALLOCATOR_H_ */
+} /* namespace game */
+
+#endif /* SOURCES_GAME_IALLOCATOR_H_ */

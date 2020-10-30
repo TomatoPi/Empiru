@@ -23,11 +23,13 @@
 /// \brief Core object of rendering engine
 ///
 #include <render/impl/REngine.h>
+#include <log/log.h>
 #include <cassert>
 
 namespace render {
 
 IAllocator *IAllocator::_allocator = nullptr;
+IREngine *IREngine::_instance = nullptr;
 
 namespace impl {
 
@@ -38,16 +40,16 @@ REngine::REngine(PixelPerfectBridge &bridge, gui::Viewport &view,
     _bridge(bridge), _view(view), _world(world), _allocs(), _assets(), _objects(), _garbage(), _stack(), _tiles(), _updateList(), _tileTarget(), _dirtyStack(
         true) {
   /* subscribe to viewport events */
-  _view.gui::Viewport::Subject<gui::Events::ViewportMoved>::addSubscriber(
+  _view.gui::Viewport::Subject<gui::Events::ViewportMoved>::addSubscriber( // @suppress("Method cannot be resolved")
       [this](gui::Viewport&, gui::Events::ViewportMoved&) -> void {
         _dirtyStack = true;
       });
-  _view.gui::Viewport::Subject<gui::Events::ViewportRotated>::addSubscriber(
+  _view.gui::Viewport::Subject<gui::Events::ViewportRotated>::addSubscriber( // @suppress("Method cannot be resolved")
       [this](gui::Viewport&, gui::Events::ViewportRotated&) -> void {
         _dirtyStack = true;
       });
   /* subscribe to Bridge events */
-  _bridge.PixelPerfectBridge::Subject<render::impl::Events::BridgeNeedUpdate>::addSubscriber(
+  _bridge.PixelPerfectBridge::Subject<render::impl::Events::BridgeNeedUpdate>::addSubscriber( // @suppress("Method cannot be resolved")
       [this](PixelPerfectBridge &bridge,
           render::impl::Events::BridgeNeedUpdate&) -> void {
         bridge.clearTable();
@@ -62,9 +64,9 @@ REngine::REngine(PixelPerfectBridge &bridge, gui::Viewport &view,
 const AssetUID REngine::registerAsset(std::shared_ptr<Asset> asset,
     Allocator *alloc) noexcept {
   AssetUID uid(assetUIDGen.generateUID());
-  bool success = _assets.emplace(uid, asset).second;
+  bool success = _assets.emplace(uid, asset).second; // @suppress("Field cannot be resolved") // @suppress("Method cannot be resolved")
   assert(success);
-  success = _allocs.emplace(uid, alloc).second;
+  success = _allocs.emplace(uid, alloc).second; // @suppress("Field cannot be resolved") // @suppress("Method cannot be resolved")
   assert(success);
   return uid;
 }
@@ -73,34 +75,34 @@ void REngine::setTileTarget(ATarget *target) noexcept {
   _tileTarget = target;
 }
 
-ATarget::Pointer REngine::createObject(AssetUID kind,
-    ATarget::Builder &builder) {
+ATarget::Pointer REngine::createObject(ATarget::Builder &builder) {
   /* alloc and build object */
-  builder.asset = _assets.at(kind);
-  builder.kind = kind;
-  ATarget::Pointer ptr(_allocs.at(kind)->createObject());
+  builder.asset = _assets.at(builder.kind); // @suppress("Method cannot be resolved")
+  ATarget::Pointer ptr(_allocs.at(builder.kind)->createObject()); // @suppress("Invalid arguments") // @suppress("Method cannot be resolved")
   builder(*ptr);
   /* subscribe to created object movements */
-  ptr->ATarget::Subject<render::Events::TargetMoved>::addSubscriber(
+  ptr->ATarget::Subject<render::Events::TargetMoved>::addSubscriber( // @suppress("Method cannot be resolved")
       [this](ATarget &obj, render::Events::TargetMoved &event) -> void {
         _updateList.emplace_back(obj.ptr());
       });
   /* subscribe to created object destruction */
-  ptr->ATarget::Subject<render::Events::TargetDiscarded>::addSubscriber(
+  ptr->ATarget::Subject<render::Events::TargetDiscarded>::addSubscriber( // @suppress("Method cannot be resolved")
       [this](ATarget &obj, render::Events::TargetDiscarded &event) -> void {
+        LOG::debug("Discard render target :", obj.entity());
         removeObject(obj.ptr());
       });
   /* add object */
   addObject(ptr);
   /* notify the world */
-  Subject<render::Events::TargetCreated>::notify(ptr);
+  Subject<render::Events::TargetCreated>::notify(ptr); // @suppress("Function cannot be resolved")
   return ptr;
 }
 
 void REngine::destroyGarbadge() {
   for (auto &ptr : _garbage) {
-    _allocs.at(ptr->kind())->deleteObject(ptr);
+    _allocs.at(ptr->kind())->deleteObject(ptr); // @suppress("Method cannot be resolved")
   }
+  _garbage.clear();
 }
 
 ATarget& REngine::getTarget(const game::EUID uid) noexcept {
@@ -108,13 +110,14 @@ ATarget& REngine::getTarget(const game::EUID uid) noexcept {
 }
 
 void REngine::addObject(ATarget::Pointer ptr) noexcept {
-  _objects.emplace(ptr->entity(), ptr);
+  _objects.emplace(ptr->entity(), ptr); // @suppress("Method cannot be resolved")
   _updateList.emplace_back(ptr);
 }
 
 void REngine::removeObject(ATarget::Pointer ptr) noexcept {
   removeFromStack(ptr);
-  _garbage.emplace_back(ptr);
+  _objects.erase(ptr->entity());
+  _garbage.emplace(ptr);
 }
 
 void REngine::removeFromStack(ATarget::Pointer ptr) noexcept {
@@ -140,7 +143,7 @@ void REngine::updateDrawStack() noexcept {
   // Move one tile away to always draw left and up tiles
   anchor = (anchor - vx * 2 - vy * 2).tile();
   // Compute render situation
-  int xx, yy, dx(_view.tileWidth() * 0.75), dy(_view.tileHeight());
+  int xx, yy, dx(_view.tileWidth() * 0.9), dy(_view.tileHeight() * 0.9);
   // Clear draw context
   _stack.clear();
   _tiles.clear();
@@ -155,19 +158,18 @@ void REngine::updateDrawStack() noexcept {
       // Render tile pos at (x, y+offx[!!flip])
       if (_world.isOnMap(pos)) {
         _tiles.emplace_back(_view.toPixel(pos.tile()));
-        auto vec(_world.getContentAt(pos));
-        if (vec) {
+        if (auto vec = _world.getContentAt(pos)) {
           for (const world::Object::Pointer &obj : *vec) {
-            ATarget::Pointer ptr(_objects.at(obj->entity()));
+            ATarget::Pointer ptr(_objects.at(obj->entity())); // @suppress("Invalid arguments") // @suppress("Method cannot be resolved")
             ptr->viewpos(_view.toPixel(ptr->worldpos()), _view.tileSize());
             if (_view.doesIntersect(ptr->blitRect())) {
               addToStack(ptr);
             }
           }
-        }
-      }
-    }
-  } //< for each tile
+        } //< if content
+      } //< if world
+    } //< for each row
+  } //< for each column
   _dirtyStack = false;
 }
 
@@ -188,7 +190,7 @@ void REngine::render() {
   _updateList.clear();
   // Draw tiles
   for (auto &tile : _tiles) {
-    _tileTarget->viewpos(tile, _view.tileSize());
+    _tileTarget->viewpos(tile, _view.tileSize()); // @suppress("Invalid arguments")
     _tileTarget->draw();
   }
   // Draw all entities

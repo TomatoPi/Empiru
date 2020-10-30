@@ -30,7 +30,17 @@ namespace world {
 
 /// \brief Interface that must be used to comunicate with the World
 class IMap {
+private:
+  static IMap *_instance;
 public:
+
+  static void registerMap(IMap* m) noexcept {
+    _instance = m;
+  }
+
+  static IMap& Get() noexcept {
+    return *_instance;
+  }
 
   /// \brief Prevent warning
   virtual ~IMap() noexcept = default;

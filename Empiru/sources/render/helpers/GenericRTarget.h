@@ -38,7 +38,6 @@ public:
   GenericRTarget(const Pointer &ptr) noexcept :
       ATarget(ptr) {
   }
-  ;
   virtual ~GenericRTarget() = default;
 
   void updateBlitRect(const gui::Pixel &tile) noexcept override final {

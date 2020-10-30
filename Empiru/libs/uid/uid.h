@@ -25,6 +25,7 @@
 #define LIBS_UID_UID_H_
 
 #include <unordered_set>
+#include <cassert>
 #include <chrono>
 
 namespace uid {

@@ -21,7 +21,11 @@
 ///
 /// \date 27 oct. 2020 01:15:20
 ///
+#include <builtin/game/deposit/DepositE.h>
+
+#include <alloc/helpers/logger.h>
 #include <world/impl/World.h>
+#include <world/generator/ZoneGenerator.h>
 #include <game/impl/GEngine.h>
 #include <render/impl/REngine.h>
 #include <render/impl/PixelPerfectBridge.h>
@@ -48,16 +52,27 @@ constexpr int WHeight = 1080 / Factor;
 constexpr int FrameRate = 60;
 constexpr int FrameTime = 1000 / FrameRate;
 constexpr int SampleTime = 2000;
+
+template<typename T>
+using AAllocator = alloc::IndexAllocator<T, render::ATarget>;
+template<typename T>
+using DAllocator = alloc::IndexAllocator<T, game::Decorator>;
+template<typename T>
+using OAllocator = alloc::IndexAllocator<T, game::Operator>;
 }
 
 int main(int argc, char **argv) {
 
+  LOG::LogLevel = LOG::Level::Debug;
+
   world::impl::World _world(SIZE, SIZE);
   world::IAllocator::registerAllocator(&_world);
+  world::IMap::registerMap(&_world);
 
   game::impl::GEngine _game;
   game::IDecoAllocator::registerAllocator(&_game);
   game::IOpeAllocator::registerAllocator(&_game);
+  game::IGEngine::registerGEngine(&_game);
 
   auto _window(Window::createWindow(WWidth, WHeight, Factor));
   gui::Viewport _view(0, 0, gui::Viewport::HEXAGON_WIDTH,
@@ -67,6 +82,7 @@ int main(int argc, char **argv) {
       _window->height);
   render::impl::REngine _rengine(_bridge, _view, _world);
   render::IAllocator::registerAllocator(&_rengine);
+  render::IREngine::registerREngine(&_rengine);
 
   ctrl::impl::CameraCtrl _camera(_window->width, _window->height, _view);
   ctrl::impl::SDLHandler _input(_camera, _bridge);
@@ -86,6 +102,46 @@ int main(int argc, char **argv) {
     builder(*tile);
     _rengine.setTileTarget(tile);
   }
+  game::EUID tree;
+  {
+    /* register tree ressource */
+    items::Ressource::Kind _TreeRessource =
+        items::Ressource::Hierarchy().newKind();
+    /* register tree asset */
+    using DepositTarget = render::helpers::GenericRTarget<render::helpers::OnFootBlitter>;
+    render::AssetUID _TreeAsset = _rengine.registerAsset(
+        render::helpers::loadAsset("medias/sprites/land/tree/toufu",
+            render::helpers::Sheet::ReqSheet | render::helpers::Sheet::ReqMask,
+            _window->renderer, _bridge.renderer()),
+        new alloc::helpers::LoggerDecorator(new AAllocator<DepositTarget>()));
+    /* register deposit decorator */
+    using DepositInventory = builtin::game::inventory::Deposit;
+    _game.registerDecorator(builtin::game::inventory::Inventory::TypeID(), nullptr);
+    _game.registerDecorator(DepositInventory::TypeID(),
+        new alloc::helpers::LoggerDecorator(new DAllocator<DepositInventory>()));
+    /* build a tree */
+    DepositTarget::Builder tbuilder;
+    tbuilder.kind = _TreeAsset;
+    tbuilder.blitter = render::helpers::OnFootBlitter();
+    builtin::game::deposit::Builder ebuilder;
+    /* entity basics */
+    ebuilder.size = world::Object::Size::Small;
+    ebuilder.pos = world::Position();
+    ebuilder.orientation = 0;
+    ebuilder.tbuilder = &tbuilder;
+    /* deposit things */
+    ebuilder.type = _TreeRessource;
+    ebuilder.difficulty = 5;
+    ebuilder.qty = 100;
+    /* let's build a great w... tree */
+    tree = _game.createEntity(ebuilder);
+  }
+
+  {
+    ZoneGenerator generator;
+    generator.createZone(3);
+    generator.addObject();
+  }
 
   _view.target(world::Position(0, 0));
 
@@ -99,7 +155,7 @@ int main(int argc, char **argv) {
       break;
 
     _camera.update();
-//    _gameEngine.update();
+    _game.update();
 //    _playerTribe.update();
 
     _window->clear();
@@ -107,6 +163,10 @@ int main(int argc, char **argv) {
     _rengine.render();
 //    _controlPanel.draw();
     _window->update();
+
+    _game.destroyGarbadge();
+    _world.destroyGarbage();
+    _rengine.destroyGarbadge();
 
     ++avgcount;
     avgfps = SDL_GetTicks() - fpsStart;
@@ -116,6 +176,10 @@ int main(int argc, char **argv) {
       fpsStart = SDL_GetTicks();
       avgcount = 0;
       avgload = 0;
+      if (tree) {
+        _game.discardEntity(tree);
+        tree = 0;
+      }
     }
 
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;

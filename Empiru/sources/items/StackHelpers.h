@@ -16,34 +16,39 @@
  */
 
 /// 
-/// \file   IREngine.h
+/// \file   StackHelpers.h
 /// \author tomato
 ///
-/// \date 28 oct. 2020 15:20:39
+/// \date 29 oct. 2020 20:23:28
 ///
-#ifndef SOURCES_RENDER_IRENGINE_H_
-#define SOURCES_RENDER_IRENGINE_H_
+#ifndef SOURCES_ITEMS_STACKHELPERS_H_
+#define SOURCES_ITEMS_STACKHELPERS_H_
 
-#include <game/EUID.h>
-#include "ATarget.h"
+#include "Stack.h"
 
-namespace render {
-class IREngine {
-private:
-  static IREngine *_instance;
-public:
+namespace items {
 
-  static void registerREngine(IREngine* m) noexcept {
-    _instance = m;
+namespace helpers {
+
+struct StackTypeLess {
+  bool operator()(const Stack &a, const Stack &b) const noexcept {
+    return a.type() < b.type();
   }
-
-  static IREngine& Get() noexcept {
-    return *_instance;
-  }
-
-  virtual ~IREngine() noexcept = default;
-  virtual ATarget& getTarget(const game::EUID) noexcept = 0;
 };
-}
 
-#endif /* SOURCES_RENDER_IRENGINE_H_ */
+struct StackTypeEquals {
+  bool operator()(const Stack &a, const Stack &b) const noexcept {
+    return a.type() == b.type();
+  }
+};
+
+struct StackTypeHash {
+  std::size_t operator()(const Stack &a) const noexcept {
+    return std::hash<Ressource>()(a.type());
+  }
+};
+}  // namespace helpers
+
+}  // namespace items
+
+#endif /* SOURCES_ITEMS_STACKHELPERS_H_ */

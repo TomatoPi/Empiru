@@ -26,12 +26,14 @@
 #include <hex/OddQ.h>
 #include <hex/Conversion.h>
 #include <world/impl/World.h>
+#include <log/log.h>
 
 #include <cassert>
 
 namespace world {
 
 IAllocator *IAllocator::_allocator = nullptr;
+IMap *IMap::_instance = nullptr;
 
 namespace impl {
 
@@ -39,7 +41,8 @@ namespace impl {
 /// \param mapHeight : Height of the map (number of hexs)
 /// \param mapWidth : Width of the map (number of hexs)
 World::World(std::size_t mapWidth, std::size_t mapHeight) :
-    _mapWidth(mapWidth), _mapHeight(mapHeight), _map(), _objects(), _garbage() {
+    _alloc(new alloc::IndexAllocator<Object, Object>()), _mapWidth(mapWidth), _mapHeight(
+        mapHeight), _map(), _objects(), _garbage() {
 }
 
 /// \brief Must add given object to the world
@@ -140,6 +143,7 @@ Object::Pointer World::createObject(game::EUID entity, Object::Size s,
   /* subscribe to created object destruction */
   ptr->Object::Subject<Events::ObjectDiscarded>::addSubscriber( // @suppress("Method cannot be resolved")
       [this](Object &obj, Events::ObjectDiscarded&) -> void {
+        LOG::debug("Discard world object :", obj.entity());
         this->destroyObject(obj.ptr());
       });
   /* add object to the map */
@@ -151,14 +155,14 @@ Object::Pointer World::createObject(game::EUID entity, Object::Size s,
 }
 
 void World::destroyGarbage() noexcept {
-  for (Object::Pointer &ptr : _garbage) {
+  for (Object::Pointer ptr : _garbage) {
     _alloc.deleteObject(ptr);
   }
   _garbage.clear();
 }
 
 void World::destroyObject(Object::Pointer ptr) {
-  _garbage.emplace_back(ptr);
+  _garbage.emplace(ptr);
   _objects.erase(ptr->entity()); // @suppress("Method cannot be resolved")
   removeObject(ptr);
 }

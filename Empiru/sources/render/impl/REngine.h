@@ -43,13 +43,13 @@ private:
   static AssetUIDGen assetUIDGen;
 
   using Allocator = alloc::IAllocator<ATarget,ATarget::Pointer>;
-  using AllocTable =std::unordered_map<AssetUID, Allocator*>;
+  using AllocTable =std::unordered_map<AssetUID, Allocator*>; // @suppress("Invalid template argument")
   using AssetReg = std::unordered_map<AssetUID,std::shared_ptr<Asset>>; // @suppress("Invalid template argument")
   using DrawStack = std::map<gui::Pixel,std::set<ATarget::Pointer,alloc::PtrComp>,gui::Pixel::AscYCompare>;
   using PosList = std::vector<gui::Pixel>;
-  using Garbage = std::vector<ATarget::Pointer>;
+  using Garbage = std::set<ATarget::Pointer>;
   using UpdateList = std::vector<ATarget::Pointer>;
-  using ObjectsTable = std::unordered_map<game::EUID, ATarget::Pointer>;
+  using ObjectsTable = std::unordered_map<game::EUID, ATarget::Pointer>; // @suppress("Invalid template argument")
 
   PixelPerfectBridge &_bridge;
   gui::Viewport &_view;
@@ -64,7 +64,7 @@ private:
   PosList _tiles;
   UpdateList _updateList;
 
-  ATarget* _tileTarget;
+  ATarget *_tileTarget;
   bool _dirtyStack;
 
 public:
@@ -78,10 +78,9 @@ public:
   const AssetUID registerAsset(std::shared_ptr<Asset> asset,
       Allocator *alloc) noexcept;
 
-  void setTileTarget(ATarget* target) noexcept;
+  void setTileTarget(ATarget *target) noexcept;
 
-  ATarget::Pointer createObject(AssetUID kind, ATarget::Builder &builder)
-      override final;
+  ATarget::Pointer createObject(ATarget::Builder &builder) override final;
 
   void destroyGarbadge() override final;
 

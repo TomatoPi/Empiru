@@ -22,13 +22,14 @@
 /// \date 8 septembre 2020, 04:28
 /// \brief Provide basic object to load and draw sprites using sprite sheet
 ///
+#include "SpriteSheet.h"
+
+#include <iostream>
 #include <cassert>
 #include <stdexcept>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_rwops.h>
 #include <SDL2/SDL_surface.h>
-
-#include "SpriteSheet.h"
 
 /// \brief Constructor
 SpriteSheet::SpriteSheet(SDL_Renderer *r, SDL_Texture *&&t, int w, int h,

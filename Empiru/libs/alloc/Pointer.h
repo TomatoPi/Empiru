@@ -69,7 +69,7 @@ private:
         /* if the pointer was the last ref, but the object is always valid */
         /* it means that we're losing reference to an allocator's object */
         /* and the we're discarding ptr without explicit release of memory */
-        assert(!_ref->isDeprecated() && "Memory Leaked !!");
+        assert(_ref->isDeprecated() && "Memory Leaked !!");
         delete _ref;
       }
     }
