@@ -16,33 +16,33 @@
  */
 
 /// 
-/// \file   Asset.h
+/// \file   EntityController.h
 /// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
-/// \date 27 oct. 2020 16:27:23
+/// \date 9 octobre 2020, 05:43
 ///
-#ifndef SOURCES_RENDER_ASSET_H_
-#define SOURCES_RENDER_ASSET_H_
+#ifndef ENTITYCONTROLLER_H
+#define ENTITYCONTROLLER_H
 
-#include <uid/uid.h>
-#include <sprite/SpriteSheet.h>
-#include <typeinfo>
+#include <game/EUID.h>
+#include <observer/SuperObserver.h>
 
-namespace render {
+namespace ctrl {
 
-struct Asset {
-  std::shared_ptr<SpriteSheet> sheet;
-  std::shared_ptr<SpriteSheet> mask;
-  std::shared_ptr<SpriteSheet> select;
-  Asset(std::shared_ptr<SpriteSheet> sheet, std::shared_ptr<SpriteSheet> mask,
-      std::shared_ptr<SpriteSheet> select) noexcept :
-      sheet(sheet), mask(mask), select(select) {
-  }
+class IEntityCtrl {
+public:
+
+  virtual ~IEntityCtrl() noexcept = default;
+
+  virtual void leftClickOn(const game::EUID) noexcept = 0;
+  virtual void leftClickOut(const game::EUID) noexcept = 0;
+  virtual void RightClickOn(const game::EUID) noexcept = 0;
+  virtual void RightClickOut(const game::EUID) noexcept = 0;
+  virtual void deselected(const game::EUID) noexcept = 0;
+  virtual void cursorMoved() noexcept = 0;
 };
 
-using AssetUIDGen = uid::UIDGenerator<std::uint32_t>;
-using AssetUID = AssetUIDGen::UID;
+}  // namespace ctrl
 
-}  // namespace render
+#endif /* ENTITYCONTROLLER_H */
 
-#endif /* SOURCES_RENDER_ASSET_H_ */

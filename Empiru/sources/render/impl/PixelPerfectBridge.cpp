@@ -54,7 +54,7 @@ std::pair<world::Position, game::EUID> PixelPerfectBridge::at(
   if (itr != _table.end()) {
     return {_view.fromPixel(pix), itr->second};
   }
-  return {_view.fromPixel(pix), 0};
+  return {_view.fromPixel(pix), game::EUID()};
 }
 world::Position PixelPerfectBridge::fromPixel(const gui::Pixel &pix) noexcept {
   return _view.fromPixel(pix);

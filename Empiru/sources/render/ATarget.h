@@ -65,7 +65,7 @@ public:
 
   ATarget() noexcept = delete;
   ATarget(const Pointer &ptr) noexcept :
-      _this(ptr), _entity(0), _kind(), _worldpos(), _viewpos(), _orientation() {
+      _this(ptr), _entity(), _kind(), _worldpos(), _viewpos(), _orientation() {
   }
   virtual ~ATarget() noexcept = default;
 

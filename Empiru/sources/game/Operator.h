@@ -39,7 +39,8 @@ struct OperatorDiscarded {
 class Operator: public SuperObserver::Subject<Operator, // @suppress("Invalid template argument")
     Events::OperatorDiscarded> {
 public:
-  using Kind = uid::HierarchicalUID::HUID;
+  using HierarchyGen = uid::HierarchicalUID<std::uint16_t>;
+  using Kind = HierarchyGen::HUID;
   using Pointer = alloc::SmartPointer<Operator>;
   template<typename E>
   using Subject = SuperObserver::Subject<Operator,E>; // @suppress("Invalid template argument")
@@ -49,7 +50,7 @@ private:
   Kind _kind;
 public:
   Operator() noexcept = delete;
-  ~Operator() noexcept = default;
+  virtual ~Operator() noexcept = default;
   Operator(const Pointer &ptr) noexcept :
       _this(ptr), _entity(), _kind() {
   }
@@ -79,8 +80,8 @@ public:
 
   virtual void update() noexcept = 0;
 
-  static uid::HierarchicalUID& Hierarchy() noexcept {
-    static uid::HierarchicalUID _instance;
+  static HierarchyGen& Hierarchy() noexcept {
+    static HierarchyGen _instance;
     return _instance;
   }
 

@@ -116,7 +116,7 @@ private:
   using DecoAlloc = ConcreteAllocator<Decorator, Events::DecoratorDiscarded>;
   using OpeAlloc = ConcreteAllocator<Operator, Events::OperatorDiscarded>;
   using ETable = std::unordered_map<EUID, Entity>; // @suppress("Invalid template argument")
-  uid::UIDGenerator _euidgen;
+  EUID::IDGen _euidgen;
   ETable _entities;
 
 public:
@@ -129,6 +129,8 @@ public:
   Entity& getEntity(const EUID uid) noexcept override final;
   void bindStrict(const EUID uid, Decorator::Pointer ptr) noexcept override final;
   void bindWide(const EUID uid, Decorator::Pointer ptr) noexcept override final;
+  void unbindStrict(const EUID, Decorator::Pointer) noexcept override final;
+  void unbindWide(const EUID, Decorator::Pointer) noexcept override final;
 
   void update() noexcept;
 
@@ -141,6 +143,7 @@ public:
 private:
 
   void bindAs(const EUID uid, Decorator::Pointer ptr, Decorator::Kind as) noexcept;
+  void unbindAs(const EUID uid, Decorator::Pointer ptr, Decorator::Kind as) noexcept;
 };
 
 }  // namespace impl

@@ -33,7 +33,7 @@ IGEngine *IGEngine::_instance = nullptr;
 namespace impl {
 
 const EUID GEngine::createEntity(EntityBuilder &builder) noexcept {
-  EUID uid(_euidgen.generateUID());
+  EUID uid(builder.kind, _euidgen.generateUID());
   bool success(_entities.emplace(uid, Entity()).second); // @suppress("Field cannot be resolved") // @suppress("Method cannot be resolved")
   assert(success);
   builder(uid);
@@ -65,6 +65,20 @@ void GEngine::bindAs(const EUID uid, Decorator::Pointer ptr,
     Decorator::Kind as) noexcept {
   bool success(_entities.at(uid).emplace(as, ptr).second); // @suppress("Method cannot be resolved") // @suppress("Field cannot be resolved")
   assert(success);
+}
+
+void GEngine::unbindStrict(const EUID uid, Decorator::Pointer ptr) noexcept {
+  unbindAs(uid, ptr, ptr->kind());
+}
+void GEngine::unbindWide(const EUID uid, Decorator::Pointer ptr) noexcept {
+  auto bases(Decorator::Hierarchy().basesOf(ptr->kind()));
+  for (Decorator::Kind kind : bases) {
+    unbindAs(uid, ptr, kind);
+  }
+}
+void GEngine::unbindAs(const EUID uid, Decorator::Pointer ptr,
+    Decorator::Kind as) noexcept {
+  _entities.at(uid).erase(as); // @suppress("Method cannot be resolved") // @suppress("Field cannot be resolved")
 }
 
 void GEngine::update() noexcept {

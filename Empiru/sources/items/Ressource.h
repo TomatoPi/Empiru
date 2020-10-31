@@ -30,7 +30,8 @@ namespace items {
 
 class Ressource {
 public:
-  using Kind = uid::HierarchicalUID::HUID;
+  using HierarchyGen = uid::HierarchicalUID<std::uint16_t>;
+  using Kind = HierarchyGen::HUID;
 private:
   Kind _kind;
 public:
@@ -45,8 +46,8 @@ public:
     return _kind;
   }
 
-  static uid::HierarchicalUID& Hierarchy() noexcept {
-    static uid::HierarchicalUID _instance;
+  static HierarchyGen& Hierarchy() noexcept {
+    static HierarchyGen _instance;
     return _instance;
   }
 

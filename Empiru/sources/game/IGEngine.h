@@ -51,6 +51,8 @@ public:
   virtual Entity& getEntity(const EUID uid) noexcept = 0;
   virtual void bindStrict(const EUID uid, Decorator::Pointer) noexcept = 0;
   virtual void bindWide(const EUID uid, Decorator::Pointer) noexcept = 0;
+  virtual void unbindStrict(const EUID, Decorator::Pointer) noexcept = 0;
+  virtual void unbindWide(const EUID, Decorator::Pointer) noexcept = 0;
 };
 
 }  // namespace game

@@ -39,7 +39,8 @@ struct DecoratorDiscarded {
 class Decorator: public SuperObserver::Subject<Decorator, // @suppress("Invalid template argument")
     Events::DecoratorDiscarded> {
 public:
-  using Kind = uid::HierarchicalUID::HUID;
+  using HierarchyGen = uid::HierarchicalUID<std::uint16_t>;
+  using Kind = HierarchyGen::HUID;
   using Pointer = alloc::SmartPointer<Decorator>;
   template<typename E>
   using Subject = SuperObserver::Subject<Decorator,E>; // @suppress("Invalid template argument")
@@ -49,9 +50,13 @@ private:
   Kind _kind;
 public:
   Decorator() noexcept = delete;
-  ~Decorator() noexcept = default;
+  virtual ~Decorator() noexcept = default;
   Decorator(const Pointer &ptr) noexcept :
       _this(ptr), _entity(), _kind() {
+  }
+  void lateBindThis(const Pointer& ptr) noexcept {
+    assert(_this == nullptr);
+    _this = ptr;
   }
 
   const Pointer& ptr() const noexcept {
@@ -77,8 +82,8 @@ public:
     return static_cast<const T&>(*this);
   }
 
-  static uid::HierarchicalUID& Hierarchy() noexcept {
-    static uid::HierarchicalUID _instance;
+  static HierarchyGen& Hierarchy() noexcept {
+    static HierarchyGen _instance;
     return _instance;
   }
 

@@ -109,22 +109,25 @@ int main(int argc, char **argv) {
         items::Ressource::Hierarchy().newKind();
     /* register tree asset */
     using DepositTarget = render::helpers::GenericRTarget<render::helpers::OnFootBlitter>;
-    render::AssetUID _TreeAsset = _rengine.registerAsset(
+    render::AssetUID _TreeAsset = _rengine.registerAsset( // @suppress("Invalid arguments")
         render::helpers::loadAsset("medias/sprites/land/tree/toufu",
             render::helpers::Sheet::ReqSheet | render::helpers::Sheet::ReqMask,
             _window->renderer, _bridge.renderer()),
         new alloc::helpers::LoggerDecorator(new AAllocator<DepositTarget>()));
     /* register deposit decorator */
     using DepositInventory = builtin::game::inventory::Deposit;
-    _game.registerDecorator(builtin::game::inventory::Inventory::TypeID(), nullptr);
-    _game.registerDecorator(DepositInventory::TypeID(),
-        new alloc::helpers::LoggerDecorator(new DAllocator<DepositInventory>()));
+    _game.registerDecorator(builtin::game::inventory::Inventory::TypeID(),
+        nullptr);
+    _game.registerDecorator( // @suppress("Invalid arguments")
+        DepositInventory::TypeID(),
+        new alloc::helpers::LoggerDecorator(
+            new DAllocator<DepositInventory>()));
     /* build a tree */
     DepositTarget::Builder tbuilder;
     tbuilder.kind = _TreeAsset;
     tbuilder.blitter = render::helpers::OnFootBlitter();
-    builtin::game::deposit::Builder ebuilder;
     /* entity basics */
+    builtin::game::deposit::Builder ebuilder;
     ebuilder.size = world::Object::Size::Small;
     ebuilder.pos = world::Position();
     ebuilder.orientation = 0;
@@ -176,10 +179,6 @@ int main(int argc, char **argv) {
       fpsStart = SDL_GetTicks();
       avgcount = 0;
       avgload = 0;
-      if (tree) {
-        _game.discardEntity(tree);
-        tree = 0;
-      }
     }
 
     tickEllapsedTime = SDL_GetTicks() - tickStartTime;

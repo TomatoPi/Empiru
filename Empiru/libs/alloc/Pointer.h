@@ -181,7 +181,13 @@ public:
 
   /// \brief Return true if referenced objects are the same
   template<class U> friend bool
+  operator==(const SmartPointer<U> &a, const std::nullptr_t&) noexcept;
+  /// \brief Return true if referenced objects are the same
+  template<class U> friend bool
   operator==(const SmartPointer<U> &a, const SmartPointer<U> &b) noexcept;
+  /// \brief Return true if referenced objects are not the same
+  template<class U> friend bool
+  operator!=(const SmartPointer<U> &a, const std::nullptr_t&) noexcept;
   /// \brief Return true if referenced objects are not the same
   template<class U> friend bool
   operator!=(const SmartPointer<U> &a, const SmartPointer<U> &b) noexcept;
@@ -189,8 +195,18 @@ public:
 
 /// \brief Return true if referenced objects are the same
 template<class U> bool operator==(const SmartPointer<U> &a,
+    const std::nullptr_t&) noexcept {
+  return a._ref == nullptr;
+}
+/// \brief Return true if referenced objects are the same
+template<class U> bool operator==(const SmartPointer<U> &a,
     const SmartPointer<U> &b) noexcept {
   return a._ref == b._ref;
+}
+/// \brief Return true if referenced objects are not the same
+template<class U> bool operator!=(const SmartPointer<U> &a,
+    const std::nullptr_t&) noexcept {
+  return a._ref != nullptr;
 }
 /// \brief Return true if referenced objects are not the same
 template<class U> bool operator!=(const SmartPointer<U> &a,

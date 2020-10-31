@@ -16,23 +16,23 @@
  */
 
 /// 
-/// \file   huid.cpp
+/// \file   EUID.cpp
 /// \author tomato
 ///
-/// \date 29 oct. 2020 20:44:58
+/// \date 30 oct. 2020 20:58:11
 ///
+#include "EUID.h"
 
-#include "huid.h"
+namespace game {
 
-namespace uid {
-
-bool operator==(const HierarchicalUID::const_iterator &a,
-    const HierarchicalUID::const_iterator &b) noexcept {
-  return a.gen != nullptr && a.gen == b.gen && a.val == b.val;
+std::ostream& operator<< (std::ostream& s, const EUID& a) noexcept {
+  return s << a.val;
 }
-bool operator!=(const HierarchicalUID::const_iterator &a,
-    const HierarchicalUID::const_iterator &b) noexcept {
-  return a.gen != b.gen || a.val != b.val;
+bool operator<(const EUID &a, const EUID &b) noexcept {
+  return a.val < b.val;
+}
+bool operator==(const EUID &a, const EUID &b) noexcept {
+  return a.val == b.val;
 }
 
-}  // namespace uid
+}

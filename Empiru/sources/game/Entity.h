@@ -34,6 +34,8 @@
 namespace game {
 
 struct EntityBuilder {
+  /* global */
+  EUID::Kind kind;
   /* world object */
   world::Object::Size size;
   world::Position pos;

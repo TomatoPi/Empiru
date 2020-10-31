@@ -30,18 +30,25 @@
 
 namespace uid {
 
+template<typename T = std::uint64_t, std::uint64_t mask = ~static_cast<T>(0)>
 class UIDGenerator {
 public:
-  using UID = std::size_t;
-  UIDGenerator() noexcept = default;
+  using UID = T;
+  UIDGenerator() noexcept :
+      _usedUIDs( { 0 }) {
+  }
   ~UIDGenerator() noexcept = default;
   const UID generateUID() noexcept {
     std::size_t val;
     do {
-      val = reinterpret_cast<std::size_t>(&val)
-          ^ std::chrono::system_clock::now().time_since_epoch().count();
+      val = mask
+          & (reinterpret_cast<std::size_t>(&val)
+              ^ std::chrono::system_clock::now().time_since_epoch().count());
     } while (_usedUIDs.emplace(val).second == false); // @suppress("Field cannot be resolved") // @suppress("Method cannot be resolved")
     return val;
+  }
+  void releaseUID(const UID uid) noexcept {
+    _usedUIDs.erase(uid); // @suppress("Method cannot be resolved")
   }
 private:
   std::unordered_set<UID> _usedUIDs; // @suppress("Invalid template argument")

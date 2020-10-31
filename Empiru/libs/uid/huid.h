@@ -26,19 +26,21 @@
 
 #include "uid.h"
 #include <vector>
+#include <concepts>
 
 namespace uid {
 
+template<typename T = std::uint64_t>
 class HierarchicalUID {
 public:
-  using HUID = std::size_t;
+  using HUID = T;
 
   class const_iterator {
   private:
     const HierarchicalUID *gen;
     HUID val;
   public:
-    const_iterator(const HierarchicalUID *gen=nullptr, int val=0) noexcept :
+    const_iterator(const HierarchicalUID *gen = nullptr, int val = 0) noexcept :
         gen(gen), val(val) {
     }
     ~const_iterator() noexcept = default;
@@ -64,8 +66,10 @@ public:
       assert(val < gen->_fathers.size());
       return val;
     }
+    template <typename U>
     friend bool operator==(const const_iterator&,
         const const_iterator&) noexcept;
+    template <typename U>
     friend bool operator!=(const const_iterator&,
         const const_iterator&) noexcept;
   };
@@ -117,6 +121,17 @@ public:
 private:
   std::vector<HUID> _fathers;
 };
+
+template <typename T>
+bool operator==(const typename HierarchicalUID<T>::const_iterator &a,
+    const typename HierarchicalUID<T>::const_iterator &b) noexcept {
+  return a.gen != nullptr && a.gen == b.gen && a.val == b.val;
+}
+template <typename T>
+bool operator!=(const typename HierarchicalUID<T>::const_iterator &a,
+    const typename HierarchicalUID<T>::const_iterator &b) noexcept {
+  return a.gen != b.gen || a.val != b.val;
+}
 
 }  // namespace uid
 
