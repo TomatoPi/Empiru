@@ -41,7 +41,9 @@ private:
 
 public:
 
-  Storage() noexcept = default;
+  Storage(const Pointer &ptr) noexcept :
+      Inventory(ptr) {
+  }
   virtual ~Storage() noexcept = default;
 
   int storableQtyOf(items::Ressource type) const noexcept override;

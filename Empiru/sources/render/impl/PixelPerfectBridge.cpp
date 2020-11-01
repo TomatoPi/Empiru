@@ -59,6 +59,9 @@ std::pair<world::Position, game::EUID> PixelPerfectBridge::at(
 world::Position PixelPerfectBridge::fromPixel(const gui::Pixel &pix) noexcept {
   return _view.fromPixel(pix);
 }
+bool PixelPerfectBridge::isInView(const gui::Pixel& pix) noexcept {
+  return _view.isInView(pix);
+}
 
 void PixelPerfectBridge::clearTable() noexcept {
   // Clear the mask

@@ -68,6 +68,14 @@ public:
   virtual void selectObject(const game::EUID) noexcept = 0;
   virtual void deselectObject(const game::EUID) noexcept = 0;
 
+  /// \brief Called when a left click is performed at given position
+  virtual void leftClickOn(const world::Position &click, const game::EUID uid) noexcept = 0;
+  /// \brief Called when a right click is performed at given position
+  virtual void rightClickOn(const world::Position &click, const game::EUID uid) noexcept = 0;
+  /// \brief Called when the mouse has moved, maximum one time at each frame
+  ///   Only the last position is passed to this function
+  virtual void cursorMoved(const world::Position &click, int x, int y) noexcept = 0;
+
   virtual const game::EUID& selection() const noexcept = 0;
   virtual const world::Position& cursor() const noexcept = 0;
 };

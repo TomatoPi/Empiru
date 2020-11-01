@@ -21,7 +21,12 @@
 ///
 /// \date 27 oct. 2020 01:15:20
 ///
+#include <builtin/items/Ressources.h>
 #include <builtin/game/deposit/DepositE.h>
+#include <builtin/game/inventory/Inventory.h>
+#include <builtin/game/inventory/deposit/Deposit.h>
+#include <builtin/game/inventory/slot/Slot.h>
+#include <builtin/game/inventory/storage/Storage.h>
 
 #include <alloc/helpers/logger.h>
 #include <world/impl/World.h>
@@ -34,6 +39,9 @@
 #include <render/helpers/AssetLoader.h>
 #include <control/impl/CameraCtrl.h>
 #include <control/impl/SDLHandler.h>
+#include <control/impl/Controller.h>
+#include <control/helpers/GenericECtrls.h>
+#include <gui/ControlPannel.h>
 #include <window/Window.h>
 #include <SDL2/SDL_timer.h>
 #include <log/log.h>
@@ -47,6 +55,7 @@ using namespace std;
 namespace {
 constexpr std::size_t SIZE = 8;
 constexpr float Factor = 1.5;
+constexpr int PWidth = 409 /Factor;
 constexpr int WWidth = 1920 / Factor;
 constexpr int WHeight = 1080 / Factor;
 constexpr int FrameRate = 60;
@@ -75,7 +84,7 @@ int main(int argc, char **argv) {
   game::IGEngine::registerGEngine(&_game);
 
   auto _window(Window::createWindow(WWidth, WHeight, Factor));
-  gui::Viewport _view(0, 0, gui::Viewport::HEXAGON_WIDTH,
+  gui::Viewport _view(PWidth, 0, gui::Viewport::HEXAGON_WIDTH,
       gui::Viewport::HEXAGON_HEIGHT, _window->width, _window->height);
 
   render::impl::PixelPerfectBridge _bridge(_view, _window->width,
@@ -86,12 +95,16 @@ int main(int argc, char **argv) {
 
   ctrl::impl::CameraCtrl _camera(_window->width, _window->height, _view);
   ctrl::impl::SDLHandler _input(_camera, _bridge);
+  ctrl::impl::Controller _controller;
+  ctrl::IGameCtrl::registerController(&_controller);
+
+  items::builtins::ressources::registerBuiltinRessources();
 
   {
     using TileTarget = render::helpers::GenericRTarget<render::helpers::OnTileBlitter>;
     TileTarget *tile(new TileTarget(render::ATarget::Pointer(nullptr)));
     TileTarget::Builder builder;
-    builder.entity = 0;
+    builder.entity = game::EUID();
     builder.kind = 0;
     builder.asset = render::helpers::loadAsset("medias/sprites/land/tile/tile",
         render::helpers::Sheet::ReqSheet, _window->renderer,
@@ -105,8 +118,8 @@ int main(int argc, char **argv) {
   game::EUID tree;
   {
     /* register tree ressource */
-    items::Ressource::Kind _TreeRessource =
-        items::Ressource::Hierarchy().newKind();
+    items::Ressource::Kind _TreeRessource = items::Ressource::Get(items::builtins::ressources::Wood).kind();
+    game::EUID::Kind _TreeKind = game::EUID::Hierarchy().newKind();
     /* register tree asset */
     using DepositTarget = render::helpers::GenericRTarget<render::helpers::OnFootBlitter>;
     render::AssetUID _TreeAsset = _rengine.registerAsset( // @suppress("Invalid arguments")
@@ -122,12 +135,23 @@ int main(int argc, char **argv) {
         DepositInventory::TypeID(),
         new alloc::helpers::LoggerDecorator(
             new DAllocator<DepositInventory>()));
+    _game.registerDecorator( // @suppress("Invalid arguments")
+        builtin::game::inventory::Slot::TypeID(),
+        new alloc::helpers::LoggerDecorator(
+            new DAllocator<builtin::game::inventory::Slot>()));
+    _game.registerDecorator( // @suppress("Invalid arguments")
+        builtin::game::inventory::Storage::TypeID(),
+        new alloc::helpers::LoggerDecorator(
+            new DAllocator<builtin::game::inventory::Storage>()));
+    /* add a controller for trees */
+    _controller.registerEntityController(_TreeKind, new ctrl::helpers::GenericEntityController());
     /* build a tree */
     DepositTarget::Builder tbuilder;
     tbuilder.kind = _TreeAsset;
     tbuilder.blitter = render::helpers::OnFootBlitter();
     /* entity basics */
     builtin::game::deposit::Builder ebuilder;
+    ebuilder.kind = _TreeKind;
     ebuilder.size = world::Object::Size::Small;
     ebuilder.pos = world::Position();
     ebuilder.orientation = 0;
@@ -139,6 +163,10 @@ int main(int argc, char **argv) {
     /* let's build a great w... tree */
     tree = _game.createEntity(ebuilder);
   }
+
+  tribe::TribeInfos _tribe;
+
+  gui::ControlPannel _pannel(PWidth, WHeight, *_window, _tribe);
 
   {
     ZoneGenerator generator;
@@ -164,7 +192,7 @@ int main(int argc, char **argv) {
     _window->clear();
 
     _rengine.render();
-//    _controlPanel.draw();
+    _pannel.draw();
     _window->update();
 
     _game.destroyGarbadge();

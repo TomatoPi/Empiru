@@ -92,7 +92,11 @@ int Viewport::viewHeight() const noexcept {
 int Viewport::viewWidth() const noexcept {
   return _viewWidth;
 }
-
+bool Viewport::isInView(const Pixel &pix) const noexcept {
+  SDL_Rect view { _offsetX, _offsetY, _viewWidth, _viewHeight };
+  SDL_Point pixel { pix._x, pix._y };
+  return SDL_PointInRect(&pixel, &view);
+}
 bool Viewport::doesIntersect(const SDL_Rect &r) const noexcept {
   SDL_Rect view { _offsetX, _offsetY, _viewWidth, _viewHeight };
   return SDL_HasIntersection(&view, &r);

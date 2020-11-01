@@ -24,41 +24,17 @@
 ///
 #include "Controller.h"
 
+#include <control/helpers/GenericECtrls.h>
 #include <game/IGEngine.h>
 #include <cassert>
 
 namespace {
-class NullEntityController: public ctrl::IEntityCtrl {
-public:
-  NullEntityController() noexcept = default;
-  virtual ~NullEntityController() noexcept = default;
-
-  void leftClickOn(const game::EUID) noexcept override final {
-    /* nothing */
-  }
-  void leftClickOut(const game::EUID uid) noexcept override final {
-    if (uid) {
-      ctrl::IGameCtrl::Get().selectObject(uid);
-    }
-  }
-  void RightClickOn(const game::EUID) noexcept override final {
-    /* nothing */
-  }
-  void RightClickOut(const game::EUID) noexcept override final {
-    /* nothing */
-  }
-  void cursorMoved() noexcept override final {
-    /* nothing */
-  }
-  void deselected(const game::EUID) noexcept override final {
-    /* nothing */
-  }
-};
-
-const game::EUID NullType = game::EUID(game::EUID::Hierarchy().newKind(), 0);
+const game::EUID NullType = game::EUID();
 }
 
 namespace ctrl {
+
+IGameCtrl *IGameCtrl::_instance = nullptr;
 
 namespace impl {
 
@@ -75,7 +51,7 @@ Controller::Controller() noexcept :
     IGameCtrl(), _controllers(), _selection(), _cursor(), _selectDecorator(
         new alloc::WrapHandle<SelectHandleDecorator, game::Decorator>()) {
   /* register null controller */
-  registerEntityController(NullType.kind(), new NullEntityController());
+  registerEntityController(NullType.kind(), new ctrl::helpers::NullEntityController());
   /* create decorator handle */
   _selectDecorator->lateBindThis(_selectDecorator);
   game::Decorator::Builder builder;
@@ -87,11 +63,16 @@ Controller::Controller() noexcept :
         _selection = NullType;
         obj.as<SelectHandleDecorator>().uid = NullType;
       });
+  /* by default select nothing */
+  _selection = NullType;
+  _selectDecorator->as<SelectHandleDecorator>().uid = NullType;
 }
 
 void Controller::selectObject(const game::EUID uid) noexcept {
-  get(_selection).deselected(_selection);
-  game::IGEngine::Get().unbindStrict(_selection, _selectDecorator);
+  if (_selection) {
+    get(_selection).deselected(_selection);
+    game::IGEngine::Get().unbindStrict(_selection, _selectDecorator);
+  }
   _selection = uid;
   game::IGEngine::Get().bindStrict(uid, _selectDecorator);
   Subject<Events::ObjectSelected>::notify(_selection);

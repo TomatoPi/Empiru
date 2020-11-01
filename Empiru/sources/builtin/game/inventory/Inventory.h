@@ -36,6 +36,11 @@ namespace inventory {
 namespace Events {
 
 struct Modified {
+  items::Ressource type;
+  int diff;
+  Modified(items::Ressource t, int d) noexcept :
+      type(t), diff(d) {
+  }
 };
 struct Full {
 };
@@ -65,7 +70,8 @@ public:
   items::Stack add(const items::Stack &stack) noexcept {
     items::Stack garbage(doAdd(stack));
     if (garbage.size() != stack.size()) {
-      Subject<Events::Modified>::notify(); // @suppress("Function cannot be resolved")
+      Subject<Events::Modified>::notify(stack.type(),
+          stack.size() - garbage.size()); // @suppress("Function cannot be resolved")
       if (isFull()) {
         Subject<Events::Full>::notify(); // @suppress("Function cannot be resolved")
       }
@@ -79,7 +85,7 @@ public:
   items::Stack reduce(items::Ressource type, int qty) noexcept {
     items::Stack result(doReduce(type, qty));
     if (!result.empty()) {
-      Subject<Events::Modified>::notify(); // @suppress("Function cannot be resolved")
+      Subject<Events::Modified>::notify(type, -result.size()); // @suppress("Function cannot be resolved")
       if (isEmpty()) {
         Subject<Events::Empty>::notify(); // @suppress("Function cannot be resolved")
       }

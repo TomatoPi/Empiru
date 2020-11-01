@@ -127,6 +127,7 @@ public:
   const EUID createEntity(EntityBuilder &builder) noexcept override final;
   void discardEntity(const EUID uid) noexcept override final;
   Entity& getEntity(const EUID uid) noexcept override final;
+  Decorator::Pointer findDecorator(const EUID uid, const Decorator::Kind kind) noexcept override final;
   void bindStrict(const EUID uid, Decorator::Pointer ptr) noexcept override final;
   void bindWide(const EUID uid, Decorator::Pointer ptr) noexcept override final;
   void unbindStrict(const EUID, Decorator::Pointer) noexcept override final;

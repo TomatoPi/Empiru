@@ -19,31 +19,21 @@
 /// \file   Ressource.cpp
 /// \author tomato
 ///
-/// \date 29 oct. 2020 23:50:06
+/// \date 1 nov. 2020 00:59:45
 ///
-#include "Ressource.h"
-#include <unordered_map>
-#include <cassert>
 
-namespace {
-  static std::unordered_map<std::string,items::Ressource::Kind> _register;
-}
+#include "Ressources.h"
+#include <items/Ressource.h>
 
 namespace items {
+namespace builtins {
+namespace ressources {
 
-bool operator<(const Ressource &a, const Ressource &b) noexcept {
-  return a._kind < b._kind;
-}
-bool operator==(const Ressource &a, const Ressource &b) noexcept {
-  return a._kind == b._kind;
-}
-
-void Ressource::RegisterRessource(const std::string& name, Kind kind) noexcept {
-  bool result(_register.emplace(name, kind).second);
-  assert(result);
-}
-Ressource Ressource::Get(const std::string& name) noexcept {
-  return Ressource(_register.at(name));
+void registerBuiltinRessources() noexcept {
+  Ressource::RegisterRessource(Wood, Ressource::Hierarchy().newKind());
+  Ressource::RegisterRessource(Rock, Ressource::Hierarchy().newKind());
 }
 
+}  // namespace ressources
+}  // namespace builtins
 }  // namespace items

@@ -25,6 +25,7 @@
 #define SOURCES_BUILTIN_ITEMS_RESSOURCE_H_
 
 #include <uid/huid.h>
+#include <string>
 
 namespace items {
 
@@ -59,6 +60,9 @@ public:
     static Ressource _invalid(InvalidKind());
     return _invalid;
   }
+
+  static void RegisterRessource(const std::string& name, Kind kind) noexcept;
+  static Ressource Get(const std::string& name) noexcept;
 
   friend bool operator<(const Ressource &a, const Ressource &b) noexcept;
   friend bool operator==(const Ressource &a, const Ressource &b) noexcept;

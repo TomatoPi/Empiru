@@ -101,6 +101,7 @@ public:
   int viewHeight() const noexcept;
   int viewWidth() const noexcept;
 
+  bool isInView(const Pixel& pix) const noexcept;
   bool doesIntersect(const SDL_Rect& r) const noexcept;
 
   /// \brief Compute the position of viewport's upLeftCorner

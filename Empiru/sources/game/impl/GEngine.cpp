@@ -52,6 +52,13 @@ void GEngine::discardEntity(const EUID uid) noexcept {
 IGEngine::Entity& GEngine::getEntity(const EUID uid) noexcept { // @suppress("Member declaration not found")
   return _entities.at(uid); // @suppress("Method cannot be resolved")
 }
+Decorator::Pointer GEngine::findDecorator(const EUID uid, const Decorator::Kind kind) noexcept {
+  Entity& entity(_entities.at(uid));
+  if (auto itr = entity.find(kind) ; itr != entity.end()) {
+    return itr->second;
+  }
+  return nullptr;
+}
 void GEngine::bindStrict(const EUID uid, Decorator::Pointer ptr) noexcept {
   bindAs(uid, ptr, ptr->kind());
 }

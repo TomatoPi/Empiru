@@ -82,6 +82,7 @@ public:
 
   std::pair<world::Position, game::EUID> at(const gui::Pixel&) noexcept override;
   world::Position fromPixel(const gui::Pixel&) noexcept override;
+  bool isInView(const gui::Pixel&) noexcept override;
 
   void clearTable() noexcept;
   void addObject(ATarget &target, const gui::Viewport &view) noexcept;

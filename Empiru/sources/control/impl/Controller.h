@@ -34,8 +34,6 @@
 
 namespace ctrl {
 
-IGameCtrl *IGameCtrl::_instance = nullptr;
-
 namespace impl {
 
 struct SelectHandleDecorator : public game::Decorator {
@@ -68,12 +66,12 @@ public:
   const world::Position& cursor() const noexcept override;
 
   /// \brief Called when a left click is performed at given position
-  void leftClickOn(const world::Position &click, const game::EUID uid) noexcept;
+  void leftClickOn(const world::Position &click, const game::EUID uid) noexcept override;
   /// \brief Called when a right click is performed at given position
-  void rightClickOn(const world::Position &click, const game::EUID uid) noexcept;
+  void rightClickOn(const world::Position &click, const game::EUID uid) noexcept override;
   /// \brief Called when the mouse has moved, maximum one time at each frame
   ///   Only the last position is passed to this function
-  void cursorMoved(const world::Position &click, int x, int y) noexcept;
+  void cursorMoved(const world::Position &click, int x, int y) noexcept override;
 
   void registerEntityController(const game::EUID::Kind kind,
       IEntityCtrl *&&controller) noexcept;

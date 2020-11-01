@@ -25,6 +25,7 @@
 #include "SDLHandler.h"
 
 #include <log/log.h>
+#include "../IGameCtrl.h"
 
 namespace ctrl {
 
@@ -41,9 +42,8 @@ void SDLHandler::beginTick() {
 }
 void SDLHandler::endTick() {
   if (_mouseMoved) {
-//    hex::Axial pos;
-//    _viewport.fromPixel(_mouseX, _mouseY, &pos);
-//    _controller.cursorMoved(pos, _mouseX, _mouseY);
+    hex::Axial pos = _bridge.fromPixel(gui::Pixel(_mouseX, _mouseY));
+    IGameCtrl::Get().cursorMoved(pos, _mouseX, _mouseY);
   }
 }
 
@@ -169,16 +169,17 @@ bool SDLHandler::handleMouseMovement(const SDL_MouseMotionEvent &mouse) {
 /// \brief Handle mouse button down
 bool SDLHandler::handleMouseButtonDown(const SDL_MouseButtonEvent &event) {
 
-  auto [pos, uid] = _bridge.at(gui::Pixel(event.x, event.y));
+  const gui::Pixel pix(event.x, event.y);
+  auto [pos, uid] = _bridge.at(pix);
 
   switch (event.button) {
   case SDL_BUTTON_LEFT:
-//    if (_viewport.isInView(event.x, event.y))
-//      _controller.leftClickOn(pos, obj);
+    if (_bridge.isInView(pix))
+      IGameCtrl::Get().leftClickOn(pos, uid);
     break;
   case SDL_BUTTON_RIGHT:
-//    if (_viewport.isInView(event.x, event.y))
-//      _controller.rightClickOn(pos, obj);
+    if (_bridge.isInView(pix))
+      IGameCtrl::Get().rightClickOn(pos, uid);
     break;
   }
 

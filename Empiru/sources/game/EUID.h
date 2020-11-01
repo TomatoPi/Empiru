@@ -63,7 +63,8 @@ public:
     return _hierarchy;
   }
   static Kind InvalidKind() noexcept {
-    return Hierarchy().newKind();
+    static Kind _kind = Hierarchy().newKind();
+    return _kind;
   }
   explicit operator bool() const noexcept {
     return val != 0;

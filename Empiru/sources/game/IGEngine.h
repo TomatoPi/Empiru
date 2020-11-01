@@ -49,6 +49,7 @@ public:
   virtual const EUID createEntity(EntityBuilder&) noexcept = 0;
   virtual void discardEntity(const EUID uid) noexcept = 0;
   virtual Entity& getEntity(const EUID uid) noexcept = 0;
+  virtual Decorator::Pointer findDecorator(const EUID uid, const Decorator::Kind kind) noexcept = 0;
   virtual void bindStrict(const EUID uid, Decorator::Pointer) noexcept = 0;
   virtual void bindWide(const EUID uid, Decorator::Pointer) noexcept = 0;
   virtual void unbindStrict(const EUID, Decorator::Pointer) noexcept = 0;
