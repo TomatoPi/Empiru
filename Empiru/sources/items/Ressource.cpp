@@ -26,7 +26,7 @@
 #include <cassert>
 
 namespace {
-  static std::unordered_map<std::string,items::Ressource::Kind> _register;
+  static std::unordered_map<std::string,items::Ressource> _register;
 }
 
 namespace items {
@@ -38,12 +38,13 @@ bool operator==(const Ressource &a, const Ressource &b) noexcept {
   return a._kind == b._kind;
 }
 
-void Ressource::RegisterRessource(const std::string& name, Kind kind) noexcept {
-  bool result(_register.emplace(name, kind).second);
+Ressource Ressource::RegisterRessource(const std::string& name, Kind kind) noexcept {
+  auto [itr, result] = _register.emplace(name, Ressource(kind, name));
   assert(result);
+  return itr->second;
 }
 Ressource Ressource::Get(const std::string& name) noexcept {
-  return Ressource(_register.at(name));
+  return _register.at(name);
 }
 
 }  // namespace items

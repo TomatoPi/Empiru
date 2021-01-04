@@ -43,11 +43,8 @@
 ///   Subject superclass or interface, but maybe it's not critical
 /// Theremore, templates mean verbosity in type definitions...
 ///
-/// Event class must define a boolean value 'has_args' used to determine if
-///   event's callback need callargs, or not
-///
-#ifndef SUPEROBSERVER_H
-#define SUPEROBSERVER_H
+#ifndef LIB_SUPER_OBSERVER_H_
+#define LIB_SUPER_OBSERVER_H_
 
 #include <functional>
 #include <list>
@@ -115,5 +112,5 @@ public:
 };
 }
 
-#endif /* SUPEROBSERVER_H */
+#endif /* LIB_SUPER_OBSERVER_H_ */
 

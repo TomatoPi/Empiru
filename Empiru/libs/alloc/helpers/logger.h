@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 tomato
+ * Copyright (C) 2020 DAGO Kokri Esaïe <dago.esaie@protonmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 /// 
 /// \file   logger.h
-/// \author tomato
+/// \author DAGO Kokri Esaïe <dago.esaie@protonmail.com>
 ///
 /// \date 30 oct. 2020 02:27:14
 ///

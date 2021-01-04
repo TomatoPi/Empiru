@@ -98,8 +98,6 @@ int main(int argc, char **argv) {
   ctrl::impl::Controller _controller;
   ctrl::IGameCtrl::registerController(&_controller);
 
-  items::builtins::ressources::registerBuiltinRessources();
-
   {
     using TileTarget = render::helpers::GenericRTarget<render::helpers::OnTileBlitter>;
     TileTarget *tile(new TileTarget(render::ATarget::Pointer(nullptr)));
@@ -118,7 +116,7 @@ int main(int argc, char **argv) {
   game::EUID tree;
   {
     /* register tree ressource */
-    items::Ressource::Kind _TreeRessource = items::Ressource::Get(items::builtins::ressources::Wood).kind();
+    items::Ressource::Kind _TreeRessource = items::builtins::ressources::Wood.kind();
     game::EUID::Kind _TreeKind = game::EUID::Hierarchy().newKind();
     /* register tree asset */
     using DepositTarget = render::helpers::GenericRTarget<render::helpers::OnFootBlitter>;
@@ -187,7 +185,6 @@ int main(int argc, char **argv) {
 
     _camera.update();
     _game.update();
-//    _playerTribe.update();
 
     _window->clear();
 

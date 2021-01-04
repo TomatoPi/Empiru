@@ -35,13 +35,14 @@ public:
   using Kind = HierarchyGen::HUID;
 private:
   Kind _kind;
+  std::string _name;
 public:
-  Ressource(const Kind k = InvalidKind()) noexcept :
-      _kind(k) {
+  Ressource(const Kind k = InvalidKind(), const std::string &name="") noexcept :
+      _kind(k), _name(name) {
   }
   ~Ressource() noexcept = default;
   Ressource(const Ressource&) noexcept = default;
-  Ressource& operator= (const Ressource&) noexcept = default;
+  Ressource& operator=(const Ressource&) noexcept = default;
 
   const Kind kind() const noexcept {
     return _kind;
@@ -61,8 +62,9 @@ public:
     return _invalid;
   }
 
-  static void RegisterRessource(const std::string& name, Kind kind) noexcept;
-  static Ressource Get(const std::string& name) noexcept;
+  static Ressource RegisterRessource(const std::string &name,
+      Kind kind) noexcept;
+  static Ressource Get(const std::string &name) noexcept;
 
   friend bool operator<(const Ressource &a, const Ressource &b) noexcept;
   friend bool operator==(const Ressource &a, const Ressource &b) noexcept;
@@ -71,7 +73,7 @@ public:
 
 }  // namespace items
 
-template <>
+template<>
 struct std::hash<items::Ressource> {
   std::size_t operator()(const items::Ressource &a) const noexcept {
     return a._kind;

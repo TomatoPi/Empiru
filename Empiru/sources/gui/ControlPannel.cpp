@@ -59,9 +59,9 @@ ControlPannel::ControlPannel(int viewwidth, int viewheight, Window &window,
     _pannel_2 { int(13 * _window.scale), int(230 * _window.scale), int(
         137 * _window.scale), 0 } {
   /* register icons indexes */
-  iconframes[items::Ressource::Get(items::builtins::ressources::Rock).kind()] =
+  iconframes[items::builtins::ressources::Rock.kind()] =
       2;
-  iconframes[items::Ressource::Get(items::builtins::ressources::Wood).kind()] =
+  iconframes[items::builtins::ressources::Wood.kind()] =
       3;
   /* register callbacks */
   ctrl::IGameCtrl::Get().ctrl::IGameCtrl::Subject<ctrl::Events::ObjectSelected>::addSubscriber(

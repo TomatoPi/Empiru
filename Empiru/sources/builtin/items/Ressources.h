@@ -31,10 +31,8 @@ namespace items {
 namespace builtins {
 namespace ressources {
 
-static inline const std::string Wood = "wood";
-static inline const std::string Rock = "rock";
-
-void registerBuiltinRessources() noexcept;
+const extern Ressource Wood;
+const extern Ressource Rock;
 
 }  // namespace ressources
 }  // namespace builtins

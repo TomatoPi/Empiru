@@ -21,7 +21,6 @@
 ///
 /// \date 1 nov. 2020 00:59:45
 ///
-
 #include "Ressources.h"
 #include <items/Ressource.h>
 
@@ -29,10 +28,10 @@ namespace items {
 namespace builtins {
 namespace ressources {
 
-void registerBuiltinRessources() noexcept {
-  Ressource::RegisterRessource(Wood, Ressource::Hierarchy().newKind());
-  Ressource::RegisterRessource(Rock, Ressource::Hierarchy().newKind());
-}
+const Ressource Wood = Ressource::RegisterRessource("wood",
+    Ressource::Hierarchy().newKind());
+const Ressource Rock = Ressource::RegisterRessource("rock",
+    Ressource::Hierarchy().newKind());
 
 }  // namespace ressources
 }  // namespace builtins
